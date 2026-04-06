@@ -1,0 +1,12 @@
+{
+  "name": "世界頭條 — 即時新聞",
+  "short_name": "世界頭條",
+  "description": "聚合全球BBC·CNN·NPR，即時翻譯，多地區分類",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f6fa",
+  "theme_color": "#1a1a2e",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

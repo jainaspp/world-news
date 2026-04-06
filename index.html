@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>🌏 世界頭條 — 即時新聞</title>
+  <meta name="description" content="聚合全球BBC·CNN·NPR，即時更新，多語言翻譯"/>
+  <meta name="keywords" content="世界頭條,即時新聞,全球新聞,BBC,CNN,翻譯,多語言,國際新聞,科技新聞"/>
+  <meta name="author" content="世界頭條"/>
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#1a1a2e"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="apple-mobile-web-app-title" content="世界頭條"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="🌏 世界頭條 — 即時新聞"/>
+  <meta property="og:description" content="聚合全球BBC·CNN·NPR，即時更新，多語言翻譯"/>
+  <meta property="og:url" content="https://world-news.xyz/"/>
+  <meta property="og:image" content="https://world-news.xyz/favicon.svg"/>
+  <meta property="og:locale" content="zh_TW"/>
+  <meta property="og:site_name" content="世界頭條"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="🌏 世界頭條 — 即時新聞"/>
+  <meta name="twitter:description" content="聚合全球BBC·CNN·NPR，即時更新，多語言翻譯"/>
+  <meta name="twitter:image" content="https://world-news.xyz/favicon.svg"/>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json"/>
+
+  <!-- JSON-LD: Google News SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "世界頭條 — 即時新聞",
+    "url": "https://world-news.xyz/",
+    "description": "聚合全球BBC·CNN·NPR，即時更新，多語言翻譯",
+    "inLanguage": "zh-TW",
+    "genre": "News",
+    "publisher": {
+      "@type": "Organization",
+      "name": "世界頭條",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://world-news.xyz/favicon.svg"
+      }
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://world-news.xyz/?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WHXYS5YE2K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WHXYS5YE2K');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8392975944327076" crossorigin="anonymous"></script>
+
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

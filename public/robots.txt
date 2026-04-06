@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Allow: /digest
+
+# Sitemap
+Sitemap: https://world-news.xyz/sitemap.xml
+
+# Crawl-delay（避免爬蟲負載過重）
+Crawl-delay: 1
+
+# 常見爬蟲白名單
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: Facebookexternalhit
+Allow: /

@@ -1,0 +1,13 @@
+VITE_NEWSDATA_API_KEY=pub_2cc2f7c9e2694779871ea0d95a5a4689
+VITE_RSS2JSON_API_KEY=nplhxo4vdhcurftvk0fo57iwc2pzljfxxm6bfo9
+VITE_GOOGLE_AD_CLIENT=ca-pub-8392975944327076
+VITE_GA_TRACKING_ID=G-WHXYS5YE2K
+VITE_WORKER_BASE_URL=https://world-news-api.jainaspp.workers.dev
+node_modules/
+dist/
+.env
+.env.local
+.env.production
+*.log
+.DS_Store
+.vercel
