@@ -1,0 +1,32 @@
+name: News Crawler
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # Every 30 min — free GitHub Actions
+  workflow_dispatch:          # Manual trigger from Actions tab
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+
+    steps:
+      - name: Crawl news
+        run: |
+          echo "Triggering crawl at $(date -u)"
+          # GitHub Actions provides GITHUB_TOKEN automatically (repo-scoped)
+          # The secret is available as env var from repository secret
+          RESULT=$(curl -s --max-time 20 \
+            -H "Authorization: Bearer ${{ secrets.CRAWL_SECRET }}" \
+            "${{ vars.CRAWL_URL }}")
+          echo "Result: $RESULT"
+
+          # Extract inserted count
+          INSERTED=$(echo "$RESULT" | python3 -c \
+            "import sys,json; print(json.load(sys.stdin).get('inserted','?'))" 2>/dev/null)
+          echo "Articles inserted: $INSERTED"
+
+      - name: Report status
+        if: always()
+        run: |
+          echo "Crawl job finished at $(date -u)"
