@@ -17,7 +17,7 @@
   "crons": [
     {
       "path": "/api/crawl",
-      "schedule": "*/30 * * * *"
+      "schedule": "0 8 * * *"
     }
   ],
   "headers": [
