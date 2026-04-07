@@ -82,21 +82,15 @@ function parseRSS(xml, src, region, lang) {
   }
   return items;
 }
-function httpGet(url) {
-  return new Promise(resolve => {
-    const mod = url.startsWith('https') ? require('https') : require('http');
-    const req = mod.get(url, {
-      headers: { 'User-Agent': 'WorldNewsBot/1.0 (+world-news.xyz)', Accept: 'application/rss+xml,*/*' },
-      timeout: 9000,
-    }, res => {
-      if (res.statusCode !== 200) { resolve(''); return; }
-      const bufs = [];
-      res.on('data', c => bufs.push(c));
-      res.on('end', () => resolve(Buffer.concat(bufs).toString('utf8')));
+async function httpGet(url) {
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'WorldNewsBot/1.0 (+world-news.xyz)', 'Accept': 'application/rss+xml,*/*' },
+      signal: AbortSignal.timeout(9000),
     });
-    req.on('timeout', () => { req.destroy(); resolve(''); });
-    req.on('error', () => resolve(''));
-  });
+    if (!res.ok) return '';
+    return await res.text();
+  } catch { return ''; }
 }
 
 const ND_MAP = {
