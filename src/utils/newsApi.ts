@@ -7,10 +7,10 @@ import { NewsItem } from '../types';
 const NEWS_API_KEY = import.meta.env.VITE_NEWSDATA_API_KEY as string || '';
 const RSS2JSON_KEY = import.meta.env.VITE_RSS2JSON_KEY as string || '';
 
-// ─── API Base — Vercel API（瀏覽器最穩定的路線）──────────────────
+// ─── API Base — Cloudflare Worker（直接在伺服器讀 Supabase）───────
 const WORKER_BASE =
   (import.meta.env.VITE_WORKER_BASE_URL as string) ||
-  'https://world-news-tawny.vercel.app/api';
+  'https://world-news-api.jainaspp.workers.dev';
 
 // ─── Stable ID (dedup) ─────────────────────────────────────────────
 function stableId(title: string, link: string): number {
