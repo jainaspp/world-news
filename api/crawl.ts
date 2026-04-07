@@ -136,6 +136,8 @@ async function upsert(items) {
   return rows.length;
 }
 
+export const config = { runtime: 'nodejs' };
+
 export default async function handler(req, res) {
   const secret = req.headers['x-cron-secret'] || req.query?.secret;
   if (secret !== process.env.CRON_SECRET) {
