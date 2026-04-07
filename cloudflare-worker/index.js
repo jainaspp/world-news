@@ -112,6 +112,48 @@ function withTimeout(promise, ms) {
   ]);
 }
 
+// ─── Google News RSS 抓取（完全免費，不需 API Key）─────────────────
+async function fetchGoogleNews(lang, region) {
+  const LANG_MAP = { en:'en-US', zh:'zh-TW', ja:'ja-JP', ko:'ko-KR', fr:'fr-FR', de:'de-DE', es:'es-ES', ar:'ar-AE' };
+  const REGION_MAP = {
+    ALL:'US:en', TWN:'TW:zh', JPN:'JP:ja', KOR:'KR:ko',
+    EUR:'GB:en', UK:'GB:en', RUS:'US:en', ME:'US:en',
+    ASI:'AS:en', IND:'IN:en', USA:'US:en', AFR:'US:en', LAT:'US:en',
+  };
+  const ceid = REGION_MAP[region] || REGION_MAP['ALL'];
+  const hl   = LANG_MAP[lang]     || 'en-US';
+  const url  = `https://news.google.com/rss?hl=${encodeURIComponent(hl)}&ceid=${encodeURIComponent(ceid)}`;
+  try {
+    const ac  = new AbortController();
+    const tid = setTimeout(() => ac.abort(), 8000);
+    const res = await fetch(url, { signal: ac.signal });
+    clearTimeout(tid);
+    if (!res.ok) return [];
+    const xml = await res.text();
+    if (!xml || !xml.includes('<item>')) return [];
+    const items = [];
+    const re = /<item[^>]*>([\s\S]*?)<\/item>/gi;
+    const gt  = (blk, tag) => {
+      const m = blk.match(new RegExp(`<\${tag}[^>]*>([\\s\\S]*?)<\\/\${tag}>`,'i'));
+      return m ? m[1].replace(/<!\[CDATA\[|\]\]>/g,'').replace(/<[^>]+>/g,'').trim() : '';
+    };
+    let mx;
+    while ((mx = re.exec(xml)) !== null && items.length < 20) {
+      const blk = mx[1];
+      const lp  = gt(blk,'link');
+      const up  = lp.match(/[?&]url=([^&]+)/);
+      const tl  = gt(blk,'title');
+      const pd  = gt(blk,'pubDate') || new Date().toISOString();
+      const src = gt(blk,'source') || 'Google News';
+      if (tl) {
+        const link = up ? decodeURIComponent(up[1]) : lp;
+        items.push({ title: tl, link, pubDate: pd, source: src, region, lang });
+      }
+    }
+    return items;
+  } catch { return []; }
+}
+
 async function fetchND(key, q, lang, size) {
   try {
     const r = await withTimeout(
@@ -266,35 +308,44 @@ async function handleRequest(request) {
   const limit   = parseInt(url.searchParams.get('limit')||'30', 10);
   const regions  = GROUP_MAP[group] || [];
 
-  // 1. 嘗試 Supabase
+  // 1. 嘗試 Supabase（3秒超時）
   let news = await readSupabase(regions, limit);
 
-  // 2. Supabase不夠10條 → NewsData補充
+  // 2. Supabase少於10條 → Google News RSS並行補充（2.5秒超時）
   if (news.length < 10) {
-    const queries = REGION_QUERIES[group] || REGION_QUERIES['ALL'];
-    const lang    = REGION_LANG[group] || 'en';
-    const today   = new Date().toISOString().slice(0,10);
-    const ndKey   = (parseInt(today.replace(/-/g,''),10) % 2 === 0) ? ND_KEY_1 : ND_KEY_2;
-    const ndItems = [];
-    for (const q of queries.slice(0,3)) {
-      const items = await fetchND(ndKey, q, lang, 10);
-      ndItems.push(...items);
-      if (ndItems.length >= 15) break;
-    }
+    const gnResults = await Promise.race([
+      Promise.allSettled([
+        fetchGoogleNews('en', 'ALL'),
+        fetchGoogleNews('zh', 'TWN'),
+        fetchGoogleNews('ja', 'JPN'),
+        fetchGoogleNews('ko', 'KOR'),
+      ]),
+      new Promise(r => setTimeout(() => r([]), 2500)),
+    ]);
     const seen = new Set(news.map(n => n.link));
-    const newUniq = ndItems
-      .filter(a => a.link && !seen.has(a.link))
-      .map(a => ({
-        ...a,
-        id: a.title ? btoa(a.title.slice(0,15)).replace(/[^a-z0-9]/gi,'') : Math.random().toString(36).slice(2),
-        imageUrl: a.image_url || '',
-        region: 'ALL',
-      }));
-    news = [...news, ...newUniq].slice(0, limit);
-    if (newUniq.length > 0) upsertSupabase(newUniq);
+    let added = 0;
+    for (const settled of gnResults) {
+      if (settled.status === 'fulfilled') {
+        for (const a of settled.value) {
+          if (!seen.has(a.link) && added < 20) {
+            news.push({
+              id: a.title ? btoa(a.title.slice(0,15)).replace(/[^a-z0-9]/gi,'') : Math.random().toString(36).slice(2),
+              title: a.title, titleTL:{},
+              summary: '', summaryTL:{},
+              link: a.link, source: a.source||'GoogleNews',
+              pubDate: a.pubDate||new Date().toISOString(),
+              imageUrl: '',
+              region: a.region||'ALL',
+            });
+            seen.add(a.link); added++;
+          }
+        }
+      }
+      if (news.length >= limit) break;
+    }
   }
 
-  // 3. 仍然不夠 → 用靜態新聞填充（按地區過濾）
+  // 3. 靜態新聞備用
   if (news.length < 10) {
     const staticForGroup = STATIC_NEWS.filter(n =>
       group === 'ALL' || n.region === group || n.region === 'ALL'
@@ -316,37 +367,50 @@ async function handleRequest(request) {
   });
 }
 
-async function handleScheduled() {
-  const entries = Object.entries(REGION_QUERIES);
-  const langs   = { TWN:'zh', JPN:'ja', KOR:'ko' };
+// 地區→RSS 映射
+const GN_REGIONS = [
+  {region:'ALL',lang:'en',hl:'en-US',ceid:'US:en'},
+  {region:'TWN',lang:'zh',hl:'zh-TW',ceid:'TW:zh'},
+  {region:'JPN',lang:'ja',hl:'ja-JP',ceid:'JP:ja'},
+  {region:'KOR',lang:'ko',hl:'ko-KR',ceid:'KR:ko'},
+  {region:'USA',lang:'en',hl:'en-US',ceid:'US:en'},
+  {region:'EUR',lang:'en',hl:'en-GB',ceid:'GB:en'},
+  {region:'RUS',lang:'en',hl:'en-US',ceid:'US:en'},
+  {region:'ME', lang:'en',hl:'en-US',ceid:'US:en'},
+  {region:'ASI',lang:'en',hl:'en-US',ceid:'AS:en'},
+  {region:'IND',lang:'en',hl:'en-IN',ceid:'IN:en'},
+  {region:'AFR',lang:'en',hl:'en-US',ceid:'US:en'},
+  {region:'LAT',lang:'es',hl:'es-419',ceid:'US:es'},
+];
 
-  async function fetchAllWithKey(key) {
-    const results = [];
-    for (const [region, qlist] of entries) {
-      const lang = langs[region] || 'en';
-      for (const q of qlist) {
-        const items = await fetchND(key, q, lang, 10);
-        for (const a of items) { a.region = region; }
-        results.push(...items);
-        await new Promise(r => setTimeout(r, 200));
-      }
+async function handleScheduled() {
+  // 主：Google News RSS（6大地區並行）
+  const gnResults = await Promise.all(
+    GN_REGIONS.map(r => fetchGoogleNews(r.lang, r.region))
+  );
+  const gnItems = gnResults.flat();
+
+  // 備：NewsData 關鍵詞（減少頻率，避免 Rate Limit）
+  const ndEntries = Object.entries(REGION_QUERIES).slice(0,6); // 只取前6組
+  const ndItems = [];
+  for (const [region, qlist] of ndEntries) {
+    const lang = {TWN:'zh',JPN:'ja',KOR:'ko'}[region] || 'en';
+    for (const q of qlist.slice(0,2)) { // 每組只取2個關鍵詞
+      const items = await fetchND(null, q, lang, 10);
+      for (const a of items) { a.region = region; }
+      ndItems.push(...items);
+      await new Promise(r => setTimeout(r, 300));
     }
-    return results;
   }
 
-  // 雙 key 同時抓，大幅增加每次數量
-  const [items1, items2] = await Promise.all([
-    fetchAllWithKey(ND_KEY_1),
-    fetchAllWithKey(ND_KEY_2),
-  ]);
-
+  // 合併去重
   const seen = new Set();
-  const uniq = [...items1, ...items2].filter(a =>
+  const uniq = [...gnItems, ...ndItems].filter(a =>
     a.link && !seen.has(a.link) && (seen.add(a.link), true)
   );
 
   if (uniq.length > 0) {
     await upsertSupabase(uniq);
-    console.log(`[cron ${new Date().toISOString()}] Inserted ${uniq.length} articles (key1:${items1.length} key2:${items2.length})`);
+    console.log(`[cron ${new Date().toISOString()}] Inserted ${uniq.length} articles (GN:${gnItems.length} ND:${ndItems.length})`);
   }
 }
