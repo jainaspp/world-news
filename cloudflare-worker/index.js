@@ -70,6 +70,18 @@ async function handleRequest(request) {
     });
   }
 }
-async function handleScheduled() {
-  await fetchND([], 25); // pre-warm
+async function handleScheduled(controller) {
+  const crawlUrl = 'https://world-news.xyz/api/crawl';
+  const secret = 'wn_cron_secure_xk29';
+  try {
+    const r = await fetch(`${crawlUrl}?secret=${secret}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      cf: { cacheTtl: 0 },
+    });
+    const text = await r.text();
+    console.log(`[cron] ${new Date().toISOString()} — crawled: ${text.slice(0, 200)}`);
+  } catch(e) {
+    console.error(`[cron] ${new Date().toISOString()} — ERROR: ${e.message}`);
+  }
 }
