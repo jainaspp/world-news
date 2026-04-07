@@ -122,8 +122,9 @@ export default async function handler(req, res) {
   // 1. 從 DB 讀取
   let news = await readDB(regions, limit);
 
-  // 2. DB 少於 10 篇，從 NewsData 實時補充
-  if (news.length < 10) {
+  // 2. DB 少於 10 篇，從 NewsData 實時補充（ALL 组永遠直接取）
+  const needND = news.length < 10 || group === 'ALL';
+  if (needND) {
     const queries = REGION_QUERIES[group] || REGION_QUERIES['ALL'];
     const lang    = group === 'TWN' ? 'zh' : group === 'JPN' ? 'ja' : group === 'KOR' ? 'ko' : 'en';
     const today   = new Date().toISOString().slice(0, 10);
