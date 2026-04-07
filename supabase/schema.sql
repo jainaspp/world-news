@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS news (
   pub_date    TIMESTAMPTZ NOT NULL,
   region      TEXT        NOT NULL DEFAULT 'ALL',
   lang        TEXT        NOT NULL DEFAULT 'en',
+  category    TEXT        NOT NULL DEFAULT 'world',
   fetched_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   CONSTRAINT  news_link_unique UNIQUE (link)
 );

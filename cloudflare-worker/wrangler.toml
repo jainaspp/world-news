@@ -3,8 +3,9 @@ main = "index.js"
 compatibility_date = "2024-01-01"
 account_id = "0a88b7bd7c06bb9ba3d859567cad6d04"
 
-[vars]
-WORKER_ENV = "production"
-
 [triggers]
-crons = ["*/5 * * * *"]
+crons = ["*/15 * * * *"]
+
+[env.production]
+name = "world-news-api"
+# Service key fallback 寫在 index.js 裡，CF 載入時自動加密

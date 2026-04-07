@@ -1,0 +1,7 @@
+name = "world-news-usa"
+main = "index.js"
+compatibility_date = "2024-01-01"
+account_id = "0a88b7bd7c06bb9ba3d859567cad6d04"
+
+[triggers]
+crons = ["*/5 * * * *"]

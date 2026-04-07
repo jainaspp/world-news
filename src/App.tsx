@@ -35,6 +35,7 @@ export default function App() {
   const [translateLang, setTranslateLang] = useState(() => localStorage.getItem('lang') || 'en');
   const [lastUpdated, setLastUpdated] = useState('');
   const [newsTimeFilter, setNewsTimeFilter] = useState(() => localStorage.getItem('timeFilter') || 'all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const activeGroup = group === 'region' ? activeRegion : activeTopic;
   const { news, loading, refreshing, translating, status, refresh } = useNews(activeGroup, translateLang);
@@ -54,7 +55,16 @@ export default function App() {
 
   function handleBookmarkChange() { setBookmarks(getBookmarks()); }
 
-  const displayNews = filterByTime(showBookmarks ? bookmarks : news, newsTimeFilter);
+  const displayNews = filterByTime(
+    showBookmarks ? bookmarks : searchQuery
+      ? news.filter(n =>
+          n.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (n.summary || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (n.source || '').toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : news,
+    newsTimeFilter
+  );
   const trendingNews = news.slice(0, 8);
 
   return (
@@ -64,7 +74,11 @@ export default function App() {
         <header className="app-header">
           <div className="header-left">
             <h1 className="site-title">🌏 世界頭條</h1>
-            <span className="site-sources">BBC · CNN · Reuters · NPR · Al Jazeera</span>
+            {news.length > 0 && (
+              <span className="site-sources">
+                {[...new Set(news.slice(0,10).map(n => n.source).filter(Boolean))].slice(0, 5).join(' · ')}
+              </span>
+            )}
           </div>
           <div className="header-right">
             <button className="icon-btn" onClick={refresh} disabled={loading} title="刷新">🔄</button>
@@ -78,7 +92,15 @@ export default function App() {
 
         <div className="search-bar">
           <span className="search-icon">🔍</span>
-          <input className="search-input" placeholder="搜尋全球頭條..." />
+          <input
+            className="search-input"
+            placeholder="搜尋全球頭條..."
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <button className="search-clear" onClick={() => setSearchQuery('')}>✕</button>
+          )}
         </div>
 
         {!showBookmarks && trendingNews.length > 0 && (
