@@ -86,7 +86,11 @@ function httpGet(url) {
   return fetch(url, {
     headers: { 'User-Agent': 'WorldNewsBot/1.0 (+world-news.xyz)', 'Accept': 'application/rss+xml,*/*' },
     signal: AbortSignal.timeout(8000),
-  }).then(r => r.ok ? r.text() : '').catch(() => '');
+    redirect: 'follow',
+  }).then(async r => {
+    console.log(`[httpGet] ${url.substring(0,60)} status:${r.status} content-type:${r.headers.get('content-type')?.substring(0,40)}`);
+    return r.ok ? r.text() : `ERROR:${r.status}`;
+  }).catch(e => { console.log(`[httpGet] ${url.substring(0,60)} err:${e.message}`); return ''; });
 }
 
 const ND_MAP = {
