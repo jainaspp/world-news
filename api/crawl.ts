@@ -122,28 +122,35 @@ async function upsert(items) {
     title: i.title, summary: i.summary||'',
     link: i.link, source: i.source,
     image_url: i.image_url||'',
-    pub_date: i.pub_date, region: i.region, lang: i.lang||'en',
+    pub_date: i.pub_date || new Date().toISOString(),
+    region: i.region, lang: i.lang||'en',
     fetched_at: new Date().toISOString(),
   }));
-  // Use REST API for reliability in all runtimes
-  const res = await fetch(`${SB_URL}/rest/v1/news?select=link`, {
+
+  // Use return=representation to get back the actual inserted rows
+  const res = await fetch(`${SB_URL}/rest/v1/news`, {
     method: 'POST',
     headers: {
-      apikey: SB_KEY,
-      Authorization: `Bearer ${SB_KEY}`,
+      'apikey': SB_KEY,
+      'Authorization': `Bearer ${SB_KEY}`,
       'Content-Type': 'application/json',
-      Prefer: 'resolution=merge-duplicates,count=exact',
+      'Prefer': 'resolution=merge-duplicates,return=representation',
     },
     body: JSON.stringify(rows),
   });
+
   if (!res.ok) {
     const txt = await res.text().catch(() => '');
-    console.error('Upsert error:', res.status, txt.slice(0, 200));
+    console.error(`Upsert HTTP ${res.status}:`, txt.slice(0, 200));
     return 0;
   }
-  const cr = res.headers.get('content-range') || '';
-  const m = cr.match(/\/(\d+)$/);
-  return m ? parseInt(m[1]) : rows.length;
+
+  try {
+    const inserted = await res.json();
+    return inserted.length;
+  } catch {
+    return rows.length;
+  }
 }
 
 export const config = { runtime: 'nodejs' };
@@ -184,7 +191,8 @@ export default async function handler(req, res) {
 
   const inserted = await upsert(fresh);
   const ms = Date.now() - start;
-  console.log(`[crawl] Done. Inserted=${inserted} Fresh=${fresh.length} in ${ms}ms`);
+  console.log(`[crawl] Done. RSS=${rssItems.length} Uniq=${uniq.length} Fresh=${fresh.length} Inserted=${inserted} in ${ms}ms`);
+  console.log('[crawl] Sample links:', uniq.slice(0,3).map(i=>i.link.substring(0,50)));
 
   res.status(200).json({ ok: true, inserted, fresh: fresh.length, elapsed_ms: ms, at: new Date().toISOString() });
 }
