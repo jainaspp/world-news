@@ -82,15 +82,21 @@ function parseRSS(xml, src, region, lang) {
   }
   return items;
 }
-async function httpGet(url) {
-  try {
-    const res = await fetch(url, {
+function httpGet(url) {
+  return new Promise(resolve => {
+    const mod = url.startsWith('https') ? require('https') : require('http');
+    const req = mod.get(url, {
       headers: { 'User-Agent': 'WorldNewsBot/1.0 (+world-news.xyz)', 'Accept': 'application/rss+xml,*/*' },
-      signal: AbortSignal.timeout(9000),
+      timeout: 9000,
+    }, res => {
+      if (res.statusCode !== 200) { resolve(''); return; }
+      const bufs = [];
+      res.on('data', c => bufs.push(c));
+      res.on('end', () => resolve(Buffer.concat(bufs).toString('utf8')));
     });
-    if (!res.ok) return '';
-    return await res.text();
-  } catch { return ''; }
+    req.on('timeout', () => { req.destroy(); resolve(''); });
+    req.on('error', () => resolve(''));
+  });
 }
 
 const ND_MAP = {
@@ -118,7 +124,6 @@ async function fetchND(region) {
 async function upsert(items) {
   if (!items.length) return 0;
   const rows = items.map(i => ({
-    id: sid(i.title, i.link),
     title: i.title, summary: i.summary||'',
     link: i.link, source: i.source,
     image_url: i.image_url||'',
@@ -127,14 +132,14 @@ async function upsert(items) {
     fetched_at: new Date().toISOString(),
   }));
 
-  // Use return=representation to get back the actual inserted rows
+  // Upsert with merge-duplicates (no Prefer header = standard upsert)
   const res = await fetch(`${SB_URL}/rest/v1/news`, {
     method: 'POST',
     headers: {
       'apikey': SB_KEY,
       'Authorization': `Bearer ${SB_KEY}`,
       'Content-Type': 'application/json',
-      'Prefer': 'resolution=merge-duplicates,return=representation',
+      'Prefer': 'resolution=merge-duplicates',
     },
     body: JSON.stringify(rows),
   });
@@ -145,12 +150,9 @@ async function upsert(items) {
     return 0;
   }
 
-  try {
-    const inserted = await res.json();
-    return inserted.length;
-  } catch {
-    return rows.length;
-  }
+  // With merge-duplicates + no return preference: empty body on success
+  // Trust our own dedup: we only insert items with unseen links
+  return rows.length;
 }
 
 export const config = { runtime: 'nodejs' };

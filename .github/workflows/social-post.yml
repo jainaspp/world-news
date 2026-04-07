@@ -1,0 +1,32 @@
+name: Auto-Post to Social Media
+
+on:
+  schedule:
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+
+jobs:
+  post-twitter:
+    runs-on: ubuntu-latest
+    if: secrets.TWITTER_BEARER_TOKEN != ''
+    steps:
+      - name: Post to Twitter/X
+        run: |
+          curl -s -X POST "https://api.twitter.com/2/tweets" \
+            -H "Authorization: Bearer ${{ secrets.TWITTER_BEARER_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"text":"🌏 世界頭條 每日即時資訊更新\n\n涵蓋 BBC·CNN·Reuters·NPR·Bloomberg\n\n📰 https://world-news.xyz\n\n#世界頭條 #即時新聞 #BBC"}'
+        continue-on-error: true
+
+  post-facebook:
+    runs-on: ubuntu-latest
+    if: secrets.FB_PAGE_ACCESS_TOKEN != ''
+    steps:
+      - name: Post to Facebook Page
+        run: |
+          curl -s -X POST \
+            "https://graph.facebook.com/v18.0/me/feed" \
+            -d "link=https://world-news.xyz" \
+            -d "message=🌏 世界頭條 — 每日即時全球資訊更新" \
+            -d "access_token=${{ secrets.FB_PAGE_ACCESS_TOKEN }}"
+        continue-on-error: true

@@ -1,0 +1,44 @@
+name: Uptime Monitor
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check homepage
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://world-news.xyz")
+          echo "Homepage HTTP: $HTTP_CODE"
+          if [ "$HTTP_CODE" != "200" ]; then echo "ALERT: Homepage down!"; exit 1; fi
+
+      - name: Check digest
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://world-news.xyz/digest")
+          echo "Digest HTTP: $HTTP_CODE"
+          if [ "$HTTP_CODE" != "200" ]; then echo "ALERT: Digest down!"; fi
+
+      - name: Check API
+        run: |
+          SIZE=$(curl -s "https://world-news.xyz/api/news?group=ALL" | wc -c)
+          echo "API response size: $SIZE bytes"
+          if [ "$SIZE" -lt 100 ]; then echo "ALERT: API empty!"; fi
+
+      - name: Check sitemap
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://world-news.xyz/sitemap.xml")
+          echo "Sitemap HTTP: $HTTP_CODE"
+
+  alert-on-failure:
+    runs-on: ubuntu-latest
+    needs: check-site
+    if: failure()
+    steps:
+      - name: Report failure
+        run: |
+          echo "MONITOR ALERT — world-news.xyz returned non-200"
+          curl -s -X POST "https://stat.ustcl.net/notify" \
+            -d "msg=world-news.xyz%20is%20DOWN" || true

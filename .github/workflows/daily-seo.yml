@@ -1,0 +1,47 @@
+name: Daily SEO Automation
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [deploy-success]
+
+jobs:
+  ping-google:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Google Sitemaps
+        run: |
+          echo "Notifying Google about updated sitemap..."
+          curl -s -A "Mozilla/5.0 (compatible; world-news-bot/1.0)" \
+            "https://www.google.com/ping?sitemap=https://world-news.xyz/sitemap.xml"
+          echo "Google sitemap ping done"
+
+      - name: Ping Google News
+        run: |
+          curl -s -A "Mozilla/5.0 (compatible; world-news-bot/1.0)" \
+            "https://news.google.com/ping?sitemap=https://world-news.xyz/sitemap.xml"
+          echo "Google News ping done"
+
+      - name: Check sitemap accessibility
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://world-news.xyz/sitemap.xml")
+          echo "Sitemap HTTP: $HTTP_CODE"
+          if [ "$HTTP_CODE" != "200" ]; then exit 1; fi
+
+      - name: Check digest page
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://world-news.xyz/digest")
+          echo "Digest HTTP: $HTTP_CODE"
+
+  report:
+    runs-on: ubuntu-latest
+    needs: ping-google
+    if: always()
+    steps:
+      - name: Log completion
+        run: |
+          echo "SEO automation complete at $(date -u)"
+          echo "Sitemap: https://world-news.xyz/sitemap.xml"
+          echo "Digest:  https://world-news.xyz/digest"
