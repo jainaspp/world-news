@@ -82,15 +82,12 @@ function parseRSS(xml, src, region, lang) {
   }
   return items;
 }
-function httpGet(url) {
-  return fetch(url, {
-    headers: { 'User-Agent': 'WorldNewsBot/1.0 (+world-news.xyz)', 'Accept': 'application/rss+xml,*/*' },
-    signal: AbortSignal.timeout(8000),
-    redirect: 'follow',
-  }).then(async r => {
-    console.log(`[httpGet] ${url.substring(0,60)} status:${r.status} content-type:${r.headers.get('content-type')?.substring(0,40)}`);
-    return r.ok ? r.text() : `ERROR:${r.status}`;
-  }).catch(e => { console.log(`[httpGet] ${url.substring(0,60)} err:${e.message}`); return ''; });
+// RSS feeds use node http (bypasses Cloudflare blocking)
+async function fetchFeed(url) {
+  try {
+    const xml = await httpGet(url, { 'Accept': 'application/rss+xml,application/xml,text/xml,*/*', 'User-Agent': 'WorldNewsBot/1.0' });
+    return xml;
+  } catch(e) { return ''; }
 }
 
 const ND_MAP = {
