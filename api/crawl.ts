@@ -145,7 +145,7 @@ async function upsert(items) {
   return rows.length;
 }
 
-export const config = { runtime: 'nodejs' };
+// Use Edge Runtime (default) — fetch is natively available
 
 export default async function handler(req, res) {
   const secret = req.headers['x-cron-secret'] || req.query?.secret;
