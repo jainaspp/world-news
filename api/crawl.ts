@@ -125,9 +125,25 @@ async function upsert(items) {
     pub_date: i.pub_date, region: i.region, lang: i.lang||'en',
     fetched_at: new Date().toISOString(),
   }));
-  const { error } = await sb.from('news').upsert(rows, { onConflict: 'link', ignoreDuplicates: true });
-  if (error) { console.error('Upsert error:', error.message); return 0; }
-  return rows.length;
+  // Use REST API for reliability in all runtimes
+  const res = await fetch(`${SB_URL}/rest/v1/news?select=link`, {
+    method: 'POST',
+    headers: {
+      apikey: SB_KEY,
+      Authorization: `Bearer ${SB_KEY}`,
+      'Content-Type': 'application/json',
+      Prefer: 'resolution=merge-duplicates,count=exact',
+    },
+    body: JSON.stringify(rows),
+  });
+  if (!res.ok) {
+    const txt = await res.text().catch(() => '');
+    console.error('Upsert error:', res.status, txt.slice(0, 200));
+    return 0;
+  }
+  const cr = res.headers.get('content-range') || '';
+  const m = cr.match(/\/(\d+)$/);
+  return m ? parseInt(m[1]) : rows.length;
 }
 
 export const config = { runtime: 'nodejs' };
