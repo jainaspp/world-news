@@ -180,8 +180,79 @@ const GROUP_MAP = {
 addEventListener('fetch', e => e.respondWith(handleRequest(e.request)));
 addEventListener('scheduled', e => e.waitUntil(handleScheduled()));
 
+// ─── 安全允許清單（只允許這些域名）──────────────────────────────────
+const PROXY_ALLOWED = new Set([
+  'feeds.bbci.co.uk','feeds.reuters.com','www.theguardian.com',
+  'feeds.npr.org','www.aljazeera.com','rss.cnn.com',
+  'www.france24.com','www.cbsnews.com','rss.dw.com',
+  'feeds.bloomberg.com','feeds.nbnews.com','abcnews.go.com',
+  'feeds.sky.com','www.scmp.com','news.ltn.com.tw',
+  'www.channelnewsasia.com','www.yna.co.kr','www3.nhk.or.jp',
+  'feeds.feedburner.com','vnexpress.net','www.straitstimes.com',
+  'www.caixinglobal.com','meduza.io','tass.ru',
+  'www.pravda.com.ua','ua.liga.net','www.alarabiya.net',
+  'www.trtworld.com','www.aa.com.tr','feeds.euronews.com',
+  'rss.nytimes.com','rss.cbc.ca','g1.globo.com',
+  'www.clarin.com','www.infobae.com','nation.africa',
+  'mg.co.za','www.abc.net.au','www.rnz.co.nz',
+  'techcrunch.com','feeds.arstechnica.com','www.wired.com',
+  'news.google.com','hn.algolia.com','www.reddit.com',
+  'www.dev.to',
+]);
+
+function isAllowedUrl(raw) {
+  try {
+    const u = new URL(raw);
+    return PROXY_ALLOWED.has(u.hostname.replace(/^www\./,''));
+  } catch { return false; }
+}
+
+// ─── /proxy 端點：CF Worker 代理任何允許的 URL ────────────────────
+async function handleProxy(request) {
+  const url = new URL(request.url);
+  const encoded = url.searchParams.get('url');
+  if (!encoded) return new Response('Missing url param', { status:400 });
+
+  let raw;
+  try { raw = atob(encoded); } catch {
+    return new Response('Invalid base64', { status:400 });
+  }
+
+  if (!isAllowedUrl(raw)) {
+    return new Response('URL not allowed: ' + raw, { status:403 });
+  }
+
+  try {
+    const ac = new AbortController();
+    const tid = setTimeout(() => ac.abort(), 10000);
+    const r = await fetch(raw, {
+      signal: ac.signal,
+      headers:{ 'User-Agent':'Mozilla/5.0 (compatible; Cloudflare-Worker/1.0)' },
+    });
+    clearTimeout(tid);
+    const ct = r.headers.get('content-type') || 'application/octet-stream';
+    const body = await r.arrayBuffer();
+    return new Response(body, {
+      status: r.status,
+      headers: {
+        'Content-Type': ct,
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'public, max-age=300',
+      },
+    });
+  } catch(e) {
+    return new Response('Proxy fetch error: ' + e.message, { status:502 });
+  }
+}
+
 async function handleRequest(request) {
-  const url     = new URL(request.url);
+  const url = new URL(request.url);
+
+  // ─── /proxy 路由 ─────────────────────────────────────────────
+  if (url.pathname === '/proxy') {
+    return handleProxy(request);
+  }
+
   const group   = (url.searchParams.get('group')||'ALL').toUpperCase().replace('-','');
   const limit   = parseInt(url.searchParams.get('limit')||'30', 10);
   const regions  = GROUP_MAP[group] || [];

@@ -188,14 +188,75 @@ async function fetchRedditWorld(): Promise<NewsItem[]> {
   } catch { return []; }
 }
 
+// fetchDirect 保持在原位，fetchAllRSSViaProxy 單獨使用
 async function fetchDirect(): Promise<NewsItem[]> {
   const all: NewsItem[] = []; const seen = new Set<number>();
   const add = (items: NewsItem[]) => { for (const i of items) { if (!seen.has(i.id)) { seen.add(i.id); all.push(i); } } };
-  const results = await Promise.allSettled([fetchGNews(), fetchHN(), fetchDevTo(), fetchRedditWorld()]);
-  for (const r of results) { if (r.status === 'fulfilled') add(r.value); }
+  const [gn, hn, dev, reddit, rss] = await Promise.allSettled([
+    fetchGNews(), fetchHN(), fetchDevTo(), fetchRedditWorld(), fetchAllRSSViaProxy()
+  ]);
+  if (gn.status    === 'fulfilled') add(gn.value);
+  if (hn.status    === 'fulfilled') add(hn.value);
+  if (dev.status   === 'fulfilled') add(dev.value);
+  if (reddit.status === 'fulfilled') add(reddit.value);
+  if (rss.status   === 'fulfilled') add(rss.value);
   return all
     .map(item => item.imageUrl ? item : { ...item, imageUrl: `https://picsum.photos/seed/${(item.id % 900) + 100}/800/450` })
     .slice(0, 80);
+}
+
+// ─── CF Worker RSS 代理（/proxy 端點）─────────────────────────────────
+// Worker URL → CF Worker → 真實 RSS 源（BBC/CNA/Guardian 等）
+// 客戶端從不直接訪問 RSS 源，徹底解決 Vercel IP 封鎖問題
+async function fetchRSSViaProxy(key: string, feedUrl: string): Promise<NewsItem[]> {
+  try {
+    const proxyUrl = `${WORKER_BASE}/proxy?url=${btoa(feedUrl)}`;
+    const xml = await fetch(proxyUrl, { signal: AbortSignal.timeout(12000) }).then(r => r.text()).catch(() => '');
+    if (!xml || !xml.includes('<')) return [];
+    const items: any[] = [];
+    const re = /<item[^>]*>([\s\S]*?)<\/item>/gi;
+    const gt = (blk: string, tag: string) => {
+      const m = blk.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`,'i'));
+      return m ? m[1].replace(/<!\[CDATA\[|\]\]>/g,'').replace(/<[^>]+>/g,'').trim() : '';
+    };
+    let mx;
+    while ((mx = re.exec(xml)) !== null && items.length < 10) {
+      const blk = mx[1];
+      const lp = gt(blk,'link');
+      const up = lp.match(/[?&]url=([^&]+)/);
+      const tl = gt(blk,'title');
+      const pd = gt(blk,'pubDate') || new Date().toISOString();
+      if (tl) items.push({ title:tl, link: up ? decodeURIComponent(up[1]) : lp, description:gt(blk,'description'), pubDate:pd, source:key });
+    }
+    return items.map(i => ({
+      id: stableId(i.title, i.link), title: decodeHtml(i.title), titleTL:{},
+      summary: decodeHtml(i.description||'').slice(0,500), summaryTL:{},
+      link: i.link||'', source: i.source||key,
+      pubDate: i.pubDate||new Date().toISOString(), imageUrl:'',
+    }));
+  } catch { return []; }
+}
+
+// ─── 批量通過 Worker 代理抓多個 RSS（用於增強 fetchDirect）────────────
+async function fetchAllRSSViaProxy(): Promise<NewsItem[]> {
+  const feedList = [
+    {key:'BBC', url:'https://feeds.bbci.co.uk/news/world/rss.xml'},
+    {key:'Reuters', url:'https://feeds.reuters.com/reuters/worldnews'},
+    {key:'Guardian', url:'https://www.theguardian.com/world/rss'},
+    {key:'Al Jazeera', url:'https://www.aljazeera.com/xml/rss/all.xml'},
+    {key:'CNA', url:'https://www.channelnewsasia.com/rss'},
+    {key:'NHK', url:'https://www3.nhk.or.jp/rss/news/cat0.xml'},
+    {key:'France24', url:'https://www.france24.com/en/rss'},
+    {key:'SkyNews', url:'https://feeds.sky.com/ngs/world/rss.xml'},
+    {key:'DW', url:'https://rss.dw.com/rdf/rss-en-world'},
+    {key:'SCMP', url:'https://www.scmp.com/rss/91/feed'},
+    {key:'Euronews', url:'https://feeds.euronews.com/world'},
+    {key:'ABC AU', url:'https://www.abc.net.au/news/feed/51120/rss.xml'},
+  ];
+  const settled = await Promise.allSettled(feedList.map(f => fetchRSSViaProxy(f.key, f.url)));
+  const all: NewsItem[] = []; const seen = new Set<number>();
+  for (const r of settled) { if (r.status === 'fulfilled') for (const i of r.value) { if (!seen.has(i.id)) { seen.add(i.id); all.push(i); } } }
+  return all;
 }
 
 // ─── OG Image（可選優化）────────────────────────────────────────────
