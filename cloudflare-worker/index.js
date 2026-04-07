@@ -72,22 +72,26 @@ const STATIC_NEWS = [
   {id:'n060',title:'NASA confirms water ice deposits on Moon surface in new discovery',titleTL:{},summary:'NASA has confirmed the existence of significant water ice deposits on the Moon surface, a discovery that could support future lunar bases.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-216000000).toISOString(),imageUrl:'https://picsum.photos/seed/n060/800/450',region:'SCI'},
 ];
 
-// 每個地區的關鍵詞（給 NewsData）
+// 每個地區的關鍵詞（給 NewsData）— 擴展到 30+ 個
 const REGION_QUERIES = {
-  ALL: ['world news','breaking news'],
-  ASI: ['Asia Pacific news','East Asia news'],
-  TWN: ['Taiwan news'],
-  JPN: ['Japan news'],
-  KOR: ['South Korea news'],
-  USA: ['United States news','US politics'],
-  EUR: ['Europe news'],
-  RUS: ['Russia Ukraine war'],
-  ME:  ['Middle East news'],
-  IND: ['India news'],
-  TEC: ['technology AI'],
-  SCI: ['science discoveries'],
-  ECO: ['business economy'],
-  SPO: ['sports football'],
+  ALL: ['world news','breaking news','top headlines today','international news'],
+  ASI: ['Asia Pacific news','East Asia news','Southeast Asia news','South Asia news'],
+  TWN: ['Taiwan news','Taiwan Strait','Taiwan politics','Taiwan election'],
+  JPN: ['Japan news','Japan politics','Japan economy','Japan defense'],
+  KOR: ['South Korea news','Korea politics','Korea economy','Korea defense'],
+  USA: ['United States news','US politics','US economy','US election','Washington DC'],
+  EUR: ['Europe news','European Union','EU politics','European economy','NATO'],
+  UK:  ['UK news','Britain news','United Kingdom politics'],
+  RUS: ['Russia Ukraine war','Russia news','Putin','Kremlin','Moscow'],
+  ME:  ['Middle East news','Israel Gaza','Iran news','Saudi Arabia','Gaza war'],
+  IND: ['India news','India politics','India economy','Modi','Delhi'],
+  LAT: ['Latin America news','Brazil news','Argentina news','Mexico news','Chile news'],
+  AFR: ['Africa news','South Africa news','Nigeria news','Kenya news','Egypt news'],
+  TEC: ['technology AI','artificial intelligence','tech news','ChatGPT','Apple Google Microsoft'],
+  SCI: ['science discoveries','space news','climate change','medical breakthrough','NASA'],
+  ECO: ['business economy','stock market','inflation','trade war','banking finance'],
+  SPO: ['sports football','Olympics','World Cup','Premier League','Champions League'],
+  MID: ['military defense','war conflict','cybersecurity','terrorism','missile'],
 };
 
 const REGION_LANG = { TWN:'zh', JPN:'ja', KOR:'ko' };
@@ -214,8 +218,13 @@ async function handleProxy(request) {
   if (!encoded) return new Response('Missing url param', { status:400 });
 
   let raw;
-  try { raw = atob(encoded); } catch {
-    return new Response('Invalid base64', { status:400 });
+  try {
+    // 客戶端用 encodeURIComponent(btoa(encodeURIComponent(url))) 編碼
+    raw = decodeURIComponent(atob(encoded));
+  } catch {
+    try { raw = atob(encoded); } catch {
+      return new Response('Invalid base64', { status:400 });
+    }
   }
 
   if (!isAllowedUrl(raw)) {
@@ -310,26 +319,34 @@ async function handleRequest(request) {
 async function handleScheduled() {
   const entries = Object.entries(REGION_QUERIES);
   const langs   = { TWN:'zh', JPN:'ja', KOR:'ko' };
-  const today   = new Date().toISOString().slice(0,10);
-  const ndKey   = (parseInt(today.replace(/-/g,''),10) % 2 === 0) ? ND_KEY_1 : ND_KEY_2;
-  const allItems = [];
 
-  for (const [region, qlist] of entries) {
-    const lang = langs[region] || 'en';
-    for (const q of qlist) {
-      const items = await fetchND(ndKey, q, lang, 10);
-      for (const a of items) { a.region = region; }
-      allItems.push(...items);
-      await new Promise(r => setTimeout(r, 300));
+  async function fetchAllWithKey(key) {
+    const results = [];
+    for (const [region, qlist] of entries) {
+      const lang = langs[region] || 'en';
+      for (const q of qlist) {
+        const items = await fetchND(key, q, lang, 10);
+        for (const a of items) { a.region = region; }
+        results.push(...items);
+        await new Promise(r => setTimeout(r, 200));
+      }
     }
+    return results;
   }
 
-  // 按 link 去重
+  // 雙 key 同時抓，大幅增加每次數量
+  const [items1, items2] = await Promise.all([
+    fetchAllWithKey(ND_KEY_1),
+    fetchAllWithKey(ND_KEY_2),
+  ]);
+
   const seen = new Set();
-  const uniq = allItems.filter(a => a.link && !seen.has(a.link) && (seen.add(a.link), true));
+  const uniq = [...items1, ...items2].filter(a =>
+    a.link && !seen.has(a.link) && (seen.add(a.link), true)
+  );
 
   if (uniq.length > 0) {
     await upsertSupabase(uniq);
-    console.log(`[cron ${new Date().toISOString()}] Inserted ${uniq.length} articles`);
+    console.log(`[cron ${new Date().toISOString()}] Inserted ${uniq.length} articles (key1:${items1.length} key2:${items2.length})`);
   }
 }

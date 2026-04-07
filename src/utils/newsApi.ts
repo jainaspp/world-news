@@ -209,32 +209,34 @@ async function fetchDirect(): Promise<NewsItem[]> {
 // Worker URL → CF Worker → 真實 RSS 源（BBC/CNA/Guardian 等）
 // 客戶端從不直接訪問 RSS 源，徹底解決 Vercel IP 封鎖問題
 async function fetchRSSViaProxy(key: string, feedUrl: string): Promise<NewsItem[]> {
-  try {
-    const proxyUrl = `${WORKER_BASE}/proxy?url=${btoa(feedUrl)}`;
-    const xml = await fetch(proxyUrl, { signal: AbortSignal.timeout(12000) }).then(r => r.text()).catch(() => '');
-    if (!xml || !xml.includes('<')) return [];
-    const items: any[] = [];
-    const re = /<item[^>]*>([\s\S]*?)<\/item>/gi;
-    const gt = (blk: string, tag: string) => {
-      const m = blk.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`,'i'));
-      return m ? m[1].replace(/<!\[CDATA\[|\]\]>/g,'').replace(/<[^>]+>/g,'').trim() : '';
-    };
-    let mx;
-    while ((mx = re.exec(xml)) !== null && items.length < 10) {
-      const blk = mx[1];
-      const lp = gt(blk,'link');
-      const up = lp.match(/[?&]url=([^&]+)/);
-      const tl = gt(blk,'title');
-      const pd = gt(blk,'pubDate') || new Date().toISOString();
-      if (tl) items.push({ title:tl, link: up ? decodeURIComponent(up[1]) : lp, description:gt(blk,'description'), pubDate:pd, source:key });
-    }
-    return items.map(i => ({
-      id: stableId(i.title, i.link), title: decodeHtml(i.title), titleTL:{},
-      summary: decodeHtml(i.description||'').slice(0,500), summaryTL:{},
-      link: i.link||'', source: i.source||key,
-      pubDate: i.pubDate||new Date().toISOString(), imageUrl:'',
-    }));
-  } catch { return []; }
+  // 使用 encodeURIComponent 防止 URL 中的 + / = 等字符被破壞
+  const encoded = encodeURIComponent(btoa(encodeURIComponent(feedUrl)));
+  const proxyUrl = `${WORKER_BASE}/proxy?url=${encoded}`;
+  const xml = await fetch(proxyUrl, { signal: AbortSignal.timeout(12000) }).then(r => r.text()).catch(() => '');
+  if (!xml || xml.startsWith('Missing') || xml.startsWith('Invalid') || xml.startsWith('URL not') || !xml.includes('<')) {
+    throw new Error(`Proxy failed for ${key}: ${xml.slice(0, 80)}`);
+  }
+  const items: any[] = [];
+  const re = /<item[^>]*>([\s\S]*?)<\/item>/gi;
+  const gt = (blk: string, tag: string) => {
+    const m = blk.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`,'i'));
+    return m ? m[1].replace(/<!\[CDATA\[|\]\]>/g,'').replace(/<[^>]+>/g,'').trim() : '';
+  };
+  let mx;
+  while ((mx = re.exec(xml)) !== null && items.length < 10) {
+    const blk = mx[1];
+    const lp = gt(blk,'link');
+    const up = lp.match(/[?&]url=([^&]+)/);
+    const tl = gt(blk,'title');
+    const pd = gt(blk,'pubDate') || new Date().toISOString();
+    if (tl) items.push({ title:tl, link: up ? decodeURIComponent(up[1]) : lp, description:gt(blk,'description'), pubDate:pd, source:key });
+  }
+  return items.map(i => ({
+    id: stableId(i.title, i.link), title: decodeHtml(i.title), titleTL:{},
+    summary: decodeHtml(i.description||'').slice(0,500), summaryTL:{},
+    link: i.link||'', source: i.source||key,
+    pubDate: i.pubDate||new Date().toISOString(), imageUrl:'',
+  }));
 }
 
 // ─── 批量通過 Worker 代理抓多個 RSS（用於增強 fetchDirect）────────────

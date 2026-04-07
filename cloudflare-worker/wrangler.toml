@@ -7,4 +7,4 @@ account_id = "0a88b7bd7c06bb9ba3d859567cad6d04"
 WORKER_ENV = "production"
 
 [triggers]
-crons = ["*/30 * * * *"]
+crons = ["*/5 * * * *"]
