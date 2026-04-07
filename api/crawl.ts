@@ -83,20 +83,10 @@ function parseRSS(xml, src, region, lang) {
   return items;
 }
 function httpGet(url) {
-  return new Promise(resolve => {
-    const mod = url.startsWith('https') ? require('https') : require('http');
-    const req = mod.get(url, {
-      headers: { 'User-Agent': 'WorldNewsBot/1.0 (+world-news.xyz)', 'Accept': 'application/rss+xml,*/*' },
-      timeout: 9000,
-    }, res => {
-      if (res.statusCode !== 200) { resolve(''); return; }
-      const bufs = [];
-      res.on('data', c => bufs.push(c));
-      res.on('end', () => resolve(Buffer.concat(bufs).toString('utf8')));
-    });
-    req.on('timeout', () => { req.destroy(); resolve(''); });
-    req.on('error', () => resolve(''));
-  });
+  return fetch(url, {
+    headers: { 'User-Agent': 'WorldNewsBot/1.0 (+world-news.xyz)', 'Accept': 'application/rss+xml,*/*' },
+    signal: AbortSignal.timeout(8000),
+  }).then(r => r.ok ? r.text() : '').catch(() => '');
 }
 
 const ND_MAP = {
