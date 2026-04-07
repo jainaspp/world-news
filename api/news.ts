@@ -1,11 +1,8 @@
 /**
- * api/news.ts — 從 Supabase 讀取新聞
+ * api/news.ts — 從 Supabase 讀取新聞（使用 Fetch REST API，兼容 Edge Runtime）
  */
-import { createClient } from '@supabase/supabase-js';
-
 const SB_URL = process.env.SUPABASE_URL || 'https://qpckwhnbawprbkkizcmn.supabase.co';
 const SB_KEY = process.env.SUPABASE_SERVICE_KEY || '';
-const sb     = createClient(SB_URL, SB_KEY);
 
 const REGION_MAP = {
   ALL:[],
@@ -52,47 +49,46 @@ export default async function handler(req, res) {
   const cutoff  = new Date(Date.now() - 48*3600*1000).toISOString();
 
   try {
-    let { data, error } = await sb
-      .from('news')
-      .select('id, title, summary, link, source, image_url, pub_date, region, lang')
-      .gte('pub_date', cutoff)
-      .in('region', regions)
-      .order('pub_date', { ascending: false })
-      .limit(parseInt(String(limit), 10));
+    const limitInt = parseInt(String(limit), 10);
+    const sel = 'id,title,summary,link,source,image_url,pub_date,region';
+    let query = `${SB_URL}/rest/v1/news?select=${sel}&pub_date=gte.${cutoff}&order=pub_date.desc&limit=${limitInt}`;
+    if (regions.length > 0 && regions[0] !== 'ALL') {
+      query += '&or=(region.in.(' + regions.join(',') + '),region.eq.ALL)';
+    } else if (regions.length > 0) {
+      query += '&or=(region.in.(' + regions.join(',') + '))';
+    }
 
-    if (error) {
-      console.error('[news] error:', error.message);
-      res.status(200).json({ error: error.message, news: [] });
+    const r = await fetch(query, {
+      headers: {
+        apikey: SB_KEY,
+        Authorization: 'Bearer ' + SB_KEY,
+        Prefer: 'count=exact',
+      },
+    });
+    const data = await r.json();
+
+    if (!Array.isArray(data)) {
+      console.error('[news] non-array response:', JSON.stringify(data).slice(0, 200));
+      res.status(200).json([]);
       return;
     }
 
-    // Fallback: if no results, try ALL regions
-    if ((data == null || data.length === 0) && regions[0] !== 'ALL') {
-      const fb = await sb
-        .from('news')
-        .select('id, title, summary, link, source, image_url, pub_date, region, lang')
-        .gte('pub_date', cutoff)
-        .order('pub_date', { ascending: false })
-        .limit(parseInt(String(limit), 10));
-      data = fb.data;
-    }
-
-    const news = (data || []).map(r => ({
+    const news = data.map(r => ({
       id:      r.id,
-      title:   r.title,
+      title:   r.title || '',
       titleTL: {},
       summary: r.summary || '',
       summaryTL:{},
-      link:    r.link,
-      source:  r.source,
+      link:    r.link || '',
+      source:  r.source || '',
       pubDate: r.pub_date,
       imageUrl: r.image_url || '',
-      region:  r.region,
+      region:  r.region || 'ALL',
     }));
 
     res.status(200).json(news);
   } catch (e) {
     console.error('[news] exception:', e.message);
-    res.status(200).json({ error: e.message, news: [] });
+    res.status(200).json({ error: e.message });
   }
 }
