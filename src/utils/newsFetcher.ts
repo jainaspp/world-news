@@ -227,7 +227,7 @@ async function fetchDirectGN(group: string): Promise<NewsItem[]> {
   const cfg = GN_CONFIG[group.toUpperCase()] || GN_CONFIG.ALL;
   const url = `https://news.google.com/rss?hl=${encodeURIComponent(cfg.hl)}&gl=${encodeURIComponent(cfg.gl)}&ceid=${encodeURIComponent(cfg.ceid)}`;
   try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(6000) });
+    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
     if (!res.ok) return [];
     const xml = await res.text();
     return parseRSS(xml, 'GoogleNews', group);
@@ -243,7 +243,7 @@ const CORS_PROXIES = [
 async function fetchWithCorsProxy(url: string, region = 'ALL'): Promise<NewsItem[]> {
   for (const makeProxy of CORS_PROXIES) {
     try {
-      const res = await fetch(makeProxy(url), { signal: AbortSignal.timeout(5000) });
+      const res = await fetch(makeProxy(url), { signal: AbortSignal.timeout(8000) });
       if (!res.ok) continue;
       const xml = await res.text();
       const items = parseRSS(xml, 'GoogleNews-via-Proxy', region);
@@ -350,7 +350,7 @@ export async function fetchAllNews(group = 'ALL'): Promise<NewsItem[]> {
   // 1. Supabase DB（CF Worker cron 寫入的 RSS 新聞）
   const dbNews = await Promise.race([
     fetchFromSupabase(group),
-    new Promise<NewsItem[]>(r => setTimeout(() => r([]), 2500)),
+    new Promise<NewsItem[]>(r => setTimeout(() => r([]), 8000)),
   ]);
 
   // 如果結果夠用，直接返回
@@ -363,7 +363,7 @@ export async function fetchAllNews(group = 'ALL'): Promise<NewsItem[]> {
   if (group !== 'ALL' && dbNews.length > 0) {
     const allNews = await Promise.race([
       fetchFromSupabase('ALL'),
-      new Promise<NewsItem[]>(r => setTimeout(() => r([]), 2500)),
+      new Promise<NewsItem[]>(r => setTimeout(() => r([]), 8000)),
     ]);
     const merged = [...dbNews, ...allNews.filter(n => n.region !== 'ALL').slice(0, 20)];
     setCache(group, merged);
