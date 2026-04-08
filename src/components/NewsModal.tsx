@@ -31,9 +31,12 @@ export function NewsModal({ item, lang, onClose }: Props) {
           <button className="modal-close" onClick={onClose} aria-label="關閉">✕</button>
         </div>
 
-        {item.imageUrl && (
-          <img className="modal-image" src={item.imageUrl} alt={title} onError={e => (e.target as HTMLImageElement).style.display='none'} />
-        )}
+        {(() => {
+          const img = item.imageUrl;
+          const fallbackSrc = img || `https://picsum.photos/seed/${(item.id % 900) + 100}/1200/630`;
+          return <img className="modal-image" src={fallbackSrc} alt={title}
+            onError={e => (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${(item.id % 900) + 100}/1200/630`} />;
+        })()}
 
         <div className="modal-body">
           <h2 className="modal-title">{title}</h2>

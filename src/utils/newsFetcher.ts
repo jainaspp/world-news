@@ -171,18 +171,23 @@ async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
     if (!res.ok) return [];
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) return [];
-    return data.map((r: any) => ({
-      id: r.id || sid(String(r.title||''), String(r.link||'')),
-      title: dh(String(r.title||'')),
-      titleTL: {},
-      summary: dh(String(r.summary||'')).slice(0, 300),
-      summaryTL: {},
-      link: String(r.link||''),
-      source: String(r.source||''),
-      pubDate: String(r.pub_date||new Date().toISOString()),
-      imageUrl: String(r.image_url||''),
-      region: String(r.region||group),
-    }));
+    return data.map((r: any) => {
+      const id = r.id || sid(String(r.title||''), String(r.link||''));
+      const rawImg = String(r.image_url||'');
+      return {
+        id,
+        title: dh(String(r.title||'')),
+        titleTL: {},
+        summary: dh(String(r.summary||'')).slice(0, 300),
+        summaryTL: {},
+        link: String(r.link||''),
+        source: String(r.source||''),
+        pubDate: String(r.pub_date||new Date().toISOString()),
+        // 無圖片時自動生成 picsum 佔位圖
+        imageUrl: rawImg || `https://picsum.photos/seed/${(id % 900) + 100}/800/450`,
+        region: String(r.region||group),
+      };
+    });
   } catch { return []; }
 }
 

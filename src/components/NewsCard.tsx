@@ -54,17 +54,36 @@ export function NewsCard({ item, lang, onBookmarkChange }: Props) {
 
   return (
     <div className="card">
-      {item.imageUrl && (
-        <div className="card-image-wrap">
-          <img
-            className="card-image"
-            src={item.imageUrl}
-            alt={title}
-            loading="lazy"
-            onError={handleImageError}
-          />
-        </div>
-      )}
+      {(() => {
+        const img = item.imageUrl;
+        if (!img) {
+          // 完全無圖時，生成一個 picsum 佔位圖
+          const seed = (item.id % 900) + 100;
+          const fallbackSrc = `https://picsum.photos/seed/${seed}/800/450`;
+          return (
+            <div className="card-image-wrap card-image-placeholder" style={{ background: 'linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)' }}>
+              <img
+                className="card-image"
+                src={fallbackSrc}
+                alt={title}
+                loading="lazy"
+                onError={handleImageError}
+              />
+            </div>
+          );
+        }
+        return (
+          <div className="card-image-wrap">
+            <img
+              className="card-image"
+              src={img}
+              alt={title}
+              loading="lazy"
+              onError={handleImageError}
+            />
+          </div>
+        );
+      })()}
 
       <div className="card-meta">
         <span className="source-tag" style={{ background: info.color }}>{info.label}</span>
