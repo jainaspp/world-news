@@ -244,35 +244,99 @@ export async function searchGoogleNews(query: string): Promise<NewsItem[]> {
 // ─── 兼容導出（sources.ts 需要）───────────────────────────────
 export const RSS_FEEDS = [];
 
-export const REGIONS = [
-  { code: 'ALL', label: '全球', icon: '🌏', hl: 'en-US', gl: 'US', ceid: 'US:en' },
-  { code: 'USA', label: '美國', icon: '🇺🇸', hl: 'en-US', gl: 'US', ceid: 'US:en' },
-  { code: 'GBR', label: '英國', icon: '🇬🇧', hl: 'en-GB', gl: 'GB', ceid: 'GB:en' },
-  { code: 'DEU', label: '德國', icon: '🇩🇪', hl: 'de-DE', gl: 'DE', ceid: 'DE:de' },
-  { code: 'FRA', label: '法國', icon: '🇫🇷', hl: 'fr-FR', gl: 'FR', ceid: 'FR:fr' },
-  { code: 'JPN', label: '日本', icon: '🇯🇵', hl: 'ja-JP', gl: 'JP', ceid: 'JP:ja' },
-  { code: 'KOR', label: '南韓', icon: '🇰🇷', hl: 'ko-KR', gl: 'KR', ceid: 'KR:ko' },
-  { code: 'TWN', label: '台灣', icon: '🇹🇼', hl: 'zh-TW', gl: 'TW', ceid: 'TW:zh-Hant' },
-  { code: 'HKG', label: '香港', icon: '🇭🇰', hl: 'zh-HK', gl: 'HK', ceid: 'HK:zh' },
-  { code: 'CHN', label: '中國', icon: '🇨🇳', hl: 'zh-CN', gl: 'CN', ceid: 'CN:zh' },
-  { code: 'IND', label: '印度', icon: '🇮🇳', hl: 'en-IN', gl: 'IN', ceid: 'IN:en' },
-  { code: 'AUS', label: '澳洲', icon: '🇦🇺', hl: 'en-AU', gl: 'AU', ceid: 'AU:en' },
-  { code: 'BRA', label: '巴西', icon: '🇧🇷', hl: 'pt-BR', gl: 'BR', ceid: 'BR:pt' },
-  { code: 'MEX', label: '墨西哥', icon: '🇲🇽', hl: 'es-MX', gl: 'MX', ceid: 'MX:es' },
-  { code: 'RUS', label: '俄羅斯', icon: '🇷🇺', hl: 'ru-RU', gl: 'RU', ceid: 'RU:ru' },
-  { code: 'ZAF', label: '南非', icon: '🇿🇦', hl: 'en-ZA', gl: 'ZA', ceid: 'ZA:en' },
-  { code: 'NGA', label: '尼日利亞', icon: '🇳🇬', hl: 'en-NG', gl: 'NG', ceid: 'NG:en' },
-  { code: 'ARE', label: '阿聯酋', icon: '🇦🇪', hl: 'en-AE', gl: 'AE', ceid: 'AE:en' },
+// ─── RSS 來源分類（晶片欄 1）───────────────────────────────
+// 按實際 RSS 來源分組，去重後顯示
+export const RSS_SOURCES = [
+  {
+    code: 'ALL', label: '全部', icon: '🌏',
+    sources: []  // 空 = 所有來源
+  },
+  {
+    code: 'JPN_KOR', label: '日韓', icon: '🇯🇵🇰🇷',
+    sources: ['Yonhap Korea', 'Korea Herald', 'Asahi News', 'Asahi Politics', 'Asahi Intl',
+              'Asahi International', 'Asahi Tech Science', 'Asahi Tech', 'NHK World', 'NHk World']
+  },
+  {
+    code: 'TWN_HK', label: '台港', icon: '🇹🇼🇭🇰',
+    sources: ['CNA Taiwan', 'RTHK HK', 'RTHK', 'HK Free Press', 'HKFP']
+  },
+  {
+    code: 'IND_CHN', label: '印中', icon: '🇮🇳🇨🇳',
+    sources: ['The Hindu', 'Times of India', 'SCMP']
+  },
+  {
+    code: 'ME_AFR', label: '中東非洲', icon: '🇸🇾🌍',
+    sources: ['Al Arabiya', 'BBC Africa', 'Mail Guardian', 'Mail & Guardian']
+  },
+  {
+    code: 'USA', label: '美國', icon: '🇺🇸',
+    sources: ['CNBC', 'Fox Economy', 'Fox Markets', 'Fox Tech', 'Fox Business',
+              'Fox Business Latest', 'NPR Health', 'BBC Americas']
+  },
+  {
+    code: 'EUR', label: '歐洲', icon: '🇪🇺',
+    sources: ['DW Germany', 'DW', 'Le Monde', 'BBC Europe', 'Euronews']
+  },
+  {
+    code: 'TEC', label: '科技', icon: '💻',
+    sources: ['TechCrunch', 'Ars Technica', 'Ars Tech', 'Wired', 'CSS-Tricks',
+              'Smashing Magazine', 'Smashing Mag', 'Cloudflare Blog', 'kottke.org', 'kottke',
+              'Adactio', 'xkcd', 'WP Tavern', 'WPBeginner', 'Node Weekly',
+              'Spoon & Tamago', 'Spoon Tamago', 'Brand New', 'Stevivor',
+              'Craig Mod', 'Frank Chimero', 'Dave Rupert', 'Jim Nielsen',
+              'Austin Kleon', 'Waxy.org', 'Popular Science', 'Popular Sci']
+  },
+  {
+    code: 'SCI', label: '科學', icon: '🔬',
+    sources: ['Science Magazine', 'Science Mag', 'Nature', 'New Scientist', 'Science Daily',
+              'ESA Space', 'ESA', 'BBC Science']
+  },
+  {
+    code: 'BUS', label: '財經', icon: '💰',
+    sources: ['Reuters Biz', 'Reuters Business', 'Reuters World', 'CNBC',
+              'Fox Economy', 'Fox Markets', 'Fox Business', 'Fox Business Latest']
+  },
+  {
+    code: 'HLT', label: '健康', icon: '🏥',
+    sources: ['NPR Health', 'NHS England', 'Running on Real Food', "Mark's Daily",
+              "Mark's Daily Apple", 'Real Food']
+  },
+  {
+    code: 'TRV', label: '旅遊', icon: '✈️',
+    sources: ["Condé Nast Traveler", 'CN Traveler', 'Nomadic Matt']
+  },
 ];
 
+// ─── 主題分類（晶片欄 2）────────────────────────────────
+// 過濾規則：source 包含關鍵詞
 export const TOPICS = [
-  { code: 'TEC', label: '科技', icon: '💻' },
-  { code: 'SCI', label: '科學', icon: '🔬' },
-  { code: 'BUS', label: '財經', icon: '💰' },
-  { code: 'HLT', label: '健康', icon: '🏥' },
-  { code: 'SPT', label: '體育', icon: '⚽' },
-  { code: 'ENT', label: '娛樂', icon: '🎬' },
-  { code: 'TRV', label: '旅遊', icon: '✈️' },
+  {
+    code: 'ALL', label: '全部', icon: '🌏', keywords: []
+  },
+  {
+    code: 'TEC', label: '科技', icon: '💻',
+    keywords: ['tech', 'ai', 'google', 'apple', 'microsoft', 'software', 'app', 'startup', 'robot', 'digital', 'internet', 'cyber', '科技', '技術']
+  },
+  {
+    code: 'MIL', label: '軍事', icon: '🪖',
+    keywords: ['military', 'army', 'war', 'defense', 'defence', 'troop', 'missile', 'drone', 'aircraft carrier', 'nuclear weapon', '軍隊', '軍事', '戰爭', '導彈', '軍備']
+  },
+  {
+    code: 'ECO', label: '經濟', icon: '📈',
+    keywords: ['economy', 'economic', 'gdp', 'inflation', 'trade war', 'tariff', 'oil price', 'stock market', 'finance', 'banking', 'crisis', '宏觀經濟', 'GDP', '通脹', '股市', '央行']
+  },
+  {
+    code: 'POL', label: '政治', icon: '🏛️',
+    keywords: ['politics', 'election', 'government', 'president', 'parliament', 'congress', 'vote', 'sanction', 'diplomatic', 'summit', '政治', '選舉', '政府', '總統', '峰會']
+  },
+  {
+    code: 'ENT', label: '娛樂', icon: '🎬',
+    keywords: ['film', 'movie', 'music', 'celebrity', 'hollywood', 'netflix', 'art', 'museum', 'exhibition', 'book', '電影', '音樂', '明星', '荷里活']
+  },
+  {
+    code: 'SPT', label: '體育', icon: '⚽',
+    keywords: ['football', 'soccer', 'basketball', 'nba', 'olympic', 'marathon', 'championship', 'tournament', 'score', 'match', '球賽', '足球', '奧運', '冠軍']
+  },
 ];
 
 export const SOURCE_INFO: Record<string, { name: string; url: string; color: string }> = {

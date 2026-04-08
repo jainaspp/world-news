@@ -233,16 +233,74 @@ function setCache(group: string, items: NewsItem[]) {
 }
 
 // ─── 處理 + 去重 ────────────────────────────────────────────────
+// ─── 來源權威度評分 ─────────────────────────────────────────
+const SOURCE_TIER: Record<string, number> = {
+  // Tier 1 — 最高權威
+  'Reuters': 10, 'Reuters World': 10, 'Reuters Biz': 10,
+  'AP': 10, 'AP News': 10,
+  // Tier 2 — 主流權威
+  'BBC World': 9, 'BBC News': 9, 'BBC Europe': 9, 'BBC Americas': 9,
+  'BBC Science': 9, 'BBC Africa': 9, 'BBC LatAm': 9,
+  'Nature': 9, 'Science Magazine': 9,
+  // Tier 3 — 知名機構
+  'Al Jazeera': 8, 'CNN World': 8, 'CNN': 8,
+  'The Guardian': 8, 'Guardian': 8,
+  'France24': 8, 'Le Monde': 8,
+  'NPR World': 8, 'NPR': 8, 'NPR Health': 8,
+  'The Hindu': 8, 'SCMP': 8,
+  'Asahi News': 8, 'Asahi Intl': 8, 'Asahi International': 8,
+  'Yonhap Korea': 8, 'RTHK': 8, 'RTHK HK': 8,
+  'CNBC': 8, 'DW Germany': 8, 'DW': 8,
+  // Tier 4 — 一般來源
+  'Fox Business': 7, 'Fox Economy': 7, 'Fox Markets': 7,
+  'Fox Business Latest': 7, 'Fox Tech': 7, 'Fox Markets': 7,
+  'Korea Herald': 7, 'Times of India': 7,
+  'Euronews': 7, 'NHK World': 7, 'NHk World': 7,
+  'HK Free Press': 7, 'HKFP': 7,
+  'Al Arabiya': 7, 'Mail Guardian': 7,
+  // Tier 5 — 專業媒體
+  'TechCrunch': 6, 'Ars Technica': 6, 'Ars Tech': 6,
+  'Wired': 6, 'Nature': 6,
+  'Science Daily': 6, 'New Scientist': 6,
+  'Popular Science': 6, 'ESA': 6, 'ESA Space': 6,
+  // Tier 6 — 部落格/個人
+  'kottke.org': 5, 'xkcd': 5,
+  'Craig Mod': 5, 'Frank Chimero': 5,
+};
+
+function getSourceTier(source = ''): number {
+  // 精確匹配
+  if (SOURCE_TIER[source]) return SOURCE_TIER[source];
+  // 前綴匹配
+  for (const [key, val] of Object.entries(SOURCE_TIER)) {
+    if (source.startsWith(key) || key.startsWith(source)) return val;
+  }
+  return 4; // 默認中等權威
+}
+
+function scoreItem(item: NewsItem): number {
+  const tier = getSourceTier(item.source);
+  let recency = 0;
+  try {
+    const ageMs = Date.now() - new Date(item.pubDate).getTime();
+    const ageHours = ageMs / 3600000;
+    // 每小時遞減 1 分，48h+ = 0
+    recency = Math.max(0, 48 - ageHours);
+  } catch { recency = 0; }
+  return tier * 10 + recency;
+}
+
 function process(items: NewsItem[]): NewsItem[] {
   const seen = new Set<number>();
   const uniq: NewsItem[] = [];
   items.forEach(i => { if (!seen.has(i.id)) { seen.add(i.id); uniq.push(i); } });
-  const cutoff = Date.now() - 48 * 3600 * 1000;
+  const cutoff = Date.now() - 72 * 3600 * 1000;
   return uniq
     .filter(i => { try { return new Date(i.pubDate).getTime() > cutoff; } catch { return false; } })
-    .sort((a, b) => { try { return new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime(); } catch { return 0; } })
+    // 權威度 + 時間聯合排序
+    .sort((a, b) => scoreItem(b) - scoreItem(a))
     .slice(0, 60)
-    .map((i, idx) => i.imageUrl ? i : { ...i, imageUrl: `https://picsum.photos/seed/${(i.id % 900) + 100}/800/450` });
+    .map(i => i.imageUrl ? i : { ...i, imageUrl: `https://picsum.photos/seed/${(i.id % 900) + 100}/800/450` });
 }
 
 // ─── 主函數 ───────────────────────────────────────────────────
@@ -318,7 +376,24 @@ export async function fetchGroupByRegion(region: string): Promise<NewsItem[]> {
 }
 
 export async function fetchGroupByTopic(topic: string): Promise<NewsItem[]> {
-  return fetchAllNews(topic);
+  const { TOPICS } = await import('./newsApi');
+  const topicConfig = (TOPICS as any[]).find(t => t.code === topic);
+  if (!topicConfig || !topicConfig.keywords || topicConfig.keywords.length === 0) {
+    return fetchAllNews('ALL');
+  }
+  const allNews = await fetchAllNews('ALL');
+  const kw = topicConfig.keywords.map((k: string) => k.toLowerCase());
+  return allNews.filter(n => {
+    const text = ((n.title || '') + ' ' + (n.summary || '') + ' ' + (n.source || '')).toLowerCase();
+    return kw.some(k => text.includes(k));
+  }).slice(0, 30);
+}
+
+export async function fetchBySourceGroup(sources: string[]): Promise<NewsItem[]> {
+  if (!sources || sources.length === 0) return fetchAllNews('ALL');
+  const allNews = await fetchAllNews('ALL');
+  const sourceSet = new Set(sources);
+  return allNews.filter(n => sourceSet.has(n.source)).slice(0, 60);
 }
 
 export async function searchGoogleNews(query: string): Promise<NewsItem[]> {

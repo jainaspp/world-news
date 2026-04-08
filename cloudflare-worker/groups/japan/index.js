@@ -81,6 +81,27 @@ async function upsertRows(rows) {
     return r.ok ? rows.length : 0;
 }
 
+
+async function cleanupOldNews() {
+    // 保留最多 MAX_TOTAL=500 行，超出則刪除最舊的
+    const MAX_TOTAL = 500;
+    const r = await fetch(
+        SB_URL + '/rest/v1/news?select=id,fetched_at&order=fetched_at.asc&limit=1000',
+        { headers: {'apikey': SB_SVC_KEY, 'Authorization': 'Bearer ' + SB_SVC_KEY} }
+    );
+    if (!r.ok) return 0;
+    const all = await r.json();
+    if (!Array.isArray(all) || all.length <= MAX_TOTAL) return 0;
+    const toDelete = all.slice(0, all.length - MAX_TOTAL);
+    if (toDelete.length === 0) return 0;
+    const ids = toDelete.map(r => r.id);
+    const del = await fetch(SB_URL + '/rest/v1/news?id=in.(' + ids.join(',') + ')', {
+        method: 'DELETE',
+        headers: {'apikey': SB_SVC_KEY, 'Authorization': 'Bearer ' + SB_SVC_KEY}
+    });
+    return del.ok ? ids.length : 0;
+}
+
 async function doCrawl(existingLinks) {
     let total = 0, errors = 0;
     // 5 feeds at a time
@@ -109,7 +130,8 @@ async function doCrawl(existingLinks) {
         }
         if (newRows.length) { await upsertRows(newRows); total += newRows.length; }
     }
-    return { total, errors };
+    const cleaned = await cleanupOldNews();
+    return { total, errors, cleaned };
 }
 
 export default {
@@ -118,6 +140,7 @@ export default {
         console.log('START [japan] ' + FEEDS.length + ' feeds');
         const links = await getExistingLinks();
         const result = await doCrawl(links);
+        if (result.cleaned > 0) console.log('CLEANUP: removed ' + result.cleaned + ' old rows');
         console.log('DONE [japan] +' + result.total + ' | ' + result.errors + ' errors | ' + (Date.now()-t0) + 'ms');
     },
 
