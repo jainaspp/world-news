@@ -14,6 +14,21 @@ function safeUrl(link: string): string {
 export function NewsCard({ item, lang, onBookmarkChange }: Props) {
   const [expanded, setExpanded] = useState(false);
   const info = SOURCE_INFO[item.source] || { label: item.source || 'News', color: '#666', region: '' };
+
+  // 從 link 域名提取 favicon（Worker image_url 為空時的主要圖片）
+  const domain = (() => {
+    try {
+      const u = new URL(item.link.startsWith('http') ? item.link : 'https://example.com');
+      return u.hostname.replace('www.', '');
+    } catch { return ''; }
+  })();
+  const faviconUrl = domain
+    ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128`
+    : '';
+  const hasImage = Boolean(item.imageUrl);
+
+  // favicon + emoji 作為無文章圖時的視覺補償
+  const showFavicon = !hasImage && Boolean(faviconUrl);
   const title = item.titleTL[lang] || item.title;
   const summary = item.summaryTL[lang] || item.summary;
   const isTranslated = !!item.titleTL[lang];
@@ -52,10 +67,21 @@ export function NewsCard({ item, lang, onBookmarkChange }: Props) {
         const seed = (item.id % 900) + 100;
         const fallbackSrc = `https://picsum.photos/seed/${seed}/800/450`;
         if (!img) {
-          // 無圖時：純色漸層 + 大emoji，無img標籤
           return (
             <div className="card-image-wrap card-img-empty">
-              <span className="card-img-emoji">🌍</span>
+              {showFavicon ? (
+                <img
+                  className="card-favicon-img"
+                  src={faviconUrl}
+                  alt={domain}
+                  loading="lazy"
+                  onError={e => {
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
+                />
+              ) : (
+                <span className="card-img-emoji">🌍</span>
+              )}
             </div>
           );
         }
@@ -67,7 +93,7 @@ export function NewsCard({ item, lang, onBookmarkChange }: Props) {
               alt={title}
               loading="lazy"
               onError={e => {
-                (e.target as HTMLImageElement).src = fallbackSrc;
+                (e.target as HTMLImageElement).src = faviconUrl || fallbackSrc;
               }}
             />
           </div>

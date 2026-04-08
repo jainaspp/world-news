@@ -504,6 +504,12 @@ body::before {
   user-select: none;
   pointer-events: none;
 }
+.card-favicon-img {
+  width: 64px; height: 64px;
+  border-radius: 14px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+}
 .card-img-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
   height: 60px;
