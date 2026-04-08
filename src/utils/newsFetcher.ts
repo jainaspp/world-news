@@ -183,22 +183,23 @@ async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
   try {
     const limit = group === 'ALL' ? 200 : 100;
     const sources = SOURCE_MAP[group] || [];
-
-    // 用 source 名稱過濾（主要），region 僅作補充
     const sourceFilter = sources.length > 0
       ? `and(source.in.(${sources.map(s => `"${s}"`).join(',')}))`
       : '';
 
-    const res = await fetch(
-      `${SB_URL}/rest/v1/news?select=id,title,summary,link,source,pub_date,region,image_url&order=pub_date.desc&limit=${limit}${sourceFilter}`,
-      {
-        signal: AbortSignal.timeout(6000),
-        headers: {
-          'apikey': SB_ANON_KEY,
-          'Authorization': `Bearer ${SB_ANON_KEY}`,
-        },
-      }
-    );
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), 2500);
+    let res;
+    try {
+      res = await fetch(
+        `${SB_URL}/rest/v1/news?select=id,title,summary,link,source,pub_date,region,image_url&order=pub_date.desc&limit=${limit}${sourceFilter}`,
+        { signal: controller.signal, headers: { 'apikey': SB_ANON_KEY, 'Authorization': `Bearer ${SB_ANON_KEY}` } }
+      );
+    } catch (e) {
+      clearTimeout(t);
+      return [];
+    }
+    clearTimeout(t);
     if (!res.ok) return [];
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) return [];
@@ -349,11 +350,11 @@ export async function fetchAllNews(group = 'ALL'): Promise<NewsItem[]> {
   // 1. Supabase DB（CF Worker cron 寫入的 RSS 新聞）
   const dbNews = await Promise.race([
     fetchFromSupabase(group),
-    new Promise<NewsItem[]>(r => setTimeout(() => r([]), 6000)),
+    new Promise<NewsItem[]>(r => setTimeout(() => r([]), 2500)),
   ]);
 
   // 如果結果夠用，直接返回
-  if (dbNews.length >= 5) {
+  if (dbNews.length >= 3) {
     setCache(group, dbNews);
     return process(dbNews);
   }
@@ -362,7 +363,7 @@ export async function fetchAllNews(group = 'ALL'): Promise<NewsItem[]> {
   if (group !== 'ALL' && dbNews.length > 0) {
     const allNews = await Promise.race([
       fetchFromSupabase('ALL'),
-      new Promise<NewsItem[]>(r => setTimeout(() => r([]), 5000)),
+      new Promise<NewsItem[]>(r => setTimeout(() => r([]), 2500)),
     ]);
     const merged = [...dbNews, ...allNews.filter(n => n.region !== 'ALL').slice(0, 20)];
     setCache(group, merged);
