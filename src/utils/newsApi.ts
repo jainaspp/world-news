@@ -248,62 +248,16 @@ export const RSS_FEEDS = [];
 // 按實際 RSS 來源分組，去重後顯示
 export const RSS_SOURCES = [
   {
-    code: 'ALL', label: '全部', icon: '🌏',
+    code: 'ALL', label: '全球', icon: '🌏',
     sources: []  // 空 = 所有來源
   },
   {
-    code: 'JPN_KOR', label: '日韓', icon: '🇯🇵🇰🇷',
-    sources: ['Yonhap Korea', 'Korea Herald', 'Asahi News', 'Asahi Politics', 'Asahi Intl',
-              'Asahi International', 'Asahi Tech Science', 'Asahi Tech', 'NHK World', 'NHk World']
+    code: 'HKG', label: '香港', icon: '🇭🇰',
+    sources: ['RTHK HK', 'RTHK', 'HK Free Press', 'HKFP']
   },
   {
-    code: 'TWN_HK', label: '台港', icon: '🇹🇼🇭🇰',
-    sources: ['CNA Taiwan', 'RTHK HK', 'RTHK', 'HK Free Press', 'HKFP']
-  },
-  {
-    code: 'IND_CHN', label: '印中', icon: '🇮🇳🇨🇳',
-    sources: ['The Hindu', 'Times of India', 'SCMP']
-  },
-  {
-    code: 'ME_AFR', label: '中東非洲', icon: '🇸🇾🌍',
-    sources: ['Al Arabiya', 'BBC Africa', 'Mail Guardian', 'Mail & Guardian']
-  },
-  {
-    code: 'USA', label: '美國', icon: '🇺🇸',
-    sources: ['CNBC', 'Fox Economy', 'Fox Markets', 'Fox Tech', 'Fox Business',
-              'Fox Business Latest', 'NPR Health', 'BBC Americas']
-  },
-  {
-    code: 'EUR', label: '歐洲', icon: '🇪🇺',
-    sources: ['DW Germany', 'DW', 'Le Monde', 'BBC Europe', 'Euronews']
-  },
-  {
-    code: 'TEC', label: '科技', icon: '💻',
-    sources: ['TechCrunch', 'Ars Technica', 'Ars Tech', 'Wired', 'CSS-Tricks',
-              'Smashing Magazine', 'Smashing Mag', 'Cloudflare Blog', 'kottke.org', 'kottke',
-              'Adactio', 'xkcd', 'WP Tavern', 'WPBeginner', 'Node Weekly',
-              'Spoon & Tamago', 'Spoon Tamago', 'Brand New', 'Stevivor',
-              'Craig Mod', 'Frank Chimero', 'Dave Rupert', 'Jim Nielsen',
-              'Austin Kleon', 'Waxy.org', 'Popular Science', 'Popular Sci']
-  },
-  {
-    code: 'SCI', label: '科學', icon: '🔬',
-    sources: ['Science Magazine', 'Science Mag', 'Nature', 'New Scientist', 'Science Daily',
-              'ESA Space', 'ESA', 'BBC Science']
-  },
-  {
-    code: 'BUS', label: '財經', icon: '💰',
-    sources: ['Reuters Biz', 'Reuters Business', 'Reuters World', 'CNBC',
-              'Fox Economy', 'Fox Markets', 'Fox Business', 'Fox Business Latest']
-  },
-  {
-    code: 'HLT', label: '健康', icon: '🏥',
-    sources: ['NPR Health', 'NHS England', 'Running on Real Food', "Mark's Daily",
-              "Mark's Daily Apple", 'Real Food']
-  },
-  {
-    code: 'TRV', label: '旅遊', icon: '✈️',
-    sources: ["Condé Nast Traveler", 'CN Traveler', 'Nomadic Matt']
+    code: 'OTHER', label: '其他', icon: '📰',
+    sources: []   // 由 newsFetcher 邏輯填入（非 HK 的全部）
   },
 ];
 

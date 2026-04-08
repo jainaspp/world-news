@@ -153,55 +153,8 @@ function parseRSS(xml: string, source: string, region = 'ALL'): NewsItem[] {
   return items;
 }
 
-// ─── Source + Region 雙重過濾（DB region 值：KOR, ALL 等）──
-const SOURCE_MAP: Record<string, string[]> = {
-  ALL: [],
-  // Korea + Japan（DB region='KOR' 或 source 含 Korean/Japanese 關鍵字）
-  JPN_KOR: ['Yonhap Korea', 'Korea Herald', 'Asahi News', 'Asahi Politics',
-             'Asahi Intl', 'Asahi International', 'Asahi Tech Science', 'Asahi Tech',
-             'NHK World', 'NHk World', 'Japan News'],
-  // Taiwan + HK（DB region='TWN'/'HKG' 或 source 含相應關鍵字）
-  TWN_HK: ['CNA Taiwan', 'RTHK HK', 'RTHK', 'HK Free Press', 'HKFP', 'Taiwan News'],
-  // India + China
-  IND_CHN: ['The Hindu', 'Times of India', 'SCMP', 'India Today', 'China Post'],
-  // Middle East + Africa
-  ME_AFR: ['Al Arabiya', 'BBC Africa', 'Mail Guardian', 'Mail & Guardian',
-            'Al Jazeera English', 'Al Jazeera'],
-  // USA
-  USA: ['CNBC', 'Fox Economy', 'Fox Markets', 'Fox Tech', 'Fox Business',
-        'Fox Business Latest', 'NPR Health', 'BBC Americas'],
-  // Europe
-  EUR: ['DW Germany', 'DW', 'Le Monde', 'BBC Europe', 'Euronews',
-        'France24', 'Guardian'],
-  // Tech
-  TEC: ['TechCrunch', 'Ars Technica', 'Ars Tech', 'Wired', 'The Verge',
-        'CNET', 'Mashable'],
-  // Science
-  SCI: ['Science Magazine', 'Science Mag', 'Nature', 'New Scientist',
-        'Science Daily', 'ESA Space', 'ESA', 'BBC Science'],
-  // Business
-  BUS: ['Reuters Biz', 'Reuters Business', 'Reuters World', 'CNBC',
-         'Fox Economy', 'Fox Markets', 'Fox Business', 'Fox Business Latest',
-         'Bloomberg', 'Financial Times'],
-  // Health
-  HLT: ['NPR Health', 'NHS England', 'WebMD', 'Medical News Today'],
-  // Travel
-  TRV: ["Condé Nast Traveler", 'CN Traveler', 'Nomadic Matt', 'Travel + Leisure'],
-};
-// 直接映射前端 group code → DB region 值
-const REGION_CODE_MAP: Record<string, string> = {
-  JPN_KOR: 'KOR',
-  TWN_HK: 'TWN',
-  IND_CHN: 'CHN',
-  ME_AFR: 'MEA',
-  USA: 'USA',
-  EUR: 'EUR',
-  TEC: 'TEC',
-  SCI: 'SCI',
-  BUS: 'BUS',
-  HLT: 'HLT',
-  TRV: 'TRV',
-};
+// ─── 來源映射（香港 RSS）──────────────────────────────────
+const HK_SOURCES = ['RTHK HK', 'RTHK', 'HK Free Press', 'HKFP'];
 
 // ─── Layer 1: Supabase DB（CF Worker cron 寫入的 RSS 新聞）────────────────
 async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
@@ -241,14 +194,16 @@ async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
       };
     });
 
-    if (group === 'ALL') return all;
-
-    // Client-side 雙重過濾：source 名稱 OR region code
-    return all.filter(item => {
-      if (sources.includes(item.source)) return true;
-      if (dbRegion && item.region === dbRegion) return true;
-      return false;
-    });
+    if (group === 'ALL') {
+      // 全球：必須有圖，最多 50 條
+      return all.filter(item => Boolean(item.imageUrl)).slice(0, 50);
+    }
+    if (group === 'HKG') {
+      // 香港：只看 HK 來源
+      return all.filter(item => HK_SOURCES.includes(item.source));
+    }
+    // 其他：排除 HK 來源
+    return all.filter(item => !HK_SOURCES.includes(item.source));
   } catch { return []; }
 }
 
