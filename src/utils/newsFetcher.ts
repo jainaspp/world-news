@@ -255,14 +255,14 @@ const SOURCE_TIER: Record<string, number> = {
   'CNBC': 8, 'DW Germany': 8, 'DW': 8,
   // Tier 4 — 一般來源
   'Fox Business': 7, 'Fox Economy': 7, 'Fox Markets': 7,
-  'Fox Business Latest': 7, 'Fox Tech': 7, 'Fox Markets': 7,
+  'Fox Business Latest': 7, 'Fox Tech': 7,
   'Korea Herald': 7, 'Times of India': 7,
-  'Euronews': 7, 'NHK World': 7, 'NHk World': 7,
+  'Euronews': 7, 'NHK World': 7,
   'HK Free Press': 7, 'HKFP': 7,
   'Al Arabiya': 7, 'Mail Guardian': 7,
   // Tier 5 — 專業媒體
   'TechCrunch': 6, 'Ars Technica': 6, 'Ars Tech': 6,
-  'Wired': 6, 'Nature': 6,
+  'Wired': 6,
   'Science Daily': 6, 'New Scientist': 6,
   'Popular Science': 6, 'ESA': 6, 'ESA Space': 6,
   // Tier 6 — 部落格/個人
