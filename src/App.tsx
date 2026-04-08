@@ -40,17 +40,15 @@ export default function App() {
   const activeGroup = group === 'region' ? activeRegion : activeTopic;
   const { news, loading, refreshing, translating, status, refresh } = useNews(activeGroup, translateLang);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode);
-    localStorage.setItem('darkMode', String(darkMode));
-  }, [darkMode]);
-  useEffect(() => { localStorage.setItem('lang', translateLang); }, [translateLang]);
-  useEffect(() => { setBookmarks(getBookmarks()); }, []);
+  // 首次載入：後台預先抓取並快取所有三個分類
   useEffect(() => {
     if (news.length > 0) {
       const sorted = [...news].sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
       setLastUpdated(new Date(sorted[0].pubDate).toLocaleTimeString());
     }
+    import('./utils/newsFetcher').then(m => {
+      (['ALL', 'HKG', 'OTHER'] as const).forEach(g => m.fetchAllNews(g).catch(() => {}));
+    });
   }, [news]);
 
   function handleBookmarkChange() { setBookmarks(getBookmarks()); }
