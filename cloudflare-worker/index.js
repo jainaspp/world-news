@@ -238,75 +238,13 @@ async function processFeed(feed, existingLinks, supabaseUrl, serviceKey) {
 
 // ─── 計時工具 ─────────────────────────────────────────────────
 function ts() { return new Date().toISOString().slice(11, 19); }
-
-// ─── 入口 ────────────────────────────────────────────────────
 export default {
+  async fetch(request, env) { return handleRequest(request, env); },
   async scheduled(controller, env, ctx) {
-    const sbUrl = env.SUPABASE_URL || SB_URL_FALLBACK;
-    const sbKey = env.SUPABASE_SERVICE_KEY || SB_SVC_KEY_FALLBACK;
-    console.log(`[${ts()}] 🔄 Cron 開始 — ${RSS_FEEDS.length} 個 RSS 來源`);
-    console.log(`[${ts()}] 📦 Supabase: ${sbUrl}`);
-
-    // 讀取現有 link（去重）
-    const existingLinks = await getExistingLinks(sbUrl, sbKey);
-    console.log(`[${ts()}] 📦 DB 現有連結: ${existingLinks.size}`);
-
-    let totalNew = 0, totalError = 0;
-
-    // 並發控制：每次 5 個 feed
-    for (let i = 0; i < RSS_FEEDS.length; i += 5) {
-      const batch = RSS_FEEDS.slice(i, i + 5);
-      const batchResults = await Promise.all(
-        batch.map(feed => processFeed(feed, existingLinks, sbUrl, sbKey))
-      );
-      for (const r of batchResults) {
-        if (r.error) totalError++;
-        else totalNew += r.new;
-      }
-      console.log(`[${ts()}] Batch ${Math.floor(i/5)+1}: done`);
-    }
-
-    console.log(`[${ts()}] ✅ Cron 完成: +${totalNew} new | ${totalError} errors`);
-  },
-
-  // ─── HTTP handler（健康檢查 / 手動觸發）──────────────────────
-  async fetch(request) {
-    const url = new URL(request.url);
-    const supabaseUrl = url.searchParams.get('sb') || SB_URL_FALLBACK;
-    const serviceKey = url.searchParams.get('key') || SB_SVC_KEY_FALLBACK;
-
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Content-Type': 'application/json; charset=utf-8',
-    };
-
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { status: 204, headers: { ...corsHeaders, 'Access-Control-Max-Age': '3600' } });
-    }
-
-    // 讀取模式：?read=1
-    if (url.searchParams.get('read') === '1') {
-      const region = url.searchParams.get('region') || 'ALL';
-      const limit = parseInt(url.searchParams.get('limit') || '30');
-      const serviceKeyOrAnon = serviceKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwY2t3aG5iYXdwcmJra2l6Y21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0OTAyMzMsImV4cCI6MjA5MTA2NjIzM30.KhoDAhJmXcXmqS8g_Z6LdP6LCZPFT4iP5EIJT7JkJlM';
-      const filter = region !== 'ALL' ? `and(region.eq.${region},lang.neq.zh)` : '';
-      const res = await fetch(
-        `${supabaseUrl}/rest/v1/news?select=id,title,summary,link,source,pub_date,region,image_url,lang,category&order=pub_date.desc&limit=${limit}${filter}`,
-        { headers: { 'apikey': serviceKeyOrAnon, 'Authorization': `Bearer ${serviceKeyOrAnon}` } }
-      );
-      if (!res.ok) return new Response(JSON.stringify({ error: 'DB read failed' }), { status: 500, headers: corsHeaders });
-      const data = await res.json();
-      return new Response(JSON.stringify(Array.isArray(data) ? data : []), { headers: corsHeaders });
-    }
-
-    // 狀態模式
-    return new Response(JSON.stringify({
-      status: 'ok',
-      service: 'CF Worker RSS → Supabase',
-      feeds: RSS_FEEDS.length,
-      mode: 'GET /?read=1&region=ALL&limit=30&key=<service_key>',
-    }), { headers: corsHeaders });
+    await Promise.all([
+      fetchAndInsert("ALL"), fetchAndInsert("HKG"),
+      fetchAndInsert("KOR"), fetchAndInsert("JPN"),
+      fetchAndInsert("TWN"),
+    ]).catch(() => {});
   },
 };
