@@ -41,34 +41,21 @@ export function NewsCard({ item, lang, onBookmarkChange }: Props) {
   }
 
   function handleImageError(e: React.SyntheticEvent<HTMLImageElement>) {
-    const wrap = (e.target as HTMLImageElement).closest('.card-image-wrap') as HTMLElement | null;
-    if (wrap) {
-      wrap.style.background = 'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)';
-      wrap.style.display = 'flex';
-      wrap.style.alignItems = 'center';
-      wrap.style.justifyContent = 'center';
-      // 插入一個 emoji 佔位符
-      wrap.innerHTML = `<span style="font-size:2rem;opacity:0.4;">🌍</span>`;
-    }
+    const seed = (item.id % 900) + 100;
+    (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${seed}/800/450`;
   }
 
   return (
     <div className="card">
       {(() => {
         const img = item.imageUrl;
+        const seed = (item.id % 900) + 100;
+        const fallbackSrc = `https://picsum.photos/seed/${seed}/800/450`;
         if (!img) {
-          // 完全無圖時，生成一個 picsum 佔位圖
-          const seed = (item.id % 900) + 100;
-          const fallbackSrc = `https://picsum.photos/seed/${seed}/800/450`;
+          // 無圖時：純色漸層 + 大emoji，無img標籤
           return (
-            <div className="card-image-wrap card-image-placeholder" style={{ background: 'linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)' }}>
-              <img
-                className="card-image"
-                src={fallbackSrc}
-                alt={title}
-                loading="lazy"
-                onError={handleImageError}
-              />
+            <div className="card-image-wrap card-img-empty">
+              <span className="card-img-emoji">🌍</span>
             </div>
           );
         }
@@ -79,7 +66,9 @@ export function NewsCard({ item, lang, onBookmarkChange }: Props) {
               src={img}
               alt={title}
               loading="lazy"
-              onError={handleImageError}
+              onError={e => {
+                (e.target as HTMLImageElement).src = fallbackSrc;
+              }}
             />
           </div>
         );

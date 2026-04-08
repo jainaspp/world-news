@@ -489,6 +489,21 @@ body::before {
   background: linear-gradient(135deg, #1e1b4b 0%, #2e1065 50%, #4a044e 100%);
   color: rgba(167,139,250,0.2);
 }
+.card-img-empty {
+  width: 100%; height: 180px;
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 40%, #ddd6fe 70%, #f0abfc 100%);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.dark .card-img-empty {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4c1d95 70%, #6b21a8 100%);
+}
+.card-img-emoji {
+  font-size: 3.2em;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+  user-select: none;
+  pointer-events: none;
+}
 .card-img-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
   height: 60px;
