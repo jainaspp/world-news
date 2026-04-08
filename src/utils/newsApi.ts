@@ -307,6 +307,9 @@ export const RSS_SOURCES = [
   },
 ];
 
+// ─── 區域分類（供 sources.ts 使用）──────────────────────
+export const REGIONS = RSS_SOURCES;
+
 // ─── 主題分類（晶片欄 2）────────────────────────────────
 // 過濾規則：source 包含關鍵詞
 export const TOPICS = [

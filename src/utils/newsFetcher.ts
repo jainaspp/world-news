@@ -111,7 +111,9 @@ function dh(html: string): string {
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
     .replace(/&#(\d+);/g, (_, c) => String.fromCharCode(+c))
-    .replace(/<[^>]+>/g, '').trim();
+    .replace(/<[^>]+>/g, '').trim()
+    // Google News RSS: 底線代替空格
+    .replace(/_/g, ' ');
 }
 
 // ─── RSS Parser ────────────────────────────────────────────────
@@ -154,7 +156,7 @@ function parseRSS(xml: string, source: string, region = 'ALL'): NewsItem[] {
 // ─── Layer 1: Supabase DB（CF Worker cron 寫入的 RSS 新聞）────────────────
 async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
   try {
-    const limit = group === 'ALL' ? 60 : 30;
+    const limit = group === 'ALL' ? 200 : 100;
     const regionFilter = group !== 'ALL' ? `and(region.eq.${group})` : '';
     const res = await fetch(
       `${SB_URL}/rest/v1/news?select=id,title,summary,link,source,pub_date,region,image_url&order=pub_date.desc&limit=${limit}${regionFilter}`,
@@ -294,12 +296,9 @@ function process(items: NewsItem[]): NewsItem[] {
   const seen = new Set<number>();
   const uniq: NewsItem[] = [];
   items.forEach(i => { if (!seen.has(i.id)) { seen.add(i.id); uniq.push(i); } });
-  const cutoff = Date.now() - 72 * 3600 * 1000;
+  // 無時間限制，無數量上限，全部顯示
   return uniq
-    .filter(i => { try { return new Date(i.pubDate).getTime() > cutoff; } catch { return false; } })
-    // 權威度 + 時間聯合排序
     .sort((a, b) => scoreItem(b) - scoreItem(a))
-    .slice(0, 60)
     .map(i => i.imageUrl ? i : { ...i, imageUrl: `https://picsum.photos/seed/${(i.id % 900) + 100}/800/450` });
 }
 
