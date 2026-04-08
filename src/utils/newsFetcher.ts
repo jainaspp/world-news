@@ -153,13 +153,44 @@ function parseRSS(xml: string, source: string, region = 'ALL'): NewsItem[] {
   return items;
 }
 
+// ─── Source → Region 映射（用於彌補 DB region 欄位不準確的問題）──
+const SOURCE_MAP: Record<string, string[]> = {
+  ALL: [],
+  JPN_KOR: ['Yonhap Korea', 'Korea Herald', 'Asahi News', 'Asahi Politics',
+             'Asahi Intl', 'Asahi International', 'Asahi Tech Science', 'Asahi Tech',
+             'NHK World', 'NHk World', 'Japan News'],
+  TWN_HK: ['CNA Taiwan', 'RTHK HK', 'RTHK', 'HK Free Press', 'HKFP', 'Taiwan News'],
+  IND_CHN: ['The Hindu', 'Times of India', 'SCMP', 'India Today', 'China Post'],
+  ME_AFR: ['Al Arabiya', 'BBC Africa', 'Mail Guardian', 'Mail & Guardian',
+            'Al Jazeera English'],
+  USA: ['CNBC', 'Fox Economy', 'Fox Markets', 'Fox Tech', 'Fox Business',
+        'Fox Business Latest', 'NPR Health', 'BBC Americas'],
+  EUR: ['DW Germany', 'DW', 'Le Monde', 'BBC Europe', 'Euronews',
+        'France24', 'Guardian'],
+  TEC: ['TechCrunch', 'Ars Technica', 'Ars Tech', 'Wired', 'The Verge',
+        'CNET', 'Mashable', 'Wired'],
+  SCI: ['Science Magazine', 'Science Mag', 'Nature', 'New Scientist',
+        'Science Daily', 'ESA Space', 'ESA', 'BBC Science'],
+  BUS: ['Reuters Biz', 'Reuters Business', 'Reuters World', 'CNBC',
+         'Fox Economy', 'Fox Markets', 'Fox Business', 'Fox Business Latest',
+         'Bloomberg', 'Financial Times'],
+  HLT: ['NPR Health', 'NHS England', 'WebMD', 'Medical News Today'],
+  TRV: ["Condé Nast Traveler", 'CN Traveler', 'Nomadic Matt', 'Travel + Leisure'],
+};
+
 // ─── Layer 1: Supabase DB（CF Worker cron 寫入的 RSS 新聞）────────────────
 async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
   try {
     const limit = group === 'ALL' ? 200 : 100;
-    const regionFilter = group !== 'ALL' ? `and(region.eq.${group})` : '';
+    const sources = SOURCE_MAP[group] || [];
+
+    // 用 source 名稱過濾（主要），region 僅作補充
+    const sourceFilter = sources.length > 0
+      ? `and(source.in.(${sources.map(s => `"${s}"`).join(',')}))`
+      : '';
+
     const res = await fetch(
-      `${SB_URL}/rest/v1/news?select=id,title,summary,link,source,pub_date,region,image_url&order=pub_date.desc&limit=${limit}${regionFilter}`,
+      `${SB_URL}/rest/v1/news?select=id,title,summary,link,source,pub_date,region,image_url&order=pub_date.desc&limit=${limit}${sourceFilter}`,
       {
         signal: AbortSignal.timeout(6000),
         headers: {
@@ -183,7 +214,6 @@ async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
         link: String(r.link||''),
         source: String(r.source||''),
         pubDate: String(r.pub_date||new Date().toISOString()),
-        // 無圖片時自動生成 picsum 佔位圖
         imageUrl: rawImg || `https://picsum.photos/seed/${(id % 900) + 100}/800/450`,
         region: String(r.region||group),
       };
