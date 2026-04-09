@@ -59,7 +59,7 @@ BEGIN
 END;
 $$;
 
--- 香港新聞（按 title 去重）
+-- 香港新聞（按 title 去重，排除立場）
 CREATE OR REPLACE FUNCTION get_news_hkg()
 RETURNS SETOF news
 LANGUAGE plpgsql
@@ -76,7 +76,6 @@ BEGIN
       OR title ILIKE '%hkfp%'
       OR title ILIKE '%852%'
       OR title ILIKE '%明報%'
-      OR title ILIKE '%立場%'
       OR title ILIKE '%港聞%'
       OR title ILIKE '%港股%'
   ORDER BY title, pub_date DESC
@@ -84,7 +83,7 @@ BEGIN
 END;
 $$;
 
--- 其他新聞（排除香港關鍵詞，按 title 去重）
+-- 其他新聞（所有非香港關鍵詞，不限圖片）
 CREATE OR REPLACE FUNCTION get_news_other()
 RETURNS SETOF news
 LANGUAGE plpgsql
@@ -101,7 +100,6 @@ BEGIN
     AND title NOT ILIKE '%hkfp%'
     AND title NOT ILIKE '%852%'
     AND title NOT ILIKE '%明報%'
-    AND title NOT ILIKE '%立場%'
     AND title NOT ILIKE '%港聞%'
     AND title NOT ILIKE '%港股%'
   ORDER BY title, pub_date DESC

@@ -199,17 +199,17 @@ async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
       return all.filter(item => Boolean(item.imageUrl)).slice(0, 50);
     }
     if (group === 'HKG') {
-      // 香港：標題含 HK 相關關鍵詞
+      // 香港：標題含 HK 相關關鍵詞（排除立場）
       return all.filter(item => {
         if (!item.title) return false;
         const t = item.title.toLowerCase();
         return t.includes('hong kong') || t.includes('hk ') || t.includes('hk,') ||
                t.includes('香港') || t.includes('港聞') || t.includes('港股') ||
                t.includes('rthk') || t.includes('hkfp') || t.includes('明報') ||
-               t.includes('立場') || t.includes('852') || t.includes('香港時間');
+               t.includes('852') || t.includes('香港時間');
       });
     }
-    // 其他：全球減去香港
+    // 其他：所有非香港關鍵詞（不限圖片）
     return all.filter(item => {
       if (!item.title) return true;
       const t = item.title.toLowerCase();
@@ -217,7 +217,7 @@ async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
         t.includes('hong kong') || t.includes('hk ') || t.includes('hk,') ||
         t.includes('香港') || t.includes('港聞') || t.includes('港股') ||
         t.includes('rthk') || t.includes('hkfp') || t.includes('明報') ||
-        t.includes('立場') || t.includes('852') || t.includes('香港時間')
+        t.includes('852') || t.includes('香港時間')
       );
     });
   } catch { return []; }
