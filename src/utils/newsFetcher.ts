@@ -161,12 +161,22 @@ async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
   try {
     // 由於 DB 規模小（<100行），直接取 ALL 然後 client-side 過濾
     const controller = new AbortController();
-    const t = setTimeout(() => controller.abort(), 20000);
+    const t = setTimeout(() => controller.abort(), 3000); // RPC 只需 0.7s，3秒夠快
     let res;
     try {
+      // 用 RPC（0.73 秒）而不是 REST（11.5 秒）
       res = await fetch(
-        `${SB_URL}/rest/v1/news?select=id,title,summary,link,source,pub_date,region,image_url&order=pub_date.desc&limit=200`,
-        { signal: controller.signal, headers: { 'apikey': SB_ANON_KEY, 'Authorization': `Bearer ${SB_ANON_KEY}` } }
+        `${SB_URL}/rest/v1/rpc/get_news_all?lim=50`,
+        {
+          method: 'POST',
+          signal: controller.signal,
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SB_ANON_KEY,
+            'Authorization': `Bearer ${SB_ANON_KEY}`,
+          },
+          body: JSON.stringify({}),
+        }
       );
     } catch (e) { clearTimeout(t); return []; }
     clearTimeout(t);

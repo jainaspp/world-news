@@ -1,13 +1,9 @@
 -- ═══════════════════════════════════════════════
---  news table + 優化索引 + 視圖 + RPC 函數
+--  news table + 優化索引 + RPC 函數（已優化）
 -- ═══════════════════════════════════════════════
 
 -- 1. 強制執行 schema（每次重設）
 DROP TABLE IF EXISTS news CASCADE;
-DROP VIEW IF EXISTS news_hkg CASCADE;
-DROP VIEW IF EXISTS news_other CASCADE;
-DROP VIEW IF EXISTS news_global CASCADE;
-DROP FUNCTION IF EXISTS get_news_by_category(text) CASCADE;
 DROP FUNCTION IF EXISTS get_news_hkg() CASCADE;
 DROP FUNCTION IF EXISTS get_news_other() CASCADE;
 DROP FUNCTION IF EXISTS get_news_all(integer) CASCADE;
