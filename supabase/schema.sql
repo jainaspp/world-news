@@ -43,7 +43,7 @@ CREATE INDEX news_title_hkg_idx ON news USING gin (
 --  RPC 函數：直接在 DB 端過濾，極速返回
 -- ═══════════════════════════════════════════════
 
--- 全球新聞（不限圖片，按 title 去重）
+-- 全球新聞（只看高質量來源：Yonhap/France24/Al Jazeera/CNBC/BBC/Reuters/NHK/SCMP/Asahi/Le Monde/DW/Euronews 等）
 CREATE OR REPLACE FUNCTION get_news_all(lim integer DEFAULT 50)
 RETURNS SETOF news
 LANGUAGE plpgsql
@@ -53,6 +53,12 @@ BEGIN
   RETURN QUERY
   SELECT DISTINCT ON (title) *
   FROM   news
+  WHERE  source IN (
+    'Yonhap Korea','France24','Al Jazeera','CNBC',
+    'BBC World','Reuters','NHK World','SCMP',
+    'Asahi International','The Guardian','Le Monde',
+    'DW','Euronews','Fox Business','Fox Markets'
+  )
   ORDER BY title, pub_date DESC
   LIMIT  lim;
 END;
