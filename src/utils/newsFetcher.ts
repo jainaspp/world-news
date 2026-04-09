@@ -331,8 +331,16 @@ function scoreItem(item: NewsItem): number {
 
 function process(items: NewsItem[]): NewsItem[] {
   const seen = new Set<number>();
+  const titleSeen = new Set<string>();
   const uniq: NewsItem[] = [];
-  items.forEach(i => { if (!seen.has(i.id)) { seen.add(i.id); uniq.push(i); } });
+  items.forEach(i => {
+    const titleKey = i.title.toLowerCase().trim();
+    if (!seen.has(i.id) && !titleSeen.has(titleKey)) {
+      seen.add(i.id);
+      titleSeen.add(titleKey);
+      uniq.push(i);
+    }
+  });
   // 無時間限制，無數量上限，全部顯示
   return uniq
     .sort((a, b) => scoreItem(b) - scoreItem(a))
