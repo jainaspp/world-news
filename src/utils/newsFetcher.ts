@@ -195,8 +195,8 @@ async function fetchFromSupabase(group: string): Promise<NewsItem[]> {
     });
 
     if (group === 'ALL') {
-      // 全球：必須有圖，最多 50 條
-      return all.filter(item => Boolean(item.imageUrl)).slice(0, 50);
+      // 全球：不限圖片（Card 層會自動用 favicon/picsum 填補）
+      return all.slice(0, 50);
     }
     if (group === 'HKG') {
       // 香港：標題含 HK 相關關鍵詞（排除立場）
