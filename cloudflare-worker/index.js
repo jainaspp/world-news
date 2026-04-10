@@ -1,75 +1,73 @@
 /**
- * CF Worker — NewsData.io → Supabase
- * 每 15 分鐘抓一次，寫入 DB
- * 瀏覽器直接讀 Supabase（~0.7秒）
+ * CF Worker — 三合一：
+ * 1. /news?group=ALL|HKG  → 瀏覽器讀 Supabase（Edge 代理，CF→SB 很快）
+ * 2. /run                  → 手動觸發 NewsData.io 抓取寫入
+ * 3. cron (每15分鐘)       → 自動抓取寫入
  */
 "use strict";
 
 const SB_URL_FALLBACK = 'https://qpckwhnbawprbkkizcmn.supabase.co';
 const SB_SVC_KEY_FALLBACK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwY2t3aG5iYXdwcmJra2l6Y21uIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTQ5MDIzMywiZXhwIjoyMDkxMDY2MjMzfQ.rX6gqIWcgFmpckJUFplmSIvCrm09An43Gs6YUwrx218';
-
-// NewsData.io API keys
-const ND_KEYS = [
-  'pub_2cc2f7c9e2694779871ea0d95a5a4689',
-  'pub_6659e2e08a3b483b89d1a2a5db900301',
-];
+const ND_KEYS = ['pub_2cc2f7c9e2694779871ea0d95a5a4689','pub_6659e2e08a3b483b89d1a2a5db900301'];
 
 // ─── 工具 ────────────────────────────────────────────────
 function sid(a='', b='') {
   let h = 0;
-  for (const c of (a+b).replace(/[^a-zA-Z0-9]/g,'').toLowerCase()) h = (Math.imul(31,h)+c.charCodeAt(0))|0;
+  for (const c of (a+b).replace(/[^a-zA-Z0-9]/g,'').toLowerCase())
+    h = (Math.imul(31,h)+c.charCodeAt(0))|0;
   return String(Math.abs(h));
 }
-
-function mapCategory(cat) {
-  const map = {
-    top:'ALL', world:'ALL', politics:'POL', business:'FIN',
-    technology:'TECH', science:'SCI', health:'SCI',
-    entertainment:'ENT', sports:'SPO', environment:'SCI',
-    food:'LIF', tourism:'LIF', crime:'WORLD', nation:'ALL',
-  };
-  return map[cat?.toLowerCase()] || 'ALL';
+function unesc(s) {
+  return (s||'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+                  .replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&nbsp;/g,' ');
 }
 
-function mapCountry(lang, cat) {
-  const m = { en:'WORLD', zh:'CHN', ja:'JPN', ko:'KOR', fr:'EUR', de:'EUR', es:'EUR', ar:'MEA', hi:'IND' };
-  return m[lang] || 'ALL';
-}
-
-// ─── 從 NewsData.io 抓新聞 ────────────────────────────────
-async function fetchFromNewsData(lang, category, size=50) {
-  // 輪流試兩個 key
-  for (const apiKey of ND_KEYS) {
-    const params = new URLSearchParams({
-      apikey: apiKey,
-      language: lang,
-      size: String(size),
-      sort: 'publish_desc',
-    });
-    if (category) params.set('category', category);
-    const url = `https://newsdata.io/api/1/news?${params}`;
+// ─── NewsData.io 抓取 ─────────────────────────────────────
+async function fetchND(lang, size=10) {
+  for (const key of ND_KEYS) {
     try {
-      const res = await fetch(url, { timeout: 10000 });
+      const res = await fetch(
+        `https://newsdata.io/api/1/news?apikey=${key}&language=${lang}&size=${size}`,
+        { cf: { cacheTtl: 300, cacheEverything: true } } // CF 緩存5分鐘
+      );
       if (!res.ok) continue;
       const json = await res.json();
       if (json.status !== 'success' || !Array.isArray(json.results)) continue;
-      return json.results.map(item => ({
-        id:       item.article_id || sid(item.title || '', item.link || ''),
-        title:    item.title || '',
-        summary:  item.description || item.content || '',
-        link:     item.link || '',
-        source:   item.source_id || item.source_name || 'NewsData.io',
-        pub_date: item.pubDate || item.iso_date || new Date().toISOString(),
-        image_url: item.image_url || '',
-        region:   mapCountry(lang, item.category?.[0]) || 'ALL',
+      return json.results.map(i => ({
+        id:       i.article_id || sid(i.title||'', i.link||''),
+        title:    unesc((i.title||'').slice(0,500)),
+        summary:  unesc((i.description||i.content||'').slice(0,1000)),
+        link:     i.link||'',
+        source:   i.source_id||i.source_name||'NewsData',
+        pub_date: i.pubDate||i.iso_date||new Date().toISOString(),
+        image_url: i.image_url||'',
+        region:   {en:'ALL',zh:'CHN',ko:'KOR',ja:'JPN',es:'EUR'}[lang]||'ALL',
       }));
-    } catch(e) { /* try next key */ }
+    } catch { /* next key */ }
   }
   return [];
 }
 
-// ─── 寫入 Supabase ────────────────────────────────────────
-async function upsertNews(sbUrl, svcKey, items) {
+// ─── Supabase 讀（供 /news 用）───────────────────────────
+async function sbRead(sbUrl, svcKey, fn) {
+  try {
+    const res = await fetch(`${sbUrl}/rest/v1/rpc/${fn}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': svcKey,
+        'Authorization': `Bearer ${svcKey}`,
+      },
+      body: JSON.stringify({}),
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch { return []; }
+}
+
+// ─── Supabase 寫 ────────────────────────────────────────
+async function sbUpsert(sbUrl, svcKey, items) {
   if (!items.length) return 0;
   try {
     const res = await fetch(`${sbUrl}/rest/v1/news`, {
@@ -82,96 +80,72 @@ async function upsertNews(sbUrl, svcKey, items) {
       },
       body: JSON.stringify(items),
     });
-    const text = await res.text();
     return res.ok ? items.length : 0;
-  } catch(e) {
-    console.error('[SB] upsert error:', e.message);
-    return 0;
-  }
-}
-
-// ─── 查詢 DB 現有數量 ────────────────────────────────────
-async function countNews(sbUrl, svcKey) {
-  try {
-    const res = await fetch(`${sbUrl}/rest/v1/news?select=id&limit=1000`, {
-      headers: { 'apikey': svcKey, 'Authorization': `Bearer ${svcKey}` }
-    });
-    if (!res.ok) return 0;
-    const data = await res.json();
-    return Array.isArray(data) ? data.length : 0;
   } catch { return 0; }
 }
 
-// ─── 主函數 ────────────────────────────────────────────────
+// ─── 路由分發 ────────────────────────────────────────────
 export default {
   async fetch(req, env) {
-    const u = new URL(req.url);
-    if (u.pathname === '/health') {
-    // 先測 newsdata 是否可達
-    try {
-      const t0 = Date.now();
-      const r = await fetch('https://newsdata.io/api/1/news?apikey=pub_2cc2f7c9e2694779871ea0d95a5a4689&language=en&size=1');
-      const ms = Date.now() - t0;
-      const text = await r.text();
-      return new Response(JSON.stringify({ nd: r.ok?'OK':'FAIL', status: r.status, ms, body: text.slice(0,200) }), {
-        headers: { 'Content-Type': 'application/json' }
-      });
-    } catch(e) {
-      return new Response(JSON.stringify({ nd: 'ERROR', msg: e.message }), {
-        headers: { 'Content-Type': 'application/json' }
+    const u   = new URL(req.url);
+    const sb  = env.SUPABASE_URL     || SB_URL_FALLBACK;
+    const sk  = env.SUPABASE_SERVICE_KEY || SB_SVC_KEY_FALLBACK;
+
+    // 1. 瀏覽器讀 Supabase（Edge 代理）
+    if (u.pathname === '/news') {
+      const group = u.searchParams.get('group') || 'ALL';
+      const fn    = group === 'HKG' ? 'get_news_hkg' : 'get_news_all';
+      const data  = await sbRead(sb, sk, fn);
+      return new Response(JSON.stringify(data), {
+        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=60' }
       });
     }
-  }
+
+    // 2. 手動觸發一次 NewsData.io 抓取
     if (u.pathname === '/run') {
       const result = await runAll(env);
       return new Response(JSON.stringify(result), {
         headers: { 'Content-Type': 'application/json' }
       });
     }
+
+    // 3. 健康檢查
+    if (u.pathname === '/health') {
+      const t0  = Date.now();
+      const ok  = await sbRead(sb, sk, 'get_news_all').then(d => d.length > 0).catch(() => false);
+      return new Response(JSON.stringify({ ok, ms: Date.now()-t0 }), {
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
     return new Response('Not Found', { status: 404 });
   },
 
+  // 每 15 分鐘自動抓取寫入
   async scheduled(_, env) {
-    const result = await runAll(env);
-    console.log('[cron done]', JSON.stringify(result));
+    await runAll(env);
   },
 };
 
+// ─── 完整抓取流程 ─────────────────────────────────────────
 async function runAll(env) {
-  const sbUrl    = env.SUPABASE_URL     || SB_URL_FALLBACK;
-  const svcKey   = env.SUPABASE_SERVICE_KEY || SB_SVC_KEY_FALLBACK;
-  const apiKey   = env.NEWSDATA_API_KEY || ND_API_KEY;
-  const ts       = new Date().toISOString();
+  const sb    = env.SUPABASE_URL     || SB_URL_FALLBACK;
+  const sk    = env.SUPABASE_SERVICE_KEY || SB_SVC_KEY_FALLBACK;
+  const t0    = Date.now();
 
-  console.log(`[${ts}] starting...`);
-
-  // 並行抓所有語言/分類
-  const [enAll, zhAll, koAll, jaAll, esAll] = await Promise.all([
-    fetchFromNewsData('en', null,     50),  // 英文全球
-    fetchFromNewsData('zh', null,     30),  // 中文
-    fetchFromNewsData('ko', null,     30),  // 韓文
-    fetchFromNewsData('ja', null,     30),  // 日文
-    fetchFromNewsData('es', null,     30),  // 西班牙文
+  const [en, zh, ko, ja, es] = await Promise.all([
+    fetchND('en', 10), fetchND('zh', 10), fetchND('ko', 10),
+    fetchND('ja', 10), fetchND('es', 10),
   ]);
 
-  // 去重
   const seen = new Set();
-  const all  = [];
-  for (const item of [...enAll, ...zhAll, ...koAll, ...jaAll, ...esAll]) {
-    if (!seen.has(item.id)) { seen.add(item.id); all.push(item); }
+  const uniq = [...en,...zh,...ko,...ja,...es].filter(n => n.title && !seen.has(n.id) && seen.add(n.id));
+
+  console.log(`[cron] fetched ${uniq.length} unique in ${((Date.now()-t0)/1000).toFixed(1)}s`);
+  if (uniq.length > 0) {
+    const n = await sbUpsert(sb, sk, uniq);
+    console.log(`[cron] upserted ${n}`);
+    return { ok: true, fetched: uniq.length, upserted: n, ms: Date.now()-t0 };
   }
-
-  // 去空標題
-  const valid = all.filter(n => n.title && n.title.length > 10);
-
-  console.log(`[${ts}] total: ${valid.length} (en:${enAll.length} zh:${zhAll.length} ko:${koAll.length} ja:${jaAll.length})`);
-
-  if (valid.length > 0) {
-    const written = await upsertNews(sbUrl, svcKey, valid);
-    const count   = await countNews(sbUrl, svcKey);
-    console.log(`[${ts}] written: ${written}, total in DB: ${count}`);
-    return { ok: true, written, total: count, ts };
-  }
-
-  return { ok: false, reason: 'no data', ts };
+  return { ok: false, ms: Date.now()-t0 };
 }
