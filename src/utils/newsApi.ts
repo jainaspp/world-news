@@ -249,15 +249,11 @@ export const RSS_FEEDS = [];
 export const RSS_SOURCES = [
   {
     code: 'ALL', label: '全球', icon: '🌏',
-    sources: []  // 空 = 所有來源
+    sources: []
   },
   {
     code: 'HKG', label: '香港', icon: '🇭🇰',
-    sources: ['RTHK HK', 'RTHK', 'HK Free Press', 'HKFP']
-  },
-  {
-    code: 'OTHER', label: '其他', icon: '📰',
-    sources: []   // 由 newsFetcher 邏輯填入（非 HK 的全部）
+    sources: []
   },
 ];
 

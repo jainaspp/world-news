@@ -1,250 +1,177 @@
 /**
- * CF Worker — 多來源 RSS 抓取 → Supabase 儲存
- * 
- * Cron: 每 15 分鐘執行一次
- * RSS 來源覆蓋：全球熱門 + 12 個地區 + 6 個專業話題
- * 結果存入 Supabase，前端直接讀 DB（穩定快速）
- * 
- * 為什麼不用 Google News RSS：
- * - Google News 地區 RSS 結果極少（0-5條）
- * - source: 運算符幾乎全部被 Google 過濾
- * - 直接 RSS 來自權威媒體，更穩定、更準確
+ * CF Worker — NewsData.io → Supabase
+ * 每 15 分鐘抓一次，寫入 DB
+ * 瀏覽器直接讀 Supabase（~0.7秒）
  */
 "use strict";
 
-// ─── 環境變量（在 CF Dashboard 設定）─────────────────────────────
-// SUPABASE_URL: https://qpckwhnbawprbkkizcmn.supabase.co
-// SUPABASE_SERVICE_KEY: eyJhbGci...（service_role key）
-
-// ⚠️  fallback（如果 env 未設定，確保 cron 仍能運行）
 const SB_URL_FALLBACK = 'https://qpckwhnbawprbkkizcmn.supabase.co';
 const SB_SVC_KEY_FALLBACK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwY2t3aG5iYXdwcmJra2l6Y21uIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTQ5MDIzMywiZXhwIjoyMDkxMDY2MjMzfQ.rX6gqIWcgFmpckJUFplmSIvCrm09An43Gs6YUwrx218';
 
-// ─── RSS 來源配置（50+ 來源）────────────────────────────────
-const RSS_FEEDS = [
-  // 🌍 全球權威
-  { name: 'Reuters World', url: 'https://feeds.reuters.com/reuters/worldnews', region: 'ALL', lang: 'en' },
-  { name: 'BBC World', url: 'http://feeds.bbci.co.uk/news/world/rss.xml', region: 'ALL', lang: 'en' },
-  { name: 'CNN World', url: 'http://rss.cnn.com/rss/edition_world.rss', region: 'ALL', lang: 'en' },
-  { name: 'Al Jazeera', url: 'https://www.aljazeera.com/xml/rss/all.xml', region: 'ALL', lang: 'en' },
-  { name: 'AP News', url: 'https://feeds.ap.org/rss/topnews', region: 'ALL', lang: 'en' },
-  { name: 'NPR World', url: 'https://feeds.npr.org/1004/rss.xml', region: 'ALL', lang: 'en' },
-  { name: 'France24', url: 'https://www.france24.com/en/rss', region: 'ALL', lang: 'en' },
-  { name: 'The Guardian World', url: 'https://www.theguardian.com/world/rss', region: 'ALL', lang: 'en' },
-  { name: 'Fox Business Latest', url: 'https://moxie.foxbusiness.com/google-publisher/latest.xml', region: 'ALL', lang: 'en' },
-
-  // 🇺🇸 美國
-  { name: 'BBC Americas', url: 'http://feeds.bbci.co.uk/news/world/us_canada/rss.xml', region: 'USA', lang: 'en' },
-  { name: 'Fox Business Economy', url: 'https://moxie.foxbusiness.com/google-publisher/economy.xml', region: 'USA', lang: 'en' },
-  { name: 'Fox Business Markets', url: 'https://moxie.foxbusiness.com/google-publisher/markets.xml', region: 'USA', lang: 'en' },
-  { name: 'Fox Business Tech', url: 'https://moxie.foxbusiness.com/google-publisher/technology.xml', region: 'USA', lang: 'en' },
-  { name: 'CNBC', url: 'https://www.cnbc.com/id/100003114/device/rss/rss.html', region: 'USA', lang: 'en' },
-
-  // 🌏 亞太
-  { name: 'Asahi News', url: 'https://www.asahi.com/rss/asahi/news.rdf', region: 'JPN', lang: 'ja' },
-  { name: 'Asahi Politics', url: 'https://www.asahi.com/rss/asahi/politics.rdf', region: 'JPN', lang: 'ja' },
-  { name: 'Asahi International', url: 'https://www.asahi.com/rss/asahi/international.rdf', region: 'JPN', lang: 'ja' },
-  { name: 'Asahi Tech Science', url: 'https://www.asahi.com/rss/asahi/tech_science.rdf', region: 'JPN', lang: 'ja' },
-  { name: 'NHK World', url: 'https://www3.nhk.or.jp/rss/news/cat0.xml', region: 'JPN', lang: 'ja' },
-  { name: 'CNA Taiwan', url: 'https://english.cna.com.tw/rss/latestReports', region: 'TWN', lang: 'en' },
-  { name: 'RTHK Hong Kong', url: 'https://news.rthk.hk/rss/news', region: 'HKG', lang: 'zh' },
-  { name: 'HK Free Press', url: 'https://www.hongkongfp.com/feed/', region: 'HKG', lang: 'en' },
-  { name: 'Yonhap Korea', url: 'https://www.yna.co.kr/rss/news.xml', region: 'KOR', lang: 'ko' },
-  { name: 'Korea Herald', url: 'http://www.koreaherald.com/rss.php?l=1', region: 'KOR', lang: 'en' },
-  { name: 'The Hindu', url: 'https://www.thehindu.com/news/international/rss/', region: 'IND', lang: 'en' },
-  { name: 'Times of India', url: 'https://timesofindia.indiatimes.com/rss.cms', region: 'IND', lang: 'en' },
-  { name: 'SCMP', url: 'https://www.scmp.com/rss/91/feed', region: 'CHN', lang: 'en' },
-
-  // 🌍 歐洲
-  { name: 'DW Germany', url: 'https://rss.dw.com/rdf/rss-de-all', region: 'DEU', lang: 'de' },
-  { name: 'Le Monde', url: 'https://www.lemonde.fr/international/rss_full.xml', region: 'FRA', lang: 'fr' },
-  { name: 'BBC Europe', url: 'http://feeds.bbci.co.uk/news/world/europe/rss.xml', region: 'EUR', lang: 'en' },
-  { name: 'Euronews', url: 'https://feeds.euronews.com/italy_news', region: 'EUR', lang: 'en' },
-
-  // 🌍 中東 / 非洲 / 拉美
-  { name: 'Al Arabiya', url: 'https://www.alarabiya.net/.rss/full/22', region: 'ME', lang: 'ar' },
-  { name: 'BBC Africa', url: 'http://feeds.bbci.co.uk/news/world/africa/rss.xml', region: 'AFR', lang: 'en' },
-  { name: 'Mail & Guardian', url: 'https://mg.co.za/feed/', region: 'AFR', lang: 'en' },
-  { name: 'BBC Latin America', url: 'http://feeds.bbci.co.uk/news/world/latin_america/rss.xml', region: 'LAT', lang: 'en' },
-
-  // 💻 科技
-  { name: 'TechCrunch', url: 'https://techcrunch.com/feed/', region: 'TEC', lang: 'en' },
-  { name: 'Ars Technica', url: 'https://feeds.arstechnica.com/arstechnica/index', region: 'TEC', lang: 'en' },
-  { name: 'Wired', url: 'https://www.wired.com/feed/rss', region: 'TEC', lang: 'en' },
-  { name: 'CSS-Tricks', url: 'https://css-tricks.com/feed/', region: 'TEC', lang: 'en' },
-  { name: 'Smashing Magazine', url: 'https://www.smashingmagazine.com/feed/', region: 'TEC', lang: 'en' },
-  { name: 'Cloudflare Blog', url: 'https://blog.cloudflare.com/rss/', region: 'TEC', lang: 'en' },
-  { name: 'kottke.org', url: 'https://kottke.org/feed', region: 'TEC', lang: 'en' },
-  { name: 'Adactio', url: 'https://adactio.com/journal/feed', region: 'TEC', lang: 'en' },
-  { name: 'xkcd', url: 'https://xkcd.com/rss.xml', region: 'TEC', lang: 'en' },
-  { name: 'WP Tavern', url: 'https://wptavern.com/feed', region: 'TEC', lang: 'en' },
-  { name: 'WPBeginner', url: 'https://www.wpbeginner.com/feed/', region: 'TEC', lang: 'en' },
-  { name: 'Node Weekly', url: 'https://cprss.s3.amazonaws.com/nodeweekly.com.xml', region: 'TEC', lang: 'en' },
-
-  // 🔬 科學
-  { name: 'Science Magazine', url: 'https://www.science.org/rss/current.xml', region: 'SCI', lang: 'en' },
-  { name: 'Nature', url: 'https://www.nature.com/nature.rss', region: 'SCI', lang: 'en' },
-  { name: 'New Scientist', url: 'https://www.newscientist.com/feed/home/', region: 'SCI', lang: 'en' },
-  { name: 'Science Daily', url: 'https://www.sciencedaily.com/rss/', region: 'SCI', lang: 'en' },
-  { name: 'Popular Science', url: 'https://www.popsci.com/arcio/rss/', region: 'SCI', lang: 'en' },
-  { name: 'ESA Space', url: 'https://www.esa.int/rssfeed/Our_Activities/Space_Science', region: 'SCI', lang: 'en' },
-  { name: 'BBC Science', url: 'http://feeds.bbci.co.uk/news/science_and_environment/rss.xml', region: 'SCI', lang: 'en' },
-
-  // 💰 財經
-  { name: 'Reuters Business', url: 'https://feeds.reuters.com/reuters/businessNews', region: 'BUS', lang: 'en' },
-  { name: 'Fox Business Markets', url: 'https://moxie.foxbusiness.com/google-publisher/markets.xml', region: 'BUS', lang: 'en' },
-
-  // 🏥 健康
-  { name: 'NPR Health', url: 'https://feeds.npr.org/1128/rss.xml', region: 'HLT', lang: 'en' },
-  { name: 'NHS News England', url: 'https://www.england.nhs.uk/feed/', region: 'HLT', lang: 'en' },
-  { name: 'Running on Real Food', url: 'https://runningonrealfood.com/feed/', region: 'HLT', lang: 'en' },
-  { name: "Mark's Daily Apple", url: 'https://feeds2.feedburner.com/MarksDailyApple', region: 'HLT', lang: 'en' },
-
-  // ✈️ 旅遊
-  { name: 'Condé Nast Traveler', url: 'https://www.cntraveler.com/feed/rss', region: 'TRV', lang: 'en' },
-  { name: 'Nomadic Matt', url: 'https://www.nomadicmatt.com/feed/', region: 'TRV', lang: 'en' },
-
-  // 🎮 遊戲
-  { name: 'Stevivor', url: 'https://stevivor.com/feed/', region: 'TEC', lang: 'en' },
-
-  // 🎨 設計
-  { name: 'Spoon & Tamago', url: 'https://www.spoon-tamago.com/feed/', region: 'TEC', lang: 'en' },
-  { name: 'Brand New', url: 'https://www.underconsideration.com/brandnew/feed/', region: 'TEC', lang: 'en' },
-
-  // 📝 個人博客
-  { name: 'Craig Mod', url: 'https://craigmod.com/feed/', region: 'TEC', lang: 'en' },
-  { name: 'Frank Chimero', url: 'https://frankchimero.com/feed/', region: 'TEC', lang: 'en' },
-  { name: 'Dave Rupert', url: 'https://daverupert.com/feed/', region: 'TEC', lang: 'en' },
-  { name: 'Jim Nielsen', url: 'https://blog.jim-nielsen.com/feed/', region: 'TEC', lang: 'en' },
-  { name: 'Austin Kleon', url: 'https://austinkleon.com/feed/', region: 'TEC', lang: 'en' },
-  { name: 'Waxy.org', url: 'https://waxy.org/feed/', region: 'TEC', lang: 'en' },
+// NewsData.io API keys
+const ND_KEYS = [
+  'pub_2cc2f7c9e2694779871ea0d95a5a4689',
+  'pub_6659e2e08a3b483b89d1a2a5db900301',
 ];
 
-// ─── Supabase 工具函數 ────────────────────────────────────────
-function getSbHeaders(serviceKey) {
-  return {
-    'Content-Type': 'application/json',
-    'apikey': serviceKey,
-    'Authorization': `Bearer ${serviceKey}`,
-    'Prefer': 'resolution=merge-duplicates',
+// ─── 工具 ────────────────────────────────────────────────
+function sid(a='', b='') {
+  let h = 0;
+  for (const c of (a+b).replace(/[^a-zA-Z0-9]/g,'').toLowerCase()) h = (Math.imul(31,h)+c.charCodeAt(0))|0;
+  return String(Math.abs(h));
+}
+
+function mapCategory(cat) {
+  const map = {
+    top:'ALL', world:'ALL', politics:'POL', business:'FIN',
+    technology:'TECH', science:'SCI', health:'SCI',
+    entertainment:'ENT', sports:'SPO', environment:'SCI',
+    food:'LIF', tourism:'LIF', crime:'WORLD', nation:'ALL',
   };
+  return map[cat?.toLowerCase()] || 'ALL';
 }
 
-async function supabaseUpsert(supabaseUrl, serviceKey, rows) {
-  const res = await fetch(`${supabaseUrl}/rest/v1/news`, {
-    method: 'POST',
-    headers: getSbHeaders(serviceKey),
-    body: JSON.stringify(rows),
-  });
-  const text = await res.text();
-  return { ok: res.ok, status: res.status, body: text };
+function mapCountry(lang, cat) {
+  const m = { en:'WORLD', zh:'CHN', ja:'JPN', ko:'KOR', fr:'EUR', de:'EUR', es:'EUR', ar:'MEA', hi:'IND' };
+  return m[lang] || 'ALL';
 }
 
-async function getExistingLinks(supabaseUrl, serviceKey) {
-  const cutoff = Date.now() - 48 * 3600 * 1000;
-  const res = await fetch(
-    `${supabaseUrl}/rest/v1/news?select=link&pub_date=gt.${new Date(cutoff).toISOString()}&limit=1000`,
-    { headers: getSbHeaders(serviceKey) }
-  );
-  if (!res.ok) return new Set();
-  const data = await res.json();
-  if (!Array.isArray(data)) return new Set();
-  return new Set(data.map(r => r.link).filter(Boolean));
+// ─── 從 NewsData.io 抓新聞 ────────────────────────────────
+async function fetchFromNewsData(lang, category, size=50) {
+  // 輪流試兩個 key
+  for (const apiKey of ND_KEYS) {
+    const params = new URLSearchParams({
+      apikey: apiKey,
+      language: lang,
+      size: String(size),
+      sort: 'publish_desc',
+    });
+    if (category) params.set('category', category);
+    const url = `https://newsdata.io/api/1/news?${params}`;
+    try {
+      const res = await fetch(url, { timeout: 10000 });
+      if (!res.ok) continue;
+      const json = await res.json();
+      if (json.status !== 'success' || !Array.isArray(json.results)) continue;
+      return json.results.map(item => ({
+        id:       item.article_id || sid(item.title || '', item.link || ''),
+        title:    item.title || '',
+        summary:  item.description || item.content || '',
+        link:     item.link || '',
+        source:   item.source_id || item.source_name || 'NewsData.io',
+        pub_date: item.pubDate || item.iso_date || new Date().toISOString(),
+        image_url: item.image_url || '',
+        region:   mapCountry(lang, item.category?.[0]) || 'ALL',
+      }));
+    } catch(e) { /* try next key */ }
+  }
+  return [];
 }
 
-// ─── RSS 解析 ─────────────────────────────────────────────────
-function parseXmlFeed(xml) {
-  const items = [];
-  const itemRe = /<item[^>]*>([\s\S]*?)<\/item>/gi;
-  const getTag = (blk, tag) => {
-    const m = blk.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`,'i'));
-    return m ? m[1].replace(/<!\[CDATA\[|\]\]>/g,'').replace(/<[^>]+>/g,'').trim() : '';
-  };
-  let m;
-  while ((m = itemRe.exec(xml)) !== null && items.length < 20) {
-    const blk = m[1];
-    const linkRaw = getTag(blk, 'link');
-    const linkMatch = linkRaw.match(/[?&]url=([^&]+)/);
-    const link = linkMatch ? decodeURIComponent(linkMatch[1]) : linkRaw;
-    const title = getTag(blk, 'title');
-    const desc = getTag(blk, 'description') || getTag(blk, 'content:encoded') || '';
-    const pubDate = getTag(blk, 'pubDate') || new Date().toISOString();
-    const source = getTag(blk, 'source') || '';
-    if (title && link) {
-      items.push({ title, summary: desc, link, source, pubDate });
+// ─── 寫入 Supabase ────────────────────────────────────────
+async function upsertNews(sbUrl, svcKey, items) {
+  if (!items.length) return 0;
+  try {
+    const res = await fetch(`${sbUrl}/rest/v1/news`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': svcKey,
+        'Authorization': `Bearer ${svcKey}`,
+        'Prefer': 'resolution=merge-duplicates',
+      },
+      body: JSON.stringify(items),
+    });
+    const text = await res.text();
+    return res.ok ? items.length : 0;
+  } catch(e) {
+    console.error('[SB] upsert error:', e.message);
+    return 0;
+  }
+}
+
+// ─── 查詢 DB 現有數量 ────────────────────────────────────
+async function countNews(sbUrl, svcKey) {
+  try {
+    const res = await fetch(`${sbUrl}/rest/v1/news?select=id&limit=1000`, {
+      headers: { 'apikey': svcKey, 'Authorization': `Bearer ${svcKey}` }
+    });
+    if (!res.ok) return 0;
+    const data = await res.json();
+    return Array.isArray(data) ? data.length : 0;
+  } catch { return 0; }
+}
+
+// ─── 主函數 ────────────────────────────────────────────────
+export default {
+  async fetch(req, env) {
+    const u = new URL(req.url);
+    if (u.pathname === '/health') {
+    // 先測 newsdata 是否可達
+    try {
+      const t0 = Date.now();
+      const r = await fetch('https://newsdata.io/api/1/news?apikey=pub_2cc2f7c9e2694779871ea0d95a5a4689&language=en&size=1');
+      const ms = Date.now() - t0;
+      const text = await r.text();
+      return new Response(JSON.stringify({ nd: r.ok?'OK':'FAIL', status: r.status, ms, body: text.slice(0,200) }), {
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch(e) {
+      return new Response(JSON.stringify({ nd: 'ERROR', msg: e.message }), {
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
   }
-  return items;
-}
+    if (u.pathname === '/run') {
+      const result = await runAll(env);
+      return new Response(JSON.stringify(result), {
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    return new Response('Not Found', { status: 404 });
+  },
 
-function stableId(title, link) {
-  const str = `${title}|${link}`.replace(/\s+/g,' ').trim();
-  let h = 0;
-  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
-  return h;
-}
-
-async function fetchFeed(feed) {
-  try {
-    const res = await fetch(feed.url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; NewsBot/1.0)' },
-      timeout: 10000,
-    });
-    if (!res.ok) return { feed, items: [], error: `HTTP ${res.status}` };
-    const xml = await res.text();
-    const items = parseXmlFeed(xml);
-    return { feed, items, error: null };
-  } catch (e) {
-    return { feed, items: [], error: e.message };
-  }
-}
-
-// ─── 處理單一 feed（計數+寫 DB）─────────────────────────────
-async function processFeed(feed, existingLinks, supabaseUrl, serviceKey) {
-  const result = await fetchFeed(feed);
-  if (result.error) {
-    console.log(`❌ ${feed.name}: ${result.error}`);
-    return { feed: result.feed, new: 0, dup: 0, error: result.error };
-  }
-
-  // 去重 + 過濾
-  const newItems = [];
-  for (const item of result.items) {
-    if (!item.link || existingLinks.has(item.link)) continue;
-    if (item.title.length < 10) continue;
-    newItems.push({
-      title: item.title.slice(0, 300),
-      summary: item.summary.replace(/<[^>]+>/g,'').slice(0, 1000),
-      link: item.link,
-      source: item.source || feed.name,
-      image_url: '',
-      pub_date: new Date(item.pubDate).toISOString(),
-      region: feed.region,
-      lang: feed.lang,
-      fetched_at: new Date().toISOString(),
-    });
-    existingLinks.add(item.link);
-  }
-
-  if (newItems.length > 0) {
-    const upserted = await supabaseUpsert(supabaseUrl, serviceKey, newItems);
-    console.log(`✅ ${feed.name}: ${newItems.length} new / ${result.items.length} total`);
-    return { feed: feed.name, new: newItems.length, total: result.items.length, error: null };
-  } else {
-    console.log(`⏳ ${feed.name}: 0 new (${result.items.length} total, all dup)`);
-    return { feed: feed.name, new: 0, total: result.items.length, error: null };
-  }
-}
-
-// ─── 計時工具 ─────────────────────────────────────────────────
-function ts() { return new Date().toISOString().slice(11, 19); }
-export default {
-  async fetch(request, env) { return handleRequest(request, env); },
-  async scheduled(controller, env, ctx) {
-    await Promise.all([
-      fetchAndInsert("ALL"), fetchAndInsert("HKG"),
-      fetchAndInsert("KOR"), fetchAndInsert("JPN"),
-      fetchAndInsert("TWN"),
-    ]).catch(() => {});
+  async scheduled(_, env) {
+    const result = await runAll(env);
+    console.log('[cron done]', JSON.stringify(result));
   },
 };
+
+async function runAll(env) {
+  const sbUrl    = env.SUPABASE_URL     || SB_URL_FALLBACK;
+  const svcKey   = env.SUPABASE_SERVICE_KEY || SB_SVC_KEY_FALLBACK;
+  const apiKey   = env.NEWSDATA_API_KEY || ND_API_KEY;
+  const ts       = new Date().toISOString();
+
+  console.log(`[${ts}] starting...`);
+
+  // 並行抓所有語言/分類
+  const [enAll, zhAll, koAll, jaAll, esAll] = await Promise.all([
+    fetchFromNewsData('en', null,     50),  // 英文全球
+    fetchFromNewsData('zh', null,     30),  // 中文
+    fetchFromNewsData('ko', null,     30),  // 韓文
+    fetchFromNewsData('ja', null,     30),  // 日文
+    fetchFromNewsData('es', null,     30),  // 西班牙文
+  ]);
+
+  // 去重
+  const seen = new Set();
+  const all  = [];
+  for (const item of [...enAll, ...zhAll, ...koAll, ...jaAll, ...esAll]) {
+    if (!seen.has(item.id)) { seen.add(item.id); all.push(item); }
+  }
+
+  // 去空標題
+  const valid = all.filter(n => n.title && n.title.length > 10);
+
+  console.log(`[${ts}] total: ${valid.length} (en:${enAll.length} zh:${zhAll.length} ko:${koAll.length} ja:${jaAll.length})`);
+
+  if (valid.length > 0) {
+    const written = await upsertNews(sbUrl, svcKey, valid);
+    const count   = await countNews(sbUrl, svcKey);
+    console.log(`[${ts}] written: ${written}, total in DB: ${count}`);
+    return { ok: true, written, total: count, ts };
+  }
+
+  return { ok: false, reason: 'no data', ts };
+}

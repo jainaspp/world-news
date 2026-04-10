@@ -47,7 +47,7 @@ export default function App() {
       setLastUpdated(new Date(sorted[0].pubDate).toLocaleTimeString());
     }
     import('./utils/newsFetcher').then(m => {
-      (['ALL', 'HKG', 'OTHER'] as const).forEach(g => m.fetchAllNews(g).catch(() => {}));
+      (['ALL', 'HKG'] as const).forEach(g => m.fetchAllNews(g).catch(() => {}));
     });
   }, [news]);
 
