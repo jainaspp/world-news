@@ -340,3 +340,49 @@ export const SOURCE_INFO: Record<string, { name: string; url: string; color: str
   'xkcd':             { name: 'xkcd',        url: 'https://xkcd.com',          color: '#003366' },
   'kottke.org':       { name: 'kottke',      url: 'https://kottke.org',         color: '#003366' },
 };
+// ─── Fetch API — Vercel（主）+ CF Worker（備）+ Supabase REST（最後備用）──
+const HKG_RE = /香港|rthk|hkfp|852|明報|港聞|港股/i;
+let _cached = []; let _cacheTime = 0; const CACHE_MS = 5*60*1000;
+
+async function fetchVercel(group) {
+  try {
+    const res = await fetch(V + '/api/news?group=' + group, {signal:AbortSignal.timeout(10000)});
+    if (!res.ok) return [];
+    return await res.json() || [];
+  } catch { return []; }
+}
+async function fetchWorker(group) {
+  try {
+    const res = await fetch(W + '/news?group=' + group, {signal:AbortSignal.timeout(8000)});
+    if (!res.ok) return [];
+    return await res.json() || [];
+  } catch { return []; }
+}
+async function fetchSupabase(group) {
+  try {
+    const cols = 'id,title,summary,link,source,pub_date,image_url,region';
+    const limit = group === 'HKG' ? 200 : 80;
+    const url = S + '/rest/v1/news?select=' + cols + '&order=pub_date.desc&limit=' + limit;
+    const res = await fetch(url, {
+      headers: {apikey: K, Authorization: 'Bearer ' + K, Prefer: 'count=none'},
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data)) return null;
+    const all = data.slice(0, limit);
+    return group === 'HKG'
+      ? all.filter(r => HKG_RE.test(r.title || '')).slice(0, 50)
+      : all.slice(0, 50);
+  } catch { return null; }
+}
+export async function getNews(group = 'ALL') {
+  const now = Date.now();
+  if (_cached.length && now - _cacheTime < CACHE_MS) return _cached;
+  let data = await fetchVercel(group);
+  if (!data || !data.length) data = await fetchWorker(group);
+  if (!data || !data.length) data = await fetchSupabase(group);
+  _cached = data || []; _cacheTime = now; return _cached;
+}
+export function clearCache() { _cached = []; _cacheTime = 0; }
+

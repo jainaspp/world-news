@@ -1,126 +1,75 @@
 /**
- * newsFetcher — CF Worker 代理（主） + NewsData.io（備）
- * 三個分類：ALL（全球）、HKG（香港）
+ * newsFetcher — Vercel API（主） + CF Worker（備） + Supabase REST（最後備用）
+ * 兩個分類：ALL（全球）、HKG（香港）
  */
-export async function fetchAllNews(group = 'ALL') {
-  // Cache
-  const cached = _cacheGet(group);
-  if (cached) {
-    _bgRefresh(group);
-    return cached;
-  }
-  return _fetchMain(group);
-}
 
-async function _fetchMain(group) {
-  // 1. 嘗試 CF Worker 代理
-  const worker = await _fetchWorker(group);
-  if (worker.length > 0) { _cacheSet(group, worker); return worker; }
+const SB_URL = 'https://qpckwhnbawprbkkizcmn.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwY2t3aG5iYXdwcmJra2l6Y21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0OTAyMzMsImV4cCI6MjA5MTA2NjIzM30.7vMNxsKczXGxzzGmimlN338BsK7tSHzejaw4bC2kOs4';
+const WORKER_URL = 'https://jainaspp-world-news.jainaspp.workers.dev';
+const VERCEL_URL = 'https://world-news.xyz'; // Vercel 部署網址
 
-  // 2. NewsData.io 備用
-  const nd = await _fetchND(group);
-  if (nd.length > 0) { _cacheSet(group, nd); return nd; }
+const HKG_RE = /香港|rthk|hkfp|852|明報|港聞|港股/i;
 
-  return [];
-}
+let _cached: Array<any> = [];
+let _cacheTime = 0;
+const CACHE_MS = 5 * 60 * 1000;
 
-async function _fetchWorker(group) {
+async function fetchVercelAPI(group: string) {
   try {
-    const ac = new AbortController();
-    const tid = setTimeout(() => ac.abort(), 15000);
-    const res = await fetch(`${WORKER_URL}/news?group=${group}`, { signal: ac.signal });
-    clearTimeout(tid);
-    if (!res.ok) return [];
+    const res = await fetch(`${VERCEL_URL}/api/news?group=${group}`, {
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!res.ok) throw new Error(`Vercel ${res.status}`);
+    const d = await res.json();
+    return Array.isArray(d) ? d : null;
+  } catch { return null; }
+}
+
+async function fetchWorker(group: string) {
+  try {
+    const res = await fetch(`${WORKER_URL}/news?group=${group}`, {
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) throw new Error(`Worker ${res.status}`);
+    const d = await res.json();
+    return Array.isArray(d) ? d : null;
+  } catch { return null; }
+}
+
+async function fetchSupabaseREST(group: string) {
+  try {
+    const cols = 'id,title,summary,link,source,pub_date,image_url,region';
+    const limit = group === 'HKG' ? 200 : 80;
+    const url = `${SB_URL}/rest/v1/news?select=${cols}&order=pub_date.desc&limit=${limit}`;
+    const res = await fetch(url, {
+      headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`, Prefer: 'count=none' },
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) throw new Error(`SB ${res.status}`);
     const data = await res.json();
     if (!Array.isArray(data)) return [];
-    return data.map(r => ({
-      id:       String(r.id || ''),
-      title:    String(r.title || ''),
-      titleTL: {},
-      summary:  String(r.summary || '').slice(0, 300),
-      summaryTL:{},
-      link:     String(r.link || ''),
-      source:   String(r.source || ''),
-      pubDate:  String(r.pub_date || new Date().toISOString()),
-      imageUrl: String(r.image_url || ''),
-      region:   String(r.region || 'ALL'),
-    }));
-  } catch { return []; }
+    const all = data.slice(0, limit);
+    return group === 'HKG'
+      ? all.filter((r: any) => HKG_RE.test(r.title || '')).slice(0, 50)
+      : all.slice(0, 50);
+  } catch { return null; }
 }
 
-// ─── NewsData.io 備用 ───────────────────────────────
-const ND_KEYS = ['pub_2cc2f7c9e2694779871ea0d95a5a4689','pub_6659e2e08a3b483b89d1a2a5db900301'];
-const LANGS = { ALL:['en','zh','ko','ja','es'], HKG:['en','zh'] };
-const REGION_MAP = { en:'ALL', zh:'CHN', ko:'KOR', ja:'JPN', es:'EUR' };
-const HK_RE = /香港|港聞|港股|rthk|hkfp|852|明報/i;
+export async function fetchAllNews(group = 'ALL') {
+  const now = Date.now();
+  if (_cached.length && now - _cacheTime < CACHE_MS) return _cached;
 
-function _sid(a, b) {
-  let h = 0;
-  for (const c of (a+b).replace(/[^a-zA-Z0-9]/g,'').toLowerCase())
-    h = (Math.imul(31,h)+c.charCodeAt(0))|0;
-  return String(Math.abs(h));
-}
-function _unesc(s) {
-  return (s||'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
-                 .replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&nbsp;/g,' ');
-}
+  // Try: Vercel API → CF Worker → Supabase REST
+  let data: any[] | null = await fetchVercelAPI(group);
+  if (data && data.length > 0) { _cached = data; _cacheTime = now; return data; }
 
-async function _fetchNDLang(lang) {
-  for (const key of ND_KEYS) {
-    try {
-      const ac = new AbortController();
-      const tid = setTimeout(() => ac.abort(), 10000);
-      const res = await fetch(
-        `https://newsdata.io/api/1/news?apikey=${key}&language=${lang}&size=10`,
-        { signal: ac.signal }
-      );
-      clearTimeout(tid);
-      if (!res.ok) continue;
-      const json = await res.json();
-      if (json.status !== 'success' || !Array.isArray(json.results)) continue;
-      return json.results.map(i => ({
-        id:       i.article_id || _sid(i.title||'', i.link||''),
-        title:    _unesc((i.title||'').slice(0,500)),
-        titleTL:  {},
-        summary:  _unesc((i.description||i.content||'').slice(0,300)),
-        summaryTL:{},
-        link:     String(i.link||''),
-        source:   String(i.source_id||i.source_name||'NewsData'),
-        pubDate:  String(i.pubDate||i.iso_date||new Date().toISOString()),
-        imageUrl: String(i.image_url||''),
-        region:   REGION_MAP[lang]||'ALL',
-      }));
-    } catch { /* next key */ }
-  }
-  return [];
+  data = await fetchWorker(group);
+  if (data && data.length > 0) { _cached = data; _cacheTime = now; return data; }
+
+  data = await fetchSupabaseREST(group);
+  _cached = data || [];
+  _cacheTime = now;
+  return _cached;
 }
 
-async function _fetchND(group) {
-  const langs = LANGS[group] || LANGS['ALL'];
-  const results = await Promise.all(langs.map(_fetchNDLang));
-  const flat = results.flat();
-  const seen = new Set();
-  const uniq = flat.filter(n => n.title && !seen.has(n.id) && seen.add(n.id));
-  return group === 'HKG' ? uniq.filter(n => HK_RE.test(n.title)).slice(0,50) : uniq.slice(0,50);
-}
-
-// ─── Cache（5分鐘TTL）───────────────────────────────
-const _cache = new Map();
-const _TTL = 1000 * 60 * 5;
-
-function _cacheGet(g) {
-  const e = _cache.get(g);
-  if (!e) return null;
-  if (Date.now()-e.ts > _TTL) { _cache.delete(g); return null; }
-  return e.items;
-}
-function _cacheSet(g, v) { _cache.set(g, { items: v, ts: Date.now() }); }
-
-function _bgRefresh(group) {
-  _fetchWorker(group).then(db => { if (db.length > 0) _cacheSet(group, db); }).catch(()=>{});
-}
-
-export function prefetch(group) { _bgRefresh(group); }
-
-// ─── 常量 ───────────────────────────────────────────
-const WORKER_URL = 'https://jainaspp-world-news.jainaspp.workers.dev';
+export function clearCache() { _cached = []; _cacheTime = 0; }
