@@ -1,7 +1,7 @@
 /**
- * newsFetcher — NewsData.io → Supabase → 瀏覽器
- * 兩個分類：全球(ALL)、香港(HKG)
- * 數據源：NewsData.io 每15分鐘自動寫入，Cron Job 調度
+ * newsFetcher — NewsData.io 直連（瀏覽器 → NewsData.io，繞過 Supabase）
+ * 三個分類：ALL（全球）、HKG（香港）
+ * 數據源：NewsData.io（5語言 × 10條）
  */
 export interface NewsItem {
   id: string; title: string; titleTL: Record<string,string>;
@@ -10,13 +10,22 @@ export interface NewsItem {
   imageUrl: string; region: string;
 }
 
-const SB_URL    = 'https://qpckwhnbawprbkkizcmn.supabase.co';
-const SB_ANON   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwY2t3aG5iYXdwcmJra2l6Y21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0OTAyMzMsImV4cCI6MjA5MTA2NjIzM30.7vMNxsKczXGxzzGmimlN338BsK7tSHzejaw4bC2kOs4';
+// NewsData.io API keys（兩個 key 輪流）
+const KEYS = [
+  'pub_2cc2f7c9e2694779871ea0d95a5a4689',
+  'pub_6659e2e08a3b483b89d1a2a5db900301',
+];
 
-// RPC 函數名
-const RPC = { ALL: 'get_news_all', HKG: 'get_news_hkg' };
+// 每個分類對應的語言
+const LANGS: Record<string,string[]> = {
+  ALL: ['en', 'zh', 'ko', 'ja', 'es'],
+  HKG: ['en', 'zh'],
+};
+const REGION_MAP: Record<string,string> = {
+  en:'ALL', zh:'CHN', ko:'KOR', ja:'JPN', es:'EUR',
+};
 
-// ─── Cache（記憶體，標籤頁內有效，5分鐘TTL）─────────────────────
+// ─── Cache（記憶體，5分鐘TTL）──────────────────────────────
 const _cache = new Map<string, {items:NewsItem[]; ts:number}>();
 const _TTL = 1000*60*5;
 
@@ -28,58 +37,86 @@ function cGet(g: string): NewsItem[]|null {
 }
 function cSet(g: string, v: NewsItem[]) { _cache.set(g,{items:v,ts:Date.now()}); }
 
-// ─── Supabase RPC 讀取 ────────────────────────────────────────
-async function fetchFromSB(group: string): Promise<NewsItem[]> {
-  const fn = RPC[group as keyof typeof RPC] || 'get_news_all';
-  try {
-    const ac = new AbortController();
-    const tid = setTimeout(() => ac.abort(), 12000);
-    const res = await fetch(`${SB_URL}/rest/v1/rpc/${fn}`, {
-      method: 'POST',
-      signal: ac.signal,
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SB_ANON,
-        'Authorization': `Bearer ${SB_ANON}`,
-      },
-      body: JSON.stringify({}),
-    });
-    clearTimeout(tid);
-    if (!res.ok) return [];
-    const data = await res.json();
-    if (!Array.isArray(data)) return [];
-    return data.map((r: any) => ({
-      id:       String(r.id || ''),
-      title:    String(r.title || ''),
-      titleTL:  {},
-      summary:  String(r.summary || '').slice(0, 300),
-      summaryTL:{},
-      link:     String(r.link || ''),
-      source:   String(r.source || ''),
-      pubDate:  String(r.pub_date || new Date().toISOString()),
-      imageUrl: String(r.image_url || ''),
-      region:   String(r.region || 'ALL'),
-    }));
-  } catch { return []; }
+// ─── 工具 ───────────────────────────────────────────────
+function sid(a='', b='') {
+  let h = 0;
+  for (const c of (a+b).replace(/[^a-zA-Z0-9]/g,'').toLowerCase())
+    h = (Math.imul(31,h)+c.charCodeAt(0))|0;
+  return String(Math.abs(h));
 }
 
-// ─── 導出函數 ───────────────────────────────────────────────
+function unesc(s: string) {
+  return s.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+          .replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&nbsp;/g,' ');
+}
+
+// ─── NewsData.io 單語言抓取 ──────────────────────────────
+async function fetchLang(lang: string): Promise<NewsItem[]> {
+  for (const key of KEYS) {
+    try {
+      const ac = new AbortController();
+      const tid = setTimeout(() => ac.abort(), 10000);
+      const url = `https://newsdata.io/api/1/news?apikey=${key}&language=${lang}&size=10`;
+      const res = await fetch(url, { signal: ac.signal });
+      clearTimeout(tid);
+      if (!res.ok) continue;
+      const json = await res.json();
+      if (json.status !== 'success' || !Array.isArray(json.results)) continue;
+      return json.results.map((i: any) => ({
+        id:       i.article_id || sid(i.title||'', i.link||''),
+        title:    unesc((i.title||'').slice(0,500)),
+        titleTL:  {},
+        summary:  unesc((i.description||i.content||'').slice(0,300)),
+        summaryTL:{},
+        link:     String(i.link||''),
+        source:   String(i.source_id||i.source_name||'NewsData'),
+        pubDate:  String(i.pubDate||i.iso_date||new Date().toISOString()),
+        imageUrl: String(i.image_url||''),
+        region:   REGION_MAP[lang]||'ALL',
+      }));
+    } catch { /* try next key */ }
+  }
+  return [];
+}
+
+// ─── HK 關鍵詞過濾 ──────────────────────────────────────
+const HK_RE = /香港|港聞|港股|rthk|hkfp|852|明報/i;
+
+function isHK(item: NewsItem): boolean {
+  return HK_RE.test(item.title);
+}
+
+// ─── 主導出 ─────────────────────────────────────────────
 export async function fetchAllNews(group = 'ALL'): Promise<NewsItem[]> {
-  // Cache 命中 → 馬上回應（<50ms）
+  // Cache 命中 → 馬上回應
   const cached = cGet(group);
   if (cached) {
-    // 後台刷新（不阻塞）
-    fetchFromSB(group).then(db => { if (db.length > 0) cSet(group, db); }).catch(()=>{});
+    fetchAllNewsBg(group); // 後台更新 cache
     return cached;
   }
-
-  // 無 Cache → 等 Supabase（最多12秒）
-  const db = await fetchFromSB(group);
-  if (db.length > 0) cSet(group, db);
-  return db;
+  return fetchAllNewsBg(group);
 }
 
-// ─── 後台預熱（不阻塞）────────────────────────────────────────
+async function fetchAllNewsBg(group: string): Promise<NewsItem[]> {
+  const langs = LANGS[group] || LANGS['ALL']!;
+
+  // 並行抓所有語言
+  const results = await Promise.all(langs.map(l => fetchLang(l)));
+  const flat = results.flat();
+
+  // 去重
+  const seen = new Set<string>();
+  const uniq = flat.filter(n => n.title && !seen.has(n.id) && seen.add(n.id));
+
+  // 全域：直接返回；香港：過濾 HK
+  const final = group === 'HKG'
+    ? uniq.filter(isHK).slice(0, 50)
+    : uniq.slice(0, 50);
+
+  if (final.length > 0) cSet(group, final);
+  return final;
+}
+
 export function prefetch(group: string) {
-  fetchFromSB(group).then(db => { if (db.length > 0) cSet(group, db); }).catch(()=>{});
+  fetchAllNewsBg(group).catch(()=>{});
 }
