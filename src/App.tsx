@@ -10,7 +10,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { NewsAdBanner, InFeedAdBanner } from './components/NewsAdBanner';
 import { SkeletonCard } from './components/SkeletonCard';
 import { NewsItem } from './types';
-import { REGIONS, TOPICS } from './data/sources';
+import { REGIONS } from './data/sources';
 import { getBookmarks } from './utils/translate';
 import './App.css';
 
@@ -22,9 +22,8 @@ function filterByTime(items: NewsItem[], filter: string): NewsItem[] {
 }
 
 export default function App() {
-  const [group, setGroup] = useState('region');
+  const [group, setGroup] = useState('region'); // simplified: no topic mode
   const [activeRegion, setActiveRegion] = useState('ALL');
-  const [activeTopic, setActiveTopic] = useState('');
   const [bookmarks, setBookmarks] = useState<NewsItem[]>([]);
   const [selected, setSelected] = useState<NewsItem | null>(null);
   const [showBookmarks, setShowBookmarks] = useState(false);
@@ -37,7 +36,7 @@ export default function App() {
   const [newsTimeFilter, setNewsTimeFilter] = useState(() => localStorage.getItem('timeFilter') || 'all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const activeGroup = group === 'region' ? activeRegion : activeTopic;
+  const activeGroup = activeRegion;
   const { news, loading, refreshing, translating, status, refresh } = useNews(activeGroup, translateLang);
 
   // 首次載入：後台預先抓取並快取所有三個分類
