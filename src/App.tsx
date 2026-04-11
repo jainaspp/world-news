@@ -10,7 +10,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { NewsAdBanner, InFeedAdBanner } from './components/NewsAdBanner';
 import { SkeletonCard } from './components/SkeletonCard';
 import { NewsItem } from './types';
-import { REGIONS } from './data/sources';
+
 import { getBookmarks } from './utils/translate';
 import './App.css';
 
@@ -117,32 +117,15 @@ export default function App() {
           </div>
         )}
 
-        <div className="group-toggle">
-          <button className={'toggle-btn ' + (group === 'region' ? 'active' : '')} onClick={() => setGroup('region')}>🌏 地區</button>
-          <button className={'toggle-btn ' + (group === 'topic' ? 'active' : '')} onClick={() => setGroup('topic')}>📌 主題</button>
+
+        <div className="region-bar">
+          <button className={"region-btn " + (activeRegion === "" ? "active" : "")}
+            onClick={() => { setActiveRegion(""); setShowBookmarks(false); }}>🌏 全部</button>
+          {SOURCES.map(s => (
+            <button key={s} className={"region-btn " + (activeRegion === s ? "active" : "")}
+              onClick={() => { setActiveRegion(s); setShowBookmarks(false); }}>{s}</button>
+          ))}
         </div>
-
-        {group === 'region' && (
-          <div className="region-bar">
-            {REGIONS.map(r => (
-              <button key={r.code} className={'region-btn ' + (activeRegion === r.code ? 'active' : '')}
-                onClick={() => { setActiveRegion(r.code); setShowBookmarks(false); }}>
-                {r.icon} {r.label}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {group === 'topic' && (
-          <div className="region-bar">
-            {TOPICS.map(t => (
-              <button key={t.code} className={'region-btn ' + (activeTopic === t.code ? 'active' : '')}
-                onClick={() => { setActiveTopic(t.code); setShowBookmarks(false); }}>
-                {t.icon} {t.label}
-              </button>
-            ))}
-          </div>
-        )}
 
         {showBookmarks && (
           <div className="bookmarks-header">
