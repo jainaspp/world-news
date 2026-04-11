@@ -22,8 +22,8 @@ function filterByTime(items: NewsItem[], filter: string): NewsItem[] {
 }
 
 export default function App() {
-  const [group, setGroup] = useState('region'); // simplified: no topic mode
-  const [activeRegion, setActiveRegion] = useState('ALL');
+  const [activeRegion, setActiveRegion] = useState('');
+  const [SOURCES, setSOURCES] = useState<string[]>([]);
   const [bookmarks, setBookmarks] = useState<NewsItem[]>([]);
   const [selected, setSelected] = useState<NewsItem | null>(null);
   const [showBookmarks, setShowBookmarks] = useState(false);
@@ -37,13 +37,16 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const activeGroup = activeRegion;
-  const { news, loading, refreshing, translating, status, refresh } = useNews(activeGroup, translateLang);
+  const { news: allNews, loading, refreshing, translating, status, refresh } = useNews('ALL', translateLang);
+  const news = activeRegion ? allNews.filter(n => n.source === activeRegion) : allNews;
 
   // 首次載入：後台預先抓取並快取所有三個分類
   useEffect(() => {
     if (news.length > 0) {
       const sorted = [...news].sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
       setLastUpdated(new Date(sorted[0].pubDate).toLocaleTimeString());
+      const srcs = [...new Set(news.map(n => n.source).filter(Boolean))].sort();
+      setSOURCES(srcs);
     }
     import('./utils/newsFetcher').then(m => {
       (['ALL', 'HKG'] as const).forEach(g => m.fetchAllNews(g).catch(() => {}));
