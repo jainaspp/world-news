@@ -7,12 +7,22 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://world-news.xyz/?region=ASI</loc>
+    <loc>https://world-news.xyz/?region=ALL</loc>
     <changefreq>hourly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://world-news.xyz/?region=AM</loc>
+    <loc>https://world-news.xyz/?region=HKG</loc>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/?region=TWN</loc>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/?region=USA</loc>
     <changefreq>hourly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -22,33 +32,28 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://world-news.xyz/?region=TWN</loc>
+    <loc>https://world-news.xyz/?region=ASI</loc>
     <changefreq>hourly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://world-news.xyz/?region=CHN</loc>
+    <loc>https://world-news.xyz/?region=JPN</loc>
     <changefreq>hourly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://world-news.xyz/?region=HKG</loc>
+    <loc>https://world-news.xyz/?region=KOR</loc>
     <changefreq>hourly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://world-news.xyz/?topic=TEC</loc>
+    <loc>https://world-news.xyz/?region=ME</loc>
     <changefreq>hourly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://world-news.xyz/?topic=MIL</loc>
+    <loc>https://world-news.xyz/?region=IND</loc>
     <changefreq>hourly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://world-news.xyz/?topic=ECO</loc>
-    <changefreq>hourly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
 </urlset>

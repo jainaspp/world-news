@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>無法連線 — 世界頭條</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f6fa;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; text-align: center; padding: 24px;
+      color: #1a1a2e;
+    }
+    .dark { background: #1a1a2e; color: #f5f6fa; }
+    .card {
+      background: #fff; border-radius: 16px; padding: 48px 32px;
+      max-width: 420px; width: 100%; box-shadow: 0 8px 32px rgba(0,0,0,.1);
+    }
+    .dark .card { background: #2a2a4a; }
+    .emoji { font-size: 64px; margin-bottom: 16px; }
+    h1 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    p { color: #666; font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+    .dark p { color: #aaa; }
+    .btn {
+      display: inline-block; padding: 12px 28px; border-radius: 50px;
+      background: #0070f3; color: #fff; text-decoration: none;
+      font-weight: 600; font-size: 15px; border: none; cursor: pointer;
+      transition: background .2s;
+    }
+    .btn:hover { background: #005bb5; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="emoji">📡</div>
+    <h1>無法連線</h1>
+    <p>看起來網絡有點問題。<br>請檢查 Wi-Fi 或流動數據，然後再試一次。</p>
+    <button class="btn" onclick="window.location.reload()">🔄 重新整理</button>
+  </div>
+  <script>if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.body.classList.add('dark')</script>
+</body>
+</html>
