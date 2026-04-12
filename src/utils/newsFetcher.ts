@@ -32,7 +32,7 @@ const WORKER_URL = 'https://jainaspp-world-news.jainaspp.workers.dev';
 async function _fetchWorker(group) {
   try {
     const ac = new AbortController();
-    const tid = setTimeout(() => ac.abort(), 15000);
+    const tid = setTimeout(() => ac.abort(), 8000);
     const res = await fetch(`${WORKER_URL}/news?group=${group}`, { signal: ac.signal });
     clearTimeout(tid);
     if (!res.ok) return [];
@@ -66,7 +66,7 @@ async function _fetchNDLang(lang: string) {
   for (const key of ND_KEYS) {
     try {
       const ac = new AbortController();
-      const tid = setTimeout(() => ac.abort(), 10000);
+      const tid = setTimeout(() => ac.abort(), 8000);
       const res = await fetch(
         `https://newsdata.io/api/1/news?apikey=${key}&language=${lang}&size=10`,
         { signal: ac.signal }
