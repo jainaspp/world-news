@@ -12,7 +12,6 @@ export function BookmarksPage({ lang }: { lang: string }) {
   function load() {
     const ids = getBookmarks();
     setBmIds(ids);
-    // Load from all localStorage caches
     const all: NewsItem[] = [];
     const seen = new Set<string>();
     for (let i = 0; i < localStorage.length; i++) {
@@ -36,7 +35,10 @@ export function BookmarksPage({ lang }: { lang: string }) {
 
   useEffect(() => { load(); }, []);
 
-  function handleToggle() { load(); }
+  function handleToggle(id: string) {
+    toggleBookmark(id);
+    load();
+  }
 
   return (
     <div>
@@ -55,7 +57,12 @@ export function BookmarksPage({ lang }: { lang: string }) {
       <main className="main">
         {bmNews.map(item => (
           <div key={item.id} onClick={() => setSelected(item)} style={{ cursor: 'pointer' }}>
-            <NewsCard item={item} lang={lang} onBookmarkChange={handleToggle} />
+            <NewsCard
+              item={item}
+              lang={lang}
+              bookmarkIds={new Set(bmIds)}
+              toggleBookmark={handleToggle}
+            />
           </div>
         ))}
       </main>

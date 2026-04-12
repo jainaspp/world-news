@@ -53,8 +53,10 @@ export function NewsCard({ item, lang, bookmarkIds, toggleBookmark }: Props) {
   }
 
   function handleBookmark() {
-    const added = toggleBookmark(String(item.id));
-    if (added) analytics.bookmarkAdd(item.title);
+    const id = String(item.id);
+    const wasBookmarked = bookmarkIds.has(id);
+    toggleBookmark(id);
+    if (!wasBookmarked) analytics.bookmarkAdd(item.title);
     else analytics.bookmarkRemove(item.title);
   }
 

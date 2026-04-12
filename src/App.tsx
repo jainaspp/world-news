@@ -39,9 +39,8 @@ export default function App() {
 
   const activeGroup = activeRegion;
   const { news, loading, refreshing, translating, status, refresh } = useNews(activeGroup, translateLang);
-  const { bookmarkIds, toggleBookmark } = useBookmarks();
+  const { bookmarkIds, toggle } = useBookmarks();
 
-  // 首次載入：後台預先抓取並快取所有三個分類
   useEffect(() => {
     if (news.length > 0) {
       const sorted = [...news].sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
@@ -52,31 +51,29 @@ export default function App() {
     });
   }, [news]);
 
-
   const displayNews = useMemo(() => {
     let base = showBookmarks
       ? news.filter(n => bookmarkIds.has(String(n.id)))
       : searchQuery
         ? news.filter(n =>
             n.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            (n.summary || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
-            (n.source || '').toLowerCase().includes(searchQuery.toLowerCase())
+            ((n.summary || '').toLowerCase().includes(searchQuery.toLowerCase())) ||
+            ((n.source || '').toLowerCase().includes(searchQuery.toLowerCase()))
           )
         : news;
 
-    // 來源過濾
     if (group === 'source' && activeSource) {
       const srcMap: Record<string, string[]> = {
-        BBC:        ['bbc'],
-        Reuters:    ['reuters'],
+        BBC:          ['bbc'],
+        Reuters:      ['reuters'],
         'Al Jazeera': ['aljazeera', 'al jazeera'],
-        NHK:        ['nhk'],
-        France24:   ['france24'],
-        DW:         ['dw.', 'dw.com', 'deutsche welle'],
-        CNA:        ['channel news asia', 'cna'],
-        SCMP:       ['scmp', 'south china morning'],
-        Euronews:   ['euronews'],
-        UN:         ['un news', 'news.un.org'],
+        NHK:          ['nhk'],
+        France24:     ['france24'],
+        DW:           ['dw.', 'dw.com', 'deutsche welle'],
+        CNA:          ['channel news asia', 'cna'],
+        SCMP:         ['scmp', 'south china morning'],
+        Euronews:     ['euronews'],
+        UN:           ['un news', 'news.un.org'],
       };
       const kw = srcMap[activeSource] || [activeSource.toLowerCase()];
       base = base.filter(n => kw.some(k => (n.source || '').toLowerCase().includes(k)));
@@ -96,7 +93,7 @@ export default function App() {
             <h1 className="site-title">🌏 世界頭條</h1>
             {news.length > 0 && (
               <span className="site-sources">
-                {[...new Set(news.slice(0,10).map(n => n.source).filter(Boolean))].slice(0, 5).join(' · ')}
+                {[...new Set(news.slice(0, 10).map(n => n.source).filter(Boolean))].slice(0, 5).join(' · ')}
               </span>
             )}
           </div>
@@ -144,21 +141,11 @@ export default function App() {
 
         {group === 'region' && (
           <div className="region-bar">
-            {REGIONS.map(r => (
-              <button key={r.code} className={'region-btn ' + (activeRegion === r.code ? 'active' : '')}
+            {REGIONS.filter(r => r.code !== 'SRC').map(r => (
+              <button key={r.code}
+                className={'region-btn ' + (activeRegion === r.code ? 'active' : '')}
                 onClick={() => { setActiveRegion(r.code); setShowBookmarks(false); setActiveSource(''); analytics.regionChange(r.code); }}>
                 {r.icon} {r.label}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {group === 'topic' && (
-          <div className="region-bar">
-            {TOPICS.map(t => (
-              <button key={t.code} className={'region-btn ' + (activeTopic === t.code ? 'active' : '')}
-                onClick={() => { setActiveTopic(t.code); setShowBookmarks(false); }}>
-                {t.icon} {t.label}
               </button>
             ))}
           </div>
@@ -187,14 +174,15 @@ export default function App() {
             <span className="time-filter-label">全球頭條</span>
             <div className="time-filter-btns">
               {([['全部', 'all'], ['1小時', 'hour'], ['今天', 'today'], ['本週', 'week']] as [string, string][]).map(([label, val]) => (
-                <button key={val} className={'time-btn ' + (newsTimeFilter === val ? 'active' : '')}
+                <button key={val}
+                  className={'time-btn ' + (newsTimeFilter === val ? 'active' : '')}
                   onClick={() => { setNewsTimeFilter(val); localStorage.setItem('timeFilter', val); }}>
                   {label}
                 </button>
               ))}
             </div>
             <span className="status-indicator">
-              {status === 'refreshing' ? '🔄 更新中' : status === 'translating' ? '🌐 翻譯中' : '✅ 已就緒'}
+              {status === 'translating' ? '🌐 翻譯中' : '✅ 已就緒'}
             </span>
             {translating && (
               <span style={{ color: '#888', fontSize: '12px', marginLeft: '8px' }}>🌐 翻譯中</span>
@@ -211,8 +199,8 @@ export default function App() {
             </div>
           ) : displayNews.length === 0 && !showBookmarks ? (
             <div className="empty-state">
-              <p>暫時沒有頭條，請稍後再試 🔄</p>
-              <small>或切換地區 / 主題</small>
+              <p>⚠️ 暫時沒有頭條，請稍後再試 🔄</p>
+              <small>或切換地區 / 來源</small>
             </div>
           ) : showBookmarks && bookmarkIds.size === 0 ? (
             <div className="empty-state">
@@ -223,7 +211,7 @@ export default function App() {
             <div className="news-grid">
               {displayNews.map((item, idx) => (
                 <React.Fragment key={item.id}>
-                  <NewsCard item={item} lang={translateLang} bookmarkIds={bookmarkIds} toggleBookmark={toggleBookmark} />
+                  <NewsCard item={item} lang={translateLang} bookmarkIds={bookmarkIds} toggleBookmark={toggle} />
                   {idx > 0 && idx % 4 === 0 && !showBookmarks && <InFeedAdBanner position={idx} every={4} />}
                 </React.Fragment>
               ))}
@@ -234,14 +222,14 @@ export default function App() {
         {!loading && displayNews.length > 0 && !showBookmarks && (
           <div className="share-bar">
             <span className="share-bar-text">分享給朋友</span>
-            <button className="share-btn twitter" onClick={function() {
-              var t = encodeURIComponent('🌏 世界頭條 — 即時全球新聞：' + (displayNews[0] ? displayNews[0].title : ''));
+            <button className="share-btn twitter" onClick={() => {
+              const t = encodeURIComponent('🌏 世界頭條 — 即時全球新聞：' + (displayNews[0] ? displayNews[0].title : ''));
               window.open('https://twitter.com/intent/tweet?text=' + t + '&url=' + encodeURIComponent('https://world-news.xyz'), '_blank');
             }}>🐦 Twitter</button>
-            <button className="share-btn facebook" onClick={function() {
+            <button className="share-btn facebook" onClick={() => {
               window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent('https://world-news.xyz'), '_blank');
             }}>📘 Facebook</button>
-            <button className="share-btn whatsapp" onClick={function() {
+            <button className="share-btn whatsapp" onClick={() => {
               window.open('https://wa.me/?text=' + encodeURIComponent('🌏 世界頭條：https://world-news.xyz'), '_blank');
             }}>💬 WhatsApp</button>
           </div>
@@ -249,10 +237,10 @@ export default function App() {
 
         <footer className="app-footer">
           <span>🌏 世界頭條 | 全球頭條</span>
-          {lastUpdated && <span>更新於 {lastUpdated}</span>}
+          {lastUpdated && <span> 更新於 {lastUpdated}</span>}
         </footer>
 
-        {selected && <NewsModal item={selected} lang={translateLang} onClose={function() { setSelected(null); }} />}
+        {selected && <NewsModal item={selected} lang={translateLang} onClose={() => setSelected(null)} />}
 
         <InstallPrompt />
       </div>

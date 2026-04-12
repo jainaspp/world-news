@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 /**
  * analytics.ts — Google Analytics 事件追蹤
  * 僅在生產環境（Vercel / GitHub Pages）生效，本地開發不打點

@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 /**
  * 錯誤追蹤（客户端 → Worker 上報，生產環境建議換 Sentry）
  */

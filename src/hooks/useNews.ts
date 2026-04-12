@@ -36,7 +36,7 @@ export function useNews(group: string, translateLang: string) {
   const [loading, setLoading]       = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [translating, setTranslating] = useState(false);
-  const [status, setStatus] = useState<'idle'|'loading'|'done'|'error'>('idle');
+  const [status, setStatus] = useState<'idle'|'loading'|'done'|'error'|'translating'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
   const loadNews = useCallback(async (isRefresh = false) => {
