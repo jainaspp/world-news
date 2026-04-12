@@ -11,7 +11,7 @@ import { NewsAdBanner, InFeedAdBanner } from './components/NewsAdBanner';
 import { SkeletonCard } from './components/SkeletonCard';
 import { NewsItem } from './types';
 import { REGIONS, TOPICS } from './data/sources';
-import { getBookmarks } from './utils/translate';
+import { useBookmarks } from './hooks/useBookmarks';
 import './App.css';
 
 function filterByTime(items: NewsItem[], filter: string): NewsItem[] {
@@ -25,7 +25,6 @@ export default function App() {
   const [group, setGroup] = useState('region');
   const [activeRegion, setActiveRegion] = useState('ALL');
   const [activeTopic, setActiveTopic] = useState('');
-  const [bookmarks, setBookmarks] = useState<NewsItem[]>([]);
   const [selected, setSelected] = useState<NewsItem | null>(null);
   const [showBookmarks, setShowBookmarks] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
@@ -39,6 +38,7 @@ export default function App() {
 
   const activeGroup = group === 'region' ? activeRegion : activeTopic;
   const { news, loading, refreshing, translating, status, refresh } = useNews(activeGroup, translateLang);
+  const { bookmarkIds, toggleBookmark } = useBookmarks();
 
   // 首次載入：後台預先抓取並快取所有三個分類
   useEffect(() => {
@@ -51,10 +51,9 @@ export default function App() {
     });
   }, [news]);
 
-  function handleBookmarkChange() { setBookmarks(getBookmarks()); }
 
   const displayNews = filterByTime(
-    showBookmarks ? bookmarks : searchQuery
+    showBookmarks ? news.filter(n => bookmarkIds.has(String(n.id))) : searchQuery
       ? news.filter(n =>
           n.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           (n.summary || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -82,7 +81,7 @@ export default function App() {
             <button className="icon-btn" onClick={refresh} disabled={loading} title="刷新">🔄</button>
             <DarkModeToggle checked={darkMode} onChange={setDarkMode} />
             <button className={'icon-btn' + (showBookmarks ? ' active' : '')} onClick={() => setShowBookmarks(v => !v)} title="收藏">
-              {showBookmarks ? '🔙' : ('📖' + (bookmarks.length > 0 ? ' ' + bookmarks.length : ''))}
+              {showBookmarks ? '🔙' : ('📖' + (bookmarkIds.size > 0 ? ' ' + bookmarkIds.size : ''))}
             </button>
             <LanguageSelector value={translateLang} onChange={setTranslateLang} />
           </div>
@@ -144,7 +143,7 @@ export default function App() {
 
         {showBookmarks && (
           <div className="bookmarks-header">
-            <h2>📌 已收藏（{bookmarks.length}）</h2>
+            <h2>📌 已收藏（{bookmarkIds.size}）</h2>
           </div>
         )}
 
@@ -177,7 +176,7 @@ export default function App() {
               <p>暫時沒有頭條，請稍後再試 🔄</p>
               <small>或切換地區 / 主題</small>
             </div>
-          ) : showBookmarks && bookmarks.length === 0 ? (
+          ) : showBookmarks && bookmarkIds.size === 0 ? (
             <div className="empty-state">
               <p>還沒有收藏</p>
               <small>點擊新聞卡右上書籤按鈕來收藏</small>
@@ -186,7 +185,7 @@ export default function App() {
             <div className="news-grid">
               {displayNews.map((item, idx) => (
                 <React.Fragment key={item.id}>
-                  <NewsCard item={item} lang={translateLang} onBookmarkChange={handleBookmarkChange} />
+                  <NewsCard item={item} lang={translateLang} bookmarkIds={bookmarkIds} toggleBookmark={toggleBookmark} />
                   {idx > 0 && idx % 4 === 0 && !showBookmarks && <InFeedAdBanner position={idx} every={4} />}
                 </React.Fragment>
               ))}

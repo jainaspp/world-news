@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { NewsItem } from '../types';
 import { SOURCE_INFO } from '../data/sources';
-import { formatDate, toggleBookmark } from '../utils/translate';
+import { formatDate } from '../utils/translate';
 
-interface Props { item: NewsItem; lang: string; onBookmarkChange: () => void; }
+interface Props {
+  item: NewsItem;
+  lang: string;
+  bookmarkIds: Set<string>;       // 全域書籤集合（useNews 統一管理）
+  toggleBookmark: (id: string) => void; // 全域 toggle（useNews 統一管理）
+}
 
 // ─── URL 安全校驗（防 XSS / open-redirect）───────────────────────
 function safeUrl(link: string): string {
@@ -11,9 +16,10 @@ function safeUrl(link: string): string {
     ? link : '#';
 }
 
-export function NewsCard({ item, lang, onBookmarkChange }: Props) {
+export function NewsCard({ item, lang, bookmarkIds, toggleBookmark }: Props) {
   const [expanded, setExpanded] = useState(false);
   const info = SOURCE_INFO[item.source] || { label: item.source || 'News', color: '#666', region: '' };
+  const bm = bookmarkIds.has(String(item.id));
 
   // 從 link 域名提取 favicon（Worker image_url 為空時的主要圖片）
   const domain = (() => {
@@ -34,11 +40,6 @@ export function NewsCard({ item, lang, onBookmarkChange }: Props) {
   const isTranslated = !!item.titleTL[lang];
   const link = safeUrl(item.link);
 
-  const isBookmarked = (id: number | string) => {
-    try { return JSON.parse(localStorage.getItem('wn_bookmarks') || '[]').includes(String(id)); }
-    catch { return false; }
-  };
-  const [bm, setBm] = useState(() => isBookmarked(item.id));
 
   function handleShare() {
     const text = `${title} - ${item.source}`;
@@ -50,9 +51,7 @@ export function NewsCard({ item, lang, onBookmarkChange }: Props) {
   }
 
   function handleBookmark() {
-    const added = toggleBookmark(String(item.id));
-    setBm(added);
-    onBookmarkChange();
+    toggleBookmark(String(item.id));
   }
 
   function handleImageError(e: React.SyntheticEvent<HTMLImageElement>) {

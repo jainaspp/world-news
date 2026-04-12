@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { NewsItem } from '../types';
 import { fetchAllNews } from '../utils/newsFetcher';
 import { translateBatch } from '../utils/translate';
+import { useBookmarks } from './useBookmarks';
 
 export function useNews(group: string, translateLang: string) {
   const [news, setNews]           = useState<NewsItem[]>([]);
@@ -10,6 +11,9 @@ export function useNews(group: string, translateLang: string) {
   const [translating, setTranslating] = useState(false);
   const [status, setStatus] = useState<'idle'|'loading'|'done'|'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+
+  // 全域書籤：整個 app 只 parse 一次 localStorage
+  const { bookmarkIds, toggle: toggleBookmark, isBookmarked } = useBookmarks();
 
   const loadNews = useCallback(async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
@@ -50,5 +54,16 @@ export function useNews(group: string, translateLang: string) {
 
   const refresh = useCallback(() => loadNews(true), [loadNews]);
 
-  return { news, loading, refreshing, translating, status, errorMsg, refresh };
+  return {
+    news,
+    loading,
+    refreshing,
+    translating,
+    status,
+    errorMsg,
+    refresh,
+    bookmarkIds,     // Set<string> — 全域書籤 ID 集合
+    toggleBookmark,  // (id: string) => void
+    isBookmarked,    // (id: string) => boolean
+  };
 }
