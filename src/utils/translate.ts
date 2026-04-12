@@ -81,7 +81,7 @@ export async function doTranslate(text: string, targetLang: string): Promise<str
       const data = await res.json();
       if (data?.[0]?.[0]?.[0]) result = data[0][0][0];
     }
-  } catch { /* fallback */ }
+  } catch (e) { console.error('[translate] Google Translate 失敗:', e); }
 
   // Fallback: MyMemory
   if (!result) {
@@ -95,7 +95,7 @@ export async function doTranslate(text: string, targetLang: string): Promise<str
           result = data.responseData.translatedText;
         }
       }
-    } catch { /* give up */ }
+    } catch (e) { console.error('[translate] MyMemory fallback 失敗:', e); }
   }
 
   if (result) {
@@ -123,7 +123,7 @@ export async function translateBatch(items: NewsItem[], lang: string): Promise<N
           titleTL: { ...item.titleTL, [lang]: titleTL },
           summaryTL: { ...item.summaryTL, [lang]: summaryTL },
         };
-      } catch { return item; }
+      } catch (e) { console.error('[translate] 單條翻譯失敗:', e); return item; }
     })
   );
   const translatedMap = new Map(results.map(r => [r.id, r]));

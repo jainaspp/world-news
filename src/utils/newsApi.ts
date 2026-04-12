@@ -17,7 +17,7 @@ const WORKER_BASE = 'https://world-news-api.jainaspp.workers.dev';
 const SB_URL = (import.meta.env.VITE_SUPABASE_URL as string | undefined)
   || 'https://qpckwhnbawprbkkizcmn.supabase.co';
 const SB_ANON_KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)
-  || '';
+  || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwY2t3aG5iYXdwcmJra2l6Y21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0OTAyMzMsImV4cCI6MjA5MTA2NjIzM30.KhoDAhJmXcXmqS8g_Z6LdP6LCZPFT4iP5EIJT7JkJlM';
 
 // ─── 工具函數 ────────────────────────────────────────────────
 function stableId(title: string, link: string): number {
