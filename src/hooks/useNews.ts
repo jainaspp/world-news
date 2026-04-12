@@ -22,18 +22,22 @@ export function useNews(group: string, translateLang: string) {
       setStatus('done');
       if (items.length === 0) setErrorMsg('暫無新聞，請稍後再試');
 
-      // 背景翻譯（用戶選擇的語言）
+      // 背景翻譯（progressive reveal：翻好一條顯示一條，不卡 UI）
       if (items.length > 0 && translateLang !== 'en') {
         setTranslating(true);
-        translateBatch(items, translateLang).then(updated => {
-          const map = new Map(updated.map(n => [n.id, n]));
-          setNews(prev => prev.map(n => map.get(n.id) || n));
+        (async () => {
+          for (const item of items) {
+            try {
+              const translated = await translateBatch([item], translateLang);
+              if (translated[0]) {
+                setNews(prev => prev.map(n => n.id === translated[0].id ? translated[0] : n));
+              }
+            } catch (e: unknown) {
+              console.error(`[useNews] 翻譯失敗 item ${item.id}:`, (e as Error)?.message);
+            }
+          }
           setTranslating(false);
-        }).catch((err: unknown) => {
-          console.error('[useNews] 翻譯失敗:', err);
-          // 翻譯失敗不阻擋 UI，新聞以原文顯示
-          setTranslating(false);
-        });
+        })();
       }
     } catch (e: any) {
       console.error('[useNews] fetch error:', e);

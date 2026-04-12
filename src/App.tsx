@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNews } from './hooks/useNews';
 import { NewsCard } from './components/NewsCard';
 import { NewsModal } from './components/NewsModal';
@@ -52,17 +52,20 @@ export default function App() {
   }, [news]);
 
 
-  const displayNews = filterByTime(
-    showBookmarks ? news.filter(n => bookmarkIds.has(String(n.id))) : searchQuery
-      ? news.filter(n =>
-          n.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          (n.summary || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
-          (n.source || '').toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      : news,
-    newsTimeFilter
-  );
-  const trendingNews = news.slice(0, 8);
+  const displayNews = useMemo(() => {
+    const base = showBookmarks
+      ? news.filter(n => bookmarkIds.has(String(n.id)))
+      : searchQuery
+        ? news.filter(n =>
+            n.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (n.summary || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (n.source || '').toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        : news;
+    return filterByTime(base, newsTimeFilter);
+  }, [news, newsTimeFilter, showBookmarks, bookmarkIds, searchQuery]);
+
+  const trendingNews = useMemo(() => news.slice(0, 8), [news]);
 
   return (
     <ErrorBoundary>
