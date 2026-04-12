@@ -11,6 +11,7 @@ import { NewsAdBanner, InFeedAdBanner } from './components/NewsAdBanner';
 import { SkeletonCard } from './components/SkeletonCard';
 import { NewsItem } from './types';
 import { REGIONS } from './data/sources';
+import { analytics } from './utils/analytics';
 import { useBookmarks } from './hooks/useBookmarks';
 import './App.css';
 
@@ -100,7 +101,7 @@ export default function App() {
             )}
           </div>
           <div className="header-right">
-            <button className="icon-btn" onClick={refresh} disabled={loading} title="刷新">🔄</button>
+            <button className="icon-btn" onClick={() => { analytics.refresh(); refresh(); }} disabled={loading} title="刷新">🔄</button>
             <DarkModeToggle checked={darkMode} onChange={setDarkMode} />
             <button className={'icon-btn' + (showBookmarks ? ' active' : '')} onClick={() => setShowBookmarks(v => !v)} title="收藏">
               {showBookmarks ? '🔙' : ('📖' + (bookmarkIds.size > 0 ? ' ' + bookmarkIds.size : ''))}
@@ -115,7 +116,7 @@ export default function App() {
             className="search-input"
             placeholder="搜尋全球頭條..."
             value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
+            onChange={e => { setSearchQuery(e.target.value); if (e.target.value.length > 2) analytics.search(e.target.value, 0); }}
           />
           {searchQuery && (
             <button className="search-clear" onClick={() => setSearchQuery('')}>✕</button>
@@ -145,7 +146,7 @@ export default function App() {
           <div className="region-bar">
             {REGIONS.map(r => (
               <button key={r.code} className={'region-btn ' + (activeRegion === r.code ? 'active' : '')}
-                onClick={() => { setActiveRegion(r.code); setShowBookmarks(false); setActiveSource(''); }}>
+                onClick={() => { setActiveRegion(r.code); setShowBookmarks(false); setActiveSource(''); analytics.regionChange(r.code); }}>
                 {r.icon} {r.label}
               </button>
             ))}
@@ -168,7 +169,7 @@ export default function App() {
             {REGIONS.find(r => r.code === 'SRC')?.sources.map((s: any) => (
               <button key={s.code}
                 className={'region-btn ' + (activeSource === s.code ? 'active' : '')}
-                onClick={() => { setActiveSource(s.code); setShowBookmarks(false); setActiveRegion('ALL'); }}>
+                onClick={() => { setActiveSource(s.code); setShowBookmarks(false); setActiveRegion('ALL'); analytics.sourceChange(s.code); }}>
                 {s.flag} {s.label}
               </button>
             ))}

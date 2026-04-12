@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NewsItem } from '../types';
 import { SOURCE_INFO } from '../data/sources';
 import { formatDate } from '../utils/translate';
+import { analytics } from '../utils/analytics';
 
 interface Props {
   item: NewsItem;
@@ -52,7 +53,9 @@ export function NewsCard({ item, lang, bookmarkIds, toggleBookmark }: Props) {
   }
 
   function handleBookmark() {
-    toggleBookmark(String(item.id));
+    const added = toggleBookmark(String(item.id));
+    if (added) analytics.bookmarkAdd(item.title);
+    else analytics.bookmarkRemove(item.title);
   }
 
   function handleImageError(e: React.SyntheticEvent<HTMLImageElement>) {
@@ -136,7 +139,8 @@ export function NewsCard({ item, lang, bookmarkIds, toggleBookmark }: Props) {
       )}
 
       <div className="card-footer">
-        <a href={link} target="_blank" rel="noopener noreferrer" className="read-link">
+        <a href={link} target="_blank" rel="noopener noreferrer" className="read-link"
+            onClick={() => analytics.newsClick(item.title, item.source, link)}>
           閱讀原文 ↗
         </a>
       </div>

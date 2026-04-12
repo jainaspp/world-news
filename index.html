@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>🌏 世界頭條 — 即時新聞</title>
-  <meta name="description" content="聚合全球BBC·CNN·NPR，即時更新，多語言翻譯"/>
-  <meta name="keywords" content="世界頭條,即時新聞,全球新聞,BBC,CNN,翻譯,多語言,國際新聞,科技新聞"/>
+  <title>🌏 世界頭條 — 即時全球新聞</title>
+  <meta name="description" content="聚合 BBC·Reuters·Al Jazeera·NHK 等 30+ 優質來源，即時翻譯，多地區及來源分類，離線可讀"/>
+  <meta name="keywords" content="世界頭條,即時新聞,全球新聞,BBC,CNN,Reuters,NHK,翻譯,多語言,國際新聞,科技新聞,香港新聞,台灣新聞"/>
   <meta name="author" content="世界頭條"/>
+  <meta name="robots" content="index, follow"/>
 
   <!-- Theme -->
   <meta name="theme-color" content="#1a1a2e"/>
@@ -15,20 +16,21 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
   <meta name="apple-mobile-web-app-title" content="世界頭條"/>
 
-  <!-- Open Graph -->
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="🌏 世界頭條 — 即時新聞"/>
-  <meta property="og:description" content="聚合全球BBC·CNN·NPR，即時更新，多語言翻譯"/>
+  <meta property="og:title" content="🌏 世界頭條 — 即時全球新聞"/>
+  <meta property="og:description" content="聚合 BBC·Reuters·Al Jazeera·NHK 等 30+ 優質來源，即時翻譯，多地區及來源分類"/>
   <meta property="og:url" content="https://world-news.xyz/"/>
   <meta property="og:image" content="https://world-news.xyz/favicon.svg"/>
   <meta property="og:locale" content="zh_TW"/>
   <meta property="og:site_name" content="世界頭條"/>
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="🌏 世界頭條 — 即時新聞"/>
-  <meta name="twitter:description" content="聚合全球BBC·CNN·NPR，即時更新，多語言翻譯"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="🌏 世界頭條 — 即時全球新聞"/>
+  <meta name="twitter:description" content="聚合 BBC·Reuters·Al Jazeera·NHK 等 30+ 優質來源，即時翻譯，多地區及來源分類"/>
   <meta name="twitter:image" content="https://world-news.xyz/favicon.svg"/>
+  <meta name="twitter:site" content="@worldnews"/>
 
   <!-- Favicon & Apple Touch -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
@@ -38,27 +40,21 @@
   <!-- PWA Manifest -->
   <link rel="manifest" href="/manifest.json"/>
 
-  <!-- JSON-LD: Google News SEO -->
+  <!-- JSON-LD: NewsMediaOrganization + WebSite -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "世界頭條 — 即時新聞",
+    "@type": "NewsMediaOrganization",
+    "name": "世界頭條",
     "url": "https://world-news.xyz/",
-    "description": "聚合全球BBC·CNN·NPR，即時更新，多語言翻譯",
+    "description": "聚合 BBC·Reuters·Al Jazeera·NHK 等 30+ 優質來源，即時翻譯，多地區及來源分類",
     "inLanguage": "zh-TW",
-    "genre": "News",
-    "publisher": {
-      "@type": "Organization",
-      "name": "世界頭條",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://world-news.xyz/favicon.svg"
-      }
-    },
+    "isAccessibleForFree": true,
+    "logo": { "@type": "ImageObject", "url": "https://world-news.xyz/favicon.svg" },
+    "sameAs": [],
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://world-news.xyz/?search={search_term_string}",
+      "target": { "@type": "EntryPoint", "urlTemplate": "https://world-news.xyz/?search={search_term_string}" },
       "query-input": "required name=search_term_string"
     }
   }
@@ -70,7 +66,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-WHXYS5YE2K');
+    gtag('config', 'G-WHXYS5YE2K', { send_page_view: true });
   </script>
 
   <!-- Google AdSense -->

@@ -1,13 +1,11 @@
 /**
- * JSON-LD 結構化資料生成器（Google News SEO 必備）
- * 插入到 <head>，讓 Google 能正確索引為新聞網站
+ * JSON-LD 結構化資料生成器（Google News SEO + WebSite SEO）
  */
+const SITE_URL    = 'https://world-news.xyz';
+const SITE_NAME  = '世界頭條 — 即時全球新聞';
+const SITE_DESC  = '聚合 BBC·Reuters·Al Jazeera·NHK 等 30+ 優質來源，即時翻譯，多地區及來源分類';
 
-const SITE_URL = 'https://world-news-jainaspp.vercel.app';
-const SITE_NAME = '世界頭條 — 即時新聞';
-const SITE_DESC = '聚合全球BBC·CNN·NPR，即時更新，多語言翻譯';
-
-// 生成首頁 JSON-LD
+/** 首頁 WebSite + Organization */
 export function getHomeJsonLd() {
   return JSON.stringify({
     '@context': 'https://schema.org',
@@ -15,41 +13,40 @@ export function getHomeJsonLd() {
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESC,
+    inLanguage: 'zh-TW',
+    isAccessibleForFree: true,
+    about: { '@type': 'NewsMediaOrganization', name: '世界頭條' },
+    publisher: {
+      '@type': 'NewsMediaOrganization',
+      name: '世界頭條',
+      url: SITE_URL,
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon.svg`, width: 200, height: 200 },
+      sameAs: [],
+    },
     potentialAction: {
       '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${SITE_URL}/?search={search_term_string}`,
-      },
+      target: { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/?search={search_term_string}` },
       'query-input': 'required name=search_term_string',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: '世界頭條',
-      logo: {
-        '@type': 'ImageObject',
-        url: `${SITE_URL}/favicon.svg`,
-      },
     },
   });
 }
 
-// NewsArticle schema（每篇新聞卡可用，但新聞內容由外部來源提供，這裡用網站首頁代替）
-export function getNewsHomeJsonLd() {
+/** Google News 網站層級 */
+export function getNewsOrgJsonLd() {
   return JSON.stringify({
     '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: SITE_NAME,
+    '@type': 'NewsMediaOrganization',
+    name: '世界頭條',
     url: SITE_URL,
     description: SITE_DESC,
     inLanguage: 'zh-TW',
-    about: [
-      { '@type': 'Thing', name: 'World News', alternateName: '世界新聞' },
-      { '@type': 'Thing', name: 'International Relations', alternateName: '國際關係' },
-      { '@type': 'Thing', name: 'Technology', alternateName: '科技' },
-    ],
-    genre: 'News',
-    operatingSystem: 'Any',
-    applicationCategory: 'NewsApplication',
+    isAccessibleForFree: true,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon.svg` },
+    sameAs: [],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      url: `${SITE_URL}/#contact`,
+    },
   });
 }
