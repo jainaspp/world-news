@@ -10,7 +10,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { NewsAdBanner, InFeedAdBanner } from './components/NewsAdBanner';
 import { SkeletonCard } from './components/SkeletonCard';
 import { NewsItem } from './types';
-import { REGIONS, TOPICS } from './data/sources';
+import { REGIONS } from './data/sources';
 import { useBookmarks } from './hooks/useBookmarks';
 import './App.css';
 
@@ -24,7 +24,6 @@ function filterByTime(items: NewsItem[], filter: string): NewsItem[] {
 export default function App() {
   const [group, setGroup] = useState('region');
   const [activeRegion, setActiveRegion] = useState('ALL');
-  const [activeTopic, setActiveTopic] = useState('');
   const [selected, setSelected] = useState<NewsItem | null>(null);
   const [showBookmarks, setShowBookmarks] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
@@ -37,7 +36,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSource, setActiveSource] = useState('');
 
-  const activeGroup = group === 'region' ? activeRegion : group === 'topic' ? activeTopic : activeRegion;
+  const activeGroup = activeRegion;
   const { news, loading, refreshing, translating, status, refresh } = useNews(activeGroup, translateLang);
   const { bookmarkIds, toggleBookmark } = useBookmarks();
 
@@ -139,7 +138,6 @@ export default function App() {
 
         <div className="group-toggle">
           <button className={'toggle-btn ' + (group === 'region' ? 'active' : '')} onClick={() => setGroup('region')}>🌏 地區</button>
-          <button className={'toggle-btn ' + (group === 'topic' ? 'active' : '')} onClick={() => setGroup('topic')}>📌 主題</button>
           <button className={'toggle-btn ' + (group === 'source' ? 'active' : '')} onClick={() => setGroup('source')}>📡 來源</button>
         </div>
 
@@ -147,7 +145,7 @@ export default function App() {
           <div className="region-bar">
             {REGIONS.map(r => (
               <button key={r.code} className={'region-btn ' + (activeRegion === r.code ? 'active' : '')}
-                onClick={() => { setActiveRegion(r.code); setShowBookmarks(false); }}>
+                onClick={() => { setActiveRegion(r.code); setShowBookmarks(false); setActiveSource(''); }}>
                 {r.icon} {r.label}
               </button>
             ))}
@@ -170,7 +168,7 @@ export default function App() {
             {REGIONS.find(r => r.code === 'SRC')?.sources.map((s: any) => (
               <button key={s.code}
                 className={'region-btn ' + (activeSource === s.code ? 'active' : '')}
-                onClick={() => { setActiveSource(s.code); setShowBookmarks(false); }}>
+                onClick={() => { setActiveSource(s.code); setShowBookmarks(false); setActiveRegion('ALL'); }}>
                 {s.flag} {s.label}
               </button>
             ))}
