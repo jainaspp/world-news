@@ -22,19 +22,16 @@ export function useNews(group: string, translateLang: string) {
       setStatus('done');
       if (items.length === 0) setErrorMsg('暫無新聞，請稍後再試');
 
-      // 背景翻譯（progressive reveal：翻好一條顯示一條，不卡 UI）
+      // 背景翻譯（progressive reveal：每批 5 條並發，翻完一批更新一次 UI）
       if (items.length > 0 && translateLang !== 'en') {
         setTranslating(true);
+        const BATCH = 5;
         (async () => {
-          for (const item of items) {
-            try {
-              const translated = await translateBatch([item], translateLang);
-              if (translated[0]) {
-                setNews(prev => prev.map(n => n.id === translated[0].id ? translated[0] : n));
-              }
-            } catch (e: unknown) {
-              console.error(`[useNews] 翻譯失敗 item ${item.id}:`, (e as Error)?.message);
-            }
+          for (let i = 0; i < items.length; i += BATCH) {
+            const batch = items.slice(i, i + BATCH);
+            const translated = await translateBatch(batch, translateLang);
+            const map = new Map(translated.map(n => [n.id, n]));
+            setNews(prev => prev.map(n => map.get(n.id) || n));
           }
           setTranslating(false);
         })();
