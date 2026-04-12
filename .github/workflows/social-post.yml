@@ -6,6 +6,23 @@ on:
   workflow_dispatch:
 
 jobs:
+  # 啞巴 job — 確保起碼有一個 job 執行，workflow 才不會因「0 jobs」被標為失敗
+  dummy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check social tokens
+        run: |
+          if [ -z "${{ secrets.TWITTER_BEARER_TOKEN }}" ]; then
+            echo "TWITTER_BEARER_TOKEN not configured — skipping Twitter post"
+          else
+            echo "Twitter token present — will post"
+          fi
+          if [ -z "${{ secrets.FB_PAGE_ACCESS_TOKEN }}" ]; then
+            echo "FB_PAGE_ACCESS_TOKEN not configured — skipping Facebook post"
+          else
+            echo "Facebook token present — will post"
+          fi
+
   post-twitter:
     runs-on: ubuntu-latest
     if: secrets.TWITTER_BEARER_TOKEN != ''

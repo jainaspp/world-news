@@ -164,6 +164,9 @@ export default function App() {
             <span className="status-indicator">
               {status === 'refreshing' ? '🔄 更新中' : status === 'translating' ? '🌐 翻譯中' : '✅ 已就緒'}
             </span>
+            {translating && (
+              <span style={{ color: '#888', fontSize: '12px', marginLeft: '8px' }}>🌐 翻譯中</span>
+            )}
           </div>
         )}
 

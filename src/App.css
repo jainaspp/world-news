@@ -641,7 +641,10 @@ body::before {
   animation: shimmer 1.6s infinite;
   animation-delay: 0.2s;
 }
-@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
 
 /* ════════════════════════════════════════════════
    EMPTY STATE

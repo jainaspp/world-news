@@ -25,6 +25,7 @@ export function useNews(group: string, translateLang: string) {
       // 背景翻譯（progressive reveal：每批 5 條並發，翻完一批更新一次 UI）
       if (items.length > 0 && translateLang !== 'en') {
         setTranslating(true);
+        setStatus('translating');
         const BATCH = 5;
         (async () => {
           for (let i = 0; i < items.length; i += BATCH) {
@@ -34,6 +35,7 @@ export function useNews(group: string, translateLang: string) {
             setNews(prev => prev.map(n => map.get(n.id) || n));
           }
           setTranslating(false);
+          setStatus('done');
         })();
       }
     } catch (e: any) {
