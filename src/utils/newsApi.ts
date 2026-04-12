@@ -207,7 +207,7 @@ async function fetchDirectGoogleNews(group = 'ALL'): Promise<NewsItem[]> {
   };
   const url = FEEDS[group.toUpperCase()] || FEEDS.ALL;
   try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(6000) });
+    const res = await proxyFetch(url) || new Response('', { status: 0 });
     if (!res.ok) return [];
     const xml = await res.text();
     const items: any[] = [];
@@ -271,7 +271,7 @@ export async function fetchGroupByRegion(region: string): Promise<NewsItem[]> {
   // Phase 1: CF Worker → Google News RSS（首選，10秒超時）
   const workerNews = await Promise.race([
     fetchViaWorker(region),
-    new Promise<NewsItem[]>(r => setTimeout(() => r([]), 10000)),
+    new Promise<NewsItem[]>(r => setTimeout(() => r([]), 6000)),
   ]);
   if (workerNews.length >= 5) {
     writeToCache(workerNews);
