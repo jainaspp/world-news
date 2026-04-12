@@ -35,8 +35,9 @@ export default function App() {
   const [lastUpdated, setLastUpdated] = useState('');
   const [newsTimeFilter, setNewsTimeFilter] = useState(() => localStorage.getItem('timeFilter') || 'all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeSource, setActiveSource] = useState('');
 
-  const activeGroup = group === 'region' ? activeRegion : activeTopic;
+  const activeGroup = group === 'region' ? activeRegion : group === 'topic' ? activeTopic : activeRegion;
   const { news, loading, refreshing, translating, status, refresh } = useNews(activeGroup, translateLang);
   const { bookmarkIds, toggleBookmark } = useBookmarks();
 
@@ -53,7 +54,7 @@ export default function App() {
 
 
   const displayNews = useMemo(() => {
-    const base = showBookmarks
+    let base = showBookmarks
       ? news.filter(n => bookmarkIds.has(String(n.id)))
       : searchQuery
         ? news.filter(n =>
@@ -62,8 +63,27 @@ export default function App() {
             (n.source || '').toLowerCase().includes(searchQuery.toLowerCase())
           )
         : news;
+
+    // 來源過濾
+    if (group === 'source' && activeSource) {
+      const srcMap: Record<string, string[]> = {
+        BBC:        ['bbc'],
+        Reuters:    ['reuters'],
+        'Al Jazeera': ['aljazeera', 'al jazeera'],
+        NHK:        ['nhk'],
+        France24:   ['france24'],
+        DW:         ['dw.', 'dw.com', 'deutsche welle'],
+        CNA:        ['channel news asia', 'cna'],
+        SCMP:       ['scmp', 'south china morning'],
+        Euronews:   ['euronews'],
+        UN:         ['un news', 'news.un.org'],
+      };
+      const kw = srcMap[activeSource] || [activeSource.toLowerCase()];
+      base = base.filter(n => kw.some(k => (n.source || '').toLowerCase().includes(k)));
+    }
+
     return filterByTime(base, newsTimeFilter);
-  }, [news, newsTimeFilter, showBookmarks, bookmarkIds, searchQuery]);
+  }, [news, newsTimeFilter, showBookmarks, bookmarkIds, searchQuery, group, activeSource]);
 
   const trendingNews = useMemo(() => news.slice(0, 8), [news]);
 
@@ -120,6 +140,7 @@ export default function App() {
         <div className="group-toggle">
           <button className={'toggle-btn ' + (group === 'region' ? 'active' : '')} onClick={() => setGroup('region')}>🌏 地區</button>
           <button className={'toggle-btn ' + (group === 'topic' ? 'active' : '')} onClick={() => setGroup('topic')}>📌 主題</button>
+          <button className={'toggle-btn ' + (group === 'source' ? 'active' : '')} onClick={() => setGroup('source')}>📡 來源</button>
         </div>
 
         {group === 'region' && (
@@ -139,6 +160,18 @@ export default function App() {
               <button key={t.code} className={'region-btn ' + (activeTopic === t.code ? 'active' : '')}
                 onClick={() => { setActiveTopic(t.code); setShowBookmarks(false); }}>
                 {t.icon} {t.label}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {group === 'source' && (
+          <div className="region-bar">
+            {REGIONS.find(r => r.code === 'SRC')?.sources.map((s: any) => (
+              <button key={s.code}
+                className={'region-btn ' + (activeSource === s.code ? 'active' : '')}
+                onClick={() => { setActiveSource(s.code); setShowBookmarks(false); }}>
+                {s.flag} {s.label}
               </button>
             ))}
           </div>

@@ -327,6 +327,21 @@ export const RSS_SOURCES = [
     code: 'HKG', label: '香港', icon: '🇭🇰',
     sources: []
   },
+  {
+    code: 'SRC', label: '來源', icon: '📡',
+    sources: [
+      { code: 'BBC',        label: 'BBC',         flag: '🇬🇧' },
+      { code: 'Reuters',    label: 'Reuters',      flag: '🇺🇳' },
+      { code: 'Al Jazeera', label: 'Al Jazeera',   flag: '🇶🇦' },
+      { code: 'NHK',        label: 'NHK',          flag: '🇯🇵' },
+      { code: 'France24',   label: 'France24',     flag: '🇫🇷' },
+      { code: 'DW',         label: 'DW',           flag: '🇩🇪' },
+      { code: 'CNA',        label: 'CNA',          flag: '🇸🇬' },
+      { code: 'SCMP',       label: 'SCMP',         flag: '🇭🇰' },
+      { code: 'Euronews',   label: 'Euronews',     flag: '🇪🇺' },
+      { code: 'UN',         label: 'UN News',      flag: '🇺🇳' },
+    ]
+  },
 ];
 
 // ─── 區域分類（供 sources.ts 使用）──────────────────────
