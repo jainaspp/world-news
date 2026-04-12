@@ -18,6 +18,7 @@ function safeUrl(link: string): string {
 
 export function NewsCard({ item, lang, bookmarkIds, toggleBookmark }: Props) {
   const [expanded, setExpanded] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
   const info = SOURCE_INFO[item.source] || { label: item.source || 'News', color: '#666', region: '' };
   const bm = bookmarkIds.has(String(item.id));
 
@@ -91,9 +92,12 @@ export function NewsCard({ item, lang, bookmarkIds, toggleBookmark }: Props) {
               src={img}
               alt={title}
               loading="lazy"
+              onLoad={() => setImgLoaded(true)}
               onError={e => {
+                setImgLoaded(true);
                 (e.target as HTMLImageElement).src = faviconUrl || fallbackSrc;
               }}
+              style={{ opacity: imgLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
             />
           </div>
         );
