@@ -29,7 +29,11 @@ export function useNews(group: string, translateLang: string) {
           const map = new Map(updated.map(n => [n.id, n]));
           setNews(prev => prev.map(n => map.get(n.id) || n));
           setTranslating(false);
-        }).catch(() => setTranslating(false));
+        }).catch((err: unknown) => {
+          console.error('[useNews] 翻譯失敗:', err);
+          // 翻譯失敗不阻擋 UI，新聞以原文顯示
+          setTranslating(false);
+        });
       }
     } catch (e: any) {
       console.error('[useNews] fetch error:', e);

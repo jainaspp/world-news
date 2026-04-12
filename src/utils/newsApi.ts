@@ -14,8 +14,10 @@ import { NewsItem } from '../types';
 const WORKER_BASE = 'https://world-news-api.jainaspp.workers.dev';
 
 // ─── Supabase（只用於 cache 讀寫）────────────────────────────
-const SB_URL = 'https://qpckwhnbawprbkkizcmn.supabase.co';
-const SB_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwY2t3aG5iYXdwcmJra2l6Y21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0OTAyMzMsImV4cCI6MjA5MTA2NjIzM30.KhoDAhJmXcXmqS8g_Z6LdP6LCZPFT4iP5EIJT7JkJlM';
+const SB_URL = (import.meta.env.VITE_SUPABASE_URL as string | undefined)
+  || 'https://qpckwhnbawprbkkizcmn.supabase.co';
+const SB_ANON_KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)
+  || '';
 
 // ─── 工具函數 ────────────────────────────────────────────────
 function stableId(title: string, link: string): number {
@@ -33,59 +35,129 @@ function decodeHtml(html: string): string {
     .replace(/<[^>]+>/g,'').trim();
 }
 
-// ─── FALLBACK（50篇眞實靜態新聞，永不失效）────────────────────
-const FALLBACK: NewsItem[] = [
-  {id:1,title:'Global leaders agree on emergency climate action at UN summit',titleTL:{},summary:'World leaders have reached a historic agreement on emergency climate measures at the United Nations.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Reuters',pubDate:new Date(Date.now()-3600000).toISOString(),imageUrl:'https://picsum.photos/seed/1/800/450',region:'ALL'},
-  {id:2,title:'AI breakthrough: new model achieves human-level reasoning in scientific research',titleTL:{},summary:'Researchers have unveiled a new AI system capable of human-level reasoning on complex scientific problems.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-7200000).toISOString(),imageUrl:'https://picsum.photos/seed/2/800/450',region:'ALL'},
-  {id:3,title:'Ukraine-Russia peace talks resume with UN mediation in Geneva',titleTL:{},summary:'Diplomatic negotiations between Ukraine and Russia have resumed in Geneva with UN mediation.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Al Jazeera',pubDate:new Date(Date.now()-10800000).toISOString(),imageUrl:'https://picsum.photos/seed/3/800/450',region:'RUS'},
-  {id:4,title:'Federal Reserve signals interest rate cuts as inflation reaches 2-year low',titleTL:{},summary:'The US Federal Reserve has indicated that interest rate cuts could come sooner than expected.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Bloomberg',pubDate:new Date(Date.now()-14400000).toISOString(),imageUrl:'https://picsum.photos/seed/4/800/450',region:'USA'},
-  {id:5,title:'Taiwan and China resume diplomatic talks after months of tensions',titleTL:{},summary:'Taiwan and China have agreed to resume diplomatic talks following months of heightened tensions.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'CNA',pubDate:new Date(Date.now()-18000000).toISOString(),imageUrl:'https://picsum.photos/seed/5/800/450',region:'TWN'},
-  {id:6,title:'Japan and South Korea mark 60 years of diplomatic ties with landmark agreements',titleTL:{},summary:'Japan and South Korea have signed landmark economic and security agreements in Tokyo.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'NHK',pubDate:new Date(Date.now()-21600000).toISOString(),imageUrl:'https://picsum.photos/seed/6/800/450',region:'JPN'},
-  {id:7,title:'WHO issues warning as respiratory infections surge across Europe',titleTL:{},summary:'The World Health Organization has issued an urgent warning about a significant increase in respiratory infections.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'France24',pubDate:new Date(Date.now()-25200000).toISOString(),imageUrl:'https://picsum.photos/seed/7/800/450',region:'EUR'},
-  {id:8,title:'SpaceX launches first operational crewed mission to Mars orbit',titleTL:{},summary:'SpaceX has successfully launched its first operational crewed mission to Mars orbit.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'CNN',pubDate:new Date(Date.now()-28800000).toISOString(),imageUrl:'https://picsum.photos/seed/8/800/450',region:'ALL'},
-  {id:9,title:'UN Security Council votes to extend peacekeeping mission in disputed border region',titleTL:{},summary:'The UN Security Council has voted overwhelmingly to extend the peacekeeping mission.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'SkyNews',pubDate:new Date(Date.now()-32400000).toISOString(),imageUrl:'https://picsum.photos/seed/9/800/450',region:'ALL'},
-  {id:10,title:'Global shipping costs surge as Red Sea tensions disrupt major trade routes',titleTL:{},summary:'Major shipping companies are diverting vessels away from the Red Sea, causing global shipping costs to surge.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'DW',pubDate:new Date(Date.now()-36000000).toISOString(),imageUrl:'https://picsum.photos/seed/10/800/450',region:'ALL'},
-  {id:11,title:'South Korea economy grows faster than expected on strong chip exports',titleTL:{},summary:"South Korea's economy grew faster than expected, driven by strong semiconductor exports.",summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Yonhap',pubDate:new Date(Date.now()-39600000).toISOString(),imageUrl:'https://picsum.photos/seed/11/800/450',region:'KOR'},
-  {id:12,title:'India surpasses China as world largest manufacturing hub, report says',titleTL:{},summary:'India has officially surpassed China as the world largest manufacturing destination.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-43200000).toISOString(),imageUrl:'https://picsum.photos/seed/12/800/450',region:'IND'},
-  {id:13,title:'European Union agrees on landmark digital markets regulation',titleTL:{},summary:'The European Union has reached a landmark agreement on digital markets regulation.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Guardian',pubDate:new Date(Date.now()-46800000).toISOString(),imageUrl:'https://picsum.photos/seed/13/800/450',region:'EUR'},
-  {id:14,title:'Middle East peace process shows new momentum after UAE-brokered talks',titleTL:{},summary:'A new round of indirect peace talks between Israel and Palestine has shown unexpected momentum.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Al Jazeera',pubDate:new Date(Date.now()-50400000).toISOString(),imageUrl:'https://picsum.photos/seed/14/800/450',region:'ME'},
-  {id:15,title:'China announces major stimulus package to boost domestic economy',titleTL:{},summary:'China has announced a comprehensive stimulus package worth over $500 billion.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'SCMP',pubDate:new Date(Date.now()-54000000).toISOString(),imageUrl:'https://picsum.photos/seed/15/800/450',region:'ASI'},
-  {id:16,title:'Breakthrough cancer treatment shows 90% success rate in clinical trials',titleTL:{},summary:'A new immunotherapy treatment has shown a 90% success rate in Phase 3 clinical trials.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'NPR',pubDate:new Date(Date.now()-57600000).toISOString(),imageUrl:'https://picsum.photos/seed/16/800/450',region:'ALL'},
-  {id:17,title:'UK government unveils largest military investment since Cold War',titleTL:{},summary:'The United Kingdom has announced its largest military investment program since the Cold War.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-61200000).toISOString(),imageUrl:'https://picsum.photos/seed/17/800/450',region:'UK'},
-  {id:18,title:'Germany industrial output rebounds stronger than forecast',titleTL:{},summary:"Germany's industrial output has rebounded more strongly than forecast.",summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'DW',pubDate:new Date(Date.now()-68400000).toISOString(),imageUrl:'https://picsum.photos/seed/18/800/450',region:'EUR'},
-  {id:19,title:'Tech giants report record earnings driven by AI infrastructure spending',titleTL:{},summary:'Major technology companies have reported record-breaking quarterly earnings driven by AI.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Bloomberg',pubDate:new Date(Date.now()-75600000).toISOString(),imageUrl:'https://picsum.photos/seed/19/800/450',region:'TEC'},
-  {id:20,title:'New quantum computing breakthrough promises unbreakable encryption',titleTL:{},summary:'Scientists have achieved a new quantum computing breakthrough promising unbreakable encryption.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Nature',pubDate:new Date(Date.now()-108000000).toISOString(),imageUrl:'https://picsum.photos/seed/20/800/450',region:'TEC'},
-  {id:21,title:'G20 summit ends with agreements on wealth tax and AI governance',titleTL:{},summary:'The G20 summit has concluded with historic agreements on global wealth taxation and AI governance.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Reuters',pubDate:new Date(Date.now()-90000000).toISOString(),imageUrl:'https://picsum.photos/seed/21/800/450',region:'ALL'},
-  {id:22,title:'Australia passes landmark climate legislation targeting net zero by 2050',titleTL:{},summary:'Australia has passed landmark climate legislation committing to net-zero emissions by 2050.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'ABC AU',pubDate:new Date(Date.now()-79200000).toISOString(),imageUrl:'https://picsum.photos/seed/22/800/450',region:'AUS'},
-  {id:23,title:'US and Japan sign historic defense cooperation agreement',titleTL:{},summary:'The United States and Japan have signed a historic defense cooperation agreement.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'CNA',pubDate:new Date(Date.now()-82800000).toISOString(),imageUrl:'https://picsum.photos/seed/23/800/450',region:'JPN'},
-  {id:24,title:'Major earthquake strikes central Asia, humanitarian aid mobilized',titleTL:{},summary:'A magnitude 7.2 earthquake has struck central Asia, prompting immediate humanitarian aid.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-86400000).toISOString(),imageUrl:'https://picsum.photos/seed/24/800/450',region:'ASI'},
-  {id:25,title:'South Korea parliament passes landmark corporate reform bill',titleTL:{},summary:'South Korea parliament has passed a landmark corporate reform bill on transparency.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Yonhap',pubDate:new Date(Date.now()-93600000).toISOString(),imageUrl:'https://picsum.photos/seed/25/800/450',region:'KOR'},
-  {id:26,title:'Nobel Prize in Medicine awarded for mRNA vaccine technology',titleTL:{},summary:'Scientists behind mRNA vaccine technology have been awarded the Nobel Prize in Medicine.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-133200000).toISOString(),imageUrl:'https://picsum.photos/seed/26/800/450',region:'SCI'},
-  {id:27,title:'Taiwan semiconductor exports reach record high amid global AI boom',titleTL:{},summary:'Taiwan semiconductor exports have reached a record high driven by AI chip demand.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'CNA',pubDate:new Date(Date.now()-136800000).toISOString(),imageUrl:'https://picsum.photos/seed/27/800/450',region:'TWN'},
-  {id:28,title:'Wildfires devastate parts of Mediterranean as heatwave intensifies',titleTL:{},summary:'Wildfires have devastated large parts of the Mediterranean as a severe heatwave continues.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Al Jazeera',pubDate:new Date(Date.now()-140400000).toISOString(),imageUrl:'https://picsum.photos/seed/28/800/450',region:'EUR'},
-  {id:29,title:'Japan approves record defense budget amid regional security concerns',titleTL:{},summary:'Japan has approved a record defense budget exceeding 2% of GDP.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'NHK',pubDate:new Date(Date.now()-144000000).toISOString(),imageUrl:'https://picsum.photos/seed/29/800/450',region:'JPN'},
-  {id:30,title:'IMF upgrades global growth forecast on strong emerging markets',titleTL:{},summary:'The IMF has upgraded its global growth forecast citing stronger than expected emerging markets.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-147600000).toISOString(),imageUrl:'https://picsum.photos/seed/30/800/450',region:'ECO'},
-  {id:31,title:'India becomes third country to land spacecraft on Moon south pole',titleTL:{},summary:'India has become the third country to successfully land a spacecraft on the Moon south pole.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-151200000).toISOString(),imageUrl:'https://picsum.photos/seed/31/800/450',region:'IND'},
-  {id:32,title:'EU and UK reach breakthrough deal on Northern Ireland trade rules',titleTL:{},summary:'The European Union and United Kingdom have reached a breakthrough deal on Northern Ireland.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Guardian',pubDate:new Date(Date.now()-158400000).toISOString(),imageUrl:'https://picsum.photos/seed/32/800/450',region:'UK'},
-  {id:33,title:'Cybersecurity firms warn of massive global ransomware attack',titleTL:{},summary:'Leading cybersecurity firms have issued urgent warnings about a massive global ransomware attack.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-165600000).toISOString(),imageUrl:'https://picsum.photos/seed/33/800/450',region:'TEC'},
-  {id:34,title:'Egypt opens new Suez Canal expansion boosting global trade',titleTL:{},summary:'Egypt has opened a major expansion of the Suez Canal, significantly increasing capacity.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Al Jazeera',pubDate:new Date(Date.now()-169200000).toISOString(),imageUrl:'https://picsum.photos/seed/34/800/450',region:'ME'},
-  {id:35,title:'Switzerland hosts historic peace conference with 80 nations attending',titleTL:{},summary:'Switzerland is hosting a historic peace conference with representatives from over 80 nations.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Reuters',pubDate:new Date(Date.now()-176400000).toISOString(),imageUrl:'https://picsum.photos/seed/35/800/450',region:'EUR'},
-  {id:36,title:'China completes world longest high-speed rail network',titleTL:{},summary:'China has completed the world longest high-speed rail network, connecting over 95% of major cities.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-180000000).toISOString(),imageUrl:'https://picsum.photos/seed/36/800/450',region:'ASI'},
-  {id:37,title:'WHO approves first malaria vaccine for children in Africa',titleTL:{},summary:'The WHO has approved the first malaria vaccine specifically designed for children in Africa.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-183600000).toISOString(),imageUrl:'https://picsum.photos/seed/37/800/450',region:'AFR'},
-  {id:38,title:'Netherlands becomes first country to fully phase out coal power',titleTL:{},summary:'The Netherlands has become the first country in the world to fully phase out coal-fired power.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'DW',pubDate:new Date(Date.now()-190800000).toISOString(),imageUrl:'https://picsum.photos/seed/38/800/450',region:'EUR'},
-  {id:39,title:'South Africa launches largest renewable energy project on continent',titleTL:{},summary:'South Africa has launched the largest renewable energy project on the African continent.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-194400000).toISOString(),imageUrl:'https://picsum.photos/seed/39/800/450',region:'AFR'},
-  {id:40,title:'Vietnam becomes favorite destination for global tech manufacturing',titleTL:{},summary:'Vietnam has emerged as a favorite destination for global technology companies.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'CNA',pubDate:new Date(Date.now()-198000000).toISOString(),imageUrl:'https://picsum.photos/seed/40/800/450',region:'ASI'},
-  {id:41,title:'NASA confirms water ice deposits on Moon surface in new discovery',titleTL:{},summary:'NASA has confirmed the existence of significant water ice deposits on the Moon surface.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-216000000).toISOString(),imageUrl:'https://picsum.photos/seed/41/800/450',region:'SCI'},
-  {id:42,title:'Peru becomes world largest copper producer amid mining investment boom',titleTL:{},summary:'Peru has become the world largest copper producer, driven by a surge in mining investment.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-172800000).toISOString(),imageUrl:'https://picsum.photos/seed/42/800/450',region:'LAT'},
-  {id:43,title:'Colombia declares environmental emergency over Amazon deforestation',titleTL:{},summary:'Colombia has declared an environmental emergency following accelerating Amazon deforestation.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-154800000).toISOString(),imageUrl:'https://picsum.photos/seed/43/800/450',region:'LAT'},
-  {id:44,title:'Mexico City suffers severe water crisis as aquifers near depletion',titleTL:{},summary:'Mexico City is facing a severe water crisis as its main aquifers near depletion.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-187200000).toISOString(),imageUrl:'https://picsum.photos/seed/44/800/450',region:'LAT'},
-  {id:45,title:'Poland leads Eastern Europe tech boom with $10 billion startup hub',titleTL:{},summary:'Poland is leading an Eastern European technology boom, with Warsaw emerging as a startup hub.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Guardian',pubDate:new Date(Date.now()-205200000).toISOString(),imageUrl:'https://picsum.photos/seed/45/800/450',region:'EUR'},
-  {id:46,title:'Iran nuclear talks make progress as sanctions relief discussed',titleTL:{},summary:'International nuclear talks with Iran have shown significant progress on potential sanctions relief.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Al Jazeera',pubDate:new Date(Date.now()-208800000).toISOString(),imageUrl:'https://picsum.photos/seed/46/800/450',region:'ME'},
-  {id:47,title:'Malaysia unveils plan to become ASEAN fintech hub by 2030',titleTL:{},summary:'Malaysia has unveiled an ambitious plan to become ASEAN leading fintech hub by 2030.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-212400000).toISOString(),imageUrl:'https://picsum.photos/seed/47/800/450',region:'ASI'},
-  {id:48,title:'Brazil surpasses expectations with record soybean exports to China',titleTL:{},summary:'Brazil has reported record-breaking soybean exports to China significantly exceeding expectations.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'Reuters',pubDate:new Date(Date.now()-64800000).toISOString(),imageUrl:'https://picsum.photos/seed/48/800/450',region:'LAT'},
-  {id:49,title:'Argentina reaches historic debt restructuring agreement with IMF',titleTL:{},summary:'Argentina has reached a historic debt restructuring agreement with the IMF.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-100800000).toISOString(),imageUrl:'https://picsum.photos/seed/49/800/450',region:'LAT'},
-  {id:50,title:'Africa free trade zone creates largest market of 1.4 billion people',titleTL:{},summary:'The African Continental Free Trade Area has officially launched creating the largest free trade zone.',summaryTL:{},link:'https://news.google.com/articles/CBMioAE',source:'BBC',pubDate:new Date(Date.now()-72000000).toISOString(),imageUrl:'https://picsum.photos/seed/50/800/450',region:'AFR'},
+// ─── FALLBACK RSS FEEDS（真實、新聞可信賴）────────────────────
+// 當 Worker + Google News RSS 雙雙失敗時的最後一道防線。
+// 這些全是公開的 RSS/Atom 端點，無需 API Key，適合客戶端 fetch。
+// 資料來源：BBC World、Reuters、Al Jazeera、NHK World、France24、ABC Australia、
+//          DW（德國之聲）、Euronews、Sky News、UN News — 全部是具有新聞信譽的公共機構。
+//
+// ⚠️ 所有 URL 均為公開端點，請勿加入需要付費牆或登入的新聞源。
+const FALLBACK_RSS_FEEDS = [
+  // ── 英語主流媒體 ──
+  { url: 'https://feeds.bbci.co.uk/news/world/rss.xml',                           label: 'BBC World',              region: 'ALL' },
+  { url: 'https://feeds.bbci.co.uk/news/world/asia/rss.xml',                      label: 'BBC Asia',               region: 'ASI' },
+  { url: 'https://feeds.bbci.co.uk/news/world/europe/rss.xml',                    label: 'BBC Europe',             region: 'EUR' },
+  { url: 'https://www.reutersagency.com/feed/?best-regions=europe&post_type=best', label: 'Reuters Europe',       region: 'EUR' },
+  { url: 'https://www.aljazeera.com/xml/rss/all.xml',                            label: 'Al Jazeera',             region: 'ALL' },
+  { url: 'https://www.nhk.or.jp/rss/news/cat0.xml',                              label: 'NHK World',              region: 'JPN' },
+  { url: 'https://www.france24.com/en/rss',                                      label: 'France24 English',       region: 'EUR' },
+  { url: 'https://www.skynews.com.au/rss/',                                      label: 'Sky News',               region: 'AUS' },
+  { url: 'https://www.abc.net.au/news/feeds/rss/worldnews.xml',                  label: 'ABC Australia',          region: 'AUS' },
+  // ── 德語 / 歐洲 ──
+  { url: 'https://rss.dw.com/rss/rss.php-en',                                    label: 'DW (English)',            region: 'EUR' },
+  { url: 'https://www.euronews.com/rss',                                        label: 'Euronews',               region: 'EUR' },
+  // ── 亞洲 ──
+  { url: 'https://english.kyodonews.net/rss/papers.xml',                        label: 'Kyodo News',             region: 'ASI' },
+  { url: 'https://www.channelnewsasia.com/rss',                                 label: 'Channel News Asia',      region: 'ASI' },
+  { url: 'https://www.scmp.com/rss/feed.xml',                                    label: 'SCMP',                   region: 'ASI' },
+  // ── 聯合國 / 國際組織 ──
+  { url: 'https://news.un.org/feed/subscribe/en/news.rss',                      label: 'UN News',                region: 'ALL' },
+  // ── 備用 Google News 搜尋（涵蓋突發新聞）──
+  { url: 'https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en',               label: 'Google News US',         region: 'USA' },
+  { url: 'https://news.google.com/rss?hl=en-GB&gl=GB&ceid=GB:en',               label: 'Google News UK',        region: 'UK'  },
+  { url: 'https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh',               label: 'Google News Taiwan',     region: 'TWN' },
+  { url: 'https://news.google.com/rss?hl=ja-JP&gl=JP&ceid=JP:ja',               label: 'Google News Japan',      region: 'JPN' },
+  { url: 'https://news.google.com/rss?hl=ko-KR&gl=KR&ceid=KR:ko',               label: 'Google News Korea',      region: 'KOR' },
+  { url: 'https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en',               label: 'Google News India',      region: 'IND' },
+  { url: 'https://news.google.com/rss?hl=zh-HK&gl=HK&ceid=HK:zh',               label: 'Google News HK',        region: 'HKG' },
+  { url: 'https://news.google.com/rss?hl=en-AU&gl=AU&ceid=AU:en',               label: 'Google News Australia',  region: 'AUS' },
+  { url: 'https://news.google.com/rss?hl=ar&gl=AE&ceid=AE:ar',                  label: 'Google News Middle East',region: 'ME'  },
+  { url: 'https://news.google.com/rss?hl=fr&gl=FR&ceid=FR:fr',                  label: 'Google News France',     region: 'EUR' },
+  { url: 'https://news.google.com/rss?hl=de&gl=DE&ceid=DE:de',                  label: 'Google News Germany',   region: 'EUR' },
+  { url: 'https://news.google.com/rss?hl=pt-BR&gl=BR&ceid=BR:pt',               label: 'Google News Brazil',     region: 'LAT' },
+  { url: 'https://news.google.com/rss?hl=en&gl=ZA&ceid=ZA:en',                  label: 'Google News Africa',     region: 'AFR' },
+  { url: 'https://news.google.com/rss?hl=ru&gl=RU&ceid=RU:ru',                  label: 'Google News Russia',    region: 'RUS' },
 ];
+
+// ─── 解析 RSS/Atom XML ───────────────────────────────────────
+function parseRSS(xml: string, sourceLabel: string): NewsItem[] {
+  const items: NewsItem[] = [];
+  const re = /<item\b([\s\S]*?)<\/item>/gi;
+  const gt = (blk: string, tag: string) => {
+    const m = blk.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`,'i'));
+    return m ? m[1].replace(/<!\[CDATA\[|\]\]>/g,'').replace(/<[^>]+>/g,'').trim() : '';
+  };
+  let mx;
+  while ((mx = re.exec(xml)) !== null && items.length < 10) {
+    const blk = mx[1];
+    const tl = gt(blk,'title');
+    if (!tl) continue;
+    const rawLink = gt(blk,'link');
+    const up = rawLink.match(/url=([^&]+)/);
+    const link = up ? decodeURIComponent(up[1]) : rawLink;
+    const desc = decodeHtml(gt(blk,'description')).slice(0, 400);
+    const pubRaw = gt(blk,'pubDate') || gt(blk,'dc:date') || new Date().toISOString();
+    // media:content / media:thumbnail
+    const mc = blk.match(/url=["']([^"']+)["']/i);
+    const img = mc ? mc[1] : '';
+    items.push({
+      id: stableId(tl, link),
+      title: tl,
+      titleTL: {},
+      summary: desc,
+      summaryTL: {},
+      link,
+      source: gt(blk,'source') || sourceLabel,
+      pubDate: new Date(pubRaw).toISOString(),
+      imageUrl: img,
+      region: 'ALL',
+    });
+  }
+  return items;
+}
+
+// ─── FALLBACK：依 region 動態抓取真實 RSS ──────────────────
+// 最多並發 5 個 feed，總超時 12 秒
+async function fetchFallbackByRegion(targetRegion: string): Promise<NewsItem[]> {
+  // 依 region 過濾 feed；若 region==='ALL' 取前8個英文主 feed
+  const pool = targetRegion === 'ALL'
+    ? FALLBACK_RSS_FEEDS.slice(0, 8)
+    : FALLBACK_RSS_FEEDS.filter(f => f.region === targetRegion || f.region === 'ALL').slice(0, 6);
+
+  if (pool.length === 0) return [];
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
+
+  try {
+    const results = await Promise.allSettled(
+      pool.map(f =>
+        fetch(f.url, { signal: controller.signal as AbortSignal, mode: 'cors' } as RequestInit)
+          .then(r => r.text())
+          .then(xml => parseRSS(xml, f.label))
+          .catch(() => [] as NewsItem[])
+      )
+    );
+    clearTimeout(timer);
+    const all: NewsItem[] = [];
+    for (const r of results) {
+      if (r.status === 'fulfilled') all.push(...r.value);
+    }
+    // 去重 + 時間排序
+    const seen = new Set<string>();
+    return all
+      .filter(n => {
+        const key = n.title.slice(0, 60);
+        if (seen.has(key)) return false;
+        seen.add(key); return true;
+      })
+      .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+      .slice(0, 30);
+  } catch {
+    clearTimeout(timer);
+    return [];
+  }
+}
 
 // ─── CF Worker 請求（Google News RSS 代理）────────────────────
 async function fetchViaWorker(group = 'ALL'): Promise<NewsItem[]> {
@@ -170,7 +242,7 @@ async function fetchDirectGoogleNews(group = 'ALL'): Promise<NewsItem[]> {
 
 // ─── 寫入 Supabase cache（非阻塞）────────────────────────────
 function writeToCache(items: NewsItem[]) {
-  if (!items.length) return;
+  if (!items.length || !SB_ANON_KEY) return;
   const rows = items.slice(0, 20).map(i => ({
     title: String(i.title).slice(0, 300),
     summary: String(i.summary || ''),
@@ -216,8 +288,8 @@ export async function fetchGroupByRegion(region: string): Promise<NewsItem[]> {
     return directNews;
   }
 
-  // Fallback: 靜態新聞
-  return FALLBACK.filter(n => region === 'ALL' || n.region === region || n.region === 'ALL').slice(0, 30);
+  // Fallback: 動態抓取真實 RSS（永不返回虛構內容）
+  return fetchFallbackByRegion(region);
 }
 
 export async function fetchGroupByTopic(topic: string): Promise<NewsItem[]> {
