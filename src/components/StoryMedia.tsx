@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { regionByCode } from '../../shared/feeds';
-import { categoryLabel } from '../../shared/categories';
 import type { NewsItem } from '../../shared/types';
 import { safeUrl } from '../utils/url';
+import { RegionIcon } from './RegionIcon';
 
 export function StoryMedia({ item, eager = false }: { item: NewsItem; eager?: boolean }) {
   const image = safeUrl(item.image ?? '');
   const [failed, setFailed] = useState(false);
-  const region = regionByCode(item.regions[0] ?? 'ALL');
+  const code = item.regions[0] ?? 'ALL';
+  const region = regionByCode(code);
   if (!image || failed) {
     return (
-      <div className="thumb thumb-fallback" style={{ background: region.color }} aria-hidden="true">
-        <span>{categoryLabel(item.category ?? 'world')}</span>
+      <div className="thumb thumb-fallback" style={{ '--ph': region.color } as React.CSSProperties} aria-hidden="true">
+        <RegionIcon code={code} large />
       </div>
     );
   }

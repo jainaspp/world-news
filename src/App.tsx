@@ -60,6 +60,8 @@ export default function App() {
   const [translated, setTranslated] = useState<Record<string, string>>({});
   const [searchHits, setSearchHits] = useState<Set<string> | null>(null);
   const [shownState, setShownState] = useState({ key: '', count: PAGE_SIZE });
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const wide = useWide('(min-width: 1200px)');
 
   useEffect(() => {
@@ -136,6 +138,10 @@ export default function App() {
   const counts = useMemo(() => sourceCounts(clusters), [clusters]);
   const hero = listed[0];
   const rest = listed.slice(1);
+  const deskLead = wide && !view.bookmarks;
+  const secondary = deskLead ? rest.slice(0, 4) : [];
+  const gridItems = deskLead ? rest.slice(4) : rest;
+  const filtersActive = view.time !== 'all' || view.source !== '' || view.region !== 'ALL';
 
   useEffect(() => {
     let cancel = false;
@@ -194,8 +200,8 @@ export default function App() {
         跳到頭條
       </a>
       <div className="page">
-        <header className="masthead">
-          <div className="masthead-brand">
+        <div className="chrome">
+          <header className="masthead">
             <h1 className="masthead-title">
               <a className="logo-link" href="/" aria-label={SITE_NAME} onClick={(event) => {
                 event.preventDefault();
@@ -204,104 +210,126 @@ export default function App() {
                 <Logo />
               </a>
             </h1>
-            <p className="masthead-date">
-              {new Intl.DateTimeFormat('zh-HK', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date())}
-            </p>
-          </div>
-          <form className="search-bar" role="search" onSubmit={(event) => event.preventDefault()}>
-            <label htmlFor="news-search">搜尋頭條</label>
-            <input
-              id="news-search"
-              value={view.q}
-              placeholder="搜尋標題或來源"
-              onChange={(event) => go({ ...view, q: event.target.value }, 'replace')}
-            />
-          </form>
-          <div className="header-actions">
-            <button type="button" className="icon-btn" onClick={() => void refresh()} disabled={loading}>
-              {loading ? '載入中' : '重新整理'}
-            </button>
-            <DarkModeToggle checked={dark} onChange={setDark} />
-            <button
-              type="button"
-              className={view.bookmarks ? 'icon-btn active' : 'icon-btn'}
-              aria-pressed={view.bookmarks}
-              onClick={() => go({ ...view, bookmarks: !view.bookmarks })}
-            >
-              收藏{bookmarkIds.size > 0 ? ` ${bookmarkIds.size}` : ''}
-            </button>
-            <LanguageSelector value={lang} onChange={setLang} />
-          </div>
-        </header>
-
-        <nav className="filters" aria-label="分類">
-          {CATEGORIES.map((category) => (
-            <button
-              type="button"
-              key={category.id}
-              className={view.category === category.id && !view.bookmarks ? 'chip active' : 'chip'}
-              aria-pressed={view.category === category.id && !view.bookmarks}
-              onClick={() => go({ ...view, category: category.id, source: '', bookmarks: false })}
-            >
-              {category.label}
-            </button>
-          ))}
-        </nav>
-
-        <nav className="filters" aria-label="地區">
-          {REGIONS.map((region) => (
-            <button
-              type="button"
-              key={region.code}
-              className={view.region === region.code && !view.bookmarks ? 'chip active' : 'chip'}
-              aria-pressed={view.region === region.code && !view.bookmarks}
-              onClick={() => go({ ...view, region: region.code, source: '', bookmarks: false })}
-            >
-              <RegionIcon code={region.code} />
-              {region.label}
-            </button>
-          ))}
-        </nav>
-
-        {!view.bookmarks && (
-          <nav className="filters" aria-label="時間">
-            {TIMES.map((item) => (
+            <form className={searchOpen ? 'search-bar open' : 'search-bar'} role="search" onSubmit={(event) => event.preventDefault()}>
+              <label className="sr-only" htmlFor="news-search">搜尋</label>
+              <button type="button" className="icon-btn search-toggle" aria-label="搜尋" aria-expanded={searchOpen} onClick={() => setSearchOpen((open) => !open)}>
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                  <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.75" />
+                  <path d="M16 16.5 20 20.5" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+                </svg>
+              </button>
+              <input
+                id="news-search"
+                value={view.q}
+                placeholder="搜尋"
+                onChange={(event) => go({ ...view, q: event.target.value }, 'replace')}
+              />
+            </form>
+            <div className="header-actions">
+              <button type="button" className="icon-btn" aria-label="重新整理" onClick={() => void refresh()} disabled={loading}>
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                  <path d="M20 12a8 8 0 1 1-2.2-5.5" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+                  <path d="M20 4v5h-5" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <DarkModeToggle checked={dark} onChange={setDark} />
               <button
                 type="button"
-                key={item.id}
-                className={view.time === item.id ? 'chip active' : 'chip'}
-                aria-pressed={view.time === item.id}
-                onClick={() => go({ ...view, time: item.id })}
+                className={view.bookmarks ? 'icon-btn active' : 'icon-btn'}
+                aria-pressed={view.bookmarks}
+                aria-label={bookmarkIds.size > 0 ? `收藏 ${bookmarkIds.size}` : '收藏'}
+                onClick={() => go({ ...view, bookmarks: !view.bookmarks })}
               >
-                {item.label}
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                  <path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3.2L6 20V5a1 1 0 0 1 1-1z" fill={view.bookmarks ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+                </svg>
+                {bookmarkIds.size > 0 && <span className="count-badge">{bookmarkIds.size}</span>}
               </button>
-            ))}
-          </nav>
-        )}
+              <LanguageSelector value={lang} onChange={setLang} />
+            </div>
+          </header>
 
-        {!view.bookmarks && (
-          <nav className="filters" aria-label="來源">
+          <div className="tab-bar">
             <button
               type="button"
-              className={view.source === '' ? 'chip active' : 'chip'}
-              aria-pressed={view.source === ''}
-              onClick={() => go({ ...view, source: '' })}
+              className={filtersOpen || filtersActive ? 'chip active' : 'chip'}
+              aria-expanded={filtersOpen}
+              aria-controls="filter-panel"
+              onClick={() => setFiltersOpen((open) => !open)}
             >
-              全部來源
+              篩選
             </button>
-            {sources.map((name) => (
-              <button
-                type="button"
-                key={name}
-                className={view.source === name ? 'chip active' : 'chip'}
-                aria-pressed={view.source === name}
-                onClick={() => go({ ...view, source: name, bookmarks: false })}
-              >
-                {name}
-              </button>
-            ))}
-          </nav>
-        )}
+            <nav className="filters" aria-label="分類">
+              {CATEGORIES.map((category) => (
+                <button
+                  type="button"
+                  key={category.id}
+                  className={view.category === category.id && !view.bookmarks ? 'chip active' : 'chip'}
+                  aria-pressed={view.category === category.id && !view.bookmarks}
+                  onClick={() => go({ ...view, category: category.id, source: '', bookmarks: false })}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          {filtersOpen && !view.bookmarks && (
+            <div className="filter-panel" id="filter-panel">
+              <nav className="filters" aria-label="時間">
+                {TIMES.map((item) => (
+                  <button
+                    type="button"
+                    key={item.id}
+                    className={view.time === item.id ? 'chip active' : 'chip'}
+                    aria-pressed={view.time === item.id}
+                    onClick={() => go({ ...view, time: item.id })}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+              <nav className="filters" aria-label="來源">
+                <button
+                  type="button"
+                  className={view.source === '' ? 'chip active' : 'chip'}
+                  aria-pressed={view.source === ''}
+                  onClick={() => go({ ...view, source: '' })}
+                >
+                  全部來源
+                </button>
+                {sources.map((name) => (
+                  <button
+                    type="button"
+                    key={name}
+                    className={view.source === name ? 'chip active' : 'chip'}
+                    aria-pressed={view.source === name}
+                    onClick={() => go({ ...view, source: name, bookmarks: false })}
+                  >
+                    {name}
+                  </button>
+                ))}
+              </nav>
+            </div>
+          )}
+
+          {!view.bookmarks && (
+            <nav className="filters filters-slim" aria-label="地區">
+              {REGIONS.map((region) => (
+                <button
+                  type="button"
+                  key={region.code}
+                  className={view.region === region.code ? 'chip active' : 'chip'}
+                  aria-pressed={view.region === region.code}
+                  onClick={() => go({ ...view, region: region.code, source: '', bookmarks: false })}
+                >
+                  <RegionIcon code={region.code} />
+                  {region.label}
+                </button>
+              ))}
+            </nav>
+          )}
+        </div>
 
         <div className="layout">
           <main id="news">
@@ -332,33 +360,37 @@ export default function App() {
                   </p>
                 )}
                 {showTopAd && <AdSlot slot={AD_SLOT_TOP} variant="banner" />}
-                {hero && (
-                  <NewsCard
-                    item={hero}
-                    title={translated[hero.id] || hero.title}
-                    bookmarked={bookmarkIds.has(hero.id)}
-                    onToggleBookmark={toggle}
-                    sourceCount={counts.get(hero.id) ?? 0}
-                    featured
-                  />
-                )}
-                {!view.bookmarks && !view.q.trim() && clusters.length > 0 && (
-                  <section className="trending" aria-label="熱門">
-                    <h2>熱門</h2>
-                    <ol>
-                      {clusters.slice(0, 5).map((cluster) => (
-                        <li key={cluster.id}>
-                          <a href={cluster.lead.link} target="_blank" rel="noopener noreferrer">
-                            {translated[cluster.lead.id] || cluster.lead.title}
-                          </a>
-                          <span className="cluster-badge">{cluster.count} 個來源報道</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </section>
+                {(hero || secondary.length > 0) && (
+                  <div className="top-stories">
+                    {hero && (
+                      <NewsCard
+                        item={hero}
+                        title={translated[hero.id] || hero.title}
+                        bookmarked={bookmarkIds.has(hero.id)}
+                        onToggleBookmark={toggle}
+                        sourceCount={counts.get(hero.id) ?? 0}
+                        featured
+                      />
+                    )}
+                    {secondary.length > 0 && (
+                      <div className="secondary-list">
+                        {secondary.map((item) => (
+                          <NewsCard
+                            key={item.id}
+                            item={item}
+                            title={translated[item.id] || item.title}
+                            bookmarked={bookmarkIds.has(item.id)}
+                            onToggleBookmark={toggle}
+                            sourceCount={counts.get(item.id) ?? 0}
+                            compact
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 )}
                 <div className="news-grid">
-                  {rest.flatMap((item: NewsItem, index) => {
+                  {gridItems.flatMap((item: NewsItem, index) => {
                     const card = (
                       <NewsCard
                         key={item.id}
@@ -382,6 +414,24 @@ export default function App() {
             )}
           </main>
           <aside className="sidebar" aria-label="側欄">
+            {!view.bookmarks && !view.q.trim() && clusters.length > 0 && (
+              <section className="trending" aria-label="熱門">
+                <h2>熱門</h2>
+                <ol>
+                  {clusters.slice(0, 5).map((cluster, index) => (
+                    <li key={cluster.id}>
+                      <span className="rank">{index + 1}</span>
+                      <div>
+                        <a href={cluster.lead.link} target="_blank" rel="noopener noreferrer">
+                          {translated[cluster.lead.id] || cluster.lead.title}
+                        </a>
+                        <span className="cluster-badge">{cluster.count} 個來源報道</span>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
             {showSideAd && <AdSlot slot={AD_SLOT_TOP} variant="sidebar" />}
             <div className="side-card">
               <h2>今次版面</h2>

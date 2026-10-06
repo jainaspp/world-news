@@ -63,10 +63,12 @@
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js').catch(function () {});
       }
-      var fonts = document.createElement('link');
-      fonts.rel = 'stylesheet';
-      fonts.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap';
-      document.head.appendChild(fonts);
+      window.setTimeout(function () {
+        var fonts = document.createElement('link');
+        fonts.rel = 'stylesheet';
+        fonts.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap';
+        document.head.appendChild(fonts);
+      }, 8000);
       window.setTimeout(function () {
         var ads = document.createElement('script');
         ads.async = true;

@@ -12,6 +12,7 @@ interface Props {
   onToggleBookmark: (item: NewsItem) => void;
   sourceCount?: number;
   featured?: boolean;
+  compact?: boolean;
 }
 
 function hostOf(url: string): string {
@@ -22,32 +23,36 @@ function hostOf(url: string): string {
   }
 }
 
-export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCount = 0, featured = false }: Props) {
+export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCount = 0, featured = false, compact = false }: Props) {
   const articleUrl = safeUrl(item.link);
   const sourceUrl = safeUrl(item.sourceUrl);
   const faviconHost = hostOf(sourceUrl || articleUrl);
   const fresh = item.pubDate && Date.now() - new Date(item.pubDate).getTime() < 60 * 60 * 1000;
+  const className = featured ? 'story story-hero' : compact ? 'story story-compact' : 'story';
+
+  const media = articleUrl ? (
+    <a className="story-media" href={articleUrl} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden="true">
+      <StoryMedia item={item} eager={featured} />
+    </a>
+  ) : (
+    <div className="story-media">
+      <StoryMedia item={item} eager={featured} />
+    </div>
+  );
 
   return (
-    <article className={featured ? 'story story-hero' : 'story'}>
-      {articleUrl ? (
-        <a className="story-media" href={articleUrl} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden="true">
-          <StoryMedia item={item} eager={featured} />
-        </a>
-      ) : (
-        <div className="story-media">
-          <StoryMedia item={item} eager={featured} />
-        </div>
-      )}
+    <article className={className}>
+      {media}
       <div className="story-body">
-        <div className="story-kicker">
-          <span className="kicker-region">
-            <RegionIcon code={item.regions[0] ?? 'ALL'} />
-            {categoryLabel(item.category ?? 'world')}
-          </span>
-          {fresh && <span className="breaking">快訊</span>}
-          {sourceCount >= 2 && <span className="cluster-badge">{sourceCount} 個來源報道</span>}
-        </div>
+        {!compact && (
+          <div className="story-kicker">
+            <span className="kicker-region">
+              <RegionIcon code={item.regions[0] ?? 'ALL'} />
+              {categoryLabel(item.category ?? 'world')}
+            </span>
+            {fresh && <span className="breaking">快訊</span>}
+          </div>
+        )}
         <h2 className="story-title">
           {articleUrl ? (
             <a href={articleUrl} target="_blank" rel="noopener noreferrer">
@@ -77,22 +82,25 @@ export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCoun
             <span className="source-tag">{item.source}</span>
           )}
           {item.pubDate && <time dateTime={item.pubDate}>{timeAgo(item.pubDate)}</time>}
-          <button
-            type="button"
-            className={bookmarked ? 'bookmark on' : 'bookmark'}
-            aria-pressed={bookmarked}
-            aria-label={bookmarked ? `取消收藏：${item.title}` : `收藏：${item.title}`}
-            onClick={() => onToggleBookmark(item)}
-          >
-            {bookmarked ? '已收藏' : '收藏'}
-          </button>
+          {sourceCount >= 2 && <span className="cluster-badge">{sourceCount} 個來源報道</span>}
+          {!compact && (
+            <button
+              type="button"
+              className={bookmarked ? 'bookmark on' : 'bookmark'}
+              aria-pressed={bookmarked}
+              aria-label={bookmarked ? `取消收藏：${item.title}` : `收藏：${item.title}`}
+              onClick={() => onToggleBookmark(item)}
+            >
+              {bookmarked ? '已收藏' : '收藏'}
+            </button>
+          )}
         </div>
-        {articleUrl && (
+        {!compact && articleUrl && (
           <a className="read-original" href={articleUrl} target="_blank" rel="noopener noreferrer">
             閱讀原文
           </a>
         )}
-        <p className="card-credit">標題來自 {item.source}。全文請到原文網站閱讀。</p>
+        {!compact && <p className="card-credit">標題來自 {item.source}。全文請到原文網站閱讀。</p>}
       </div>
     </article>
   );
