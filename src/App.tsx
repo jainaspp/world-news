@@ -2,13 +2,14 @@ import { useEffect, useMemo, useState } from 'react';
 import { filterNews } from '../shared/filter';
 import { REGIONS, sourcesForRegion } from '../shared/feeds';
 import type { NewsItem, TimeRange } from '../shared/types';
+import { AdSlot } from './components/AdSlot';
 import { DarkModeToggle } from './components/DarkModeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { InstallPrompt } from './components/InstallPrompt';
 import { LanguageSelector } from './components/LanguageSelector';
 import { NewsCard } from './components/NewsCard';
 import { SkeletonCard } from './components/SkeletonCard';
-import { SITE_NAME, SITE_URL } from './config';
+import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_NAME, SITE_URL } from './config';
 import { useBookmarks } from './hooks/useBookmarks';
 import { useNews } from './hooks/useNews';
 import { translateTitles } from './utils/translate';
@@ -231,16 +232,21 @@ export default function App() {
                   {stale ? '部分來源暫時連不上，以下是較早儲存的標題。' : '部分來源暫時沒有回應，其餘頭條仍可閱讀。'}
                 </p>
               )}
+              {!showBookmarks && <AdSlot slot={AD_SLOT_TOP} variant="banner" />}
               <div className="news-grid">
-                {visible.map((item: NewsItem) => (
-                  <NewsCard
-                    key={item.id}
-                    item={item}
-                    title={translated[item.id] || item.title}
-                    bookmarked={bookmarkIds.has(item.id)}
-                    onToggleBookmark={toggle}
-                  />
-                ))}
+                {visible.flatMap((item: NewsItem, index) => {
+                  const card = (
+                    <NewsCard
+                      key={item.id}
+                      item={item}
+                      title={translated[item.id] || item.title}
+                      bookmarked={bookmarkIds.has(item.id)}
+                      onToggleBookmark={toggle}
+                    />
+                  );
+                  if (showBookmarks || !AD_SLOT_FEED || (index + 1) % 4 !== 0) return [card];
+                  return [card, <AdSlot key={`feed-${item.id}`} slot={AD_SLOT_FEED} variant="feed" />];
+                })}
               </div>
             </>
           )}
