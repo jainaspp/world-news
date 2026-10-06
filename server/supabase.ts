@@ -1,5 +1,3 @@
-import http from 'node:http';
-import https from 'node:https';
 import { stableId, normalizeLink } from '../shared/rss.js';
 import type { NewsItem } from '../shared/types';
 
@@ -19,44 +17,19 @@ function creds(): { url: string; key: string } | null {
   return { url, key };
 }
 
-function requestJson(
+async function requestJson(
   url: string,
   init: { method?: string; headers: Record<string, string>; body?: string },
 ): Promise<{ ok: boolean; status: number; json: unknown }> {
-  return new Promise((resolve, reject) => {
-    const target = new URL(url);
-    const lib = target.protocol === 'https:' ? https : http;
-    const pending: { timer?: ReturnType<typeof setTimeout> } = {};
-    const req = lib.request(
-      target,
-      { method: init.method ?? 'GET', headers: init.headers },
-      (res) => {
-        const chunks: Buffer[] = [];
-        res.on('data', (chunk: Buffer) => chunks.push(chunk));
-        res.on('end', () => {
-          clearTimeout(pending.timer);
-          const status = res.statusCode ?? 0;
-          if (status < 200 || status >= 300) {
-            resolve({ ok: false, status, json: null });
-            return;
-          }
-          try {
-            const text = Buffer.concat(chunks).toString('utf8');
-            resolve({ ok: true, status, json: text ? JSON.parse(text) : null });
-          } catch (error) {
-            reject(error);
-          }
-        });
-      },
-    );
-    pending.timer = setTimeout(() => req.destroy(new Error('timeout')), CACHE_TIMEOUT_MS);
-    req.on('error', (error) => {
-      clearTimeout(pending.timer);
-      reject(error);
-    });
-    if (init.body) req.write(init.body);
-    req.end();
+  const response = await fetch(url, {
+    method: init.method ?? 'GET',
+    headers: init.headers,
+    body: init.body,
+    signal: AbortSignal.timeout(CACHE_TIMEOUT_MS),
   });
+  if (!response.ok) return { ok: false, status: response.status, json: null };
+  const text = await response.text();
+  return { ok: true, status: response.status, json: text ? JSON.parse(text) : null };
 }
 
 function headers(key: string, prefer?: string): Record<string, string> {

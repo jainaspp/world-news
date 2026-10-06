@@ -32,7 +32,7 @@ function runtimeSpecifiers(source: string): string[] {
 describe('serverless module graph', () => {
   it('uses .js specifiers so Node ESM can load the unbundled function', () => {
     const offenders: string[] = [];
-    for (const file of ['api', 'server', 'shared'].flatMap((dir) => walk(dir))) {
+    for (const file of ['api', 'server', 'shared', 'functions'].flatMap((dir) => walk(dir))) {
       if (!file.endsWith('.ts')) continue;
       for (const spec of runtimeSpecifiers(readFileSync(file, 'utf8'))) {
         if (!spec.endsWith('.js')) offenders.push(`${file} -> ${spec}`);
