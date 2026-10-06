@@ -103,25 +103,9 @@
   }).catch(function () {});
 })();
 
-  // HK weather strip on column pages (same /api/hk as the homepage).
+  // Merged HK weather + Hang Seng row. A failed side is omitted; both failing leaves the row hidden.
   (function () {
-    var box = document.getElementById('hk-weather');
-    if (!box) return;
-    fetch('/api/hk').then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
-      if (!data || data.temperature == null) return;
-      var icon = data.icon ? '<img src="https://www.hko.gov.hk/images/HKOWxIconOutline/pic' + data.icon + '.png" width="28" height="28" alt="" />' : '';
-      var aq = data.aqhi ? '<span class="hk-aqhi aqhi-' + (data.aqhi.value <= 3 ? 'low' : data.aqhi.value <= 6 ? 'mid' : 'high') + '">AQHI ' + data.aqhi.value + ' ' + (data.aqhi.risk || '') + '</span>' : '';
-      var warn = (data.warnings && data.warnings.length)
-        ? '<span class="hk-warnings">' + data.warnings.map(function (w) { return '<span class="hk-warning">' + w.name + '</span>'; }).join('') + '</span>'
-        : '<span class="hk-meta">現時無天氣警告</span>';
-      box.innerHTML = '<a class="hk-now" href="https://www.hko.gov.hk/tc/index.html" target="_blank" rel="noopener noreferrer">' + icon + '<span class="hk-temp">' + data.temperature + '°C</span><span class="hk-meta">濕度 ' + data.humidity + '%</span></a>' + aq + warn + '<span class="hk-credit">天文台 · 環保署</span>';
-      box.hidden = false;
-    }).catch(function () {});
-  })();
-
-  // Hang Seng strip. Same formatting as shared/hsi.ts. Hidden if /api/hsi has no price.
-  (function () {
-    var box = document.getElementById('hsi-strip');
+    var box = document.getElementById('hk-info');
     if (!box) return;
     function formatIndex(value) {
       var negative = value < -0.004;
@@ -133,19 +117,48 @@
       var body = formatIndex(value);
       return value > 0.004 ? '+' + body : body;
     }
-    fetch('/api/hsi').then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
-      if (!data || typeof data.price !== 'number' || typeof data.change !== 'number' || typeof data.changePercent !== 'number') return;
-      var direction = data.change > 0.005 ? 'up' : data.change < -0.005 ? 'down' : 'flat';
-      box.classList.add('hsi-' + direction);
-      var link = document.createElement('a');
-      link.href = 'https://finance.yahoo.com/quote/%5EHSI/';
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      function span(cls, text) { var node = document.createElement('span'); node.className = cls; node.textContent = text; return node; }
-      link.appendChild(span('hsi-label', '恒生指數'));
-      link.appendChild(span('hsi-price', formatIndex(data.price)));
-      link.appendChild(span('hsi-change', formatSigned(data.change) + ' (' + formatSigned(data.changePercent) + '%)'));
-      box.appendChild(link);
+    function paint(hk, hsi) {
+      var weatherBits = [];
+      if (hk && typeof hk.temperature === 'number') weatherBits.push(hk.temperature + '°C');
+      if (hk && hk.aqhi && isFinite(hk.aqhi.value)) weatherBits.push('AQHI ' + Math.floor(hk.aqhi.value));
+      var weather = weatherBits.join(' · ');
+      var quote = '';
+      var direction = '';
+      if (hsi && typeof hsi.price === 'number' && typeof hsi.changePercent === 'number') {
+        quote = '恒生 ' + formatIndex(hsi.price) + '  ' + formatSigned(hsi.changePercent) + '%';
+        direction = hsi.change > 0.005 ? 'up' : hsi.change < -0.005 ? 'down' : 'flat';
+      }
+      if (!weather && !quote) return;
+      box.textContent = '';
+      if (weather) {
+        var wx = document.createElement('a');
+        wx.className = 'hk-info-wx';
+        wx.href = 'https://www.hko.gov.hk/tc/wxinfo/currwx/current.htm';
+        wx.target = '_blank';
+        wx.rel = 'noopener noreferrer';
+        wx.textContent = weather;
+        box.appendChild(wx);
+      }
+      if (weather && quote) {
+        var sep = document.createElement('span');
+        sep.className = 'hk-info-sep';
+        sep.setAttribute('aria-hidden', 'true');
+        sep.textContent = '|';
+        box.appendChild(sep);
+      }
+      if (quote) {
+        var link = document.createElement('a');
+        link.className = 'hk-info-hsi hsi-' + direction;
+        link.href = 'https://finance.yahoo.com/quote/%5EHSI/';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = quote;
+        box.appendChild(link);
+      }
       box.hidden = false;
-    }).catch(function () {});
+    }
+    Promise.all([
+      fetch('/api/hk').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+      fetch('/api/hsi').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+    ]).then(function (pair) { paint(pair[0], pair[1]); });
   })();

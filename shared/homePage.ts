@@ -1,6 +1,17 @@
+import { adSlotMarkup } from './adSlot.js';
+import { breakingIds } from './breaking.js';
 import { categoryLabel } from './categories.js';
 import { esc, favicon, media, safeHttp } from './contentPage.js';
+import { renderHkInfo } from './hkInfo.js';
+import type { HkNow } from './hk.js';
+import type { HsiQuote } from './hsi.js';
 import type { NewsItem } from './types.js';
+import { titleLang } from './zh.js';
+
+export interface HomeMarket {
+  hk: HkNow | null;
+  hsi: HsiQuote | null;
+}
 
 const SSR_COUNT = 12;
 
@@ -28,21 +39,22 @@ function timeAgo(dateStr: string, now = Date.now()): string {
   return `${date.getMonth() + 1}月${date.getDate()}日`;
 }
 
-function card(item: NewsItem, featured: boolean, sourceCount: number): string {
+function card(item: NewsItem, featured: boolean, sourceCount: number, showBreaking: boolean): string {
   const articleUrl = safeHttp(item.link);
   const sourceUrl = safeHttp(item.sourceUrl);
-  const fresh = item.pubDate && Date.now() - new Date(item.pubDate).getTime() < 60 * 60 * 1000;
   const title = esc(item.title);
+  const lang = titleLang(item.title);
   const href = articleUrl ? ` href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer"` : '';
   const mediaHtml = articleUrl
     ? `<a class="story-media" href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">${media(item.image, item.category, item.source, featured)}</a>`
     : `<div class="story-media">${media(item.image, item.category, item.source, featured)}</div>`;
   const fav = favicon(sourceUrl || articleUrl);
+  const titleClass = lang === 'zh' ? 'story-title' : 'story-title title-sans';
   return `<article class="story${featured ? ' story-hero' : ''}">
     ${mediaHtml}
     <div class="story-body">
-      <div class="story-kicker"><span class="kicker-region">${esc(categoryLabel(item.category ?? 'world'))}</span>${fresh ? '<span class="breaking">快訊</span>' : ''}</div>
-      <h2 class="story-title">${articleUrl ? `<a${href}>${title}</a>` : title}</h2>
+      <div class="story-kicker"><span class="kicker-region">${esc(categoryLabel(item.category ?? 'world'))}</span>${showBreaking ? '<span class="breaking">快訊</span>' : ''}</div>
+      <h2 class="${titleClass}" lang="${lang === 'zh' ? 'zh-HK' : lang}">${articleUrl ? `<a${href}>${title}</a>` : title}</h2>
       <div class="story-meta">${fav}${sourceUrl ? `<a class="source-tag" href="${esc(sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(item.source)}</a>` : `<span class="source-tag">${esc(item.source)}</span>`}${item.pubDate ? `<time datetime="${esc(item.pubDate)}">${esc(timeAgo(item.pubDate))}</time>` : ''}${sourceCount >= 2 ? `<a class="cluster-badge cluster-link" href="/story/${esc(item.id)}/">${sourceCount} 間媒體報道 →</a>` : ''}</div>
       ${articleUrl ? `<div class="card-links"><a class="read-original" href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer">閱讀原文</a><a class="read-original story-link" href="/story/${esc(item.id)}/">${sourceCount >= 2 ? '各媒體報道' : '相關頭條'}</a></div>` : ''}
       <p class="card-credit">標題來自 ${esc(item.source)}。全文請到原文網站閱讀。</p>
@@ -51,18 +63,29 @@ function card(item: NewsItem, featured: boolean, sourceCount: number): string {
 }
 
 /** First-page feed HTML so mobile LCP does not wait on React + /api/news. */
-export function renderHomeFeed(items: NewsItem[], counts = new Map<string, number>()): string {
+export function renderHomeFeed(
+  items: NewsItem[],
+  counts = new Map<string, number>(),
+  market: HomeMarket | null = null,
+  feedSlot = '',
+): string {
   const list = items.slice(0, SSR_COUNT);
   if (!list.length) {
     return `<div class="status-panel" aria-busy="true"><h2>載入頭條中…</h2><p>正在取得最新標題。</p></div>`;
   }
+  const fresh = breakingIds(list);
   const [hero, ...rest] = list;
-  const top = hero ? `<div class="top-stories">${card(hero, true, counts.get(hero.id) ?? 0)}</div>` : '';
-  const grid = rest.map((item) => card(item, false, counts.get(item.id) ?? 0)).join('');
+  const top = hero ? `<div class="top-stories">${card(hero, true, counts.get(hero.id) ?? 0, fresh.has(hero.id))}</div>` : '';
+  const grid = rest.map((item, index) => {
+    const html = card(item, false, counts.get(item.id) ?? 0, fresh.has(item.id));
+    return (index + 1) % 8 === 0 ? html + adSlotMarkup('feed', feedSlot) : html;
+  }).join('');
+  const info = renderHkInfo(market?.hk, market?.hsi);
   return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
     <main id="news">
-      <aside class="digest-strip"><span class="badge">AI 整合</span><a href="/digest/">今日精選</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
+      ${info}
+      <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
       ${top}
       <div class="news-grid">${grid}</div>
     </main>
@@ -90,9 +113,23 @@ export function homeBootstrap(items: NewsItem[]): string {
   return `<script id="wn-bootstrap" type="application/json">${JSON.stringify(payload).replace(/</g, '\\u003c')}</script>`;
 }
 
-export function injectHomeShell(shell: string, items: NewsItem[], counts?: Map<string, number>): string {
-  const feed = renderHomeFeed(items, counts);
-  const boot = homeBootstrap(items);
+export function marketBootstrap(market: HomeMarket | null): string {
+  const payload = {
+    hk: market?.hk ?? null,
+    hsi: market?.hsi ?? null,
+  };
+  return `<script id="wn-market" type="application/json">${JSON.stringify(payload).replace(/</g, '\\u003c')}</script>`;
+}
+
+export function injectHomeShell(
+  shell: string,
+  items: NewsItem[],
+  counts?: Map<string, number>,
+  market: HomeMarket | null = null,
+  feedSlot = '',
+): string {
+  const feed = renderHomeFeed(items, counts, market, feedSlot);
+  const boot = homeBootstrap(items) + marketBootstrap(market);
   const heroImage = items[0]?.image && /^https?:\/\//.test(items[0].image) ? items[0].image : '';
   const preload = heroImage
     ? `<link rel="preload" as="image" href="${esc(heroImage)}" fetchpriority="high" />`

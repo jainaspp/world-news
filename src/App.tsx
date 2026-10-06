@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { breakingIds } from '../shared/breaking';
 import { analysisSlug } from '../shared/content';
 import { CATEGORIES } from '../shared/categories';
 import { filterNews } from '../shared/filter';
@@ -16,8 +17,7 @@ import { NewsCard } from './components/NewsCard';
 import { RegionIcon } from './components/RegionIcon';
 import { SkeletonCard } from './components/SkeletonCard';
 import { BackToTop } from './components/BackToTop';
-import { HkWeather } from './components/HkWeather';
-import { HsiStrip } from './components/HsiStrip';
+import { HkInfoStrip } from './components/HkInfoStrip';
 import { TrendingTopics } from './components/TrendingTopics';
 import { trendingTopics } from '../shared/topics';
 import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_NAME, SITE_URL } from './config';
@@ -170,7 +170,9 @@ export default function App() {
   const deskLead = wide && !view.bookmarks && !view.following;
   const secondary = deskLead ? rest.slice(0, 4) : [];
   const gridItems = deskLead ? rest.slice(4) : rest;
-  const filtersActive = view.time !== 'all' || view.source !== '' || view.region !== 'ALL';
+  const special = view.bookmarks || view.following;
+  const filtersActive = view.source !== '' || view.region !== 'ALL' || (view.category !== 'all' && !special);
+  const breaking = useMemo(() => breakingIds(hero ? [hero, ...gridItems] : gridItems), [hero, gridItems]);
   const followFresh = useMemo(() => {
     if (!pending || !follows.count) return 0;
     return pending.filter((item) => follows.matches(item) && !items.some((row) => row.id === item.id)).length;
@@ -203,9 +205,7 @@ export default function App() {
     : view.following
       ? t('emptyFollow', lang)
       : t('emptyFilter', lang);
-  const showTopAd = !view.bookmarks && !view.following && !wide && Boolean(hero);
   const showSideAd = !view.bookmarks && !view.following && wide && Boolean(hero);
-  const special = view.bookmarks || view.following;
 
   function titleOf(item: NewsItem): string {
     return displayTitle(item.title, lang);
@@ -281,58 +281,72 @@ export default function App() {
             <button type="button" className={filtersOpen || filtersActive ? 'chip active' : 'chip'} aria-expanded={filtersOpen} aria-controls="filter-panel" onClick={() => setFiltersOpen((open) => !open)}>
               {t('filter', lang)}
             </button>
-            <nav className="filters" aria-label="categories">
-              {CATEGORIES.map((category) => {
-                const followed = category.id !== 'all' && follows.categorySet.has(category.id);
-                return (
-                  <span key={category.id} className="chip-wrap">
-                    <button
-                      type="button"
-                      className={view.category === category.id && !special ? 'chip active' : 'chip'}
-                      aria-pressed={view.category === category.id && !special}
-                      onClick={() => go({ ...view, category: category.id, source: '', ...clearSpecial })}
-                    >
-                      {categoryLabelI18n(category.id, lang)}
-                    </button>
-                    {category.id !== 'all' && (
-                      <button
-                        type="button"
-                        className={followed ? 'follow-mini on' : 'follow-mini'}
-                        aria-label={followed ? `${t('unfollow', lang)} ${categoryLabelI18n(category.id, lang)}` : `${t('follow', lang)} ${categoryLabelI18n(category.id, lang)}`}
-                        aria-pressed={followed}
-                        onClick={() => follows.toggleCategory(category.id)}
-                      >
-                        {followed ? '★' : '☆'}
-                      </button>
-                    )}
-                  </span>
-                );
-              })}
-              <button type="button" className={view.following ? 'chip active' : 'chip'} aria-pressed={view.following} onClick={() => go({ ...view, following: true, bookmarks: false })}>
-                {t('following', lang)}
-                {followFresh > 0 && <span className="chip-badge">{followFresh}</span>}
+            <nav className="filters filters-primary" aria-label="time">
+              {TIMES.map((item) => (
+                <button
+                  type="button"
+                  key={item.id}
+                  className={!special && view.time === item.id ? 'chip active' : 'chip'}
+                  aria-pressed={!special && view.time === item.id}
+                  onClick={() => go({ ...view, time: item.id, ...clearSpecial })}
+                >
+                  {TIME_LABEL[item.id][lang]}
+                </button>
+              ))}
+              <button type="button" className={view.bookmarks ? 'chip active' : 'chip'} aria-pressed={view.bookmarks} onClick={() => go({ ...view, bookmarks: !view.bookmarks, following: false })}>
+                {t('bookmarks', lang)}
               </button>
-              <a className="chip" href="/digest/">
-                {t('digest', lang)}
-              </a>
-              <a className="chip" href="/weekly/">
-                {t('weekly', lang)}
-              </a>
-              <a className="chip" href="/analysis/">
-                {t('hotAnalysis', lang)}
-              </a>
+              <button
+                type="button"
+                className="chip more-topics"
+                onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              >
+                {t('more', lang)}
+              </button>
             </nav>
           </div>
 
           {filtersOpen && !special && (
             <div className="filter-panel" id="filter-panel">
-              <nav className="filters" aria-label="time">
-                {TIMES.map((item) => (
-                  <button type="button" key={item.id} className={view.time === item.id ? 'chip active' : 'chip'} aria-pressed={view.time === item.id} onClick={() => go({ ...view, time: item.id })}>
-                    {TIME_LABEL[item.id][lang]}
+              <p className="filter-label">{t('categories', lang)}</p>
+              <nav className="filters" aria-label="categories">
+                {CATEGORIES.map((category) => {
+                  const followed = category.id !== 'all' && follows.categorySet.has(category.id);
+                  return (
+                    <span key={category.id} className="chip-wrap">
+                      <button
+                        type="button"
+                        className={view.category === category.id ? 'chip active' : 'chip'}
+                        aria-pressed={view.category === category.id}
+                        onClick={() => go({ ...view, category: category.id, source: '', ...clearSpecial })}
+                      >
+                        {categoryLabelI18n(category.id, lang)}
+                      </button>
+                      {category.id !== 'all' && (
+                        <button
+                          type="button"
+                          className={followed ? 'follow-mini on' : 'follow-mini'}
+                          aria-label={followed ? `${t('unfollow', lang)} ${categoryLabelI18n(category.id, lang)}` : `${t('follow', lang)} ${categoryLabelI18n(category.id, lang)}`}
+                          aria-pressed={followed}
+                          onClick={() => follows.toggleCategory(category.id)}
+                        >
+                          {followed ? '★' : '☆'}
+                        </button>
+                      )}
+                    </span>
+                  );
+                })}
+              </nav>
+              <p className="filter-label">{t('regions', lang)}</p>
+              <nav className="filters" aria-label="regions">
+                {REGIONS.map((region) => (
+                  <button type="button" key={region.code} className={view.region === region.code ? 'chip active' : 'chip'} aria-pressed={view.region === region.code} onClick={() => go({ ...view, region: region.code, source: '', ...clearSpecial })}>
+                    <RegionIcon code={region.code} />
+                    {lang === 'en' ? region.code : region.label}
                   </button>
                 ))}
               </nav>
+              <p className="filter-label">{t('sources', lang)}</p>
               <nav className="filters" aria-label="sources">
                 <button type="button" className={view.source === '' ? 'chip active' : 'chip'} aria-pressed={view.source === ''} onClick={() => go({ ...view, source: '' })}>
                   {t('allSources', lang)}
@@ -351,18 +365,10 @@ export default function App() {
                   );
                 })}
               </nav>
+              <button type="button" className="chip more-topics" onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+                {t('more', lang)} · {t('trending', lang)}
+              </button>
             </div>
-          )}
-
-          {!special && (
-            <nav className="filters filters-slim" aria-label="regions">
-              {REGIONS.map((region) => (
-                <button type="button" key={region.code} className={view.region === region.code ? 'chip active' : 'chip'} aria-pressed={view.region === region.code} onClick={() => go({ ...view, region: region.code, source: '', ...clearSpecial })}>
-                  <RegionIcon code={region.code} />
-                  {lang === 'en' ? region.code : region.label}
-                </button>
-              ))}
-            </nav>
           )}
         </div>
 
@@ -394,14 +400,11 @@ export default function App() {
                     {stale ? (lang === 'en' ? 'Some sources are down; showing a recent cache.' : '部分來源暫時連不上，以下是較早儲存的標題。') : lang === 'en' ? 'Some sources did not reply; other headlines are still available.' : '部分來源暫時沒有回應，其餘頭條仍可閱讀。'}
                   </p>
                 )}
-                {showTopAd && <AdSlot slot={AD_SLOT_TOP} variant="banner" />}
-                {!special && !wide && <HkWeather />}
-                {!special && !wide && <HsiStrip />}
-                {!special && !wide && <TrendingTopics topics={topics} active={view.q} onPick={(term) => go({ ...view, q: term, ...clearSpecial }, 'replace')} />}
+                {!special && !wide && <HkInfoStrip />}
                 {!special && (
                   <aside className="digest-strip">
                     <span className="badge">AI</span>
-                    <a href="/digest/">{t('todayPicks', lang)}</a>
+                    <a className="digest-primary" href="/digest/">{t('todayPicks', lang)}</a>
                     <a href="/weekly/">{t('weekly', lang)}</a>
                     <a href="/analysis/">{t('hotAnalysis', lang)}</a>
                   </aside>
@@ -420,6 +423,7 @@ export default function App() {
                         lang={lang}
                         followedSource={follows.sourceSet.has(hero.source)}
                         onToggleSource={follows.toggleSource}
+                        breaking={breaking.has(hero.id)}
                       />
                     )}
                     {secondary.length > 0 && (
@@ -435,6 +439,7 @@ export default function App() {
                             analysisHref={analysisHrefs.get(item.id) || ''}
                             compact
                             lang={lang}
+                            breaking={breaking.has(item.id)}
                           />
                         ))}
                       </div>
@@ -455,9 +460,11 @@ export default function App() {
                         lang={lang}
                         followedSource={follows.sourceSet.has(item.source)}
                         onToggleSource={follows.toggleSource}
+                        breaking={breaking.has(item.id)}
                       />
                     );
-                    if (special || !AD_SLOT_FEED || (index + 1) % 8 !== 0) return [card];
+                    const ordinal = secondary.length + index + 1;
+                    if (special || ordinal % 8 !== 0) return [card];
                     return [card, <AdSlot key={`feed-${item.id}`} slot={AD_SLOT_FEED} variant="feed" />];
                   })}
                 </div>
@@ -470,9 +477,9 @@ export default function App() {
             )}
           </main>
           <aside className="sidebar" aria-label="sidebar">
-            {wide && <HkWeather />}
-            {wide && <HsiStrip />}
-            {wide && !special && <TrendingTopics topics={topics} active={view.q} onPick={(term) => go({ ...view, q: term, ...clearSpecial }, 'replace')} />}
+            {wide && !special && <HkInfoStrip />}
+            {!special && <TrendingTopics topics={topics} active={view.q} onPick={(term) => go({ ...view, q: term, ...clearSpecial }, 'replace')} />}
+            {showSideAd && <AdSlot slot={AD_SLOT_TOP} variant="sidebar" />}
             {!special && !view.q.trim() && clusters.length > 0 && (
               <section className="trending" aria-label={t('trending', lang)}>
                 <h2>{t('trending', lang)}</h2>
@@ -499,7 +506,6 @@ export default function App() {
                 </ol>
               </section>
             )}
-            {showSideAd && <AdSlot slot={AD_SLOT_TOP} variant="sidebar" />}
             <div className="side-card">
               <h2>{lang === 'en' ? 'This view' : '今次版面'}</h2>
               <p>
