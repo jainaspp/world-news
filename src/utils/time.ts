@@ -1,14 +1,15 @@
-export function timeAgo(dateStr: string): string {
-  try {
-    const diff = Date.now() - new Date(dateStr).getTime();
-    const hours = Math.floor(diff / 3_600_000);
-    if (hours < 1) {
-      const mins = Math.floor(diff / 60_000);
-      return mins < 1 ? '剛剛' : `${mins} 分钟前`;
-    }
-    if (hours < 24) return `${hours} 小时前`;
-    return `${Math.floor(hours / 24)} 天前`;
-  } catch {
-    return '';
-  }
+export function timeAgo(dateStr: string, now = Date.now()): string {
+  const published = new Date(dateStr).getTime();
+  if (!dateStr || Number.isNaN(published)) return '';
+  const diff = now - published;
+  if (diff < 0) return '';
+  const minutes = Math.floor(diff / 60_000);
+  if (minutes < 1) return '剛剛';
+  if (minutes < 60) return `${minutes} 分鐘前`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} 小時前`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days} 日前`;
+  const date = new Date(published);
+  return `${date.getMonth() + 1}月${date.getDate()}日`;
 }

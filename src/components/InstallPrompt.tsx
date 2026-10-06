@@ -1,36 +1,46 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
 export function InstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [visible, setVisible] = useState(false);
+  const [prompt, setPrompt] = useState<BeforeInstallPromptEvent | null>(null);
 
   useEffect(() => {
-    const shown = sessionStorage.getItem('install_shown');
-    if (shown) return;
-    const handler = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      setVisible(true);
+    if (sessionStorage.getItem('install_shown')) return;
+    const onPrompt = (event: Event) => {
+      event.preventDefault();
+      setPrompt(event as BeforeInstallPromptEvent);
     };
-    window.addEventListener('beforeinstallprompt', handler);
-    return () => window.removeEventListener('beforeinstallprompt', handler);
+    window.addEventListener('beforeinstallprompt', onPrompt);
+    return () => window.removeEventListener('beforeinstallprompt', onPrompt);
   }, []);
 
-  if (!visible) return null;
+  if (!prompt) return null;
 
-  async function handleInstall() {
-    if (!deferredPrompt) return;
-    await deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
+  function dismiss() {
     sessionStorage.setItem('install_shown', '1');
-    setVisible(false);
+    setPrompt(null);
   }
 
   return (
-    <div className="install-banner" role="banner" aria-label="安裝提示">
-      <span>📱 將應用加入主畫面，離線也能瀏覽頭條</span>
-      <div style={{ display: 'flex', gap: 8 }}>
-        <button onClick={handleInstall} className="install-yes">安裝</button>
-        <button onClick={() => { setVisible(false); sessionStorage.setItem('install_shown', '1'); }} className="install-no">稍後</button>
+    <div className="install-banner" role="region" aria-label="安裝提示">
+      <p>可以將世界頭條加到主畫面。</p>
+      <div className="install-actions">
+        <button
+          type="button"
+          className="primary"
+          onClick={() => {
+            void prompt?.prompt().then(() => dismiss());
+          }}
+        >
+          加入
+        </button>
+        <button type="button" onClick={dismiss}>
+          關閉
+        </button>
       </div>
     </div>
   );

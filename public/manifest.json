@@ -1,44 +1,19 @@
 {
-  "name": "世界頭條 — 即時全球新聞",
+  "name": "世界頭條",
   "short_name": "世界頭條",
-  "description": "聚合 BBC·Reuters·Al Jazeera·NHK 等優質來源，即時翻譯，多地區及來源分類，離線可讀",
+  "description": "新聞標題、來源同原文連結。",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait_primary",
-  "background_color": "#f5f6fa",
-  "theme_color": "#1a1a2e",
-  "categories": ["news", "weather", "magazines"],
-  "lang": "zh-TW",
+  "background_color": "#f3f5f8",
+  "theme_color": "#1d4f91",
+  "lang": "zh-HK",
   "dir": "ltr",
-  "id": "world-news",
   "icons": [
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
-      "src": "/favicon.svg",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "maskable any"
-    }
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ],
-  "screenshots": [],
   "shortcuts": [
-    {
-      "name": "香港新聞",
-      "url": "/?region=HKG",
-      "description": "查看香港即時新聞"
-    },
-    {
-      "name": "台灣新聞",
-      "url": "/?region=TWN",
-      "description": "查看台灣即時新聞"
-    }
-  ],
-  "related_applications": [],
-  "prefer_related_applications": false
+    { "name": "香港", "url": "/?region=HKG" },
+    { "name": "台灣", "url": "/?region=TWN" }
+  ]
 }
