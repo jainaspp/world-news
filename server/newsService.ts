@@ -1,5 +1,5 @@
-import { loadFeeds } from './loadFeeds';
-import { readCache, storeNews } from './supabase';
+import { loadFeeds } from './loadFeeds.js';
+import { readCache, storeNews } from './supabase.js';
 import type { NewsPayload } from '../shared/types';
 
 const MEMORY_MS = 5 * 60 * 1000;
