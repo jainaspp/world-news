@@ -1,4 +1,4 @@
-const CACHE = 'wn-v14';
+const CACHE = 'wn-v15';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(['/', '/offline.html', '/manifest.json', '/favicon.svg'])).then(() => self.skipWaiting()));
@@ -14,7 +14,7 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
-  if (url.origin !== self.location.origin || url.pathname.startsWith('/api/')) return;
+  if (url.origin !== self.location.origin || url.pathname.startsWith('/api/') || url.pathname === '/ads.txt') return;
   event.respondWith(
     fetch(request).catch(async () => (await caches.match(request)) || (await caches.match('/offline.html'))),
   );

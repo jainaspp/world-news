@@ -3,12 +3,18 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    { "source": "/((?!api/)(?!ads\\.txt$).*)", "destination": "/index.html" }
   ],
   "crons": [
     { "path": "/api/crawl", "schedule": "0 8 * * *" }
   ],
   "headers": [
+    {
+      "source": "/ads.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
