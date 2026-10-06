@@ -1,12 +1,15 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { CATEGORY_IDS } from '../shared/categories';
-import { FEEDS } from '../shared/feeds';
+import { FEEDS, FEEDS_PER_SHARD, feedsInShard } from '../shared/feeds';
 
 describe('feed list', () => {
   it('stays inside the Pages subrequest budget and covers every category', () => {
-    expect(FEEDS.length).toBeLessThanOrEqual(45);
+    expect(FEEDS.length).toBeLessThanOrEqual(FEEDS_PER_SHARD * 2);
     expect(FEEDS.length).toBeGreaterThanOrEqual(30);
+    expect(feedsInShard('a').length).toBeLessThanOrEqual(FEEDS_PER_SHARD);
+    expect(feedsInShard('b').length).toBeLessThanOrEqual(FEEDS_PER_SHARD);
+    expect(feedsInShard('a').length + feedsInShard('b').length).toBe(FEEDS.length);
     for (const feed of FEEDS) {
       expect(feed.regions.length).toBeGreaterThan(0);
       expect(feed.category).toBeTruthy();

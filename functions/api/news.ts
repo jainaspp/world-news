@@ -1,5 +1,9 @@
+import { feedsInShard } from '../../shared/feeds.js';
+import { assemblePayload, mergePayloads } from '../../server/newsService.js';
 import { buildNewsResponse, type JsonResult } from '../../server/responses.js';
+import { readCache, storeNews } from '../../server/supabase.js';
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
+import type { NewsPayload } from '../../shared/types';
 import { edgeCache, type PagesContext } from '../env.js';
 
 const FRESH_S = 300;
@@ -30,10 +34,79 @@ async function store(cache: Cache, key: Request, response: Response): Promise<vo
   }
 }
 
+function cacheId(url: URL): 'a' | 'b' | 'all' {
+  const part = url.searchParams.get('part');
+  return part === 'a' || part === 'b' ? part : 'all';
+}
+
+function jsonResult(payload: NewsPayload): JsonResult {
+  const status = payload.items.length > 0 ? 200 : 503;
+  return {
+    status,
+    body: JSON.stringify(payload),
+    cacheControl: status === 200 ? 'public, s-maxage=300, stale-while-revalidate=600' : 'no-store',
+  };
+}
+
+function isLocalRequest(requestUrl: string): boolean {
+  const host = new URL(requestUrl).hostname;
+  return host === '127.0.0.1' || host === 'localhost' || host === '[::1]';
+}
+
+async function loadMerged(requestUrl: string): Promise<NewsPayload> {
+  const fresh = await readCache(false);
+  if (fresh && fresh.length > 0) {
+    return {
+      items: fresh,
+      fetchedAt: new Date().toISOString(),
+      source: 'cache',
+      feedErrors: 0,
+      stale: false,
+    };
+  }
+  // Local dev has no 50-subrequest cap, and a self-fetch would deadlock the single wrangler thread.
+  if (isLocalRequest(requestUrl)) {
+    const [shardA, shardB] = await Promise.all([
+      assemblePayload(feedsInShard('a')),
+      assemblePayload(feedsInShard('b')),
+    ]);
+    const merged = mergePayloads([shardA, shardB]);
+    if (merged.items.length > 0) void storeNews(merged.items).catch(() => undefined);
+    return merged;
+  }
+  const shardA = await assemblePayload(feedsInShard('a'));
+  const shardUrl = new URL(requestUrl);
+  shardUrl.searchParams.set('part', 'b');
+  let shardB: NewsPayload;
+  try {
+    const response = await fetch(shardUrl.href, { headers: { accept: 'application/json' } });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    shardB = await response.json() as NewsPayload;
+  } catch {
+    shardB = {
+      items: [],
+      fetchedAt: new Date().toISOString(),
+      source: 'rss',
+      feedErrors: 1,
+      feedErrorSources: [{ source: 'shard-b', reason: 'unavailable' }],
+      stale: true,
+    };
+  }
+  const merged = mergePayloads([shardA, shardB]);
+  if (merged.items.length > 0) void storeNews(merged.items).catch(() => undefined);
+  return merged;
+}
+
+async function buildPart(requestUrl: string, part: 'a' | 'b' | 'all'): Promise<JsonResult> {
+  if (part === 'a' || part === 'b') return jsonResult(await assemblePayload(feedsInShard(part)));
+  return jsonResult(await loadMerged(requestUrl));
+}
+
 export async function onRequest(context: PagesContext): Promise<Response> {
   applyRuntimeEnv(context.env);
   const url = new URL(context.request.url);
-  const cacheKey = new Request(`${url.origin}/api/news`, { method: 'GET' });
+  const part = cacheId(url);
+  const cacheKey = new Request(`${url.origin}/api/news?cache=${part}`, { method: 'GET' });
   const cache = edgeCache();
 
   if (cache && context.request.method === 'GET') {
@@ -43,7 +116,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
         const age = ageSeconds(hit);
         if (age >= FRESH_S && age < STALE_S) {
           context.waitUntil(
-            buildNewsResponse().then((result) => {
+            buildPart(context.request.url, part).then((result) => {
               if (result.status !== 200) return;
               return store(cache, cacheKey, toResponse(result, Date.now()));
             }),
@@ -56,7 +129,9 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     }
   }
 
-  const result = await buildNewsResponse();
+  const result = part === 'all' && !cache
+    ? await buildNewsResponse()
+    : await buildPart(context.request.url, part);
   const response = toResponse(result, result.status === 200 ? Date.now() : undefined);
   if (cache && result.status === 200 && context.request.method === 'GET') {
     context.waitUntil(store(cache, cacheKey, response));

@@ -16,7 +16,7 @@ afterEach(() => {
 
 describe('loadFeeds', () => {
   it('fetches feeds, drops bodies, and dedupes overlapping links', async () => {
-    const fetchImpl = vi.fn(async (url: string) => {
+    const fetchImpl = vi.fn(async (url: string, _init?: RequestInit) => {
       if (String(url).includes('a.example')) {
         return new Response(`<rss><channel>${item('One', 'https://a.example/one')} ${item('Shared', 'https://shared.example/x?utm_source=a')}</channel></rss>`);
       }
@@ -26,8 +26,12 @@ describe('loadFeeds', () => {
       return new Response('nope', { status: 500 });
     });
 
-    const { items, errors } = await loadFeeds(feeds, fetchImpl as unknown as typeof fetch, Date.parse('2026-10-06T12:00:00Z'));
+    const { items, errors, errorSources } = await loadFeeds(feeds, fetchImpl as unknown as typeof fetch, Date.parse('2026-10-06T12:00:00Z'));
     expect(errors).toBe(0);
+    expect(errorSources).toEqual([]);
+    const init = fetchImpl.mock.calls[0]?.[1];
+    expect(String((init?.headers as Record<string, string>)?.['User-Agent'])).toContain('Mozilla');
+    expect(init?.redirect).toBe('manual');
     expect(items.map((row) => row.link).sort()).toEqual(['https://a.example/one', 'https://shared.example/x']);
     expect(JSON.stringify(items)).not.toContain('BODY');
     expect(items.find((row) => row.link === 'https://shared.example/x')?.source).toBe('A');
@@ -35,9 +39,25 @@ describe('loadFeeds', () => {
 
   it('counts a feed that fails', async () => {
     const fetchImpl = vi.fn(async () => new Response('no', { status: 404 }));
-    const { items, errors } = await loadFeeds(feeds, fetchImpl as unknown as typeof fetch, Date.parse('2026-10-06T12:00:00Z'));
+    const { items, errors, errorSources } = await loadFeeds(feeds, fetchImpl as unknown as typeof fetch, Date.parse('2026-10-06T12:00:00Z'));
     expect(items).toEqual([]);
     expect(errors).toBe(2);
+    expect(errorSources.map((row) => row.reason)).toEqual(['HTTP 404', 'HTTP 404']);
+  });
+
+  it('follows one redirect and records a network failure', async () => {
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url === 'https://a.example/rss') {
+        return new Response(null, { status: 302, headers: { location: 'https://a.example/final' } });
+      }
+      if (url === 'https://a.example/final') {
+        return new Response(`<rss><channel>${item('Moved', 'https://a.example/moved')}</channel></rss>`);
+      }
+      throw new Error('Too many subrequests');
+    });
+    const { items, errorSources } = await loadFeeds(feeds, fetchImpl as unknown as typeof fetch, Date.parse('2026-10-06T12:00:00Z'));
+    expect(items.map((row) => row.title)).toEqual(['Moved']);
+    expect(errorSources).toEqual([{ source: 'B', reason: 'subrequests' }]);
   });
 
   it('drops items older than 48 hours', async () => {
