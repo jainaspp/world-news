@@ -126,3 +126,8 @@ html.dark .heat-badge:not(.heat-3) { color: #ff8a9b; }
   .angle-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 }
 .ai-footnote .badge { flex: none; white-space: nowrap; }
+
+.story-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.story-actions .primary { text-decoration: none; }
+.analysis-chip { text-decoration: none; font-weight: 700; }
+.tl-body .favicon { vertical-align: -3px; }

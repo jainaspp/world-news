@@ -83,7 +83,11 @@ export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCoun
             <span className="source-tag">{item.source}</span>
           )}
           {item.pubDate && <time dateTime={item.pubDate}>{timeAgo(item.pubDate)}</time>}
-          {sourceCount >= 2 && <span className="cluster-badge">{sourceCount} 個來源報道</span>}
+          {sourceCount >= 2 && (
+            <a className="cluster-badge cluster-link" href={`/story/${item.id}/`} aria-label={`${sourceCount} 間媒體報道：睇各媒體點報`}>
+              {sourceCount} 間媒體報道 →
+            </a>
+          )}
           {!featured && analysisHref && <a className="analysis-link" href={analysisHref}>分析</a>}
           {!compact && (
             <button
@@ -98,9 +102,14 @@ export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCoun
           )}
         </div>
         {!compact && articleUrl && (
-          <a className="read-original" href={articleUrl} target="_blank" rel="noopener noreferrer">
-            閱讀原文
-          </a>
+          <div className="card-links">
+            <a className="read-original" href={articleUrl} target="_blank" rel="noopener noreferrer">
+              閱讀原文
+            </a>
+            <a className="read-original story-link" href={`/story/${item.id}/`}>
+              {sourceCount >= 2 ? '各媒體報道' : '相關頭條'}
+            </a>
+          </div>
         )}
         {!compact && <p className="card-credit">標題來自 {item.source}。全文請到原文網站閱讀。</p>}
         {featured && analysisHref && (
