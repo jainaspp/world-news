@@ -17,7 +17,8 @@ const item = (id: string, title: string, source: string, category = 'world'): Ne
 describe('categories and clusters', () => {
   it('derives a category from the headline', () => {
     expect(categorize('Hong Kong legislature opens', 'world')).toBe('hk');
-    expect(categorize('NASA delays moon launch', 'world')).toBe('health');
+    expect(categorize('NASA delays moon launch', 'world')).toBe('science');
+    expect(categorize('Hospital opens new ward', 'world')).toBe('health');
     expect(categorize('Quiet afternoon', 'asia')).toBe('asia');
   });
 

@@ -26,7 +26,7 @@ describe('loadFeeds', () => {
       return new Response('nope', { status: 500 });
     });
 
-    const { items, errors } = await loadFeeds(feeds, fetchImpl as unknown as typeof fetch);
+    const { items, errors } = await loadFeeds(feeds, fetchImpl as unknown as typeof fetch, Date.parse('2026-10-06T12:00:00Z'));
     expect(errors).toBe(0);
     expect(items.map((row) => row.link).sort()).toEqual(['https://a.example/one', 'https://shared.example/x']);
     expect(JSON.stringify(items)).not.toContain('BODY');
@@ -35,8 +35,14 @@ describe('loadFeeds', () => {
 
   it('counts a feed that fails', async () => {
     const fetchImpl = vi.fn(async () => new Response('no', { status: 404 }));
-    const { items, errors } = await loadFeeds(feeds, fetchImpl as unknown as typeof fetch);
+    const { items, errors } = await loadFeeds(feeds, fetchImpl as unknown as typeof fetch, Date.parse('2026-10-06T12:00:00Z'));
     expect(items).toEqual([]);
     expect(errors).toBe(2);
+  });
+
+  it('drops items older than 48 hours', async () => {
+    const fetchImpl = vi.fn(async () => new Response(`<rss><channel>${item('Fresh', 'https://a.example/new')}<item><title>Old</title><link>https://a.example/old</link><pubDate>Mon, 28 Sep 2026 01:00:00 GMT</pubDate></item></channel></rss>`));
+    const { items } = await loadFeeds(feeds.slice(0, 1), fetchImpl as unknown as typeof fetch, Date.parse('2026-10-06T12:00:00Z'));
+    expect(items.map((row) => row.title)).toEqual(['Fresh']);
   });
 });

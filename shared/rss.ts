@@ -2,7 +2,7 @@ import { categorize, type CategoryId } from './categories.js';
 import type { Feed } from './feeds';
 import type { NewsItem } from './types';
 
-const PER_FEED = 12;
+const PER_FEED = 30;
 
 export function stableId(value: string): string {
   let h1 = 2166136261;
@@ -86,26 +86,37 @@ function looksLikeImage(url: string, type = ''): boolean {
   return !/\.(mp3|mp4|pdf|zip)(\?|$)/i.test(url);
 }
 
+function imageUrl(raw: string | undefined, type = ''): string {
+  if (!raw) return '';
+  const decoded = raw.replace(/&amp;/g, '&').replace(/&quot;/g, '"').trim();
+  const safe = safeImage(decoded);
+  if (!safe || !looksLikeImage(safe, type)) return '';
+  return safe;
+}
+
 function extractImage(block: string): string {
   const mediaTags = block.match(/<media:(?:content|thumbnail)\b[^>]*>/gi) ?? [];
   for (const tag of mediaTags) {
     const url = tag.match(/\burl=["']([^"']+)["']/i)?.[1];
     const type = tag.match(/\b(?:type|medium)=["']([^"']+)["']/i)?.[1] ?? '';
     if (type && type !== 'image' && !type.startsWith('image/')) continue;
-    const safe = url ? safeImage(url) : '';
-    if (safe && looksLikeImage(safe, type.startsWith('image/') ? type : '')) return safe;
+    const safe = imageUrl(url, type.startsWith('image/') ? type : '');
+    if (safe) return safe;
   }
   const enclosure = block.match(/<enclosure\b[^>]*>/i)?.[0] ?? '';
   if (enclosure) {
     const url = enclosure.match(/\burl=["']([^"']+)["']/i)?.[1];
     const type = enclosure.match(/\btype=["']([^"']+)["']/i)?.[1] ?? '';
-    const safe = url ? safeImage(url) : '';
-    const imageType = type || (/\.(jpe?g|png|gif|webp|avif)(\?|$)/i.test(safe) ? 'image/jpeg' : 'application/octet-stream');
-    if (safe && looksLikeImage(safe, imageType)) return safe;
+    const imageType = type || (/\.(jpe?g|png|gif|webp|avif)(\?|$)/i.test(url ?? '') ? 'image/jpeg' : 'application/octet-stream');
+    const safe = imageUrl(url, imageType);
+    if (safe) return safe;
   }
-  const img = block.match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i)?.[1];
-  const fromImg = img ? safeImage(img) : '';
-  return fromImg && looksLikeImage(fromImg) ? fromImg : '';
+  const itunes = block.match(/<itunes:image\b[^>]*\bhref=["']([^"']+)["']/i)?.[1];
+  const fromItunes = imageUrl(itunes);
+  if (fromItunes) return fromItunes;
+  const unescaped = block.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&amp;/g, '&');
+  const img = unescaped.match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i)?.[1];
+  return imageUrl(img);
 }
 
 function pushItem(items: NewsItem[], feed: Feed, block: string, title: string, link: string, pubDate: string) {
