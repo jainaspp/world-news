@@ -3,45 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>世界頭條</title>
-  <meta name="description" content="世界頭條列出公開 RSS 的新聞標題、來源同原文連結。" />
+  <title>世界頭條 — 新聞標題、來源、原文連結</title>
+  <meta name="description" content="世界頭條彙集公開 RSS，列出新聞標題、來源同原文連結。香港繁體中文界面，可按地區、分類同關鍵字篩選。" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://world-news-tawny.vercel.app/" />
-  <meta name="theme-color" content="#1d4f91" />
+  <link rel="canonical" href="https://world-news.xyz/" />
+  <meta name="theme-color" content="#1D4F91" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="世界頭條" />
-  <meta property="og:description" content="新聞標題、來源同原文連結。" />
-  <meta property="og:url" content="https://world-news-tawny.vercel.app/" />
+  <meta property="og:site_name" content="世界頭條" />
+  <meta property="og:title" content="世界頭條 — 新聞標題、來源、原文連結" />
+  <meta property="og:description" content="公開 RSS 標題板。只顯示標題、來源同原文連結。" />
+  <meta property="og:url" content="https://world-news.xyz/" />
+  <meta property="og:image" content="https://world-news.xyz/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="zh_HK" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="世界頭條 — 新聞標題、來源、原文連結" />
+  <meta name="twitter:description" content="公開 RSS 標題板。只顯示標題、來源同原文連結。" />
+  <meta name="twitter:image" content="https://world-news.xyz/og-image.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap" /></noscript>
+  <script>
+    try {
+      var saved = localStorage.getItem('darkMode');
+      var dark = saved === 'true' || (saved !== 'false' && matchMedia('(prefers-color-scheme: dark)').matches);
+      if (dark) document.documentElement.classList.add('dark');
+    } catch (e) {}
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "世界頭條",
-    "url": "https://world-news-tawny.vercel.app/",
-    "inLanguage": "zh-HK"
+    "url": "https://world-news.xyz/",
+    "inLanguage": "zh-HK",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://world-news.xyz/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
   }
   </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WHXYS5YE2K"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-WHXYS5YE2K', { send_page_view: true });
-  </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8392975944327076" crossorigin="anonymous"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(() => {});
-      });
-    }
+  <script id="ld-stories" type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ItemList","name":"世界頭條","itemListElement":[]}
   </script>
 </head>
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  <script>
+    window.addEventListener('load', function () {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(function () {});
+      }
+      var fonts = document.createElement('link');
+      fonts.rel = 'stylesheet';
+      fonts.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap';
+      document.head.appendChild(fonts);
+      window.setTimeout(function () {
+        var ads = document.createElement('script');
+        ads.async = true;
+        ads.crossOrigin = 'anonymous';
+        ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8392975944327076';
+        document.head.appendChild(ads);
+        var ga = document.createElement('script');
+        ga.async = true;
+        ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-WHXYS5YE2K';
+        document.head.appendChild(ga);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WHXYS5YE2K', { send_page_view: true });
+      }, 3000);
+    });
+  </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { AD_CLIENT } from '../config';
 
-type Variant = 'banner' | 'feed';
+type Variant = 'banner' | 'feed' | 'sidebar';
 
 declare global {
   interface Window {
@@ -31,15 +31,17 @@ export function AdSlot({ slot, variant }: { slot: string; variant: Variant }) {
   if (!slot) return null;
 
   const feed = variant === 'feed';
+  const sidebar = variant === 'sidebar';
+  const className = sidebar ? 'ad-slot ad-slot-sidebar' : feed ? 'ad-slot ad-slot-feed' : 'ad-slot ad-slot-banner';
   return (
-    <div className={feed ? 'ad-slot ad-slot-feed' : 'ad-slot ad-slot-banner'} aria-label="廣告">
+    <div className={className} aria-label="廣告">
       <ins
         ref={insRef}
         className="adsbygoogle"
         data-ad-client={AD_CLIENT}
         data-ad-slot={slot}
         data-ad-format={feed ? 'fluid' : 'auto'}
-        data-full-width-responsive={feed ? undefined : 'true'}
+        data-full-width-responsive={feed || sidebar ? undefined : 'true'}
         data-ad-layout={feed ? 'in-article' : undefined}
       />
     </div>

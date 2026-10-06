@@ -4,7 +4,9 @@
 
 沒有設定任何環境變數都可以運作：伺服器直接讀公開 RSS。設定下面三個變數之後，每日排程會把同一批標題存進 Supabase，來源暫時失敗時可以回退。
 
-正式網站：https://world-news-tawny.vercel.app
+正式網站：https://world-news.xyz
+
+`world-news-tawny.vercel.app` 會 301 轉到 `https://world-news.xyz`。
 
 ## 擁有人要在 Vercel 設定的環境變數
 
@@ -15,9 +17,9 @@
 | `SUPABASE_URL` | 要用備份儲存才需要 | Supabase 專案的 URL，例如 `https://xxxx.supabase.co` |
 | `SUPABASE_SERVICE_ROLE_KEY` | 要用備份儲存才需要 | Supabase 的 service role key。只放在伺服器，不要加 `VITE_` 字首 |
 | `CRON_SECRET` | 要用每日抓取才需要 | 自己定一組長密碼。Vercel Cron 會用 `Authorization: Bearer <CRON_SECRET>` 呼叫 `/api/crawl` |
-| `VITE_SITE_URL` | 否 | 分享連結用。預設 `https://world-news-tawny.vercel.app` |
-| `VITE_AD_SLOT_TOP` | 否 | 頭條列表上方回應式橫額的 AdSense 版位 ID。留空就不會畫出空白廣告框 |
-| `VITE_AD_SLOT_FEED` | 否 | 每 4 則頭條插入一次的資訊流版位 ID。收藏頁不會顯示。留空就不會畫出空白廣告框 |
+| `VITE_SITE_URL` | 否 | 分享連結用。預設 `https://world-news.xyz` |
+| `VITE_AD_SLOT_TOP` | 否 | 窄螢幕時頭條上方的橫額；1200px 以上改放側欄 300×600，不會黏住畫面。留空就不會畫出空白廣告框 |
+| `VITE_AD_SLOT_FEED` | 否 | 每 8 則頭條插入一次的資訊流版位 ID。收藏頁不會顯示。留空就不會畫出空白廣告框 |
 
 `index.html` 仍會載入 AdSense（`ca-pub-8392975944327076`）。兩個版位都留空時，手動廣告不會出現，自動廣告仍可以由這個 loader 投放。`VITE_GOOGLE_AD_CLIENT` 可選，預設就是這個發布商 ID，要跟 loader 上的 `client` 相同。
 

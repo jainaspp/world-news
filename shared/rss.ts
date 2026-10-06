@@ -1,15 +1,20 @@
+import { categorize, type CategoryId } from './categories.js';
 import type { Feed } from './feeds';
 import type { NewsItem } from './types';
 
 const PER_FEED = 12;
 
 export function stableId(value: string): string {
-  let hash = 2166136261;
+  let h1 = 2166136261;
+  let h2 = 2166136261 ^ 0x811c9dc5;
   for (let i = 0; i < value.length; i += 1) {
-    hash ^= value.charCodeAt(i);
-    hash = Math.imul(hash, 16777619);
+    const code = value.charCodeAt(i);
+    h1 ^= code;
+    h1 = Math.imul(h1, 16777619);
+    h2 ^= code;
+    h2 = Math.imul(h2, 2246822519);
   }
-  return (hash >>> 0).toString(16);
+  return `${(h1 >>> 0).toString(16).padStart(8, '0')}${(h2 >>> 0).toString(16).padStart(8, '0')}`.slice(0, 12);
 }
 
 export function decodeText(input: string): string {
@@ -34,7 +39,8 @@ export function normalizeLink(raw: string): string {
     if (url.protocol !== 'http:' && url.protocol !== 'https:') return '';
     url.hash = '';
     for (const key of [...url.searchParams.keys()]) {
-      if (key.toLowerCase().startsWith('utm_')) url.searchParams.delete(key);
+      const name = key.toLowerCase();
+      if (name.startsWith('utm_') || name.startsWith('at_')) url.searchParams.delete(key);
     }
     url.hostname = url.hostname.toLowerCase();
     if (url.pathname.length > 1 && url.pathname.endsWith('/')) {
@@ -62,10 +68,51 @@ function toIso(raw: string): string {
   return Number.isNaN(time) ? '' : new Date(time).toISOString();
 }
 
-function pushItem(items: NewsItem[], feed: Feed, title: string, link: string, pubDate: string) {
+function safeImage(raw: string): string {
+  const trimmed = raw.trim().replace(/&amp;/g, '&');
+  if (!trimmed || trimmed.startsWith('data:')) return '';
+  const absolute = trimmed.startsWith('//') ? `https:${trimmed}` : trimmed;
+  try {
+    const url = new URL(absolute);
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') return '';
+    return url.toString();
+  } catch {
+    return '';
+  }
+}
+
+function looksLikeImage(url: string, type = ''): boolean {
+  if (type && !type.toLowerCase().startsWith('image/')) return false;
+  return !/\.(mp3|mp4|pdf|zip)(\?|$)/i.test(url);
+}
+
+function extractImage(block: string): string {
+  const mediaTags = block.match(/<media:(?:content|thumbnail)\b[^>]*>/gi) ?? [];
+  for (const tag of mediaTags) {
+    const url = tag.match(/\burl=["']([^"']+)["']/i)?.[1];
+    const type = tag.match(/\b(?:type|medium)=["']([^"']+)["']/i)?.[1] ?? '';
+    if (type && type !== 'image' && !type.startsWith('image/')) continue;
+    const safe = url ? safeImage(url) : '';
+    if (safe && looksLikeImage(safe, type.startsWith('image/') ? type : '')) return safe;
+  }
+  const enclosure = block.match(/<enclosure\b[^>]*>/i)?.[0] ?? '';
+  if (enclosure) {
+    const url = enclosure.match(/\burl=["']([^"']+)["']/i)?.[1];
+    const type = enclosure.match(/\btype=["']([^"']+)["']/i)?.[1] ?? '';
+    const safe = url ? safeImage(url) : '';
+    const imageType = type || (/\.(jpe?g|png|gif|webp|avif)(\?|$)/i.test(safe) ? 'image/jpeg' : 'application/octet-stream');
+    if (safe && looksLikeImage(safe, imageType)) return safe;
+  }
+  const img = block.match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i)?.[1];
+  const fromImg = img ? safeImage(img) : '';
+  return fromImg && looksLikeImage(fromImg) ? fromImg : '';
+}
+
+function pushItem(items: NewsItem[], feed: Feed, block: string, title: string, link: string, pubDate: string) {
   const normalized = normalizeLink(link);
   if (!title || !normalized || items.length >= PER_FEED) return;
-  items.push({
+  const image = extractImage(block);
+  const item: NewsItem = {
     id: stableId(normalized),
     title: title.slice(0, 300),
     link: normalized,
@@ -73,7 +120,10 @@ function pushItem(items: NewsItem[], feed: Feed, title: string, link: string, pu
     sourceUrl: feed.homepage,
     regions: feed.regions,
     pubDate: toIso(pubDate),
-  });
+    category: categorize(title, (feed.category ?? 'world') as CategoryId),
+  };
+  if (image) item.image = image;
+  items.push(item);
 }
 
 export function parseFeed(xml: string, feed: Feed): NewsItem[] {
@@ -82,14 +132,14 @@ export function parseFeed(xml: string, feed: Feed): NewsItem[] {
   let match: RegExpExecArray | null;
   while ((match = rss.exec(xml)) !== null) {
     const block = match[1];
-    pushItem(items, feed, tagText(block, 'title'), tagText(block, 'link') || atomLink(block), tagText(block, 'pubDate') || tagText(block, 'dc:date'));
+    pushItem(items, feed, block, tagText(block, 'title'), tagText(block, 'link') || atomLink(block), tagText(block, 'pubDate') || tagText(block, 'dc:date'));
   }
   if (items.length > 0) return items;
 
   const atom = /<entry\b[^>]*>([\s\S]*?)<\/entry>/gi;
   while ((match = atom.exec(xml)) !== null) {
     const block = match[1];
-    pushItem(items, feed, tagText(block, 'title'), atomLink(block) || tagText(block, 'link'), tagText(block, 'updated') || tagText(block, 'published'));
+    pushItem(items, feed, block, tagText(block, 'title'), atomLink(block) || tagText(block, 'link'), tagText(block, 'updated') || tagText(block, 'published'));
   }
   return items;
 }

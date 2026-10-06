@@ -17,9 +17,10 @@ const rss = `<?xml version="1.0"?>
 <rss version="2.0"><channel>
   <item>
     <title><![CDATA[Harbour &amp; ferry update]]></title>
-    <link>https://Example.com/story?utm_source=rss&amp;id=1</link>
+    <link>https://Example.com/story?utm_source=rss&amp;id=1&amp;at_medium=RSS&amp;at_campaign=rss</link>
     <pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate>
-    <description>FULL_ARTICLE_BODY_SHOULD_NOT_LEAK</description>
+    <description>FULL_ARTICLE_BODY_SHOULD_NOT_LEAK &lt;img src="https://cdn.example.com/harbour.jpg" /&gt;</description>
+    <media:thumbnail url="https://cdn.example.com/thumb.jpg" />
   </item>
   <item>
     <title>Same story</title>
@@ -39,6 +40,8 @@ describe('rss parse and dedupe', () => {
     expect(items).toHaveLength(2);
     expect(items[0]?.title).toBe('Harbour & ferry update');
     expect(items[0]?.link).toBe('https://example.com/story?id=1');
+    expect(items[0]?.id).toMatch(/^[0-9a-f]{12}$/);
+    expect(items[0]?.image).toBe('https://cdn.example.com/thumb.jpg');
     expect(items[0]?.source).toBe('Demo Source');
     expect(items[0]?.regions).toEqual(['HKG']);
     expect(JSON.stringify(items)).not.toContain('FULL_ARTICLE_BODY_SHOULD_NOT_LEAK');
@@ -48,6 +51,7 @@ describe('rss parse and dedupe', () => {
   it('normalizes unsafe links to empty', () => {
     expect(normalizeLink('javascript:alert(1)')).toBe('');
     expect(normalizeLink('https://Example.com/a/?utm_medium=x')).toBe('https://example.com/a');
+    expect(normalizeLink('https://www.bbc.com/news/a?at_medium=RSS&at_campaign=rss')).toBe('https://www.bbc.com/news/a');
   });
 
   it('parses atom entries', () => {

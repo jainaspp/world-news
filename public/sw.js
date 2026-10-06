@@ -1,4 +1,4 @@
-const CACHE = 'wn-v15';
+const CACHE = 'wn-v16';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(['/', '/offline.html', '/manifest.json', '/favicon.svg'])).then(() => self.skipWaiting()));
