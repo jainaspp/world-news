@@ -60,6 +60,15 @@ function localApi(): Plugin {
 
 export default defineConfig({
   plugins: [react(), localApi()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+        },
+      },
+    },
+  },
   test: {
     environment: 'node',
     include: ['tests/**/*.test.ts'],

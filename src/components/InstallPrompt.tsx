@@ -10,12 +10,20 @@ export function InstallPrompt() {
 
   useEffect(() => {
     if (sessionStorage.getItem('install_shown')) return;
+    let saved: BeforeInstallPromptEvent | null = null;
     const onPrompt = (event: Event) => {
       event.preventDefault();
-      setPrompt(event as BeforeInstallPromptEvent);
+      saved = event as BeforeInstallPromptEvent;
+    };
+    const reveal = () => {
+      if (saved) setPrompt(saved);
     };
     window.addEventListener('beforeinstallprompt', onPrompt);
-    return () => window.removeEventListener('beforeinstallprompt', onPrompt);
+    window.addEventListener('pointerdown', reveal, { once: true });
+    return () => {
+      window.removeEventListener('beforeinstallprompt', onPrompt);
+      window.removeEventListener('pointerdown', reveal);
+    };
   }, []);
 
   if (!prompt) return null;

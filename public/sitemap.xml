@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://world-news-tawny.vercel.app/</loc>
+    <loc>https://world-news.xyz/</loc>
     <changefreq>hourly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/region/hkg</loc>
+    <changefreq>hourly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/category/world</loc>
+    <changefreq>hourly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

@@ -2,8 +2,23 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "world-news-tawny.vercel.app" }],
+      "destination": "https://world-news.xyz/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "world-news-tawny.vercel.app" }],
+      "destination": "https://world-news.xyz/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
-    { "source": "/((?!api/)(?!ads\\.txt$).*)", "destination": "/index.html" }
+    { "source": "/region/:code", "destination": "/index.html" },
+    { "source": "/category/:slug", "destination": "/index.html" }
   ],
   "crons": [
     { "path": "/api/crawl", "schedule": "0 8 * * *" }

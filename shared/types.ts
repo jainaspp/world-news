@@ -6,6 +6,8 @@ export interface NewsItem {
   sourceUrl: string;
   regions: string[];
   pubDate: string;
+  image?: string;
+  category?: string;
 }
 
 export type TimeRange = 'all' | 'hour' | 'today' | 'week';

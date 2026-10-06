@@ -5,15 +5,20 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#f3f5f8",
+  "background_color": "#f4f6f8",
   "theme_color": "#1d4f91",
   "lang": "zh-HK",
   "dir": "ltr",
   "icons": [
+    { "src": "/favicon-32.png", "sizes": "32x32", "type": "image/png", "purpose": "any" },
+    { "src": "/apple-touch-icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-mark-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-mark-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ],
   "shortcuts": [
-    { "name": "香港", "url": "/?region=HKG" },
-    { "name": "台灣", "url": "/?region=TWN" }
+    { "name": "香港", "url": "/region/hkg" },
+    { "name": "台灣", "url": "/region/twn" },
+    { "name": "國際", "url": "/category/world" }
   ]
 }

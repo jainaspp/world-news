@@ -4,6 +4,8 @@
  * `terms` is a reminder for the maintainer, not a legal opinion.
  * See LEGAL.md.
  */
+import type { CategoryId } from './categories';
+
 export type TermsStatus = 'public-domain' | 'un-reuse' | 'uncertain';
 
 export interface Feed {
@@ -13,24 +15,27 @@ export interface Feed {
   url: string;
   regions: string[];
   terms: TermsStatus;
+  category?: CategoryId;
 }
 
 export interface Region {
   code: string;
   label: string;
+  icon: string;
+  color: string;
 }
 
 export const REGIONS: Region[] = [
-  { code: 'ALL', label: '全球' },
-  { code: 'HKG', label: '香港' },
-  { code: 'TWN', label: '台灣' },
-  { code: 'JPN', label: '日本' },
-  { code: 'KOR', label: '韓國' },
-  { code: 'ASI', label: '亞洲' },
-  { code: 'EUR', label: '歐洲' },
-  { code: 'USA', label: '美國' },
-  { code: 'ME', label: '中東' },
-  { code: 'INT', label: '國際' },
+  { code: 'ALL', label: '全球', icon: 'all', color: '#1D4F91' },
+  { code: 'HKG', label: '香港', icon: 'hkg', color: '#C8102E' },
+  { code: 'TWN', label: '台灣', icon: 'twn', color: '#0B6B4F' },
+  { code: 'JPN', label: '日本', icon: 'jpn', color: '#8E1B2C' },
+  { code: 'KOR', label: '韓國', icon: 'kor', color: '#0C3C78' },
+  { code: 'ASI', label: '亞洲', icon: 'asi', color: '#9A3412' },
+  { code: 'EUR', label: '歐洲', icon: 'eur', color: '#1E4D8C' },
+  { code: 'USA', label: '美國', icon: 'usa', color: '#1D4E89' },
+  { code: 'ME', label: '中東', icon: 'me', color: '#8A4B08' },
+  { code: 'INT', label: '國際', icon: 'int', color: '#0F6E56' },
 ];
 
 export const FEEDS: Feed[] = [
@@ -41,6 +46,7 @@ export const FEEDS: Feed[] = [
     url: 'https://news.un.org/feed/subscribe/en/news/all/rss.xml',
     regions: ['INT'],
     terms: 'un-reuse',
+    category: 'world',
   },
   {
     id: 'nasa',
@@ -49,6 +55,7 @@ export const FEEDS: Feed[] = [
     url: 'https://www.nasa.gov/feed/',
     regions: ['USA'],
     terms: 'public-domain',
+    category: 'health',
   },
   {
     id: 'rthk-en',
@@ -57,6 +64,7 @@ export const FEEDS: Feed[] = [
     url: 'https://rthk9.rthk.hk/rthk/news/rss/e_expressnews_elocal.xml',
     regions: ['HKG'],
     terms: 'uncertain',
+    category: 'hk',
   },
   {
     id: 'rthk-zh',
@@ -65,6 +73,7 @@ export const FEEDS: Feed[] = [
     url: 'https://rthk9.rthk.hk/rthk/news/rss/c_expressnews_clocal.xml',
     regions: ['HKG'],
     terms: 'uncertain',
+    category: 'hk',
   },
   {
     id: 'cna',
@@ -73,6 +82,7 @@ export const FEEDS: Feed[] = [
     url: 'https://feeds.feedburner.com/rsscna/intworld',
     regions: ['TWN'],
     terms: 'uncertain',
+    category: 'world',
   },
   {
     id: 'nhk',
@@ -81,6 +91,7 @@ export const FEEDS: Feed[] = [
     url: 'https://www.nhk.or.jp/rss/news/cat0.xml',
     regions: ['JPN'],
     terms: 'uncertain',
+    category: 'asia',
   },
   {
     id: 'yonhap',
@@ -89,6 +100,7 @@ export const FEEDS: Feed[] = [
     url: 'https://en.yna.co.kr/RSS/news.xml',
     regions: ['KOR'],
     terms: 'uncertain',
+    category: 'asia',
   },
   {
     id: 'bbc-asia',
@@ -97,6 +109,7 @@ export const FEEDS: Feed[] = [
     url: 'https://feeds.bbci.co.uk/news/world/asia/rss.xml',
     regions: ['ASI'],
     terms: 'uncertain',
+    category: 'asia',
   },
   {
     id: 'bbc-world',
@@ -105,6 +118,7 @@ export const FEEDS: Feed[] = [
     url: 'https://feeds.bbci.co.uk/news/world/rss.xml',
     regions: ['INT'],
     terms: 'uncertain',
+    category: 'world',
   },
   {
     id: 'bbc-europe',
@@ -113,6 +127,7 @@ export const FEEDS: Feed[] = [
     url: 'https://feeds.bbci.co.uk/news/world/europe/rss.xml',
     regions: ['EUR'],
     terms: 'uncertain',
+    category: 'world',
   },
   {
     id: 'npr',
@@ -121,6 +136,7 @@ export const FEEDS: Feed[] = [
     url: 'https://feeds.npr.org/1004/rss.xml',
     regions: ['USA'],
     terms: 'uncertain',
+    category: 'world',
   },
   {
     id: 'guardian',
@@ -129,6 +145,7 @@ export const FEEDS: Feed[] = [
     url: 'https://www.theguardian.com/world/rss',
     regions: ['EUR'],
     terms: 'uncertain',
+    category: 'world',
   },
   {
     id: 'france24',
@@ -137,6 +154,7 @@ export const FEEDS: Feed[] = [
     url: 'https://www.france24.com/en/rss',
     regions: ['EUR'],
     terms: 'uncertain',
+    category: 'world',
   },
   {
     id: 'dw',
@@ -145,6 +163,7 @@ export const FEEDS: Feed[] = [
     url: 'https://rss.dw.com/rdf/rss-en-world',
     regions: ['EUR'],
     terms: 'uncertain',
+    category: 'world',
   },
   {
     id: 'aljazeera',
@@ -153,8 +172,13 @@ export const FEEDS: Feed[] = [
     url: 'https://www.aljazeera.com/xml/rss/all.xml',
     regions: ['ME'],
     terms: 'uncertain',
+    category: 'world',
   },
 ];
+
+export function regionByCode(code: string): Region {
+  return REGIONS.find((region) => region.code === code) ?? REGIONS[0];
+}
 
 export function sourcesForRegion(region: string): string[] {
   const labels = FEEDS.filter((feed) => region === 'ALL' || feed.regions.includes(region)).map(

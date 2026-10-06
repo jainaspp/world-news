@@ -1,13 +1,13 @@
 import { useEffect, useId, useRef, useState } from 'react';
 
 const LANGUAGES = [
-  { code: 'zh-TW', label: '繁體中文' },
-  { code: 'zh-CN', label: '簡體中文' },
-  { code: 'en', label: 'English' },
-  { code: 'ja', label: '日本語' },
-  { code: 'ko', label: '한국어' },
-  { code: 'es', label: 'Español' },
-  { code: 'fr', label: 'Français' },
+  { code: 'zh-TW', label: '繁體中文', short: '繁' },
+  { code: 'zh-CN', label: '簡體中文', short: '简' },
+  { code: 'en', label: 'English', short: 'EN' },
+  { code: 'ja', label: '日本語', short: '日' },
+  { code: 'ko', label: '한국어', short: '한' },
+  { code: 'es', label: 'Español', short: 'ES' },
+  { code: 'fr', label: 'Français', short: 'FR' },
 ];
 
 interface Props {
@@ -45,9 +45,10 @@ export function LanguageSelector({ value, onChange }: Props) {
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-controls={listId}
+        aria-label={`語言：${current.label}`}
         onClick={() => setOpen((valueOpen) => !valueOpen)}
       >
-        {current.label}
+        {current.short}
       </button>
       {open && (
         <ul className="lang-menu" id={listId} role="listbox" aria-label="顯示語言">
