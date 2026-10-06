@@ -68,11 +68,10 @@ describe('AI content', () => {
       story('b', '立法會通過開支預算案', 'SCMP'),
       story('c', '立法會開支預算', 'HKFP'),
     ]));
-    expect(analysis.blocks.map((block) => block.title)).toEqual(['背景', '各方說法', '與香港的關係']);
+    expect(analysis.blocks.map((block) => block.title)).toEqual(['背景']);
     const page = renderContentPage(analysis, 'https://world-news.xyz/analysis/demo');
     expect(page).toContain('背景');
-    expect(page).toContain('各方說法');
-    expect(page).toContain('與香港的關係');
+    expect(page).not.toContain('來源未有提及');
     expect(page).toContain('https://example.com/a');
   });
 
@@ -108,6 +107,13 @@ describe('AI content', () => {
     expect(updated?.blocks[0]?.sentences[0]).toContain('晶片');
     expect(updated?.blocks[1]?.sources[0]?.url).toBe('https://example.com/b');
     expect(applyModelText(doc, 'not json')).toBeNull();
+  });
+
+  it('keeps a full day at the raised cap well under the free allowance', () => {
+    const scheduled = estimateNeurons(3000, 3200) * 2 + estimateNeurons(1600, 1500) * 12 + estimateNeurons(1500, 900) / 7;
+    expect(scheduled).toBeLessThan(1000);
+    // Worst case: every one of the 30 daily calls is digest-sized.
+    expect(estimateNeurons(3000, 3200) * 30).toBeLessThan(4000);
   });
 
   it('stays under the free daily neuron allowance', () => {
