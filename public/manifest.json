@@ -10,15 +10,64 @@
   "lang": "zh-HK",
   "dir": "ltr",
   "icons": [
-    { "src": "/favicon-32.png", "sizes": "32x32", "type": "image/png", "purpose": "any" },
-    { "src": "/apple-touch-icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
-    { "src": "/logo-mark-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/logo-mark-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    {
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-mark-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-mark-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "shortcuts": [
-    { "name": "香港", "url": "/region/hkg" },
-    { "name": "台灣", "url": "/region/twn" },
-    { "name": "國際", "url": "/category/world" }
-  ]
+    {
+      "name": "香港",
+      "url": "/region/hkg"
+    },
+    {
+      "name": "台灣",
+      "url": "/region/twn"
+    },
+    {
+      "name": "國際",
+      "url": "/category/world"
+    },
+    {
+      "name": "日報",
+      "url": "/digest/"
+    },
+    {
+      "name": "熱門分析",
+      "url": "/analysis/"
+    }
+  ],
+  "id": "/"
 }

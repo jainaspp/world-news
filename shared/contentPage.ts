@@ -26,13 +26,13 @@ export interface PageOptions {
 const DEFAULT_CLIENT = 'ca-pub-8392975944327076';
 const FONTS = 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap';
 
-function esc(value: string): string {
+export function esc(value: string): string {
   return String(value ?? '').replace(/[&<>"']/g, (char) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char] || char
   ));
 }
 
-function safeHttp(url: string | undefined): string {
+export function safeHttp(url: string | undefined): string {
   if (!url) return '';
   try {
     const parsed = new URL(url);
@@ -50,7 +50,7 @@ function hostOf(url: string): string {
   }
 }
 
-function hkt(iso: string, withYear = true): string {
+export function hkt(iso: string, withYear = true): string {
   const time = new Date(iso);
   if (Number.isNaN(time.getTime())) return '';
   return new Intl.DateTimeFormat('zh-HK', {
@@ -74,7 +74,7 @@ export function readingMinutes(doc: ContentDoc): number {
   return Math.max(1, Math.round(chars / 400));
 }
 
-function catChip(category: string | undefined): string {
+export function catChip(category: string | undefined): string {
   const tile = tileOf(category);
   return `<a class="chip cat-chip" style="--ph:${tile.color}" href="/category/${tile.id}">${esc(categoryLabel(tile.id))}</a>`;
 }
@@ -89,10 +89,10 @@ function fallbackTile(category: string | undefined, label: string, hidden = fals
 export function media(image: string | undefined, category: string | undefined, label: string, eager = false): string {
   const src = safeHttp(image);
   if (!src) return fallbackTile(category, label);
-  return `<img class="thumb" src="${esc(src)}" alt="" width="640" height="360" loading="${eager ? 'eager' : 'lazy'}" decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />${fallbackTile(category, label, true)}`;
+  return `<img class="thumb" src="${esc(src)}" alt="" width="640" height="360" loading="${eager ? 'eager' : 'lazy'}"${eager ? ' fetchpriority="high"' : ''} decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />${fallbackTile(category, label, true)}`;
 }
 
-function favicon(url: string): string {
+export function favicon(url: string): string {
   const host = hostOf(url);
   if (!host) return '';
   return `<img class="favicon" src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&amp;sz=32" width="16" height="16" alt="" loading="lazy" decoding="async" />`;
@@ -165,13 +165,15 @@ function timeline(sources: SourceRef[]): string {
 
 const KIND_LABEL: Record<ContentDoc['kind'], string> = { digest: '日報', weekly: '週報', analysis: '分析' };
 
-function head(title: string, description: string, canonical: string, image: string, type: string, extra: string, client: string): string {
+export function head(title: string, description: string, canonical: string, image: string, type: string, extra: string, client: string): string {
   return `<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${esc(title)} — 世界頭條</title>
   <meta name="description" content="${esc(description)}" />
   <link rel="canonical" href="${esc(canonical)}" />
+  <link rel="alternate" hreflang="zh-HK" href="${esc(canonical)}" />
+  <link rel="alternate" hreflang="x-default" href="${esc(canonical)}" />
   <meta name="theme-color" content="#1D4F91" />
   <meta property="og:site_name" content="世界頭條" />
   <meta property="og:locale" content="zh_HK" />
@@ -181,6 +183,8 @@ function head(title: string, description: string, canonical: string, image: stri
   <meta property="og:type" content="${type}" />
   <meta property="og:image" content="${esc(image || 'https://world-news.xyz/og-image.png')}" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${esc(title)}" />
+  <meta name="twitter:image" content="${esc(image || 'https://world-news.xyz/og-image.png')}" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png" />
@@ -196,7 +200,7 @@ function head(title: string, description: string, canonical: string, image: stri
 </head>`;
 }
 
-function chrome(active: ContentDoc['kind'] | 'none'): string {
+export function chrome(active: ContentDoc['kind'] | 'none'): string {
   const cats = CATEGORIES.map((category) => `<a class="chip" href="${category.id === 'all' ? '/' : `/category/${category.id}`}">${esc(category.label)}</a>`).join('');
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   return `<a class="skip-link" href="#content">跳到內容</a>
@@ -234,14 +238,14 @@ function chrome(active: ContentDoc['kind'] | 'none'): string {
   </div>`;
 }
 
-function footer(): string {
+export function footer(): string {
   return `<footer class="app-footer">
       <p>世界頭條 只列出標題同出處連結，不轉載內文。<a href="https://world-news.xyz"> world-news.xyz</a></p>
       <p class="ai-footnote"><span class="badge">AI 整合</span> 日報、週報同分析由 AI 根據公開標題同短描述整理，只供參考，詳情以來源原文為準。</p>
     </footer>`;
 }
 
-function share(title: string, canonical: string): string {
+export function share(title: string, canonical: string): string {
   const wa = `https://wa.me/?text=${encodeURIComponent(`${title} ${canonical}`)}`;
   return `<div class="share-buttons" data-url="${esc(canonical)}" data-title="${esc(title)}">
         <button type="button" class="chip share-copy">複製連結</button>

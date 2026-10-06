@@ -13,6 +13,10 @@ import { LanguageSelector } from './components/LanguageSelector';
 import { NewsCard } from './components/NewsCard';
 import { RegionIcon } from './components/RegionIcon';
 import { SkeletonCard } from './components/SkeletonCard';
+import { BackToTop } from './components/BackToTop';
+import { HkWeather } from './components/HkWeather';
+import { TrendingTopics } from './components/TrendingTopics';
+import { trendingTopics } from '../shared/topics';
 import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_NAME, SITE_URL } from './config';
 import { useBookmarks } from './hooks/useBookmarks';
 import { useNews } from './hooks/useNews';
@@ -53,7 +57,7 @@ function Logo() {
 }
 
 export default function App() {
-  const { items, loading, error, partial, stale, refresh } = useNews();
+  const { items, loading, error, partial, stale, refresh, freshCount, showPending } = useNews();
   const { items: bookmarks, ids: bookmarkIds, toggle } = useBookmarks();
   const [view, setView] = useState<ViewState>(readView);
   const [lang, setLang] = useState(() => localStorage.getItem('wn_lang') || 'zh-TW');
@@ -64,6 +68,7 @@ export default function App() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const wide = useWide('(min-width: 1200px)');
+  const topics = useMemo(() => trendingTopics(items), [items]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
@@ -178,6 +183,10 @@ export default function App() {
   useEffect(() => {
     const query = view.q.trim();
     document.title = query ? `搜尋「${query}」 — ${SITE_NAME}` : `${SITE_NAME} — 新聞標題、來源、原文連結`;
+    // Category/region pages are listed in the sitemap, so each canonicalises to itself, not to "/".
+    const canonical = document.querySelector('link[rel="canonical"]');
+    const path = query || view.bookmarks || view.source || view.time !== 'all' ? '/' : viewHref(view);
+    canonical?.setAttribute('href', `${SITE_URL}${path === '' ? '/' : path}`);
     const top = (view.bookmarks ? visible : items).slice(0, 10);
     const data = {
       '@context': 'https://schema.org',
@@ -193,7 +202,7 @@ export default function App() {
     };
     const node = document.getElementById('ld-stories');
     if (node) node.textContent = JSON.stringify(data);
-  }, [items, view.bookmarks, view.q, visible]);
+  }, [items, view, visible]);
 
   const emptyMessage = view.bookmarks
     ? '還沒有收藏。在頭條上按「收藏」就會留在這裡。'
@@ -373,6 +382,10 @@ export default function App() {
                   </p>
                 )}
                 {showTopAd && <AdSlot slot={AD_SLOT_TOP} variant="banner" />}
+                {!view.bookmarks && !wide && <HkWeather />}
+                {!view.bookmarks && !wide && (
+                  <TrendingTopics topics={topics} active={view.q} onPick={(term) => go({ ...view, q: term, bookmarks: false }, 'replace')} />
+                )}
                 {!view.bookmarks && (
                   <aside className="digest-strip">
                     <span className="badge">AI 整合</span>
@@ -436,6 +449,10 @@ export default function App() {
             )}
           </main>
           <aside className="sidebar" aria-label="側欄">
+            {wide && <HkWeather />}
+            {wide && !view.bookmarks && (
+              <TrendingTopics topics={topics} active={view.q} onPick={(term) => go({ ...view, q: term, bookmarks: false }, 'replace')} />
+            )}
             {!view.bookmarks && !view.q.trim() && clusters.length > 0 && (
               <section className="trending" aria-label="熱門">
                 <h2>熱門</h2>
@@ -497,6 +514,19 @@ export default function App() {
           </p>
         </footer>
         <InstallPrompt />
+        <BackToTop />
+        {freshCount > 0 && (
+          <button
+            type="button"
+            className="new-items"
+            onClick={() => {
+              showPending();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
+            有 {freshCount} 則新頭條 · 更新
+          </button>
+        )}
       </div>
     </ErrorBoundary>
   );

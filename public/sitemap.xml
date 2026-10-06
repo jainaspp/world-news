@@ -101,6 +101,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://world-news.xyz/analysis/</loc>
+    <changefreq>hourly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://world-news.xyz/weekly/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
