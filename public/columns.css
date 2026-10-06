@@ -125,3 +125,4 @@ html.dark .heat-badge:not(.heat-3) { color: #ff8a9b; }
 @media (min-width: 700px) {
   .angle-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 }
+.ai-footnote .badge { flex: none; white-space: nowrap; }
