@@ -9,15 +9,30 @@ export function newItems(current: NewsItem[], next: NewsItem[]): NewsItem[] {
   return next.filter((item) => !ids.has(item.id));
 }
 
+function readBootstrap(): NewsPayload | null {
+  try {
+    const node = document.getElementById('wn-bootstrap');
+    if (!node?.textContent) return null;
+    const parsed = JSON.parse(node.textContent) as NewsPayload;
+    if (!Array.isArray(parsed.items) || parsed.items.length === 0) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
 export function useNews() {
-  const [items, setItems] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const boot = typeof document !== 'undefined' ? readBootstrap() : null;
+  const [items, setItems] = useState<NewsItem[]>(() => boot?.items ?? []);
+  const [loading, setLoading] = useState(() => !(boot?.items.length));
   const [error, setError] = useState('');
   const [partial, setPartial] = useState(false);
-  const [stale, setStale] = useState(false);
+  const [stale, setStale] = useState(() => Boolean(boot?.stale));
   const [pending, setPending] = useState<NewsItem[] | null>(null);
   const [freshCount, setFreshCount] = useState(0);
-  const itemsRef = useRef<NewsItem[]>([]);
+  const itemsRef = useRef<NewsItem[]>(boot?.items ?? []);
+  const lastPayload = useRef<NewsPayload | null>(boot);
+  const bootstrapped = useRef(Boolean(boot?.items.length));
 
   const apply = useCallback((payload: NewsPayload, next: NewsItem[]) => {
     itemsRef.current = next;
@@ -27,8 +42,6 @@ export function useNews() {
     setPending(null);
     setFreshCount(0);
   }, []);
-
-  const lastPayload = useRef<NewsPayload | null>(null);
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -41,19 +54,39 @@ export function useNews() {
       apply(payload, next);
       if (next.length === 0) setError(payload.error || '暫時沒有頭條');
     } catch {
-      setItems([]);
-      setError('暫時取不到新聞，請檢查網絡後再試');
+      if (!itemsRef.current.length) {
+        setItems([]);
+        setError('暫時取不到新聞，請檢查網絡後再試');
+      }
     } finally {
       setLoading(false);
     }
   }, [apply]);
 
   useEffect(() => {
+    // SSR bootstrap already painted cards; refresh quietly after first paint so LCP/TBT stay low.
+    if (bootstrapped.current) {
+      bootstrapped.current = false;
+      const timer = window.setTimeout(() => {
+        void (async () => {
+          try {
+            const response = await fetch('/api/news');
+            const payload = (await response.json()) as NewsPayload;
+            const next = Array.isArray(payload.items) ? payload.items : [];
+            if (next.length) {
+              lastPayload.current = payload;
+              apply(payload, next);
+            }
+          } catch {
+            /* keep bootstrap */
+          }
+        })();
+      }, 4000);
+      return () => window.clearTimeout(timer);
+    }
     void refresh();
-  }, [refresh]);
+  }, [apply, refresh]);
 
-  // Poll quietly while the tab is visible; new headlines wait behind a "有 N 則新頭條" button
-  // instead of reshuffling the page under the reader.
   useEffect(() => {
     const timer = window.setInterval(async () => {
       if (document.visibilityState !== 'visible' || itemsRef.current.length === 0) return;
@@ -68,7 +101,7 @@ export function useNews() {
           setFreshCount(fresh.length);
         }
       } catch {
-        /* offline: keep what we have */
+        /* offline */
       }
     }, POLL_MS);
     return () => window.clearInterval(timer);
@@ -78,5 +111,5 @@ export function useNews() {
     if (pending && lastPayload.current) apply(lastPayload.current, pending);
   }, [apply, pending]);
 
-  return { items, loading, error, partial, stale, refresh, freshCount, showPending };
+  return { items, loading, error, partial, stale, refresh, freshCount, showPending, pending };
 }

@@ -319,7 +319,7 @@ export function promptFor(doc: ContentDoc, strict = false): { system: string; us
     '提到媒體時照用資料中 source 的名稱（例如 BBC News、Al Jazeera），不要自行翻譯或改名。',
     '不要寫任何人的國籍、職銜、年齡或所屬機構，除非資料原文寫明。人名第一次出現時寫成「中文譯名（English Name）」，不肯定譯名就直接用英文原名。',
     '不要用 Markdown。回覆必須是 JSON。',
-    strict ? '上一次回覆有太多英文。今次除咗機構名、人名英文縮寫外，全部要用繁體中文。' : '',
+    strict ? '上一次回覆有太多英文，或者標題仍然係英文。今次每一則 title 同 sentences 全部要用繁體中文（除咗機構名、人名英文縮寫）。唔可以只改內文而留英文標題。' : '',
   ].join('');
   const payload = doc.blocks.map((block, index) => ({
     n: index + 1,
@@ -506,10 +506,22 @@ export function guardDoc(doc: ContentDoc): ContentDoc {
 export function applyModelText(doc: ContentDoc, raw: string, model = AI_MODEL): ContentDoc | null {
   const result = applyModelBody(doc, raw, model);
   if (!result) return null;
-  const done = guardDoc(toTraditional(withHighlight(result.doc, result.record)));
+  const polished = toTraditional(withHighlight(result.doc, result.record));
   // Reject output that is mostly English; the caller may retry once with a stricter prompt.
-  if (isMostlyEnglish(generatedText(done))) return null;
-  return done;
+  if (isMostlyEnglish(generatedText(polished))) return null;
+  // Digest midnight fallback: Chinese sentences but English block titles left untranslated → retry.
+  // Checked before guardDoc so a grounded-away Chinese title that falls back to the English
+  // source headline is not treated as a failed translation.
+  if (doc.kind === 'digest' && digestHasEnglishHeadlines(polished)) return null;
+  return guardDoc(polished);
+}
+
+/** True when a digest still shows English headlines that the model should have translated. */
+export function digestHasEnglishHeadlines(doc: ContentDoc): boolean {
+  const blocks = doc.blocks.filter((block) => block.sentences.length > 0);
+  if (!blocks.length) return false;
+  const englishTitles = blocks.filter((block) => !hasChinese(block.title) && isMostlyEnglish(block.title));
+  return englishTitles.length >= Math.ceil(blocks.length / 2);
 }
 
 function applyModelBody(doc: ContentDoc, raw: string, model: string): { doc: ContentDoc; record: { highlight?: unknown } } | null {

@@ -1,18 +1,15 @@
 import { useEffect, useId, useRef, useState } from 'react';
+import type { UiLang } from '../../shared/zh';
 
-const LANGUAGES = [
-  { code: 'zh-TW', label: '繁體中文', short: '繁' },
-  { code: 'zh-CN', label: '簡體中文', short: '简' },
+const LANGUAGES: { code: UiLang; label: string; short: string }[] = [
+  { code: 'zh-HK', label: '繁體中文', short: '繁' },
+  { code: 'zh-CN', label: '简体中文', short: '简' },
   { code: 'en', label: 'English', short: 'EN' },
-  { code: 'ja', label: '日本語', short: '日' },
-  { code: 'ko', label: '한국어', short: '한' },
-  { code: 'es', label: 'Español', short: 'ES' },
-  { code: 'fr', label: 'Français', short: 'FR' },
 ];
 
 interface Props {
-  value: string;
-  onChange: (code: string) => void;
+  value: UiLang;
+  onChange: (code: UiLang) => void;
 }
 
 export function LanguageSelector({ value, onChange }: Props) {
@@ -45,13 +42,13 @@ export function LanguageSelector({ value, onChange }: Props) {
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-controls={listId}
-        aria-label={`語言：${current.label}`}
+        aria-label={`Language: ${current.label}`}
         onClick={() => setOpen((valueOpen) => !valueOpen)}
       >
         {current.short}
       </button>
       {open && (
-        <ul className="lang-menu" id={listId} role="listbox" aria-label="顯示語言">
+        <ul className="lang-menu" id={listId} role="listbox" aria-label="Display language">
           {LANGUAGES.map((lang) => (
             <li key={lang.code} role="presentation">
               <button
