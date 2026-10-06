@@ -1,3 +1,4 @@
+import { toListPayload } from '../shared/listPayload.js';
 import { isCronAuthorized } from './auth.js';
 import { loadFeeds } from './loadFeeds.js';
 import { clearNewsCache, getNews } from './newsService.js';
@@ -28,7 +29,7 @@ function unavailable() {
 
 export async function buildNewsResponse(): Promise<JsonResult> {
   try {
-    const payload = await getNews();
+    const payload = toListPayload(await getNews());
     const status = payload.items.length > 0 ? 200 : 503;
     return result(status, payload, status === 200 ? JSON_CACHE : 'no-store');
   } catch {

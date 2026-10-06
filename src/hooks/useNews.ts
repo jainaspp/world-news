@@ -2,6 +2,17 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { NewsItem, NewsPayload } from '../../shared/types';
 
 const POLL_MS = 3 * 60 * 1000;
+const QUIET_REFRESH_MS = 6_000;
+
+/** Parse the full list after first paint, ideally in an idle slice so it doesn't add TBT. */
+function onIdle(run: () => void): () => void {
+  if (typeof window.requestIdleCallback === 'function') {
+    const id = window.requestIdleCallback(() => run(), { timeout: 2_500 });
+    return () => window.cancelIdleCallback(id);
+  }
+  const id = window.setTimeout(run, 0);
+  return () => window.clearTimeout(id);
+}
 
 /** Headlines that are in `next` but not in `current` (by id). */
 export function newItems(current: NewsItem[], next: NewsItem[]): NewsItem[] {
@@ -64,25 +75,31 @@ export function useNews() {
   }, [apply]);
 
   useEffect(() => {
-    // SSR bootstrap already painted cards; refresh quietly after first paint so LCP/TBT stay low.
+    // SSR bootstrap already painted cards. Refresh after first paint, in an idle callback, so parsing the list stays off the interaction path.
     if (bootstrapped.current) {
       bootstrapped.current = false;
+      let cancelIdle = () => {};
       const timer = window.setTimeout(() => {
-        void (async () => {
-          try {
-            const response = await fetch('/api/news');
-            const payload = (await response.json()) as NewsPayload;
-            const next = Array.isArray(payload.items) ? payload.items : [];
-            if (next.length) {
-              lastPayload.current = payload;
-              apply(payload, next);
+        cancelIdle = onIdle(() => {
+          void (async () => {
+            try {
+              const response = await fetch('/api/news');
+              const payload = (await response.json()) as NewsPayload;
+              const next = Array.isArray(payload.items) ? payload.items : [];
+              if (next.length) {
+                lastPayload.current = payload;
+                apply(payload, next);
+              }
+            } catch {
+              /* keep bootstrap */
             }
-          } catch {
-            /* keep bootstrap */
-          }
-        })();
-      }, 4000);
-      return () => window.clearTimeout(timer);
+          })();
+        });
+      }, QUIET_REFRESH_MS);
+      return () => {
+        window.clearTimeout(timer);
+        cancelIdle();
+      };
     }
     void refresh();
   }, [apply, refresh]);

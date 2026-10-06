@@ -1,6 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import react from '@vitejs/plugin-react';
 import { defineConfig, type Plugin } from 'vitest/config';
+import { loadHsiQuote } from './server/hsiService';
 import { buildCrawlResponse, buildNewsResponse, type JsonResult } from './server/responses';
 
 function send(res: ServerResponse, result: JsonResult) {
@@ -13,12 +14,21 @@ function send(res: ServerResponse, result: JsonResult) {
 function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerResponse, next: () => void) => void) => void }) {
   middlewares.use((req, res, next) => {
     const url = req.url ?? '';
-    if (!url.startsWith('/api/news') && !url.startsWith('/api/crawl')) {
+    if (!url.startsWith('/api/news') && !url.startsWith('/api/crawl') && !url.startsWith('/api/hsi')) {
       next();
       return;
     }
     void (async () => {
       try {
+        if (url.startsWith('/api/hsi')) {
+          const quote = await loadHsiQuote();
+          send(res, {
+            status: 200,
+            body: JSON.stringify(quote ?? { price: null, change: null, changePercent: null }),
+            cacheControl: quote ? 'public, max-age=300' : 'public, max-age=30',
+          });
+          return;
+        }
         if (url.startsWith('/api/news')) {
           send(res, await buildNewsResponse());
           return;

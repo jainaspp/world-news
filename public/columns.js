@@ -118,3 +118,34 @@
       box.hidden = false;
     }).catch(function () {});
   })();
+
+  // Hang Seng strip. Same formatting as shared/hsi.ts. Hidden if /api/hsi has no price.
+  (function () {
+    var box = document.getElementById('hsi-strip');
+    if (!box) return;
+    function formatIndex(value) {
+      var negative = value < -0.004;
+      var parts = Math.abs(value).toFixed(2).split('.');
+      var grouped = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return (negative ? '-' : '') + grouped + '.' + parts[1];
+    }
+    function formatSigned(value) {
+      var body = formatIndex(value);
+      return value > 0.004 ? '+' + body : body;
+    }
+    fetch('/api/hsi').then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+      if (!data || typeof data.price !== 'number' || typeof data.change !== 'number' || typeof data.changePercent !== 'number') return;
+      var direction = data.change > 0.005 ? 'up' : data.change < -0.005 ? 'down' : 'flat';
+      box.classList.add('hsi-' + direction);
+      var link = document.createElement('a');
+      link.href = 'https://finance.yahoo.com/quote/%5EHSI/';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      function span(cls, text) { var node = document.createElement('span'); node.className = cls; node.textContent = text; return node; }
+      link.appendChild(span('hsi-label', '恒生指數'));
+      link.appendChild(span('hsi-price', formatIndex(data.price)));
+      link.appendChild(span('hsi-change', formatSigned(data.change) + ' (' + formatSigned(data.changePercent) + '%)'));
+      box.appendChild(link);
+      box.hidden = false;
+    }).catch(function () {});
+  })();

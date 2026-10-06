@@ -236,6 +236,7 @@ export function chrome(active: ContentDoc['kind'] | 'none'): string {
       </nav>
     </div>
     <div class="hk-weather column-weather" id="hk-weather" hidden aria-live="polite"></div>
+    <div class="hsi-strip column-hsi" id="hsi-strip" hidden aria-label="恒生指數"></div>
   </div>`;
 }
 
