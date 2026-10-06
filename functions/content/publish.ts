@@ -2,13 +2,17 @@ import { getNews } from '../../server/newsService.js';
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
 import {
   AI_MODEL,
+  ANALYSIS_PER_RUN,
   DAILY_AI_CALLS,
+  analysisEligible,
   analysisFromCluster,
   analysisSlug,
   applyModelText,
   digestFromClusters,
   formatHkt,
+  guardDoc,
   hktParts,
+  pickAnalysisClusters,
   promptFor,
   recentSlots,
   renderAnalysisIndex,
@@ -24,7 +28,7 @@ import {
 import { clusterStories } from '../../shared/trending.js';
 import type { NewsItem } from '../../shared/types';
 import type { PagesContext } from '../env.js';
-import { docKey, readDoc, readIndex, rememberIndex, readValue, writeDoc, writeValue, type ContentEnv, type SavedDoc } from './store.js';
+import { docKey, readDoc, readIndex, rememberIndex, rememberIndexMany, readValue, writeDoc, writeValue, type ContentEnv, type SavedDoc } from './store.js';
 
 const FRESH_MS: Record<ContentDoc['kind'], number> = {
   digest: 6 * 60 * 60 * 1000,
@@ -71,7 +75,9 @@ const HTML_HEADERS = {
 
 async function page(doc: ContentDoc, canonical: string, env: ContentEnv, status = 200): Promise<Response> {
   const archive = await readIndex(env, doc.kind).catch(() => []);
-  return new Response(renderContentPage(doc, canonical, { ads: adConfig(env), archive }), { status, headers: HTML_HEADERS });
+  // Docs saved before the guard existed get the same deterministic pass when shown.
+  const shown = doc.mode === 'ai' ? guardDoc(doc) : doc;
+  return new Response(renderContentPage(shown, canonical, { ads: adConfig(env), archive }), { status, headers: HTML_HEADERS });
 }
 
 function emptyDoc(kind: ContentDoc['kind'], key: string, title: string): ContentDoc {
@@ -88,19 +94,27 @@ function emptyDoc(kind: ContentDoc['kind'], key: string, title: string): Content
   };
 }
 
-async function allowModel(env: ContentEnv, now = new Date()): Promise<boolean> {
-  const key = `ai-calls:${hktParts(now).date}`;
-  const used = Number(await readValue(env, key) || '0');
-  if (used >= DAILY_AI_CALLS) return false;
-  await writeValue(env, key, String(used + 1));
-  return true;
+function callsKey(now = new Date()): string {
+  return `ai-calls:${hktParts(now).date}`;
 }
 
-async function polish(env: ContentEnv, doc: ContentDoc): Promise<ContentDoc> {
-  if (!env.AI?.run) return doc;
-  if (!(await allowModel(env))) return doc;
+/** Reserves up to n model calls for today (HKT) in one read/write. Returns how many were granted. */
+export async function reserveCalls(env: ContentEnv, n: number, now = new Date()): Promise<number> {
+  const key = callsKey(now);
+  const used = Number(await readValue(env, key) || '0');
+  const granted = Math.max(0, Math.min(n, DAILY_AI_CALLS - used));
+  if (granted > 0) await writeValue(env, key, String(used + granted));
+  return granted;
+}
+
+async function allowModel(env: ContentEnv): Promise<boolean> {
+  return (await reserveCalls(env, 1)) === 1;
+}
+
+async function runModel(env: ContentEnv, doc: ContentDoc, strict: boolean): Promise<ContentDoc | null> {
+  if (!env.AI?.run) return null;
   try {
-    const prompt = promptFor(doc);
+    const prompt = promptFor(doc, strict);
     const result = await env.AI.run(AI_MODEL, {
       messages: [
         { role: 'system', content: prompt.system },
@@ -108,10 +122,23 @@ async function polish(env: ContentEnv, doc: ContentDoc): Promise<ContentDoc> {
       ],
       max_tokens: prompt.maxTokens,
     });
-    return applyModelText(doc, textFromAi(result)) ?? doc;
+    return applyModelText(doc, textFromAi(result));
   } catch {
-    return doc;
+    return null;
   }
+}
+
+/**
+ * One model call, plus one stricter retry if the reply was unusable (bad JSON, empty, or mostly
+ * English). Both count against DAILY_AI_CALLS. `reserved` means the first call was already counted.
+ */
+async function polish(env: ContentEnv, doc: ContentDoc, reserved = false): Promise<ContentDoc> {
+  if (!env.AI?.run) return doc;
+  if (!reserved && !(await allowModel(env))) return doc;
+  const first = await runModel(env, doc, false);
+  if (first) return first;
+  if (!(await allowModel(env))) return doc;
+  return (await runModel(env, doc, true)) ?? doc;
 }
 
 interface RollupRow {
@@ -152,18 +179,18 @@ async function rememberRollup(env: ContentEnv, items: NewsItem[], now = new Date
   await writeValue(env, 'rollup', JSON.stringify(kept.slice(-300)));
 }
 
-async function finish(env: ContentEnv, doc: ContentDoc): Promise<ContentDoc> {
-  const polished = await polish(env, doc);
+async function finish(env: ContentEnv, doc: ContentDoc, reserved = false, index = true): Promise<ContentDoc> {
+  const polished = await polish(env, doc, reserved);
   if (polished.mode === 'ai') {
-    await writeDoc(env, polished);
+    await writeDoc(env, polished, index);
     return polished;
   }
   const existing = await readDoc(env, docKey(doc.kind, doc.key));
   if (existing?.doc.mode === 'ai') {
-    await rememberIndex(env, existing.doc);
+    if (index) await rememberIndex(env, existing.doc);
     return existing.doc;
   }
-  await writeDoc(env, polished);
+  await writeDoc(env, polished, index);
   return polished;
 }
 
@@ -182,7 +209,7 @@ export async function buildDigest(env: ContentEnv, key: string, now = new Date()
 
 export async function buildAnalysis(_env: ContentEnv, slug: string, now = new Date()): Promise<ContentDoc | null> {
   const { clusters } = await loadClusters();
-  const cluster = clusters.find((item) => item.count >= 3 && analysisSlug(item.lead.title) === slug);
+  const cluster = clusters.find((item) => analysisEligible(item) && analysisSlug(item.lead.title) === slug);
   if (!cluster) return null;
   return analysisFromCluster(cluster, now);
 }
@@ -304,18 +331,26 @@ export async function warm(context: PagesContext): Promise<Response> {
       return Response.json({ ok: true, kind, key, mode: doc.mode });
     }
     if (kind === 'analysis') {
-      const limit = Math.min(3, Number(url.searchParams.get('limit') || '3'));
+      // `count` lowers the run size for manual tests. The scheduled workflow still sends the old
+      // `limit=3`, which is ignored on purpose so the schedule gets ANALYSIS_PER_RUN without a workflow edit.
+      const requested = Number(url.searchParams.get('count') || ANALYSIS_PER_RUN);
+      const limit = Math.max(1, Math.min(ANALYSIS_PER_RUN, Number.isFinite(requested) ? requested : ANALYSIS_PER_RUN));
       const { clusters } = await loadClusters();
-      const picked = clusters.filter((cluster) => cluster.count >= 3).slice(0, limit);
-      const keys: string[] = [];
-      for (const cluster of picked) {
-        const slug = analysisSlug(cluster.lead.title);
-        const draft = await buildAnalysis(env, slug);
-        if (!draft) continue;
-        await finish(env, draft);
-        keys.push(slug);
-      }
-      return Response.json({ ok: true, kind, keys });
+      const picked = pickAnalysisClusters(clusters, limit);
+      // Reserve the first call for every piece up front, then run them in parallel so a run of six
+      // finishes in one model round-trip instead of six.
+      const granted = await reserveCalls(env, picked.length);
+      const docs = await Promise.all(picked.map((cluster, index) => finish(env, analysisFromCluster(cluster), index < granted, false)
+        .catch(() => null)));
+      const done = docs.filter((doc): doc is ContentDoc => doc !== null);
+      await rememberIndexMany(env, done);
+      return Response.json({
+        ok: true,
+        kind,
+        granted,
+        keys: done.map((doc) => doc.key),
+        modes: done.map((doc) => doc.mode),
+      });
     }
     const key = slotId();
     const doc = await finish(env, await buildDigest(env, key));

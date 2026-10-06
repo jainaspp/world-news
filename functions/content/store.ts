@@ -82,15 +82,24 @@ export async function readDoc(env: ContentEnv, key: string): Promise<SavedDoc | 
   }
 }
 
-export async function writeDoc(env: ContentEnv, doc: ContentDoc): Promise<void> {
+export async function writeDoc(env: ContentEnv, doc: ContentDoc, index = true): Promise<void> {
   const saved: SavedDoc = { doc, savedAt: Date.now() };
   await writeValue(env, `doc:${doc.kind}:${doc.key}`, JSON.stringify(saved));
-  await rememberIndex(env, doc);
+  if (index) await rememberIndex(env, doc);
 }
 
 export async function rememberIndex(env: ContentEnv, doc: ContentDoc): Promise<void> {
-  if (!doc.blocks.length) return;
-  await writeValue(env, indexKey(doc.kind), JSON.stringify(mergeIndex(await readIndex(env, doc.kind), doc)));
+  await rememberIndexMany(env, [doc]);
+}
+
+/** One read and one write for several docs of the same kind (parallel writers would lose rows). */
+export async function rememberIndexMany(env: ContentEnv, docs: ContentDoc[]): Promise<void> {
+  const rows = docs.filter((doc) => doc.blocks.length);
+  const kind = rows[0]?.kind;
+  if (!kind) return;
+  let index = await readIndex(env, kind);
+  for (const doc of rows) if (doc.kind === kind) index = mergeIndex(index, doc);
+  await writeValue(env, indexKey(kind), JSON.stringify(index));
 }
 
 export function indexKey(kind: ContentDoc['kind']): string {
