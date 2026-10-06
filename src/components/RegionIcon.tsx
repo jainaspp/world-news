@@ -1,8 +1,8 @@
 import { regionByCode } from '../../shared/feeds';
 
-export function RegionIcon({ code, large = false }: { code: string; large?: boolean }) {
+export function RegionIcon({ code, icon, large = false }: { code: string; icon?: string; large?: boolean }) {
   const region = regionByCode(code);
-  const url = `/icons/${region.icon}.svg`;
+  const url = `/icons/${icon ?? region.icon}.svg`;
   return (
     <span
       className={large ? 'region-icon region-icon-lg' : 'region-icon'}

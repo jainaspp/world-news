@@ -54,6 +54,28 @@ describe('rss parse and dedupe', () => {
     expect(normalizeLink('https://www.bbc.com/news/a?at_medium=RSS&at_campaign=rss')).toBe('https://www.bbc.com/news/a');
   });
 
+  it('reads itunes images and pictures escaped inside the description', () => {
+    const xml = `<rss><channel><item>
+      <title>Show art</title>
+      <link>https://example.com/show</link>
+      <itunes:image href="https://cdn.example.com/show.jpg" />
+      <pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate>
+    </item><item>
+      <title>Encoded</title>
+      <link>https://example.com/encoded</link>
+      <content:encoded>&lt;img src="https://cdn.example.com/encoded.jpg" /&gt;</content:encoded>
+      <pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate>
+    </item></channel></rss>`;
+    const items = parseFeed(xml, feed);
+    expect(items[0]?.image).toBe('https://cdn.example.com/show.jpg');
+    expect(items[1]?.image).toBe('https://cdn.example.com/encoded.jpg');
+  });
+
+  it('keeps at most 30 headlines from one feed', () => {
+    const body = Array.from({ length: 40 }, (_, index) => `<item><title>T${index}</title><link>https://example.com/${index}</link><pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate></item>`).join('');
+    expect(parseFeed(`<rss><channel>${body}</channel></rss>`, feed)).toHaveLength(30);
+  });
+
   it('parses atom entries', () => {
     const atom = `<feed><entry><title>Atom title</title><link href="https://example.com/atom" /><updated>2026-10-06T00:00:00Z</updated><summary>ATOM_BODY</summary></entry></feed>`;
     const items = parseFeed(atom, feed);
