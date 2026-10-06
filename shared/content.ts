@@ -1,6 +1,7 @@
 import { stableId } from './rss.js';
 import { hasChinese, isMostlyEnglish, toHK } from './zh.js';
 import { bestImage } from './media.js';
+import { bracketNames, englishNames, fixOutlets, scrubPlaces } from './grounding.js';
 export { bestImage, imageScore } from './media.js';
 import type { StoryCluster } from './trending';
 
@@ -62,6 +63,8 @@ export interface ContentDoc {
   highlight?: Highlight;
   originalTitle?: string;
   originalUrl?: string;
+  /** Phrases the grounding guard removed or changed. Stored for audit, not shown. */
+  guard?: string[];
 }
 
 /** One row of the per-kind archive list kept in KV (index:<kind>). */
@@ -314,6 +317,7 @@ export function promptFor(doc: ContentDoc, strict = false): { system: string; us
     '你是世界頭條的編輯。一律用繁體中文（香港書面語），不要用簡體字，英文來源都要譯成中文；可以有輕微本地語氣，不要堆砌俚語。',
     '只可使用提供的標題同短描述（excerpt）。禁止添加來源沒有寫的事實、數字、引言、人名、地點、國籍、身份或因果。',
     '提到媒體時照用資料中 source 的名稱（例如 BBC News、Al Jazeera），不要自行翻譯或改名。',
+    '不要寫任何人的國籍、職銜、年齡或所屬機構，除非資料原文寫明。人名第一次出現時寫成「中文譯名（English Name）」，不肯定譯名就直接用英文原名。',
     '不要用 Markdown。回覆必須是 JSON。',
     strict ? '上一次回覆有太多英文。今次除咗機構名、人名英文縮寫外，全部要用繁體中文。' : '',
   ].join('');
@@ -408,10 +412,101 @@ function withHighlight(doc: ContentDoc, record: { highlight?: unknown }): Conten
   return { ...doc, highlight };
 }
 
+function sourceText(sources: SourceRef[], extra: string[] = []): string {
+  return [...extra, ...sources.flatMap((source) => [source.title, source.excerpt || ''])].join(' \n ');
+}
+
+/** A Chinese source headline if any outlet has one (faithful by definition), else the original headline. */
+function fallbackTitle(doc: ContentDoc, sources: SourceRef[]): string {
+  return sources.find((source) => hasChinese(source.title))?.title || doc.originalTitle || doc.title;
+}
+
+/**
+ * Deterministic grounding pass over everything the model wrote: unsupported countries and
+ * nationalities, model-written outlet names, and bracketed English names for transliterations.
+ */
+export function guardDoc(doc: ContentDoc): ContentDoc {
+  const log: string[] = [];
+  const allSources = uniqueSources(doc);
+  const names = [...new Set(allSources.map((source) => source.source))];
+  const allText = sourceText(allSources, [doc.originalTitle || '']);
+  const clean = (text: string, haystack: string): string | null => {
+    const outlets = fixOutlets(text, names);
+    log.push(...outlets.removed);
+    const places = scrubPlaces(outlets.text, haystack);
+    log.push(...places.removed);
+    return places.dropped ? null : places.text;
+  };
+  let title = doc.title;
+  let originalTitle = doc.originalTitle;
+  if (doc.originalTitle) {
+    const cleaned = clean(doc.title, allText);
+    if (cleaned === null || cleaned !== doc.title) {
+      title = fallbackTitle(doc, allSources);
+      if (!hasChinese(title) || title === doc.originalTitle) originalTitle = undefined;
+      log.push(`標題改用來源標題：${doc.title} → ${title}`);
+    }
+  }
+  const blocks = doc.blocks.map((block) => {
+    // Only the published headlines/summaries count as support, never the model's own title.
+    const haystack = sourceText(block.sources, [block.originalTitle || '']);
+    let blockTitle = block.title;
+    let blockOriginal = block.originalTitle;
+    if (block.originalTitle) {
+      const cleaned = clean(block.title, haystack);
+      if (cleaned === null || cleaned !== block.title) {
+        blockTitle = block.sources.find((source) => hasChinese(source.title))?.title || block.originalTitle;
+        blockOriginal = hasChinese(blockTitle) && blockTitle !== block.originalTitle ? block.originalTitle : undefined;
+        log.push(`標題改用來源標題：${block.title} → ${blockTitle}`);
+      }
+    }
+    let sentences = block.sentences.map((line) => clean(line, haystack)).filter((line): line is string => Boolean(line && line.trim()));
+    if (doc.kind === 'digest' && sentences.length < 2) sentences = draftSentences(block.sources);
+    const sources = block.sources.map((source) => {
+      if (!source.angle) return source;
+      const angle = clean(source.angle, sourceText([source]));
+      if (angle) return { ...source, angle };
+      const rest = { ...source };
+      delete rest.angle;
+      return rest;
+    });
+    const next: DigestBlock = { ...block, title: blockTitle, sentences, sources };
+    if (blockOriginal) next.originalTitle = blockOriginal;
+    else delete next.originalTitle;
+    return next;
+  }).filter((block) => block.sentences.length > 0);
+  const english = englishNames(allText, names);
+  const bracketed = bracketNames([title, ...blocks.flatMap((block) => block.sentences)], english);
+  log.push(...bracketed.added.map((item) => `加上英文名：${item}`));
+  let cursor = 1;
+  const namedBlocks = blocks.map((block) => {
+    const sentences = block.sentences.map(() => bracketed.texts[cursor++] ?? '');
+    return { ...block, sentences };
+  });
+  let highlight = doc.highlight;
+  if (highlight) {
+    const items = highlight.items.map((item) => clean(item, allText)).filter((item): item is string => Boolean(item));
+    highlight = items.length ? { ...highlight, items } : undefined;
+  }
+  const next: ContentDoc = {
+    ...doc,
+    title: bracketed.texts[0] || title,
+    blocks: namedBlocks,
+    description: doc.mode === 'ai' ? namedBlocks[0]?.sentences[0] || doc.description : doc.description,
+  };
+  if (originalTitle) next.originalTitle = originalTitle;
+  else delete next.originalTitle;
+  if (highlight) next.highlight = highlight;
+  else delete next.highlight;
+  if (log.length) next.guard = log;
+  else delete next.guard;
+  return next;
+}
+
 export function applyModelText(doc: ContentDoc, raw: string, model = AI_MODEL): ContentDoc | null {
   const result = applyModelBody(doc, raw, model);
   if (!result) return null;
-  const done = toTraditional(withHighlight(result.doc, result.record));
+  const done = guardDoc(toTraditional(withHighlight(result.doc, result.record)));
   // Reject output that is mostly English; the caller may retry once with a stricter prompt.
   if (isMostlyEnglish(generatedText(done))) return null;
   return done;

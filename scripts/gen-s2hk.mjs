@@ -8,8 +8,8 @@ import STCharacters from 'opencc-js/dict/STCharacters';
 const convert = OpenCC.Converter({ from: 'cn', to: 'hk' });
 let pairs = '';
 let count = 0;
-// Characters Hong Kong text keeps as-is (香港電台, 干預, 麵 only via word fixes, 關係 via word fixes).
-const KEEP = new Set([...'台干面系只']);
+// Characters Hong Kong text keeps as-is (香港電台, 干預, 里爾/馬德里; 麵, 關係, 裏面 only via word fixes).
+const KEEP = new Set([...'台干面系只里']);
 for (const entry of STCharacters.split('|')) {
   const [s, t] = entry.split(' ');
   if (KEEP.has(s)) continue;
@@ -26,6 +26,7 @@ const words = [
   '准备', '标准', '批准', '制造', '控制', '制度', '历史', '经历', '日历', '冲突', '冲击', '获得', '收获', '松树', '放松', '出租',
   '尽管', '尽量', '于是', '由于', '征收', '特征', '余额', '其余', '云南', '游戏', '旅游', '注意', '注册', '赞同', '称赞', '丑闻',
   '借鉴', '凶手', '卷入', '试卷', '划分', '计划', '采访', '采取', '谷歌', '山谷', '发表', '发布', '发展', '出发', '头条',
+  '这里', '那里', '哪里', '里面', '里头', '里边', '心里', '家里', '城里', '村里', '夜里', '手里', '眼里', '屋里',
 ];
 const map = new Map();
 for (let i = 0; i < pairs.length; i += 2) map.set(pairs[i], pairs[i + 1]);

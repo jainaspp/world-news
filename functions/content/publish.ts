@@ -10,6 +10,7 @@ import {
   applyModelText,
   digestFromClusters,
   formatHkt,
+  guardDoc,
   hktParts,
   pickAnalysisClusters,
   promptFor,
@@ -74,7 +75,9 @@ const HTML_HEADERS = {
 
 async function page(doc: ContentDoc, canonical: string, env: ContentEnv, status = 200): Promise<Response> {
   const archive = await readIndex(env, doc.kind).catch(() => []);
-  return new Response(renderContentPage(doc, canonical, { ads: adConfig(env), archive }), { status, headers: HTML_HEADERS });
+  // Docs saved before the guard existed get the same deterministic pass when shown.
+  const shown = doc.mode === 'ai' ? guardDoc(doc) : doc;
+  return new Response(renderContentPage(shown, canonical, { ads: adConfig(env), archive }), { status, headers: HTML_HEADERS });
 }
 
 function emptyDoc(kind: ContentDoc['kind'], key: string, title: string): ContentDoc {
