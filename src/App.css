@@ -237,6 +237,24 @@ a.chip { color: inherit; text-decoration: none; }
   .masthead { position: relative; }
   .install-banner { flex-direction: column; align-items: stretch; }
   .bookmark { margin-left: 0; }
+  /* Dense mobile cards: image on the left so photos don't dominate the screen. */
+  .news-grid .story {
+    display: flex; flex-direction: row; align-items: stretch; min-height: 0;
+  }
+  .news-grid .story-media { flex: none; width: 112px; }
+  .news-grid .thumb, .news-grid .thumb-fallback {
+    width: 112px; max-height: 112px; aspect-ratio: 1 / 1; height: auto; min-height: 0;
+  }
+  .news-grid .thumb-source { font-size: 0.68rem; }
+  .news-grid .story-body { padding: 8px 10px; gap: 4px; }
+  .news-grid .story-title { font-size: 0.98rem; -webkit-line-clamp: 3; }
+  .news-grid .region-icon-lg { width: 28px; height: 28px; }
+  .news-grid .card-credit { display: none; }
+  .top-stories .story-hero .thumb,
+  .top-stories .story-hero .thumb-fallback {
+    aspect-ratio: 16 / 9; max-height: 160px; width: 100%; height: auto; object-fit: cover;
+  }
+  .top-stories .story-hero .story-title { font-size: 1.15rem; }
 }
 
 @media (min-width: 700px) {
