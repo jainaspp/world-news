@@ -283,6 +283,7 @@ export default function App() {
               ))}
               <a className="chip" href="/digest/">日報</a>
               <a className="chip" href="/weekly/">週報</a>
+              <a className="chip" href="/analysis/">分析</a>
             </nav>
           </div>
 
@@ -377,6 +378,7 @@ export default function App() {
                     <span className="badge">AI 整合</span>
                     <a href="/digest/">今日精選</a>
                     <a href="/weekly/">一週科技 · 一週財經</a>
+                    <a href="/analysis/">熱門分析</a>
                   </aside>
                 )}
                 {(hero || secondary.length > 0) && (

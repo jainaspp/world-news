@@ -14,12 +14,23 @@ export interface SourceRef {
   url: string;
   source: string;
   excerpt?: string;
+  /** Story photo from the feed (RSS media/og). Optional: older docs have none. */
+  image?: string;
+  category?: string;
+  pubDate?: string;
 }
 
 export interface DigestBlock {
   title: string;
   sentences: string[];
   sources: SourceRef[];
+  category?: string;
+}
+
+/** "重點數字" or "關鍵詞" box. Only kept when the model gives one that the sources back up. */
+export interface Highlight {
+  label: '重點數字' | '關鍵詞';
+  items: string[];
 }
 
 export interface ContentDoc {
@@ -32,6 +43,61 @@ export interface ContentDoc {
   hkt: string;
   mode: 'ai' | 'sources';
   model?: string;
+  highlight?: Highlight;
+}
+
+/** One row of the per-kind archive list kept in KV (index:<kind>). */
+export interface IndexEntry {
+  key: string;
+  title: string;
+  description: string;
+  publishedAt: string;
+  image?: string;
+  category?: string;
+  sources: number;
+}
+
+export function leadImage(doc: ContentDoc): string {
+  for (const block of doc.blocks) {
+    for (const source of block.sources) {
+      if (source.image && /^https?:\/\//.test(source.image)) return source.image;
+    }
+  }
+  return '';
+}
+
+export function docCategories(doc: ContentDoc): string[] {
+  const seen: string[] = [];
+  for (const block of doc.blocks) {
+    const ids = [block.category, ...block.sources.map((source) => source.category)];
+    for (const id of ids) if (id && !seen.includes(id)) seen.push(id);
+  }
+  return seen.slice(0, 4);
+}
+
+export function uniqueSources(doc: ContentDoc): SourceRef[] {
+  return [...new Map(doc.blocks.flatMap((block) => block.sources).map((source) => [source.url, source])).values()];
+}
+
+export function indexEntry(doc: ContentDoc): IndexEntry {
+  const entry: IndexEntry = {
+    key: doc.key,
+    title: doc.title,
+    description: doc.description.slice(0, 140),
+    publishedAt: doc.publishedAt,
+    sources: uniqueSources(doc).length,
+  };
+  const image = leadImage(doc);
+  if (image) entry.image = image;
+  const category = docCategories(doc)[0];
+  if (category) entry.category = category;
+  return entry;
+}
+
+/** Newest first, one row per key, capped. */
+export function mergeIndex(current: IndexEntry[], doc: ContentDoc, limit = 40): IndexEntry[] {
+  const next = [indexEntry(doc), ...current.filter((entry) => entry && entry.key !== doc.key)];
+  return next.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)).slice(0, limit);
 }
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -111,6 +177,9 @@ export function sourcesFromCluster(cluster: StoryCluster): SourceRef[] {
       url: item.link,
       source: item.source,
       excerpt: item.excerpt?.slice(0, 160),
+      ...(item.image ? { image: item.image } : {}),
+      ...(item.category ? { category: item.category } : {}),
+      ...(item.pubDate ? { pubDate: item.pubDate } : {}),
     });
     if (sources.length >= 6) break;
   }
@@ -131,7 +200,7 @@ export function draftSentences(sources: SourceRef[]): string[] {
 export function digestFromClusters(clusters: StoryCluster[], key: string, now = new Date()): ContentDoc {
   const blocks = clusters.slice(0, 10).filter((cluster) => cluster.count >= 2).map((cluster) => {
     const sources = sourcesFromCluster(cluster);
-    return { title: cluster.lead.title, sentences: draftSentences(sources), sources };
+    return { title: cluster.lead.title, sentences: draftSentences(sources), sources, category: cluster.lead.category || 'world' };
   });
   return {
     kind: 'digest',
@@ -155,7 +224,7 @@ export function analysisFromCluster(cluster: StoryCluster, now = new Date()): Co
     title: cluster.lead.title,
     description: `${cluster.count} 個來源報道：${cluster.lead.title}`,
     blocks: [
-      { title: '背景', sentences: [lines[0] || '來源未有提及背景。'], sources },
+      { title: '背景', sentences: [lines[0] || '來源未有提及背景。'], sources, category: cluster.lead.category || 'world' },
       { title: '各方說法', sentences: [lines[1] || '來源未有提及各方說法。'], sources: [] },
       { title: '與香港的關係', sentences: ['對香港讀者，目前只看到各來源的標題，未有足夠描述可以判斷對本地的影響。'], sources: [] },
     ],
@@ -166,8 +235,9 @@ export function analysisFromCluster(cluster: StoryCluster, now = new Date()): Co
 }
 
 export function weeklyFromHeadlines(tech: SourceRef[], business: SourceRef[], key: string, now = new Date()): ContentDoc {
-  const block = (title: string, sources: SourceRef[]): DigestBlock => ({
+  const block = (title: string, sources: SourceRef[], category: string): DigestBlock => ({
     title,
+    category,
     sentences: sources.length ? draftSentences(sources) : ['這一週未有足夠標題。', '來源未有提及更多。', '有新標題後會再更新。'],
     sources,
   });
@@ -176,7 +246,7 @@ export function weeklyFromHeadlines(tech: SourceRef[], business: SourceRef[], ke
     key,
     title: `一週回顧 ${key}`,
     description: '一週科技同一週財經，只根據已收錄的標題。',
-    blocks: [block('一週科技', tech.slice(0, 8)), block('一週財經', business.slice(0, 8))],
+    blocks: [block('一週科技', tech.slice(0, 8), 'tech'), block('一週財經', business.slice(0, 8), 'business')],
     publishedAt: now.toISOString(),
     hkt: formatHkt(now.toISOString()),
     mode: 'sources',
@@ -185,7 +255,7 @@ export function weeklyFromHeadlines(tech: SourceRef[], business: SourceRef[], ke
 
 export function promptFor(doc: ContentDoc): { system: string; user: string; maxTokens: number } {
   const system = [
-    '你是世界頭條的編輯。用香港書面語，可以有輕微本地語氣，不要堆砌俚語。',
+    '你是世界頭條的編輯。一律用繁體中文（香港書面語），不要用簡體字，英文來源都要譯成中文；可以有輕微本地語氣，不要堆砌俚語。',
     '只可使用提供的標題同短描述。禁止添加來源沒有寫的事實、數字、引言、人名、地點或因果。',
     '不肯定就寫「來源未有提及」。不要用 Markdown。回覆必須是 JSON。',
   ].join('');
@@ -199,18 +269,53 @@ export function promptFor(doc: ContentDoc): { system: string; user: string; maxT
     })),
   }));
   const shape = doc.kind === 'analysis'
-    ? '回傳 {"sections":[{"heading":"背景"|"各方說法"|"與香港的關係","text":"..."}]}，三段都要有，每段兩句以內。'
+    ? '回傳 {"sections":[{"heading":"背景"|"各方說法"|"與香港的關係","text":"..."}],"highlight":{...}}，三段都要有，每段兩句以內。'
     : doc.kind === 'weekly'
-      ? '回傳 {"sections":[{"heading":"一週科技"|"一週財經","text":"..."}]}。每段三至五句，只回顧列出的標題。'
-      : '回傳 {"items":[{"n":1,"sentences":["...","...","..."]}]}。每一則剛好三句，綜合至少兩個來源。';
+      ? '回傳 {"sections":[{"heading":"一週科技"|"一週財經","text":"..."}],"highlight":{...}}。每段三至五句，只回顧列出的標題。'
+      : '回傳 {"items":[{"n":1,"sentences":["...","...","..."]}],"highlight":{...}}。每一則剛好三句，綜合至少兩個來源。';
+  const highlight = 'highlight 可選：資料入面有具體數字就用 {"label":"重點數字","items":["數字＋十字以內說明"]}，否則用 {"label":"關鍵詞","items":["詞"]}，最多四項，數字必須原文出現過；沒有就省略 highlight。';
   return {
     system,
-    user: `${shape}\n資料：${JSON.stringify(payload)}`,
-    maxTokens: doc.kind === 'digest' ? 3000 : 800,
+    user: `${shape}\n${highlight}\n資料：${JSON.stringify(payload)}`,
+    maxTokens: doc.kind === 'digest' ? 3200 : 1000,
   };
 }
 
+/** Keeps a model highlight only if every number in it appears in the source titles/excerpts. */
+export function cleanHighlight(doc: ContentDoc, value: unknown): Highlight | undefined {
+  if (!value || typeof value !== 'object') return undefined;
+  const row = value as { label?: unknown; items?: unknown };
+  const label = row.label === '重點數字' ? '重點數字' : row.label === '關鍵詞' ? '關鍵詞' : null;
+  if (!label || !Array.isArray(row.items)) return undefined;
+  const haystack = doc.blocks.flatMap((block) => [block.title, ...block.sources.flatMap((source) => [source.title, source.excerpt || ''])]).join(' ').replace(/,/g, '');
+  const items = row.items
+    .filter((item): item is string => typeof item === 'string')
+    .map((item) => item.replace(/\s+/g, ' ').trim())
+    .filter((item) => item.length > 0 && item.length <= 28)
+    .filter((item) => (item.replace(/,/g, '').match(/\d+(?:\.\d+)?/g) || []).every((number) => haystack.includes(number)))
+    .slice(0, 4);
+  if (!items.length) return undefined;
+  if (label === '重點數字' && !items.some((item) => /\d/.test(item))) return { label: '關鍵詞', items };
+  return { label, items };
+}
+
+function withHighlight(doc: ContentDoc, record: { highlight?: unknown }): ContentDoc {
+  const highlight = cleanHighlight(doc, record.highlight);
+  if (!highlight) {
+    const rest = { ...doc };
+    delete rest.highlight;
+    return rest;
+  }
+  return { ...doc, highlight };
+}
+
 export function applyModelText(doc: ContentDoc, raw: string, model = AI_MODEL): ContentDoc | null {
+  const result = applyModelBody(doc, raw, model);
+  if (!result) return null;
+  return withHighlight(result.doc, result.record);
+}
+
+function applyModelBody(doc: ContentDoc, raw: string, model: string): { doc: ContentDoc; record: { highlight?: unknown } } | null {
   const fenced = raw.replace(/```json|```/gi, '').trim();
   const start = fenced.indexOf('{');
   const end = fenced.lastIndexOf('}');
@@ -222,7 +327,7 @@ export function applyModelText(doc: ContentDoc, raw: string, model = AI_MODEL): 
     return null;
   }
   if (!parsed || typeof parsed !== 'object') return null;
-  const record = parsed as { items?: { n?: number; sentences?: unknown }[]; sections?: { heading?: string; text?: string }[] };
+  const record = parsed as { highlight?: unknown; items?: { n?: number; sentences?: unknown }[]; sections?: { heading?: string; text?: string }[] };
   if (doc.kind === 'digest' && Array.isArray(record.items)) {
     const blocks = doc.blocks.map((block, index) => {
       const match = record.items?.find((item) => item.n === index + 1) ?? record.items?.[index];
@@ -231,16 +336,17 @@ export function applyModelText(doc: ContentDoc, raw: string, model = AI_MODEL): 
       return { ...block, sentences };
     });
     if (blocks.every((block, index) => block.sentences === doc.blocks[index]?.sentences)) return null;
-    return { ...doc, blocks, mode: 'ai', model, description: blocks[0]?.sentences[0] || doc.description };
+    return { doc: { ...doc, blocks, mode: 'ai', model, description: blocks[0]?.sentences[0] || doc.description }, record };
   }
   if (doc.kind === 'analysis' && Array.isArray(record.sections)) {
     const blocks = record.sections.slice(0, 3).map((section) => ({
       title: String(section.heading || doc.title),
       sentences: String(section.text || '').split(/(?<=。)/).map((line) => line.trim()).filter(Boolean).slice(0, 4),
       sources: doc.blocks[0]?.sources ?? [],
+      category: doc.blocks[0]?.category,
     })).filter((block) => block.sentences.length > 0);
     if (!blocks.length) return null;
-    return { ...doc, blocks, mode: 'ai', model, description: blocks[0]?.sentences[0] || doc.description };
+    return { doc: { ...doc, blocks, mode: 'ai', model, description: blocks[0]?.sentences[0] || doc.description }, record };
   }
   if (doc.kind === 'weekly' && Array.isArray(record.sections)) {
     const blocks = doc.blocks.map((block) => {
@@ -249,7 +355,7 @@ export function applyModelText(doc: ContentDoc, raw: string, model = AI_MODEL): 
       return sentences.length ? { ...block, sentences } : block;
     });
     if (blocks.every((block, index) => block === doc.blocks[index])) return null;
-    return { ...doc, blocks, mode: 'ai', model, description: blocks[0]?.sentences[0] || doc.description };
+    return { doc: { ...doc, blocks, mode: 'ai', model, description: blocks[0]?.sentences[0] || doc.description }, record };
   }
   return null;
 }
@@ -272,86 +378,4 @@ export function escapeHtml(value: string): string {
   ));
 }
 
-export function renderContentPage(doc: ContentDoc, canonical: string, adSlot = '', adClient = 'ca-pub-8392975944327076'): string {
-  const description = escapeHtml(doc.description.slice(0, 180));
-  const json = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'NewsArticle',
-        headline: doc.title,
-        datePublished: doc.publishedAt,
-        inLanguage: 'zh-HK',
-        mainEntityOfPage: canonical,
-        author: { '@type': 'Organization', name: '世界頭條' },
-        isBasedOn: doc.blocks.flatMap((block) => block.sources.map((source) => ({
-          '@type': 'NewsArticle',
-          headline: source.title,
-          url: source.url,
-        }))),
-      },
-      {
-        '@type': 'Article',
-        headline: doc.title,
-        datePublished: doc.publishedAt,
-        inLanguage: 'zh-HK',
-        mainEntityOfPage: canonical,
-      },
-    ],
-  };
-  const sourceList = (sources: SourceRef[]) => `<ul>${sources.map((source) => `<li><a href="${escapeHtml(source.url)}">${escapeHtml(source.source)}：${escapeHtml(source.title)}</a></li>`).join('')}</ul>`;
-  const sharedSources = doc.kind === 'analysis'
-    ? [...new Map(doc.blocks.flatMap((block) => block.sources).map((source) => [source.url, source])).values()]
-    : [];
-  const blocks = doc.blocks.map((block) => `
-    <section>
-      <h2>${escapeHtml(block.title)}</h2>
-      ${block.sentences.map((sentence) => `<p>${escapeHtml(sentence)}</p>`).join('')}
-      ${doc.kind === 'analysis' ? '' : sourceList(block.sources)}
-    </section>`).join('') + (sharedSources.length ? `<section><h2>來源</h2>${sourceList(sharedSources)}</section>` : '');
-  const note = doc.mode === 'ai'
-    ? ''
-    : '<p class="note">模型暫時未能完成。這一版只列出來源標題，沒有加寫情節。</p>';
-  const ad = adSlot
-    ? `<div class="ad" aria-label="廣告"><ins class="adsbygoogle" data-ad-client="${escapeHtml(adClient)}" data-ad-slot="${escapeHtml(adSlot)}" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`
-    : '';
-  return `<!doctype html>
-<html lang="zh-HK">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${escapeHtml(doc.title)} — 世界頭條</title>
-  <meta name="description" content="${description}" />
-  <link rel="canonical" href="${escapeHtml(canonical)}" />
-  <meta property="og:title" content="${escapeHtml(doc.title)}" />
-  <meta property="og:description" content="${description}" />
-  <meta property="og:url" content="${escapeHtml(canonical)}" />
-  <meta property="og:type" content="article" />
-  <script type="application/ld+json">${JSON.stringify(json).replace(/</g, '\\u003c')}</script>
-  <style>
-    body { margin: 0; font-family: "Noto Sans TC", sans-serif; background: #f4f6f8; color: #142033; }
-    main { width: min(760px, calc(100% - 32px)); margin: 24px auto 48px; }
-    a { color: #1d4f91; }
-    article { background: #fff; border: 1px solid #d5dde6; border-radius: 16px; padding: 20px; }
-    h1, h2 { font-family: "Noto Serif TC", serif; line-height: 1.35; }
-    .badge { display: inline-block; background: #1d4f91; color: #fff; border-radius: 999px; padding: 2px 10px; font-size: 0.85rem; }
-    .meta, .note, li { color: #3d4c5f; }
-    .nav { display: flex; gap: 12px; margin-bottom: 12px; }
-    .ad { min-height: 90px; margin: 16px 0; }
-  </style>
-</head>
-<body>
-  <main>
-    <nav class="nav"><a href="/">世界頭條</a><a href="/digest/">日報</a><a href="/weekly/">週報</a></nav>
-    <article>
-      <p class="badge">AI 整合</p>
-      <h1>${escapeHtml(doc.title)}</h1>
-      <p class="meta">刊登時間（香港時間）：${escapeHtml(doc.hkt || formatHkt(doc.publishedAt))}</p>
-      ${note}
-      ${ad}
-      ${blocks || '<p>這一期暫時沒有足夠的多方來源。</p>'}
-    </article>
-  </main>
-</body>
-</html>`;
-}
+export { renderContentPage, renderAnalysisIndex, type AdConfig, type PageOptions } from './contentPage.js';
