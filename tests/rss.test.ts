@@ -19,7 +19,7 @@ const rss = `<?xml version="1.0"?>
     <title><![CDATA[Harbour &amp; ferry update]]></title>
     <link>https://Example.com/story?utm_source=rss&amp;id=1&amp;at_medium=RSS&amp;at_campaign=rss</link>
     <pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate>
-    <description>FULL_ARTICLE_BODY_SHOULD_NOT_LEAK &lt;img src="https://cdn.example.com/harbour.jpg" /&gt;</description>
+    <description>Harbour notice. ${'內'.repeat(220)}LEAK_TAIL_MUST_NOT_STORE &lt;img src="https://cdn.example.com/harbour.jpg" /&gt;</description>
     <media:thumbnail url="https://cdn.example.com/thumb.jpg" />
   </item>
   <item>
@@ -44,7 +44,9 @@ describe('rss parse and dedupe', () => {
     expect(items[0]?.image).toBe('https://cdn.example.com/thumb.jpg');
     expect(items[0]?.source).toBe('Demo Source');
     expect(items[0]?.regions).toEqual(['HKG']);
-    expect(JSON.stringify(items)).not.toContain('FULL_ARTICLE_BODY_SHOULD_NOT_LEAK');
+    expect(items[0]?.excerpt?.startsWith('Harbour notice.')).toBe(true);
+    expect(items[0]?.excerpt?.length).toBeLessThanOrEqual(180);
+    expect(JSON.stringify(items)).not.toContain('LEAK_TAIL_MUST_NOT_STORE');
     expect(dedupeNews(items)).toEqual(items);
   });
 
@@ -77,11 +79,12 @@ describe('rss parse and dedupe', () => {
   });
 
   it('parses atom entries', () => {
-    const atom = `<feed><entry><title>Atom title</title><link href="https://example.com/atom" /><updated>2026-10-06T00:00:00Z</updated><summary>ATOM_BODY</summary></entry></feed>`;
+    const atom = `<feed><entry><title>Atom title</title><link href="https://example.com/atom" /><updated>2026-10-06T00:00:00Z</updated><summary>ATOM_BODY ${'字'.repeat(220)}ATOM_TAIL</summary></entry></feed>`;
     const items = parseFeed(atom, feed);
     expect(items[0]?.title).toBe('Atom title');
     expect(items[0]?.link).toBe('https://example.com/atom');
-    expect(JSON.stringify(items)).not.toContain('ATOM_BODY');
+    expect(items[0]?.excerpt?.startsWith('ATOM_BODY')).toBe(true);
+    expect(JSON.stringify(items)).not.toContain('ATOM_TAIL');
   });
 });
 

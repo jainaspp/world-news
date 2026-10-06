@@ -94,6 +94,19 @@ html.dark .logo-link .logo-full.logo-dark { display: block; }
   padding: 8px 14px; min-height: 40px; font-size: 16px;
 }
 .header-actions { display: flex; align-items: center; gap: 4px; flex: none; }
+a.chip { color: inherit; text-decoration: none; }
+.digest-strip {
+  display: flex; gap: 10px; align-items: center; overflow: auto; margin-top: 8px;
+  padding: 8px 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+}
+.digest-strip a, .analysis-link { font-weight: 700; text-decoration: none; }
+.analysis-box {
+  display: flex; gap: 8px; align-items: center; margin-top: 8px; padding: 8px 10px;
+  border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--chip);
+  color: inherit; text-decoration: none; font-weight: 700; font-size: 0.92rem;
+}
+.trending .analysis-box { font-size: 0.82rem; }
+.badge { background: var(--accent); color: var(--accent-ink); border-radius: var(--radius-pill); padding: 2px 8px; font-size: 0.8rem; font-weight: 700; }
 .icon-btn, .chip, .primary, .bookmark, .install-banner button {
   border: 1px solid var(--line); background: var(--card); border-radius: var(--radius-pill);
   min-height: 40px; min-width: 40px; padding: 6px 12px; cursor: pointer;

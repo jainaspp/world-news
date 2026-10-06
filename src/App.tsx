@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { analysisSlug } from '../shared/content';
 import { categoryLabel, CATEGORIES } from '../shared/categories';
 import { filterNews } from '../shared/filter';
 import { REGIONS, sourcesForRegion } from '../shared/feeds';
@@ -136,6 +137,15 @@ export default function App() {
   const listed = useMemo(() => visible.slice(0, shown), [visible, shown]);
   const clusters = useMemo(() => (view.bookmarks ? [] : clusterStories(scoped)), [scoped, view.bookmarks]);
   const counts = useMemo(() => sourceCounts(clusters), [clusters]);
+  const analysisHrefs = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const cluster of clusters) {
+      if (cluster.count < 3) continue;
+      const href = `/analysis/${analysisSlug(cluster.lead.title)}/`;
+      for (const item of cluster.items) map.set(item.id, href);
+    }
+    return map;
+  }, [clusters]);
   const hero = listed[0];
   const rest = listed.slice(1);
   const deskLead = wide && !view.bookmarks;
@@ -271,6 +281,8 @@ export default function App() {
                   {category.label}
                 </button>
               ))}
+              <a className="chip" href="/digest/">日報</a>
+              <a className="chip" href="/weekly/">週報</a>
             </nav>
           </div>
 
@@ -360,6 +372,13 @@ export default function App() {
                   </p>
                 )}
                 {showTopAd && <AdSlot slot={AD_SLOT_TOP} variant="banner" />}
+                {!view.bookmarks && (
+                  <aside className="digest-strip">
+                    <span className="badge">AI 整合</span>
+                    <a href="/digest/">今日精選</a>
+                    <a href="/weekly/">一週科技 · 一週財經</a>
+                  </aside>
+                )}
                 {(hero || secondary.length > 0) && (
                   <div className="top-stories">
                     {hero && (
@@ -369,6 +388,7 @@ export default function App() {
                         bookmarked={bookmarkIds.has(hero.id)}
                         onToggleBookmark={toggle}
                         sourceCount={counts.get(hero.id) ?? 0}
+                        analysisHref={analysisHrefs.get(hero.id) || ''}
                         featured
                       />
                     )}
@@ -426,6 +446,12 @@ export default function App() {
                           {translated[cluster.lead.id] || cluster.lead.title}
                         </a>
                         <span className="cluster-badge">{cluster.count} 個來源報道</span>
+                        {cluster.count >= 3 && (
+                          <a className="analysis-box" href={`/analysis/${analysisSlug(cluster.lead.title)}/`}>
+                            <span className="badge">AI 整合</span>
+                            背景、各方說法、與香港的關係
+                          </a>
+                        )}
                       </div>
                     </li>
                   ))}

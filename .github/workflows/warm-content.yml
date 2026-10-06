@@ -1,0 +1,39 @@
+name: Warm AI pages
+
+on:
+  schedule:
+    # 07:30 HKT
+    - cron: '30 23 * * *'
+    # 18:30 HKT
+    - cron: '30 10 * * *'
+    # Sunday 20:00 HKT
+    - cron: '0 12 * * 0'
+  workflow_dispatch:
+
+jobs:
+  warm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ask Pages to generate the current edition
+        env:
+          GENERATE_SECRET: ${{ secrets.GENERATE_SECRET }}
+          SITE_URL: ${{ vars.CONTENT_SITE_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GENERATE_SECRET}" ]; then
+            echo "GENERATE_SECRET is not set"
+            exit 1
+          fi
+          base="${SITE_URL:-https://world-news.xyz}"
+          base="${base%/}"
+          auth=(-H "x-generate-secret: ${GENERATE_SECRET}" -H "content-type: application/json")
+          curl -fsS -X POST "${auth[@]}" "$base/api/generate?kind=digest"
+          echo
+          curl -fsS -X POST "${auth[@]}" "$base/api/generate?kind=analysis&limit=3"
+          echo
+          hour=$(TZ=Asia/Hong_Kong date +%H)
+          weekday=$(TZ=Asia/Hong_Kong date +%u)
+          if [ "$weekday" = "7" ] && [ "$hour" -ge 19 ]; then
+            curl -fsS -X POST "${auth[@]}" "$base/api/generate?kind=weekly"
+            echo
+          fi
