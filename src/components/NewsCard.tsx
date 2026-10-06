@@ -1,5 +1,6 @@
-import { categoryLabel } from '../../shared/categories';
 import type { NewsItem } from '../../shared/types';
+import type { UiLang } from '../../shared/zh';
+import { categoryLabelI18n, t } from '../../shared/i18n';
 import { timeAgo } from '../utils/time';
 import { safeUrl } from '../utils/url';
 import { RegionIcon } from './RegionIcon';
@@ -14,6 +15,9 @@ interface Props {
   analysisHref?: string;
   featured?: boolean;
   compact?: boolean;
+  lang?: UiLang;
+  followedSource?: boolean;
+  onToggleSource?: (source: string) => void;
 }
 
 function hostOf(url: string): string {
@@ -24,7 +28,19 @@ function hostOf(url: string): string {
   }
 }
 
-export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCount = 0, analysisHref = '', featured = false, compact = false }: Props) {
+export function NewsCard({
+  item,
+  title,
+  bookmarked,
+  onToggleBookmark,
+  sourceCount = 0,
+  analysisHref = '',
+  featured = false,
+  compact = false,
+  lang = 'zh-HK',
+  followedSource = false,
+  onToggleSource,
+}: Props) {
   const articleUrl = safeUrl(item.link);
   const sourceUrl = safeUrl(item.sourceUrl);
   const faviconHost = hostOf(sourceUrl || articleUrl);
@@ -49,12 +65,12 @@ export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCoun
           <div className="story-kicker">
             <span className="kicker-region">
               <RegionIcon code={item.regions[0] ?? 'ALL'} />
-              {categoryLabel(item.category ?? 'world')}
+              {categoryLabelI18n(item.category ?? 'world', lang)}
             </span>
-            {fresh && <span className="breaking">快訊</span>}
+            {fresh && <span className="breaking">{t('breaking', lang)}</span>}
           </div>
         )}
-        <h2 className="story-title">
+        <h2 className="story-title" lang={lang === 'en' ? 'en' : lang === 'zh-CN' ? 'zh-CN' : 'zh-HK'}>
           {articleUrl ? (
             <a href={articleUrl} target="_blank" rel="noopener noreferrer">
               {title}
@@ -82,40 +98,60 @@ export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCoun
           ) : (
             <span className="source-tag">{item.source}</span>
           )}
+          {onToggleSource && (
+            <button
+              type="button"
+              className={followedSource ? 'follow-btn on' : 'follow-btn'}
+              aria-pressed={followedSource}
+              aria-label={followedSource ? `${t('unfollow', lang)} ${item.source}` : `${t('follow', lang)} ${item.source}`}
+              onClick={() => onToggleSource(item.source)}
+            >
+              {followedSource ? t('followingOn', lang) : t('follow', lang)}
+            </button>
+          )}
           {item.pubDate && <time dateTime={item.pubDate}>{timeAgo(item.pubDate)}</time>}
           {sourceCount >= 2 && (
-            <a className="cluster-badge cluster-link" href={`/story/${item.id}/`} aria-label={`${sourceCount} 間媒體報道：睇各媒體點報`}>
-              {sourceCount} 間媒體報道 →
+            <a className="cluster-badge cluster-link" href={`/story/${item.id}/`} aria-label={`${sourceCount} ${t('outlets', lang)}`}>
+              {sourceCount} {t('outlets', lang)} →
             </a>
           )}
-          {!featured && analysisHref && <a className="analysis-link" href={analysisHref}>分析</a>}
+          {!featured && analysisHref && (
+            <a className="analysis-link" href={analysisHref}>
+              {t('analysis', lang)}
+            </a>
+          )}
           {!compact && (
             <button
               type="button"
               className={bookmarked ? 'bookmark on' : 'bookmark'}
               aria-pressed={bookmarked}
-              aria-label={bookmarked ? `取消收藏：${item.title}` : `收藏：${item.title}`}
+              aria-label={bookmarked ? `${t('saved', lang)}：${item.title}` : `${t('save', lang)}：${item.title}`}
               onClick={() => onToggleBookmark(item)}
             >
-              {bookmarked ? '已收藏' : '收藏'}
+              {bookmarked ? t('saved', lang) : t('save', lang)}
             </button>
           )}
         </div>
         {!compact && articleUrl && (
           <div className="card-links">
             <a className="read-original" href={articleUrl} target="_blank" rel="noopener noreferrer">
-              閱讀原文
+              {t('readOriginal', lang)}
             </a>
             <a className="read-original story-link" href={`/story/${item.id}/`}>
-              {sourceCount >= 2 ? '各媒體報道' : '相關頭條'}
+              {sourceCount >= 2 ? t('coverage', lang) : t('related', lang)}
             </a>
           </div>
         )}
-        {!compact && <p className="card-credit">標題來自 {item.source}。全文請到原文網站閱讀。</p>}
+        {!compact && (
+          <p className="card-credit">
+            {t('credit', lang)} {item.source}
+            {t('creditTail', lang)}
+          </p>
+        )}
         {featured && analysisHref && (
           <a className="analysis-box" href={analysisHref}>
-            <span className="badge">AI 整合</span>
-            背景、各方說法、與香港的關係
+            <span className="badge">AI</span>
+            {t('aiBox', lang)}
           </a>
         )}
       </div>

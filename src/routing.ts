@@ -9,6 +9,7 @@ export interface ViewState {
   q: string;
   time: TimeRange;
   bookmarks: boolean;
+  following: boolean;
 }
 
 const TIMES = new Set<TimeRange>(['all', 'hour', 'today', 'week']);
@@ -34,13 +35,15 @@ export function readView(location: Location = window.location): ViewState {
   if (categoryPath?.[1]) category = categoryCode(categoryPath[1]);
   const timeValue = params.get('time') ?? 'all';
   const time = TIMES.has(timeValue as TimeRange) ? (timeValue as TimeRange) : 'all';
+  const view = params.get('view');
   return {
     region,
     category,
     source: params.get('source') ?? '',
     q: params.get('q') ?? '',
     time,
-    bookmarks: params.get('view') === 'bookmarks',
+    bookmarks: view === 'bookmarks',
+    following: view === 'following' || view === 'mine',
   };
 }
 
@@ -48,6 +51,12 @@ export function viewHref(state: ViewState): string {
   if (state.bookmarks) {
     const params = new URLSearchParams();
     params.set('view', 'bookmarks');
+    if (state.q.trim()) params.set('q', state.q.trim());
+    return `/?${params.toString()}`;
+  }
+  if (state.following) {
+    const params = new URLSearchParams();
+    params.set('view', 'following');
     if (state.q.trim()) params.set('q', state.q.trim());
     return `/?${params.toString()}`;
   }

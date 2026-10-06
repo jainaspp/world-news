@@ -235,6 +235,7 @@ export function chrome(active: ContentDoc['kind'] | 'none'): string {
         ${cats}
       </nav>
     </div>
+    <div class="hk-weather column-weather" id="hk-weather" hidden aria-live="polite"></div>
   </div>`;
 }
 

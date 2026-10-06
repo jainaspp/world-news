@@ -102,3 +102,19 @@
     related.hidden = false;
   }).catch(function () {});
 })();
+
+  // HK weather strip on column pages (same /api/hk as the homepage).
+  (function () {
+    var box = document.getElementById('hk-weather');
+    if (!box) return;
+    fetch('/api/hk').then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+      if (!data || data.temperature == null) return;
+      var icon = data.icon ? '<img src="https://www.hko.gov.hk/images/HKOWxIconOutline/pic' + data.icon + '.png" width="28" height="28" alt="" />' : '';
+      var aq = data.aqhi ? '<span class="hk-aqhi aqhi-' + (data.aqhi.value <= 3 ? 'low' : data.aqhi.value <= 6 ? 'mid' : 'high') + '">AQHI ' + data.aqhi.value + ' ' + (data.aqhi.risk || '') + '</span>' : '';
+      var warn = (data.warnings && data.warnings.length)
+        ? '<span class="hk-warnings">' + data.warnings.map(function (w) { return '<span class="hk-warning">' + w.name + '</span>'; }).join('') + '</span>'
+        : '<span class="hk-meta">現時無天氣警告</span>';
+      box.innerHTML = '<a class="hk-now" href="https://www.hko.gov.hk/tc/index.html" target="_blank" rel="noopener noreferrer">' + icon + '<span class="hk-temp">' + data.temperature + '°C</span><span class="hk-meta">濕度 ' + data.humidity + '%</span></a>' + aq + warn + '<span class="hk-credit">天文台 · 環保署</span>';
+      box.hidden = false;
+    }).catch(function () {});
+  })();
