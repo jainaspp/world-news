@@ -206,7 +206,7 @@ export function promptFor(doc: ContentDoc): { system: string; user: string; maxT
   return {
     system,
     user: `${shape}\n資料：${JSON.stringify(payload)}`,
-    maxTokens: doc.kind === 'digest' ? 1400 : 800,
+    maxTokens: doc.kind === 'digest' ? 3000 : 800,
   };
 }
 
