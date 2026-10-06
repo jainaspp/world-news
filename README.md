@@ -31,9 +31,9 @@ Supabase SQL Editor 要先執行一次：
 
 這份 SQL 不會刪表。匿名用戶只能讀。寫入只會由伺服器上的 service role key 做，因為它不受列權限限制。
 
-不要再部署這個 repo 裡已刪除的 Cloudflare Worker。請在 Cloudflare 控制台刪掉舊的 Worker，舊金鑰還在已部署的程式裡。
+舊的 Cloudflare Worker 已經從這個 repo 刪掉，請在 Cloudflare 控制台刪掉那個舊 Worker。新的部署是 Cloudflare Pages，見下面一節，不會把舊金鑰帶回去。
 
-GitHub Pages 已停用。Vercel 是唯一網站。
+GitHub Pages 已停用。Vercel 繼續服務，直到 DNS 改指向 Cloudflare Pages。
 
 ## 本地開發
 
@@ -49,3 +49,29 @@ npm run dev
 Vercel Cron 每日 08:00 UTC 呼叫 `GET /api/crawl`。同一條連結會覆寫，不會重複插入。沒有 `CRON_SECRET` 時這個網址一律回 401，程式裡沒有預設密碼。
 
 頁面本身每數分鐘向 `/api/news` 取一次 RSS，所以即使還沒填 Supabase，網站仍然有標題。
+
+## Cloudflare Pages
+
+跟 Vercel 共用 `server/` 的 RSS、分類同 Supabase 邏輯。`functions/api/news.ts` 同 `functions/api/crawl.ts` 只負責 Workers 的請求同 Cache API。`/api/news` 回應 `Cache-Control: public, s-maxage=300, stale-while-revalidate=600`，並且寫入 Cache API。300 秒內直接回快取；300 到 900 秒回舊內容並在背景更新。
+
+Pages 專案設定：
+
+| 項目 | 值 |
+| --- | --- |
+| 建置指令 | `npm run build` |
+| 輸出目錄 | `dist` |
+| 部署 | `npx wrangler pages deploy dist --project-name world-news` |
+
+`wrangler.toml` 的 `name` 是 `world-news`，`pages_build_output_dir` 是 `dist`。本地先建置再跑 `npx wrangler pages dev dist`。
+
+環境變數同 Vercel 那張表，都是可選。另外：
+
+| 名稱 | 必填？ | 填什麼 |
+| --- | --- | --- |
+| `REDIRECT_PAGES_DEV` | 否 | 留空。自訂網域 `world-news.xyz` 已經接上、可以切 DNS 之後，才設成 `true`。設了之後，`*.pages.dev` 會 301 到 `https://world-news.xyz`（路徑同 query 保留）。未設定時預覽網址同 `wrangler pages dev` 不會被轉走 |
+
+`public/_redirects` 只把 `/region/:code` 同 `/category/:slug` 以 200 rewrite 交回 `/`（Pages 會用 `index.html` 回應，但不能直接寫去 `/index.html`，否則會被轉成 308）。沒有全站 SPA fallback，所以 `/ads.txt`、`/sitemap.xml`、`/robots.txt`、`/api/*` 不會被吞掉。其他未知路徑用 `public/404.html`。`*.pages.dev` 的 301 不能寫在 `_redirects`（那裡不能按 host 開關），所以放在 `functions/_middleware.ts`，由 `REDIRECT_PAGES_DEV` 控制。
+
+`public/_headers` 把 `/ads.txt` 標成 `text/plain`，全站加上安全標頭，`/assets/*`（Vite 帶 hash 的檔）快取一年。
+
+`/api/crawl` 的授權同 Vercel：`Authorization: Bearer <CRON_SECRET>`。Pages 這個設定檔沒有內建 cron。DNS 轉過去之前，每日抓取仍由 Vercel Cron 負責。轉過去之後，用同一個網址同一組密碼，每日由排程打一次即可。

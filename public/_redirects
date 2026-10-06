@@ -1,0 +1,10 @@
+# Host redirects cannot be expressed here. *.pages.dev -> https://world-news.xyz
+# is functions/_middleware.ts and stays off until REDIRECT_PAGES_DEV=true,
+# so preview URLs and `wrangler pages dev` keep working before the DNS switch.
+# Do not add a catch-all rewrite. /ads.txt, /sitemap.xml, /robots.txt, /api/*
+# and unknown paths must not become the app shell. Unknown paths use public/404.html.
+# Destination is / (which serves index.html) rather than /index.html: Pages
+# canonicalizes a rewritten /index.html into a 308 back to /.
+
+/region/:code / 200
+/category/:slug / 200
