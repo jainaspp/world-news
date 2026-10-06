@@ -64,23 +64,25 @@ export function useNews() {
   }, [apply]);
 
   useEffect(() => {
-    // SSR bootstrap already painted cards; refresh in the background without clearing the feed.
+    // SSR bootstrap already painted cards; refresh quietly after first paint so LCP/TBT stay low.
     if (bootstrapped.current) {
       bootstrapped.current = false;
-      void (async () => {
-        try {
-          const response = await fetch('/api/news');
-          const payload = (await response.json()) as NewsPayload;
-          const next = Array.isArray(payload.items) ? payload.items : [];
-          if (next.length) {
-            lastPayload.current = payload;
-            apply(payload, next);
+      const timer = window.setTimeout(() => {
+        void (async () => {
+          try {
+            const response = await fetch('/api/news');
+            const payload = (await response.json()) as NewsPayload;
+            const next = Array.isArray(payload.items) ? payload.items : [];
+            if (next.length) {
+              lastPayload.current = payload;
+              apply(payload, next);
+            }
+          } catch {
+            /* keep bootstrap */
           }
-        } catch {
-          /* keep bootstrap */
-        }
-      })();
-      return;
+        })();
+      }, 4000);
+      return () => window.clearTimeout(timer);
     }
     void refresh();
   }, [apply, refresh]);
