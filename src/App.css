@@ -144,12 +144,19 @@ a.chip { color: inherit; text-decoration: none; }
 .layout { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
 .top-stories { display: grid; gap: var(--space-3); }
 .secondary-list { display: none; }
+.layout, .top-stories, .news-grid, #news, .story { min-width: 0; }
 .story {
   display: grid; gap: 0; background: var(--card); border: 1px solid var(--line);
   border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); height: 100%;
 }
-.story-media { display: block; background: var(--chip); }
-.thumb, .thumb-fallback { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; object-fit: cover; background: var(--chip); }
+.story-media {
+  display: block; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; max-height: 200px;
+  overflow: hidden; background: var(--chip);
+}
+.thumb, .thumb-fallback {
+  display: block; width: 100%; height: 100%; max-width: 100%; max-height: 200px;
+  object-fit: cover; background: var(--chip);
+}
 .thumb-fallback {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 10px;
   background: linear-gradient(155deg, color-mix(in srgb, var(--ph, var(--accent)) 28%, var(--color-surface)), color-mix(in srgb, var(--ph, var(--accent)) 8%, var(--color-bg)));
@@ -170,12 +177,14 @@ a.chip { color: inherit; text-decoration: none; }
 }
 .story-title a { color: inherit; text-decoration: none; }
 .story-title a:hover { text-decoration: underline; }
-.story-hero .thumb, .story-hero .thumb-fallback { aspect-ratio: 16 / 9; height: auto; }
+.story-hero .story-media { max-height: 220px; }
+.story-hero .thumb, .story-hero .thumb-fallback { max-height: 220px; }
 .story-hero .story-title { font-size: clamp(1.35rem, 2.4vw, 1.85rem); line-height: 1.32; -webkit-line-clamp: 3; }
 .story-hero .region-icon-lg { width: 64px; height: 64px; }
 .story-compact { display: flex; flex-direction: row; align-items: stretch; min-height: 0; }
 .story-compact .story-media { flex: none; width: 112px; }
-.story-compact .thumb, .story-compact .thumb-fallback { width: 112px; aspect-ratio: 16 / 9; height: auto; min-height: 0; }
+.story-compact .story-media { max-height: 72px; aspect-ratio: 16 / 9; }
+.story-compact .thumb, .story-compact .thumb-fallback { width: 112px; height: 100%; max-height: 72px; min-height: 0; }
 .story-compact .thumb-source { font-size: 0.68rem; }
 .story-compact .story-body { padding: 8px 10px; gap: 4px; }
 .story-compact .story-title { font-size: 0.98rem; -webkit-line-clamp: 2; }
@@ -239,20 +248,23 @@ a.chip { color: inherit; text-decoration: none; }
   .bookmark { margin-left: 0; }
   /* Dense mobile cards: image on the left so photos don't dominate the screen. */
   .news-grid .story {
-    display: flex; flex-direction: row; align-items: stretch; min-height: 0;
+    display: flex; flex-direction: row; align-items: stretch; min-width: 0; min-height: 0;
   }
-  .news-grid .story-media { flex: none; width: 112px; }
+  .news-grid .story-media { flex: none; width: 112px; max-width: 112px; max-height: 112px; aspect-ratio: 1 / 1; }
   .news-grid .thumb, .news-grid .thumb-fallback {
-    width: 112px; max-height: 112px; aspect-ratio: 1 / 1; height: auto; min-height: 0;
+    width: 112px; height: 100%; max-width: 112px; max-height: 112px; min-height: 0;
   }
   .news-grid .thumb-source { font-size: 0.68rem; }
-  .news-grid .story-body { padding: 8px 10px; gap: 4px; }
+  .news-grid .story-body { padding: 8px 10px; gap: 4px; min-width: 0; }
   .news-grid .story-title { font-size: 0.98rem; -webkit-line-clamp: 3; }
   .news-grid .region-icon-lg { width: 28px; height: 28px; }
   .news-grid .card-credit { display: none; }
+  .top-stories .story-hero .story-media {
+    max-height: 180px; aspect-ratio: 16 / 9; width: 100%;
+  }
   .top-stories .story-hero .thumb,
   .top-stories .story-hero .thumb-fallback {
-    aspect-ratio: 16 / 9; max-height: 160px; width: 100%; height: auto; object-fit: cover;
+    max-height: 180px; width: 100%; height: 100%; object-fit: cover;
   }
   .top-stories .story-hero .story-title { font-size: 1.15rem; }
 }
@@ -267,7 +279,7 @@ a.chip { color: inherit; text-decoration: none; }
   .sidebar { width: var(--side-col); position: static; }
   .top-stories { grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.8fr); align-items: stretch; }
   .secondary-list { display: flex; flex-direction: column; gap: 8px; }
-  .story-hero .thumb, .story-hero .thumb-fallback { aspect-ratio: 16 / 9; height: auto; max-height: 280px; }
+  .story-hero .story-media, .story-hero .thumb, .story-hero .thumb-fallback { max-height: 280px; }
 }
 
 /* HK weather strip (HKO/EPD). Fixed min-height so it doesn't shift the page when it loads. */
