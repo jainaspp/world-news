@@ -11,18 +11,20 @@ import {
   hktParts,
   promptFor,
   recentSlots,
+  renderAnalysisIndex,
   renderContentPage,
   slotId,
   textFromAi,
   weeklyEdition,
   weeklyFromHeadlines,
+  type AdConfig,
   type ContentDoc,
   type SourceRef,
 } from '../../shared/content.js';
 import { clusterStories } from '../../shared/trending.js';
 import type { NewsItem } from '../../shared/types';
 import type { PagesContext } from '../env.js';
-import { docKey, readDoc, readValue, writeDoc, writeValue, type ContentEnv, type SavedDoc } from './store.js';
+import { docKey, readDoc, readIndex, rememberIndex, readValue, writeDoc, writeValue, type ContentEnv, type SavedDoc } from './store.js';
 
 const FRESH_MS: Record<ContentDoc['kind'], number> = {
   digest: 6 * 60 * 60 * 1000,
@@ -39,22 +41,37 @@ function siteUrl(env: ContentEnv): string {
   return typeof configured === 'string' && configured.startsWith('https://') ? configured.replace(/\/$/, '') : 'https://world-news.xyz';
 }
 
-function adSlot(env: ContentEnv): string {
-  const slot = env.VITE_AD_SLOT_TOP || env.AD_SLOT_TOP || '';
-  return typeof slot === 'string' ? slot.trim() : '';
+function envString(env: ContentEnv, ...names: string[]): string {
+  for (const name of names) {
+    const value = env[name];
+    if (typeof value === 'string' && value.trim()) return value.trim();
+  }
+  return '';
 }
 
-function page(doc: ContentDoc, canonical: string, env: ContentEnv, status = 200): Response {
-  const client = typeof env.VITE_GOOGLE_AD_CLIENT === 'string' && env.VITE_GOOGLE_AD_CLIENT.trim()
-    ? env.VITE_GOOGLE_AD_CLIENT.trim()
-    : 'ca-pub-8392975944327076';
-  return new Response(renderContentPage(doc, canonical, adSlot(env), client), {
-    status,
-    headers: {
-      'content-type': 'text/html; charset=utf-8',
-      'cache-control': 'public, max-age=120, s-maxage=600, stale-while-revalidate=86400',
-    },
-  });
+/**
+ * AdSense for the column pages. The loader script (with the client id) is always on the page,
+ * so Auto ads work once enabled in AdSense. Manual units only render when a slot id is set as
+ * a Pages environment variable; there is no slot id in the repo.
+ */
+export function adConfig(env: ContentEnv): AdConfig {
+  const top = envString(env, 'AD_SLOT_TOP', 'VITE_AD_SLOT_TOP');
+  return {
+    client: envString(env, 'VITE_GOOGLE_AD_CLIENT', 'GOOGLE_AD_CLIENT') || 'ca-pub-8392975944327076',
+    top,
+    mid: envString(env, 'AD_SLOT_MID', 'VITE_AD_SLOT_FEED', 'AD_SLOT_FEED'),
+    bottom: envString(env, 'AD_SLOT_BOTTOM', 'VITE_AD_SLOT_BOTTOM') || top,
+  };
+}
+
+const HTML_HEADERS = {
+  'content-type': 'text/html; charset=utf-8',
+  'cache-control': 'public, max-age=120, s-maxage=600, stale-while-revalidate=86400',
+};
+
+async function page(doc: ContentDoc, canonical: string, env: ContentEnv, status = 200): Promise<Response> {
+  const archive = await readIndex(env, doc.kind).catch(() => []);
+  return new Response(renderContentPage(doc, canonical, { ads: adConfig(env), archive }), { status, headers: HTML_HEADERS });
 }
 
 function emptyDoc(kind: ContentDoc['kind'], key: string, title: string): ContentDoc {
@@ -103,6 +120,7 @@ interface RollupRow {
   source: string;
   category: string;
   at: string;
+  image?: string;
 }
 
 async function rememberRollup(env: ContentEnv, items: NewsItem[], now = new Date()): Promise<void> {
@@ -128,6 +146,7 @@ async function rememberRollup(env: ContentEnv, items: NewsItem[], now = new Date
       source: item.source,
       category: item.category || 'world',
       at: now.toISOString(),
+      ...(item.image ? { image: item.image } : {}),
     });
   }
   await writeValue(env, 'rollup', JSON.stringify(kept.slice(-300)));
@@ -140,7 +159,10 @@ async function finish(env: ContentEnv, doc: ContentDoc): Promise<ContentDoc> {
     return polished;
   }
   const existing = await readDoc(env, docKey(doc.kind, doc.key));
-  if (existing?.doc.mode === 'ai') return existing.doc;
+  if (existing?.doc.mode === 'ai') {
+    await rememberIndex(env, existing.doc);
+    return existing.doc;
+  }
   await writeDoc(env, polished);
   return polished;
 }
@@ -176,7 +198,7 @@ export async function buildWeekly(env: ContentEnv, key: string, now = new Date()
   const pick = (category: string): SourceRef[] => rollup
     .filter((item) => item.category === category)
     .slice(-8)
-    .map((item) => ({ title: item.title, url: item.url, source: item.source }));
+    .map((item) => ({ title: item.title, url: item.url, source: item.source, category: item.category, ...(item.image ? { image: item.image } : {}) }));
   let tech = pick('tech');
   let business = pick('business');
   if (!tech.length || !business.length) {
@@ -184,7 +206,7 @@ export async function buildWeekly(env: ContentEnv, key: string, now = new Date()
     const fromNews = (category: string): SourceRef[] => items
       .filter((item) => item.category === category)
       .slice(0, 8)
-      .map((item) => ({ title: item.title, url: item.link, source: item.source, excerpt: item.excerpt }));
+      .map((item) => ({ title: item.title, url: item.link, source: item.source, excerpt: item.excerpt, category: item.category, ...(item.image ? { image: item.image } : {}), pubDate: item.pubDate }));
     if (!tech.length) tech = fromNews('tech');
     if (!business.length) business = fromNews('business');
   }
@@ -244,6 +266,13 @@ export async function serveAnalysis(context: PagesContext): Promise<Response> {
   const canonical = `${siteUrl(env)}/analysis/${encodeURIComponent(slug)}`;
   if (!/-[0-9a-f]{12}$/.test(slug)) return page(emptyDoc('analysis', slug, '未有這則分析'), canonical, env, 404);
   return respondWithCache(context, 'analysis', slug, canonical, () => buildAnalysis(env, slug), true);
+}
+
+export async function serveAnalysisIndex(context: PagesContext): Promise<Response> {
+  applyRuntimeEnv(context.env);
+  const env = envOf(context);
+  const entries = await readIndex(env, 'analysis').catch(() => []);
+  return new Response(renderAnalysisIndex(entries, `${siteUrl(env)}/analysis/`, { ads: adConfig(env) }), { headers: HTML_HEADERS });
 }
 
 export async function serveWeekly(context: PagesContext): Promise<Response> {

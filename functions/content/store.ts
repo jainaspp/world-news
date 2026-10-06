@@ -1,5 +1,5 @@
 import { edgeCache } from '../env.js';
-import type { ContentDoc } from '../../shared/content.js';
+import { mergeIndex, type ContentDoc, type IndexEntry } from '../../shared/content.js';
 
 export interface ContentEnv {
   CONTENT?: {
@@ -10,6 +10,9 @@ export interface ContentEnv {
   GENERATE_SECRET?: string;
   VITE_AD_SLOT_TOP?: string;
   AD_SLOT_TOP?: string;
+  AD_SLOT_MID?: string;
+  AD_SLOT_BOTTOM?: string;
+  VITE_AD_SLOT_FEED?: string;
   VITE_GOOGLE_AD_CLIENT?: string;
   VITE_SITE_URL?: string;
   [key: string]: unknown;
@@ -82,6 +85,28 @@ export async function readDoc(env: ContentEnv, key: string): Promise<SavedDoc | 
 export async function writeDoc(env: ContentEnv, doc: ContentDoc): Promise<void> {
   const saved: SavedDoc = { doc, savedAt: Date.now() };
   await writeValue(env, `doc:${doc.kind}:${doc.key}`, JSON.stringify(saved));
+  await rememberIndex(env, doc);
+}
+
+export async function rememberIndex(env: ContentEnv, doc: ContentDoc): Promise<void> {
+  if (!doc.blocks.length) return;
+  await writeValue(env, indexKey(doc.kind), JSON.stringify(mergeIndex(await readIndex(env, doc.kind), doc)));
+}
+
+export function indexKey(kind: ContentDoc['kind']): string {
+  return `index:${kind}`;
+}
+
+/** Archive list for a column, newest first. Built up by writeDoc; empty until the next write. */
+export async function readIndex(env: ContentEnv, kind: ContentDoc['kind']): Promise<IndexEntry[]> {
+  const raw = await readValue(env, indexKey(kind));
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw) as IndexEntry[];
+    return Array.isArray(parsed) ? parsed.filter((entry) => entry && typeof entry.key === 'string') : [];
+  } catch {
+    return [];
+  }
 }
 
 export function docKey(kind: ContentDoc['kind'], key: string): string {

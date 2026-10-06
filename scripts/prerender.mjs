@@ -1,6 +1,10 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { build } from 'esbuild';
+
+// The AI column pages are rendered by Pages Functions and link /site.css, which is the
+// homepage's own stylesheet, so both share one header, chip, card, footer and dark-mode source.
+copyFileSync('src/App.css', 'dist/site.css');
 
 const outfile = '/tmp/wn-prerender-feeds.mjs';
 
