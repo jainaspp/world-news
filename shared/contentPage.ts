@@ -130,7 +130,8 @@ export function heatBadge(outlets: number): string {
 }
 
 function originalTitle(title: string | undefined, url: string | undefined): string {
-  if (!title) return '';
+  // Only shown for translated (non-Chinese) headlines.
+  if (!title || /[\u3400-\u9fff]/.test(title)) return '';
   const href = safeHttp(url);
   return `<p class="orig-title">原文標題：${href ? `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer" lang="en">${esc(title)}</a>` : `<span lang="en">${esc(title)}</span>`}</p>`;
 }
@@ -394,7 +395,7 @@ export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, op
           <div class="story-body">
             <div class="story-kicker"><span class="badge ai-badge">AI 整合</span>${heatBadge(entry.outlets ?? entry.sources) || `<span class="cluster-badge">${entry.sources} 篇報道</span>`}${catChip(entry.category)}</div>
             <h2 class="story-title"><a href="/analysis/${encodeURIComponent(entry.key)}/">${esc(entry.title)}</a></h2>
-            ${entry.originalTitle ? `<p class="orig-title" lang="en">${esc(entry.originalTitle)}</p>` : ''}
+            ${entry.originalTitle && !/[\u3400-\u9fff]/.test(entry.originalTitle) ? `<p class="orig-title" lang="en">${esc(entry.originalTitle)}</p>` : ''}
             <div class="story-meta"><time datetime="${esc(entry.publishedAt)}">${esc(hkt(entry.publishedAt, false))}</time></div>
           </div>
         </article>`);

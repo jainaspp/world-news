@@ -442,7 +442,7 @@ function applyModelBody(doc: ContentDoc, raw: string, model: string): { doc: Con
       const sentences = Array.isArray(match?.sentences) ? match.sentences.filter((line): line is string => typeof line === 'string' && meaningful(line)).slice(0, 3) : [];
       if (sentences.length < 2) return block;
       const zh = typeof match?.title === 'string' ? toHK(match.title.trim()) : '';
-      if (zh && hasChinese(zh) && zh !== block.title && zh.length <= 80) return { ...block, sentences, title: zh, originalTitle: block.originalTitle || block.title };
+      if (zh && hasChinese(zh) && !hasChinese(block.title) && zh.length <= 80) return { ...block, sentences, title: zh, originalTitle: block.originalTitle || block.title };
       return { ...block, sentences };
     });
     if (blocks.every((block, index) => block.sentences === doc.blocks[index]?.sentences)) return null;
@@ -475,7 +475,8 @@ function applyModelBody(doc: ContentDoc, raw: string, model: string): { doc: Con
     const withAngles = sources.map((source, index) => (angles.has(index + 1) ? { ...source, angle: angles.get(index + 1) } : source));
     const finalBlocks = blocks.map((block) => ({ ...block, sources: withAngles }));
     const zh = typeof record.title === 'string' ? toHK(record.title.trim()) : '';
-    const titled = zh && hasChinese(zh) && zh.length <= 90 ? { title: zh, originalTitle: doc.originalTitle || doc.title } : {};
+    // Only translate English headlines; a Chinese source headline stays as published.
+    const titled = zh && hasChinese(zh) && !hasChinese(doc.title) && zh.length <= 90 ? { title: zh, originalTitle: doc.originalTitle || doc.title } : {};
     return { doc: { ...doc, ...titled, blocks: finalBlocks, mode: 'ai', model, description: finalBlocks[0]?.sentences[0] || doc.description }, record };
   }
   if (doc.kind === 'weekly' && Array.isArray(record.sections)) {

@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
+  analysisFromCluster,
   applyModelText,
   cleanHighlight,
   digestFromClusters,
@@ -174,5 +175,14 @@ describe('analysis v3', () => {
       { key: 'c', title: 'c', description: '', publishedAt: '2026-10-01T09:00:00Z', sources: 9, outlets: 9 },
     ]);
     expect(rows.map((r) => r.key)).toEqual(['b', 'a', 'c']);
+  });
+});
+
+describe('original titles', () => {
+  it('does not show a Chinese source headline as the original title', () => {
+    const draft = analysisFromCluster(cluster([story('a', '旺角大廈天台起火', '香港電台'), story('b', '旺角大廈火警', 'Yahoo'), story('c', '旺角火警救熄', 'HK01')]));
+    const doc = applyModelText(draft, JSON.stringify({ title: '旺角大廈天台火警', sections: [{ heading: '背景', text: '旺角大廈天台起火。' }] }));
+    expect(doc?.title).toBe('旺角大廈天台起火');
+    expect(renderContentPage(doc!, 'https://world-news.xyz/analysis/x')).not.toContain('原文標題');
   });
 });
