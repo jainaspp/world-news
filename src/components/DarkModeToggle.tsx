@@ -1,22 +1,18 @@
-import { useEffect, useState } from 'react';
+interface Props {
+  checked: boolean;
+  onChange: (value: boolean) => void;
+}
 
-export function DarkModeToggle() {
-  const [dark, setDark] = useState(() => {
-    const saved = localStorage.getItem('darkMode');
-    if (saved !== null) return saved === 'true';
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
-
-  useEffect(() => {
-    // 與 App.tsx 保持一致：使用 classList
-    document.documentElement.classList.toggle('dark', dark);
-    document.documentElement.removeAttribute('data-theme'); // 清除衝突
-    localStorage.setItem('darkMode', String(dark));
-  }, [dark]);
-
+export function DarkModeToggle({ checked, onChange }: Props) {
   return (
-    <button className="dark-toggle" onClick={() => setDark(d=>!d)} title={dark ? '切換亮色模式' : '切換深色模式'}>
-      {dark ? '☀️' : '🌙'}
+    <button
+      type="button"
+      className="icon-btn"
+      aria-pressed={checked}
+      aria-label={checked ? '切換至淺色模式' : '切換至深色模式'}
+      onClick={() => onChange(!checked)}
+    >
+      {checked ? '淺色' : '深色'}
     </button>
   );
 }

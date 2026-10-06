@@ -1,247 +1,263 @@
-import React from 'react';
-import { useState, useEffect, useMemo } from 'react';
-import { useNews } from './hooks/useNews';
-import { NewsCard } from './components/NewsCard';
-import { NewsModal } from './components/NewsModal';
+import { useEffect, useMemo, useState } from 'react';
+import { filterNews } from '../shared/filter';
+import { REGIONS, sourcesForRegion } from '../shared/feeds';
+import type { NewsItem, TimeRange } from '../shared/types';
 import { DarkModeToggle } from './components/DarkModeToggle';
-import { LanguageSelector } from './components/LanguageSelector';
-import { InstallPrompt } from './components/InstallPrompt';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { NewsAdBanner, InFeedAdBanner } from './components/NewsAdBanner';
+import { InstallPrompt } from './components/InstallPrompt';
+import { LanguageSelector } from './components/LanguageSelector';
+import { NewsCard } from './components/NewsCard';
 import { SkeletonCard } from './components/SkeletonCard';
-import { NewsItem } from './types';
-import { REGIONS } from './data/sources';
-import { analytics } from './utils/analytics';
+import { SITE_NAME, SITE_URL } from './config';
 import { useBookmarks } from './hooks/useBookmarks';
+import { useNews } from './hooks/useNews';
+import { translateTitles } from './utils/translate';
 import './App.css';
 
-function filterByTime(items: NewsItem[], filter: string): NewsItem[] {
-  if (filter === 'all') return items;
-  const now = Date.now();
-  const cutoff = filter === 'today' ? now - 86400000 : now - 604800000;
-  return items.filter(n => new Date(n.pubDate).getTime() >= cutoff);
+const TIMES: { id: TimeRange; label: string }[] = [
+  { id: 'all', label: '全部' },
+  { id: 'hour', label: '1小時' },
+  { id: 'today', label: '今天' },
+  { id: 'week', label: '本週' },
+];
+
+function initialRegion() {
+  const code = new URLSearchParams(window.location.search).get('region') ?? '';
+  return REGIONS.some((region) => region.code === code) ? code : 'ALL';
 }
 
 export default function App() {
-  const [group, setGroup] = useState('region');
-  const [activeRegion, setActiveRegion] = useState('ALL');
-  const [selected, setSelected] = useState<NewsItem | null>(null);
+  const { items, loading, error, partial, stale, refresh } = useNews();
+  const { items: bookmarks, ids: bookmarkIds, toggle } = useBookmarks();
+  const [region, setRegion] = useState(initialRegion);
+  const [source, setSource] = useState('');
+  const [time, setTime] = useState<TimeRange>('all');
+  const [query, setQuery] = useState('');
   const [showBookmarks, setShowBookmarks] = useState(false);
-  const [darkMode, setDarkMode] = useState(() => {
+  const [lang, setLang] = useState(() => localStorage.getItem('wn_lang') || 'zh-TW');
+  const [dark, setDark] = useState(() => {
     const saved = localStorage.getItem('darkMode');
-    return saved !== null ? saved === 'true' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'true') return true;
+    if (saved === 'false') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
-  const [translateLang, setTranslateLang] = useState(() => localStorage.getItem('lang') || 'en');
-  const [lastUpdated, setLastUpdated] = useState('');
-  const [newsTimeFilter, setNewsTimeFilter] = useState(() => localStorage.getItem('timeFilter') || 'all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeSource, setActiveSource] = useState('');
-
-  const activeGroup = activeRegion;
-  const { news, loading, refreshing, translating, status, refresh } = useNews(activeGroup, translateLang);
-  const { bookmarkIds, toggle } = useBookmarks();
+  const [translated, setTranslated] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    if (news.length > 0) {
-      const sorted = [...news].sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
-      setLastUpdated(new Date(sorted[0].pubDate).toLocaleTimeString());
+    document.documentElement.classList.toggle('dark', dark);
+    localStorage.setItem('darkMode', String(dark));
+  }, [dark]);
+
+  useEffect(() => {
+    localStorage.setItem('wn_lang', lang);
+  }, [lang]);
+
+  const sources = sourcesForRegion(region);
+  const base = showBookmarks ? bookmarks : items;
+  const visible = useMemo(
+    () =>
+      filterNews(base, {
+        region: showBookmarks ? 'ALL' : region,
+        source: showBookmarks ? '' : source,
+        q: query,
+        time: showBookmarks ? 'all' : time,
+      }),
+    [base, region, source, query, time, showBookmarks],
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    if (lang === 'en' || visible.length === 0) {
+      setTranslated({});
+      return;
     }
-    import('./utils/newsFetcher').then(m => {
-      (['ALL', 'HKG'] as const).forEach(g => m.fetchAllNews(g).catch(() => {}));
+    void translateTitles(
+      visible.slice(0, 40).map((item) => ({ id: item.id, title: item.title })),
+      lang,
+    ).then((map) => {
+      if (!cancelled) setTranslated(map);
     });
-  }, [news]);
+    return () => {
+      cancelled = true;
+    };
+  }, [lang, visible]);
 
-  const displayNews = useMemo(() => {
-    let base = showBookmarks
-      ? news.filter(n => bookmarkIds.has(String(n.id)))
-      : searchQuery
-        ? news.filter(n =>
-            n.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            ((n.summary || '').toLowerCase().includes(searchQuery.toLowerCase())) ||
-            ((n.source || '').toLowerCase().includes(searchQuery.toLowerCase()))
-          )
-        : news;
+  function chooseRegion(code: string) {
+    setRegion(code);
+    setSource('');
+    setShowBookmarks(false);
+    const url = new URL(window.location.href);
+    if (code === 'ALL') url.searchParams.delete('region');
+    else url.searchParams.set('region', code);
+    window.history.replaceState({}, '', url);
+  }
 
-    if (group === 'source' && activeSource) {
-      const srcMap: Record<string, string[]> = {
-        BBC:          ['bbc'],
-        Reuters:      ['reuters'],
-        'Al Jazeera': ['aljazeera', 'al jazeera'],
-        NHK:          ['nhk'],
-        France24:     ['france24'],
-        DW:           ['dw.', 'dw.com', 'deutsche welle'],
-        CNA:          ['channel news asia', 'cna'],
-        SCMP:         ['scmp', 'south china morning'],
-        Euronews:     ['euronews'],
-        UN:           ['un news', 'news.un.org'],
-      };
-      const kw = srcMap[activeSource] || [activeSource.toLowerCase()];
-      base = base.filter(n => kw.some(k => (n.source || '').toLowerCase().includes(k)));
+  function share() {
+    const url = SITE_URL;
+    const text = `${SITE_NAME}：${url}`;
+    if (navigator.share) {
+      void navigator.share({ title: SITE_NAME, text, url }).catch(() => undefined);
+      return;
     }
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  }
 
-    return filterByTime(base, newsTimeFilter);
-  }, [news, newsTimeFilter, showBookmarks, bookmarkIds, searchQuery, group, activeSource]);
-
-  const trendingNews = useMemo(() => news.slice(0, 8), [news]);
+  const emptyMessage = showBookmarks
+    ? '還沒有收藏。在頭條上按「收藏」就會留在這裡。'
+    : query
+      ? `沒有符合「${query}」的頭條。`
+      : '這個篩選暫時沒有頭條。可以換地區、來源或時間。';
 
   return (
     <ErrorBoundary>
-      <div className={'app ' + (darkMode ? 'dark' : '')}>
-
+      <a className="skip-link" href="#news">
+        跳到頭條
+      </a>
+      <div className="app">
         <header className="app-header">
-          <div className="header-left">
-            <h1 className="site-title">🌏 世界頭條</h1>
-            {news.length > 0 && (
-              <span className="site-sources">
-                {[...new Set(news.slice(0, 10).map(n => n.source).filter(Boolean))].slice(0, 5).join(' · ')}
-              </span>
-            )}
+          <div className="brand">
+            <h1>{SITE_NAME}</h1>
+            <p>只顯示標題、來源同原文連結</p>
           </div>
-          <div className="header-right">
-            <button className="icon-btn" onClick={() => { analytics.refresh(); refresh(); }} disabled={loading} title="刷新">🔄</button>
-            <DarkModeToggle checked={darkMode} onChange={setDarkMode} />
-            <button className={'icon-btn' + (showBookmarks ? ' active' : '')} onClick={() => setShowBookmarks(v => !v)} title="收藏">
-              {showBookmarks ? '🔙' : ('📖' + (bookmarkIds.size > 0 ? ' ' + bookmarkIds.size : ''))}
+          <div className="header-actions">
+            <button type="button" className="icon-btn" onClick={() => void refresh()} disabled={loading}>
+              {loading ? '載入中' : '重新整理'}
             </button>
-            <LanguageSelector value={translateLang} onChange={setTranslateLang} />
+            <DarkModeToggle checked={dark} onChange={setDark} />
+            <button
+              type="button"
+              className={showBookmarks ? 'icon-btn active' : 'icon-btn'}
+              aria-pressed={showBookmarks}
+              onClick={() => setShowBookmarks((value) => !value)}
+            >
+              收藏{bookmarkIds.size > 0 ? ` ${bookmarkIds.size}` : ''}
+            </button>
+            <LanguageSelector value={lang} onChange={setLang} />
           </div>
         </header>
 
-        <div className="search-bar">
-          <span className="search-icon">🔍</span>
+        <form className="search-bar" role="search" onSubmit={(event) => event.preventDefault()}>
+          <label htmlFor="news-search">搜尋頭條</label>
           <input
-            className="search-input"
-            placeholder="搜尋全球頭條..."
-            value={searchQuery}
-            onChange={e => { setSearchQuery(e.target.value); if (e.target.value.length > 2) analytics.search(e.target.value, 0); }}
+            id="news-search"
+            value={query}
+            placeholder="搜尋標題或來源"
+            onChange={(event) => setQuery(event.target.value)}
           />
-          {searchQuery && (
-            <button className="search-clear" onClick={() => setSearchQuery('')}>✕</button>
-          )}
+        </form>
+
+        <div className="filters" aria-label="地區">
+          {REGIONS.map((item) => (
+            <button
+              type="button"
+              key={item.code}
+              className={region === item.code && !showBookmarks ? 'chip active' : 'chip'}
+              aria-pressed={region === item.code && !showBookmarks}
+              onClick={() => chooseRegion(item.code)}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
 
-        {!showBookmarks && trendingNews.length > 0 && (
-          <div className="trending-strip">
-            <span className="trending-label">🔥 熱門</span>
-            <div className="trending-items">
-              {trendingNews.map((item, i) => (
-                <a key={item.id} className="trending-item" href={item.link} target="_blank" rel="noopener noreferrer">
-                  <span className="trending-num">{i + 1}</span>
-                  <span className="trending-title">{item.title.replace(/<[^>]+>/g, '').slice(0, 40)}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="group-toggle">
-          <button className={'toggle-btn ' + (group === 'region' ? 'active' : '')} onClick={() => setGroup('region')}>🌏 地區</button>
-          <button className={'toggle-btn ' + (group === 'source' ? 'active' : '')} onClick={() => setGroup('source')}>📡 來源</button>
+        <div className="filters" aria-label="來源">
+          <button
+            type="button"
+            className={source === '' && !showBookmarks ? 'chip active' : 'chip'}
+            aria-pressed={source === ''}
+            onClick={() => {
+              setSource('');
+              setShowBookmarks(false);
+            }}
+          >
+            全部來源
+          </button>
+          {sources.map((name) => (
+            <button
+              type="button"
+              key={name}
+              className={source === name && !showBookmarks ? 'chip active' : 'chip'}
+              aria-pressed={source === name && !showBookmarks}
+              onClick={() => {
+                setSource(name);
+                setShowBookmarks(false);
+              }}
+            >
+              {name}
+            </button>
+          ))}
         </div>
-
-        {group === 'region' && (
-          <div className="region-bar">
-            {REGIONS.filter(r => r.code !== 'SRC').map(r => (
-              <button key={r.code}
-                className={'region-btn ' + (activeRegion === r.code ? 'active' : '')}
-                onClick={() => { setActiveRegion(r.code); setShowBookmarks(false); setActiveSource(''); analytics.regionChange(r.code); }}>
-                {r.icon} {r.label}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {group === 'source' && (
-          <div className="region-bar">
-            {REGIONS.find(r => r.code === 'SRC')?.sources.map((s: any) => (
-              <button key={s.code}
-                className={'region-btn ' + (activeSource === s.code ? 'active' : '')}
-                onClick={() => { setActiveSource(s.code); setShowBookmarks(false); setActiveRegion('ALL'); analytics.sourceChange(s.code); }}>
-                {s.flag} {s.label}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {showBookmarks && (
-          <div className="bookmarks-header">
-            <h2>📌 已收藏（{bookmarkIds.size}）</h2>
-          </div>
-        )}
 
         {!showBookmarks && (
-          <div className="time-filter-bar">
-            <span className="time-filter-label">全球頭條</span>
-            <div className="time-filter-btns">
-              {([['全部', 'all'], ['1小時', 'hour'], ['今天', 'today'], ['本週', 'week']] as [string, string][]).map(([label, val]) => (
-                <button key={val}
-                  className={'time-btn ' + (newsTimeFilter === val ? 'active' : '')}
-                  onClick={() => { setNewsTimeFilter(val); localStorage.setItem('timeFilter', val); }}>
-                  {label}
-                </button>
-              ))}
-            </div>
-            <span className="status-indicator">
-              {status === 'translating' ? '🌐 翻譯中' : '✅ 已就緒'}
-            </span>
-            {translating && (
-              <span style={{ color: '#888', fontSize: '12px', marginLeft: '8px' }}>🌐 翻譯中</span>
-            )}
+          <div className="filters" aria-label="時間">
+            {TIMES.map((item) => (
+              <button
+                type="button"
+                key={item.id}
+                className={time === item.id ? 'chip active' : 'chip'}
+                aria-pressed={time === item.id}
+                onClick={() => setTime(item.id)}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
         )}
 
-        {!loading && !showBookmarks && <NewsAdBanner slot="YOUR_TOP_BANNER_SLOT" format="horiz" />}
-
-        <main className="app-main">
-          {loading ? (
-            <div className="news-grid">
-              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
-            </div>
-          ) : displayNews.length === 0 && !showBookmarks ? (
-            <div className="empty-state">
-              <p>⚠️ 暫時沒有頭條，請稍後再試 🔄</p>
-              <small>或切換地區 / 來源</small>
-            </div>
-          ) : showBookmarks && bookmarkIds.size === 0 ? (
-            <div className="empty-state">
-              <p>還沒有收藏</p>
-              <small>點擊新聞卡右上書籤按鈕來收藏</small>
-            </div>
-          ) : (
-            <div className="news-grid">
-              {displayNews.map((item, idx) => (
-                <React.Fragment key={item.id}>
-                  <NewsCard item={item} lang={translateLang} bookmarkIds={bookmarkIds} toggleBookmark={toggle} />
-                  {idx > 0 && idx % 4 === 0 && !showBookmarks && <InFeedAdBanner position={idx} every={4} />}
-                </React.Fragment>
+        <main id="news">
+          {loading && !showBookmarks ? (
+            <div className="news-grid" aria-busy="true" aria-live="polite">
+              {Array.from({ length: 6 }, (_, index) => (
+                <SkeletonCard key={index} />
               ))}
             </div>
+          ) : error && !showBookmarks ? (
+            <div className="status-panel" role="alert">
+              <h2>暫時沒有頭條</h2>
+              <p>{error}</p>
+              <button type="button" className="primary" onClick={() => void refresh()}>
+                再試一次
+              </button>
+            </div>
+          ) : visible.length === 0 ? (
+            <div className="status-panel">
+              <h2>沒有符合的頭條</h2>
+              <p>{emptyMessage}</p>
+            </div>
+          ) : (
+            <>
+              {(partial || stale) && !showBookmarks && (
+                <p className="notice" role="status">
+                  {stale ? '部分來源暫時連不上，以下是較早儲存的標題。' : '部分來源暫時沒有回應，其餘頭條仍可閱讀。'}
+                </p>
+              )}
+              <div className="news-grid">
+                {visible.map((item: NewsItem) => (
+                  <NewsCard
+                    key={item.id}
+                    item={item}
+                    title={translated[item.id] || item.title}
+                    bookmarked={bookmarkIds.has(item.id)}
+                    onToggleBookmark={toggle}
+                  />
+                ))}
+              </div>
+            </>
           )}
         </main>
 
-        {!loading && displayNews.length > 0 && !showBookmarks && (
-          <div className="share-bar">
-            <span className="share-bar-text">分享給朋友</span>
-            <button className="share-btn twitter" onClick={() => {
-              const t = encodeURIComponent('🌏 世界頭條 — 即時全球新聞：' + (displayNews[0] ? displayNews[0].title : ''));
-              window.open('https://twitter.com/intent/tweet?text=' + t + '&url=' + encodeURIComponent('https://world-news.xyz'), '_blank');
-            }}>🐦 Twitter</button>
-            <button className="share-btn facebook" onClick={() => {
-              window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent('https://world-news.xyz'), '_blank');
-            }}>📘 Facebook</button>
-            <button className="share-btn whatsapp" onClick={() => {
-              window.open('https://wa.me/?text=' + encodeURIComponent('🌏 世界頭條：https://world-news.xyz'), '_blank');
-            }}>💬 WhatsApp</button>
-          </div>
-        )}
+        <div className="share-row">
+          <button type="button" className="primary" onClick={share}>
+            分享這個網站
+          </button>
+        </div>
 
         <footer className="app-footer">
-          <span>🌏 世界頭條 | 全球頭條</span>
-          {lastUpdated && <span> 更新於 {lastUpdated}</span>}
+          <p>
+            {SITE_NAME} 只列出標題同出處連結，不轉載內文。
+            <a href={SITE_URL}> {SITE_URL.replace('https://', '')}</a>
+          </p>
         </footer>
-
-        {selected && <NewsModal item={selected} lang={translateLang} onClose={() => setSelected(null)} />}
-
         <InstallPrompt />
       </div>
     </ErrorBoundary>
