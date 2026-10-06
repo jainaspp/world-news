@@ -2,3 +2,15 @@ name = "world-news"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-10-06"
 compatibility_flags = ["nodejs_compat"]
+
+# Workers AI. No extra id. The account must have Workers AI enabled.
+# This binding is remote-only: `wrangler pages dev` asks for CLOUDFLARE_API_TOKEN.
+# Without a token, comment these three lines out. Pages still render a source draft.
+[ai]
+binding = "AI"
+
+# Optional durable cache. Until this is filled in, generations fall back to the Cache API.
+#   npx wrangler kv namespace create CONTENT
+# [[kv_namespaces]]
+# binding = "CONTENT"
+# id = "<paste the namespace id>"

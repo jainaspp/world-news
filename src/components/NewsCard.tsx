@@ -11,6 +11,7 @@ interface Props {
   bookmarked: boolean;
   onToggleBookmark: (item: NewsItem) => void;
   sourceCount?: number;
+  analysisHref?: string;
   featured?: boolean;
   compact?: boolean;
 }
@@ -23,7 +24,7 @@ function hostOf(url: string): string {
   }
 }
 
-export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCount = 0, featured = false, compact = false }: Props) {
+export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCount = 0, analysisHref = '', featured = false, compact = false }: Props) {
   const articleUrl = safeUrl(item.link);
   const sourceUrl = safeUrl(item.sourceUrl);
   const faviconHost = hostOf(sourceUrl || articleUrl);
@@ -83,6 +84,7 @@ export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCoun
           )}
           {item.pubDate && <time dateTime={item.pubDate}>{timeAgo(item.pubDate)}</time>}
           {sourceCount >= 2 && <span className="cluster-badge">{sourceCount} 個來源報道</span>}
+          {!featured && analysisHref && <a className="analysis-link" href={analysisHref}>分析</a>}
           {!compact && (
             <button
               type="button"
@@ -101,6 +103,12 @@ export function NewsCard({ item, title, bookmarked, onToggleBookmark, sourceCoun
           </a>
         )}
         {!compact && <p className="card-credit">標題來自 {item.source}。全文請到原文網站閱讀。</p>}
+        {featured && analysisHref && (
+          <a className="analysis-box" href={analysisHref}>
+            <span className="badge">AI 整合</span>
+            背景、各方說法、與香港的關係
+          </a>
+        )}
       </div>
     </article>
   );

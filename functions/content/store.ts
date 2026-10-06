@@ -1,0 +1,89 @@
+import { edgeCache } from '../env.js';
+import type { ContentDoc } from '../../shared/content.js';
+
+export interface ContentEnv {
+  CONTENT?: {
+    get(key: string): Promise<string | null>;
+    put(key: string, value: string): Promise<void>;
+  };
+  AI?: { run(model: string, input: Record<string, unknown>): Promise<unknown> };
+  GENERATE_SECRET?: string;
+  VITE_AD_SLOT_TOP?: string;
+  AD_SLOT_TOP?: string;
+  VITE_GOOGLE_AD_CLIENT?: string;
+  VITE_SITE_URL?: string;
+  [key: string]: unknown;
+}
+
+export interface SavedDoc {
+  doc: ContentDoc;
+  savedAt: number;
+}
+
+const memory = new Map<string, string>();
+
+function cacheKey(key: string): Request {
+  return new Request(`https://world-news.xyz/content-store/${encodeURIComponent(key)}`);
+}
+
+export async function readValue(env: ContentEnv, key: string): Promise<string | null> {
+  if (env.CONTENT) {
+    try {
+      const value = await env.CONTENT.get(key);
+      if (value) return value;
+    } catch {
+      /* try the cache */
+    }
+  }
+  const hit = memory.get(key);
+  if (hit) return hit;
+  const cache = edgeCache();
+  if (!cache) return null;
+  try {
+    const response = await cache.match(cacheKey(key));
+    return response ? response.text() : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function writeValue(env: ContentEnv, key: string, value: string): Promise<void> {
+  memory.set(key, value);
+  if (env.CONTENT) {
+    try {
+      await env.CONTENT.put(key, value);
+    } catch {
+      /* cache still holds it */
+    }
+  }
+  const cache = edgeCache();
+  if (!cache) return;
+  try {
+    await cache.put(cacheKey(key), new Response(value, {
+      headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=604800' },
+    }));
+  } catch {
+    /* best effort */
+  }
+}
+
+export async function readDoc(env: ContentEnv, key: string): Promise<SavedDoc | null> {
+  const raw = await readValue(env, `doc:${key}`);
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw) as SavedDoc;
+    if (!parsed?.doc?.title) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+export async function writeDoc(env: ContentEnv, doc: ContentDoc): Promise<void> {
+  const saved: SavedDoc = { doc, savedAt: Date.now() };
+  await writeValue(env, `doc:${doc.kind}:${doc.key}`, JSON.stringify(saved));
+}
+
+export function docKey(kind: ContentDoc['kind'], key: string): string {
+  return `${kind}:${key}`;
+}

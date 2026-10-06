@@ -75,3 +75,26 @@ Pages 專案設定：
 `public/_headers` 把 `/ads.txt` 標成 `text/plain`，全站加上安全標頭，`/assets/*`（Vite 帶 hash 的檔）快取一年。
 
 `/api/crawl` 的授權同 Vercel：`Authorization: Bearer <CRON_SECRET>`。Pages 這個設定檔沒有內建 cron。DNS 轉過去之前，每日抓取仍由 Vercel Cron 負責。轉過去之後，用同一個網址同一組密碼，每日由排程打一次即可。
+
+## AI 日報、分析、週報
+
+`/digest/`、`/analysis/<slug>/`、`/weekly/` 由 Pages Functions 出 HTML（有 canonical、NewsArticle / Article JSON-LD）。文字用 Workers AI 模型 `@cf/qwen/qwen3-30b-a3b-fp8`，只根據 RSS 標題同短描述，頁面標明「AI 整合」。模型失敗或當日額度用完時，會保留上一份 AI 稿。未有 AI 稿就快取來源標題稿，頁面不會回 500，之後的訪客也不用再等模型。
+
+讀頁的人不會等模型。第一個請求先看到來源稿，`waitUntil` 在背景寫入；GitHub Actions 會在早上同傍晚先打生成網址，所以正式讀者多數直接看到已寫好的稿。
+
+`wrangler.toml` 已有 `[ai] binding = "AI"`。KV 綁定 `CONTENT` 先註解住。未建立 KV 時，結果存在 Cache API。要持久保存：
+
+```bash
+npx wrangler kv namespace create CONTENT
+```
+
+把回傳的 id 寫進 `wrangler.toml` 的 `[[kv_namespaces]]`。
+
+| 名稱 | 放哪裡 | 填什麼 |
+| --- | --- | --- |
+| `GENERATE_SECRET` | Pages 環境變數，同 GitHub Actions secret | 自訂長密碼。`POST /api/generate` 要帶 header `x-generate-secret`。公開閱讀唔使密碼 |
+| `CONTENT_SITE_URL` | GitHub Actions variable，可選 | 預設 `https://world-news.xyz`。DNS 未轉之前可填 `https://world-news-b5e.pages.dev` |
+
+模型定價（Cloudflare 公開價）：輸入每百萬 token 4,625 neurons，輸出每百萬 token 30,475 neurons。以每日 2 篇日報、最多 8 篇分析、週報攤分計，大約 300 neurons，低過免費額度 10,000 neurons。程式每日最多叫模型 12 次。
+
+`[ai]` 綁定只能走遠端。`npx wrangler pages dev dist` 因此需要環境變數 `CLOUDFLARE_API_TOKEN`（權限要有 Workers AI）。沒有 token 時，先把 `wrangler.toml` 的 `[ai]` 三段註解掉，頁面會用來源標題稿，不會叫模型。

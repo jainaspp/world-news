@@ -8,7 +8,7 @@ const feeds: Feed[] = [
 ];
 
 const item = (title: string, link: string) =>
-  `<item><title>${title}</title><link>${link}</link><pubDate>Tue, 06 Oct 2026 02:00:00 GMT</pubDate><description>BODY</description></item>`;
+  `<item><title>${title}</title><link>${link}</link><pubDate>Tue, 06 Oct 2026 02:00:00 GMT</pubDate><description>BODY ${'字'.repeat(220)}TAIL</description></item>`;
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -33,7 +33,9 @@ describe('loadFeeds', () => {
     expect(String((init?.headers as Record<string, string>)?.['User-Agent'])).toContain('Mozilla');
     expect(init?.redirect).toBe('manual');
     expect(items.map((row) => row.link).sort()).toEqual(['https://a.example/one', 'https://shared.example/x']);
-    expect(JSON.stringify(items)).not.toContain('BODY');
+    expect(JSON.stringify(items)).not.toContain('TAIL');
+    expect(items[0]?.excerpt?.startsWith('BODY')).toBe(true);
+    expect(items[0]?.excerpt?.length).toBeLessThanOrEqual(180);
     expect(items.find((row) => row.link === 'https://shared.example/x')?.source).toBe('A');
   });
 

@@ -8,6 +8,8 @@ export interface NewsItem {
   pubDate: string;
   image?: string;
   category?: string;
+  /** Short plain-text RSS blurb for AI drafts. Not shown on story cards. */
+  excerpt?: string;
 }
 
 export type TimeRange = 'all' | 'hour' | 'today' | 'week';

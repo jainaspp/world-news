@@ -119,10 +119,18 @@ function extractImage(block: string): string {
   return imageUrl(img);
 }
 
+const EXCERPT_LEN = 180;
+
+function excerptOf(block: string): string {
+  const raw = tagText(block, 'description') || tagText(block, 'summary');
+  return raw.slice(0, EXCERPT_LEN);
+}
+
 function pushItem(items: NewsItem[], feed: Feed, block: string, title: string, link: string, pubDate: string) {
   const normalized = normalizeLink(link);
   if (!title || !normalized || items.length >= PER_FEED) return;
   const image = extractImage(block);
+  const excerpt = excerptOf(block);
   const item: NewsItem = {
     id: stableId(normalized),
     title: title.slice(0, 300),
@@ -134,6 +142,7 @@ function pushItem(items: NewsItem[], feed: Feed, block: string, title: string, l
     category: categorize(title, (feed.category ?? 'world') as CategoryId),
   };
   if (image) item.image = image;
+  if (excerpt) item.excerpt = excerpt;
   items.push(item);
 }
 
