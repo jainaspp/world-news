@@ -62,8 +62,9 @@ describe('SSR homepage feed', () => {
     expect(html).toContain('港鐵宣布加價方案');
     expect(html).toContain('/story/abc123def456/');
     const shell = '<html><head></head><body><div id="root"></div></body></html>';
-    const injected = injectHomeShell(shell, [sample]);
+    const injected = injectHomeShell(shell, [{ ...sample, excerpt: 'EXCERPT_SHOULD_NOT_LEAK_INTO_HTML' }]);
     expect(injected).toContain('id="wn-bootstrap"');
+    expect(injected).not.toContain('EXCERPT_SHOULD_NOT_LEAK');
     expect(injected).toContain('rel="preload"');
     expect(injected).toContain('story-hero');
   });

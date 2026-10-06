@@ -1,4 +1,5 @@
 import { feedsInShard } from '../../shared/feeds.js';
+import { toListPayload } from '../../shared/listPayload.js';
 import { assemblePayload, mergePayloads } from '../../server/newsService.js';
 import { buildNewsResponse, type JsonResult } from '../../server/responses.js';
 import { readCache, storeNews } from '../../server/supabase.js';
@@ -39,11 +40,13 @@ function cacheId(url: URL): 'a' | 'b' | 'all' {
   return part === 'a' || part === 'b' ? part : 'all';
 }
 
-function jsonResult(payload: NewsPayload): JsonResult {
+function jsonResult(payload: NewsPayload, forList: boolean): JsonResult {
   const status = payload.items.length > 0 ? 200 : 503;
+  // Shard parts stay complete so the merge can store excerpts for story pages and AI drafts.
+  const body = forList ? toListPayload(payload) : payload;
   return {
     status,
-    body: JSON.stringify(payload),
+    body: JSON.stringify(body),
     cacheControl: status === 200 ? 'public, s-maxage=300, stale-while-revalidate=600' : 'no-store',
   };
 }
@@ -98,15 +101,16 @@ async function loadMerged(requestUrl: string): Promise<NewsPayload> {
 }
 
 async function buildPart(requestUrl: string, part: 'a' | 'b' | 'all'): Promise<JsonResult> {
-  if (part === 'a' || part === 'b') return jsonResult(await assemblePayload(feedsInShard(part)));
-  return jsonResult(await loadMerged(requestUrl));
+  if (part === 'a' || part === 'b') return jsonResult(await assemblePayload(feedsInShard(part)), false);
+  return jsonResult(await loadMerged(requestUrl), true);
 }
 
 export async function onRequest(context: PagesContext): Promise<Response> {
   applyRuntimeEnv(context.env);
   const url = new URL(context.request.url);
   const part = cacheId(url);
-  const cacheKey = new Request(`${url.origin}/api/news?cache=${part}`, { method: 'GET' });
+  // v2 drops list excerpts. Don't keep serving the previous fat edge entry after deploy.
+  const cacheKey = new Request(`${url.origin}/api/news?cache=v2-${part}`, { method: 'GET' });
   const cache = edgeCache();
 
   if (cache && context.request.method === 'GET') {

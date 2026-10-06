@@ -17,6 +17,7 @@ import { RegionIcon } from './components/RegionIcon';
 import { SkeletonCard } from './components/SkeletonCard';
 import { BackToTop } from './components/BackToTop';
 import { HkWeather } from './components/HkWeather';
+import { HsiStrip } from './components/HsiStrip';
 import { TrendingTopics } from './components/TrendingTopics';
 import { trendingTopics } from '../shared/topics';
 import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_NAME, SITE_URL } from './config';
@@ -395,6 +396,7 @@ export default function App() {
                 )}
                 {showTopAd && <AdSlot slot={AD_SLOT_TOP} variant="banner" />}
                 {!special && !wide && <HkWeather />}
+                {!special && !wide && <HsiStrip />}
                 {!special && !wide && <TrendingTopics topics={topics} active={view.q} onPick={(term) => go({ ...view, q: term, ...clearSpecial }, 'replace')} />}
                 {!special && (
                   <aside className="digest-strip">
@@ -469,6 +471,7 @@ export default function App() {
           </main>
           <aside className="sidebar" aria-label="sidebar">
             {wide && <HkWeather />}
+            {wide && <HsiStrip />}
             {wide && !special && <TrendingTopics topics={topics} active={view.q} onPick={(term) => go({ ...view, q: term, ...clearSpecial }, 'replace')} />}
             {!special && !view.q.trim() && clusters.length > 0 && (
               <section className="trending" aria-label={t('trending', lang)}>
