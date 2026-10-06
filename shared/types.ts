@@ -10,6 +10,8 @@ export interface NewsItem {
   category?: string;
   /** Short plain-text RSS blurb for AI drafts. Not shown on story cards. */
   excerpt?: string;
+  /** Set by an upstream feed when the desk has marked the headline as breaking. */
+  breaking?: boolean;
 }
 
 export type TimeRange = 'all' | 'hour' | 'today' | 'week';

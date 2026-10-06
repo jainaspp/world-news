@@ -120,6 +120,7 @@ describe('story sitemap', () => {
     expect(readFileSync('functions/api/news.ts', 'utf8')).toContain('toListPayload');
     expect(readFileSync('server/responses.ts', 'utf8')).toContain('toListPayload');
     expect(readFileSync('public/columns.js', 'utf8')).toContain('/api/hsi');
-    expect(readFileSync('shared/contentPage.ts', 'utf8')).toContain('id="hsi-strip"');
+    expect(readFileSync('shared/contentPage.ts', 'utf8')).toContain('id="hk-info"');
+    expect(readFileSync('public/columns.js', 'utf8')).toContain('hk-info');
   });
 });

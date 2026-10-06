@@ -18,10 +18,10 @@
 | `SUPABASE_SERVICE_ROLE_KEY` | 要用備份儲存才需要 | Supabase 的 service role key。只放在伺服器，不要加 `VITE_` 字首 |
 | `CRON_SECRET` | 要用每日抓取才需要 | 自己定一組長密碼。Vercel Cron 會用 `Authorization: Bearer <CRON_SECRET>` 呼叫 `/api/crawl` |
 | `VITE_SITE_URL` | 否 | 分享連結用。預設 `https://world-news.xyz` |
-| `VITE_AD_SLOT_TOP` | 否 | 窄螢幕時頭條上方的橫額；1200px 以上改放側欄 300×600，不會黏住畫面。留空就不會畫出空白廣告框 |
-| `VITE_AD_SLOT_FEED` | 否 | 每 8 則頭條插入一次的資訊流版位 ID。收藏頁不會顯示。留空就不會畫出空白廣告框 |
+| `VITE_AD_SLOT_TOP` | 否 | 1200px 以上，熱搜下面的側欄 300×600（`.ad-slot-sidebar`）。不會放在 hero 前面，亦不會黏住畫面底部（安裝提示先佔底部）。留空仍保留灰色「支持世界頭條」框 |
+| `VITE_AD_SLOT_FEED` | 否 | 每 8 則標準卡片之後的資訊流版位（`.ad-slot-feed`，min-height 280）。不會放在 hero 前面。收藏頁不會顯示。留空仍保留灰色框，不會收起 |
 
-`index.html` 仍會載入 AdSense（`ca-pub-8392975944327076`）。兩個版位都留空時，手動廣告不會出現，自動廣告仍可以由這個 loader 投放。`VITE_GOOGLE_AD_CLIENT` 可選，預設就是這個發布商 ID，要跟 loader 上的 `client` 相同。
+`index.html` 仍會載入 AdSense（`ca-pub-8392975944327076`）。版位 ID 留空時，手動 `<ins>` 不會畫出，灰色佔位「支持世界頭條」仍然留在版面，不會收起。自動廣告仍可以由這個 loader 投放。`VITE_GOOGLE_AD_CLIENT` 可選，預設就是這個發布商 ID，要跟 loader 上的 `client` 相同。
 
 `/ads.txt` 由 `public/ads.txt` 以純文字提供，內容是 `google.com, pub-8392975944327076, DIRECT, f08c47fec0942fa0`。專案目前沒有 Content-Security-Policy。如果之後加上，要允許 `pagead2.googlesyndication.com`、`googleads.g.doubleclick.net`、`tpc.googlesyndication.com` 同 `adservice.google.com`。
 

@@ -1,5 +1,5 @@
 import type { NewsItem } from '../../shared/types';
-import type { UiLang } from '../../shared/zh';
+import { titleLang, type UiLang } from '../../shared/zh';
 import { categoryLabelI18n, t } from '../../shared/i18n';
 import { timeAgo } from '../utils/time';
 import { safeUrl } from '../utils/url';
@@ -18,6 +18,7 @@ interface Props {
   lang?: UiLang;
   followedSource?: boolean;
   onToggleSource?: (source: string) => void;
+  breaking?: boolean;
 }
 
 function hostOf(url: string): string {
@@ -40,11 +41,13 @@ export function NewsCard({
   lang = 'zh-HK',
   followedSource = false,
   onToggleSource,
+  breaking = false,
 }: Props) {
   const articleUrl = safeUrl(item.link);
   const sourceUrl = safeUrl(item.sourceUrl);
   const faviconHost = hostOf(sourceUrl || articleUrl);
-  const fresh = item.pubDate && Date.now() - new Date(item.pubDate).getTime() < 60 * 60 * 1000;
+  const script = titleLang(title);
+  const titleLangAttr = script === 'zh' ? (lang === 'zh-CN' ? 'zh-CN' : 'zh-HK') : script;
   const className = featured ? 'story story-hero' : compact ? 'story story-compact' : 'story';
 
   const media = articleUrl ? (
@@ -67,10 +70,10 @@ export function NewsCard({
               <RegionIcon code={item.regions[0] ?? 'ALL'} />
               {categoryLabelI18n(item.category ?? 'world', lang)}
             </span>
-            {fresh && <span className="breaking">{t('breaking', lang)}</span>}
+            {breaking && <span className="breaking">{t('breaking', lang)}</span>}
           </div>
         )}
-        <h2 className="story-title" lang={lang === 'en' ? 'en' : lang === 'zh-CN' ? 'zh-CN' : 'zh-HK'}>
+        <h2 className={script === 'zh' ? 'story-title' : 'story-title title-sans'} lang={titleLangAttr}>
           {articleUrl ? (
             <a href={articleUrl} target="_blank" rel="noopener noreferrer">
               {title}
@@ -101,12 +104,12 @@ export function NewsCard({
           {onToggleSource && (
             <button
               type="button"
-              className={followedSource ? 'follow-btn on' : 'follow-btn'}
+              className={followedSource ? 'follow-mini source-follow on' : 'follow-mini source-follow'}
               aria-pressed={followedSource}
               aria-label={followedSource ? `${t('unfollow', lang)} ${item.source}` : `${t('follow', lang)} ${item.source}`}
               onClick={() => onToggleSource(item.source)}
             >
-              {followedSource ? t('followingOn', lang) : t('follow', lang)}
+              {followedSource ? '★' : '☆'}
             </button>
           )}
           {item.pubDate && <time dateTime={item.pubDate}>{timeAgo(item.pubDate)}</time>}
@@ -128,7 +131,9 @@ export function NewsCard({
               aria-label={bookmarked ? `${t('saved', lang)}：${item.title}` : `${t('save', lang)}：${item.title}`}
               onClick={() => onToggleBookmark(item)}
             >
-              {bookmarked ? t('saved', lang) : t('save', lang)}
+              <svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true">
+                <path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3.2L6 20V5a1 1 0 0 1 1-1z" fill={bookmarked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+              </svg>
             </button>
           )}
         </div>

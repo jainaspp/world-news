@@ -80,6 +80,13 @@ export function hasChinese(text: string): boolean {
   return /[\u3400-\u9fff]/.test(text);
 }
 
+/** Headline language. Non-Chinese titles render in the sans stack. */
+export function titleLang(title: string): 'zh' | 'en' | 'ja' {
+  if (/[\u3040-\u30ff\u31f0-\u31ff]/.test(title)) return 'ja';
+  if (isMostlyEnglish(title)) return 'en';
+  return 'zh';
+}
+
 export type UiLang = 'zh-HK' | 'zh-CN' | 'en';
 
 export function normalizeLang(raw: string | null | undefined): UiLang {

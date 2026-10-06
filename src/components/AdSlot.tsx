@@ -28,22 +28,24 @@ export function AdSlot({ slot, variant }: { slot: string; variant: Variant }) {
     }
   }, [slot]);
 
-  if (!slot) return null;
-
   const feed = variant === 'feed';
   const sidebar = variant === 'sidebar';
   const className = sidebar ? 'ad-slot ad-slot-sidebar' : feed ? 'ad-slot ad-slot-feed' : 'ad-slot ad-slot-banner';
   return (
     <div className={className} aria-label="廣告">
-      <ins
-        ref={insRef}
-        className="adsbygoogle"
-        data-ad-client={AD_CLIENT}
-        data-ad-slot={slot}
-        data-ad-format={feed ? 'fluid' : 'auto'}
-        data-full-width-responsive={feed || sidebar ? undefined : 'true'}
-        data-ad-layout={feed ? 'in-article' : undefined}
-      />
+      <span className="ad-label">廣告</span>
+      <p className="ad-placeholder">支持世界頭條</p>
+      {slot ? (
+        <ins
+          ref={insRef}
+          className="adsbygoogle"
+          data-ad-client={AD_CLIENT}
+          data-ad-slot={slot}
+          data-ad-format={feed ? 'fluid' : 'auto'}
+          data-full-width-responsive={feed || sidebar ? undefined : 'true'}
+          data-ad-layout={feed ? 'in-article' : undefined}
+        />
+      ) : null}
     </div>
   );
 }

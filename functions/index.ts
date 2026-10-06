@@ -1,11 +1,21 @@
+import { loadHkNow } from '../server/hkService.js';
+import { loadHsiQuote } from '../server/hsiService.js';
 import { getNews } from '../server/newsService.js';
 import { applyRuntimeEnv } from '../server/runtimeEnv.js';
-import { injectHomeShell } from '../shared/homePage.js';
+import { injectHomeShell, type HomeMarket } from '../shared/homePage.js';
 import { clusterStories, sourceCounts } from '../shared/trending.js';
 import { edgeCache, type PagesContext } from './env.js';
 
-const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v1');
+const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v2');
 const FRESH_S = 120;
+
+function envSlot(env: Record<string, unknown>): string {
+  for (const key of ['VITE_AD_SLOT_FEED', 'AD_SLOT_FEED', 'AD_SLOT_MID']) {
+    const value = env[key];
+    if (typeof value === 'string' && value.trim()) return value.trim();
+  }
+  return '';
+}
 
 /**
  * Server-render the homepage feed into the Vite shell so mobile LCP does not wait on
@@ -34,15 +44,21 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   }
 
   let items: Awaited<ReturnType<typeof getNews>>['items'] = [];
+  let market: HomeMarket = { hk: null, hsi: null };
   try {
-    const news = await getNews();
-    items = news.items;
+    const [news, hk, hsi] = await Promise.all([
+      getNews().catch(() => null),
+      loadHkNow().catch(() => null),
+      loadHsiQuote().catch(() => null),
+    ]);
+    items = news?.items ?? [];
+    market = { hk, hsi };
   } catch {
     items = [];
   }
 
   const counts = items.length ? sourceCounts(clusterStories(items)) : new Map<string, number>();
-  const html = injectHomeShell(shell, items, counts);
+  const html = injectHomeShell(shell, items, counts, market, envSlot(context.env));
   const headers = new Headers({
     'content-type': 'text/html; charset=utf-8',
     'cache-control': 'public, max-age=60, s-maxage=120, stale-while-revalidate=600',

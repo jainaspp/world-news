@@ -1,4 +1,4 @@
-import { CATEGORIES, CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
+import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import type { ContentDoc, IndexEntry, SourceRef } from './content';
 import { bestImage } from './media.js';
 
@@ -201,7 +201,6 @@ export function head(title: string, description: string, canonical: string, imag
 }
 
 export function chrome(active: ContentDoc['kind'] | 'none'): string {
-  const cats = CATEGORIES.map((category) => `<a class="chip" href="${category.id === 'all' ? '/' : `/category/${category.id}`}">${esc(category.label)}</a>`).join('');
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
@@ -230,13 +229,11 @@ export function chrome(active: ContentDoc['kind'] | 'none'): string {
     </header>
     <div class="tab-bar">
       <nav class="filters" aria-label="欄目">
+        <a class="chip" href="/">頭條</a>
         ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}
-        <span class="filters-sep" aria-hidden="true"></span>
-        ${cats}
       </nav>
     </div>
-    <div class="hk-weather column-weather" id="hk-weather" hidden aria-live="polite"></div>
-    <div class="hsi-strip column-hsi" id="hsi-strip" hidden aria-label="恒生指數"></div>
+    <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣同恒生指數"></div>
   </div>`;
 }
 
