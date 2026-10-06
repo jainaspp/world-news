@@ -41,20 +41,36 @@ export const REGIONS: Region[] = [
 const rthk = 'https://rthk9.rthk.hk/rthk/news/rss';
 const bbc = 'https://feeds.bbci.co.uk';
 
-function googleTopic(topic: string): string {
-  return `https://news.google.com/rss/headlines/section/topic/${topic}?hl=zh-HK&gl=HK&ceid=HK:zh-Hant`;
+/** Resolved Google topic URLs. The /headlines/section/topic/ form 302s and burns a subrequest. */
+function googleTopic(id: string): string {
+  return `https://news.google.com/rss/topics/${id}?hl=zh-HK&gl=HK&ceid=HK:zh-Hant`;
+}
+
+const GOOGLE = {
+  business: 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx6TVdZU0JYcG9MVWhMR2dKSVN5Z0FQAQ',
+  tech: 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRGRqTVhZU0JYcG9MVWhMR2dKSVN5Z0FQAQ',
+  sport: 'CAAqKggKIiRDQkFTRlFvSUwyMHZNRFp1ZEdvU0JYcG9MVWhMR2dKSVN5Z0FQAQ',
+};
+
+/** Workers allow 50 subrequests. Each shard stays at or below this so one redirect still fits. */
+export const FEEDS_PER_SHARD = 22;
+
+export function feedsInShard(part: 'a' | 'b'): Feed[] {
+  // Alternate so each invocation still has sport, entertainment, and the other sections
+  // if the other shard cannot be reached.
+  return FEEDS.filter((_, index) => (part === 'a' ? index % 2 === 0 : index % 2 === 1));
 }
 
 export const FEEDS: Feed[] = [
   { id: 'rthk-hk', label: '香港電台', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_clocal.xml`, regions: ['HKG'], terms: 'uncertain', category: 'hk' },
   { id: 'hkfp', label: 'HKFP', homepage: 'https://hongkongfp.com', url: 'https://hongkongfp.com/feed/', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
-  { id: 'scmp-hk', label: 'SCMP', homepage: 'https://www.scmp.com', url: 'https://www.scmp.com/rss/2/feed', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
+  { id: 'scmp-hk', label: 'SCMP', homepage: 'https://www.scmp.com', url: 'https://www.scmp.com/rss/2/feed/', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
   { id: 'yahoo-hk', label: 'Yahoo 新聞', homepage: 'https://hk.news.yahoo.com', url: 'https://hk.news.yahoo.com/rss', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
   { id: 'rthk-china', label: '港台大中華', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_greaterchina.xml`, regions: ['HKG'], terms: 'uncertain', category: 'china' },
   { id: 'bbc-zh', label: 'BBC 中文', homepage: 'https://www.bbc.com/zhongwen/trad', url: `${bbc}/zhongwen/trad/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'china' },
   { id: 'g-china', label: 'Google 中國', homepage: 'https://news.google.com', url: 'https://news.google.com/rss/search?q=%E4%B8%AD%E5%9C%8B+when:2d&hl=zh-HK&gl=HK&ceid=HK:zh-Hant', regions: ['ASI'], terms: 'uncertain', category: 'china' },
   { id: 'cna', label: 'CNA', homepage: 'https://www.cna.com.tw', url: 'https://feeds.feedburner.com/rsscna/intworld', regions: ['TWN'], terms: 'uncertain', category: 'asia' },
-  { id: 'nhk', label: 'NHK', homepage: 'https://www3.nhk.or.jp/nhkworld/', url: 'https://www.nhk.or.jp/rss/news/cat0.xml', regions: ['JPN'], terms: 'uncertain', category: 'asia' },
+  { id: 'nhk', label: 'NHK', homepage: 'https://www3.nhk.or.jp/nhkworld/', url: 'https://news.web.nhk/n-data/conf/na/rss/cat0.xml', regions: ['JPN'], terms: 'uncertain', category: 'asia' },
   { id: 'yonhap', label: 'Yonhap', homepage: 'https://en.yna.co.kr', url: 'https://en.yna.co.kr/RSS/news.xml', regions: ['KOR'], terms: 'uncertain', category: 'asia' },
   { id: 'bbc-asia', label: 'BBC 亞洲', homepage: 'https://www.bbc.com/news', url: `${bbc}/news/world/asia/rss.xml`, regions: ['ASI'], terms: 'uncertain', category: 'asia' },
   { id: 'rthk-world', label: '港台國際', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_cinternational.xml`, regions: ['HKG'], terms: 'uncertain', category: 'world' },
@@ -64,31 +80,31 @@ export const FEEDS: Feed[] = [
   { id: 'bbc-europe', label: 'BBC 歐洲', homepage: 'https://www.bbc.com/news', url: `${bbc}/news/world/europe/rss.xml`, regions: ['EUR'], terms: 'uncertain', category: 'world' },
   { id: 'guardian', label: 'The Guardian', homepage: 'https://www.theguardian.com/world', url: 'https://www.theguardian.com/world/rss', regions: ['EUR'], terms: 'uncertain', category: 'world' },
   { id: 'aljazeera', label: 'Al Jazeera', homepage: 'https://www.aljazeera.com', url: 'https://www.aljazeera.com/xml/rss/all.xml', regions: ['ME'], terms: 'uncertain', category: 'world' },
-  { id: 'g-world', label: 'Google 國際', homepage: 'https://news.google.com', url: googleTopic('WORLD'), regions: ['INT'], terms: 'uncertain', category: 'world' },
   { id: 'rthk-biz', label: '港台財經', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_cfinance.xml`, regions: ['HKG'], terms: 'uncertain', category: 'business' },
   { id: 'bbc-biz', label: 'BBC 財經', homepage: 'https://www.bbc.com/news/business', url: `${bbc}/news/business/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'business' },
-  { id: 'guardian-biz', label: 'Guardian 財經', homepage: 'https://www.theguardian.com/business', url: 'https://www.theguardian.com/business/rss', regions: ['EUR'], terms: 'uncertain', category: 'business' },
+  { id: 'guardian-biz', label: 'Guardian 財經', homepage: 'https://www.theguardian.com/business', url: 'https://www.theguardian.com/uk/business/rss', regions: ['EUR'], terms: 'uncertain', category: 'business' },
   { id: 'cnbc', label: 'CNBC', homepage: 'https://www.cnbc.com', url: 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147', regions: ['USA'], terms: 'uncertain', category: 'business' },
-  { id: 'g-biz', label: 'Google 財經', homepage: 'https://news.google.com', url: googleTopic('BUSINESS'), regions: ['INT'], terms: 'uncertain', category: 'business' },
+  { id: 'g-biz', label: 'Google 財經', homepage: 'https://news.google.com', url: googleTopic(GOOGLE.business), regions: ['INT'], terms: 'uncertain', category: 'business' },
   { id: 'bbc-tech', label: 'BBC 科技', homepage: 'https://www.bbc.com/news/technology', url: `${bbc}/news/technology/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'tech' },
-  { id: 'guardian-tech', label: 'Guardian 科技', homepage: 'https://www.theguardian.com/technology', url: 'https://www.theguardian.com/technology/rss', regions: ['EUR'], terms: 'uncertain', category: 'tech' },
+  { id: 'guardian-tech', label: 'Guardian 科技', homepage: 'https://www.theguardian.com/technology', url: 'https://www.theguardian.com/uk/technology/rss', regions: ['EUR'], terms: 'uncertain', category: 'tech' },
   { id: 'verge', label: 'The Verge', homepage: 'https://www.theverge.com', url: 'https://www.theverge.com/rss/index.xml', regions: ['USA'], terms: 'uncertain', category: 'tech' },
   { id: 'ars', label: 'Ars Technica', homepage: 'https://arstechnica.com', url: 'https://feeds.arstechnica.com/arstechnica/index', regions: ['USA'], terms: 'uncertain', category: 'tech' },
-  { id: 'g-tech', label: 'Google 科技', homepage: 'https://news.google.com', url: googleTopic('TECHNOLOGY'), regions: ['INT'], terms: 'uncertain', category: 'tech' },
+  { id: 'g-tech', label: 'Google 科技', homepage: 'https://news.google.com', url: googleTopic(GOOGLE.tech), regions: ['INT'], terms: 'uncertain', category: 'tech' },
   { id: 'bbc-sci', label: 'BBC 科學', homepage: 'https://www.bbc.com/news/science_and_environment', url: `${bbc}/news/science_and_environment/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'science' },
   { id: 'guardian-sci', label: 'Guardian 科學', homepage: 'https://www.theguardian.com/science', url: 'https://www.theguardian.com/science/rss', regions: ['EUR'], terms: 'uncertain', category: 'science' },
   { id: 'nasa', label: 'NASA', homepage: 'https://www.nasa.gov', url: 'https://www.nasa.gov/feed/', regions: ['USA'], terms: 'public-domain', category: 'science' },
-  { id: 'g-sci', label: 'Google 科學', homepage: 'https://news.google.com', url: googleTopic('SCIENCE'), regions: ['INT'], terms: 'uncertain', category: 'science' },
   { id: 'bbc-health', label: 'BBC 健康', homepage: 'https://www.bbc.com/news/health', url: `${bbc}/news/health/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'health' },
   { id: 'guardian-health', label: 'Guardian 健康', homepage: 'https://www.theguardian.com/society', url: 'https://www.theguardian.com/society/rss', regions: ['EUR'], terms: 'uncertain', category: 'health' },
-  { id: 'g-health', label: 'Google 健康', homepage: 'https://news.google.com', url: googleTopic('HEALTH'), regions: ['INT'], terms: 'uncertain', category: 'health' },
+  { id: 'npr-health', label: 'NPR 健康', homepage: 'https://www.npr.org/sections/health/', url: 'https://feeds.npr.org/1128/rss.xml', regions: ['USA'], terms: 'uncertain', category: 'health' },
   { id: 'rthk-sport', label: '港台體育', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_csport.xml`, regions: ['HKG'], terms: 'uncertain', category: 'sport' },
   { id: 'bbc-sport', label: 'BBC 體育', homepage: 'https://www.bbc.com/sport', url: `${bbc}/sport/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'sport' },
-  { id: 'guardian-sport', label: 'Guardian 體育', homepage: 'https://www.theguardian.com/sport', url: 'https://www.theguardian.com/sport/rss', regions: ['EUR'], terms: 'uncertain', category: 'sport' },
-  { id: 'g-sport', label: 'Google 體育', homepage: 'https://news.google.com', url: googleTopic('SPORTS'), regions: ['INT'], terms: 'uncertain', category: 'sport' },
+  { id: 'bbc-football', label: 'BBC 足球', homepage: 'https://www.bbc.com/sport/football', url: `${bbc}/sport/football/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'sport' },
+  { id: 'guardian-sport', label: 'Guardian 體育', homepage: 'https://www.theguardian.com/sport', url: 'https://www.theguardian.com/uk/sport/rss', regions: ['EUR'], terms: 'uncertain', category: 'sport' },
+  { id: 'sky-sport', label: 'Sky Sports', homepage: 'https://www.skysports.com', url: 'https://www.skysports.com/rss/12040', regions: ['EUR'], terms: 'uncertain', category: 'sport' },
+  { id: 'g-sport', label: 'Google 體育', homepage: 'https://news.google.com', url: googleTopic(GOOGLE.sport), regions: ['INT'], terms: 'uncertain', category: 'sport' },
   { id: 'bbc-ent', label: 'BBC 文娛', homepage: 'https://www.bbc.com/news/entertainment_and_arts', url: `${bbc}/news/entertainment_and_arts/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'entertainment' },
   { id: 'variety', label: 'Variety', homepage: 'https://variety.com', url: 'https://variety.com/feed/', regions: ['USA'], terms: 'uncertain', category: 'entertainment' },
-  { id: 'g-ent', label: 'Google 娛樂', homepage: 'https://news.google.com', url: googleTopic('ENTERTAINMENT'), regions: ['INT'], terms: 'uncertain', category: 'entertainment' },
+  { id: 'deadline', label: 'Deadline', homepage: 'https://deadline.com', url: 'https://deadline.com/feed/', regions: ['USA'], terms: 'uncertain', category: 'entertainment' },
 ];
 
 export function regionByCode(code: string): Region {

@@ -1,7 +1,13 @@
 import { CATEGORY_IDS } from '../shared/categories.js';
 import { FEEDS, type Feed } from '../shared/feeds.js';
 import { dedupeNews, parseFeed } from '../shared/rss.js';
-import type { NewsItem } from '../shared/types';
+import type { FeedErrorSource, NewsItem } from '../shared/types';
+
+const BROWSER_HEADERS = {
+  Accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*;q=0.8',
+  'Accept-Language': 'zh-HK,zh-Hant;q=0.9,en;q=0.8',
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+};
 
 const FEED_TIMEOUT_MS = 5000;
 const MAX_AGE_MS = 48 * 60 * 60 * 1000;
@@ -46,21 +52,44 @@ export function selectHeadlines(items: NewsItem[], now = Date.now()): NewsItem[]
   return dedupeNews(picked);
 }
 
-async function fetchOne(feed: Feed, fetchImpl: typeof fetch): Promise<NewsItem[]> {
+function failureReason(error: unknown): string {
+  if (!(error instanceof Error)) return 'network';
+  if (error.name === 'AbortError' || error.name === 'TimeoutError') return 'timeout';
+  if (/subrequest/i.test(error.message)) return 'subrequests';
+  return 'network';
+}
+
+async function fetchOne(
+  feed: Feed,
+  fetchImpl: typeof fetch,
+): Promise<{ items: NewsItem[]; error?: FeedErrorSource }> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FEED_TIMEOUT_MS);
+  const fail = (reason: string) => ({ items: [] as NewsItem[], error: { source: feed.label, reason } });
   try {
-    const response = await fetchImpl(feed.url, {
+    let response = await fetchImpl(feed.url, {
       signal: controller.signal,
-      headers: {
-        Accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml',
-        'User-Agent': 'world-news/3.0 (+https://world-news.xyz)',
-      },
+      headers: BROWSER_HEADERS,
+      redirect: 'manual',
     });
-    if (!response.ok) return [];
-    return parseFeed(await response.text(), feed);
-  } catch {
-    return [];
+    if (response.status >= 300 && response.status < 400) {
+      const location = response.headers.get('location');
+      if (!location) return fail('redirect');
+      response = await fetchImpl(new URL(location, feed.url).href, {
+        signal: controller.signal,
+        headers: BROWSER_HEADERS,
+        redirect: 'manual',
+      });
+      if (response.status >= 300 && response.status < 400) return fail('redirect');
+    }
+    if (!response.ok) return fail(`HTTP ${response.status}`);
+    const text = await response.text();
+    if (!/<(rss|feed|rdf:RDF)/i.test(text)) return fail('not xml');
+    const items = parseFeed(text, feed);
+    if (!items.length) return fail('empty');
+    return { items };
+  } catch (error) {
+    return fail(failureReason(error));
   } finally {
     clearTimeout(timer);
   }
@@ -70,10 +99,10 @@ export async function loadFeeds(
   feeds: Feed[] = FEEDS,
   fetchImpl: typeof fetch = fetch,
   now = Date.now(),
-): Promise<{ items: NewsItem[]; errors: number }> {
+): Promise<{ items: NewsItem[]; errors: number; errorSources: FeedErrorSource[] }> {
   const results: NewsItem[][] = [];
+  const errorSources: FeedErrorSource[] = [];
   let cursor = 0;
-  let errors = 0;
   const workers = Math.max(1, feeds.length);
 
   async function worker() {
@@ -82,12 +111,12 @@ export async function loadFeeds(
       cursor += 1;
       const feed = feeds[index];
       if (!feed) continue;
-      const items = await fetchOne(feed, fetchImpl);
-      if (items.length === 0) errors += 1;
-      results[index] = items;
+      const fetched = await fetchOne(feed, fetchImpl);
+      if (fetched.error) errorSources.push(fetched.error);
+      results[index] = fetched.items;
     }
   }
 
   await Promise.all(Array.from({ length: workers }, () => worker()));
-  return { items: selectHeadlines(results.flat(), now), errors };
+  return { items: selectHeadlines(results.flat(), now), errors: errorSources.length, errorSources };
 }
