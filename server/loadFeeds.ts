@@ -1,9 +1,9 @@
-import { FEEDS, type Feed } from '../shared/feeds';
-import { dedupeNews, parseFeed } from '../shared/rss';
+import { FEEDS, type Feed } from '../shared/feeds.js';
+import { dedupeNews, parseFeed } from '../shared/rss.js';
 import type { NewsItem } from '../shared/types';
 
-const FEED_TIMEOUT_MS = 4500;
-const CONCURRENCY = 6;
+const FEED_TIMEOUT_MS = 3000;
+const CONCURRENCY = 8;
 
 async function fetchOne(feed: Feed, fetchImpl: typeof fetch): Promise<NewsItem[]> {
   const controller = new AbortController();

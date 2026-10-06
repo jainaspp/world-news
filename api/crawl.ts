@@ -1,8 +1,8 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { isCronAuthorized } from '../server/auth';
-import { loadFeeds } from '../server/loadFeeds';
-import { clearNewsCache } from '../server/newsService';
-import { storeNews } from '../server/supabase';
+import { isCronAuthorized } from '../server/auth.js';
+import { loadFeeds } from '../server/loadFeeds.js';
+import { clearNewsCache } from '../server/newsService.js';
+import { storeNews } from '../server/supabase.js';
 
 function send(res: ServerResponse, status: number, body: unknown) {
   res.statusCode = status;
@@ -22,13 +22,17 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     return;
   }
 
-  const { items, errors } = await loadFeeds();
-  const saved = await storeNews(items);
-  if ('error' in saved) {
-    const status = saved.error.includes('not set') ? 503 : 502;
-    send(res, status, { fetched: items.length, feedErrors: errors, ...saved });
-    return;
+  try {
+    const { items, errors } = await loadFeeds();
+    const saved = await storeNews(items);
+    if ('error' in saved) {
+      const status = saved.error.includes('not set') ? 503 : 502;
+      send(res, status, { fetched: items.length, feedErrors: errors, ...saved });
+      return;
+    }
+    clearNewsCache();
+    send(res, 200, { fetched: items.length, feedErrors: errors, stored: saved.stored });
+  } catch {
+    send(res, 503, { fetched: 0, feedErrors: 0, stored: 0, error: 'unavailable' });
   }
-  clearNewsCache();
-  send(res, 200, { fetched: items.length, feedErrors: errors, stored: saved.stored });
 }

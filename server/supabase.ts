@@ -1,13 +1,62 @@
-import { stableId, normalizeLink } from '../shared/rss';
+import http from 'node:http';
+import https from 'node:https';
+import { stableId, normalizeLink } from '../shared/rss.js';
 import type { NewsItem } from '../shared/types';
 
 const FRESH_MS = 60 * 60 * 1000;
+const CACHE_TIMEOUT_MS = 1000;
 
 function creds(): { url: string; key: string } | null {
-  const url = process.env.SUPABASE_URL?.replace(/\/$/, '');
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const url = process.env.SUPABASE_URL?.trim().replace(/\/$/, '');
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
   if (!url || !key) return null;
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return null;
+  } catch {
+    return null;
+  }
   return { url, key };
+}
+
+function requestJson(
+  url: string,
+  init: { method?: string; headers: Record<string, string>; body?: string },
+): Promise<{ ok: boolean; status: number; json: unknown }> {
+  return new Promise((resolve, reject) => {
+    const target = new URL(url);
+    const lib = target.protocol === 'https:' ? https : http;
+    const pending: { timer?: ReturnType<typeof setTimeout> } = {};
+    const req = lib.request(
+      target,
+      { method: init.method ?? 'GET', headers: init.headers },
+      (res) => {
+        const chunks: Buffer[] = [];
+        res.on('data', (chunk: Buffer) => chunks.push(chunk));
+        res.on('end', () => {
+          clearTimeout(pending.timer);
+          const status = res.statusCode ?? 0;
+          if (status < 200 || status >= 300) {
+            resolve({ ok: false, status, json: null });
+            return;
+          }
+          try {
+            const text = Buffer.concat(chunks).toString('utf8');
+            resolve({ ok: true, status, json: text ? JSON.parse(text) : null });
+          } catch (error) {
+            reject(error);
+          }
+        });
+      },
+    );
+    pending.timer = setTimeout(() => req.destroy(new Error('timeout')), CACHE_TIMEOUT_MS);
+    req.on('error', (error) => {
+      clearTimeout(pending.timer);
+      reject(error);
+    });
+    if (init.body) req.write(init.body);
+    req.end();
+  });
 }
 
 function headers(key: string, prefer?: string): Record<string, string> {
@@ -55,12 +104,12 @@ export async function readCache(allowStale: boolean): Promise<NewsItem[] | null>
   const auth = creds();
   if (!auth) return null;
   try {
-    const response = await fetch(
+    const response = await requestJson(
       `${auth.url}/rest/v1/news?select=id,title,link,source,source_url,region,regions,pub_date,fetched_at&order=pub_date.desc&limit=200`,
       { headers: headers(auth.key) },
     );
     if (!response.ok) return null;
-    const rows = (await response.json()) as Row[];
+    const rows = response.json as Row[];
     if (!Array.isArray(rows) || rows.length === 0) return null;
     if (!allowStale) {
       const newest = rows.reduce((max, row) => {
@@ -95,7 +144,7 @@ export async function storeNews(
     fetched_at: now,
   }));
   try {
-    const response = await fetch(`${auth.url}/rest/v1/news?on_conflict=link`, {
+    const response = await requestJson(`${auth.url}/rest/v1/news?on_conflict=link`, {
       method: 'POST',
       headers: headers(auth.key, 'resolution=merge-duplicates'),
       body: JSON.stringify(rows),
