@@ -1,4 +1,5 @@
 import { arabicDigits, cantoneseLeft, polishProse } from './prose.js';
+import { researchSources, SOURCE_LIST_CAP } from './search.js';
 import { stableId } from './rss.js';
 import { hasChinese, isMostlyEnglish, toHK } from './zh.js';
 import { bestImage } from './media.js';
@@ -28,17 +29,42 @@ export const BRIEFING_HEADINGS = ['香港', '內地', '今日值得留意'] as c
 
 export const COMPARE_HEADINGS = ['事件經過', '各方回應', '後續關注'] as const;
 
-/** A comparison saved before the 懶人包 format, or one that still contains Cantonese, stays out of the public list. */
+/** Narrative Chinese characters. Timeline titles are not the article. */
+export function narrativeChars(doc: ContentDoc): number {
+  const text = [
+    ...(doc.points ?? []),
+    ...doc.blocks.filter((block) => block.title !== '事件時間線').flatMap((block) => block.sentences),
+  ].join('');
+  return (text.match(/[\u3400-\u9fff]/g) || []).length;
+}
+
+/** Below this, a briefing or explainer stays unpublished. */
+export const PUBLISH_FLOOR = 500;
+
+/** A comparison that is thin, old-format, or still Cantonese stays out of the public list. */
 export function explainerCurrent(doc: ContentDoc): boolean {
   if (doc.kind !== 'compare') return false;
+  if (!hasChinese(doc.title)) return false;
   const titles = new Set(doc.blocks.map((block) => block.title));
   if (!titles.has('事件時間線') || !titles.has('事件經過')) return false;
+  if (narrativeChars(doc) < PUBLISH_FLOOR) return false;
   const prose = [
     doc.title,
     doc.description,
     ...(doc.points ?? []),
     ...doc.blocks.filter((block) => block.title !== '事件時間線').flatMap((block) => block.sentences),
   ].join('\n');
+  return !cantoneseLeft(prose);
+}
+
+/** A briefing under the floor is noindex and omitted from the index and sitemap. */
+export function briefingPublic(doc: ContentDoc): boolean {
+  if (doc.kind !== 'briefing') return false;
+  if (!hasChinese(doc.title)) return false;
+  const titles = new Set(doc.blocks.map((block) => block.title));
+  if (!titles.has('今日值得留意') || (!titles.has('香港') && !titles.has('內地'))) return false;
+  if (narrativeChars(doc) < PUBLISH_FLOOR) return false;
+  const prose = [doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => block.sentences)].join('\n');
   return !cantoneseLeft(prose);
 }
 
@@ -93,6 +119,10 @@ export interface ContentDoc {
   originalUrl?: string;
   /** Phrases the grounding guard removed or changed. Stored for audit, not shown. */
   guard?: string[];
+  /** URLs Grok's web search actually returned, merged with the cluster links. Shown once at the bottom. */
+  citations?: SourceRef[];
+  /** Web search supplied facts, so a later render does not drop figures that were not in the board excerpt. */
+  researched?: boolean;
 }
 
 /** One row of the per-kind archive list kept in KV (index:<kind>). */
@@ -128,6 +158,26 @@ export function docCategories(doc: ContentDoc): string[] {
 
 export function uniqueSources(doc: ContentDoc): SourceRef[] {
   return [...new Map(doc.blocks.flatMap((block) => block.sources).map((source) => [source.url, source])).values()];
+}
+
+/**
+ * Put the URLs Grok cited first, then cluster links that survived the same-event filter.
+ * A citation that is already a cluster link keeps that outlet's name.
+ */
+export function attachCitations(doc: ContentDoc, urls: string[]): ContentDoc {
+  const cited = researchSources(urls);
+  if (!cited.length) return doc;
+  const known = new Map(uniqueSources(doc).map((source) => [source.url, source]));
+  const seen = new Set<string>();
+  const merged: SourceRef[] = [];
+  const push = (source: SourceRef) => {
+    if (!source.url || seen.has(source.url) || merged.length >= SOURCE_LIST_CAP) return;
+    seen.add(source.url);
+    merged.push(source);
+  };
+  for (const source of cited) push(known.get(source.url) ?? source);
+  for (const source of known.values()) push(source);
+  return { ...doc, citations: merged };
 }
 
 export function indexEntry(doc: ContentDoc): IndexEntry {
@@ -235,7 +285,7 @@ export function sourcesFromCluster(cluster: StoryCluster, limit = 6): SourceRef[
       title: item.title,
       url: item.link,
       source: item.source,
-      excerpt: item.excerpt?.slice(0, 300),
+      excerpt: item.excerpt?.slice(0, 600),
       ...(item.image ? { image: item.image } : {}),
       ...(item.category ? { category: item.category } : {}),
       ...(item.pubDate ? { pubDate: item.pubDate } : {}),
@@ -340,30 +390,35 @@ export function weeklyFromHeadlines(tech: SourceRef[], business: SourceRef[], ke
   };
 }
 
-function columnPrompt(doc: ContentDoc, strict: boolean): { system: string; user: string; maxTokens: number } {
+function columnPrompt(doc: ContentDoc, strict: boolean, research = false): { system: string; user: string; maxTokens: number } {
+  const bounds = research
+    ? '寫之前先用網頁搜尋核對這一件事的其他報道、背景和較早發展。只採用通訊社、報章和廣播等新聞來源，不要採用社交媒體、論壇或百科。搜尋最多 5 次，正文採用的來源最多 8 個。事實必須來自搜尋結果或下面的標題，禁止添加兩邊都沒有的事實、數字、引言、人名、地點或因果。'
+    : '只可使用提供的標題和摘錄。同一事實只寫一次：各家說法相同就合併成一句，只有數字或措辭不同時才點名是哪一家。禁止添加來源沒有寫的事實、數字、引言、人名、地點、因果或形容，例如「迅速」「安全救下」。';
   const system = [
     '你是世界頭條的編輯，寫原創整合，不是改寫任何一篇報道。一律用繁體中文正式新聞書面語，不要用簡體字，不要用粵語口語。',
     '判斷用「是」。使用全形標點，一句只說一件事，中文之間不要用空格分隔。數字和年份一律用阿拉伯數字，例如 2026、3.2%、21.44億。',
-    '只可使用提供的標題和摘錄。同一事實只寫一次：各家說法相同就合併成一句，只有數字或措辭不同時才點名是哪一家。禁止添加來源沒有寫的事實、數字、引言、人名、地點、因果或形容，例如「迅速」「安全救下」。',
+    bounds,
+    '不要寫「未有回應」「未有評論」「政府未有表態」這類否定句，除非摘錄原文這樣寫。沒有回應、沒有數字、沒有下一步，就整段省略，不要用空話填篇幅。',
+    '用新聞書面語寫成自然段落，句子長短要有變化，每段二至四句，使用全形逗號。不要把一句話拆成許多短句，也不要寫「事件造成…結果」這類空話。引文每次不超過二十字，不要大段照抄摘錄。',
     '不要稱呼資料欄位，也不要談論材料的格式。不要把標題原句串成內文。',
     '提到媒體時照用資料中 source 的名稱，不要自行翻譯或改名，也不要在名稱後面再加一次分類。',
-    '標題必須是中文，英文來源也要譯成中文標題，並且點出這則新聞本身的事件。不要用 Markdown。回覆必須是 JSON。',
-    '正文至少 450 個中文字。結構完整時無須為了湊字而重複同一事實。',
-    strict ? '上一次太短、太多英文，或夾有粵語口語。今次每一句都用正式新聞書面語，正文至少 450 個中文字，同一事實只寫一次。' : '',
+    'title 必須是你為這一件事撰寫的中文標題，不要拼接來源標題，也不要改用其中一條標題。英文來源同樣要寫中文標題。不要用 Markdown。回覆必須是 JSON。',
+    '正文至少 500 個中文字。材料不夠就如實寫短，不要為了湊字重複同一事實。',
+    strict ? '上一次太短、太多英文，或夾有粵語口語。今次每一句都用正式新聞書面語，正文至少 500 個中文字，同一事實只寫一次。' : '',
   ].join('');
   const clip = (source: SourceRef, index: number) => ({
     n: index + 1,
     source: source.source,
     title: source.title,
-    excerpt: (source.excerpt || '').slice(0, 180),
+    excerpt: (source.excerpt || '').slice(0, 480),
   });
   if (doc.kind === 'briefing') {
     const data = doc.blocks
       .filter((block) => block.title === '香港' || block.title === '內地')
       .map((block) => ({ heading: block.title, sources: block.sources.map(clip) }));
     const shape = [
-      '回傳 {"title":"20字以內的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"四至六句"}],"points":["重點","重點","重點"]}。',
-      '這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫為何重要。同一事實只寫一次。',
+      '回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"兩至四句一段，可寫兩段"}],"points":["重點","重點","重點"]}。',
+      '這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫為何重要。同一事實只寫一次。句子長短要有變化。',
       '香港段只根據香港來源，內地段只根據內地來源。沒有來源的一邊就整段省略。',
       '今日值得留意綜合兩邊，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。',
       'points 三至四項，每項 30 字以內。數字必須在來源出現過。',
@@ -373,11 +428,11 @@ function columnPrompt(doc: ContentDoc, strict: boolean): { system: string; user:
   const timeline = doc.blocks.find((block) => block.title === TIMELINE_HEADING);
   const sources = (timeline?.sources.length ? timeline.sources : doc.blocks[0]?.sources) ?? [];
   const shape = [
-    '回傳 {"title":"中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"highlight":{"label":"重點數字","items":["名稱與單位，例如加幅 3.2%"]},"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"四至六句"}]}。',
+    '回傳 {"title":"你撰寫的中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"highlight":{"label":"重點數字","items":["名稱與單位，例如加幅 3.2%"]},"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"兩至四句一段"}]}。',
     '這是一篇新聞懶人包，把各家報道收成一篇，讓讀者立刻明白發生了甚麼。不要做成對照表，不要按媒體各寫一遍同一個事實。',
     'points 剛好三行，每行 40 字以內，是文首摘要。highlight 的每一項都要有中文名稱和單位，例如「加幅 3.2%」「規模 21.44億歐元」；沒有數字就省略 highlight。不要只寫「3.2%」或「307」。',
-    '「事件經過」按時間寫清經過。「各方回應」只寫來源點名的人或機構說了甚麼；沒有回應就整段省略。「後續關注」只寫來源提到的下一步、日期或未決事項。',
-    '標題必須是這一件事。禁止添加來源沒有的事實。',
+    '「事件經過」按時間寫清經過，分成自然段落。「各方回應」只寫來源點名的人或機構說了甚麼；來源沒有引述就不要輸出這一節。「後續關注」只寫來源提到的下一步、日期或未決事項；沒有就不要輸出這一節。',
+    'title 是這一件事的中文標題，不要拼接來源標題。禁止添加來源沒有的事實。',
   ].join('');
   return {
     system,
@@ -386,8 +441,8 @@ function columnPrompt(doc: ContentDoc, strict: boolean): { system: string; user:
   };
 }
 
-export function promptFor(doc: ContentDoc, strict = false): { system: string; user: string; maxTokens: number } {
-  if (doc.kind === 'briefing' || doc.kind === 'compare') return columnPrompt(doc, strict);
+export function promptFor(doc: ContentDoc, strict = false, research = false): { system: string; user: string; maxTokens: number } {
+  if (doc.kind === 'briefing' || doc.kind === 'compare') return columnPrompt(doc, strict, research);
   const system = [
     '你是世界頭條的編輯。一律用繁體中文正式新聞書面語，不要用簡體字，不要用粵語口語，英文來源都要譯成中文。',
     '只可使用提供的標題和摘錄。禁止添加來源沒有寫的事實、數字、引言、人名、地點、國籍、身份或因果。',
@@ -531,27 +586,16 @@ function numbersSupported(text: string, haystack: string): boolean {
   return (arabicDigits(text).replace(/,/g, '').match(/\d+(?:\.\d+)?/g) || []).every((number) => hay.includes(number));
 }
 
-function cjkBigrams(text: string): Set<string> {
-  const chars = [...text].filter((ch) => /[\u3400-\u9fff]/.test(ch));
-  const grams = new Set<string>();
-  for (let i = 0; i < chars.length - 1; i += 1) grams.add(`${chars[i]}${chars[i + 1]}`);
-  return grams;
-}
+const DENIAL = /未有回應|未有評論|沒有回應|沒有評論|未作回應|未作評論|尚未回應|尚未評論|未有表態|沒有表態|政府未有|議員未有/;
+const PADDED = /造成.+結果|事件造成/;
 
-/** The title has to share wording with a source headline, so a wrong story cannot stay up. */
-function titleFitsStory(title: string, sources: SourceRef[]): boolean {
-  const grams = cjkBigrams(title);
-  const hay = cjkBigrams(sources.map((source) => source.title).join(''));
-  if (!hay.size) return grams.size >= 2;
-  if (!grams.size) return false;
-  for (const gram of grams) if (hay.has(gram)) return true;
-  return false;
-}
-
-function briefingFallbackTitle(doc: ContentDoc, sources: SourceRef[]): string {
-  const named = sources.map((source) => source.title).filter((title) => hasChinese(title)).slice(0, 2);
-  if (named.length) return named.map((title) => title.slice(0, 14)).join('、').slice(0, 40);
-  return `每日香港導讀 ${doc.key.slice(0, 10)}`;
+/** Drop invented "nobody commented" lines and sentences copied verbatim from the lead text. */
+function publishableSentence(line: string, haystack: string): boolean {
+  if (PADDED.test(line)) return false;
+  if (DENIAL.test(line) && !DENIAL.test(haystack)) return false;
+  const compact = line.replace(/\s/g, '');
+  if (compact.length >= 24 && haystack.replace(/\s/g, '').includes(compact)) return false;
+  return true;
 }
 
 function groundedField(value: string | undefined, haystack: string, clean: (text: string, haystack: string) => string | null): string | undefined {
@@ -570,7 +614,7 @@ function fallbackTitle(doc: ContentDoc, sources: SourceRef[]): string {
  * Deterministic grounding pass over everything the model wrote: unsupported countries and
  * nationalities, model-written outlet names, and bracketed English names for transliterations.
  */
-export function guardDoc(doc: ContentDoc): ContentDoc {
+export function guardDoc(doc: ContentDoc, options?: { researched?: boolean }): ContentDoc {
   const log: string[] = [];
   const allSources = uniqueSources(doc);
   const names = [...new Set(allSources.map((source) => source.source))];
@@ -596,16 +640,7 @@ export function guardDoc(doc: ContentDoc): ContentDoc {
   if ((doc.kind === 'briefing' || doc.kind === 'compare') && title === doc.title) {
     const cleaned = clean(title, allText);
     const unsupportedNumber = Boolean(cleaned) && !numbersSupported(cleaned || '', allText);
-    const fitted = cleaned && !unsupportedNumber ? cleaned : '';
-    const matches = Boolean(fitted) && titleFitsStory(fitted, allSources);
-    if (!matches) {
-      const fallback = doc.kind === 'briefing' ? briefingFallbackTitle(doc, allSources) : fallbackTitle(doc, allSources);
-      if (fallback !== title) log.push(`標題改用來源標題：${title} → ${fallback}`);
-      title = fallback;
-    } else if (fitted !== title) {
-      log.push(`標題改用來源標題：${title} → ${fitted}`);
-      title = fitted;
-    }
+    if (cleaned && hasChinese(cleaned) && !unsupportedNumber) title = cleaned;
   }
   const blocks = doc.blocks.map((block) => {
     // Only the published headlines/summaries count as support, never the model's own title.
@@ -621,6 +656,7 @@ export function guardDoc(doc: ContentDoc): ContentDoc {
       }
     }
     let sentences = block.sentences.map((line) => clean(line, haystack)).filter((line): line is string => Boolean(line && line.trim()));
+    if (doc.kind === 'briefing' || doc.kind === 'compare') sentences = sentences.filter((line) => publishableSentence(line, haystack));
     if (doc.kind === 'digest' && sentences.length < 2) sentences = draftSentences(block.sources);
     const sources = block.sources.map((source) => {
       const own = sourceText([source]);
@@ -665,13 +701,15 @@ export function guardDoc(doc: ContentDoc): ContentDoc {
   if (highlight) next.highlight = highlight;
   else delete next.highlight;
   const points = (doc.points ?? [])
-    .map((item) => (numbersSupported(item, allText) ? clean(item, allText) : null))
+    .map((item) => ((options?.researched || numbersSupported(item, allText)) ? clean(item, allText) : null))
     .filter((item): item is string => Boolean(item))
     .slice(0, 4);
   if (points.length) next.points = points;
   else delete next.points;
   if (log.length) next.guard = log;
   else delete next.guard;
+  if (options?.researched || doc.researched) next.researched = true;
+  else delete next.researched;
   return next;
 }
 
@@ -697,7 +735,7 @@ function polishColumn(doc: ContentDoc): ContentDoc {
   return next;
 }
 
-export function applyModelText(doc: ContentDoc, raw: string, model = AI_MODEL): ContentDoc | null {
+export function applyModelText(doc: ContentDoc, raw: string, model = AI_MODEL, options?: { researched?: boolean }): ContentDoc | null {
   const result = applyModelBody(doc, raw, model);
   if (!result) return null;
   const polished = polishColumn(toTraditional(withHighlight(result.doc, result.record)));
@@ -709,7 +747,7 @@ export function applyModelText(doc: ContentDoc, raw: string, model = AI_MODEL): 
   // Checked before guardDoc so a grounded-away Chinese title that falls back to the English
   // source headline is not treated as a failed translation.
   if (doc.kind === 'digest' && digestHasEnglishHeadlines(polished)) return null;
-  return guardDoc(polished);
+  return guardDoc(polished, options);
 }
 
 /** True when a digest still shows English headlines that the model should have translated. */
@@ -859,10 +897,23 @@ function applyModelBody(doc: ContentDoc, raw: string, model: string): { doc: Con
 
 export function textFromAi(result: unknown): string {
   if (!result || typeof result !== 'object') return '';
-  const row = result as { response?: unknown; choices?: { message?: { content?: unknown } }[] };
+  const row = result as {
+    response?: unknown;
+    choices?: { message?: { content?: unknown } }[];
+    output?: { type?: string; content?: { type?: string; text?: unknown }[] }[];
+  };
   if (typeof row.response === 'string') return row.response;
   const content = row.choices?.[0]?.message?.content;
-  return typeof content === 'string' ? content : '';
+  if (typeof content === 'string' && content) return content;
+  if (!Array.isArray(row.output)) return '';
+  const parts: string[] = [];
+  for (const item of row.output) {
+    if (!item || item.type !== 'message' || !Array.isArray(item.content)) continue;
+    for (const block of item.content) {
+      if (block && (block.type === 'output_text' || block.type === 'text') && typeof block.text === 'string') parts.push(block.text);
+    }
+  }
+  return parts.join('\n');
 }
 
 export function estimateNeurons(inputTokens: number, outputTokens: number): number {

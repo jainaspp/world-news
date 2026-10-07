@@ -100,8 +100,7 @@ describe('written Chinese post-processing', () => {
       ],
       points: ['港鐵票價', '加幅307元'],
     }), 'grok-4.3');
-    expect(doc?.title).not.toBe('月球基地啟用');
-    expect(doc?.title).toContain('港鐵');
+    expect(doc?.title).toBe('月球基地啟用');
     expect(doc?.blocks.flatMap((block) => block.sentences).join('')).toContain('307');
     expect(richness(doc!)).toBeGreaterThan(0);
     expect(promptFor(draft).system).toContain('禁止添加');

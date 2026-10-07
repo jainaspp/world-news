@@ -1,5 +1,5 @@
 import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
-import { explainerCurrent, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
+import { briefingPublic, explainerCurrent, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
 import { bestImage } from './media.js';
 import { FOOTER_LINKS } from './siteNav.js';
 
@@ -326,6 +326,7 @@ function keyPoints(doc: ContentDoc): string[] {
 
 export function renderContentPage(doc: ContentDoc, canonical: string, options: PageOptions = {}): string {
   const sources = [...new Map(doc.blocks.flatMap((block) => block.sources).map((source) => [source.url, source])).values()];
+  const listed = doc.citations?.length ? doc.citations.slice(0, 10) : sources;
   const image = safeHttp(bestImage(sources));
   const outlets = new Set(sources.map((source) => source.source)).size;
   const timelineBlock = doc.kind === 'compare' ? doc.blocks.find((block) => block.title === '事件時間線') : undefined;
@@ -351,15 +352,16 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
         mainEntityOfPage: canonical,
         ...(image ? { image: [image] } : {}),
         author: { '@type': 'Organization', name: '世界頭條' },
-        isBasedOn: sources.map((source) => ({ '@type': 'NewsArticle', headline: source.title, url: source.url })),
+        isBasedOn: listed.map((source) => ({ '@type': 'NewsArticle', headline: source.title, url: source.url })),
       },
       { '@type': 'Article', headline: doc.title, datePublished: doc.publishedAt, inLanguage: 'zh-HK', mainEntityOfPage: canonical },
     ],
   };
   const comparePublic = doc.kind === 'compare' && explainerCurrent(doc);
-  const robots = doc.kind === 'briefing' || comparePublic
+  const briefingOk = doc.kind === 'briefing' && briefingPublic(doc);
+  const robots = briefingOk || comparePublic
     ? '<meta name="robots" content="index,follow" />'
-    : doc.kind === 'compare'
+    : doc.kind === 'briefing' || doc.kind === 'compare'
       ? '<meta name="robots" content="noindex,follow" />'
       : '';
   const ld = `${robots}<script type="application/ld+json">${JSON.stringify(json).replace(/</g, '\\u003c')}</script>`;
@@ -390,8 +392,8 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const angles = doc.kind === 'analysis' ? outletAngles(sources) : '';
   const rich = doc.kind === 'briefing' || doc.kind === 'compare';
   const explainerTimeline = timelineBlock ? eventTimeline(timelineBlock.sources) : '';
-  const sourceSection = sources.length
-    ? `<section class="story column-block"><div class="story-body"><h2 class="column-h2">來源（${sources.length}）</h2>${sourceList(sources)}</div></section>`
+  const sourceSection = listed.length
+    ? `<section class="story column-block"><div class="story-body"><h2 class="column-h2">來源（${listed.length}）</h2>${sourceList(listed)}</div></section>`
     : '';
   const explainerLinks = doc.kind === 'briefing' && options.explainers?.length
     ? `<section class="story column-block" aria-label="今日新聞懶人包"><div class="story-body"><h2 class="column-h2">今日新聞懶人包</h2><ul class="points">${options.explainers.slice(0, 8).map((entry) => `<li><a href="/explainer/${encodeURIComponent(entry.key)}/">${esc(entry.title)}</a></li>`).join('')}</ul></div></section>`
