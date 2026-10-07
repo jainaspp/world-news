@@ -929,6 +929,23 @@ async function runUpdates(
   return { keys, costs, events };
 }
 
+/** Rejected explainer rewrites, kept hidden for a week for debugging. */
+const REJECTED_TTL_SECONDS = 7 * 24 * 60 * 60;
+
+export function rejectedKey(key: string): string {
+  return `rejected:compare:${key}`;
+}
+
+/**
+ * True when the stored explainer should stay: it is listed, and the new version is either not
+ * listable or more than 15% shorter. Applies to every writer.
+ */
+export function keepStoredExplainer(stored: ContentDoc, next: ContentDoc): boolean {
+  if (!explainerCurrent(stored)) return false;
+  if (!explainerCurrent(next)) return true;
+  return narrativeChars(next) < narrativeChars(stored) * 0.85;
+}
+
 const PENDING_KEY = 'minimax-pending';
 
 async function readPending(env: ContentEnv): Promise<string[]> {
@@ -1072,6 +1089,7 @@ export async function generateCompare(
 
   const { docs, grokStatus, grokError, capped, costs, steps } = await composeBatch(env, jobs, Date.now(), requestStart + MINIMAX_DEADLINE_MS);
   const saved: ContentDoc[] = [];
+  const kept: string[] = [];
   let nextWritten: WrittenStory[] = [...written];
   for (const [index, doc] of docs.entries()) {
     const job = jobs[index];
@@ -1082,6 +1100,15 @@ export async function generateCompare(
       const oldKey = doc.key;
       doc.key = `${oldKey.slice(0, 10)}-${analysisSlug(doc.title)}`;
       events = events.filter((event) => event.key !== oldKey);
+    }
+    // Keep the better version: a rewrite replaces a listed piece only if it is listed too and not
+    // more than 15% shorter. A rejected draft is kept hidden for debugging.
+    const stored = (await readDoc(env, docKey('compare', doc.key)).catch(() => null))?.doc;
+    if (stored && keepStoredExplainer(stored, doc)) {
+      await writeValue(env, rejectedKey(doc.key), JSON.stringify({ doc, rejectedAt: now.getTime(), keptChars: narrativeChars(stored) }), REJECTED_TTL_SECONDS);
+      kept.push(doc.key);
+      saved.push(stored);
+      continue;
     }
     await writeDoc(env, doc, false);
     saved.push(doc);
@@ -1110,7 +1137,7 @@ export async function generateCompare(
   }
   await writeEvents(env, events, now.getTime());
   if (saved.length) await rememberIndexMany(env, saved).catch(() => undefined);
-  const checked = saved.filter((doc) => Boolean(doc.stage) || awaitingVerify(doc)).map((doc) => doc.key);
+  const checked = saved.filter((doc) => !kept.includes(doc.key) && (Boolean(doc.stage) || awaitingVerify(doc))).map((doc) => doc.key);
   if (checked.length) await writePending(env, [...(await readPending(env)), ...checked]);
   return delivered(columnDelivery({
     capped,
@@ -1124,6 +1151,7 @@ export async function generateCompare(
   }), {
     kind: 'compare',
     keys: saved.map((doc) => doc.key),
+    ...(kept.length ? { kept } : {}),
     updates: update.keys,
     modes: saved.map((doc) => doc.mode),
     routes: jobs.map((job) => job.route),
