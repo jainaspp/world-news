@@ -1,5 +1,5 @@
-/** Successful web_search calls kept on one explainer or briefing. */
-export const MAX_SEARCH_TURNS = 3;
+/** Successful web_search calls kept on one explainer or briefing. Fallback only. */
+export const MAX_SEARCH_TURNS = 2;
 
 /** Citation URLs written into the article. The bottom list can also keep cluster links, up to SOURCE_LIST_CAP. */
 export const MAX_RESEARCH_SOURCES = 8;

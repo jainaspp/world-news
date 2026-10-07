@@ -29,8 +29,8 @@ export const XAI_WEB_SEARCH_USD_PER_CALL = 5 / 1000;
 /** Hard stop. At this month-to-date cost, new pieces use Workers AI. */
 export const XAI_MONTHLY_CAP_USD = 10;
 
-/** Comparisons written per HKT day, across both scheduled runs. */
-export const COMPARE_PER_DAY = 20;
+/** New explainers per HKT day, across both scheduled runs (about nine each). */
+export const COMPARE_PER_DAY = 18;
 
 /** Articles per generate call, so one invocation stays inside Workers subrequest and wall-clock limits. */
 export const COMPARE_BATCH = 3;
@@ -470,7 +470,7 @@ function toSource(item: NewsItem): SourceRef {
     title: item.title,
     url: item.link,
     source: item.source,
-    ...(item.excerpt ? { excerpt: item.excerpt.slice(0, 600) } : {}),
+    ...(item.excerpt ? { excerpt: item.excerpt.slice(0, 1_200) } : {}),
     ...(item.image ? { image: item.image } : {}),
     ...(item.category ? { category: item.category } : {}),
     ...(item.pubDate ? { pubDate: item.pubDate } : {}),
@@ -651,7 +651,7 @@ export function columnDelivery(input: {
     .map((doc) => doc.key)
     .filter((key): key is string => Boolean(key));
   if (input.cold) return { status: 503, ok: false, fallback: true, cold: true, error: 'cache-cold', thin: [] };
-  if (input.skipped === 'exists' || input.skipped === 'none' || input.skipped === 'no-headlines' || input.skipped === 'done') {
+  if (input.skipped === 'exists' || input.skipped === 'none' || input.skipped === 'no-headlines' || input.skipped === 'done' || input.skipped === 'pace') {
     return { status: 200, ok: true, fallback: false, thin: [] };
   }
   const docs = input.docs ?? [];

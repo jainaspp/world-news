@@ -131,7 +131,7 @@ describe('search billing and citations', () => {
     expect(stripInlineCitations('事實[[1]](https://www.reuters.com/a)。')).toBe('事實。');
     const body = researchBody('grok-4.3', '系統', '問題 /no_think', 800);
     expect(body.store).toBe(false);
-    expect(body.max_turns).toBe(3);
+    expect(body.max_turns).toBe(2);
     expect(body.include).toEqual(['no_inline_citations']);
     expect(body.tools).toEqual([{ type: 'web_search', filters: { excluded_domains: ['reddit.com', 'facebook.com', 'tiktok.com', 'instagram.com', 'youtube.com'] } }]);
   });
@@ -232,7 +232,10 @@ describe('publish floor and conversion', () => {
       mode: 'sources',
       blocks: [{ title: '事件經過', sentences: ['草稿。'], sources: [{ title: '標題', url: 'https://example.com/a', source: '香港電台' }] }],
     };
-    expect(promptFor(draft, false, true).system).toContain('網頁搜尋 2 至 3 次');
+    expect(promptFor(draft, false, true).system).toContain('最多用網頁搜尋 2 次');
+    expect(promptFor(draft, false, 'material').system).toContain('只可使用提供的標題');
+    expect(promptFor(draft, false, 'material').system).not.toContain('網頁搜尋');
+    expect(promptFor(draft, false, 'material').user).toContain('摘錄中的背景');
     expect(promptFor(draft).system).toContain('只可使用提供的標題');
   });
 

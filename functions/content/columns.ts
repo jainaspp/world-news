@@ -1,6 +1,21 @@
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
+import { needsSearch } from '../../shared/articleText.js';
 import { coherentCluster, type StoryCluster } from '../../shared/angles.js';
 import { coherencePrompt, keepItems, parseCoherence } from '../../shared/coherence.js';
+import {
+  applyBundles,
+  applyDelta,
+  articleRoom,
+  bundleFrom,
+  deltaPrompt,
+  excerptChars,
+  matchEvent,
+  newLinks,
+  overPace,
+  parseDelta,
+  UPDATES_PER_CALL,
+  type StoredEvent,
+} from '../../shared/research.js';
 import type { NewsItem } from '../../shared/types.js';
 import {
   applyModelText,
@@ -9,6 +24,7 @@ import {
   explainerCurrent,
   formatHkt,
   guardDoc,
+  hktParts,
   renderColumnIndex,
   renderContentPage,
   type ContentDoc,
@@ -52,6 +68,7 @@ import type { PagesContext } from '../env.js';
 import { readBoard } from '../board/store.js';
 import { generateFocus } from './focus.js';
 import { adConfig, polish } from './publish.js';
+import { fetchArticleTexts, readBundles, readEvents, stampExcerpts, writeBundle, writeEvents } from './material.js';
 import { docKey, readDoc, readIndex, readValue, rememberIndexMany, writeDoc, writeValue, type ContentEnv } from './store.js';
 import { completeGrok, completeText, XAI_TIMEOUT_MS } from './xai.js';
 
@@ -111,8 +128,11 @@ function apiKey(env: ContentEnv): string {
 interface Job {
   draft: ContentDoc;
   route: 'grok' | 'workers';
-  /** Explainers and briefings research with web_search. Coherence calls do not. */
+  /** Thin fetched text only. The default path is chat completions over article excerpts. */
   search?: boolean;
+  /** Fetched excerpts are already on the draft. No search tool. */
+  material?: boolean;
+  fetchedSources?: number;
   /** Tokens already billed for this article, such as the coherence check. */
   priorInput?: number;
   priorOutput?: number;
@@ -124,6 +144,7 @@ export interface ArticleCost {
   searchCalls: number;
   inputTokens: number;
   outputTokens: number;
+  fetchedSources: number;
 }
 
 /** Grok calls for a batch run together. Workers AI runs only when the cap is hit, the key is missing, or xAI returns nothing. */
@@ -144,10 +165,13 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
     let output = 0;
     let requests = 0;
     let searchCalls = 0;
-    const attempts = job.search ? 1 : 2;
+    const attempts = job.search || job.material ? 1 : 2;
     for (let attempt = 0; attempt < attempts && !(grokDoc && pieceReady(grokDoc)); attempt += 1) {
       if (attempt === 1 && Date.now() - started > RETRY_BEFORE_MS) break;
-      const result = await completeGrok(key, job.draft, attempt === 1, XAI_TIMEOUT_MS, { search: Boolean(job.search) });
+      const result = await completeGrok(key, job.draft, attempt === 1, XAI_TIMEOUT_MS, {
+        search: Boolean(job.search),
+        material: Boolean(job.material),
+      });
       statuses.push(result.status);
       if (result.error) errors.push(result.error);
       if (!result.status) break;
@@ -171,7 +195,7 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
     if (row.grokDoc) return row.grokDoc;
     if (Date.now() - started > WALL_MS) return row.job.draft;
     try {
-      const polished = await polish(env, row.job.draft);
+      const polished = await polish(env, row.job.draft, false, Boolean(row.job.material));
       return preferWritten(null, polished);
     } catch {
       return row.job.draft;
@@ -187,6 +211,7 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
     inputTokens: row.input,
     outputTokens: row.output,
     searchCalls: row.searchCalls,
+    fetchedSources: row.job.fetchedSources ?? 0,
     costUsd: callCostUsd(row.input, row.output, row.searchCalls),
   }));
   return { docs, usage, grokStatus: statuses, grokError: [...new Set(errors)], capped, costs };
@@ -207,12 +232,37 @@ export async function columnStatus(env: ContentEnv, now = new Date()): Promise<R
   return statusFrom(usage);
 }
 
+async function fillBriefing(
+  env: ContentEnv,
+  hk: NewsItem[],
+  china: NewsItem[],
+  now: Date,
+): Promise<{ hk: NewsItem[]; china: NewsItem[]; search: boolean; fetchedSources: number }> {
+  const bundles = await readBundles(env, hktParts(now).date);
+  let nextHk = applyBundles(hk, bundles);
+  let nextChina = applyBundles(china, bundles);
+  if (needsSearch(excerptChars([...nextHk, ...nextChina]))) {
+    const missing = [...nextHk, ...nextChina].filter((item) => (item.excerpt || '').length < 200 && /^https?:\/\//.test(item.link));
+    const fetched = await fetchArticleTexts(env, missing.map((item) => item.link), fetch, 4);
+    nextHk = stampExcerpts(nextHk, fetched.texts);
+    nextChina = stampExcerpts(nextChina, fetched.texts);
+  }
+  const rows = [...nextHk, ...nextChina];
+  return {
+    hk: nextHk,
+    china: nextChina,
+    search: needsSearch(excerptChars(rows)),
+    fetchedSources: rows.filter((item) => (item.excerpt || '').length >= 80).length,
+  };
+}
+
 function summedCost(rows: ArticleCost[], key: string): ArticleCost {
   const picked = rows.filter((row) => row.key === key);
   const inputTokens = picked.reduce((sum, row) => sum + row.inputTokens, 0);
   const outputTokens = picked.reduce((sum, row) => sum + row.outputTokens, 0);
   const searchCalls = picked.reduce((sum, row) => sum + row.searchCalls, 0);
-  return { key, inputTokens, outputTokens, searchCalls, costUsd: callCostUsd(inputTokens, outputTokens, searchCalls) };
+  const fetchedSources = picked.reduce((sum, row) => sum + (row.fetchedSources ?? 0), 0);
+  return { key, inputTokens, outputTokens, searchCalls, fetchedSources, costUsd: callCostUsd(inputTokens, outputTokens, searchCalls) };
 }
 
 export async function generateBriefing(env: ContentEnv, now = new Date(), options: { force?: boolean } = {}): Promise<Record<string, unknown>> {
@@ -221,13 +271,24 @@ export async function generateBriefing(env: ContentEnv, now = new Date(), option
   if (!options.force && existing?.doc.mode === 'ai' && existing.doc.model?.includes('grok') && pieceReady(existing.doc)) {
     return delivered(columnDelivery({ skipped: 'exists' }), { kind: 'briefing', key, mode: 'ai', skipped: 'exists' });
   }
+  const spent = await monthUsage(env, now);
+  if (!options.force && overPace(spent.costUsd, now)) {
+    return delivered(columnDelivery({ skipped: 'pace' }), { kind: 'briefing', key, skipped: 'pace' });
+  }
   const material = await loadMaterial(env);
   if (!material) return delivered(columnDelivery({ cold: true }), { kind: 'briefing', key });
   const started = Date.now();
   const selected = selectBriefingItems(material.items, now);
-  const draft = briefingFromItems(selected.hk, selected.china, key, now);
+  const filled = await fillBriefing(env, selected.hk, selected.china, now);
+  const draft = briefingFromItems(filled.hk, filled.china, key, now);
   if (!draft) return delivered(columnDelivery({ skipped: 'no-headlines' }), { kind: 'briefing', key, skipped: 'no-headlines' });
-  const first = await composeBatch(env, [{ draft, route: 'grok', search: true }], started);
+  const first = await composeBatch(env, [{
+    draft,
+    route: 'grok',
+    search: filled.search,
+    material: !filled.search,
+    fetchedSources: filled.fetchedSources,
+  }], started);
   let doc = first.docs[0] ?? draft;
   let costs = first.costs;
   let grokStatus = first.grokStatus;
@@ -235,9 +296,16 @@ export async function generateBriefing(env: ContentEnv, now = new Date(), option
   const capped = first.capped;
   if (doc.mode === 'ai' && !pieceReady(doc) && Date.now() - started < RETRY_BEFORE_MS) {
     const more = selectBriefingItems(material.items, now, 14);
-    const wider = briefingFromItems(more.hk, more.china, key, now);
+    const widerFilled = await fillBriefing(env, more.hk, more.china, now);
+    const wider = briefingFromItems(widerFilled.hk, widerFilled.china, key, now);
     if (wider) {
-      const again = await composeBatch(env, [{ draft: wider, route: 'grok', search: true }], started);
+      const again = await composeBatch(env, [{
+        draft: wider,
+        route: 'grok',
+        search: widerFilled.search,
+        material: !widerFilled.search,
+        fetchedSources: widerFilled.fetchedSources,
+      }], started);
       costs = [...costs, ...again.costs];
       grokStatus = [...grokStatus, ...again.grokStatus];
       grokError = [...new Set([...grokError, ...again.grokError])];
@@ -314,7 +382,9 @@ interface Prepared {
   route: 'grok' | 'workers';
   cluster: StoryCluster;
   keepKey?: string;
-  search: true;
+  search: boolean;
+  material: boolean;
+  fetchedSources: number;
   priorInput: number;
   priorOutput: number;
 }
@@ -360,25 +430,122 @@ async function prepareExplainers(
     const output = narrowed.reduce((sum, row) => sum + row.output, 0);
     await saveUsage(env, withTokens(usage, input, output, requests, 0));
   }
-  const jobs: Prepared[] = [];
+  const chosen: { cluster: StoryCluster; source: { cluster: StoryCluster; keepKey?: string }; priorInput: number; priorOutput: number }[] = [];
   for (const [index, row] of narrowed.entries()) {
-    if (jobs.length >= take) break;
+    if (chosen.length >= take) break;
     const cluster = row.cluster;
     const source = candidates[index];
     if (!cluster || !source) continue;
+    chosen.push({ cluster, source, priorInput: row.input, priorOutput: row.output });
+  }
+  const urls: string[] = [];
+  for (const row of chosen) {
+    let added = 0;
+    for (const item of row.cluster.items) {
+      if (added >= 4) break;
+      if (!/^https?:\/\//.test(item.link) || urls.includes(item.link)) continue;
+      urls.push(item.link);
+      added += 1;
+    }
+  }
+  const fetched = urls.length
+    ? await fetchArticleTexts(env, urls, fetch, urls.length)
+    : { texts: new Map<string, string>(), fetchedSources: 0 };
+  const date = hktParts(now).date;
+  const jobs: Prepared[] = [];
+  for (const row of chosen) {
+    const stamped = stampExcerpts(row.cluster.items, fetched.texts);
+    const lead = stamped.find((item) => item.id === row.cluster.lead.id) ?? stamped[0];
+    if (!lead) continue;
+    const cluster: StoryCluster = {
+      ...row.cluster,
+      lead,
+      items: stamped,
+      sources: [...new Set(stamped.map((item) => item.source))],
+      count: new Set(stamped.map((item) => item.source)).size,
+    };
+    const chars = excerptChars(stamped);
+    const search = needsSearch(chars) && !capped;
+    await writeBundle(env, bundleFrom(date, storySignature(cluster), cluster.lead.title, stamped)).catch(() => undefined);
     const draft = compareFromCluster(cluster, now, relatedEarlier(cluster, items));
-    if (source.keepKey) draft.key = source.keepKey;
+    if (row.source.keepKey) draft.key = row.source.keepKey;
     jobs.push({
       draft,
       route: routeForCluster(cluster),
       cluster,
-      search: true,
-      priorInput: row.input,
-      priorOutput: row.output,
-      ...(source.keepKey ? { keepKey: source.keepKey } : {}),
+      search,
+      material: !search,
+      fetchedSources: stamped.filter((item) => (item.excerpt || '').length >= 80).length,
+      priorInput: row.priorInput,
+      priorOutput: row.priorOutput,
+      ...(row.source.keepKey ? { keepKey: row.source.keepKey } : {}),
     });
   }
   return jobs;
+}
+
+async function runUpdates(
+  env: ContentEnv,
+  clusters: StoryCluster[],
+  events: StoredEvent[],
+  now: Date,
+): Promise<{ keys: string[]; costs: ArticleCost[]; events: StoredEvent[] }> {
+  const key = apiKey(env);
+  const usage = await monthUsage(env, now);
+  if (capReached(usage) || !key || writerFor({ costUsd: usage.costUsd, hasKey: Boolean(key) }) !== 'grok') {
+    return { keys: [], costs: [], events };
+  }
+  const ranked = [...clusters].filter((cluster) => cluster.count >= 2).sort((a, b) => b.count - a.count || b.latest - a.latest);
+  const picked: { cluster: StoryCluster; event: StoredEvent; links: string[] }[] = [];
+  for (const cluster of ranked) {
+    const event = matchEvent(cluster, events, now.getTime());
+    if (!event) continue;
+    const links = newLinks(cluster, event);
+    if (!links.length) continue;
+    picked.push({ cluster, event, links });
+    if (picked.length >= UPDATES_PER_CALL) break;
+  }
+  if (!picked.length) return { keys: [], costs: [], events };
+  const urls = [...new Set(picked.flatMap((row) => row.links))].slice(0, 4);
+  const fetched = await fetchArticleTexts(env, urls, fetch, urls.length || 1);
+  const keys: string[] = [];
+  const costs: ArticleCost[] = [];
+  const saved: ContentDoc[] = [];
+  let nextUsage = usage;
+  for (const row of picked) {
+    const existing = await readDoc(env, docKey('compare', row.event.key));
+    if (!existing) continue;
+    const material = row.cluster.items.filter((item) => row.links.includes(item.link)).map((item) => ({
+      source: item.source,
+      title: item.title,
+      url: item.link,
+      ...(item.pubDate ? { pubDate: item.pubDate } : {}),
+      excerpt: (fetched.texts.get(item.link) || item.excerpt || '').slice(0, 1_200),
+    }));
+    const prompt = deltaPrompt(existing.doc, material);
+    const result = await completeText(key, prompt.system, prompt.user, prompt.maxTokens, 20_000);
+    if (result.status) nextUsage = withTokens(nextUsage, result.input, result.output, 1, 0);
+    const delta = result.text ? parseDelta(result.text) : null;
+    const applied = delta ? applyDelta(existing.doc, delta, material, now) : { doc: existing.doc, changed: false };
+    if (applied.changed) {
+      await writeDoc(env, applied.doc, false);
+      saved.push(applied.doc);
+      keys.push(applied.doc.key);
+    }
+    row.event.links = [...new Set([...row.event.links, ...row.links])];
+    row.event.at = now.getTime();
+    costs.push({
+      key: row.event.key,
+      inputTokens: result.input,
+      outputTokens: result.output,
+      searchCalls: 0,
+      fetchedSources: material.filter((item) => (item.excerpt || '').length >= 80).length,
+      costUsd: callCostUsd(result.input, result.output, 0),
+    });
+  }
+  if (costs.length) await saveUsage(env, nextUsage);
+  if (saved.length) await rememberIndexMany(env, saved).catch(() => undefined);
+  return { keys, costs, events };
 }
 
 export async function generateCompare(
@@ -391,6 +558,25 @@ export async function generateCompare(
   const written = parseWritten(await readValue(env, writtenKey(now)).catch(() => null));
   const material = await loadMaterial(env);
   if (!material) return delivered(columnDelivery({ cold: true }), { kind: 'compare', keys: [] });
+
+  let events = await readEvents(env);
+  const update = options.force
+    ? { keys: [] as string[], costs: [] as ArticleCost[], events }
+    : await runUpdates(env, material.clusters, events, now);
+  events = update.events;
+
+  const spent = await monthUsage(env, now);
+  const room = options.force ? take : Math.min(take, articleRoom(spent.costUsd, now));
+  if (!options.force && room <= 0) {
+    await writeEvents(env, events, now.getTime());
+    return delivered(columnDelivery({ skipped: 'pace' }), {
+      kind: 'compare',
+      keys: [],
+      updates: update.keys,
+      costs: update.costs,
+      skipped: 'pace',
+    });
+  }
 
   let candidates: { cluster: StoryCluster; keepKey?: string }[];
   if (options.force) {
@@ -405,12 +591,31 @@ export async function generateCompare(
       return cluster ? [{ cluster, keepKey: doc.key }] : [];
     });
   } else {
-    const picked = pickCompareBatch(material.clusters, written, Math.min(8, take + 5), now);
-    if (!picked.length) return delivered(columnDelivery({ skipped: 'none' }), { kind: 'compare', keys: [], skipped: 'none' });
+    const fresh = material.clusters.filter((cluster) => !matchEvent(cluster, events, now.getTime()));
+    const picked = pickCompareBatch(fresh, written, Math.min(8, room + 5), now);
+    if (!picked.length) {
+      await writeEvents(env, events, now.getTime());
+      return delivered(columnDelivery({ skipped: 'none' }), {
+        kind: 'compare',
+        keys: [],
+        updates: update.keys,
+        costs: update.costs,
+        skipped: 'none',
+      });
+    }
     candidates = picked.map((cluster) => ({ cluster }));
   }
-  const jobs = await prepareExplainers(env, candidates, material.items, take, now);
-  if (!jobs.length) return delivered(columnDelivery({ skipped: 'none' }), { kind: 'compare', keys: [], skipped: 'none' });
+  const jobs = await prepareExplainers(env, candidates, material.items, room, now);
+  if (!jobs.length) {
+    await writeEvents(env, events, now.getTime());
+    return delivered(columnDelivery({ skipped: 'none' }), {
+      kind: 'compare',
+      keys: [],
+      updates: update.keys,
+      costs: update.costs,
+      skipped: 'none',
+    });
+  }
 
   const { docs, grokStatus, grokError, capped, costs } = await composeBatch(env, jobs);
   const saved: ContentDoc[] = [];
@@ -432,7 +637,18 @@ export async function generateCompare(
       ready,
     }, job.cluster, now);
     await writeValue(env, writtenKey(now), JSON.stringify(nextWritten));
+    const previous = events.find((event) => event.key === doc.key);
+    const row: StoredEvent = {
+      key: doc.key,
+      title: doc.title,
+      leadTitle: job.cluster.lead.title,
+      links: [...new Set([...(previous?.links ?? []), ...job.cluster.items.map((item) => item.link)])],
+      at: now.getTime(),
+      signature: storySignature(job.cluster),
+    };
+    events = [row, ...events.filter((event) => event.key !== doc.key)];
   }
+  await writeEvents(env, events, now.getTime());
   if (saved.length) await rememberIndexMany(env, saved).catch(() => undefined);
   return delivered(columnDelivery({
     capped,
@@ -446,12 +662,13 @@ export async function generateCompare(
   }), {
     kind: 'compare',
     keys: saved.map((doc) => doc.key),
+    updates: update.keys,
     modes: saved.map((doc) => doc.mode),
     routes: jobs.map((job) => job.route),
     models: saved.map((doc) => doc.model ?? ''),
     grokStatus,
     grokError,
-    costs: saved.map((doc) => summedCost(costs, doc.key)),
+    costs: [...update.costs, ...saved.map((doc) => summedCost(costs, doc.key))],
   });
 }
 

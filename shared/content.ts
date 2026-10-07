@@ -142,6 +142,8 @@ export interface ContentDoc {
   citations?: SourceRef[];
   /** Web search supplied facts, so a later render does not drop figures that were not in the board excerpt. */
   researched?: boolean;
+  /** Set when a follow-up appended timeline rows instead of writing a new piece. */
+  updatedAt?: string;
 }
 
 /** One row of the per-kind archive list kept in KV (index:<kind>). */
@@ -304,7 +306,7 @@ export function sourcesFromCluster(cluster: StoryCluster, limit = 6): SourceRef[
       title: item.title,
       url: item.link,
       source: item.source,
-      excerpt: item.excerpt?.slice(0, 600),
+      excerpt: item.excerpt?.slice(0, 1_200),
       ...(item.image ? { image: item.image } : {}),
       ...(item.category ? { category: item.category } : {}),
       ...(item.pubDate ? { pubDate: item.pubDate } : {}),
@@ -409,10 +411,15 @@ export function weeklyFromHeadlines(tech: SourceRef[], business: SourceRef[], ke
   };
 }
 
-function columnPrompt(doc: ContentDoc, strict: boolean, research = false): { system: string; user: string; maxTokens: number } {
-  const bounds = research
-    ? '下面的標題和摘錄很短，不足以成文。動筆之前必須先用網頁搜尋 2 至 3 次，找這一件事的完整報道、背景、數字和較早發展，搜尋完才寫。只採用通訊社、報章和廣播等新聞來源，不要採用社交媒體、論壇或百科。正文採用的來源最多 8 個。事實必須來自搜尋結果或下面的標題，禁止添加兩邊都沒有的事實、數字、引言、人名、地點或因果。'
-    : '只可使用提供的標題和摘錄。同一事實只寫一次：各家說法相同就合併成一句，只有數字或措辭不同時才點名是哪一家。禁止添加來源沒有寫的事實、數字、引言、人名、地點、因果或形容，例如「迅速」「安全救下」。';
+/** `true` is the thin-material web_search fallback. `material` writes from fetched excerpts and does not search. */
+export type ResearchMode = boolean | 'material';
+
+function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode = false): { system: string; user: string; maxTokens: number } {
+  const usingSearch = research === true;
+  const usingMaterial = research === 'material';
+  const bounds = usingSearch
+    ? '下面的標題和摘錄可能不足。動筆之前最多用網頁搜尋 2 次，找這一件事的完整報道、背景、數字和較早發展，搜尋完才寫。只採用通訊社、報章和廣播等新聞來源，不要採用社交媒體、論壇或百科。正文採用的來源最多 8 個。事實必須來自搜尋結果或下面的標題，禁止添加兩邊都沒有的事實、數字、引言、人名、地點或因果。'
+    : '只可使用提供的標題和摘錄。同一事實只寫一次：各家說法相同就合併成一句，只有數字或措辭不同時才點名是哪一家。禁止添加來源沒有寫的事實、數字、引言、人名、地點、因果或形容，例如「迅速」「安全救下」。不要搜尋。';
   const system = [
     '你是世界頭條的編輯，寫原創整合，不是改寫任何一篇報道。一律用繁體中文正式新聞書面語，不要用簡體字，不要用粵語口語。',
     '判斷用「是」。使用全形標點，一句只說一件事，中文之間不要用空格分隔。數字和年份一律用阿拉伯數字，例如 2026、3.2%、21.44億、13歲、305份，不要寫成「十三歲」「三百零五份」。',
@@ -422,46 +429,57 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research = false): { sys
     '不要稱呼資料欄位，也不要談論材料的格式。不要把標題原句串成內文。',
     '提到媒體時照用資料中 source 的名稱，不要自行翻譯或改名，也不要在名稱後面再加一次分類。',
     'title 必須是你為這一件事撰寫的中文標題，不要拼接來源標題，也不要改用其中一條標題。英文來源同樣要寫中文標題。不要用 Markdown。回覆必須是 JSON。',
-    research ? '正文寫 700 至 1000 個中文字，用搜尋到的背景、數字和經過把內容寫充實，不要為了湊字重複同一事實。' : '正文至少 500 個中文字。材料不夠就如實寫短，不要為了湊字重複同一事實。',
+    usingSearch
+      ? '正文寫 700 至 1000 個中文字，用搜尋到的背景、數字和經過把內容寫充實，不要為了湊字重複同一事實。'
+      : usingMaterial
+        ? '用提供的摘錄把經過、數字和背景寫清楚。各節字數以下文為準，不要為了湊字重複同一事實。'
+        : '正文至少 500 個中文字。材料不夠就如實寫短，不要為了湊字重複同一事實。',
     strict ? '上一次太短、太多英文，或夾有粵語口語。今次每一句都用正式新聞書面語，正文至少 500 個中文字，同一事實只寫一次。' : '',
   ].join('');
+  const excerptCap = usingMaterial ? 1_200 : 480;
   const clip = (source: SourceRef, index: number) => ({
     n: index + 1,
     source: source.source,
     title: source.title,
-    excerpt: (source.excerpt || '').slice(0, 480),
+    excerpt: (source.excerpt || '').slice(0, usingMaterial && index >= 4 ? 160 : excerptCap),
   });
+  const background = usingSearch ? '搜尋到的背景' : '摘錄中的背景';
   if (doc.kind === 'briefing') {
     const data = doc.blocks
       .filter((block) => block.title === '香港' || block.title === '內地')
       .map((block) => ({ heading: block.title, sources: block.sources.map(clip) }));
     const shape = [
-      '回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"..."}],"points":["重點","重點","重點"]}。每個 heading 只出現一次；香港和內地兩段各寫 250 至 350 字，涵蓋兩至三件事，並用搜尋到的背景說明為何重要；今日值得留意寫 100 至 150 字。每句 25 至 45 字，不要寫成一連串短句。',
-      '這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫搜尋結果或來源提到的影響。不要寫「凸顯…重要性」「提醒市民…」「為…鋪路」這類評論或說教。同一事實只寫一次。句子長短要有變化。',
+      `回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"..."}],"points":["重點","重點","重點"]}。每個 heading 只出現一次；香港和內地兩段各寫 250 至 350 字，涵蓋兩至三件事，並用${background}說明為何重要；今日值得留意寫 100 至 150 字。每句 25 至 45 字，不要寫成一連串短句。`,
+      `這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫${usingSearch ? '搜尋結果或來源' : '來源'}提到的影響。不要寫「凸顯…重要性」「提醒市民…」「為…鋪路」這類評論或說教。同一事實只寫一次。句子長短要有變化。`,
       '香港段只根據香港來源，內地段只根據內地來源。沒有來源的一邊就整段省略。',
       '今日值得留意綜合兩邊，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。',
       'points 三至四項，每項 30 字以內。數字必須在來源出現過。',
     ].join('');
-    return { system, user: `${shape}\n資料：${JSON.stringify(data)} /no_think`, maxTokens: research ? 7000 : 2400 };
+    const maxTokens = usingSearch ? 4_500 : usingMaterial ? 3_200 : 2_400;
+    return { system, user: `${shape}\n資料：${JSON.stringify(data)} /no_think`, maxTokens };
   }
   const timeline = doc.blocks.find((block) => block.title === TIMELINE_HEADING);
   const sources = (timeline?.sources.length ? timeline.sources : doc.blocks[0]?.sources) ?? [];
+  const depth = usingSearch || usingMaterial
+    ? `「事件經過」分三段寫（段與段之間用換行），第一段交代事件本身，第二段補充${background}和較早發展，第三段寫關鍵數字和影響，每段 120 字以上。三節正文合共少於 600 字會被退回重寫。`
+    : '';
   const shape = [
     '回傳 {"title":"你撰寫的中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"highlight":{"label":"重點數字","items":["名稱與單位，例如加幅 3.2%"]},"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"..."}]}。每個 heading 只出現一次。「事件經過」寫 350 至 500 字，按時間交代背景、經過和關鍵數字；「各方回應」寫 120 至 200 字；「後續關注」寫 100 至 160 字。每句 25 至 45 字，把相關細節寫在同一句，不要寫成一連串短句。',
     '這是一篇新聞懶人包，把各家報道收成一篇，讓讀者立刻明白發生了甚麼。不要做成對照表，不要按媒體各寫一遍同一個事實。',
     'points 剛好三行，每行 20 至 35 字，是文首摘要。highlight 的每一項都要有中文名稱和單位，例如「加幅 3.2%」「規模 21.44億歐元」；沒有數字就省略 highlight。不要只寫「3.2%」或「307」。',
     '「事件經過」按時間寫清經過，分成自然段落。「各方回應」只寫來源點名的人或機構說了甚麼；來源沒有引述就不要輸出這一節。「後續關注」只寫來源提到的下一步、日期或未決事項；沒有就不要輸出這一節。',
     'title 是這一件事的中文標題，不要拼接來源標題。禁止添加來源沒有的事實。',
-    research ? '「事件經過」分三段寫（段與段之間用換行），第一段交代事件本身，第二段補充搜尋到的背景和較早發展，第三段寫關鍵數字和影響，每段 120 字以上。三節正文合共少於 600 字會被退回重寫。' : '',
+    depth,
   ].join('');
+  const maxTokens = usingSearch ? 4_000 : usingMaterial ? 2_800 : 2_000;
   return {
     system,
     user: `${shape}\n資料：${JSON.stringify(sources.map(clip))} /no_think`,
-    maxTokens: research ? 6000 : 2000,
+    maxTokens,
   };
 }
 
-export function promptFor(doc: ContentDoc, strict = false, research = false): { system: string; user: string; maxTokens: number } {
+export function promptFor(doc: ContentDoc, strict = false, research: ResearchMode = false): { system: string; user: string; maxTokens: number } {
   if (doc.kind === 'briefing' || doc.kind === 'compare') return columnPrompt(doc, strict, research);
   const system = [
     '你是世界頭條的編輯。一律用繁體中文正式新聞書面語，不要用簡體字，不要用粵語口語，英文來源都要譯成中文。',

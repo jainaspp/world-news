@@ -113,10 +113,10 @@ async function allowModel(env: ContentEnv): Promise<boolean> {
   return (await reserveCalls(env, 1)) === 1;
 }
 
-async function runModel(env: ContentEnv, doc: ContentDoc, strict: boolean): Promise<ContentDoc | null> {
+async function runModel(env: ContentEnv, doc: ContentDoc, strict: boolean, material = false): Promise<ContentDoc | null> {
   if (!env.AI?.run) return null;
   try {
-    const prompt = promptFor(doc, strict);
+    const prompt = promptFor(doc, strict, material ? 'material' : false);
     const result = await env.AI.run(AI_MODEL, {
       messages: [
         { role: 'system', content: prompt.system },
@@ -134,13 +134,13 @@ async function runModel(env: ContentEnv, doc: ContentDoc, strict: boolean): Prom
  * One model call, plus one stricter retry if the reply was unusable (bad JSON, empty, or mostly
  * English). Both count against DAILY_AI_CALLS. `reserved` means the first call was already counted.
  */
-export async function polish(env: ContentEnv, doc: ContentDoc, reserved = false): Promise<ContentDoc> {
+export async function polish(env: ContentEnv, doc: ContentDoc, reserved = false, material = false): Promise<ContentDoc> {
   if (!env.AI?.run) return doc;
   if (!reserved && !(await allowModel(env))) return doc;
-  const first = await runModel(env, doc, false);
+  const first = await runModel(env, doc, false, material);
   if (first) return first;
   if (!(await allowModel(env))) return doc;
-  return (await runModel(env, doc, true)) ?? doc;
+  return (await runModel(env, doc, true, material)) ?? doc;
 }
 
 interface RollupRow {

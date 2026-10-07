@@ -245,7 +245,7 @@ export function head(title: string, description: string, canonical: string, imag
 </head>`;
 }
 
-export function chrome(active: ContentDoc['kind'] | 'none' | 'data'): string {
+export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today'): string {
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
@@ -278,7 +278,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data'): string {
     <div class="tab-bar">
       <nav class="filters" aria-label="欄目">
         <a class="chip" href="/">頭條</a>
-        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a>
+        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'today' ? ' active' : ''}" href="/today/"${active === 'today' ? ' aria-current="page"' : ''}>時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a>
       </nav>
     </div>
     <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"></div>
@@ -349,6 +349,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
         '@type': 'NewsArticle',
         headline: doc.title,
         datePublished: doc.publishedAt,
+        ...(doc.updatedAt ? { dateModified: doc.updatedAt } : {}),
         inLanguage: 'zh-HK',
         mainEntityOfPage: canonical,
         ...(image ? { image: [image] } : {}),
@@ -420,7 +421,7 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
           <h1 class="story-title column-title">${esc(doc.title)}</h1>
           ${doc.kind === 'analysis' || doc.kind === 'compare' ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : ''}
           ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}
-          <div class="story-meta"><time datetime="${esc(doc.publishedAt)}">${esc(doc.hkt || hkt(doc.publishedAt))} 香港時間</time><span>· 閱讀約 ${minutes} 分鐘</span>${sources.length ? `<span>· ${outlets} 間媒體 · ${sources.length} 篇報道</span>` : ''}</div>
+          <div class="story-meta"><time datetime="${esc(doc.publishedAt)}">${esc(doc.hkt || hkt(doc.publishedAt))} 香港時間</time><span>· 閱讀約 ${minutes} 分鐘</span>${sources.length ? `<span>· ${outlets} 間媒體 · ${sources.length} 篇報道</span>` : ''}${doc.updatedAt ? `<span>· 最後更新 ${esc(hkt(doc.updatedAt))}</span>` : ''}</div>
           ${share(doc.title, canonical)}
         </div>
       </article>

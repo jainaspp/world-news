@@ -14,6 +14,7 @@ const FILES = [
   'shared/majorPage.ts',
   'shared/contact.ts',
   'shared/dataPage.ts',
+  'shared/todayPage.ts',
   'shared/storyPage.ts',
   'src/components/HkInfoStrip.tsx',
 ];

@@ -202,7 +202,7 @@ export function renderDataHub(series: DataSeries[], options: AdConfig = { client
         <h1 class="column-title">${esc(DATA_HUB.title)}</h1>
         <p class="dek">${esc(DATA_HUB.description)}</p>
       </header>
-      <section class="editor-note" aria-label="關於數據頁"><h2 class="column-h2">關於這些數字</h2><p>本站每日記錄香港天氣、空氣質素、匯率、金價與油價各一筆，方便與新聞一併閱讀。資料來自本站已使用的公開來源，不經 AI 生成。每一欄都有今日數字、近 30 日表格與簡單走勢。市場價格只供參考，並非投資建議。</p></section>
+      <section class="editor-note" aria-label="關於數據頁"><h2 class="column-h2">關於這些數字</h2><p>本站每日記錄香港天氣、空氣質素、匯率、金價與油價各一筆，方便與新聞一併閱讀。資料來自本站已使用的公開來源，不經 AI 生成。每一欄都有今日數字、近 30 日表格與簡單走勢。市場價格只供參考，並非投資建議。</p><p><a href="/today/">今日香港十大新聞時間線</a>按時間列出當日最多媒體報道的事件，資料來自已收錄標題，不經模型生成。</p></section>
       ${manualAd(ads, 'top')}
       <div class="data-hub-grid">${cards}</div>
       <section class="story column-block"><div class="story-body"><h2 class="column-h2">每日如何記錄</h2><ul class="points"><li>香港時間每一日第一次有人打開頁面，先向來源取得今日數字，然後寫入記錄。</li><li>當日其後的請求直接讀取已記錄的一筆，避免重複向天文台與報價來源查詢。</li><li>只有 1 日的時候，表格有一行，走勢是一個點。之後每日加一筆，最多 30 日。</li></ul></div></section>
