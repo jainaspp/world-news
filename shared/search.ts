@@ -137,6 +137,20 @@ export interface ResearchSource {
   source: string;
 }
 
+/** Last readable path segment, e.g. /world/nobel-chemistry-prize-2026 → nobel chemistry prize 2026. */
+function pathTitle(url: string): string {
+  try {
+    const parts = new URL(url).pathname.split('/').filter(Boolean);
+    for (let i = parts.length - 1; i >= 0; i -= 1) {
+      let seg = parts[i]!;
+      try { seg = decodeURIComponent(seg); } catch { /* keep raw */ }
+      seg = seg.replace(/\.(html?|shtml|php|aspx?)$/i, '').replace(/[-_+]+/g, ' ').trim();
+      if (/[a-z\u3400-\u9fff]{3,}/i.test(seg) && !/^[\d\s]+$/.test(seg) && seg.length >= 6) return seg.length > 60 ? `${seg.slice(0, 60)}…` : seg;
+    }
+  } catch { /* ignore */ }
+  return '';
+}
+
 /** Citation rows for the source list. The host is the outlet name so we do not invent one. */
 export function researchSources(urls: string[], limit = MAX_RESEARCH_SOURCES): ResearchSource[] {
   const sources: ResearchSource[] = [];
@@ -148,7 +162,7 @@ export function researchSources(urls: string[], limit = MAX_RESEARCH_SOURCES): R
     } catch {
       continue;
     }
-    sources.push({ title: host, url, source: host });
+    sources.push({ title: pathTitle(url) || host, url, source: host });
     if (sources.length >= limit) break;
   }
   return sources;
