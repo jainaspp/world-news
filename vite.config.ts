@@ -10,7 +10,8 @@ import { onRequest as popularApi } from './functions/api/popular';
 import { onRequest as readsApi } from './functions/api/reads';
 import { onRequest as majorPage } from './functions/major/index';
 import type { PagesContext } from './functions/env';
-import { loadHkNow } from './server/hkService';
+import { loadHkBundle } from './server/hkService';
+import { emptyHkNow } from './shared/hk';
 import { loadHsiQuote } from './server/hsiService';
 import { buildCrawlResponse, buildNewsResponse, type JsonResult } from './server/responses';
 
@@ -58,10 +59,10 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
     void (async () => {
       try {
         if (url.startsWith('/api/hk')) {
-          const hk = await loadHkNow();
+          const hk = await loadHkBundle();
           send(res, {
             status: 200,
-            body: JSON.stringify(hk ?? { temperature: null, humidity: null, icon: null, warnings: [], rainMax: 0, aqhi: null, updated: '', source: '香港天文台、環境保護署' }),
+            body: JSON.stringify(hk ?? emptyHkNow()),
             cacheControl: hk ? 'public, max-age=300' : 'public, max-age=30',
           });
           return;
