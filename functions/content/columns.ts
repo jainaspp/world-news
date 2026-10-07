@@ -1,5 +1,5 @@
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
-import { needsSearch } from '../../shared/articleText.js';
+import { ARTICLE_CHARS, ARTICLE_CHARS_LONG, needsSearch } from '../../shared/articleText.js';
 import { coherentCluster, sameEvent, type StoryCluster } from '../../shared/angles.js';
 import { coherencePrompt, keepItems, parseCoherence } from '../../shared/coherence.js';
 import {
@@ -19,6 +19,7 @@ import {
 } from '../../shared/research.js';
 import type { NewsItem } from '../../shared/types.js';
 import {
+  analysisSlug,
   applyModelText,
   attachCitations,
   briefingPublic,
@@ -73,7 +74,7 @@ import { adConfig, polish } from './publish.js';
 import { fetchArticleTexts, fetchTitles, readBundles, readEvents, stampExcerpts, writeBundle, writeEvents } from './material.js';
 import { docKey, readDoc, readIndex, readValue, rememberIndexMany, writeDoc, writeValue, type ContentEnv } from './store.js';
 import { completeGrok, completeText, XAI_TIMEOUT_MS } from './xai.js';
-import { verifyMiniMax, writeMiniMax } from './minimax.js';
+import { pipelineMiniMax } from './minimax.js';
 import {
   briefingDraft,
   clusterWriter,
@@ -90,6 +91,10 @@ const HTML_HEADERS = {
 };
 
 const WALL_MS = 60_000;
+/** MiniMax pipeline budget from the start of the request; the warm run's curl waits 90 s. */
+const MINIMAX_DEADLINE_MS = 76_000;
+/** Article pages read for one world or tech/finance brief. */
+const SCOPED_FETCH = 10;
 /** Only start the stricter second Grok attempt while there is room before the edge's 100 s limit. */
 const RETRY_BEFORE_MS = 35_000;
 
@@ -181,41 +186,31 @@ export interface ArticleCost {
 }
 
 /** MiniMax, then Grok inside the US$10 cap, then Workers AI. MiniMax calls are not added to the xAI bill. */
-async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()): Promise<{ docs: ContentDoc[]; usage: MonthUsage; grokStatus: number[]; grokError: string[]; capped: boolean; costs: ArticleCost[] }> {
+async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now(), miniDeadline = started + MINIMAX_DEADLINE_MS): Promise<{ docs: ContentDoc[]; usage: MonthUsage; grokStatus: number[]; grokError: string[]; capped: boolean; costs: ArticleCost[]; steps: string[] }> {
   let usage = await monthUsage(env);
   const key = apiKey(env);
   const mini = minimaxKey(env);
   const capped = capReached(usage) || !key;
   const statuses: number[] = [];
   const errors: string[] = [];
+  const steps: string[] = [];
   const grok = await Promise.all(jobs.map(async (job) => {
     const priorInput = job.priorInput ?? 0;
     const priorOutput = job.priorOutput ?? 0;
     const writer = job.writer ?? 'grok';
     let grokDoc: ContentDoc | null = null;
-    let quota = false;
-    if (writer === 'minimax' && mini) {
-      const written = await writeMiniMax(mini, job.draft, job.material ? 'material' : false);
-      quota = written.quota;
-      if (written.error) errors.push(written.error);
-      if (written.doc) grokDoc = written.doc;
-      // Flat-fee writer: one stricter rewrite when the first draft is thin or missing a section.
-      if (!quota && !(grokDoc && pieceReady(grokDoc)) && Date.now() - started < RETRY_BEFORE_MS) {
-        const again = await writeMiniMax(mini, job.draft, job.material ? 'material' : false, true);
-        quota = again.quota;
-        if (again.error) errors.push(again.error);
-        if (again.doc && (!grokDoc || (pieceReady(again.doc) && !pieceReady(grokDoc)) || richness(again.doc) > richness(grokDoc))) grokDoc = again.doc;
+    // MiniMax desks: draft → fact-check → facts-only rewrite → fact-check. No Grok fallback,
+    // so the Grok budget stays with Hong Kong and mainland desks.
+    if (writer === 'minimax') {
+      if (mini) {
+        const piped = await pipelineMiniMax(mini, job.draft, miniDeadline);
+        errors.push(...piped.errors);
+        steps.push(`${job.draft.key}:${piped.steps.join(',')}`);
+        grokDoc = piped.doc;
       }
-      // Fact check against the supplied material; unsupported or commentary sentences are removed.
-      if (grokDoc && grokDoc.provider === 'minimax' && Date.now() - started < WALL_MS - 15_000) {
-        const checked = await verifyMiniMax(mini, job.draft, grokDoc);
-        if (checked.error) errors.push(checked.error);
-        grokDoc = checked.doc;
-      }
+      return { job, grokDoc, input: priorInput, output: priorOutput, requests: 0, searchCalls: 0 };
     }
-    const readyMini = Boolean(grokDoc && pieceReady(grokDoc));
-    const tryGrok = !readyMini && (writer !== 'minimax' || quota || !grokDoc || !mini);
-    if (!tryGrok || writerFor({ route: job.route, costUsd: usage.costUsd, hasKey: Boolean(key) }) !== 'grok') {
+    if (writerFor({ route: job.route, costUsd: usage.costUsd, hasKey: Boolean(key) }) !== 'grok') {
       return { job, grokDoc, input: priorInput, output: priorOutput, requests: 0, searchCalls: 0 };
     }
     let input = 0;
@@ -271,6 +266,8 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
 
   const docs = (await Promise.all(grok.map(async (row) => {
     if (row.grokDoc) return row.grokDoc;
+    // A MiniMax desk without a checked piece keeps the source list; no other writer.
+    if (row.job.writer === 'minimax') return row.job.draft;
     if (Date.now() - started > WALL_MS) return row.job.draft;
     try {
       const polished = await polish(env, row.job.draft, false, Boolean(row.job.material));
@@ -296,7 +293,7 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
       costUsd: miniOnly ? 0 : callCostUsd(row.input, row.output, row.searchCalls),
     };
   });
-  return { docs, usage, grokStatus: statuses, grokError: [...new Set(errors)], capped, costs };
+  return { docs, usage, grokStatus: statuses, grokError: [...new Set(errors)], capped, costs, steps };
 }
 
 /** The cached board only. A cold cache returns null so the caller can answer 503 without crawling feeds. */
@@ -366,17 +363,6 @@ function settledPiece(doc: ContentDoc | undefined): boolean {
   return model.includes('grok') || model.includes('minimax');
 }
 
-async function fillRows(env: ContentEnv, rows: NewsItem[], now: Date, fetchLimit = 4): Promise<{ rows: NewsItem[]; fetchedSources: number }> {
-  const bundles = await readBundles(env, hktParts(now).date);
-  let next = applyBundles(rows, bundles);
-  if (needsSearch(excerptChars(next))) {
-    const missing = next.filter((item) => (item.excerpt || '').length < 200 && /^https?:\/\//.test(item.link));
-    const fetched = await fetchArticleTexts(env, missing.map((item) => item.link), fetch, fetchLimit);
-    next = stampExcerpts(next, fetched.texts);
-  }
-  return { rows: next, fetchedSources: next.filter((item) => (item.excerpt || '').length >= 80).length };
-}
-
 async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingScope, 'hk'>, now: Date, options: { force?: boolean }): Promise<Record<string, unknown>> {
   const key = scopedBriefingKey(scope, now);
   const existing = await readDoc(env, docKey('briefing', key));
@@ -386,51 +372,41 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
   const material = await loadMaterial(env);
   if (!material) return delivered(columnDelivery({ cold: true }), { kind: 'briefing', scope, key });
   const started = Date.now();
-  const draftOf = async (perSide: number) => {
-    const skeleton = briefingDraft(material.items, scope, now, perSide);
-    if (!skeleton) return null;
-    // Interleave sections so the article-text fetch covers every section, not just the first.
-    const sections = skeleton.blocks.filter((block) => block.title !== '今日值得留意').map((block) => block.sources);
-    const longest = Math.max(0, ...sections.map((rows) => rows.length));
-    const order: string[] = [];
-    for (let i = 0; i < longest; i += 1) for (const rows of sections) if (rows[i]) order.push(rows[i].url);
-    const byLink = new Map(material.items.map((item) => [item.link, item]));
-    const items = order.map((link) => byLink.get(link)).filter((item): item is NewsItem => Boolean(item));
-    const filled = await fillRows(env, items.length ? items : material.items, now, 8);
-    return { draft: briefingDraft(filled.rows, scope, now, perSide), fetchedSources: filled.fetchedSources };
-  };
-  const firstDraft = await draftOf(8);
-  if (!firstDraft?.draft) return delivered(columnDelivery({ skipped: 'no-headlines' }), { kind: 'briefing', scope, key, skipped: 'no-headlines' });
+  // Each section is written only from articles whose text was read: two or more per section.
+  const skeleton = briefingDraft(material.items, scope, now, 8);
+  if (!skeleton) return delivered(columnDelivery({ skipped: 'no-headlines' }), { kind: 'briefing', scope, key, skipped: 'no-headlines' });
+  const sections = skeleton.blocks.filter((block) => block.title !== '今日值得留意').map((block) => block.sources);
+  const longest = Math.max(0, ...sections.map((rows) => rows.length));
+  const order: string[] = [];
+  for (let i = 0; i < longest; i += 1) for (const rows of sections) if (rows[i]) order.push(rows[i].url);
+  const byLink = new Map(material.items.map((item) => [item.link, item]));
+  const picked = order.map((link) => byLink.get(link)).filter((item): item is NewsItem => Boolean(item));
+  const fetched = await fetchArticleTexts(env, picked.map((item) => item.link), fetch, SCOPED_FETCH);
+  const stamped = stampExcerpts(picked, fetched.texts, ARTICLE_CHARS_LONG);
+  const built = briefingDraft(stamped, scope, now, 8);
+  const draft = built ? {
+    ...built,
+    blocks: built.blocks
+      .map((block) => (block.title === '今日值得留意' ? block : { ...block, sources: block.sources.filter((ref) => (ref.excerpt || '').trim().length >= 300) }))
+      .filter((block) => block.title === '今日值得留意' || block.sources.length >= 2),
+  } : null;
+  const fetchedSources = stamped.filter((item) => (item.excerpt || '').length >= 300).length;
+  if (!draft || !draft.blocks.some((block) => block.title !== '今日值得留意')) {
+    return delivered(columnDelivery({ skipped: 'thin-material' }), { kind: 'briefing', scope, key, skipped: 'thin-material', fetchedSources });
+  }
   const first = await composeBatch(env, [{
-    draft: firstDraft.draft,
+    draft,
     route: 'grok',
     writer: 'minimax',
     search: false,
     material: true,
-    fetchedSources: firstDraft.fetchedSources,
+    fetchedSources,
   }], started);
-  let doc = first.docs[0] ?? firstDraft.draft;
-  let costs = first.costs;
-  let grokStatus = first.grokStatus;
-  let grokError = first.grokError;
-  if (doc.mode === 'ai' && !pieceReady(doc) && Date.now() - started < RETRY_BEFORE_MS) {
-    const wider = await draftOf(14);
-    if (wider?.draft) {
-      const again = await composeBatch(env, [{
-        draft: wider.draft,
-        route: 'grok',
-        writer: 'minimax',
-        search: false,
-        material: true,
-        fetchedSources: wider.fetchedSources,
-      }], started);
-      costs = [...costs, ...again.costs];
-      grokStatus = [...grokStatus, ...again.grokStatus];
-      grokError = [...new Set([...grokError, ...again.grokError])];
-      const next = again.docs[0];
-      if (next && bodyChars(next) > bodyChars(doc)) doc = next;
-    }
-  }
+  const doc = first.docs[0] ?? draft;
+  const costs = first.costs;
+  const grokStatus = first.grokStatus;
+  const grokError = first.grokError;
+  const steps = first.steps;
   await writeDoc(env, doc);
   const chars = bodyChars(doc);
   const ready = doc.mode === 'ai' && pieceReady(doc);
@@ -443,8 +419,10 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
     provider: doc.provider ?? '',
     chars,
     ready,
+    public: briefingPublic(doc),
     grokStatus,
     grokError,
+    steps,
     cost: summedCost(costs, doc.key),
   });
 }
@@ -565,6 +543,31 @@ async function legacyCompareDocs(env: ContentEnv, onlyKey = ''): Promise<Content
     .filter((doc) => (onlyKey ? doc.key === onlyKey : !explainerCurrent(doc)));
 }
 
+/** MiniMax desks: outlets read per story, and the material bar before a piece is attempted. */
+const MINIMAX_FETCH_PER_CLUSTER = 6;
+const MINIMAX_MIN_OUTLETS = 3;
+const MINIMAX_MIN_TEXT = 2_500;
+
+export function miniMaterialOk(items: NewsItem[]): boolean {
+  const withText = items.filter((item) => (item.excerpt || '').trim().length >= 200);
+  return new Set(withText.map((item) => item.source)).size >= MINIMAX_MIN_OUTLETS && excerptChars(items) >= MINIMAX_MIN_TEXT;
+}
+
+/** One article per outlet first, so six reads cover as many outlets as possible. */
+function outletSpread(items: NewsItem[]): NewsItem[] {
+  const seen = new Set<string>();
+  const first: NewsItem[] = [];
+  const rest: NewsItem[] = [];
+  for (const item of items) {
+    if (seen.has(item.source)) rest.push(item);
+    else {
+      seen.add(item.source);
+      first.push(item);
+    }
+  }
+  return [...first, ...rest];
+}
+
 /** Local outlets read for a Hong Kong story before web search. */
 const HK_FETCH_PER_CLUSTER = 6;
 
@@ -651,6 +654,7 @@ async function prepareExplainers(
   items: NewsItem[],
   take: number,
   now: Date,
+  held?: string[],
 ): Promise<Prepared[]> {
   const usage = await monthUsage(env);
   const key = apiKey(env);
@@ -687,8 +691,9 @@ async function prepareExplainers(
   const urls: string[] = [];
   for (const row of chosen) {
     let added = 0;
-    const cap = hkCluster(row.cluster) ? HK_FETCH_PER_CLUSTER : 4;
-    for (const item of [...row.cluster.items].sort((a, b) => outletRank(a.source) - outletRank(b.source))) {
+    const mini = clusterWriter(row.cluster) === 'minimax';
+    const cap = hkCluster(row.cluster) ? HK_FETCH_PER_CLUSTER : mini ? MINIMAX_FETCH_PER_CLUSTER : 4;
+    for (const item of mini ? outletSpread(row.cluster.items) : [...row.cluster.items].sort((a, b) => outletRank(a.source) - outletRank(b.source))) {
       if (added >= cap) break;
       if (!/^https?:\/\//.test(item.link) || urls.includes(item.link)) continue;
       urls.push(item.link);
@@ -701,7 +706,12 @@ async function prepareExplainers(
   const date = hktParts(now).date;
   const jobs: Prepared[] = [];
   for (const row of chosen) {
-    const stamped = stampExcerpts(row.cluster.items, fetched.texts);
+    const miniDesk = clusterWriter(row.cluster) === 'minimax';
+    const stamped = stampExcerpts(row.cluster.items, fetched.texts, miniDesk ? ARTICLE_CHARS_LONG : ARTICLE_CHARS);
+    if (miniDesk && !miniMaterialOk(stamped)) {
+      held?.push(row.cluster.lead.title);
+      continue;
+    }
     const lead = stamped.find((item) => item.id === row.cluster.lead.id) ?? stamped[0];
     if (!lead) continue;
     const cluster: StoryCluster = {
@@ -804,6 +814,7 @@ export async function generateCompare(
   now = new Date(),
   options: { force?: boolean; key?: string; minimaxOnly?: boolean } = {},
 ): Promise<Record<string, unknown>> {
+  const requestStart = Date.now();
   const take = Math.max(1, Math.min(COMPARE_BATCH, limit));
   const written = parseWritten(await readValue(env, writtenKey(now)).catch(() => null));
   const material = await loadMaterial(env);
@@ -844,8 +855,9 @@ export async function generateCompare(
   } else {
     const fresh = material.clusters.filter((cluster) => !matchEvent(cluster, events, now.getTime()));
     // Only clusters that pass the same-event check, so a call is not spent re-picking ones prepareExplainers drops.
-    const miniPool = fresh.filter((cluster) => clusterWriter(cluster) === 'minimax' && coherentCluster(cluster));
-    const miniPicked = miniTake > 0 ? pickMiniMaxBatch(miniPool, written, miniTake, now) : [];
+    const miniPool = fresh.filter((cluster) => cluster.count >= 3 && clusterWriter(cluster) === 'minimax' && coherentCluster(cluster));
+    // One spare candidate: a story below the material bar is skipped without a MiniMax call.
+    const miniPicked = miniTake > 0 ? pickMiniMaxBatch(miniPool, written, miniTake + 1, now) : [];
     const grokFresh = fresh.filter((cluster) => clusterWriter(cluster) === 'grok');
     const grokWritten = written.filter((row) => row.provider !== 'minimax');
     const grokPicked = room > 0 ? pickCompareBatch(grokFresh, grokWritten, room, now) : [];
@@ -862,7 +874,10 @@ export async function generateCompare(
     }
     candidates = picked.map((cluster) => ({ cluster }));
   }
-  const jobs = await prepareExplainers(env, candidates, material.items, candidates.length, now);
+  const held: string[] = [];
+  const prepared = await prepareExplainers(env, candidates, material.items, candidates.length, now, held);
+  let miniJobs = 0;
+  const jobs = prepared.filter((job) => job.writer !== 'minimax' || options.force || (miniJobs += 1) <= miniTake);
   if (!jobs.length) {
     await writeEvents(env, events, now.getTime());
     return delivered(columnDelivery({ skipped: 'none' }), {
@@ -874,13 +889,19 @@ export async function generateCompare(
     });
   }
 
-  const { docs, grokStatus, grokError, capped, costs } = await composeBatch(env, jobs);
+  const { docs, grokStatus, grokError, capped, costs, steps } = await composeBatch(env, jobs, Date.now(), requestStart + MINIMAX_DEADLINE_MS);
   const saved: ContentDoc[] = [];
   let nextWritten: WrittenStory[] = [...written];
   for (const [index, doc] of docs.entries()) {
     const job = jobs[index];
     if (!job || !doc) continue;
     if (job.keepKey) doc.key = job.keepKey;
+    // MiniMax pieces from English leads take a Chinese slug from their written headline.
+    if (job.writer === 'minimax' && doc.mode === 'ai' && !/[\u3400-\u9fff]/.test(doc.key) && /[\u3400-\u9fff]/.test(doc.title)) {
+      const oldKey = doc.key;
+      doc.key = `${oldKey.slice(0, 10)}-${analysisSlug(doc.title)}`;
+      events = events.filter((event) => event.key !== oldKey);
+    }
     await writeDoc(env, doc, false);
     saved.push(doc);
     const ready = doc.mode === 'ai' && pieceReady(doc);
@@ -927,6 +948,8 @@ export async function generateCompare(
     models: saved.map((doc) => doc.model ?? ''),
     grokStatus,
     grokError,
+    held,
+    steps,
     costs: [...update.costs, ...saved.map((doc) => summedCost(costs, doc.key))],
   });
 }

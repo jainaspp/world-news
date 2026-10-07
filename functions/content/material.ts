@@ -1,5 +1,6 @@
 import {
   ARTICLE_CHARS,
+  ARTICLE_CHARS_LONG,
   ARTICLE_TTL_SECONDS,
   blockedOutlet,
   extractArticle,
@@ -23,7 +24,7 @@ import type { NewsItem } from '../../shared/types.js';
 import { readValue, writeValue, type ContentEnv } from './store.js';
 
 export function articleCacheKey(url: string): string {
-  return `article:${stableId(url)}`;
+  return `article2:${stableId(url)}`;
 }
 
 export interface FetchResult {
@@ -89,7 +90,7 @@ export async function fetchArticleTexts(
       const type = response.headers.get('content-type') || '';
       if (type && !/html|xml|text\/plain/i.test(type)) return;
       const html = (await response.text()).slice(0, HTML_CAP);
-      const text = extractArticle(html);
+      const text = extractArticle(html, ARTICLE_CHARS_LONG);
       if (!text) return;
       texts.set(url, text);
       await writeValue(env, articleCacheKey(url), JSON.stringify({ url, text }), ARTICLE_TTL_SECONDS);
@@ -100,11 +101,11 @@ export async function fetchArticleTexts(
   return { texts, fetchedSources: texts.size };
 }
 
-export function stampExcerpts(items: NewsItem[], texts: Map<string, string>): NewsItem[] {
+export function stampExcerpts(items: NewsItem[], texts: Map<string, string>, cap = ARTICLE_CHARS): NewsItem[] {
   return items.map((item) => {
     const text = texts.get(item.link);
     if (!text) return item;
-    return { ...item, excerpt: text.slice(0, ARTICLE_CHARS) };
+    return { ...item, excerpt: text.slice(0, cap) };
   });
 }
 

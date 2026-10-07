@@ -1,6 +1,9 @@
 /** Characters of article text kept as model input. The page itself is not republished. */
 export const ARTICLE_CHARS = 1_200;
 
+/** Longer extract kept for MiniMax desks (flat fee). Grok prompts still slice to ARTICLE_CHARS. */
+export const ARTICLE_CHARS_LONG = 2_500;
+
 /** Source URLs read for one cluster, inside the Workers subrequest budget. */
 export const FETCH_PER_CLUSTER = 4;
 

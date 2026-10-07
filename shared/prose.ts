@@ -208,6 +208,7 @@ export function tidyMixedNumbers(text: string): string {
  */
 const HK_TERMS: [RegExp, string][] = [
   [/川普/g, '特朗普'],
+  [/社群媒體/g, '社交媒體'],
   [/普丁/g, '普京'],
   [/澤倫斯基/g, '澤連斯基'],
   [/紐西蘭/g, '新西蘭'],
