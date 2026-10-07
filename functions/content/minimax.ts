@@ -149,8 +149,9 @@ export async function writeMiniMax(
   apiKey: string,
   draft: ContentDoc,
   research: ResearchMode = 'material',
+  strict = false,
 ): Promise<{ doc: ContentDoc | null; quota: boolean; input: number; output: number; model: string; error?: string }> {
-  const prompt = promptFor(draft, false, research === true ? 'material' : research);
+  const prompt = promptFor(draft, strict, research === true ? 'material' : research);
   const result = await completeMiniMax(apiKey, prompt.system, prompt.user.replace(/ \/no_think$/, ''));
   if (!result.text) {
     return { doc: null, quota: result.quota, input: result.input, output: result.output, model: result.model, ...(result.error ? { error: result.error } : {}) };
