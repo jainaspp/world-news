@@ -281,17 +281,53 @@ export function stripGlosses(text: string, seen: Set<string>): string {
   });
 }
 
+/** `聯合妥拉 Judaism聯盟`: a half-translated name drops its stray English word. */
+export function stripHalfGloss(text: string): string {
+  return text.replace(/(?<=[\u3400-\u9fff]) [A-Z][a-z]+(?=[\u3400-\u9fff])/g, '');
+}
+
+/** One headline point from a checked sentence: the whole sentence when short, else its first clause. */
+function pointFrom(sentence: string): string {
+  const text = sentence.replace(/^[^，。]{1,12}方面，/, '').replace(/[。！？]+$/, '');
+  if (text.length <= 48) return text;
+  // Leading clauses up to 48 characters; never stop on a speech verb or a cause.
+  let point = '';
+  for (const clause of text.split('，')) {
+    const next = point ? `${point}，${clause}` : clause;
+    if (next.length > 48) break;
+    point = next;
+  }
+  if (/(表示|指出|指|稱|說|認為|因為|由於|但|而)$/.test(point)) return '';
+  return point.length >= 12 ? point : '';
+}
+
+/** Too few points after the check: refill from the checked sentences (no new facts). */
+export function fillPoints(points: string[], blocks: ContentDoc['blocks']): string[] {
+  if (points.length >= 2) return points;
+  const out = [...points];
+  const sentences = blocks.filter((block) => block.title !== '事件時間線');
+  const firsts = sentences.map((block) => block.sentences[0] ?? '');
+  const topics = sentences.flatMap((block) => block.sentences.filter((text) => /^[^，。]{1,12}方面，/.test(text)));
+  const rest = sentences.flatMap((block) => block.sentences);
+  for (const sentence of [...firsts, ...topics, ...rest]) {
+    if (out.length >= 3) break;
+    const point = pointFrom(sentence);
+    if (point && !out.some((have) => have.includes(point) || point.includes(have))) out.push(point);
+  }
+  return out;
+}
+
 /** Deterministic tidy for MiniMax pieces: glosses, commentary and material-talk sentences. */
 export function cleanMiniMax(doc: ContentDoc): ContentDoc {
   const seen = new Set<string>();
   const blocks = doc.blocks.map((block) => (block.title === '事件時間線'
     ? block
-    : { ...block, sentences: block.sentences.filter((text) => !COMMENTARY_RE.test(text)).map((text) => stripGlosses(text, seen)) }))
+    : { ...block, sentences: block.sentences.filter((text) => !COMMENTARY_RE.test(text)).map((text) => stripHalfGloss(stripGlosses(text, seen))) }))
     .filter((block) => block.title === '事件時間線' || block.sentences.length > 0);
-  const points = (doc.points ?? []).filter((text) => !COMMENTARY_RE.test(text)).map((text) => stripGlosses(text, new Set()));
+  const points = fillPoints((doc.points ?? []).filter((text) => !COMMENTARY_RE.test(text)).map((text) => stripHalfGloss(stripGlosses(text, new Set()))), blocks);
   return {
     ...doc,
-    title: stripGlosses(doc.title, new Set()),
+    title: stripHalfGloss(stripGlosses(doc.title, new Set())),
     description: stripGlosses(doc.description, new Set()),
     blocks,
     points,
@@ -319,7 +355,7 @@ function rewriteShape(draft: ContentDoc): string {
     const length = scope === 'world'
       ? '國際段寫 400 至 650 字，涵蓋兩至三件事；'
       : '科技和財經兩段各寫 220 至 350 字，每段涵蓋兩件事；只有一類有來源就只寫那一段；';
-    return `回傳 {"title":"中文導讀標題","description":"40字以內的摘要","sections":[{"heading":${union},"text":"..."}],"points":["重點","重點","重點"]}。每個 heading 只出現一次；${length}今日值得留意寫 60 至 120 字，只列來源寫明的下一步、日期或待決事項，沒有就不要輸出這一節。points 三項，每項 30 字以內，數字必須在來源出現過。`;
+    return `回傳 {"title":"中文導讀標題（30字以內，不同話題之間用「，」分隔）","description":"40字以內的摘要","sections":[{"heading":${union},"text":"..."}],"points":["重點","重點","重點"]}。每個 heading 只出現一次；${length}今日值得留意寫 60 至 120 字，只列來源寫明的下一步、日期或待決事項，沒有就不要輸出這一節。points 三項，每項 30 字以內，數字必須在來源出現過。`;
   }
   return '回傳 {"title":"中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"..."}]}。每個 heading 只出現一次。「事件經過」分兩至三段（段與段之間用換行），寫 350 至 550 字，按時間交代經過、數字和來源提到的較早發展；「各方回應」只寫來源點名的人或機構說了甚麼，120 至 220 字，沒有引述就不要輸出；「後續關注」只寫來源提到的下一步、日期或未決事項，沒有就不要輸出。points 剛好三行，每行 20 至 35 字。';
 }
