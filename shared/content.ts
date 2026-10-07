@@ -428,9 +428,9 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research = false): { sys
   const timeline = doc.blocks.find((block) => block.title === TIMELINE_HEADING);
   const sources = (timeline?.sources.length ? timeline.sources : doc.blocks[0]?.sources) ?? [];
   const shape = [
-    '回傳 {"title":"你撰寫的中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"highlight":{"label":"重點數字","items":["名稱與單位，例如加幅 3.2%"]},"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"兩至四句一段"}]}。',
+    '回傳 {"title":"你撰寫的中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"highlight":{"label":"重點數字","items":["名稱與單位，例如加幅 3.2%"]},"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"..."}]}。每個 heading 只出現一次。「事件經過」寫八至十二句，按時間交代背景、經過和關鍵數字；「各方回應」和「後續關注」各寫三至五句。',
     '這是一篇新聞懶人包，把各家報道收成一篇，讓讀者立刻明白發生了甚麼。不要做成對照表，不要按媒體各寫一遍同一個事實。',
-    'points 剛好三行，每行 40 字以內，是文首摘要。highlight 的每一項都要有中文名稱和單位，例如「加幅 3.2%」「規模 21.44億歐元」；沒有數字就省略 highlight。不要只寫「3.2%」或「307」。',
+    'points 剛好三行，每行 20 至 35 字，是文首摘要。highlight 的每一項都要有中文名稱和單位，例如「加幅 3.2%」「規模 21.44億歐元」；沒有數字就省略 highlight。不要只寫「3.2%」或「307」。',
     '「事件經過」按時間寫清經過，分成自然段落。「各方回應」只寫來源點名的人或機構說了甚麼；來源沒有引述就不要輸出這一節。「後續關注」只寫來源提到的下一步、日期或未決事項；沒有就不要輸出這一節。',
     'title 是這一件事的中文標題，不要拼接來源標題。禁止添加來源沒有的事實。',
   ].join('');
@@ -616,6 +616,8 @@ function fallbackTitle(doc: ContentDoc, sources: SourceRef[]): string {
  */
 export function guardDoc(doc: ContentDoc, options?: { researched?: boolean }): ContentDoc {
   const log: string[] = [];
+  // Researched pieces carry facts from web search, so headline-only place and number checks would cut them.
+  const researched = Boolean(options?.researched || doc.researched);
   const allSources = uniqueSources(doc);
   const names = [...new Set(allSources.map((source) => source.source))];
   const allText = sourceText(allSources, [doc.originalTitle || '']);
@@ -623,6 +625,7 @@ export function guardDoc(doc: ContentDoc, options?: { researched?: boolean }): C
     const outlets = fixOutlets(text, names);
     log.push(...outlets.removed);
     const plain = stripEmbellishments(outlets.text, haystack);
+    if (researched) return plain;
     const places = scrubPlaces(plain, haystack);
     log.push(...places.removed);
     return places.dropped ? null : places.text;
@@ -639,7 +642,7 @@ export function guardDoc(doc: ContentDoc, options?: { researched?: boolean }): C
   }
   if ((doc.kind === 'briefing' || doc.kind === 'compare') && title === doc.title) {
     const cleaned = clean(title, allText);
-    const unsupportedNumber = Boolean(cleaned) && !numbersSupported(cleaned || '', allText);
+    const unsupportedNumber = !researched && Boolean(cleaned) && !numbersSupported(cleaned || '', allText);
     if (cleaned && hasChinese(cleaned) && !unsupportedNumber) title = cleaned;
   }
   const blocks = doc.blocks.map((block) => {
@@ -701,14 +704,14 @@ export function guardDoc(doc: ContentDoc, options?: { researched?: boolean }): C
   if (highlight) next.highlight = highlight;
   else delete next.highlight;
   const points = (doc.points ?? [])
-    .map((item) => ((options?.researched || numbersSupported(item, allText)) ? clean(item, allText) : null))
+    .map((item) => ((researched || numbersSupported(item, allText)) ? clean(item, allText) : null))
     .filter((item): item is string => Boolean(item))
     .slice(0, 4);
   if (points.length) next.points = points;
   else delete next.points;
   if (log.length) next.guard = log;
   else delete next.guard;
-  if (options?.researched || doc.researched) next.researched = true;
+  if (researched) next.researched = true;
   else delete next.researched;
   return next;
 }

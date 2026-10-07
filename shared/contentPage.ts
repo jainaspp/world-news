@@ -105,7 +105,7 @@ function sourceList(sources: SourceRef[]): string {
   const rows = sources.map((source) => {
     const url = safeHttp(source.url);
     if (!url) return '';
-    return `<li><a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${favicon(url)}<span class="source-name">${esc(source.source)}</span><span class="source-title">${esc(source.title)}</span></a></li>`;
+    return `<li><a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${favicon(url)}<span class="source-name">${esc(source.source)}</span>${source.title && source.title !== source.source ? `<span class="source-title">${esc(source.title)}</span>` : ''}</a></li>`;
   }).join('');
   return rows ? `<ul class="source-list">${rows}</ul>` : '';
 }
