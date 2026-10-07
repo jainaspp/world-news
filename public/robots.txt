@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+User-agent: Mediapartners-Google
+Allow: /
+
 Sitemap: https://world-news.xyz/sitemap.xml

@@ -11,7 +11,11 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   const url = new URL(context.request.url);
   const id = url.pathname.split('/').filter(Boolean)[1] || '';
   const canonical = `https://world-news.xyz/story/${encodeURIComponent(id)}/`;
-  const headers = { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'public, max-age=120, s-maxage=300' };
+  const headers = {
+    'content-type': 'text/html; charset=utf-8',
+    'cache-control': 'public, max-age=120, s-maxage=300',
+    'x-robots-tag': 'noindex, follow',
+  };
   if (!/^[0-9a-f]{6,16}$/.test(id)) return new Response(renderStoryMissing(canonical), { status: 404, headers });
   const items = await loadList(context);
   const item = items.find((row) => row.id === id);
