@@ -417,7 +417,7 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research = false): { sys
       .filter((block) => block.title === '香港' || block.title === '內地')
       .map((block) => ({ heading: block.title, sources: block.sources.map(clip) }));
     const shape = [
-      '回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"五至八句"}],"points":["重點","重點","重點"]}。每個 heading 只出現一次；香港和內地兩段各寫五至八句，涵蓋兩至三件事，並用搜尋到的背景說明為何重要。',
+      '回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"..."}],"points":["重點","重點","重點"]}。每個 heading 只出現一次；香港和內地兩段各寫 250 至 350 字，涵蓋兩至三件事，並用搜尋到的背景說明為何重要；今日值得留意寫 100 至 150 字。每句 25 至 45 字，不要寫成一連串短句。',
       '這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫為何重要。同一事實只寫一次。句子長短要有變化。',
       '香港段只根據香港來源，內地段只根據內地來源。沒有來源的一邊就整段省略。',
       '今日值得留意綜合兩邊，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。',
@@ -428,7 +428,7 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research = false): { sys
   const timeline = doc.blocks.find((block) => block.title === TIMELINE_HEADING);
   const sources = (timeline?.sources.length ? timeline.sources : doc.blocks[0]?.sources) ?? [];
   const shape = [
-    '回傳 {"title":"你撰寫的中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"highlight":{"label":"重點數字","items":["名稱與單位，例如加幅 3.2%"]},"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"..."}]}。每個 heading 只出現一次。「事件經過」寫八至十二句，按時間交代背景、經過和關鍵數字；「各方回應」和「後續關注」各寫三至五句。',
+    '回傳 {"title":"你撰寫的中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"highlight":{"label":"重點數字","items":["名稱與單位，例如加幅 3.2%"]},"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"..."}]}。每個 heading 只出現一次。「事件經過」寫 350 至 500 字，按時間交代背景、經過和關鍵數字；「各方回應」寫 120 至 200 字；「後續關注」寫 100 至 160 字。每句 25 至 45 字，把相關細節寫在同一句，不要寫成一連串短句。',
     '這是一篇新聞懶人包，把各家報道收成一篇，讓讀者立刻明白發生了甚麼。不要做成對照表，不要按媒體各寫一遍同一個事實。',
     'points 剛好三行，每行 20 至 35 字，是文首摘要。highlight 的每一項都要有中文名稱和單位，例如「加幅 3.2%」「規模 21.44億歐元」；沒有數字就省略 highlight。不要只寫「3.2%」或「307」。',
     '「事件經過」按時間寫清經過，分成自然段落。「各方回應」只寫來源點名的人或機構說了甚麼；來源沒有引述就不要輸出這一節。「後續關注」只寫來源提到的下一步、日期或未決事項；沒有就不要輸出這一節。',
