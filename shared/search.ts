@@ -137,6 +137,14 @@ export interface ResearchSource {
   source: string;
 }
 
+/** A title worth showing: any Chinese, or at least three plain English words (not "general", "article", ids). */
+export function readableSourceTitle(title: string): boolean {
+  const text = title.trim();
+  if (!text || /^urn:/i.test(text)) return false;
+  if (/[\u3400-\u9fff]/.test(text)) return true;
+  return text.split(/\s+/).filter((word) => /^[a-z]{2,}$/i.test(word)).length >= 3;
+}
+
 /** Last readable path segment, e.g. /world/nobel-chemistry-prize-2026 → nobel chemistry prize 2026. */
 function pathTitle(url: string): string {
   try {
@@ -145,7 +153,7 @@ function pathTitle(url: string): string {
       let seg = parts[i]!;
       try { seg = decodeURIComponent(seg); } catch { /* keep raw */ }
       seg = seg.replace(/\.(html?|shtml|php|aspx?)$/i, '').replace(/[-_+]+/g, ' ').trim();
-      if (/[a-z\u3400-\u9fff]{3,}/i.test(seg) && !/^[\d\s]+$/.test(seg) && seg.length >= 6) return seg.length > 60 ? `${seg.slice(0, 60)}…` : seg;
+      if (readableSourceTitle(seg)) return seg.length > 60 ? `${seg.slice(0, 60)}…` : seg;
     }
   } catch { /* ignore */ }
   return '';

@@ -418,7 +418,7 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research = false): { sys
       .map((block) => ({ heading: block.title, sources: block.sources.map(clip) }));
     const shape = [
       '回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"..."}],"points":["重點","重點","重點"]}。每個 heading 只出現一次；香港和內地兩段各寫 250 至 350 字，涵蓋兩至三件事，並用搜尋到的背景說明為何重要；今日值得留意寫 100 至 150 字。每句 25 至 45 字，不要寫成一連串短句。',
-      '這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫為何重要。同一事實只寫一次。句子長短要有變化。',
+      '這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫搜尋結果或來源提到的影響。不要寫「凸顯…重要性」「提醒市民…」「為…鋪路」這類評論或說教。同一事實只寫一次。句子長短要有變化。',
       '香港段只根據香港來源，內地段只根據內地來源。沒有來源的一邊就整段省略。',
       '今日值得留意綜合兩邊，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。',
       'points 三至四項，每項 30 字以內。數字必須在來源出現過。',
@@ -698,7 +698,8 @@ export function guardDoc(doc: ContentDoc, options?: { researched?: boolean }): C
     ...doc,
     title: bracketed.texts[0] || title,
     blocks: namedBlocks,
-    description: doc.mode === 'ai' ? namedBlocks[0]?.sentences[0] || doc.description : doc.description,
+    // The timeline lists raw source headlines, so the dek comes from the first written section.
+    description: doc.mode === 'ai' ? (namedBlocks.find((block) => block.title !== TIMELINE_HEADING) ?? namedBlocks[0])?.sentences[0] || doc.description : doc.description,
   };
   if (originalTitle) next.originalTitle = originalTitle;
   else delete next.originalTitle;
