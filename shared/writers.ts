@@ -16,6 +16,7 @@ import {
   compareKey,
   findWritten,
   isChinaItem,
+  PROMO_RE,
   selectBriefingItems,
   storySignature,
   type WrittenStory,
@@ -103,7 +104,7 @@ function onToday(item: NewsItem, today: string): boolean {
 
 function takeItems(items: NewsItem[], pick: (item: NewsItem) => boolean, now: Date, perSide: number): NewsItem[] {
   const today = hktParts(now).date;
-  const rows = items.filter(pick).slice().sort((a, b) => Date.parse(b.pubDate) - Date.parse(a.pubDate));
+  const rows = items.filter((item) => pick(item) && !PROMO_RE.test(item.title)).slice().sort((a, b) => Date.parse(b.pubDate) - Date.parse(a.pubDate));
   const current = rows.filter((item) => onToday(item, today));
   return (current.length >= 3 ? current : rows).slice(0, perSide);
 }

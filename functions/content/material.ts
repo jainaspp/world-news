@@ -3,6 +3,7 @@ import {
   ARTICLE_TTL_SECONDS,
   blockedOutlet,
   extractArticle,
+  extractTitle,
   FETCH_CONCURRENCY,
   FETCH_PER_CLUSTER,
   FETCH_TIMEOUT_MS,
@@ -157,4 +158,41 @@ export async function readEvents(env: ContentEnv): Promise<StoredEvent[]> {
 export async function writeEvents(env: ContentEnv, events: StoredEvent[], now = Date.now()): Promise<void> {
   const pruned = pruneEvents(events, now).slice(-80);
   await writeValue(env, eventsKey(), JSON.stringify(pruned));
+}
+
+export function titleCacheKey(url: string): string {
+  return `title:${stableId(url)}`;
+}
+
+/** Headline of each cited page (og:title), cached for 3 days. Used to replace slug or bare-domain citation titles. */
+export async function fetchTitles(
+  env: ContentEnv,
+  urls: string[],
+  fetchImpl: typeof fetch = fetch,
+  limit = 6,
+): Promise<Map<string, string>> {
+  const titles = new Map<string, string>();
+  const wanted = [...new Set(urls.filter((url) => /^https?:\/\//.test(url) && !blockedOutlet(url)))].slice(0, limit);
+  await mapPool(wanted, FETCH_CONCURRENCY, async (url) => {
+    const cached = await readValue(env, titleCacheKey(url)).catch(() => null);
+    if (cached) {
+      titles.set(url, cached);
+      return;
+    }
+    try {
+      const response = await fetchImpl(url, {
+        redirect: 'follow',
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        headers: { 'user-agent': 'world-news.xyz article fetch', accept: 'text/html' },
+      });
+      if (!response.ok) return;
+      const title = extractTitle((await response.text()).slice(0, HTML_CAP));
+      if (!title || title.length < 8) return;
+      titles.set(url, title);
+      await writeValue(env, titleCacheKey(url), title, ARTICLE_TTL_SECONDS);
+    } catch {
+      /* the slug title stays */
+    }
+  });
+  return titles;
 }

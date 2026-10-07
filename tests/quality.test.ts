@@ -166,8 +166,10 @@ describe('search billing and citations', () => {
     ]);
     expect(cited.citations?.[1]?.source).toBe('香港電台');
     const html = renderContentPage(cited, 'https://world-news.xyz/explainer/k');
-    expect(html).toContain('https://www.reuters.com/world/story');
-    expect(html).toContain('來源（3）');
+    // A citation with only a domain for a title is not listed; the cluster links stay.
+    expect(html).not.toContain('https://www.reuters.com/world/story');
+    expect(html).toContain('https://news.rthk.hk/a');
+    expect(html).toContain('來源（2）');
     expect(html.match(/href="https:\/\/news\.rthk\.hk\/a"/g)).toHaveLength(1);
   });
 });

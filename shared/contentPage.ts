@@ -1,6 +1,6 @@
 import { readableSourceTitle } from './search.js';
 import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
-import { briefingPublic, briefingScopeOf, explainerCurrent, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
+import { briefingPublic, briefingScopeOf, explainerCurrent, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
 import { bestImage } from './media.js';
 import { FOOTER_LINKS } from './siteNav.js';
 
@@ -337,7 +337,7 @@ function keyPoints(doc: ContentDoc): string[] {
 
 export function renderContentPage(doc: ContentDoc, canonical: string, options: PageOptions = {}): string {
   const sources = [...new Map(doc.blocks.flatMap((block) => block.sources).map((source) => [source.url, source])).values()];
-  const listed = doc.citations?.length ? doc.citations.slice(0, 10) : sources;
+  const listed = doc.kind === 'briefing' || doc.kind === 'compare' ? listedSources(doc) : (doc.citations?.length ? doc.citations.slice(0, 10) : sources);
   const image = safeHttp(bestImage(sources));
   const outlets = new Set(sources.map((source) => source.source)).size;
   const timelineBlock = doc.kind === 'compare' ? doc.blocks.find((block) => block.title === '事件時間線') : undefined;
