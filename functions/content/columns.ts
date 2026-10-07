@@ -48,7 +48,6 @@ import {
   emptyUsage,
   hktMonth,
   materialFromBoard,
-  parseUsage,
   parseWritten,
   pickCompareBatch,
   pieceReady,
@@ -61,7 +60,6 @@ import {
   statusFrom,
   storySignature,
   upsertWritten,
-  usageKey,
   withArticle,
   withTokens,
   writerFor,
@@ -80,6 +78,7 @@ import { completeGrok, completeText, XAI_TIMEOUT_MS } from './xai.js';
 import { cleanMiniMax, expandMiniMax, pipelineMiniMax } from './minimax.js';
 import { applyVerify, parseVerify, verifyPrompt, VERIFY_MAX_TOKENS, VERIFY_MODEL } from './grokVerify.js';
 import { completeWith } from './xai.js';
+import { monthUsage, saveUsage } from './usage.js';
 import {
   briefingDraft,
   clusterWriter,
@@ -138,15 +137,6 @@ function htmlPage(
     : doc;
   const shown = listed.mode === 'ai' ? guardDoc(listed) : listed;
   return new Response(renderContentPage(shown, canonical, { ads: adConfig(env), archive, explainers }), { status, headers: HTML_HEADERS });
-}
-
-async function monthUsage(env: ContentEnv, now = new Date()): Promise<MonthUsage> {
-  const month = hktMonth(now);
-  return parseUsage(await readValue(env, usageKey(month)).catch(() => null), month);
-}
-
-async function saveUsage(env: ContentEnv, usage: MonthUsage): Promise<void> {
-  await writeValue(env, usageKey(usage.month), JSON.stringify(usage));
 }
 
 function apiKey(env: ContentEnv): string {

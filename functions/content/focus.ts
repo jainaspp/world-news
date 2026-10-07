@@ -9,7 +9,8 @@ import {
   itemsForFocus,
   type FocusPage,
 } from '../../shared/focus.js';
-import { GROK_MODEL, capReached, columnDelivery, hktMonth, materialFromBoard, parseUsage, usageKey, withArticle, withTokens, writerFor } from '../../shared/grok.js';
+import { GROK_MODEL, capReached, columnDelivery, materialFromBoard, withArticle, withTokens, writerFor } from '../../shared/grok.js';
+import { monthUsage, saveUsage } from './usage.js';
 import { focusWriter } from '../../shared/writers.js';
 import { readBoard } from '../board/store.js';
 import { readValue, writeValue, type ContentEnv } from './store.js';
@@ -56,8 +57,7 @@ export async function generateFocus(
   const material = materialFromBoard(board);
   if (!material) return { ...columnDelivery({ cold: true }), kind: 'focus', keys: [] };
 
-  const month = hktMonth(now);
-  let usage = parseUsage(await readValue(env, usageKey(month)).catch(() => null), month);
+  let usage = await monthUsage(env, now);
   const key = apiKey(env);
   const mini = minimaxKey(env);
   const capped = capReached(usage) || !key;
@@ -133,7 +133,7 @@ export async function generateFocus(
   for (const provider of providers) {
     usage = withArticle(usage, provider === 'minimax' ? 'minimax' : provider === 'grok' ? 'grok' : 'workers', 'focus');
   }
-  if (requests || models.length) await writeValue(env, usageKey(month), JSON.stringify(usage));
+  if (requests || models.length) await saveUsage(env, usage);
 
   const delivery = columnDelivery({
     capped,

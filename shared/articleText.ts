@@ -10,6 +10,8 @@ export const FETCH_PER_CLUSTER = 4;
 export const FETCH_TIMEOUT_MS = 4_000;
 
 export const HTML_CAP = 200_000;
+/** Raw page bytes read before code is stripped; HTML_CAP then applies to the stripped page. */
+export const RAW_HTML_CAP = 2_000_000;
 
 /** Below this much extracted text, one article may fall back to web_search. */
 export const MATERIAL_FLOOR = 1_500;
@@ -53,6 +55,8 @@ function decode(text: string): string {
   return text
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    // Inline tags (a drop-cap span, links) sit inside words: remove them without a space.
+    .replace(/<\/?(?:span|a|em|strong|b|i|u|abbr|sup|sub)\b[^>]*>/gi, '')
     .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;|&#160;/gi, ' ')
     .replace(/&amp;/g, '&')
@@ -78,10 +82,19 @@ function meta(html: string, attr: string, key: string): string {
   return decode(html.match(pattern)?.[1] || html.match(swapped)?.[1] || '');
 }
 
+/** Body containers, opened at their start tag and read forward (a lazy close would stop at the first nested </div>). */
+const BODY_OPENERS = [
+  /<[a-z]+\b[^>]*itemprop=["']articleBody["'][^>]*>/i,
+  /<[a-z]+\b[^>]*class=["'][^"']*(?:itemFullText|article-body|articleBody|ArticleBody-articleBody|story-body|article__body|wysiwyg)[^"']*["'][^>]*>/i,
+  /<[a-z]+\b[^>]*data-gu-name=["']body["'][^>]*>/i,
+];
+
 function regions(html: string): string[] {
   const found: string[] = [];
-  const named = html.match(/<(div|section|article)\b[^>]*class=["'][^"']*(?:itemFullText|article-body|articleBody|story-body|article__body)[^"']*["'][^>]*>([\s\S]*?)<\/\1>/i);
-  if (named?.[2] && named[2].length > 80) found.push(named[2]);
+  for (const opener of BODY_OPENERS) {
+    const match = opener.exec(html);
+    if (match) found.push(html.slice(match.index + match[0].length, match.index + match[0].length + 120_000));
+  }
   const article = html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i);
   if (article?.[1] && article[1].length > 200) found.push(article[1]);
   const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i);
@@ -89,11 +102,45 @@ function regions(html: string): string[] {
   return found.length ? found : [html];
 }
 
-function stripChrome(html: string): string {
+/** Script, style, template, svg and noscript blocks, including one left unclosed by a byte cap. */
+export function stripCode(html: string): string {
   return html
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<noscript[\s\S]*?<\/noscript>/gi, ' ')
+    .replace(/<(script|style|noscript|template|svg)\b[\s\S]*?<\/\1\s*>/gi, ' ')
+    .replace(/<(script|style|noscript|template|svg)\b[\s\S]*$/i, ' ');
+}
+
+/** Leaked CSS or JavaScript, never article text. */
+export function looksLikeCode(text: string): boolean {
+  return /[{};]\s*[.#@a-z-]+\s*[{:]|@media|@charset|function\s*\(|=>|window\.|document\.|var\s+\w+\s*=/.test(text)
+    && (text.match(/[{};]/g)?.length ?? 0) >= 3;
+}
+
+/** `articleBody` from JSON-LD (NewsArticle and friends), searched through @graph and arrays. */
+export function jsonLdBody(html: string): string {
+  let best = '';
+  for (const match of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse((match[1] || '').trim());
+    } catch {
+      continue;
+    }
+    const stack: unknown[] = [parsed];
+    while (stack.length) {
+      const node = stack.pop();
+      if (Array.isArray(node)) stack.push(...node);
+      else if (node && typeof node === 'object') {
+        const record = node as Record<string, unknown>;
+        if (typeof record.articleBody === 'string' && record.articleBody.length > best.length) best = record.articleBody;
+        stack.push(...Object.values(record).filter((value) => value && typeof value === 'object'));
+      }
+    }
+  }
+  return decode(best);
+}
+
+function stripChrome(html: string): string {
+  return stripCode(html)
     .replace(/<nav\b[\s\S]*?<\/nav>/gi, ' ')
     .replace(/<footer\b[\s\S]*?<\/footer>/gi, ' ')
     .replace(/<aside\b[\s\S]*?<\/aside>/gi, ' ')
@@ -106,7 +153,7 @@ function textFromRegion(region: string, summary: string, cap: number): string {
   let running = summary.length;
   for (const match of body.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)) {
     const text = decode(match[1] || '');
-    if (text.length < 40) continue;
+    if (text.length < 40 || looksLikeCode(text)) continue;
     paragraphs.push(text);
     running += text.length + 1;
     if (running >= cap) break;
@@ -116,7 +163,7 @@ function textFromRegion(region: string, summary: string, cap: number): string {
     const plain = decode(body.replace(/<br\s*\/?>/gi, '\n').replace(/<\/(div|h\d|li|p)>/gi, '\n'));
     for (const line of plain.split(/\n+/)) {
       const text = line.trim();
-      if (text.length < 40 || paragraphs.includes(text)) continue;
+      if (text.length < 40 || paragraphs.includes(text) || looksLikeCode(text)) continue;
       paragraphs.push(text);
       running += text.length + 1;
       if (running >= cap) break;
@@ -131,15 +178,21 @@ function textFromRegion(region: string, summary: string, cap: number): string {
 }
 
 /**
- * og:description plus the main paragraphs, trimmed to about 1,200 characters.
- * Uses the longest of the article body, `<article>`, or `<main>`, and drops nav, footer, and aside.
+ * og:description plus the article text, trimmed to `cap`. JSON-LD articleBody wins when present;
+ * otherwise the longest of the itemprop/class body, `<article>` or `<main>`, with script, style,
+ * nav, footer and aside dropped first.
  */
 export function extractArticle(html: string, cap = ARTICLE_CHARS): string {
   const summary = meta(html, 'property', 'og:description')
     || meta(html, 'name', 'description')
     || meta(html, 'name', 'twitter:description');
+  const ld = jsonLdBody(html);
+  if (ld.length >= 300 && !looksLikeCode(ld)) {
+    return (ld.startsWith(summary.slice(0, 40)) || !summary ? ld : `${summary} ${ld}`).slice(0, cap);
+  }
+  const page = stripCode(html).slice(0, HTML_CAP);
   let best = '';
-  for (const region of regions(html)) {
+  for (const region of regions(page)) {
     const text = textFromRegion(region, summary, cap);
     if (text.length > best.length) best = text;
     if (best.length >= cap) break;

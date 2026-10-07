@@ -12,6 +12,7 @@ import {
   type DigestBlock,
   type SourceRef,
   narrativeSane,
+  explainerFloor,
 } from './content.js';
 import { FEEDS } from './feeds.js';
 import { stableId } from './rss.js';
@@ -399,7 +400,8 @@ export function structureComplete(doc: ContentDoc): boolean {
 /** Publish only at the 500-character floor, with the sections a reader needs. */
 export function pieceReady(doc: ContentDoc): boolean {
   if (doc.kind !== 'briefing' && doc.kind !== 'compare') return richness(doc) >= MIN_AI_CHARS;
-  return bodyChars(doc) >= MIN_AI_CHARS && structureComplete(doc) && narrativeSane(doc);
+  const floor = doc.kind === 'compare' ? Math.min(MIN_AI_CHARS, explainerFloor(doc)) : MIN_AI_CHARS;
+  return bodyChars(doc) >= floor && structureComplete(doc) && narrativeSane(doc);
 }
 
 /**
