@@ -244,6 +244,16 @@ a.chip { color: inherit; text-decoration: none; }
 }
 .home-intro p, .home-intro li { margin: 0; line-height: 1.7; }
 .home-sections { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+.home-intro.home-intro-top { margin-top: 6px; padding: 8px 12px; gap: 2px; }
+.home-intro-line { font-size: 0.95rem; line-height: 1.45; }
+.home-more { margin: 0; }
+.home-more summary {
+  width: fit-content; cursor: pointer; font-weight: 700; color: var(--accent);
+  min-height: 32px; display: inline-flex; align-items: center;
+}
+.home-intro-top .home-sections { margin-top: 8px; }
+.home-intro.home-intro-foot { margin-top: var(--space-5); }
+.home-intro-foot h2 { font-family: var(--font-serif); font-size: 1.2rem; margin: 0; }
 .more { margin-top: var(--space-4); width: 100%; }
 .install-banner {
   position: sticky; bottom: 12px; z-index: 25; display: flex; justify-content: space-between; gap: var(--space-3); align-items: center;
@@ -292,6 +302,9 @@ a.chip { color: inherit; text-decoration: none; }
   }
   .digest-strip .badge, .digest-strip a:not(.digest-primary):not(.digest-keep) { display: none; }
   .digest-strip a.digest-primary, .digest-strip a.digest-keep { padding: 4px 10px; font-size: 14px; line-height: 1.35; font-weight: 700; }
+  .home-intro.home-intro-top { margin-top: 4px; padding: 6px 10px; }
+  .home-intro-line { font-size: 14px; }
+  .home-more summary { min-height: 28px; font-size: 14px; }
   /* Dense mobile cards: image on the left so photos don't dominate the screen. */
   .news-grid .story {
     display: flex; flex-direction: row; align-items: flex-start; min-width: 0; min-height: 0;

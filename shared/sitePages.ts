@@ -1,5 +1,6 @@
 import { FEEDS } from './feeds.js';
 import { chrome, esc, footer, head } from './contentPage.js';
+import { homeIntroBody } from './homeIntro.js';
 
 /** Shown on the privacy and terms pages. */
 export const POLICY_UPDATED = '2026年10月7日';
@@ -53,6 +54,7 @@ export function renderAboutPage(): string {
       <h1 class="column-title">關於我哋</h1>
       <p class="dek">世界頭條（world-news.xyz）是香港繁體中文的新聞標題板，加上由編輯部設定的 AI 整合欄目。</p>
     </header>
+    ${section('網站簡介', homeIntroBody())}
     ${section('這個網站做什麼', `<p>世界頭條幫你一次過看到各地公開報道的標題、來源名稱、時間，同去原文的連結。介面用繁體中文（香港）。我哋不是通訊社，也不把別家的新聞全文搬過來。</p>`)}
     ${section('標題點樣收集', `<p>標題來自公開的 RSS。程式只保留標題、來源名稱、時間、分類，以及 RSS 若有提供的縮圖網址。解析時會丟掉內文，不會儲存或顯示全文，也不會把圖片下載到我哋的伺服器。</p><p>卡片上的「閱讀原文」會離開本站，去到原來的出版者。標題本身仍可能受版權保護；我哋的做法是短標題加出處連結，不是取得轉載授權。</p>`)}
     ${section('AI 整合點樣產生', `<p>日報、週報同熱門分析會在頁面標明<span class="badge ai-badge">AI 整合</span>。模型只讀已經收錄的標題同短描述，用繁體中文寫成摘要，並附上原文連結。來源沒有寫的數字、引言、人物背景同因果，不會補上。</p><p>熱門分析針對多間媒體同時報道的同一件事，分成背景、各方說法等小節。一週回顧只整理科技同財經標題。這些欄目供參考，不能代替原文。</p>`)}
