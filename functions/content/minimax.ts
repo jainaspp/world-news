@@ -118,7 +118,7 @@ async function completeModel(
   timeoutMs: number,
 ): Promise<MiniMaxCompletion> {
   const first = await postOnce(apiKey, model, system, user, MINIMAX_MAX_TOKENS, timeoutMs);
-  if (first.quota || first.text || first.finish !== 'length') return stripFinish(first);
+  if (first.quota || first.text || first.finish !== 'length' || timeoutMs < MINIMAX_TIMEOUT_MS) return stripFinish(first);
   const again = await postOnce(apiKey, model, system, user, MINIMAX_RETRY_TOKENS, timeoutMs);
   return {
     text: again.text,
@@ -142,7 +142,8 @@ export async function completeMiniMax(
   timeoutMs = MINIMAX_TIMEOUT_MS,
 ): Promise<MiniMaxCompletion> {
   const primary = await completeModel(apiKey, MINIMAX_MODEL, system, user, timeoutMs);
-  if (primary.text || primary.quota || primary.status === 401 || primary.status === 403) return primary;
+  // A timeout means the time budget is spent; a second model would double it.
+  if (primary.text || primary.quota || primary.status === 401 || primary.status === 403 || /timeout|abort/i.test(primary.error || '')) return primary;
   const secondary = await completeModel(apiKey, MINIMAX_FALLBACK_MODEL, system, user, timeoutMs);
   if (!secondary.text && !secondary.error && primary.error) return { ...secondary, error: primary.error };
   return secondary;

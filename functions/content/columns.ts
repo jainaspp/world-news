@@ -709,7 +709,13 @@ async function prepareExplainers(
     const miniDesk = clusterWriter(row.cluster) === 'minimax';
     const stamped = stampExcerpts(row.cluster.items, fetched.texts, miniDesk ? ARTICLE_CHARS_LONG : ARTICLE_CHARS);
     if (miniDesk && !miniMaterialOk(stamped)) {
-      held?.push(row.cluster.lead.title);
+      held?.push(row.source.keepKey || row.cluster.lead.title);
+      // A forced MiniMax piece below the bar goes back to the source list, not an unchecked draft.
+      if (row.source.keepKey) {
+        const listed = compareFromCluster({ ...row.cluster, items: stamped }, now, relatedEarlier(row.cluster, items));
+        listed.key = row.source.keepKey;
+        await writeDoc(env, listed, false).catch(() => undefined);
+      }
       continue;
     }
     const lead = stamped.find((item) => item.id === row.cluster.lead.id) ?? stamped[0];
@@ -886,6 +892,7 @@ export async function generateCompare(
       updates: update.keys,
       costs: update.costs,
       skipped: 'none',
+      held,
     });
   }
 
