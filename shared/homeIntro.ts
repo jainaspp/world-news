@@ -3,9 +3,12 @@ import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from './homeCopy.js';
 
 /** Full intro plus the column list. Server-rendered, including inside the collapsed toggle. */
 export function homeIntroBody(): string {
-  const items = HOME_SECTIONS.map((section) => (
-    `<li><strong><a href="${esc(section.href)}">${esc(section.name)}</a></strong> ${esc(section.text)}</li>`
-  )).join('');
+  const items = HOME_SECTIONS.map((section) => {
+    const name = section.href
+      ? `<a href="${esc(section.href)}">${esc(section.name)}</a>`
+      : esc(section.name);
+    return `<li><strong>${name}</strong> ${esc(section.text)}</li>`;
+  }).join('');
   return `<p>${esc(HOME_INTRO)}</p><ul class="home-sections">${items}</ul>`;
 }
 

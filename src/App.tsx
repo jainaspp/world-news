@@ -50,7 +50,7 @@ function HomeIntroBody() {
       <ul className="home-sections">
         {HOME_SECTIONS.map((section) => (
           <li key={section.name}>
-            <strong><a href={section.href}>{section.name}</a></strong> {section.text}
+            <strong>{section.href ? <a href={section.href}>{section.name}</a> : section.name}</strong> {section.text}
           </li>
         ))}
       </ul>

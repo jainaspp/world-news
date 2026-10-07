@@ -162,7 +162,7 @@ describe('trend chart and HK summary', () => {
     const alone = summarise(weather, [day('2026-10-07', { temp: 28, humidity: 75, rain: 0 })]);
     expect(alone).toContain('28 度');
     expect(alone).toContain('75%');
-    expect(alone).toContain('未有昨日可以比較');
+    expect(alone).toContain('尚無昨日數據可供比較');
     expect(alone).not.toMatch(/[零一二三四五六七八九十]度/);
 
     const compared = summarise(weather, [
@@ -171,7 +171,7 @@ describe('trend chart and HK summary', () => {
     ]);
     expect(compared).toContain('較昨日 27 度高 2 度');
     expect(compared).toContain('黃色暴雨警告信號');
-    expect(compared).not.toContain('未有昨日');
+    expect(compared).not.toContain('尚無昨日');
 
     const aqhi = summarise(pageById('aqhi'), [
       day('2026-10-06', { aqhi: 4 }, '中西區 · 低'),
@@ -191,7 +191,7 @@ describe('trend chart and HK summary', () => {
 
     const gold = summarise(pageById('gold'), [day('2026-10-07', { price: 2650 })]);
     expect(gold).toContain('2,650 美元');
-    expect(gold).toContain('未有昨日可以比較');
+    expect(gold).toContain('尚無昨日數據可供比較');
     const oil = summarise(pageById('oil'), [
       day('2026-10-06', { price: 79.2 }),
       day('2026-10-07', { price: 78.5 }),
@@ -252,10 +252,19 @@ describe('homepage intro stays in the HTML without leading the screen', () => {
     expect(html).toContain('每日香港導讀');
     expect(html).toContain('多方報道對比');
     expect(html).toContain('href="/data/"');
+    const lazy = html.match(/<strong>新聞懶人包<\/strong>[^<]*<\/li>/g) || [];
+    expect(lazy.length).toBeGreaterThan(0);
+    for (const item of lazy) {
+      expect(item).toContain('整合多方報道、配時間線');
+      expect(item).not.toContain('href=');
+    }
     const about = renderAboutPage();
     expect(about).toContain(HOME_INTRO);
     expect(about).toContain('href="/briefing/"');
-    expect(about).toContain('href="/compare/"');
+    const aboutLazy = about.match(/<strong>新聞懶人包<\/strong>[^<]*<\/li>/g) || [];
+    expect(aboutLazy).toHaveLength(1);
+    expect(aboutLazy[0]).toContain('整合多方報道、配時間線');
+    expect(aboutLazy[0]).not.toContain('href=');
     expect(about).not.toContain('adsbygoogle');
     const sitemap = readFileSync('functions/sitemap.xml.ts', 'utf8');
     expect(sitemap).toContain('DATA_PAGES');

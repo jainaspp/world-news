@@ -28,11 +28,11 @@ export const DATA_PAGES: DataPageSpec[] = [
     id: 'weather',
     path: '/data/weather/',
     title: '香港天氣',
-    description: '香港天文台每日氣溫、濕度同雨量記錄，附 30 日走勢。世界頭條原創新聞數據，不是九日預報。',
+    description: '香港天文台每日氣溫、濕度與雨量記錄，附 30 日走勢。世界頭條原創新聞數據，並非九日預報。',
     kicker: '天文台',
     sourceName: '香港天文台',
     sourceUrl: 'https://www.hko.gov.hk/tc/wxinfo/currwx/current.htm',
-    blurb: '呢頁每日記錄香港天文台公布的氣溫、相對濕度同各區最高雨量。數字在香港時間每一日第一次成功讀到時寫低，同日之後沿用這一筆，不會每分鐘改寫。趨勢圖同下表最多保留 30 日。天氣警告的全文同最新實況，請去天文台網站。',
+    blurb: '本頁每日記錄香港天文台公布的氣溫、相對濕度與各區最高雨量。數字在香港時間每一日第一次成功讀取時寫入，當日其後沿用這一筆，不會每分鐘改寫。趨勢圖與下表最多保留 30 日。天氣警告的全文與最新實況，請參閱天文台網站。',
     metrics: [
       { key: 'temp', label: '氣溫', unit: '度', digits: 0 },
       { key: 'humidity', label: '相對濕度', unit: '%', digits: 0 },
@@ -44,11 +44,11 @@ export const DATA_PAGES: DataPageSpec[] = [
     id: 'aqhi',
     path: '/data/aqhi/',
     title: '空氣質素',
-    description: '環境保護署一般監測站最高 AQHI 的每日記錄，附風險級別同 30 日走勢。',
+    description: '環境保護署一般監測站最高 AQHI 的每日記錄，附風險級別與 30 日走勢。',
     kicker: '環保署',
     sourceName: '環境保護署',
     sourceUrl: 'https://www.aqhi.gov.hk/',
-    blurb: '空氣質素健康指數（AQHI）來自環境保護署的一般監測站。呢頁每日記低當日讀到的最高指數、風險級別同站名。路邊站不算入最高值。指數越高，對健康的影響越大。即時讀數請到環境保護署核對。',
+    blurb: '空氣質素健康指數（AQHI）來自環境保護署的一般監測站。本頁每日記錄當日讀到的最高指數、風險級別與站名。路邊監測站不計入最高值。指數越高，對健康的影響越大。即時讀數請到環境保護署核對。',
     metrics: [
       { key: 'aqhi', label: '最高 AQHI', unit: '', digits: 1 },
     ],
@@ -58,11 +58,11 @@ export const DATA_PAGES: DataPageSpec[] = [
     id: 'fx',
     path: '/data/fx/',
     title: '匯率',
-    description: '美元兌港元同人民幣兌港元的每日參考價，附 30 日記錄。不是銀行牌價，亦不是投資建議。',
+    description: '美元兌港元與人民幣兌港元的每日參考價，附 30 日記錄。並非銀行牌價，亦非投資建議。',
     kicker: '匯市',
     sourceName: 'Yahoo Finance',
     sourceUrl: 'https://finance.yahoo.com/quote/USDHKD=X/',
-    blurb: '匯率頁記錄美元兌港元同人民幣兌港元。報價來自 Yahoo Finance 的公開圖表，是市場參考價，不是銀行櫃位的買賣價，亦不是香港金融管理局的官方牌價。聯繫匯率下美元兌港元通常靠近 7.80。數字只供參考，不是投資建議。',
+    blurb: '匯率頁記錄美元兌港元與人民幣兌港元。報價來自 Yahoo Finance 的公開圖表，屬於市場參考價，並非銀行櫃位的買賣價，亦非香港金融管理局的官方牌價。聯繫匯率下，美元兌港元通常靠近 7.80。數字只供參考，並非投資建議。',
     metrics: [
       { key: 'usd', label: '美元/港元', unit: '', digits: 4 },
       { key: 'cny', label: '人民幣/港元', unit: '', digits: 4 },
@@ -73,11 +73,11 @@ export const DATA_PAGES: DataPageSpec[] = [
     id: 'gold',
     path: '/data/gold/',
     title: '金價',
-    description: '黃金期貨每盎司美元的每日記錄同 30 日走勢。不是金店飾金價，亦不是投資建議。',
+    description: '黃金期貨每盎司美元的每日記錄與 30 日走勢。並非金店飾金價，亦非投資建議。',
     kicker: '金屬',
     sourceName: 'Yahoo Finance',
     sourceUrl: 'https://finance.yahoo.com/quote/GC=F/',
-    blurb: '金價按紐約商品交易所黃金期貨（每盎司美元）的公開報價記錄。呢個不是香港金店的飾金價，亦未計手工同買賣差價。每日記一筆，最多保留 30 日。走勢只供參考，不是投資建議。',
+    blurb: '金價按紐約商品交易所黃金期貨（每盎司美元）的公開報價記錄。此價格並非香港金店的飾金價，亦未計入手工與買賣差價。每日記錄一筆，最多保留 30 日。走勢只供參考，並非投資建議。',
     metrics: [
       { key: 'price', label: '金價', unit: '美元/盎司', digits: 0 },
     ],
@@ -87,11 +87,11 @@ export const DATA_PAGES: DataPageSpec[] = [
     id: 'oil',
     path: '/data/oil/',
     title: '油價',
-    description: '布倫特原油期貨每桶美元的每日記錄同 30 日走勢。不是油站零售價，亦不是投資建議。',
+    description: '布倫特原油期貨每桶美元的每日記錄與 30 日走勢。並非油站零售價，亦非投資建議。',
     kicker: '能源',
     sourceName: 'Yahoo Finance',
     sourceUrl: 'https://finance.yahoo.com/quote/BZ=F/',
-    blurb: '油價按布倫特原油期貨（每桶美元）的公開報價記錄。呢個不是香港油站的每公升零售價。每日記一筆，最多保留 30 日。走勢只供參考，不是投資建議。',
+    blurb: '油價按布倫特原油期貨（每桶美元）的公開報價記錄。此價格並非香港油站的每公升零售價。每日記錄一筆，最多保留 30 日。走勢只供參考，並非投資建議。',
     metrics: [
       { key: 'price', label: '布倫特原油', unit: '美元/桶', digits: 2 },
     ],
@@ -102,7 +102,7 @@ export const DATA_PAGES: DataPageSpec[] = [
 export const DATA_HUB = {
   path: '/data/',
   title: '香港數據',
-  description: '世界頭條每日記錄香港天氣、空氣質素、匯率、金價同油價。原創新聞數據，附 30 日表格同走勢。',
+  description: '世界頭條每日記錄香港天氣、空氣質素、匯率、金價與油價。原創新聞數據，附 30 日表格與走勢。',
 };
 
 export interface DataDay {
@@ -287,7 +287,7 @@ function changeClause(today: number, prior: number, digits: number, unit: string
   const gap = unit ? ` ${unit}` : '';
   const word = diff > 0 ? '高' : '低';
   const moved = formatReading(Math.abs(diff), digits);
-  if (flat(diff, digits)) return `同${when} ${left}${gap}持平`;
+  if (flat(diff, digits)) return `與${when} ${left}${gap}持平`;
   if (unit) return `較${when} ${left} ${unit}${word} ${moved} ${unit}`;
   return `較${when} ${left} ${word} ${moved}`;
 }
@@ -301,12 +301,12 @@ function isPreviousCalendarDay(newer: string, older: string): boolean {
 }
 
 function firstDaySentence(): string {
-  return '呢頁由今日開始記錄，未有昨日可以比較。';
+  return '本頁由今日開始記錄，尚無昨日數據可供比較。';
 }
 
 export function summarise(spec: DataPageSpec, days: DataDay[]): string {
   const today = days[days.length - 1];
-  if (!today) return `今日暫時未有${spec.sourceName}的讀數。頁面會由成功取得數據的第一日開始記錄。`;
+  if (!today) return `今日暫無${spec.sourceName}的讀數。頁面會由成功取得數據的第一日開始記錄。`;
   const prior = priorDay(days);
   const adjacent = prior ? isPreviousCalendarDay(today.date, prior.date) : false;
   if (spec.id === 'weather') return summariseWeather(today, prior, adjacent);
@@ -341,7 +341,7 @@ function formatAqhi(value: number): string {
 
 function summariseAqhi(today: DataDay, prior: DataDay | null, adjacent: boolean): string {
   const value = reading(today, 'aqhi');
-  if (value == null) return '今日暫時未有空氣質素讀數。';
+  if (value == null) return '今日暫無空氣質素讀數。';
   const [station, risk] = (today.label || '').split(' · ');
   const where = station ? `，讀數來自${station}` : '';
   const level = risk ? `，風險屬${risk}` : '';
@@ -350,7 +350,7 @@ function summariseAqhi(today: DataDay, prior: DataDay | null, adjacent: boolean)
   if (before != null) {
     const diff = Math.round(value * 2) / 2 - Math.round(before * 2) / 2;
     const when = adjacent ? '昨日' : '上一個記錄日';
-    if (Math.abs(diff) < 0.25) line += `同${when} ${formatAqhi(before)} 持平。`;
+    if (Math.abs(diff) < 0.25) line += `與${when} ${formatAqhi(before)} 持平。`;
     else line += `較${when} ${formatAqhi(before)} ${diff > 0 ? '高' : '低'} ${formatAqhi(Math.abs(diff))}。`;
   } else {
     line += firstDaySentence();
@@ -374,14 +374,14 @@ function summariseFx(today: DataDay, prior: DataDay | null, adjacent: boolean): 
     if (before != null) line += `，${changeClause(cny, before, 4, '', adjacent)}`;
     parts.push(`${line}。`);
   }
-  if (!parts.length) return '今日暫時未有匯率。';
+  if (!parts.length) return '今日暫無匯率。';
   if (!prior) parts.push(firstDaySentence());
   return parts.join('');
 }
 
 function summarisePrice(lead: string, today: DataDay, prior: DataDay | null, adjacent: boolean, unit: string, digits: number): string {
   const price = reading(today, 'price');
-  if (price == null) return '今日暫時未有報價。';
+  if (price == null) return '今日暫無報價。';
   let line = `${lead} ${formatReading(price, digits)} ${unit}`;
   const before = reading(prior, 'price');
   if (before != null) line += `，${changeClause(price, before, digits, unit, adjacent)}`;
@@ -396,9 +396,9 @@ export function trendSvg(points: Array<{ date: string; value: number }>, label: 
   const pad = { l: 56, r: 16, t: 18, b: 32 };
   const title = points.length
     ? `${label}趨勢，最新 ${formatReading(points[points.length - 1]!.value, digits)}${unit ? ` ${unit}` : ''}，共 ${points.length} 日`
-    : `${label}趨勢，未有記錄`;
+    : `${label}趨勢，尚無記錄`;
   if (!points.length) {
-    return `<svg class="trend" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeAttr(title)}"><title>${escapeText(title)}</title><rect x="0" y="0" width="${width}" height="${height}" fill="none"></rect><text x="${width / 2}" y="${height / 2}" text-anchor="middle" fill="currentColor">未有記錄</text></svg>`;
+    return `<svg class="trend" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeAttr(title)}"><title>${escapeText(title)}</title><rect x="0" y="0" width="${width}" height="${height}" fill="none"></rect><text x="${width / 2}" y="${height / 2}" text-anchor="middle" fill="currentColor">尚無記錄</text></svg>`;
   }
   const values = points.map((point) => point.value);
   let min = Math.min(...values);

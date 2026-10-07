@@ -49,7 +49,7 @@ function deltaLabel(metric: MetricSpec, today: number, prior: number | null): st
   if (prior == null) return '首日記錄';
   const factor = 10 ** Math.max(0, digitsOf(metric));
   const diff = Math.round(today * factor) / factor - Math.round(prior * factor) / factor;
-  if (diff === 0) return '同上一筆持平';
+  if (diff === 0) return '與上一筆記錄持平';
   const unit = metric.unit ? ` ${metric.unit}` : '';
   return `較上一筆${diff > 0 ? '高' : '低'} ${formatReading(Math.abs(diff), metric.digits)}${unit}`;
 }
@@ -70,7 +70,7 @@ function statCards(spec: DataPageSpec, days: DataDay[]): string {
     return [`<li class="data-stat data-${way}"><span class="data-stat-label">${esc(metric.label)}</span><strong>${esc(formatReading(value, metric.digits))}${unit}</strong><span class="data-delta">${esc(deltaLabel(metric, value, before))}</span></li>`];
   });
   if (!cards.length) {
-    return '<p class="notice">今日讀數暫時取不到。頁面會在下一次成功讀到來源時開始記錄。</p>';
+    return '<p class="notice">今日讀數暫時未能取得。頁面會在下一次成功讀取來源時開始記錄。</p>';
   }
   return `<ul class="data-stats">${cards.join('')}</ul>`;
 }
@@ -83,7 +83,7 @@ function charts(spec: DataPageSpec, days: DataDay[]): string {
       const value = reading(day, key);
       return value == null ? [] : [{ date: day.date, value }];
     });
-    const note = points.length < 2 ? '<p class="data-chart-note">而家只有 1 日或未有記錄。第二日起會畫出折線，最多顯示 30 日。</p>' : '';
+    const note = points.length < 2 ? '<p class="data-chart-note">目前只有 1 日或尚無記錄。第二日起會繪出折線，最多顯示 30 日。</p>' : '';
     return `<figure class="data-chart"><figcaption>${esc(metric.label)} · ${points.length} 日</figcaption>${trendSvg(points, metric.label, metric.unit, metric.digits)}${note}</figure>`;
   });
   return blocks.join('');
@@ -99,7 +99,7 @@ function historyTable(spec: DataPageSpec, days: DataDay[]): string {
     const extra = day.label ? `<td class="data-note-cell">${esc(day.label)}</td>` : '<td></td>';
     return `<tr><th scope="row"><time datetime="${esc(day.date)}">${esc(formatDay(day.date))}</time></th>${cells}${extra}</tr>`;
   });
-  const body = rows.length ? rows.join('') : '<tr><td colspan="6">未有記錄。今日第一次成功讀到來源之後，呢一行就會出現。</td></tr>';
+  const body = rows.length ? rows.join('') : '<tr><td colspan="6">尚無記錄。今日第一次成功讀取來源之後，此列便會出現。</td></tr>';
   return `<section class="data-table-wrap" aria-label="每日記錄"><h2 class="column-h2">近 ${Math.min(30, Math.max(days.length, 1))} 日</h2><div class="data-table-scroll"><table class="data-table"><caption>${esc(spec.title)}每日記錄，新的在上。</caption><thead><tr>${headCells}<th scope="col">備註</th></tr></thead><tbody>${body}</tbody></table></div></section>`;
 }
 
@@ -112,8 +112,8 @@ function relatedNav(current: string): string {
 
 function sourceCard(spec: DataPageSpec, days: DataDay[]): string {
   const updated = days[days.length - 1]?.updated || '';
-  const when = updated ? `<time datetime="${esc(updated)}">${esc(formatUpdated(updated))}</time>` : '未有更新時間';
-  return `<section class="side-card" aria-label="來源"><h2>來源</h2><p>數字來自<a href="${esc(spec.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(spec.sourceName)}</a>。世界頭條每日記一筆，不經 AI 改寫。</p><p class="data-updated">更新時間：${when}</p></section>`;
+  const when = updated ? `<time datetime="${esc(updated)}">${esc(formatUpdated(updated))}</time>` : '尚無更新時間';
+  return `<section class="side-card" aria-label="來源"><h2>來源</h2><p>數字來自<a href="${esc(spec.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(spec.sourceName)}</a>。世界頭條每日記錄一筆，不經 AI 改寫。</p><p class="data-updated">更新時間：${when}</p></section>`;
 }
 
 function jsonLd(name: string, description: string, canonical: string, updated: string): string {
@@ -162,10 +162,10 @@ export function renderDataPage(spec: DataPageSpec, series: DataSeries, options: 
       ${statCards(spec, days)}
       <section class="editor-note data-summary" aria-label="今日變化"><h2 class="column-h2">今日變化</h2><p>${esc(summary)}</p></section>
       ${manualAd(ads, 'top')}
-      <section class="story column-block"><div class="story-body"><h2 class="column-h2">點樣讀呢頁</h2><p>${esc(spec.blurb)}</p></div></section>
+      <section class="story column-block"><div class="story-body"><h2 class="column-h2">如何閱讀本頁</h2><p>${esc(spec.blurb)}</p></div></section>
       ${charts(spec, days)}
       ${historyTable(spec, days)}
-      <section class="story column-block"><div class="story-body"><h2 class="column-h2">出處同更新</h2><p>來源：<a href="${esc(spec.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(spec.sourceName)}</a>。${when ? `本頁記錄更新於 <time datetime="${esc(updated)}">${esc(when)}</time>。` : '今日尚未寫入記錄。'}走勢由本站按每日快照畫成，沒有使用第三方圖表庫。</p></div></section>
+      <section class="story column-block"><div class="story-body"><h2 class="column-h2">出處與更新</h2><p>來源：<a href="${esc(spec.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(spec.sourceName)}</a>。${when ? `本頁記錄更新於 <time datetime="${esc(updated)}">${esc(when)}</time>。` : '今日尚未寫入記錄。'}走勢由本站按每日快照繪成，沒有使用第三方圖表庫。</p></div></section>
       ${manualAd(ads, 'bottom')}
     </main>
     <aside class="sidebar" aria-label="側欄">
@@ -202,15 +202,15 @@ export function renderDataHub(series: DataSeries[], options: AdConfig = { client
         <h1 class="column-title">${esc(DATA_HUB.title)}</h1>
         <p class="dek">${esc(DATA_HUB.description)}</p>
       </header>
-      <section class="editor-note" aria-label="關於數據頁"><h2 class="column-h2">關於呢啲數字</h2><p>世界頭條把香港天氣、空氣質素、匯率、金價同油價每日記低一筆，方便同新聞放在一起睇。資料來自網站已經使用的公開來源，不經 AI 生成。每一欄都有今日數字、近 30 日表格同簡單走勢。市場價格只供參考，不是投資建議。</p></section>
+      <section class="editor-note" aria-label="關於數據頁"><h2 class="column-h2">關於這些數字</h2><p>本站每日記錄香港天氣、空氣質素、匯率、金價與油價各一筆，方便與新聞一併閱讀。資料來自本站已使用的公開來源，不經 AI 生成。每一欄都有今日數字、近 30 日表格與簡單走勢。市場價格只供參考，並非投資建議。</p></section>
       ${manualAd(ads, 'top')}
       <div class="data-hub-grid">${cards}</div>
-      <section class="story column-block"><div class="story-body"><h2 class="column-h2">每日點樣記</h2><ul class="points"><li>香港時間每一日第一次有人打開頁面，先向來源取今日數字，然後寫入記錄。</li><li>同日之後的請求直接讀已記低的一筆，避免重複向天文台同報價來源查詢。</li><li>只有 1 日的時候，表格有一行，走勢是一個點。之後每日加一筆，最多 30 日。</li></ul></div></section>
+      <section class="story column-block"><div class="story-body"><h2 class="column-h2">每日如何記錄</h2><ul class="points"><li>香港時間每一日第一次有人打開頁面，先向來源取得今日數字，然後寫入記錄。</li><li>當日其後的請求直接讀取已記錄的一筆，避免重複向天文台與報價來源查詢。</li><li>只有 1 日的時候，表格有一行，走勢是一個點。之後每日加一筆，最多 30 日。</li></ul></div></section>
       ${manualAd(ads, 'bottom')}
     </main>
     <aside class="sidebar" aria-label="側欄">
       ${relatedNav('')}
-      <section class="side-card"><h2>不是預測</h2><p>呢度沒有預報模型，亦沒有買賣建議。天氣同空氣質素請以來源網站的最新公布為準。</p></section>
+      <section class="side-card"><h2>不是預測</h2><p>這裡沒有預報模型，亦沒有買賣建議。天氣與空氣質素請以來源網站的最新公布為準。</p></section>
     </aside>
   </div>`;
   return shell(DATA_HUB.title, DATA_HUB.description, DATA_HUB.path, body, ads, updated);
@@ -225,7 +225,7 @@ ${head('找不到數據頁', '這個數據頁不存在。可以返回香港數�
   <div class="page column-page" data-kind="data">
   ${chrome('data')}
   <main id="content" class="column-index">
-    <div class="status-panel"><h2>找不到這一頁</h2><p>數據欄只有天氣、空氣質素、匯率、金價同油價。</p><a class="primary" href="/data/">返回數據</a></div>
+    <div class="status-panel"><h2>找不到這一頁</h2><p>數據欄只有天氣、空氣質素、匯率、金價與油價。</p><a class="primary" href="/data/">返回數據</a></div>
   </main>
   ${footer()}
   </div>
