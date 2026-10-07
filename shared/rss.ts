@@ -1,6 +1,7 @@
 import { categorize, type CategoryId } from './categories.js';
 import type { Feed } from './feeds';
 import type { NewsItem } from './types';
+import { toHK } from './zh.js';
 
 const PER_FEED = 30;
 
@@ -126,24 +127,67 @@ function excerptOf(block: string): string {
   return raw.slice(0, EXCERPT_LEN);
 }
 
+/** Skip the OpenCC walk for Latin headlines. Traditional text passes through. */
+function hkText(text: string): string {
+  if (!/[\u3400-\u9fff]/.test(text)) return text;
+  return toHK(text);
+}
+
 function pushItem(items: NewsItem[], feed: Feed, block: string, title: string, link: string, pubDate: string) {
+  addItem(items, feed, title, link, pubDate, excerptOf(block), extractImage(block));
+}
+
+function addItem(items: NewsItem[], feed: Feed, title: string, link: string, pubDate: string, excerpt: string, image: string) {
   const normalized = normalizeLink(link);
-  if (!title || !normalized || items.length >= PER_FEED) return;
-  const image = extractImage(block);
-  const excerpt = excerptOf(block);
+  if (!title || !normalized) return;
+  if (feed.includePaths?.length && !feed.includePaths.some((part) => normalized.includes(part))) return;
+  if (items.length >= PER_FEED) return;
+  const traditionalTitle = hkText(title).slice(0, 300);
+  const traditionalExcerpt = excerpt ? hkText(excerpt) : '';
   const item: NewsItem = {
     id: stableId(normalized),
-    title: title.slice(0, 300),
+    title: traditionalTitle,
     link: normalized,
     source: feed.label,
     sourceUrl: feed.homepage,
     regions: feed.regions,
     pubDate: toIso(pubDate),
-    category: categorize(title, (feed.category ?? 'world') as CategoryId),
+    category: categorize(traditionalTitle, (feed.category ?? 'world') as CategoryId),
   };
   if (image) item.image = image;
-  if (excerpt) item.excerpt = excerpt;
+  if (traditionalExcerpt) item.excerpt = traditionalExcerpt;
   items.push(item);
+}
+
+function epochIso(value: number): string {
+  const ms = value > 0 && value < 1e12 ? value * 1000 : value;
+  const date = new Date(ms);
+  return Number.isNaN(date.getTime()) ? '' : date.toISOString();
+}
+
+/** Now 新聞 publishes a JSON list, not RSS. Titles are already Traditional. */
+export function parseNowFeed(text: string, feed: Feed): NewsItem[] {
+  let rows: unknown;
+  try {
+    rows = JSON.parse(text);
+  } catch {
+    return [];
+  }
+  if (!Array.isArray(rows)) return [];
+  const items: NewsItem[] = [];
+  for (const row of rows) {
+    if (!row || typeof row !== 'object') continue;
+    const record = row as Record<string, unknown>;
+    const newsId = String(record.newsId ?? '').trim();
+    const title = decodeText(String(record.title ?? ''));
+    if (!newsId || !title) continue;
+    const published = typeof record.publishDate === 'number' ? epochIso(record.publishDate) : toIso(String(record.publishDate ?? ''));
+    const excerpt = decodeText(String(record.summary ?? record.leading ?? '')).slice(0, EXCERPT_LEN);
+    const image = safeImage(typeof record.imageUrl === 'string' ? record.imageUrl : '');
+    addItem(items, feed, title, `https://news.now.com/home/local/player?newsId=${newsId}`, published, excerpt, image);
+    if (items.length >= PER_FEED) break;
+  }
+  return items;
 }
 
 export function parseFeed(xml: string, feed: Feed): NewsItem[] {
@@ -153,6 +197,7 @@ export function parseFeed(xml: string, feed: Feed): NewsItem[] {
   while ((match = rss.exec(xml)) !== null) {
     const block = match[1];
     pushItem(items, feed, block, tagText(block, 'title'), tagText(block, 'link') || atomLink(block), tagText(block, 'pubDate') || tagText(block, 'dc:date'));
+    if (items.length >= PER_FEED) return items;
   }
   if (items.length > 0) return items;
 
@@ -160,6 +205,7 @@ export function parseFeed(xml: string, feed: Feed): NewsItem[] {
   while ((match = atom.exec(xml)) !== null) {
     const block = match[1];
     pushItem(items, feed, block, tagText(block, 'title'), atomLink(block) || tagText(block, 'link'), tagText(block, 'updated') || tagText(block, 'published'));
+    if (items.length >= PER_FEED) break;
   }
   return items;
 }

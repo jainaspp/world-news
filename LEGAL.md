@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | NASA | `public-domain` | 美國聯邦政府作品，一般可公開使用。仍應保留 NASA 名稱同連結。 |
 | UN News | `un-reuse` | 聯合國新聞通常允許連出處轉載。保留 UN News 名稱同連結。 |
-| BBC、The Guardian、DW、Al Jazeera、NHK、RTHK、CNA、Yonhap、HKFP、SCMP、Yahoo 新聞、CNBC、The Verge、Ars Technica、Variety、Deadline、Sky Sports、NPR、RFI | `uncertain` | 這些 RSS 可以在伺服器讀取，但各家條款對「公開網站再顯示標題」同「廣告」並不一致。BBC 的 RSS 條款傾向非商業用途。本站 `index.html` 仍載入現有 AdSense 發布商編號。若廣告條款不允許某個來源，應拿掉該來源。 |
+| BBC、The Guardian、DW、Al Jazeera、NHK、RTHK、CNA、Yonhap、HKFP、Yahoo 新聞、Now 新聞、有線新聞、星島頭條、政府新聞網、新聞公報、中新網、自由亞洲、Sixth Tone、CNBC、The Verge、Ars Technica、Variety、Deadline、Sky Sports、NPR、RFI | `uncertain` | 這些 RSS（Now 新聞是網站自己的公開 JSON 列表）可以在伺服器讀取，但各家條款對「公開網站再顯示標題」同「廣告」並不一致。BBC 的 RSS 條款傾向非商業用途。本站 `index.html` 仍載入現有 AdSense 發布商編號。若廣告條款不允許某個來源，應拿掉該來源。SCMP 的 RSS 在一般網絡可讀，但 Cloudflare 出口會回 HTTP 403，所以沒有列入。 |
 
 標題本身仍可能受版權保護。本程式的做法是短標題加出處連結，不是取得轉載授權。
 

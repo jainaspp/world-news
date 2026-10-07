@@ -5,8 +5,14 @@ import { FEEDS, FEEDS_PER_SHARD, SHARD_COUNT, feedsInShard, shardIndex } from '.
 
 describe('feed list', () => {
   it('stays inside the Pages subrequest budget and covers every category', () => {
-    expect(FEEDS.length).toBeLessThanOrEqual(FEEDS_PER_SHARD * SHARD_COUNT);
+    expect(FEEDS_PER_SHARD).toBe(2);
+    expect(SHARD_COUNT).toBeLessThanOrEqual(40);
+    expect(FEEDS.length).toBe(FEEDS_PER_SHARD * SHARD_COUNT);
     expect(FEEDS.length).toBeGreaterThanOrEqual(30);
+    expect(new Set(FEEDS.map((feed) => feed.id)).size).toBe(FEEDS.length);
+    expect(FEEDS.some((feed) => feed.url.includes('scmp.com'))).toBe(false);
+    expect(FEEDS.filter((feed) => feed.category === 'hk').length).toBeGreaterThanOrEqual(8);
+    expect(FEEDS.filter((feed) => feed.category === 'china').length).toBeGreaterThanOrEqual(8);
     expect(shardIndex('a')).toBeNull();
     let total = 0;
     for (let index = 0; index < SHARD_COUNT; index += 1) {
