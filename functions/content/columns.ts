@@ -825,7 +825,9 @@ export async function generateCompare(
     });
   } else {
     const fresh = material.clusters.filter((cluster) => !matchEvent(cluster, events, now.getTime()));
-    const miniPicked = miniTake > 0 ? pickMiniMaxBatch(fresh, written, miniTake, now) : [];
+    // Only clusters that pass the same-event check, so a call is not spent re-picking ones prepareExplainers drops.
+    const miniPool = fresh.filter((cluster) => clusterWriter(cluster) === 'minimax' && coherentCluster(cluster));
+    const miniPicked = miniTake > 0 ? pickMiniMaxBatch(miniPool, written, miniTake, now) : [];
     const grokFresh = fresh.filter((cluster) => clusterWriter(cluster) === 'grok');
     const grokWritten = written.filter((row) => row.provider !== 'minimax');
     const grokPicked = room > 0 ? pickCompareBatch(grokFresh, grokWritten, room, now) : [];
