@@ -4,7 +4,7 @@ import { mergeIndex, type ContentDoc, type IndexEntry } from '../../shared/conte
 export interface ContentEnv {
   CONTENT?: {
     get(key: string): Promise<string | null>;
-    put(key: string, value: string): Promise<void>;
+    put(key: string, value: string, options?: { expirationTtl?: number }): Promise<void>;
   };
   AI?: { run(model: string, input: Record<string, unknown>): Promise<unknown> };
   GENERATE_SECRET?: string;

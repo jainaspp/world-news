@@ -1,6 +1,7 @@
 import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import type { ContentDoc, IndexEntry, SourceRef } from './content';
 import { bestImage } from './media.js';
+import { FOOTER_LINKS } from './siteNav.js';
 
 /**
  * Server-rendered pages for the AI columns (/digest/, /weekly/, /analysis/).
@@ -113,7 +114,7 @@ function adUnit(ads: AdConfig | undefined, slot: string | undefined, position: s
   const format = inArticle
     ? 'data-ad-layout="in-article" data-ad-format="fluid" style="display:block;text-align:center"'
     : 'data-ad-format="auto" data-full-width-responsive="true" style="display:block"';
-  return `<div class="ad-slot ${inArticle ? 'ad-slot-feed' : 'ad-slot-banner'}" data-ad-position="${position}" aria-label="廣告"><ins class="adsbygoogle" data-ad-client="${esc(ads.client)}" data-ad-slot="${esc(id)}" ${format}></ins></div>`;
+  return `<div class="ad-slot ${inArticle ? 'ad-slot-feed' : 'ad-slot-banner'}" data-ad-position="${position}" aria-label="廣告"><span class="ad-label">廣告</span><ins class="adsbygoogle" data-ad-client="${esc(ads.client)}" data-ad-slot="${esc(id)}" ${format}></ins></div>`;
 }
 
 const FILLER = /來源未有提及|未有足夠|沒有足夠資料|資料未有|未有提供/;
@@ -228,7 +229,65 @@ function compareCards(sources: SourceRef[]): string {
   return `<section class="angles" aria-label="各媒體並排"><h2 class="section-title">各媒體並排</h2><ul class="angle-grid">${cards}</ul></section>`;
 }
 
-export function head(title: string, description: string, canonical: string, image: string, type: string, extra: string, client: string): string {
+/** Publisher intro on every column article. Static, so it does not spend Workers AI. */
+export const MIN_BODY_CHARS = 400;
+
+const EDITOR_NOTES: Record<ContentDoc['kind'], string> = {
+  digest: '世界頭條日報由編輯部劃定範圍，每日整理多間媒體同時報道的公開標題。我哋只讀 RSS 入面的標題同短描述，不會下載或轉載原文全文。下面各節標明「AI 整合」，由模型按呢啲材料寫成摘要。來源沒有寫明的數字、引言、人物背景同因果，一律不會補上。想知詳情，請用每節下面的連結去讀原文。標題同內文的版權屬於原來的出版者。',
+  weekly: '一週科技同一週財經是世界頭條的週報。編輯部每週從已收錄的科技同財經標題做一次回顧，仍然只根據公開 RSS 的標題同短描述，不會轉載全文。下面兩節都標明「AI 整合」，方便你先看我哋點樣把一週的標題歸類，再自己去原文核對。這篇不是投資建議，也不是任何機構的官方摘要。來源沒有寫的數字同判斷，不會在這裡出現。',
+  briefing: '每日香港導讀是世界頭條的原創欄目，每日早晚各一期。編輯部先從已收錄的香港同內地新聞標題中，揀出多間媒體同時報道的題目，再由 xAI Grok 模型按公開 RSS 的標題同短描述，寫成一篇有分段的導讀。每一段都標明「AI 整合」，並在文末列出所有引用的原文連結。我哋不會轉載原文全文，亦不會加入來源沒有寫的數字、引言或因果。想知詳情，請用連結去讀出版者的原文。',
+  compare: '多方報道對比把同一件事的不同報道並排放在一起，方便你看清各家媒體強調甚麼、引用甚麼數字、用甚麼語氣。香港同內地題目由 xAI Grok 模型整理，其他題目由 Workers AI 整理，兩者都只根據公開 RSS 的標題同短描述，並標明「AI 整合」。對照表只概括每間媒體自己的標題，不代表本站立場。來源沒有寫的情節一律不會補上，詳情以各出版者的原文為準。',
+  analysis: '熱門分析針對多間媒體同時報道的同一件事。世界頭條先把各家標題放在一起，再由模型按標題同短描述，寫成背景、各方說法、點解要關心、與香港的關係、接落嚟留意咩。每一節都標明「AI 整合」。我哋不會為了寫得完整而添加來源沒有講的情節。與香港的關係只在材料直接提到香港，或者對香港讀者有明顯影響時才寫。各媒體點報只概括該來源自己的標題，並附上原文連結。',
+};
+
+/** Directory page for /analysis/. Long enough that the index is publisher text, not only cards. */
+export const ANALYSIS_INDEX_NOTE = '熱門分析是世界頭條自己的欄目，不是把別家新聞原文貼過來。當同一件事有三間或以上媒體報道，香港本地題目有兩間也會考慮，編輯流程會把各家公開 RSS 的標題同短描述放在一起。模型只可以根據這些材料行文，頁面會標明「AI 整合」。來源沒有寫的數字、引言、人物背景同因果不會補上。每篇都有日期、分節標題，以及去原文的連結。你在這一頁看到的是目錄；打開任何一篇，都可以看到編者按、分節內文同出處。世界頭條沒有用戶帳號，也不出售新聞全文。標題、內文同圖片的權利屬於原來的出版者。如果摘要同原文有出入，請以出版者的原文為準。意見可以用網站上的聯絡表格告訴我哋，我哋沒有另設公開電郵。本欄的目的，是幫香港讀者先看清有哪些來源在報道同一件事，再自己決定去讀哪一篇原文。目錄上的每一則都帶有日期同媒體數目。如果暫時未有分析，這段編者說明仍然是本站自己的文字，不是從通訊社複製過來的稿件。請把摘要當成閱讀路線，而不是事件的全部。廣告只會放在這段說明之後，不會擋在標題前面，也不會貼着頁頂的導航。這段文字由編輯部撰寫，歡迎先打開原文再自己判斷。';
+
+export function cjkChars(text: string): number {
+  return (text.match(/[\u3400-\u9fff]/g) || []).length;
+}
+
+export function editorNote(kind: ContentDoc['kind']): string {
+  return EDITOR_NOTES[kind];
+}
+
+/**
+ * If the model (or the title-only draft) is still short, add prose that only restates
+ * the public headlines already on the page. No second model call.
+ */
+export function coverageParagraphs(doc: ContentDoc, sentences: string[]): string[] {
+  const written = [editorNote(doc.kind), ...sentences].join('');
+  if (cjkChars(written) >= MIN_BODY_CHARS) return [];
+  const seen = new Set<string>();
+  const sources: SourceRef[] = [];
+  for (const block of doc.blocks) {
+    for (const source of block.sources) {
+      const key = source.url || `${source.source}:${source.title}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      sources.push(source);
+    }
+  }
+  if (!sentences.length && !sources.length) return [];
+  const bits = [
+    `今次「${doc.title}」只根據公開 RSS 的標題同短描述整理，世界頭條沒有轉載任何原文。下面逐則寫明出處，方便你自己核對。`,
+    ...sources.map((source) => `${source.source}報道的標題是「${source.title}」。呢句只係標題，不是我哋撰寫的新聞內文，詳情請用該則的原文連結。`),
+    `本期「${doc.title}」於${doc.hkt || '香港時間'}整理。日報、週報同分析都標明 AI 整合，內容只供參考，版權屬於原來的出版者。請以各來源網站的原文為準，不要依賴摘要做決定。`,
+  ];
+  const kept: string[] = [];
+  for (const bit of bits) {
+    kept.push(bit);
+    if (cjkChars(written + kept.join('')) >= MIN_BODY_CHARS) break;
+  }
+  return kept;
+}
+
+export function pageBodyChars(doc: ContentDoc): number {
+  const sentences = doc.blocks.flatMap((block) => realSentences(block.sentences));
+  return cjkChars([editorNote(doc.kind), ...sentences, ...coverageParagraphs(doc, sentences)].join(''));
+}
+
+export function head(title: string, description: string, canonical: string, image: string, type: string, extra: string, client: string, loadAds = true): string {
   return `<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -257,7 +316,7 @@ export function head(title: string, description: string, canonical: string, imag
   <link rel="stylesheet" href="/columns.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="${FONTS}" media="print" onload="this.media='all'" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(client)}" crossorigin="anonymous"></script>
+  ${loadAds && client ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(client)}" crossorigin="anonymous"></script>` : ''}
   <script defer src="/columns.js"></script>
   ${extra}
 </head>`;
@@ -303,8 +362,10 @@ export function chrome(active: ContentDoc['kind'] | 'none'): string {
 }
 
 export function footer(): string {
+  const links = FOOTER_LINKS.map((link) => `<a href="${link.href}">${link.label}</a>`).join('');
   return `<footer class="app-footer">
       <p>世界頭條 只列出標題同出處連結，不轉載內文。<a href="https://world-news.xyz"> world-news.xyz</a> · <a href="/major/">重大更新</a></p>
+      <nav class="footer-nav" aria-label="網站資料">${links}</nav>
       <p class="ai-footnote"><span class="badge">AI 整合</span> 日報、週報、分析、導讀同對比由 AI 根據公開標題同短描述整理，只供參考，詳情以來源原文為準。</p>
     </footer>`;
 }
@@ -346,12 +407,19 @@ function keyPoints(doc: ContentDoc): string[] {
 }
 
 export function renderContentPage(doc: ContentDoc, canonical: string, options: PageOptions = {}): string {
-  const ads = options.ads ?? { client: DEFAULT_CLIENT };
-  const client = ads.client || DEFAULT_CLIENT;
   const sources = [...new Map(doc.blocks.flatMap((block) => block.sources).map((source) => [source.url, source])).values()];
   const image = safeHttp(bestImage(sources));
   const outlets = new Set(sources.map((source) => source.source)).size;
   const shownBlocks = doc.blocks.map((block) => ({ ...block, sentences: realSentences(block.sentences) })).filter((block) => block.sentences.length > 0);
+  const substantial = shownBlocks.length > 0;
+  const ads = substantial ? (options.ads ?? { client: DEFAULT_CLIENT }) : undefined;
+  const client = substantial ? (ads?.client || DEFAULT_CLIENT) : '';
+  const shownSentences = shownBlocks.flatMap((block) => block.sentences);
+  const extraParagraphs = coverageParagraphs(doc, shownSentences);
+  const editor = `<section class="editor-note" aria-label="編者按"><h2 class="column-h2">編者按</h2><p>${esc(editorNote(doc.kind))}</p></section>`;
+  const supplement = extraParagraphs.length
+    ? `<section class="story column-block" aria-label="引用的公開標題"><div class="story-body"><h2 class="column-h2">引用的公開標題</h2>${extraParagraphs.map((line) => `<p>${esc(line)}</p>`).join('')}</div></section>`
+    : '';
   const categories = [...new Set(doc.blocks.flatMap((block) => [block.category, ...block.sources.map((source) => source.category)]).filter((id): id is string => Boolean(id)))].slice(0, 4);
   const leadCategory = categories[0] || 'world';
   const description = doc.description.slice(0, 180);
@@ -396,7 +464,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
           ${doc.kind === 'analysis' || doc.kind === 'compare' ? '' : `<details class="sources"${index === 0 ? ' open' : ''}><summary>來源（${block.sources.length}）</summary>${sourceList(block.sources)}</details>`}
         </div>
       </section>`;
-    return section + (index + 1 === midAt && shownBlocks.length > 1 ? adUnit(ads, ads.mid, 'mid', true) : '');
+    return section + (index + 1 === midAt && shownBlocks.length > 1 ? adUnit(ads, ads?.mid, 'mid', true) : '');
   }).join('');
   const analysisSources = doc.kind === 'analysis' && sources.length
     ? `${timeline(sources)}<section class="story column-block"><div class="story-body"><h2 class="column-h2">來源（${sources.length}）</h2>${sourceList(sources)}</div></section>`
@@ -422,7 +490,6 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
   ${chrome(doc.kind)}
   <div class="layout">
     <main id="content" class="column-main">
-      ${adUnit(ads, ads.top, 'top')}
       <article class="story story-hero column-hero">
         <div class="story-media">${media(image, leadCategory, sources[0]?.source || '世界頭條', true)}</div>
         <div class="story-body">
@@ -434,6 +501,8 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
           ${share(doc.title, canonical)}
         </div>
       </article>
+      ${editor}
+      ${adUnit(ads, ads?.top, 'top')}
       ${note}
       ${empty}
       ${pointsBox || highlight ? `<div class="column-boxes">${pointsBox}${highlight}</div>` : ''}
@@ -441,9 +510,10 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
       ${compared}
       ${angles}
       ${blocks}
+      ${supplement}
       ${analysisSources}
       ${columnTail}
-      ${adUnit(ads, ads.bottom, 'bottom')}
+      ${adUnit(ads, ads?.bottom, 'bottom')}
       <section class="related" id="related" data-categories="${esc(relatedCats)}" data-exclude="${esc(JSON.stringify(exclude))}" hidden>
         <h2 class="section-title">相關頭條</h2>
         <div class="news-grid related-grid"></div>
@@ -485,6 +555,7 @@ export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, op
           </div>
         </article>`);
   const withAd = cards.flatMap((card, index) => (index === 3 ? [card, adUnit(ads, ads.mid, 'mid', true)] : [card])).join('');
+  const editor = `<section class="editor-note" aria-label="編者按"><h2 class="column-h2">編者按</h2><p>${esc(ANALYSIS_INDEX_NOTE)}</p></section>`;
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -498,12 +569,13 @@ ${head(title, description, canonical, entries.find((entry) => entry.image)?.imag
   <div class="page column-page" data-kind="analysis-index">
   ${chrome('analysis')}
   <main id="content" class="column-index">
-    ${adUnit(ads, ads.top, 'top')}
     <header class="index-head">
       <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">分析</span></div>
       <h1 class="column-title">${title}</h1>
       <p class="dek">${esc(description)}</p>
     </header>
+    ${editor}
+    ${adUnit(ads, ads.top, 'top')}
     ${entries.length ? `<div class="news-grid analysis-grid">${withAd}</div>` : '<p class="notice">暫時未有分析。熱門新聞有三個或以上來源報道時，會自動整理一篇。</p>'}
     ${adUnit(ads, ads.bottom, 'bottom')}
   </main>

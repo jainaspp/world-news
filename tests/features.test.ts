@@ -57,6 +57,9 @@ describe('story page', () => {
     expect(html).toContain('3 間媒體報道');
     expect(html).toContain('各媒體報道（香港時間）');
     expect(html).toContain('noindex, follow');
+    expect(html).not.toContain('adsbygoogle');
+    expect(html).not.toContain('pagead2.googlesyndication.com');
+    expect(html).toContain('href="/privacy/"');
     expect(html).toContain('https://example.com/a1');
     expect(html).toContain('/story/b/');
     expect(html).toContain('/analysis/');

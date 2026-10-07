@@ -9,6 +9,9 @@ import type { ClusterMember } from '../shared/angles';
 import { clusterStories, sourceCounts } from '../shared/trending';
 import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem, TimeRange } from '../shared/types';
+import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
+import { HOME_INTRO, HOME_SECTIONS } from '../shared/homeCopy';
+import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
 import { DarkModeToggle } from './components/DarkModeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -229,7 +232,8 @@ export default function App() {
     : view.following
       ? t('emptyFollow', lang)
       : t('emptyFilter', lang);
-  const showSideAd = !view.bookmarks && !view.following && wide && Boolean(hero);
+  const allowAds = homeAllowsAds(view);
+  const showSideAd = allowAds && wide && Boolean(hero);
 
   function titleOf(item: NewsItem): string {
     return displayTitle(item.title, lang);
@@ -432,6 +436,18 @@ export default function App() {
 
         <div className="layout">
           <main id="news">
+            {allowAds && (
+              <section className="home-intro" aria-label="關於世界頭條">
+                <p>{HOME_INTRO}</p>
+                <ul className="home-sections">
+                  {HOME_SECTIONS.map((section) => (
+                    <li key={section.name}>
+                      <strong>{section.name}</strong> {section.text}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
             {loading && !special && items.length === 0 ? (
               <div className="news-grid" aria-busy="true" aria-live="polite">
                 {Array.from({ length: 6 }, (_, index) => (
@@ -528,7 +544,7 @@ export default function App() {
                       />
                     );
                     const ordinal = secondary.length + index + 1;
-                    if (special || ordinal % 8 !== 0) return [card];
+                    if (!allowAds || ordinal % FEED_AD_EVERY !== 0) return [card];
                     return [card, <AdSlot key={`feed-${item.id}`} slot={AD_SLOT_FEED} variant="feed" />];
                   })}
                 </div>
@@ -607,6 +623,11 @@ export default function App() {
             {' · '}
             <a href="/major/">{lang === 'en' ? 'Major updates' : '重大更新'}</a>
           </p>
+          <nav className="footer-nav" aria-label="網站資料">
+            {FOOTER_LINKS.map((link) => (
+              <a key={link.href} href={link.href}>{link.label}</a>
+            ))}
+          </nav>
         </footer>
         <BackToTop />
         {freshCount > 0 && (

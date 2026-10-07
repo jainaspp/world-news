@@ -2,7 +2,6 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { formatIndex, formatSigned, hsiDirection, parseYahooHsi } from '../shared/hsi';
 import { toListPayload } from '../shared/listPayload';
-import { storySitemapEntries } from '../shared/sitemap';
 import type { NewsItem, NewsPayload } from '../shared/types';
 
 function item(id: string, pubDate: string, excerpt?: string): NewsItem {
@@ -94,28 +93,18 @@ describe('Hang Seng quote', () => {
   });
 });
 
-describe('story sitemap', () => {
-  it('lists recent story urls newest first and skips ids the story page would 404', () => {
-    const xml = storySitemapEntries([
-      item('abc123def456', '2026-10-06T01:00:00.000Z'),
-      item('bbb222ccc333', '2026-10-07T01:00:00.000Z'),
-      item('not an id', '2026-10-07T02:00:00.000Z'),
-      item('bbb222ccc333', '2026-10-05T01:00:00.000Z'),
-    ], 10);
-    expect(xml).toContain('https://world-news.xyz/story/bbb222ccc333/');
-    expect(xml).toContain('https://world-news.xyz/story/abc123def456/');
-    expect(xml).toContain('<lastmod>2026-10-07</lastmod>');
-    expect(xml).not.toContain('not an id');
-    expect(xml.indexOf('bbb222ccc333')).toBeLessThan(xml.indexOf('abc123def456'));
-    expect(xml.match(/<loc>/g)).toHaveLength(2);
-  });
-
-  it('keeps the existing column urls and wires story rows into the pages function', () => {
+describe('sitemap stays off the news board', () => {
+  it('keeps column urls and does not list thin story pages', () => {
     const sitemap = readFileSync('functions/sitemap.xml.ts', 'utf8');
-    expect(sitemap).toContain('storySitemapEntries');
     expect(sitemap).toContain('/analysis/');
     expect(sitemap).toContain('/digest/');
-    expect(readFileSync('public/sitemap.xml', 'utf8')).toContain('https://world-news.xyz/region/hkg');
+    expect(sitemap).toContain('/about/');
+    expect(sitemap).not.toContain('storySitemapEntries');
+    expect(sitemap).not.toContain('getNews');
+    expect(sitemap).not.toContain('/story/');
+    const xml = readFileSync('public/sitemap.xml', 'utf8');
+    expect(xml).toContain('https://world-news.xyz/region/hkg');
+    expect(xml).not.toContain('/story/');
     expect(readFileSync('functions/api/hsi.ts', 'utf8')).toContain('api/hsi-cache-v1');
     expect(readFileSync('functions/api/news.ts', 'utf8')).toContain('toListPayload');
     expect(readFileSync('server/responses.ts', 'utf8')).toContain('toListPayload');

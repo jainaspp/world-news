@@ -33,7 +33,7 @@ export function renderMajorPage(timeline: MajorEntry[], canonical: string): stri
   }).replace(/</g, '\\u003c')}</script>`;
   return `<!doctype html>
 <html lang="zh-HK">
-${head('24小時重大更新', description, canonical, '', 'website', ld, 'ca-pub-8392975944327076')}
+${head('24小時重大更新', description, canonical, '', 'website', ld, '', false)}
 <body>
   <div class="page column-page" data-kind="major">
   ${chrome('none')}
