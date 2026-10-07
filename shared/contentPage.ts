@@ -1,3 +1,4 @@
+import { readableSourceTitle } from './search.js';
 import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import { briefingPublic, explainerCurrent, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
 import { bestImage } from './media.js';
@@ -105,7 +106,7 @@ function sourceList(sources: SourceRef[]): string {
   const rows = sources.map((source) => {
     const url = safeHttp(source.url);
     if (!url) return '';
-    return `<li><a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${favicon(url)}<span class="source-name">${esc(source.source)}</span>${source.title && source.title !== source.source ? `<span class="source-title">${esc(source.title)}</span>` : ''}</a></li>`;
+    return `<li><a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${favicon(url)}<span class="source-name">${esc(source.source)}</span>${source.title && source.title !== source.source && readableSourceTitle(source.title) ? `<span class="source-title">${esc(source.title)}</span>` : ''}</a></li>`;
   }).join('');
   return rows ? `<ul class="source-list">${rows}</ul>` : '';
 }

@@ -4,6 +4,7 @@
  */
 
 const CN_DIGIT: Record<string, number> = {
+  '○': 0,
   零: 0,
   〇: 0,
   一: 1,
@@ -74,9 +75,11 @@ export function arabicDigits(text: string): string {
   });
   const placed = percent.replace(NUMBER_BODY, (full) => cnNumber(full) ?? full);
   return placed
-    .replace(/[零〇一二三四五六七八九]{2,}/g, (run) => [...run].map((ch) => String(CN_DIGIT[ch] ?? ch)).join(''))
+    .replace(/[零〇○一二三四五六七八九]{2,}/g, (run) => [...run].map((ch) => String(CN_DIGIT[ch] ?? ch)).join(''))
     // 十月20日 → 10月20日 when the day is already Arabic; 十一黃金周 is a holiday name.
     .replace(/(^|[^\d零〇一二兩三四五六七八九十])十月(?=\d)/g, '$110月')
+    // 二○26年 → 2026年 when the model mixes a Chinese year prefix with Arabic digits.
+    .replace(/[零〇○一二三四五六七八九]+(?=\d{1,3}年)/g, (run) => [...run].map((ch) => String(CN_DIGIT[ch] ?? ch)).join(''))
     .replace(/11(黃金周|黃金週|國慶)/g, '十一$1');
 }
 
