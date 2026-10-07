@@ -1124,7 +1124,9 @@ export async function warmColumns(context: PagesContext): Promise<Response> {
       if (scopeRaw && !isBriefingScope(scopeRaw)) {
         return Response.json({ error: 'scope' }, { status: 400, headers: { 'cache-control': 'no-store' } });
       }
-      const scopes: BriefingScope[] = isBriefingScope(scopeRaw) ? [scopeRaw] : ['hk', 'world', 'techfin'];
+      // Unscoped is the Hong Kong edition only: each MiniMax edition needs most of a request, and the
+      // warm run calls scope=world and scope=techfin separately right after.
+      const scopes: BriefingScope[] = isBriefingScope(scopeRaw) ? [scopeRaw] : ['hk'];
       const rows = [];
       for (const scope of scopes) {
         rows.push(await generateBriefing(env, when ?? new Date(), { force, scope }));
