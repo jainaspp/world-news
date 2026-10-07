@@ -48,9 +48,10 @@ export async function completeGrok(
   doc: ContentDoc,
   strict = false,
   timeoutMs = XAI_TIMEOUT_MS,
-  options?: { search?: boolean },
+  options?: { search?: boolean; material?: boolean },
 ): Promise<GrokCompletion> {
-  const prompt = promptFor(doc, strict, Boolean(options?.search));
+  const mode = options?.search ? true : options?.material ? 'material' as const : false;
+  const prompt = promptFor(doc, strict, mode);
   if (options?.search) return completeResearch(apiKey, prompt.system, prompt.user, prompt.maxTokens, timeoutMs);
   return completeText(apiKey, prompt.system, prompt.user, prompt.maxTokens, timeoutMs);
 }

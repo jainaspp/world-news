@@ -112,7 +112,7 @@ describe('Grok spend cap', () => {
 });
 
 describe('comparison story selection', () => {
-  it('ranks by how many different outlets covered the story, skips same-day duplicates, and stops at 20', () => {
+  it('ranks by how many different outlets covered the story, skips same-day duplicates, and stops at the daily cap', () => {
     const wide = outlets('wide', 6, 'hk', '港鐵建議加價');
     const mid = outlets('mid', 4, 'tech', '晶片出口新規');
     const local = outlets('local', 3, 'china', '華南暴雨');

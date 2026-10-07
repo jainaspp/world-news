@@ -1,6 +1,7 @@
 import { applyRuntimeEnv } from '../server/runtimeEnv.js';
-import { briefingPublic, explainerCurrent, type IndexEntry } from '../shared/content.js';
+import { briefingPublic, explainerCurrent, hktParts, type IndexEntry } from '../shared/content.js';
 import { DATA_HUB, DATA_PAGES } from '../shared/dataSeries.js';
+import { todayPaths } from '../shared/todayPage.js';
 import { docKey, readDoc, readIndex, type ContentEnv } from './content/store.js';
 import type { PagesContext } from './env.js';
 
@@ -54,9 +55,13 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     .filter(([loc]) => !base.includes(loc))
     .map(([loc, freq, priority]) => entry(loc, '2026-10-07', freq, priority))
     .join('');
+  const today = todayPaths(hktParts(new Date()).date)
+    .filter((path) => !base.includes(`https://world-news.xyz${path}`))
+    .map((path) => entry(`https://world-news.xyz${path}`, new Date().toISOString(), 'daily', path === '/today/' ? '0.7' : '0.5'))
+    .join('');
   const xml = base.includes('</urlset>')
-    ? base.replace('</urlset>', `${major}${legal}${data}${extra}</urlset>`)
-    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${extra}</urlset>\n`;
+    ? base.replace('</urlset>', `${major}${legal}${data}${today}${extra}</urlset>`)
+    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${today}${extra}</urlset>\n`;
   return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=600' } });
 }
 

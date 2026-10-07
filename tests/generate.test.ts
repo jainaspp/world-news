@@ -83,6 +83,7 @@ describe('cache-only generation and fallback signalling', () => {
     expect(columnDelivery({ capped: true, docs: [{ mode: 'ai', model: '@cf/qwen', chars: 180 }] })).toMatchObject({ status: 200, fallback: false });
     expect(columnDelivery({ docs: [{ mode: 'ai', model: 'grok-4.3', chars: MIN_AI_CHARS }] })).toMatchObject({ status: 200, fallback: false });
     expect(columnDelivery({ skipped: 'exists' })).toMatchObject({ status: 200, fallback: false });
+    expect(columnDelivery({ skipped: 'pace' })).toMatchObject({ status: 200, fallback: false });
   });
 
   it('lets the same day replace a thin sources-only piece and keeps a full AI piece', () => {

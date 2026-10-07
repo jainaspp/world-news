@@ -51,20 +51,21 @@ export async function readValue(env: ContentEnv, key: string): Promise<string | 
   }
 }
 
-export async function writeValue(env: ContentEnv, key: string, value: string): Promise<void> {
+export async function writeValue(env: ContentEnv, key: string, value: string, ttlSeconds?: number): Promise<void> {
   memory.set(key, value);
   if (env.CONTENT) {
     try {
-      await env.CONTENT.put(key, value);
+      await env.CONTENT.put(key, value, ttlSeconds ? { expirationTtl: ttlSeconds } : undefined);
     } catch {
       /* cache still holds it */
     }
   }
   const cache = edgeCache();
   if (!cache) return;
+  const maxAge = ttlSeconds && ttlSeconds > 0 ? ttlSeconds : 604800;
   try {
     await cache.put(cacheKey(key), new Response(value, {
-      headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=604800' },
+      headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': `public, max-age=${maxAge}` },
     }));
   } catch {
     /* best effort */
