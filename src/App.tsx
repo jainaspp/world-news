@@ -5,6 +5,7 @@ import { CATEGORIES } from '../shared/categories';
 import { filterNews } from '../shared/filter';
 import { REGIONS, sourcesForRegion } from '../shared/feeds';
 import { categoryLabelI18n, t } from '../shared/i18n';
+import type { ClusterMember } from '../shared/angles';
 import { clusterStories, sourceCounts } from '../shared/trending';
 import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem, TimeRange } from '../shared/types';
@@ -16,10 +17,14 @@ import { NewsCard } from './components/NewsCard';
 import { RegionIcon } from './components/RegionIcon';
 import { SkeletonCard } from './components/SkeletonCard';
 import { BackToTop } from './components/BackToTop';
+import { AlertRow } from './components/AlertRow';
 import { HkInfoStrip } from './components/HkInfoStrip';
+import { MajorBanner } from './components/MajorBanner';
+import { MostRead } from './components/MostRead';
 import { TrendingTopics } from './components/TrendingTopics';
 import { trendingTopics } from '../shared/topics';
 import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_NAME, SITE_URL } from './config';
+import { usePopular } from './hooks/useBoard';
 import { useBookmarks } from './hooks/useBookmarks';
 import { useFollows } from './hooks/useFollows';
 import { useNews } from './hooks/useNews';
@@ -81,6 +86,21 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const wide = useWide('(min-width: 1200px)');
   const topics = useMemo(() => trendingTopics(items), [items]);
+  const popular = usePopular();
+  const angleMap = useMemo(() => {
+    const map = new Map<string, ClusterMember[]>();
+    for (const cluster of clusterStories(items)) {
+      const members: ClusterMember[] = cluster.items.slice(0, 8).map((row) => ({
+        id: row.id,
+        source: row.source,
+        title: row.title,
+        link: row.link,
+        pubDate: row.pubDate,
+      }));
+      for (const member of members) map.set(member.id, members);
+    }
+    return map;
+  }, [items]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
@@ -371,6 +391,9 @@ export default function App() {
           )}
         </div>
 
+        <MajorBanner />
+        <AlertRow />
+
         <div className="layout">
           <main id="news">
             {loading && !special && items.length === 0 ? (
@@ -423,6 +446,7 @@ export default function App() {
                         followedSource={follows.sourceSet.has(hero.source)}
                         onToggleSource={follows.toggleSource}
                         breaking={breaking.has(hero.id)}
+                        angles={angleMap.get(hero.id)}
                       />
                     )}
                     {secondary.length > 0 && (
@@ -439,12 +463,14 @@ export default function App() {
                             compact
                             lang={lang}
                             breaking={breaking.has(item.id)}
+                            angles={angleMap.get(item.id)}
                           />
                         ))}
                       </div>
                     )}
                   </div>
                 )}
+                {!special && <MostRead rows={popular} variant="feed" lang={lang} />}
                 <div className="news-grid">
                   {gridItems.flatMap((item: NewsItem, index) => {
                     const card = (
@@ -460,6 +486,7 @@ export default function App() {
                         followedSource={follows.sourceSet.has(item.source)}
                         onToggleSource={follows.toggleSource}
                         breaking={breaking.has(item.id)}
+                        angles={angleMap.get(item.id)}
                       />
                     );
                     const ordinal = secondary.length + index + 1;
@@ -477,6 +504,7 @@ export default function App() {
           </main>
           <aside className="sidebar" aria-label="sidebar">
             {wide && !special && <HkInfoStrip />}
+            {!special && <MostRead rows={popular} variant="side" lang={lang} />}
             {!special && <TrendingTopics topics={topics} active={view.q} onPick={(term) => go({ ...view, q: term, ...clearSpecial }, 'replace')} />}
             {showSideAd && <AdSlot slot={AD_SLOT_TOP} variant="sidebar" />}
             {!special && !view.q.trim() && clusters.length > 0 && (
@@ -534,6 +562,8 @@ export default function App() {
           <p>
             {SITE_NAME} {lang === 'en' ? 'lists headlines and source links only.' : '只列出標題同出處連結，不轉載內文。'}
             <a href={SITE_URL}> {SITE_URL.replace('https://', '')}</a>
+            {' · '}
+            <a href="/major/">{lang === 'en' ? 'Major updates' : '重大更新'}</a>
           </p>
         </footer>
         <BackToTop />

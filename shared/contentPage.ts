@@ -234,12 +234,14 @@ export function chrome(active: ContentDoc['kind'] | 'none'): string {
       </nav>
     </div>
     <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣同恒生指數"></div>
-  </div>`;
+  </div>
+  <div id="major-slot"></div>
+  <div id="alert-slot"></div>`;
 }
 
 export function footer(): string {
   return `<footer class="app-footer">
-      <p>世界頭條 只列出標題同出處連結，不轉載內文。<a href="https://world-news.xyz"> world-news.xyz</a></p>
+      <p>世界頭條 只列出標題同出處連結，不轉載內文。<a href="https://world-news.xyz"> world-news.xyz</a> · <a href="/major/">重大更新</a></p>
       <p class="ai-footnote"><span class="badge">AI 整合</span> 日報、週報同分析由 AI 根據公開標題同短描述整理，只供參考，詳情以來源原文為準。</p>
     </footer>`;
 }

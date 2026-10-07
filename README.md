@@ -62,6 +62,20 @@ Pages 專案設定：
 | 輸出目錄 | `dist` |
 | 部署 | `npx wrangler pages deploy dist --project-name world-news` |
 
+正式部署仍然是上面那一行，沒有改指令。新增的頁面同 API 都由 Pages Functions 提供，不用額外設定：
+
+| 路徑 | 資料 | 邊緣快取 |
+| --- | --- | --- |
+| `/major/` | 24 小時重大更新時間線（伺服器算） | 約 3 分鐘 |
+| `/api/major` | 最近約 3 小時的重大更新橫額 | 約 3 分鐘 |
+| `/api/clusters` | 多角度報道分組（唔放入 `/api/news`） | 約 5 分鐘 |
+| `/api/markets` | 美元/港元、人民幣/港元、金價、布倫特原油（Yahoo chart，唔使匙） | 約 10 分鐘 |
+| `/api/alerts` | 天文台生效警告，同港鐵非綠色綫務（`ryg_line_status.xml`） | 約 5 分鐘 |
+| `POST /api/reads` | 標題點擊，寫入 `CONTENT` KV（`reads:YYYY-MM-DD`，香港日期） | 不快取 |
+| `/api/popular` | 今日熱門；點擊不足就用最新的多媒體報道 | 約 1 分鐘 |
+
+分組用標題詞彙同實體對照，唔會為分組呼叫 Workers AI embedding。港鐵官方開放數據的 next-train 要指定路綫同車站，唔係全綫狀態；狀態用港鐵網站公開的紅黃綠 XML。XML 失敗就只顯示天文台警告。
+
 `wrangler.toml` 的 `name` 是 `world-news`，`pages_build_output_dir` 是 `dist`。本地先建置再跑 `npx wrangler pages dev dist`。
 
 環境變數同 Vercel 那張表，都是可選。另外：

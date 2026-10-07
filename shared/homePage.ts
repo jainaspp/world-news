@@ -1,8 +1,10 @@
 import { adSlotMarkup } from './adSlot.js';
+import type { MajorEntry } from './angles.js';
 import { breakingIds } from './breaking.js';
 import { categoryLabel } from './categories.js';
 import { esc, favicon, media, safeHttp } from './contentPage.js';
 import { renderHkInfo } from './hkInfo.js';
+import { renderMajorBanner } from './majorPage.js';
 import type { HkNow } from './hk.js';
 import type { HsiQuote } from './hsi.js';
 import type { NewsItem } from './types.js';
@@ -68,6 +70,7 @@ export function renderHomeFeed(
   counts = new Map<string, number>(),
   market: HomeMarket | null = null,
   feedSlot = '',
+  banner: MajorEntry | null = null,
 ): string {
   const list = items.slice(0, SSR_COUNT);
   if (!list.length) {
@@ -81,9 +84,11 @@ export function renderHomeFeed(
     return (index + 1) % 8 === 0 ? html + adSlotMarkup('feed', feedSlot) : html;
   }).join('');
   const info = renderHkInfo(market?.hk, market?.hsi);
+  const major = banner ? `${renderMajorBanner(banner)}<script>try{var n=document.currentScript.previousElementSibling;if(n&&localStorage.getItem('wn-major-dismiss')===n.getAttribute('data-major-id'))n.remove()}catch(e){}</script>` : '';
   return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
     <main id="news">
+      ${major}
       ${info}
       <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
       ${top}
@@ -121,15 +126,20 @@ export function marketBootstrap(market: HomeMarket | null): string {
   return `<script id="wn-market" type="application/json">${JSON.stringify(payload).replace(/</g, '\\u003c')}</script>`;
 }
 
+export function signalBootstrap(banner: MajorEntry | null): string {
+  return `<script id="wn-major" type="application/json">${JSON.stringify({ banner }).replace(/</g, '\\u003c')}</script>`;
+}
+
 export function injectHomeShell(
   shell: string,
   items: NewsItem[],
   counts?: Map<string, number>,
   market: HomeMarket | null = null,
   feedSlot = '',
+  banner: MajorEntry | null = null,
 ): string {
-  const feed = renderHomeFeed(items, counts, market, feedSlot);
-  const boot = homeBootstrap(items) + marketBootstrap(market);
+  const feed = renderHomeFeed(items, counts, market, feedSlot, banner);
+  const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner);
   const heroImage = items[0]?.image && /^https?:\/\//.test(items[0].image) ? items[0].image : '';
   const preload = heroImage
     ? `<link rel="preload" as="image" href="${esc(heroImage)}" fetchpriority="high" />`

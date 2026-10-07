@@ -117,7 +117,7 @@
       var body = formatIndex(value);
       return value > 0.004 ? '+' + body : body;
     }
-    function paint(hk, hsi) {
+    function paint(hk, hsi, ticks) {
       var weatherBits = [];
       if (hk && typeof hk.temperature === 'number') weatherBits.push(hk.temperature + '°C');
       if (hk && hk.aqhi && isFinite(hk.aqhi.value)) weatherBits.push('AQHI ' + Math.floor(hk.aqhi.value));
@@ -128,8 +128,8 @@
         quote = '恒生 ' + formatIndex(hsi.price) + '  ' + formatSigned(hsi.changePercent) + '%';
         direction = hsi.change > 0.005 ? 'up' : hsi.change < -0.005 ? 'down' : 'flat';
       }
-      if (!weather && !quote) return;
       box.textContent = '';
+      if (!weather && !quote && !(ticks && ticks.length)) return;
       if (weather) {
         var wx = document.createElement('a');
         wx.className = 'hk-info-wx';
@@ -155,10 +155,101 @@
         link.textContent = quote;
         box.appendChild(link);
       }
-      box.hidden = false;
+      (ticks || []).forEach(function (tick) {
+        if (!tick || !tick.text || !tick.href) return;
+        if (box.childNodes.length) {
+          var gap = document.createElement('span');
+          gap.className = 'hk-info-sep';
+          gap.setAttribute('aria-hidden', 'true');
+          gap.textContent = '|';
+          box.appendChild(gap);
+        }
+        var item = document.createElement('a');
+        item.className = 'hk-info-tick hsi-' + (tick.direction || 'flat');
+        item.href = tick.href;
+        item.title = tick.title || '';
+        item.target = '_blank';
+        item.rel = 'noopener noreferrer';
+        item.textContent = tick.text;
+        box.appendChild(item);
+      });
+      if (box.childNodes.length) box.hidden = false;
     }
     Promise.all([
       fetch('/api/hk').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
       fetch('/api/hsi').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
-    ]).then(function (pair) { paint(pair[0], pair[1]); });
+      fetch('/api/markets').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+    ]).then(function (pair) { paint(pair[0], pair[1], pair[2] && pair[2].ticks); });
+  })();
+
+  (function () {
+    var DISMISS = 'wn-major-dismiss';
+    function track(id) {
+      if (!/^[0-9a-f]{6,16}$/.test(id)) return;
+      var body = JSON.stringify({ id: id });
+      try {
+        if (navigator.sendBeacon && navigator.sendBeacon('/api/reads', new Blob([body], { type: 'application/json' }))) return;
+      } catch (e) {}
+      fetch('/api/reads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: body, keepalive: true }).catch(function () {});
+    }
+    document.addEventListener('click', function (event) {
+      var node = event.target && event.target.closest ? event.target.closest('a') : null;
+      if (!node) return;
+      var host = node.closest('[data-story-id]');
+      var id = host ? host.getAttribute('data-story-id') : '';
+      if (id) track(id);
+    });
+    var majorSlot = document.getElementById('major-slot');
+    if (majorSlot && !document.querySelector('.major-banner')) {
+      fetch('/api/major').then(function (r) { return r.ok ? r.json() : null; }).then(function (json) {
+        var banner = json && json.banner;
+        if (!banner || !banner.id || !banner.href) return;
+        try { if (localStorage.getItem(DISMISS) === banner.id) return; } catch (e) {}
+        var box = document.createElement('section');
+        box.className = 'major-banner';
+        box.setAttribute('data-major-id', banner.id);
+        box.setAttribute('role', 'region');
+        box.setAttribute('aria-label', '重大更新');
+        var kicker = document.createElement('span');
+        kicker.className = 'major-kicker';
+        kicker.textContent = '重大更新';
+        var link = document.createElement('a');
+        link.href = banner.href;
+        link.textContent = banner.title || '';
+        var close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'major-dismiss';
+        close.setAttribute('aria-label', '關閉');
+        close.textContent = '×';
+        close.addEventListener('click', function () {
+          try { localStorage.setItem(DISMISS, banner.id); } catch (e) {}
+          box.remove();
+        });
+        box.appendChild(kicker);
+        box.appendChild(link);
+        box.appendChild(close);
+        majorSlot.appendChild(box);
+      }).catch(function () {});
+    }
+    var alertSlot = document.getElementById('alert-slot');
+    if (alertSlot) {
+      fetch('/api/alerts').then(function (r) { return r.ok ? r.json() : null; }).then(function (json) {
+        var alerts = json && json.alerts;
+        if (!alerts || !alerts.length) return;
+        var row = document.createElement('section');
+        row.className = 'alert-row';
+        row.setAttribute('aria-label', '天氣及交通警告');
+        alerts.forEach(function (alert) {
+          if (!alert || !alert.name || !alert.href) return;
+          var pill = document.createElement('a');
+          pill.className = 'alert-pill';
+          pill.href = alert.href;
+          pill.target = '_blank';
+          pill.rel = 'noopener noreferrer';
+          pill.textContent = alert.name;
+          row.appendChild(pill);
+        });
+        if (row.childNodes.length) alertSlot.appendChild(row);
+      }).catch(function () {});
+    }
   })();
