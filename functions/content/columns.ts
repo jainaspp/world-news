@@ -74,7 +74,7 @@ import { adConfig, polish } from './publish.js';
 import { fetchArticleTexts, fetchTitles, readBundles, readEvents, stampExcerpts, writeBundle, writeEvents } from './material.js';
 import { docKey, readDoc, readIndex, readValue, rememberIndexMany, writeDoc, writeValue, type ContentEnv } from './store.js';
 import { completeGrok, completeText, XAI_TIMEOUT_MS } from './xai.js';
-import { pipelineMiniMax } from './minimax.js';
+import { expandMiniMax, pipelineMiniMax } from './minimax.js';
 import {
   briefingDraft,
   clusterWriter,
@@ -366,6 +366,26 @@ function settledPiece(doc: ContentDoc | undefined): boolean {
 async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingScope, 'hk'>, now: Date, options: { force?: boolean }): Promise<Record<string, unknown>> {
   const key = scopedBriefingKey(scope, now);
   const existing = await readDoc(env, docKey('briefing', key));
+  if (!options.force && existing?.doc.stage === 'checked' && minimaxKey(env)) {
+    const expanded = await expandMiniMax(minimaxKey(env), existing.doc, Date.now() + MINIMAX_DEADLINE_MS);
+    await writeDoc(env, expanded.doc);
+    const doc = expanded.doc;
+    const chars = bodyChars(doc);
+    const ready = doc.mode === 'ai' && pieceReady(doc);
+    return delivered(columnDelivery({ docs: [{ mode: doc.mode, model: doc.model, provider: doc.provider, chars, key: doc.key, ready }] }), {
+      kind: 'briefing',
+      scope,
+      key,
+      mode: doc.mode,
+      provider: doc.provider ?? '',
+      chars,
+      ready,
+      public: briefingPublic(doc),
+      expanded: true,
+      steps: expanded.steps,
+      grokError: [...new Set(expanded.errors)],
+    });
+  }
   if (!options.force && settledPiece(existing?.doc)) {
     return delivered(columnDelivery({ skipped: 'exists' }), { kind: 'briefing', scope, key, mode: 'ai', provider: existing?.doc.provider ?? 'minimax', skipped: 'exists' });
   }
@@ -814,6 +834,42 @@ async function runUpdates(
   return { keys, costs, events };
 }
 
+const PENDING_KEY = 'minimax-pending';
+
+async function readPending(env: ContentEnv): Promise<string[]> {
+  try {
+    const parsed = JSON.parse((await readValue(env, PENDING_KEY)) || '[]') as unknown;
+    return Array.isArray(parsed) ? parsed.filter((key): key is string => typeof key === 'string') : [];
+  } catch {
+    return [];
+  }
+}
+
+async function writePending(env: ContentEnv, keys: string[]): Promise<void> {
+  await writeValue(env, PENDING_KEY, JSON.stringify([...new Set(keys)].slice(-30)));
+}
+
+/** Second drafts for MiniMax explainers checked once on an earlier call. */
+async function expandPending(env: ContentEnv, pending: string[], requestStart: number): Promise<{ keys: string[]; steps: string[]; errors: string[] }> {
+  const mini = minimaxKey(env);
+  const batch = pending.slice(0, MINIMAX_PER_CALL);
+  const steps: string[] = [];
+  const errors: string[] = [];
+  const keys: string[] = [];
+  await Promise.all(batch.map(async (key) => {
+    const saved = await readDoc(env, docKey('compare', key)).catch(() => null);
+    const doc = saved?.doc;
+    if (!doc || doc.stage !== 'checked' || !mini) return;
+    const expanded = await expandMiniMax(mini, doc, requestStart + MINIMAX_DEADLINE_MS);
+    errors.push(...expanded.errors);
+    steps.push(`${key}:${expanded.steps.join(',')}`);
+    await writeDoc(env, expanded.doc, false);
+    keys.push(key);
+  }));
+  await writePending(env, pending.filter((key) => !batch.includes(key)));
+  return { keys, steps, errors };
+}
+
 export async function generateCompare(
   env: ContentEnv,
   limit = COMPARE_BATCH,
@@ -821,6 +877,20 @@ export async function generateCompare(
   options: { force?: boolean; key?: string; minimaxOnly?: boolean } = {},
 ): Promise<Record<string, unknown>> {
   const requestStart = Date.now();
+  // Finish once-checked MiniMax pieces before writing new ones; one call cannot fit both.
+  if (!options.force) {
+    const pending = await readPending(env);
+    if (pending.length && minimaxKey(env)) {
+      const expanded = await expandPending(env, pending, requestStart);
+      return delivered(columnDelivery({}), {
+        kind: 'compare',
+        keys: expanded.keys,
+        expanded: expanded.keys,
+        steps: expanded.steps,
+        grokError: [...new Set(expanded.errors)],
+      });
+    }
+  }
   const take = Math.max(1, Math.min(COMPARE_BATCH, limit));
   const written = parseWritten(await readValue(env, writtenKey(now)).catch(() => null));
   const material = await loadMaterial(env);
@@ -936,6 +1006,8 @@ export async function generateCompare(
   }
   await writeEvents(env, events, now.getTime());
   if (saved.length) await rememberIndexMany(env, saved).catch(() => undefined);
+  const checked = saved.filter((doc) => doc.stage === 'checked').map((doc) => doc.key);
+  if (checked.length) await writePending(env, [...(await readPending(env)), ...checked]);
   return delivered(columnDelivery({
     capped,
     docs: saved.map((doc) => ({
