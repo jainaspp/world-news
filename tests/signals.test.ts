@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { angleClusters, headlineIsMajor, majorTimeline, titlesMatch } from '../shared/angles';
+import { REQUEST_CLUSTER_LIMIT, clusterRecent, newestItems } from '../shared/board';
 import { mergeAlerts, parseMtrStatus, weatherAlerts } from '../shared/alerts';
 import { parseHkoWarnings } from '../shared/hk';
 import { renderHkInfo } from '../shared/hkInfo';
@@ -128,7 +129,8 @@ describe('alerts', () => {
 describe('endpoints stay separate', () => {
   it('does not fold clusters into /api/news and lists /major/ in the sitemap', () => {
     expect(readFileSync('functions/api/news.ts', 'utf8')).not.toContain('clusterCards');
-    expect(readFileSync('functions/api/clusters.ts', 'utf8')).toContain('clusterCards');
+    expect(readFileSync('functions/api/clusters.ts', 'utf8')).not.toContain('clusterCards');
+    expect(readFileSync('functions/api/board.ts', 'utf8')).toContain('computeBoard(');
     expect(readFileSync('public/sitemap.xml', 'utf8')).toContain('https://world-news.xyz/major/');
     expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('/major/');
   });
@@ -157,5 +159,55 @@ describe('most read', () => {
     const enough = buildPopular({ abc123: 4, bbb222: 9, ccc333: 2 }, [lead, other, twin], clusters, 10, 3);
     expect(enough.map((row) => row.id)).toEqual(['bbb222', 'abc123', 'ccc333']);
     expect(enough.every((row) => !row.fallback)).toBe(true);
+  });
+});
+
+describe('request path stays inside the CPU budget', () => {
+  const handlers = [
+    'functions/api/news.ts',
+    'functions/api/clusters.ts',
+    'functions/api/major.ts',
+    'functions/api/popular.ts',
+    'functions/major/index.ts',
+    'functions/index.ts',
+    'functions/story/[id].ts',
+    'functions/api/crawl.ts',
+  ];
+
+  it('does not cluster the full board while serving a page or the news list', () => {
+    for (const file of handlers) {
+      const source = readFileSync(file, 'utf8');
+      expect(source).not.toMatch(/angleClusters\s*\(/);
+      expect(source).not.toMatch(/clusterStories\s*\(/);
+      expect(source).not.toMatch(/majorTimeline\s*\(/);
+      expect(source).not.toMatch(/clusterCards\s*\(/);
+      expect(source).not.toMatch(/computeBoard\s*\(/);
+    }
+    expect(readFileSync('functions/board/fallback.ts', 'utf8')).toContain('computeBoard(newestItems(');
+    expect(readFileSync('functions/api/board.ts', 'utf8')).toContain('computeBoard(items)');
+    expect(readFileSync('functions/api/news.ts', 'utf8')).toContain('SHARD_COUNT');
+    expect(readFileSync('functions/api/news.ts', 'utf8')).toContain('toListPayload');
+  });
+
+  it('clusters 600 headlines under a tight budget and caps a request fallback at 100', () => {
+    expect(REQUEST_CLUSTER_LIMIT).toBeGreaterThanOrEqual(80);
+    expect(REQUEST_CLUSTER_LIMIT).toBeLessThanOrEqual(120);
+    const titles = ['港口停運', 'Senate vote fails', '颱風路徑更新', 'chip export rule', '加息預期升溫', 'metro signal delay'];
+    const rows = Array.from({ length: 600 }, (_, index) => item(
+      index.toString(16).padStart(6, 'a'),
+      `${titles[index % titles.length]} ${index}`,
+      `Outlet ${index % 50}`,
+      index % 180,
+    ));
+    const start = performance.now();
+    const clusters = angleClusters(rows);
+    expect(performance.now() - start).toBeLessThan(25);
+    expect(clusters.length).toBeGreaterThan(0);
+
+    const allowed = new Set(newestItems(rows).map((row) => row.id));
+    expect(allowed.size).toBe(100);
+    for (const cluster of clusterRecent(rows)) {
+      for (const member of cluster.items) expect(allowed.has(member.id)).toBe(true);
+    }
   });
 });

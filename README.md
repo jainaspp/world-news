@@ -66,13 +66,16 @@ Pages 專案設定：
 
 | 路徑 | 資料 | 邊緣快取 |
 | --- | --- | --- |
-| `/major/` | 24 小時重大更新時間線（伺服器算） | 約 3 分鐘 |
-| `/api/major` | 最近約 3 小時的重大更新橫額 | 約 3 分鐘 |
-| `/api/clusters` | 多角度報道分組（唔放入 `/api/news`） | 約 5 分鐘 |
+| `/major/` | 24 小時重大更新時間線（讀 KV `board:signals`） | 約 3 分鐘 |
+| `/api/major` | 最近約 3 小時的重大更新橫額（同一份 KV） | 約 3 分鐘 |
+| `/api/clusters` | 多角度報道分組（唔放入 `/api/news`，讀 KV） | 約 5 分鐘 |
+| `/api/board` | 背景重算分組同重大更新，寫入 KV。新鮮 10 分鐘內直接回，唔再聚類 | 約 5 分鐘 |
 | `/api/markets` | 美元/港元、人民幣/港元、金價、布倫特原油（Yahoo chart，唔使匙） | 約 10 分鐘 |
 | `/api/alerts` | 天文台生效警告，同港鐵非綠色綫務（`ryg_line_status.xml`） | 約 5 分鐘 |
 | `POST /api/reads` | 標題點擊，寫入 `CONTENT` KV（`reads:YYYY-MM-DD`，香港日期） | 不快取 |
-| `/api/popular` | 今日熱門；點擊不足就用最新的多媒體報道 | 約 1 分鐘 |
+| `/api/popular` | 今日熱門；點擊不足就用 KV 裡最新的多媒體報道 | 約 1 分鐘 |
+
+`/api/news` 成功之後，同每日 crawl，會另起一次請求打 `POST /api/board`。聚類唔喺出頁面嗰次 CPU 入面做。KV 未有資料時，請求路徑最多只用最新 100 則標題做後備，唔會對成板 600 則做兩兩比較。`/api/news` 本身唔聚類。RSS 拆成 22 個小分片（每片最多 2 個來源），父請求只合併 JSON，避免一次解析半數 feed 超出 Workers CPU。
 
 分組用標題詞彙同實體對照，唔會為分組呼叫 Workers AI embedding。港鐵官方開放數據的 next-train 要指定路綫同車站，唔係全綫狀態；狀態用港鐵網站公開的紅黃綠 XML。XML 失敗就只顯示天文台警告。
 

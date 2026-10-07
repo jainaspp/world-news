@@ -41,13 +41,26 @@ export const REGIONS: Region[] = [
 const rthk = 'https://rthk9.rthk.hk/rthk/news/rss';
 const bbc = 'https://feeds.bbci.co.uk';
 
-/** Workers allow 50 subrequests. Each shard stays at or below this so one redirect still fits. */
-export const FEEDS_PER_SHARD = 22;
+/**
+ * Workers free CPU is too small to parse half the feeds in one invocation
+ * (about 20 feeds was over the limit in production). Two feeds per shard
+ * stays under that budget. 22 subrequests is still inside the cap of 50,
+ * with room for one redirect per feed.
+ */
+export const SHARD_COUNT = 22;
+export const FEEDS_PER_SHARD = 2;
 
-export function feedsInShard(part: 'a' | 'b'): Feed[] {
-  // Alternate so each invocation still has sport, entertainment, and the other sections
-  // if the other shard cannot be reached.
-  return FEEDS.filter((_, index) => (part === 'a' ? index % 2 === 0 : index % 2 === 1));
+export function shardIndex(part: string | null | undefined): number | null {
+  if (!part || !/^\d+$/.test(part)) return null;
+  const index = Number(part);
+  return index >= 0 && index < SHARD_COUNT ? index : null;
+}
+
+export function feedsInShard(part: string): Feed[] {
+  const index = shardIndex(part);
+  if (index == null) return [];
+  // Round-robin so a missing shard still leaves every section represented.
+  return FEEDS.filter((_, feedIndex) => feedIndex % SHARD_COUNT === index);
 }
 
 export const FEEDS: Feed[] = [
