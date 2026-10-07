@@ -1,4 +1,4 @@
-import { arabicDigits, cantoneseLeft, polishProse, preachySentence, tidyNumerals } from './prose.js';
+import { arabicDigits, cantoneseLeft, polishProse, preachySentence, proseSane, tidyDisplay } from './prose.js';
 import { researchSources, SOURCE_LIST_CAP } from './search.js';
 import { stableId } from './rss.js';
 import { hasChinese, isMostlyEnglish, toHK } from './zh.js';
@@ -59,10 +59,10 @@ export function tidyStored(doc: ContentDoc): ContentDoc {
   if (doc.kind !== 'briefing' && doc.kind !== 'compare') return doc;
   const blocks = doc.blocks.map((block) => (block.title === '事件時間線'
     ? block
-    : { ...block, sentences: block.sentences.map(tidyNumerals).filter((line) => line.trim() && !preachySentence(line)) }))
+    : { ...block, sentences: block.sentences.map(tidyDisplay).filter((line) => line.trim() && !preachySentence(line)) }))
     .filter((block) => block.title === '事件時間線' || block.sentences.length > 0);
-  const next: ContentDoc = { ...doc, title: tidyNumerals(doc.title), description: tidyNumerals(doc.description), blocks };
-  if (doc.points) next.points = doc.points.map(tidyNumerals).filter((line) => line.trim() && !preachySentence(line));
+  const next: ContentDoc = { ...doc, title: tidyDisplay(doc.title), description: tidyDisplay(doc.description), blocks };
+  if (doc.points) next.points = doc.points.map(tidyDisplay).filter((line) => line.trim() && !preachySentence(line));
   return next;
 }
 
@@ -75,6 +75,16 @@ export const PUBLISH_FLOOR = 500;
 /** Briefings are multi-section digests; list them from 400 narrative characters. Explainers keep the 500 floor. */
 export const BRIEFING_PUBLIC_FLOOR = 400;
 
+/** Narrative prose of a briefing or explainer: every block except the data-built timeline. */
+export function narrativeProse(doc: ContentDoc): string {
+  return doc.blocks.filter((block) => block.title !== '事件時間線').flatMap((block) => block.sentences).join('');
+}
+
+/** Normal punctuation and no broken score runs in the narrative. */
+export function narrativeSane(doc: ContentDoc): boolean {
+  return proseSane(narrativeProse(doc));
+}
+
 /** A comparison that is thin, old-format, or still Cantonese stays out of the public list. */
 export function explainerCurrent(stored: ContentDoc): boolean {
   if (stored.kind !== 'compare') return false;
@@ -84,6 +94,7 @@ export function explainerCurrent(stored: ContentDoc): boolean {
   const titles = new Set(doc.blocks.map((block) => block.title));
   if (!titles.has('事件時間線') || !titles.has('事件經過')) return false;
   if (narrativeChars(doc) < PUBLISH_FLOOR) return false;
+  if (!narrativeSane(doc)) return false;
   const prose = [
     doc.title,
     doc.description,
@@ -104,6 +115,7 @@ export function briefingPublic(stored: ContentDoc): boolean {
   const body = headings.filter((heading) => heading !== '今日值得留意');
   if (!titles.has('今日值得留意') || !body.some((heading) => titles.has(heading))) return false;
   if (narrativeChars(doc) < BRIEFING_PUBLIC_FLOOR) return false;
+  if (!narrativeSane(doc)) return false;
   const prose = [doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => block.sentences)].join('\n');
   return !cantoneseLeft(prose);
 }
@@ -202,6 +214,69 @@ export function docCategories(doc: ContentDoc): string[] {
 
 export function uniqueSources(doc: ContentDoc): SourceRef[] {
   return [...new Map(doc.blocks.flatMap((block) => block.sources).map((source) => [source.url, source])).values()];
+}
+
+const SECOND_LEVEL = /^(co|com|org|net|gov|edu|ac)$/;
+
+/** Outlet brand from a URL: bbc.co.uk and bbc.com → bbc, edition.cnn.com → cnn. */
+export function brandKey(url: string): string {
+  try {
+    const labels = new URL(url).hostname.toLowerCase().replace(/^www\./, '').split('.');
+    let index = labels.length - 2;
+    if (index > 0 && SECOND_LEVEL.test(labels[index] || '') && (labels[labels.length - 1] || '').length === 2) index -= 1;
+    return labels[Math.max(0, index)] || '';
+  } catch {
+    return '';
+  }
+}
+
+function hostOf(url: string): string {
+  try {
+    return new URL(url).hostname.toLowerCase().replace(/^www\./, '');
+  } catch {
+    return '';
+  }
+}
+
+/** A title made from a URL slug: lower-case ASCII words only. */
+function slugTitle(title: string): boolean {
+  return /^[a-z0-9\s'’…-]+$/.test(title);
+}
+
+/** "coco gauff racist abuse china open b3061943" → "Coco gauff racist abuse china open". */
+function prettySlug(title: string): string {
+  const words = title.replace(/…$/, '').split(/\s+/).filter((word) => word && !(/\d/.test(word) && word.length >= 5));
+  const text = words.join(' ');
+  return text ? `${text.charAt(0).toUpperCase()}${text.slice(1)}` : '';
+}
+
+/**
+ * The list a reader sees under 來源. Cluster links (named outlets) always stay. Web citations
+ * are dropped when they repeat an outlet already listed or when all we have is a bare domain;
+ * slug titles are tidied.
+ */
+export function sourceList(doc: ContentDoc, cap = SOURCE_LIST_CAP): SourceRef[] {
+  const known = uniqueSources(doc);
+  const knownUrls = new Set(known.map((source) => source.url));
+  const base = doc.citations?.length ? doc.citations : known;
+  const brands = new Set(base.filter((source) => knownUrls.has(source.url)).map((source) => brandKey(source.url)));
+  const out: SourceRef[] = [];
+  for (const source of base) {
+    if (out.length >= cap) break;
+    if (knownUrls.has(source.url)) {
+      out.push(source);
+      continue;
+    }
+    const brand = brandKey(source.url);
+    if (!brand || brands.has(brand)) continue;
+    const title = (source.title || '').trim();
+    if (!title || title === hostOf(source.url) || title === source.source) continue;
+    const shown = slugTitle(title) ? prettySlug(title) : title;
+    if (!shown) continue;
+    brands.add(brand);
+    out.push(shown === title ? source : { ...source, title: shown });
+  }
+  return out;
 }
 
 /**
@@ -466,7 +541,7 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode =
     n: index + 1,
     source: source.source,
     title: source.title,
-    excerpt: (source.excerpt || '').slice(0, usingMaterial && index >= 4 ? 160 : excerptCap),
+    excerpt: (source.excerpt || '').slice(0, usingMaterial && index >= 6 ? 160 : excerptCap),
   });
   const background = usingSearch ? '搜尋到的背景' : '摘錄中的背景';
   if (doc.kind === 'briefing') {
@@ -827,6 +902,8 @@ export function applyModelText(doc: ContentDoc, raw: string, model = AI_MODEL, o
   if (isMostlyEnglish(generatedText(polished))) return null;
   // Cantonese particles are rejected so the caller regenerates in formal news Chinese.
   if ((doc.kind === 'briefing' || doc.kind === 'compare') && cantoneseLeft(generatedText(polished))) return null;
+  // Lost punctuation (or a glued score such as 七比56比一) is rejected so the caller retries.
+  if ((doc.kind === 'briefing' || doc.kind === 'compare') && !narrativeSane(polished)) return null;
   // Digest midnight fallback: Chinese sentences but English block titles left untranslated → retry.
   // Checked before guardDoc so a grounded-away Chinese title that falls back to the English
   // source headline is not treated as a failed translation.

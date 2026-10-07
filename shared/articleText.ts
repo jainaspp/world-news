@@ -143,3 +143,13 @@ export function extractArticle(html: string, cap = ARTICLE_CHARS): string {
   }
   return best;
 }
+
+/** og:title or <title>, without a trailing " | Outlet" / " - Outlet" brand. */
+export function extractTitle(html: string): string {
+  const raw = meta(html, 'property', 'og:title')
+    || meta(html, 'name', 'twitter:title')
+    || decode(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '');
+  const parts = raw.split(/\s+[|\-–—]\s+/);
+  const title = parts.length > 1 && (parts[parts.length - 1] || '').length <= 30 ? parts.slice(0, -1).join(' - ') : raw;
+  return title.trim().slice(0, 160);
+}

@@ -1,7 +1,10 @@
 import { applyRuntimeEnv } from '../server/runtimeEnv.js';
 import { briefingPublic, explainerCurrent, hktParts, type IndexEntry } from '../shared/content.js';
 import { DATA_HUB, DATA_PAGES } from '../shared/dataSeries.js';
-import { todayPaths } from '../shared/todayPage.js';
+import { angleClusters } from '../shared/angles.js';
+import { materialFromBoard } from '../shared/grok.js';
+import { buildToday, indexableTodayPaths, onHktDate, TODAY_INDEX_FLOOR } from '../shared/todayPage.js';
+import { readBoard } from './board/store.js';
 import { docKey, readDoc, readIndex, type ContentEnv } from './content/store.js';
 import type { PagesContext } from './env.js';
 
@@ -19,7 +22,7 @@ const LEGAL: [string, string, string][] = [
 
 /**
  * Static sitemap plus saved AI columns.
- * Thin headline pages are omitted so this handler does not load the news board.
+ * Thin headline pages are omitted. The board is read only to decide which /today/ lists are indexable.
  */
 export async function onRequest(context: PagesContext): Promise<Response> {
   applyRuntimeEnv(context.env);
@@ -55,7 +58,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     .filter(([loc]) => !base.includes(loc))
     .map(([loc, freq, priority]) => entry(loc, '2026-10-07', freq, priority))
     .join('');
-  const today = todayPaths(hktParts(new Date()).date)
+  const today = (await todayLocs(env))
     .filter((path) => !base.includes(`https://world-news.xyz${path}`))
     .map((path) => entry(`https://world-news.xyz${path}`, new Date().toISOString(), 'daily', path === '/today/' ? '0.7' : '0.5'))
     .join('');
@@ -81,4 +84,19 @@ async function currentExplainers(env: ContentEnv, rows: IndexEntry[]): Promise<I
     const doc = saved[index]?.doc;
     return Boolean(doc && explainerCurrent(doc));
   });
+}
+
+/** /today/ plus the day it shows, and only region or category lists with enough stories to be indexed. */
+async function todayLocs(env: ContentEnv): Promise<string[]> {
+  const board = await readBoard(env).catch(() => null);
+  const items = materialFromBoard(board)?.items ?? [];
+  if (!items.length) return ['/today/'];
+  const date = hktParts(new Date()).date;
+  const build = (day: string) => buildToday({ clusters: angleClusters(items.filter((item) => onHktDate(item, day))), date: day, today: day === date });
+  let model = build(date);
+  if (model.stories.length < TODAY_INDEX_FLOOR) {
+    const previous = build(hktParts(new Date(Date.now() - 24 * 60 * 60 * 1000)).date);
+    if (previous.stories.length > model.stories.length) model = previous;
+  }
+  return indexableTodayPaths(model);
 }

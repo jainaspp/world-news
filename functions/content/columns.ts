@@ -1,6 +1,6 @@
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
 import { needsSearch } from '../../shared/articleText.js';
-import { coherentCluster, type StoryCluster } from '../../shared/angles.js';
+import { coherentCluster, sameEvent, type StoryCluster } from '../../shared/angles.js';
 import { coherencePrompt, keepItems, parseCoherence } from '../../shared/coherence.js';
 import {
   applyBundles,
@@ -13,6 +13,7 @@ import {
   newLinks,
   overPace,
   parseDelta,
+  titlesAreSameEvent,
   UPDATES_PER_CALL,
   type StoredEvent,
 } from '../../shared/research.js';
@@ -69,7 +70,7 @@ import type { PagesContext } from '../env.js';
 import { readBoard } from '../board/store.js';
 import { generateFocus } from './focus.js';
 import { adConfig, polish } from './publish.js';
-import { fetchArticleTexts, readBundles, readEvents, stampExcerpts, writeBundle, writeEvents } from './material.js';
+import { fetchArticleTexts, fetchTitles, readBundles, readEvents, stampExcerpts, writeBundle, writeEvents } from './material.js';
 import { docKey, readDoc, readIndex, readValue, rememberIndexMany, writeDoc, writeValue, type ContentEnv } from './store.js';
 import { completeGrok, completeText, XAI_TIMEOUT_MS } from './xai.js';
 import { writeMiniMax } from './minimax.js';
@@ -162,6 +163,8 @@ interface Job {
   search?: boolean;
   /** Fetched excerpts are already on the draft. No search tool. */
   material?: boolean;
+  /** Hong Kong story: allows a third, web-search attempt after a thin strict retry. */
+  hk?: boolean;
   fetchedSources?: number;
   /** Tokens already billed for this article, such as the coherence check. */
   priorInput?: number;
@@ -215,13 +218,17 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
     let searchCalls = 0;
     // Material drafts get one more try: a strict rewrite when the first draft is close to the
     // floor, or the web_search fallback when the fetched text was not enough to write from.
-    const attempts = job.search ? 1 : 2;
+    // A Hong Kong story whose strict rewrite is still thin gets web search as a last resort.
+    const attempts = job.search ? 1 : job.hk && job.material ? 3 : 2;
+    let searched = Boolean(job.search);
     for (let attempt = 0; attempt < attempts && !(grokDoc && pieceReady(grokDoc) && grokDoc.provider === 'grok'); attempt += 1) {
-      if (attempt === 1 && Date.now() - started > RETRY_BEFORE_MS) break;
-      const searchRetry = attempt === 1 && Boolean(job.material) && !capReached(usage)
-        && (!grokDoc || bodyChars(grokDoc) < MATERIAL_RETRY_CHARS);
+      if (attempt >= 1 && Date.now() - started > RETRY_BEFORE_MS) break;
+      if (attempt === 2 && searched) break;
+      const searchRetry = attempt >= 1 && Boolean(job.material) && !capReached(usage)
+        && (attempt === 2 || !grokDoc || bodyChars(grokDoc) < MATERIAL_RETRY_CHARS);
+      if (searchRetry) searched = true;
       // The search retry uses the normal researched prompt; strict + search dropped commas in live output.
-      const result = await completeGrok(key, job.draft, attempt === 1 && !searchRetry, XAI_TIMEOUT_MS, {
+      const result = await completeGrok(key, job.draft, attempt >= 1 && !searchRetry, XAI_TIMEOUT_MS, {
         search: Boolean(job.search) || searchRetry,
         material: Boolean(job.material) && !searchRetry,
       });
@@ -239,6 +246,17 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
       if (stamped && (!grokDoc || richness(stamped) > richness(grokDoc))) grokDoc = stamped;
     }
     return { job, grokDoc, input: input + priorInput, output: output + priorOutput, requests, searchCalls };
+  }));
+  // Web citations arrive with a URL slug (or only a domain) as the title. Read the real headline.
+  await Promise.all(grok.map(async (row) => {
+    const citations = row.grokDoc?.citations;
+    if (!row.grokDoc || !citations?.length) return;
+    const known = new Set(row.grokDoc.blocks.flatMap((block) => block.sources.map((source) => source.url)));
+    const bare = citations.filter((source) => !known.has(source.url) && (/^[a-z0-9\s'’….-]+$/.test(source.title || '') || source.title === source.source));
+    if (!bare.length) return;
+    const titles = await fetchTitles(env, bare.map((source) => source.url), fetch, 4).catch(() => new Map<string, string>());
+    if (!titles.size) return;
+    row.grokDoc = { ...row.grokDoc, citations: citations.map((source) => (titles.has(source.url) ? { ...source, title: titles.get(source.url)! } : source)) };
   }));
   for (const row of grok) {
     if (row.requests) usage = withTokens(usage, row.input - (row.job.priorInput ?? 0), row.output - (row.job.priorOutput ?? 0), row.requests, row.searchCalls);
@@ -529,11 +547,54 @@ async function legacyCompareDocs(env: ContentEnv, onlyKey = ''): Promise<Content
     .filter((doc) => (onlyKey ? doc.key === onlyKey : !explainerCurrent(doc)));
 }
 
+/** Local outlets read for a Hong Kong story before web search. */
+const HK_FETCH_PER_CLUSTER = 6;
+
+/** Fuller local text first: the press release, then TV and radio desks, then papers and portals. */
+const OUTLET_ORDER = ['新聞公報', '有線新聞', 'Now 新聞', '香港01', '無線新聞', '香港電台', '星島頭條', 'Yahoo 新聞'];
+
+function outletRank(source: string): number {
+  const index = OUTLET_ORDER.indexOf(source);
+  return index < 0 ? OUTLET_ORDER.length : index;
+}
+
+function hkCluster(cluster: StoryCluster): boolean {
+  return cluster.items.some((item) => item.category === 'hk' || item.regions?.includes('HKG'));
+}
+
+const DEPARTMENT_RE = /署|處|局|部門|委員會|警方|警務|消防|政府|法院|醫管局|選舉|運輸|房屋|社會福利|勞工|教育/;
+
+/** Board items on the same Hong Kong event that the cluster missed: other desks and, when a department is involved, the press release. */
+export function rescueItems(cluster: StoryCluster, items: NewsItem[]): NewsItem[] {
+  const have = new Set(cluster.items.map((item) => item.link));
+  const sources = new Set(cluster.items.map((item) => item.source));
+  const room = Math.max(0, HK_FETCH_PER_CLUSTER - cluster.items.length);
+  const related = items.filter((item) => !have.has(item.link)
+    && (item.category === 'hk' || item.regions?.includes('HKG'))
+    && (titlesAreSameEvent(cluster.lead.title, item.title) || sameEvent(cluster.lead, item)));
+  const out: NewsItem[] = [];
+  const headlines = cluster.items.map((item) => item.title).join(' ');
+  if (DEPARTMENT_RE.test(headlines)) {
+    const release = related.find((item) => item.source === '新聞公報');
+    if (release) out.push(release);
+  }
+  const limit = Math.max(room, out.length);
+  for (const item of related.sort((a, b) => outletRank(a.source) - outletRank(b.source))) {
+    if (out.length >= limit) break;
+    if (out.includes(item) || sources.has(item.source)) continue;
+    sources.add(item.source);
+    out.push(item);
+  }
+  return out;
+}
+
 interface Prepared {
   draft: ContentDoc;
   route: 'grok' | 'workers';
   writer?: ArticleWriter;
   cluster: StoryCluster;
+  /** Hong Kong story: a strict retry that is still thin gets one web-search attempt. */
+  hk?: boolean;
   keepKey?: string;
   search: boolean;
   material: boolean;
@@ -591,11 +652,26 @@ async function prepareExplainers(
     if (!cluster || !source) continue;
     chosen.push({ cluster, source, priorInput: row.input, priorOutput: row.output });
   }
+  // Hong Kong desks publish short pieces. Widen a local story to up to six outlets (plus the
+  // government press release when a department is involved) before any web search.
+  for (const row of chosen) {
+    if (!hkCluster(row.cluster)) continue;
+    const extra = rescueItems(row.cluster, items);
+    if (!extra.length) continue;
+    const merged = [...row.cluster.items, ...extra];
+    row.cluster = {
+      ...row.cluster,
+      items: merged,
+      sources: [...new Set(merged.map((item) => item.source))],
+      count: new Set(merged.map((item) => item.source)).size,
+    };
+  }
   const urls: string[] = [];
   for (const row of chosen) {
     let added = 0;
-    for (const item of row.cluster.items) {
-      if (added >= 4) break;
+    const cap = hkCluster(row.cluster) ? HK_FETCH_PER_CLUSTER : 4;
+    for (const item of [...row.cluster.items].sort((a, b) => outletRank(a.source) - outletRank(b.source))) {
+      if (added >= cap) break;
       if (!/^https?:\/\//.test(item.link) || urls.includes(item.link)) continue;
       urls.push(item.link);
       added += 1;
@@ -630,6 +706,7 @@ async function prepareExplainers(
       cluster,
       search: writer === 'minimax' ? false : search,
       material: writer === 'minimax' ? true : !search,
+      hk: writer !== 'minimax' && hkCluster(cluster),
       fetchedSources: stamped.filter((item) => (item.excerpt || '').length >= 80).length,
       priorInput: row.priorInput,
       priorOutput: row.priorOutput,

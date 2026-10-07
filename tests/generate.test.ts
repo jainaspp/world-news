@@ -129,7 +129,8 @@ describe('cache-only generation and fallback signalling', () => {
   });
 
   it('keeps an explainer unpublished under 500 characters and accepts a complete one', () => {
-    const filler = (count: number) => '測'.repeat(count);
+    // A 「，」 every 30 characters keeps the prose above the punctuation floor.
+    const filler = (count: number) => Array.from({ length: count }, (_, i) => (i > 0 && i % 30 === 0 ? '，測' : '測')).join('');
     const doc: ContentDoc = {
       kind: 'compare',
       key: 'k',
@@ -156,6 +157,9 @@ describe('cache-only generation and fallback signalling', () => {
       ],
     };
     expect(pieceReady(published)).toBe(true);
+    const unpunctuated = { ...published, blocks: published.blocks.map((block) => ({ ...block, sentences: block.sentences.map((line) => line.replace(/，/g, '')) })) };
+    expect(pieceReady(unpunctuated)).toBe(false);
+    expect(explainerCurrent(unpunctuated)).toBe(false);
     expect(explainerCurrent(published)).toBe(true);
     expect(explainerCurrent({ ...published, blocks: published.blocks.filter((block) => block.title !== '事件時間線') })).toBe(false);
     expect(pieceReady({ ...published, points: ['一'] })).toBe(false);

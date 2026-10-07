@@ -75,7 +75,7 @@ export function arabicDigits(text: string): string {
   });
   const placed = percent.replace(NUMBER_BODY, (full) => cnNumber(full) ?? full);
   return placed
-    .replace(/[零〇○一二三四五六七八九]{2,}/g, (run) => [...run].map((ch) => String(CN_DIGIT[ch] ?? ch)).join(''))
+    .replace(/(?<!比)[零〇○一二三四五六七八九]{2,}(?!比)/g, (run) => [...run].map((ch) => String(CN_DIGIT[ch] ?? ch)).join(''))
     // 十月20日 → 10月20日 when the day is already Arabic; 十一黃金周 is a holiday name.
     .replace(/(^|[^\d零〇一二兩三四五六七八九十])十月(?=\d)/g, '$110月')
     // 二○26年 → 2026年 when the model mixes a Chinese year prefix with Arabic digits.
@@ -170,4 +170,80 @@ export function preachySentence(sentence: string): boolean {
   const line = sentence.trim();
   if (PREACHY_ANYWHERE.test(line)) return !/表示|指出|強調|認為|批評|聲稱/.test(line);
   return PREACHY_SOFT.test(line) && PREACHY_OPENING.test(line);
+}
+
+/** Month and day written in Chinese numerals: 十月七日 → 10月7日, and 2026年五月 → 2026年5月. */
+function monthDay(month: string, day?: string): string | null {
+  const m = smallCnInt(month);
+  if (m == null || m < 1 || m > 12) return null;
+  if (day == null) return `${m}月`;
+  const d = smallCnInt(day);
+  if (d == null || d < 1 || d > 31) return null;
+  return `${m}月${d}日`;
+}
+
+/**
+ * Mixed Chinese and Arabic numbers the model sometimes writes:
+ * 二萬8000 → 2萬8000, 2026年十月七日 → 2026年10月7日, 十月七日 → 10月7日, 2026年五月 → 2026年5月.
+ */
+export function tidyMixedNumbers(text: string): string {
+  if (!text) return text;
+  return text
+    .replace(/([一二兩三四五六七八九十]{1,3})(萬|億)(?=\d)/g, (full, run: string, unit: string) => {
+      const value = smallCnInt(run);
+      return value == null ? full : `${value}${unit}`;
+    })
+    .replace(/([一二三四五六七八九十]{1,3})月([一二三四五六七八九十]{1,3})日/g, (full, month: string, day: string) => monthDay(month, day) ?? full)
+    .replace(/(\d{4}年)([一二三四五六七八九十]{1,3})月/g, (full, year: string, month: string) => {
+      const fixed = monthDay(month);
+      return fixed ? `${year}${fixed}` : full;
+    });
+}
+
+/**
+ * Taiwan and mainland wording that Hong Kong papers write differently. Conservative on purpose:
+ * only names and terms where the Hong Kong form is unambiguous.
+ */
+const HK_TERMS: [RegExp, string][] = [
+  [/川普/g, '特朗普'],
+  [/普丁/g, '普京'],
+  [/澤倫斯基/g, '澤連斯基'],
+  [/紐西蘭/g, '新西蘭'],
+  [/義大利/g, '意大利'],
+  [/報導/g, '報道'],
+  [/我國(?=外交部|政府|國防部|商務部|駐|海關|國務院)/g, '中國'],
+  [/我國/g, '內地'],
+  [/軟體/g, '軟件'],
+  [/網路/g, '網絡'],
+  [/品質/g, '質素'],
+];
+
+export function hkWording(text: string): string {
+  if (!text) return text;
+  let out = text;
+  for (const [pattern, replacement] of HK_TERMS) out = out.replace(pattern, replacement);
+  return out;
+}
+
+/** Render-time cleanup for model prose: numerals, mixed numbers, and Hong Kong wording. */
+export function tidyDisplay(text: string): string {
+  return hkWording(tidyMixedNumbers(tidyNumerals(text)));
+}
+
+/** A score or number run glued together after punctuation was dropped, e.g. 七比56比一. */
+const BROKEN_SCORE = /比[\d零〇一二三四五六七八九十]{2,}比|\d比\d{2,}比/;
+
+/** At least one 「，」 per this many Chinese characters of narrative prose. */
+export const COMMA_EVERY = 60;
+
+/**
+ * False when narrative prose has lost its punctuation (fewer than one 「，」 per 60 Chinese
+ * characters) or contains a broken score run. Short texts are judged on the score only.
+ */
+export function proseSane(text: string): boolean {
+  if (BROKEN_SCORE.test(text)) return false;
+  const han = (text.match(/[\u3400-\u9fff]/g) || []).length;
+  if (han < 120) return true;
+  const commas = (text.match(/，/g) || []).length;
+  return commas * COMMA_EVERY >= han;
 }
