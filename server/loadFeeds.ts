@@ -1,6 +1,6 @@
-import { CATEGORY_IDS } from '../shared/categories.js';
+import { CATEGORY_IDS, type CategoryId } from '../shared/categories.js';
 import { FEEDS, type Feed } from '../shared/feeds.js';
-import { dedupeNews, parseFeed } from '../shared/rss.js';
+import { dedupeNews, parseFeed, parseNowFeed } from '../shared/rss.js';
 import type { FeedErrorSource, NewsItem } from '../shared/types';
 
 const BROWSER_HEADERS = {
@@ -12,21 +12,58 @@ const BROWSER_HEADERS = {
 const FEED_TIMEOUT_MS = 5000;
 const MAX_AGE_MS = 48 * 60 * 60 * 1000;
 const MAX_PER_SOURCE = 36;
-const TARGET_TOTAL = 600;
+/** 30% of the China floor, so one outlet cannot fill the section. */
+const CHINA_PER_SOURCE = 24;
+/** Press releases are useful but should not crowd out reporting. */
+const PRESS_RELEASE_CAP = 16;
+const TARGET_TOTAL = 840;
 const MIN_PER_CATEGORY = 24;
+const CATEGORY_FLOOR: Partial<Record<CategoryId, number>> = {
+  hk: 120,
+  china: 80,
+};
+
+function sourceLimit(source: string, category: string): number {
+  if (source === '新聞公報') return PRESS_RELEASE_CAP;
+  if (category === 'china') return CHINA_PER_SOURCE;
+  return MAX_PER_SOURCE;
+}
+
+function categoryFloor(category: string): number {
+  return CATEGORY_FLOOR[category as CategoryId] ?? MIN_PER_CATEGORY;
+}
+
+/** Exact headline match after stripping punctuation, so wire copies collapse. */
+function titleKey(title: string): string {
+  return title.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+}
+
+function dedupeTitles(items: NewsItem[]): NewsItem[] {
+  const seen = new Set<string>();
+  const out: NewsItem[] = [];
+  for (const item of items) {
+    const key = titleKey(item.title);
+    if (key.length >= 8 && seen.has(key)) continue;
+    if (key.length >= 8) seen.add(key);
+    out.push(item);
+  }
+  return out;
+}
 
 export function selectHeadlines(items: NewsItem[], now = Date.now()): NewsItem[] {
   const fresh = items.filter((item) => {
     const published = Date.parse(item.pubDate);
     return Number.isFinite(published) && published <= now + 15 * 60 * 1000 && now - published <= MAX_AGE_MS;
   });
-  const sorted = dedupeNews(fresh);
+  const sorted = dedupeTitles(dedupeNews(fresh));
   const counts = new Map<string, number>();
   const capped: NewsItem[] = [];
   for (const item of sorted) {
-    const used = counts.get(item.source) ?? 0;
-    if (used >= MAX_PER_SOURCE) continue;
-    counts.set(item.source, used + 1);
+    const category = item.category ?? 'world';
+    const key = `${item.source}|${category}`;
+    const used = counts.get(key) ?? 0;
+    if (used >= sourceLimit(item.source, category)) continue;
+    counts.set(key, used + 1);
     capped.push(item);
   }
   if (capped.length <= TARGET_TOTAL) return capped;
@@ -35,12 +72,13 @@ export function selectHeadlines(items: NewsItem[], now = Date.now()): NewsItem[]
   const seen = new Set<string>();
   for (const category of CATEGORY_IDS) {
     let kept = 0;
+    const floor = categoryFloor(category);
     for (const item of capped) {
       if ((item.category ?? 'world') !== category || seen.has(item.id)) continue;
       seen.add(item.id);
       picked.push(item);
       kept += 1;
-      if (kept >= MIN_PER_CATEGORY) break;
+      if (kept >= floor) break;
     }
   }
   for (const item of capped) {
@@ -84,6 +122,11 @@ async function fetchOne(
     }
     if (!response.ok) return fail(`HTTP ${response.status}`);
     const text = await response.text();
+    if (feed.format === 'now') {
+      const items = parseNowFeed(text, feed);
+      if (!items.length) return fail('empty');
+      return { items };
+    }
     if (!/<(rss|feed|rdf:RDF)/i.test(text)) return fail('not xml');
     const items = parseFeed(text, feed);
     if (!items.length) return fail('empty');

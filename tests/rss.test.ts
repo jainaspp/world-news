@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Feed } from '../shared/feeds';
-import { dedupeNews, normalizeLink, parseFeed } from '../shared/rss';
+import { dedupeNews, normalizeLink, parseFeed, parseNowFeed } from '../shared/rss';
 import { filterNews } from '../shared/filter';
 import type { NewsItem } from '../shared/types';
 
@@ -76,6 +76,40 @@ describe('rss parse and dedupe', () => {
   it('keeps at most 30 headlines from one feed', () => {
     const body = Array.from({ length: 40 }, (_, index) => `<item><title>T${index}</title><link>https://example.com/${index}</link><pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate></item>`).join('');
     expect(parseFeed(`<rss><channel>${body}</channel></rss>`, feed)).toHaveLength(30);
+  });
+
+  it('keeps a section of a mixed feed and converts simplified text', () => {
+    const section: Feed = { ...feed, category: 'hk', includePaths: ['/society/', '/politics/'] };
+    const xml = `<rss><channel>
+      <item><title>屯門單位起火</title><link>https://example.com/society/1</link><pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate><description>数据泄露</description></item>
+      <item><title>中国公布新措施</title><link>https://example.com/world/2</link><pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate></item>
+      <item><title>香港電台報道</title><link>https://example.com/politics/3</link><pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate></item>
+    </channel></rss>`;
+    const items = parseFeed(xml, section);
+    expect(items.map((row) => row.link)).toEqual(['https://example.com/society/1', 'https://example.com/politics/3']);
+    expect(items[0]?.excerpt).toBe('數據泄露');
+    expect(items[1]?.title).toBe('香港電台報道');
+    expect(parseFeed(`<rss><channel><item><title>中国公布新措施</title><link>https://example.com/cn</link><pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate></item></channel></rss>`, { ...feed, category: 'world' })[0]).toMatchObject({
+      title: '中國公布新措施',
+      category: 'china',
+    });
+  });
+
+  it('reads the Now 新聞 JSON list', () => {
+    const items = parseNowFeed(JSON.stringify([{
+      newsId: '664987',
+      title: '屯門女童',
+      summary: '<p>情況嚴重</p>',
+      publishDate: Date.parse('2026-10-06T02:00:00Z'),
+      imageUrl: 'https://cdn.example.com/now.jpg',
+    }]), feed);
+    expect(items[0]).toMatchObject({
+      title: '屯門女童',
+      link: 'https://news.now.com/home/local/player?newsId=664987',
+      image: 'https://cdn.example.com/now.jpg',
+      excerpt: '情況嚴重',
+      pubDate: '2026-10-06T02:00:00.000Z',
+    });
   });
 
   it('parses atom entries', () => {
