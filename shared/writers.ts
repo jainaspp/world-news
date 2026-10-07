@@ -26,8 +26,8 @@ import type { NewsItem } from './types.js';
 /** MiniMax explainers written in one morning or evening warm run. */
 export const MINIMAX_EXPLAINERS_PER_RUN = 15;
 
-/** Per /api/generate call. Three warm-run calls fill the half-day cap. Parallel, about 9 s. */
-export const MINIMAX_PER_CALL = 5;
+/** MiniMax pieces per /api/generate call: each runs draft, check, rewrite, check (about 60 s). */
+export const MINIMAX_PER_CALL = 3;
 
 export type ArticleWriter = 'grok' | 'minimax';
 
@@ -114,7 +114,7 @@ function toSource(item: NewsItem): SourceRef {
     title: item.title,
     url: item.link,
     source: item.source,
-    ...(item.excerpt ? { excerpt: item.excerpt.slice(0, 600) } : {}),
+    ...(item.excerpt ? { excerpt: item.excerpt.slice(0, 2_500) } : {}),
     ...(item.image ? { image: item.image } : {}),
     ...(item.category ? { category: item.category } : {}),
     ...(item.pubDate ? { pubDate: item.pubDate } : {}),

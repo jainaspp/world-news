@@ -268,3 +268,17 @@ describe('parseDrop', () => {
     expect(parseDrop('{"keep":[1]}', 5)).toBeNull();
   });
 });
+
+describe('MiniMax output repair and tidy', () => {
+  it('repairs a dropped section brace and a stray bracket', async () => {
+    const { repairJson } = await import('../functions/content/minimax.js');
+    const broken = '{"title":"t","sections":[{"heading":"a","text":"x"},"heading":"b","text":"y"}]}]}';
+    expect(JSON.parse(repairJson(broken)).sections[1].heading).toBe('b');
+  });
+  it('drops lowercase glosses and repeats of a proper-noun gloss', async () => {
+    const { stripGlosses } = await import('../functions/content/minimax.js');
+    const seen = new Set<string>();
+    expect(stripGlosses('總部（head office）裁員', seen)).toBe('總部裁員');
+    expect(stripGlosses('博姿（Boots）出售，博姿（Boots）', seen)).toBe('博姿（Boots）出售，博姿');
+  });
+});

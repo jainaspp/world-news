@@ -38,7 +38,7 @@ jobs:
             echo
           fi
           # One briefing (three editions), then explainers.
-          # Each explainer call writes up to five MiniMax pieces; three calls fill 15 per half-day.
+          # Each explainer call writes up to three MiniMax pieces (only stories with 3+ outlets and enough text); the loop stops when nothing is left.
           # Retry when the HTTP status is not 2xx or the body says "fallback": true
           # (cold cache, sources-only, or Workers AI standing in before the cap).
           # Explainers stop on pace, on none, or when the same non-empty keys repeat.
@@ -72,9 +72,9 @@ jobs:
           post "$base/api/generate?kind=briefing&scope=techfin" 2 || fail=1
           prev_keys=""
           explainer_ok=0
-          for _ in 1 2 3; do
+          for _ in 1 2 3 4 5; do
             body=$(mktemp)
-            code=$(curl -sS -o "$body" -w '%{http_code}' --max-time 90 -X POST "${auth[@]}" "$base/api/generate?kind=explainer&limit=3" || true)
+            code=$(curl -sS -o "$body" -w '%{http_code}' --max-time 110 -X POST "${auth[@]}" "$base/api/generate?kind=explainer&limit=3" || true)
             cat "$body"
             echo
             parsed=$(python3 -c 'import json,sys

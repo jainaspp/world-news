@@ -406,7 +406,7 @@ export function sourcesFromCluster(cluster: StoryCluster, limit = 6): SourceRef[
       title: item.title,
       url: item.link,
       source: item.source,
-      excerpt: item.excerpt?.slice(0, 1_200),
+      excerpt: item.excerpt?.slice(0, 2_500),
       ...(item.image ? { image: item.image } : {}),
       ...(item.category ? { category: item.category } : {}),
       ...(item.pubDate ? { pubDate: item.pubDate } : {}),
@@ -514,7 +514,7 @@ export function weeklyFromHeadlines(tech: SourceRef[], business: SourceRef[], ke
 /** `true` is the thin-material web_search fallback. `material` writes from fetched excerpts and does not search. */
 export type ResearchMode = boolean | 'material';
 
-function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode = false): { system: string; user: string; maxTokens: number } {
+function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode = false, excerptOverride?: number): { system: string; user: string; maxTokens: number } {
   const usingSearch = research === true;
   const usingMaterial = research === 'material';
   const bounds = usingSearch
@@ -538,12 +538,12 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode =
         : '正文至少 500 個中文字。材料不夠就如實寫短，不要為了湊字重複同一事實。',
     strict ? '上一次太短、太多英文，或夾有粵語口語。今次每一句都用正式新聞書面語，正文至少 500 個中文字，同一事實只寫一次。' : '',
   ].join('');
-  const excerptCap = usingMaterial ? 1_200 : 480;
+  const excerptCap = excerptOverride ?? (usingMaterial ? 1_200 : 480);
   const clip = (source: SourceRef, index: number) => ({
     n: index + 1,
     source: source.source,
     title: source.title,
-    excerpt: (source.excerpt || '').slice(0, usingMaterial && index >= 6 ? 160 : excerptCap),
+    excerpt: (source.excerpt || '').slice(0, usingMaterial && index >= 6 && !excerptOverride ? 160 : excerptCap),
   });
   const background = usingSearch ? '搜尋到的背景' : '摘錄中的背景';
   if (doc.kind === 'briefing') {
@@ -598,8 +598,8 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode =
   };
 }
 
-export function promptFor(doc: ContentDoc, strict = false, research: ResearchMode = false): { system: string; user: string; maxTokens: number } {
-  if (doc.kind === 'briefing' || doc.kind === 'compare') return columnPrompt(doc, strict, research);
+export function promptFor(doc: ContentDoc, strict = false, research: ResearchMode = false, excerptCap?: number): { system: string; user: string; maxTokens: number } {
+  if (doc.kind === 'briefing' || doc.kind === 'compare') return columnPrompt(doc, strict, research, excerptCap);
   const system = [
     '你是世界頭條的編輯。一律用繁體中文正式新聞書面語，不要用簡體字，不要用粵語口語，英文來源都要譯成中文。',
     '只可使用提供的標題和摘錄。禁止添加來源沒有寫的事實、數字、引言、人名、地點、國籍、身份或因果。',

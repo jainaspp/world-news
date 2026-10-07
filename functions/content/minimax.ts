@@ -1,4 +1,5 @@
-import { applyModelText, promptFor, type ContentDoc, type ResearchMode } from '../../shared/content.js';
+import { applyModelText, briefingHeadings, briefingScopeOf, promptFor, type ContentDoc, type ResearchMode } from '../../shared/content.js';
+import { bodyChars, pieceReady } from '../../shared/grok.js';
 import { toHK } from '../../shared/zh.js';
 
 /** MiniMax China Coding Plan. Flat fee, so a call costs 0 USD. */
@@ -8,6 +9,9 @@ export const MINIMAX_FALLBACK_MODEL = 'MiniMax-M2';
 export const MINIMAX_TIMEOUT_MS = 45_000;
 export const MINIMAX_MAX_TOKENS = 5_000;
 export const MINIMAX_RETRY_TOKENS = 8_000;
+
+/** Source text per article handed to MiniMax (flat fee). */
+export const MINIMAX_EXCERPT_CHARS = 2_500;
 
 /** Rate-limit and balance codes on base_resp. A length finish is not one of these. */
 const QUOTA_CODES = new Set([1002, 1008, 1041]);
@@ -144,19 +148,46 @@ export async function completeMiniMax(
   return secondary;
 }
 
+/** MiniMax sometimes drops the `{` before a section or adds a stray closing bracket. */
+export function repairJson(raw: string): string {
+  const text = raw.replace(/```json|```/gi, '').trim();
+  const start = text.indexOf('{');
+  const end = text.lastIndexOf('}');
+  if (start < 0 || end <= start) return raw;
+  const tryParse = (candidate: string): boolean => {
+    try {
+      JSON.parse(candidate);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+  let body = text.slice(start, end + 1);
+  if (tryParse(body)) return body;
+  body = body.replace(/\}\s*,\s*"heading"/g, '},{"heading"');
+  for (let cut = 0; cut <= 4; cut += 1) {
+    const candidate = cut ? body.slice(0, -cut) : body;
+    if (tryParse(candidate)) return candidate;
+    if (tryParse(`${candidate}]}`)) return `${candidate}]}`;
+  }
+  return raw;
+}
+
 /** Writes one piece from supplied material only. Cost stays 0. Quota is reported for the Grok fallback. */
 export async function writeMiniMax(
   apiKey: string,
   draft: ContentDoc,
   research: ResearchMode = 'material',
   strict = false,
+  excerptCap?: number,
+  timeoutMs = MINIMAX_TIMEOUT_MS,
 ): Promise<{ doc: ContentDoc | null; quota: boolean; input: number; output: number; model: string; error?: string }> {
-  const prompt = promptFor(draft, strict, research === true ? 'material' : research);
-  const result = await completeMiniMax(apiKey, prompt.system, prompt.user.replace(/ \/no_think$/, ''));
+  const prompt = promptFor(draft, strict, research === true ? 'material' : research, excerptCap);
+  const result = await completeMiniMax(apiKey, `${prompt.system}${NAME_RULE}`, prompt.user.replace(/ \/no_think$/, ''), timeoutMs);
   if (!result.text) {
     return { doc: null, quota: result.quota, input: result.input, output: result.output, model: result.model, ...(result.error ? { error: result.error } : {}) };
   }
-  const applied = applyModelText(draft, result.text, result.model || MINIMAX_MODEL);
+  const applied = applyModelText(draft, repairJson(result.text), result.model || MINIMAX_MODEL);
   if (!applied) {
     return { doc: null, quota: result.quota, input: result.input, output: result.output, model: result.model, ...(result.error ? { error: result.error } : {}) };
   }
@@ -189,14 +220,14 @@ export function parseDrop(text: string, max: number): number[] | null {
  * carry, or that are commentary, speculation, or preaching, and removes them. A thinner result is
  * held by the normal publish floor instead of going out with invented background.
  */
-export async function verifyMiniMax(apiKey: string, draft: ContentDoc, doc: ContentDoc): Promise<{ doc: ContentDoc; dropped: number; error?: string }> {
+export async function verifyMiniMax(apiKey: string, draft: ContentDoc, doc: ContentDoc, timeoutMs = MINIMAX_TIMEOUT_MS): Promise<{ doc: ContentDoc; dropped: number; ok: boolean; error?: string }> {
   const seen = new Set<string>();
   const sources: { source: string; title: string; excerpt: string }[] = [];
   for (const block of draft.blocks) {
     for (const ref of block.sources) {
       if (seen.has(ref.url)) continue;
       seen.add(ref.url);
-      sources.push({ source: ref.source, title: ref.title, excerpt: (ref.excerpt || '').slice(0, 1800) });
+      sources.push({ source: ref.source, title: ref.title, excerpt: (ref.excerpt || '').slice(0, MINIMAX_EXCERPT_CHARS) });
     }
   }
   const rows: { block: number; index: number; text: string }[] = [];
@@ -205,19 +236,19 @@ export async function verifyMiniMax(apiKey: string, draft: ContentDoc, doc: Cont
     block.sentences.forEach((text, index) => rows.push({ block: b, index, text }));
   });
   (doc.points ?? []).forEach((text, index) => rows.push({ block: -1, index, text }));
-  if (!sources.length || rows.length < 3) return { doc, dropped: 0 };
+  if (!sources.length || rows.length < 3) return { doc, dropped: 0, ok: rows.length < 3 };
   const user = [
     `來源：${JSON.stringify(sources)}`,
     `句子：${JSON.stringify(rows.map((row, n) => ({ n, text: row.text })))}`,
     '逐句對照來源，列出以下兩類句子的編號：',
-    '1. 含有來源標題和摘錄都沒有的事實、數字、人名、地點、日期、引述、機構關係或因果，或把來源說的「調查是否」寫成已確定的結論；',
+    '1. 含有來源標題和摘錄都沒有的事實、數字、人名、地點、日期、引述、機構關係或因果，或把來源說的「調查是否」寫成已確定的結論；沒有附上來源英文原名的中文人名音譯，若來源沒有這個中文寫法，也列入；',
     '2. 評論、推測、預測、輿論概括或說教，例如「反映」「揭示」「顯示…態度」「可以預期」「值得關注」「輿論普遍」「建議」。',
     '來源有寫的事實，即使措辭不同也不要列入。回傳 {"drop":[編號]}，沒有就回傳 {"drop":[]}。',
   ].join('\n');
-  const result = await completeMiniMax(apiKey, VERIFY_SYSTEM, user);
+  const result = await completeMiniMax(apiKey, VERIFY_SYSTEM, user, timeoutMs);
   const drop = result.text ? parseDrop(result.text, rows.length) : null;
-  if (!drop) return { doc, dropped: 0, ...(result.error ? { error: result.error } : {}) };
-  if (!drop.length) return { doc, dropped: 0 };
+  if (!drop) return { doc, dropped: 0, ok: false, ...(result.error ? { error: result.error } : {}) };
+  if (!drop.length) return { doc, dropped: 0, ok: true };
   const removed = new Set(drop.map((n) => rows[n]).filter(Boolean).map((row) => `${row!.block}:${row!.index}`));
   const blocks = doc.blocks.map((block, b) => (block.title === '事件時間線'
     ? block
@@ -229,5 +260,139 @@ export async function verifyMiniMax(apiKey: string, draft: ContentDoc, doc: Cont
   return {
     doc: { ...doc, blocks, points, ...(removedLead && description ? { description } : {}) },
     dropped: removed.size,
+    ok: true,
   };
+}
+
+
+/** Commentary and talk about the writing material. Sentences carrying these are dropped outright. */
+const COMMENTARY_RE = /揭示|可以預期|可預期|輿論普遍|值得關注|凸顯|摘錄|提供的資料|資料中|資料未|來源未|未有進一步說明|未有提及/;
+
+/** `中文（English gloss）`: lowercase glosses go; a capitalised proper noun keeps its first gloss only. */
+export function stripGlosses(text: string, seen: Set<string>): string {
+  return text.replace(/([\u3400-\u9fff])\s*[（(]\s*([A-Za-z][A-Za-z0-9 .,'’&-]*?)\s*[）)]/g, (_whole, ch: string, inner: string) => {
+    const key = inner.toLowerCase();
+    if (/^[A-Z]/.test(inner) && !seen.has(key)) {
+      seen.add(key);
+      return `${ch}（${inner}）`;
+    }
+    return ch;
+  });
+}
+
+/** Deterministic tidy for MiniMax pieces: glosses, commentary and material-talk sentences. */
+export function cleanMiniMax(doc: ContentDoc): ContentDoc {
+  const seen = new Set<string>();
+  const blocks = doc.blocks.map((block) => (block.title === '事件時間線'
+    ? block
+    : { ...block, sentences: block.sentences.filter((text) => !COMMENTARY_RE.test(text)).map((text) => stripGlosses(text, seen)) }))
+    .filter((block) => block.title === '事件時間線' || block.sentences.length > 0);
+  const points = (doc.points ?? []).filter((text) => !COMMENTARY_RE.test(text)).map((text) => stripGlosses(text, new Set()));
+  return {
+    ...doc,
+    title: stripGlosses(doc.title, new Set()),
+    description: stripGlosses(doc.description, new Set()),
+    blocks,
+    points,
+  };
+}
+
+/** Names from English sources: no invented Chinese transliterations. */
+export const NAME_RULE = '來源是英文而沒有中文寫法的人名，直接用來源的英文原名（例如 Lee Gi-hyuk），不要自行音譯成中文；國家元首和常見機構可用香港通用譯名。';
+
+const REWRITE_RULES = [
+  '你現在做第二稿：把已核實的稿件擴寫得更詳細。',
+  '只可以使用「來源原文」中明確寫出的事實擴寫：更多經過細節、註明說話者的直接引述（每次不超過 30 字）、數字、日期和先後次序。',
+  '已核實稿件的事實可以保留；不可以加入來源原文沒有的背景知識、人名、地點、數字、機構關係、因果或比較。來源說「調查是否」「據報」就照樣寫，不要寫成已確定的結論。',
+  '不要寫評論、推測、預測、輿論概括或說教，不要用以下字詞：反映、揭示、可以預期、預料、輿論普遍、建議、值得關注、凸顯、意味著。',
+  '不要提及「材料」「摘錄」「資料」「來源原文」或寫作過程；某方面沒有內容就整節不寫，不要寫「未有說明」。',
+  '外文詞不要加括號附註，英文機構和公司名稱照用原文；專有名詞最多在第一次出現時附原文一次。',
+  '相關的分句用「，」連接成完整句子，每句 25 至 45 字，不要寫成一連串短句。',
+  NAME_RULE,
+].join('');
+
+function rewriteShape(draft: ContentDoc): string {
+  if (draft.kind === 'briefing') {
+    const scope = briefingScopeOf(draft.key);
+    const headings = briefingHeadings(scope);
+    const union = headings.map((heading) => `"${heading}"`).join('|');
+    const length = scope === 'world'
+      ? '國際段寫 400 至 650 字，涵蓋兩至三件事；'
+      : '科技和財經兩段各寫 220 至 350 字，每段涵蓋兩件事；只有一類有來源就只寫那一段；';
+    return `回傳 {"title":"中文導讀標題","description":"40字以內的摘要","sections":[{"heading":${union},"text":"..."}],"points":["重點","重點","重點"]}。每個 heading 只出現一次；${length}今日值得留意寫 60 至 120 字，只列來源寫明的下一步、日期或待決事項，沒有就不要輸出這一節。points 三項，每項 30 字以內，數字必須在來源出現過。`;
+  }
+  return '回傳 {"title":"中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"..."}]}。每個 heading 只出現一次。「事件經過」分兩至三段（段與段之間用換行），寫 350 至 550 字，按時間交代經過、數字和來源提到的較早發展；「各方回應」只寫來源點名的人或機構說了甚麼，120 至 220 字，沒有引述就不要輸出；「後續關注」只寫來源提到的下一步、日期或未決事項，沒有就不要輸出。points 剛好三行，每行 20 至 35 字。';
+}
+
+/** Facts-only second draft: verified sentences plus the source text, expanded from the sources alone. */
+export async function rewriteMiniMax(apiKey: string, draft: ContentDoc, verified: ContentDoc, timeoutMs = MINIMAX_TIMEOUT_MS): Promise<{ doc: ContentDoc | null; error?: string }> {
+  const seen = new Set<string>();
+  const sources: { n: number; source: string; title: string; text: string }[] = [];
+  for (const block of draft.blocks) {
+    for (const ref of block.sources) {
+      if (seen.has(ref.url) || !(ref.excerpt || '').trim()) continue;
+      seen.add(ref.url);
+      sources.push({ n: sources.length + 1, source: ref.source, title: ref.title, text: (ref.excerpt || '').slice(0, MINIMAX_EXCERPT_CHARS) });
+    }
+  }
+  if (!sources.length) return { doc: null };
+  const story = {
+    title: verified.title,
+    points: verified.points ?? [],
+    sections: verified.blocks.filter((block) => block.title !== '事件時間線').map((block) => ({ heading: block.title, text: block.sentences.join('') })),
+  };
+  const base = promptFor(draft, false, 'material').system;
+  const user = `${REWRITE_RULES}\n${rewriteShape(draft)}\n已核實稿件：${JSON.stringify(story)}\n來源原文：${JSON.stringify(sources)}`;
+  const result = await completeMiniMax(apiKey, base, user, timeoutMs);
+  if (!result.text) return { doc: null, ...(result.error ? { error: result.error } : {}) };
+  const applied = applyModelText(draft, repairJson(result.text), result.model || MINIMAX_MODEL);
+  if (!applied) return { doc: null, error: 'rewrite-unparsed' };
+  return { doc: { ...applied, provider: 'minimax', model: result.model || applied.model } };
+}
+
+function better(next: ContentDoc, current: ContentDoc): boolean {
+  const readyNext = pieceReady(next);
+  const readyCurrent = pieceReady(current);
+  if (readyNext !== readyCurrent) return readyNext;
+  return bodyChars(next) > bodyChars(current);
+}
+
+/**
+ * MiniMax desk pipeline: draft → fact-check → facts-only rewrite → fact-check. The rewrite is used
+ * only when its own fact-check ran and it beats the checked draft. Never falls back to Grok.
+ */
+export async function pipelineMiniMax(apiKey: string, draft: ContentDoc, deadline: number): Promise<{ doc: ContentDoc | null; errors: string[]; steps: string[] }> {
+  const errors: string[] = [];
+  const steps: string[] = [];
+  const left = () => deadline - Date.now();
+  const timeout = (reserve: number) => Math.max(8_000, Math.min(MINIMAX_TIMEOUT_MS, left() - reserve));
+  let first = await writeMiniMax(apiKey, draft, 'material', false, MINIMAX_EXCERPT_CHARS, timeout(30_000));
+  if (first.error) errors.push(first.error);
+  if (!first.doc && !first.quota && left() > 55_000) {
+    steps.push('draft-retry');
+    first = await writeMiniMax(apiKey, draft, 'material', true, MINIMAX_EXCERPT_CHARS, timeout(30_000));
+    if (first.error) errors.push(first.error);
+  }
+  if (!first.doc) return { doc: null, errors, steps: [...steps, 'draft-failed'] };
+  steps.push(`draft:${bodyChars(first.doc)}`);
+  if (left() < 12_000) return { doc: null, errors, steps: [...steps, 'no-time-check'] };
+  const checked = await verifyMiniMax(apiKey, draft, cleanMiniMax(first.doc), timeout(5_000));
+  if (checked.error) errors.push(checked.error);
+  // Nothing goes out without a completed fact-check.
+  if (!checked.ok) return { doc: null, errors, steps: [...steps, 'check-failed'] };
+  let doc = cleanMiniMax(checked.doc);
+  steps.push(`check:-${checked.dropped}:${bodyChars(doc)}`);
+  if (left() < 35_000) return { doc, errors, steps: [...steps, 'no-time-rewrite'] };
+  const second = await rewriteMiniMax(apiKey, draft, doc, timeout(15_000));
+  if (second.error) errors.push(second.error);
+  if (!second.doc) return { doc, errors, steps: [...steps, 'rewrite-failed'] };
+  steps.push(`rewrite:${bodyChars(second.doc)}`);
+  if (left() < 10_000) return { doc, errors, steps: [...steps, 'no-time-recheck'] };
+  const rechecked = await verifyMiniMax(apiKey, draft, cleanMiniMax(second.doc), timeout(2_000));
+  if (rechecked.error) errors.push(rechecked.error);
+  if (!rechecked.ok) return { doc, errors, steps: [...steps, 'recheck-failed'] };
+  const final = cleanMiniMax(rechecked.doc);
+  steps.push(`recheck:-${rechecked.dropped}:${bodyChars(final)}`);
+  if (better(final, doc)) doc = final;
+  return { doc, errors, steps };
 }
