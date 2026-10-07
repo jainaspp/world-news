@@ -49,7 +49,9 @@ const HTML_HEADERS = {
   'cache-control': 'public, max-age=120, s-maxage=600, stale-while-revalidate=86400',
 };
 
-const WALL_MS = 22_000;
+const WALL_MS = 60_000;
+/** Only start the stricter second Grok attempt while there is room before the edge's 100 s limit. */
+const RETRY_BEFORE_MS = 35_000;
 
 function siteUrl(env: ContentEnv): string {
   const configured = env.VITE_SITE_URL;
@@ -94,9 +96,10 @@ interface Job {
 }
 
 /** Grok calls for a batch run together. Workers AI runs only when Grok is short, capped, or not the route. */
-async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()): Promise<{ docs: ContentDoc[]; usage: MonthUsage }> {
+async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()): Promise<{ docs: ContentDoc[]; usage: MonthUsage; grokStatus: number[] }> {
   let usage = await monthUsage(env);
   const key = apiKey(env);
+  const statuses: number[] = [];
   const grok = await Promise.all(jobs.map(async (job) => {
     if (writerFor({ route: job.route, costUsd: usage.costUsd, hasKey: Boolean(key) }) !== 'grok') {
       return { job, grokDoc: null as ContentDoc | null, input: 0, output: 0, requests: 0 };
@@ -106,8 +109,10 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
     let output = 0;
     let requests = 0;
     for (let attempt = 0; attempt < 2 && !(grokDoc && richness(grokDoc) >= 500); attempt += 1) {
+      if (attempt === 1 && Date.now() - started > RETRY_BEFORE_MS) break;
       const result = await completeGrok(key, job.draft, attempt === 1);
-      if (!result) break;
+      statuses.push(result.status);
+      if (!result.status) break;
       input += result.input;
       output += result.output;
       requests += 1;
@@ -136,7 +141,7 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
     usage = withArticle(usage, doc.model?.includes('grok') ? 'grok' : 'workers', doc.kind);
   }
   await saveUsage(env, usage);
-  return { docs, usage };
+  return { docs, usage, grokStatus: statuses };
 }
 
 function withLiveItems(snapshot: BoardSnapshot, items: NewsItem[]): StoryCluster[] {
@@ -170,10 +175,10 @@ export async function generateBriefing(env: ContentEnv, now = new Date()): Promi
   const selected = selectBriefingItems(items, now);
   const draft = briefingFromItems(selected.hk, selected.china, key, now);
   if (!draft) return { ok: true, kind: 'briefing', key, skipped: 'no-headlines' };
-  const { docs } = await composeBatch(env, [{ draft, route: 'grok' }]);
+  const { docs, grokStatus } = await composeBatch(env, [{ draft, route: 'grok' }]);
   const doc = docs[0] ?? draft;
   await writeDoc(env, doc);
-  return { ok: true, kind: 'briefing', key, mode: doc.mode, model: doc.model ?? '', chars: richness(doc) };
+  return { ok: true, kind: 'briefing', key, mode: doc.mode, model: doc.model ?? '', chars: richness(doc), grokStatus };
 }
 
 export async function generateCompare(env: ContentEnv, limit = COMPARE_BATCH, now = new Date()): Promise<Record<string, unknown>> {
@@ -187,7 +192,7 @@ export async function generateCompare(env: ContentEnv, limit = COMPARE_BATCH, no
     route: routeForCluster(cluster),
     cluster,
   }));
-  const { docs } = await composeBatch(env, jobs);
+  const { docs, grokStatus } = await composeBatch(env, jobs);
   const saved: ContentDoc[] = [];
   const nextWritten: WrittenStory[] = [...written];
   for (const [index, doc] of docs.entries()) {
@@ -217,6 +222,8 @@ export async function generateCompare(env: ContentEnv, limit = COMPARE_BATCH, no
     keys: saved.map((doc) => doc.key),
     modes: saved.map((doc) => doc.mode),
     routes: jobs.map((job) => job.route),
+    models: saved.map((doc) => doc.model ?? ''),
+    grokStatus,
   };
 }
 

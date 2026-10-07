@@ -188,8 +188,14 @@ export function usageTokens(payload: unknown): { input: number; output: number }
   if (!usage) return { input: 0, output: 0 };
   return {
     input: num(usage.prompt_tokens ?? usage.input_tokens),
-    output: num(usage.completion_tokens ?? usage.output_tokens),
+    // xAI bills reasoning tokens as output but reports them outside completion_tokens.
+    output: num(usage.completion_tokens ?? usage.output_tokens) + reasoningTokens(usage),
   };
+}
+
+function reasoningTokens(usage: Record<string, unknown>): number {
+  const details = (usage.completion_tokens_details ?? usage.output_tokens_details) as Record<string, unknown> | undefined;
+  return details ? num(details.reasoning_tokens) : 0;
 }
 
 export function hanCount(text: string): number {
