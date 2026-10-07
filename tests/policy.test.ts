@@ -11,11 +11,6 @@ import {
 } from '../shared/contact';
 import { promptFor, weeklyFromHeadlines } from '../shared/content';
 import {
-  ANALYSIS_INDEX_NOTE,
-  MIN_BODY_CHARS,
-  cjkChars,
-  editorNote,
-  pageBodyChars,
   renderAnalysisIndex,
   renderContentPage,
 } from '../shared/contentPage';
@@ -138,9 +133,9 @@ describe('thin pages and original columns', () => {
       [{ title: '港股半日升', url: 'https://example.com/b', source: '港台財經' }],
       '2026-10-04',
     );
-    expect(pageBodyChars(weekly)).toBeGreaterThanOrEqual(MIN_BODY_CHARS);
     const html = renderContentPage(weekly, 'https://world-news.xyz/weekly/2026-10-04');
-    expect(html).toContain('編者按');
+    expect(html).not.toContain('編者按');
+    expect(html).not.toContain('引用的公開標題');
     expect(html).toContain('<h2 class="column-h2">一週科技</h2>');
     expect(html).toContain('AI 整合');
     expect(html).toContain('https://example.com/t');
@@ -149,10 +144,8 @@ describe('thin pages and original columns', () => {
       ads: { client: 'ca-pub-8392975944327076', top: '1111111111' },
     });
     expect(slotted).toContain('<span class="ad-label">廣告</span>');
-    expect(slotted.indexOf('編者按')).toBeLessThan(slotted.indexOf('data-ad-position="top"'));
-    expect(cjkChars(editorNote('digest'))).toBeGreaterThan(80);
-    expect(cjkChars(ANALYSIS_INDEX_NOTE)).toBeGreaterThanOrEqual(MIN_BODY_CHARS);
-    expect(renderAnalysisIndex([], 'https://world-news.xyz/analysis/')).toContain('編者按');
+    expect(slotted.indexOf('column-hero')).toBeLessThan(slotted.indexOf('data-ad-position="top"'));
+    expect(renderAnalysisIndex([], 'https://world-news.xyz/analysis/')).not.toContain('編者按');
 
     const digestPrompt = promptFor({ ...weekly, kind: 'digest' });
     expect(digestPrompt.user).toContain('四十字');

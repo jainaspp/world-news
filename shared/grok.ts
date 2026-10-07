@@ -33,8 +33,17 @@ export const COMPARE_PER_DAY = 20;
 /** Articles per generate call, so one invocation stays inside Workers subrequest and wall-clock limits. */
 export const COMPARE_BATCH = 3;
 
-/** A finished Grok piece is at least this many Chinese characters. Shorter drafts can be rewritten the same day. */
+/** A long Grok piece. At or above this, the draft is finished even if a section is thin. */
 export const MIN_AI_CHARS = 500;
+
+/**
+ * A complete explainer or briefing may stop here. Retrying a 450-character piece
+ * that already has its sections only burns another model call.
+ */
+export const ACCEPT_AI_CHARS = 450;
+
+/** Thin or failed drafts are retried at most this many times in one HKT day. */
+export const THIN_ATTEMPTS = 2;
 
 export interface MonthUsage {
   month: string;
@@ -56,8 +65,12 @@ export interface WrittenStory {
   links: string[];
   mode: 'ai' | 'sources';
   at: number;
-  /** Chinese characters in the saved piece. Missing on rows written before this field existed. */
+  /** Chinese characters in the narrative body. Missing on rows written before this field existed. */
   chars?: number;
+  /** How many times this cluster was generated today. Missing means a legacy row. */
+  attempts?: number;
+  /** True when the saved piece is long enough and, for an explainer, structurally complete. */
+  ready?: boolean;
 }
 
 export interface ColumnStatus {
@@ -277,6 +290,8 @@ export function parseWritten(raw: string | null): WrittenStory[] {
       mode: row.mode === 'ai' ? 'ai' as const : 'sources' as const,
       at: Number.isFinite(row.at) ? row.at : 0,
       ...(typeof row.chars === 'number' && Number.isFinite(row.chars) ? { chars: Math.max(0, Math.floor(row.chars)) } : {}),
+      ...(typeof row.attempts === 'number' && Number.isFinite(row.attempts) ? { attempts: Math.max(0, Math.floor(row.attempts)) } : {}),
+      ...(row.ready === true ? { ready: true as const } : row.ready === false ? { ready: false as const } : {}),
     }));
   } catch {
     return [];
@@ -299,14 +314,79 @@ export function findWritten(cluster: StoryCluster, written: WrittenStory[], now 
 }
 
 /**
- * A full Grok piece stays for the day. Sources-only drafts and thin pieces (under 500 characters)
- * stay open so the same day's run can replace them. Rows saved before `chars` existed stay locked
- * when they were marked as AI, so a finished piece is not regenerated just because the field is new.
+ * A finished piece stays for the day. A thin or failed draft stays open until it has been
+ * tried THIN_ATTEMPTS times. Rows saved before `chars` existed stay locked when they were
+ * marked as AI, so a finished piece is not regenerated just because the field is new.
  */
 export function blocksRewrite(row: WrittenStory | undefined, _nowMs: number): boolean {
-  if (!row || row.mode !== 'ai') return false;
-  if (typeof row.chars === 'number' && row.chars < MIN_AI_CHARS) return false;
+  if (!row) return false;
+  if (row.ready === true) return true;
+  if (row.mode === 'ai' && row.chars == null && row.attempts == null) return true;
+  if (row.mode === 'ai' && typeof row.chars === 'number' && row.chars >= MIN_AI_CHARS && row.ready !== false) return true;
+  return (row.attempts ?? 0) >= THIN_ATTEMPTS;
+}
+
+/** Narrative Chinese characters, excluding the data-built timeline titles. */
+export function bodyChars(doc: ContentDoc): number {
+  const sentences = doc.blocks
+    .filter((block) => block.title !== '事件時間線')
+    .flatMap((block) => block.sentences);
+  return hanCount([...(doc.points ?? []), ...sentences].join(''));
+}
+
+/** An explainer has its sections and three summary lines. A briefing has a watch section and one side. */
+export function structureComplete(doc: ContentDoc): boolean {
+  const titles = new Set(doc.blocks.map((block) => block.title));
+  if (doc.kind === 'compare') {
+    return titles.has('事件經過') && titles.has('後續關注') && (doc.points?.length ?? 0) >= 3;
+  }
+  if (doc.kind === 'briefing') {
+    return titles.has('今日值得留意') && (titles.has('香港') || titles.has('內地'));
+  }
   return true;
+}
+
+/** Long enough to publish. Complete pieces may stop at ACCEPT_AI_CHARS instead of waiting for 500. */
+export function pieceReady(doc: ContentDoc): boolean {
+  const body = bodyChars(doc);
+  if (doc.kind !== 'briefing' && doc.kind !== 'compare') return richness(doc) >= MIN_AI_CHARS;
+  if (body >= MIN_AI_CHARS) return true;
+  return body >= ACCEPT_AI_CHARS && structureComplete(doc);
+}
+
+/**
+ * Writes chars, ready, and the attempt count onto the existing row.
+ * The first save starts at 1. A later save increments, so a thin update cannot drop the counter.
+ */
+export function upsertWritten(existing: WrittenStory[], row: WrittenStory, cluster: StoryCluster, now = new Date()): WrittenStory[] {
+  const next = existing.map((item) => ({ ...item }));
+  const previous = findWritten(cluster, next, now);
+  if (!previous) {
+    next.push({ ...row, attempts: row.attempts ?? 1 });
+    return next;
+  }
+  previous.mode = row.mode;
+  previous.at = row.at;
+  previous.key = row.key;
+  previous.signature = row.signature;
+  previous.links = row.links;
+  if (typeof row.chars === 'number') previous.chars = row.chars;
+  if (typeof row.ready === 'boolean') previous.ready = row.ready;
+  previous.attempts = (previous.attempts ?? 1) + 1;
+  return next;
+}
+
+/** HKT morning or evening instant for a briefing slot such as 2026-10-07-pm. */
+export function slotInstant(slot: string): Date | null {
+  const match = /^(\d{4})-(\d{2})-(\d{2})-(am|pm)$/.exec(slot);
+  if (!match) return null;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  if (!year || month < 1 || month > 12 || day < 1 || day > 31) return null;
+  const hourUtc = match[4] === 'am' ? 0 : 10;
+  const when = new Date(Date.UTC(year, month - 1, day, hourUtc, 30));
+  return slotId(when) === slot ? when : null;
 }
 
 /**
@@ -339,6 +419,7 @@ export function pickCompareBatch(
       links: cluster.items.map((item) => item.link),
       mode: 'ai',
       at: now.getTime(),
+      ready: true,
     });
   }
   return picked;
@@ -526,6 +607,8 @@ export interface ColumnDelivery {
   fallback: boolean;
   cold?: boolean;
   error?: string;
+  /** Keys saved in this batch that are still thin or not a finished Grok piece. */
+  thin: string[];
 }
 
 /**
@@ -533,23 +616,36 @@ export interface ColumnDelivery {
  * so the workflow retries. A Workers AI piece is a normal 200 only when Grok was not available
  * (monthly cap, or no key).
  */
+function draftAccepted(doc: { mode: string; model?: string; chars?: number; ready?: boolean }, capped?: boolean): boolean {
+  if (doc.ready === true && (doc.chars ?? 0) >= ACCEPT_AI_CHARS) return true;
+  if (doc.mode !== 'ai') return false;
+  if (capped) return true;
+  if (!doc.model?.includes('grok')) return false;
+  return (doc.chars ?? 0) >= MIN_AI_CHARS && doc.ready !== false;
+}
+
 export function columnDelivery(input: {
   cold?: boolean;
   skipped?: string;
   capped?: boolean;
-  docs?: { mode: string; model?: string; chars?: number }[];
+  docs?: { mode: string; model?: string; chars?: number; key?: string; ready?: boolean }[];
 }): ColumnDelivery {
-  if (input.cold) return { status: 503, ok: false, fallback: true, cold: true, error: 'cache-cold' };
+  const thinKeys = (docs: { mode: string; model?: string; chars?: number; key?: string; ready?: boolean }[]) => docs
+    .filter((doc) => !draftAccepted(doc, input.capped))
+    .map((doc) => doc.key)
+    .filter((key): key is string => Boolean(key));
+  if (input.cold) return { status: 503, ok: false, fallback: true, cold: true, error: 'cache-cold', thin: [] };
   if (input.skipped === 'exists' || input.skipped === 'none' || input.skipped === 'no-headlines' || input.skipped === 'done') {
-    return { status: 200, ok: true, fallback: false };
+    return { status: 200, ok: true, fallback: false, thin: [] };
   }
   const docs = input.docs ?? [];
-  if (!docs.length) return { status: 200, ok: true, fallback: false };
-  const fallback = docs.some((doc) => {
-    if (doc.mode !== 'ai') return true;
-    if (input.capped) return false;
-    if (!doc.model?.includes('grok')) return true;
-    return (doc.chars ?? 0) < MIN_AI_CHARS;
-  });
-  return fallback ? { status: 503, ok: false, fallback: true } : { status: 200, ok: true, fallback: false };
+  if (!docs.length) return { status: 200, ok: true, fallback: false, thin: [] };
+  const thin = thinKeys(docs);
+  const anyAccepted = docs.some((doc) => draftAccepted(doc, input.capped));
+  const prematureWorkers = !input.capped && docs.some((doc) => doc.mode === 'ai' && Boolean(doc.model) && !doc.model?.includes('grok') && doc.ready !== true);
+  const allSources = docs.every((doc) => doc.mode !== 'ai');
+  if (!anyAccepted && !input.capped && (allSources || prematureWorkers)) {
+    return { status: 503, ok: false, fallback: true, thin };
+  }
+  return { status: 200, ok: true, fallback: false, thin };
 }

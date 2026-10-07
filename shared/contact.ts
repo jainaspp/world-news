@@ -5,11 +5,11 @@ export const CONTACT_RATE_WINDOW_SECONDS = 60 * 60;
 export const CONTACT_MAX_MESSAGE = 2000;
 export const CONTACT_MAX_NAME = 80;
 
-export const CONTACT_THANKS = '收到，多謝你。留言只供世界頭條閱讀，大約九十日後會刪除。';
-export const CONTACT_NEED_MESSAGE = '請寫低你想講的內容。';
-export const CONTACT_TOO_LONG = '內容太長，請收短到二千字以內。';
-export const CONTACT_RATE = '太快連續送出，請一個鐘後再試。';
-export const CONTACT_UNAVAILABLE = '暫時儲存唔到，請遲啲再試。';
+export const CONTACT_THANKS = '已收到，謝謝。留言只供世界頭條閱讀，大約九十日後刪除。';
+export const CONTACT_NEED_MESSAGE = '請寫下你想說的內容。';
+export const CONTACT_TOO_LONG = '內容太長，請縮短至二千字以內。';
+export const CONTACT_RATE = '送出過於頻繁，請一小時後再試。';
+export const CONTACT_UNAVAILABLE = '暫時無法儲存，請稍後再試。';
 
 export interface ContactFields {
   name?: string;

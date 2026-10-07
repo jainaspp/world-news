@@ -145,7 +145,7 @@ describe('analysis v3', () => {
     expect(doc?.blocks[0]?.sources[0]?.angle).toBe('着重研究團隊背景');
     expect(doc?.blocks[0]?.sources[1]?.angle).toBeUndefined();
     const html = renderContentPage(doc!, 'https://world-news.xyz/analysis/x');
-    expect(html).toContain('各媒體點報');
+    expect(html).toContain('各媒體角度');
     expect(html).toContain('報道時間線');
     expect(html).toContain('4 間媒體報道');
     expect(html).toContain('原文標題');

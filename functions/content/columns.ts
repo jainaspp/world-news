@@ -3,6 +3,7 @@ import type { StoryCluster } from '../../shared/angles.js';
 import type { NewsItem } from '../../shared/types.js';
 import {
   applyModelText,
+  explainerCurrent,
   formatHkt,
   guardDoc,
   renderColumnIndex,
@@ -12,27 +13,28 @@ import {
 import {
   COMPARE_BATCH,
   GROK_MODEL,
-  MIN_AI_CHARS,
+  bodyChars,
   briefingFromItems,
   briefingKey,
   capReached,
   columnDelivery,
   compareFromCluster,
-  compareKey,
   emptyUsage,
-  findWritten,
   hktMonth,
   materialFromBoard,
   parseUsage,
   parseWritten,
   pickCompareBatch,
+  pieceReady,
   preferWritten,
   relatedEarlier,
   richness,
   routeForCluster,
   selectBriefingItems,
+  slotInstant,
   statusFrom,
   storySignature,
+  upsertWritten,
   usageKey,
   withArticle,
   withTokens,
@@ -122,7 +124,7 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
     let input = 0;
     let output = 0;
     let requests = 0;
-    for (let attempt = 0; attempt < 2 && !(grokDoc && richness(grokDoc) >= 500); attempt += 1) {
+    for (let attempt = 0; attempt < 2 && !(grokDoc && pieceReady(grokDoc)); attempt += 1) {
       if (attempt === 1 && Date.now() - started > RETRY_BEFORE_MS) break;
       const result = await completeGrok(key, job.draft, attempt === 1);
       statuses.push(result.status);
@@ -174,10 +176,10 @@ export async function columnStatus(env: ContentEnv, now = new Date()): Promise<R
   return statusFrom(usage);
 }
 
-export async function generateBriefing(env: ContentEnv, now = new Date()): Promise<Record<string, unknown>> {
+export async function generateBriefing(env: ContentEnv, now = new Date(), options: { force?: boolean } = {}): Promise<Record<string, unknown>> {
   const key = briefingKey(now);
   const existing = await readDoc(env, docKey('briefing', key));
-  if (existing?.doc.mode === 'ai' && existing.doc.model?.includes('grok') && richness(existing.doc) >= MIN_AI_CHARS) {
+  if (!options.force && existing?.doc.mode === 'ai' && existing.doc.model?.includes('grok') && pieceReady(existing.doc)) {
     return delivered(columnDelivery({ skipped: 'exists' }), { kind: 'briefing', key, mode: 'ai', skipped: 'exists' });
   }
   const material = await loadMaterial(env);
@@ -188,58 +190,135 @@ export async function generateBriefing(env: ContentEnv, now = new Date()): Promi
   const { docs, grokStatus, grokError, capped } = await composeBatch(env, [{ draft, route: 'grok' }]);
   const doc = docs[0] ?? draft;
   await writeDoc(env, doc);
-  const chars = richness(doc);
-  return delivered(columnDelivery({ capped, docs: [{ mode: doc.mode, model: doc.model, chars }] }), {
+  const chars = bodyChars(doc);
+  const ready = doc.mode === 'ai' && pieceReady(doc);
+  return delivered(columnDelivery({ capped, docs: [{ mode: doc.mode, model: doc.model, chars, key, ready }] }), {
     kind: 'briefing',
     key,
     mode: doc.mode,
     model: doc.model ?? '',
     chars,
+    ready,
     grokStatus,
     grokError,
   });
 }
 
-export async function generateCompare(env: ContentEnv, limit = COMPARE_BATCH, now = new Date()): Promise<Record<string, unknown>> {
+function clusterFromDoc(doc: ContentDoc): StoryCluster | null {
+  const seen = new Set<string>();
+  const items: NewsItem[] = [];
+  for (const block of doc.blocks) {
+    for (const source of block.sources) {
+      if (!source.url || seen.has(source.url)) continue;
+      seen.add(source.url);
+      items.push({
+        id: source.url,
+        title: source.title,
+        link: source.url,
+        source: source.source,
+        sourceUrl: source.url,
+        regions: [],
+        pubDate: source.pubDate || doc.publishedAt,
+        category: source.category || 'world',
+        ...(source.excerpt ? { excerpt: source.excerpt } : {}),
+      });
+    }
+  }
+  if (items.length < 2) return null;
+  const lead = items[0]!;
+  return {
+    id: doc.key,
+    lead,
+    items,
+    sources: [...new Set(items.map((item) => item.source))],
+    count: new Set(items.map((item) => item.source)).size,
+    latest: Date.parse(doc.publishedAt) || Date.now(),
+  };
+}
+
+function matchCluster(doc: ContentDoc, clusters: StoryCluster[]): StoryCluster | undefined {
+  const links = new Set(doc.blocks.flatMap((block) => block.sources.map((source) => source.url)));
+  return clusters.find((cluster) => cluster.items.filter((item) => links.has(item.link)).length >= 2);
+}
+
+async function legacyCompareDocs(env: ContentEnv, onlyKey = ''): Promise<ContentDoc[]> {
+  const entries = await readIndex(env, 'compare').catch(() => []);
+  const chosen = onlyKey ? entries.filter((entry) => entry.key === onlyKey) : entries;
+  const saved = await Promise.all(chosen.map((entry) => readDoc(env, docKey('compare', entry.key)).catch(() => null)));
+  return saved
+    .map((row) => row?.doc)
+    .filter((doc): doc is ContentDoc => Boolean(doc))
+    .filter((doc) => (onlyKey ? doc.key === onlyKey : !explainerCurrent(doc)));
+}
+
+export async function generateCompare(
+  env: ContentEnv,
+  limit = COMPARE_BATCH,
+  now = new Date(),
+  options: { force?: boolean; key?: string } = {},
+): Promise<Record<string, unknown>> {
   const take = Math.max(1, Math.min(COMPARE_BATCH, limit));
   const written = parseWritten(await readValue(env, writtenKey(now)).catch(() => null));
   const material = await loadMaterial(env);
   if (!material) return delivered(columnDelivery({ cold: true }), { kind: 'compare', keys: [] });
-  const picked = pickCompareBatch(material.clusters, written, take, now);
-  if (!picked.length) return delivered(columnDelivery({ skipped: 'none' }), { kind: 'compare', keys: [], skipped: 'none' });
-  const jobs = picked.map((cluster) => ({
-    draft: compareFromCluster(cluster, now, relatedEarlier(cluster, material.items)),
-    route: routeForCluster(cluster),
-    cluster,
-  }));
+
+  let jobs: { draft: ContentDoc; route: 'grok' | 'workers'; cluster: StoryCluster; keepKey?: string }[];
+  if (options.force) {
+    const legacy = await legacyCompareDocs(env, options.key || '');
+    if (options.key && !legacy.length) {
+      return delivered(columnDelivery({ skipped: 'none' }), { kind: 'compare', keys: [], skipped: 'missing', key: options.key });
+    }
+    const forced = legacy.slice(0, take);
+    if (!forced.length) return delivered(columnDelivery({ skipped: 'none' }), { kind: 'compare', keys: [], skipped: 'none' });
+    jobs = forced.flatMap((doc) => {
+      const cluster = matchCluster(doc, material.clusters) ?? clusterFromDoc(doc);
+      if (!cluster) return [];
+      const draft = compareFromCluster(cluster, now, relatedEarlier(cluster, material.items));
+      draft.key = doc.key;
+      return [{ draft, route: routeForCluster(cluster), cluster, keepKey: doc.key }];
+    });
+  } else {
+    const picked = pickCompareBatch(material.clusters, written, take, now);
+    if (!picked.length) return delivered(columnDelivery({ skipped: 'none' }), { kind: 'compare', keys: [], skipped: 'none' });
+    jobs = picked.map((cluster) => ({
+      draft: compareFromCluster(cluster, now, relatedEarlier(cluster, material.items)),
+      route: routeForCluster(cluster),
+      cluster,
+    }));
+  }
+  if (!jobs.length) return delivered(columnDelivery({ skipped: 'none' }), { kind: 'compare', keys: [], skipped: 'none' });
+
   const { docs, grokStatus, grokError, capped } = await composeBatch(env, jobs);
   const saved: ContentDoc[] = [];
-  const nextWritten: WrittenStory[] = [...written];
+  let nextWritten: WrittenStory[] = [...written];
   for (const [index, doc] of docs.entries()) {
-    const cluster = jobs[index]?.cluster;
-    if (!cluster || !doc) continue;
+    const job = jobs[index];
+    if (!job || !doc) continue;
+    if (job.keepKey) doc.key = job.keepKey;
     await writeDoc(env, doc, false);
     saved.push(doc);
-    const row: WrittenStory = {
-      key: compareKey(cluster, now),
-      signature: storySignature(cluster),
-      links: [...new Set(cluster.items.map((item) => item.link))],
+    const ready = doc.mode === 'ai' && pieceReady(doc);
+    nextWritten = upsertWritten(nextWritten, {
+      key: doc.key,
+      signature: storySignature(job.cluster),
+      links: [...new Set(job.cluster.items.map((item) => item.link))],
       mode: doc.mode,
       at: now.getTime(),
-      chars: richness(doc),
-    };
-    const previous = findWritten(cluster, nextWritten, now);
-    if (previous) {
-      previous.mode = doc.mode;
-      previous.at = row.at;
-      previous.key = row.key;
-    } else nextWritten.push(row);
+      chars: bodyChars(doc),
+      ready,
+    }, job.cluster, now);
     await writeValue(env, writtenKey(now), JSON.stringify(nextWritten));
   }
   if (saved.length) await rememberIndexMany(env, saved).catch(() => undefined);
   return delivered(columnDelivery({
     capped,
-    docs: saved.map((doc) => ({ mode: doc.mode, model: doc.model, chars: richness(doc) })),
+    docs: saved.map((doc) => ({
+      mode: doc.mode,
+      model: doc.model,
+      chars: bodyChars(doc),
+      key: doc.key,
+      ready: doc.mode === 'ai' && pieceReady(doc),
+    })),
   }), {
     kind: 'compare',
     keys: saved.map((doc) => doc.key),
@@ -267,12 +346,21 @@ export async function serveBriefingIndex(context: PagesContext): Promise<Respons
   return new Response(renderColumnIndex('briefing', entries, canonical, { ads: adConfig(env) }), { headers: HTML_HEADERS });
 }
 
+async function visibleExplainers(env: ContentEnv, entries: Awaited<ReturnType<typeof readIndex>>): Promise<Awaited<ReturnType<typeof readIndex>>> {
+  const saved = await Promise.all(entries.map((entry) => readDoc(env, docKey('compare', entry.key)).catch(() => null)));
+  return entries.filter((_entry, index) => {
+    const doc = saved[index]?.doc;
+    return Boolean(doc && explainerCurrent(doc));
+  });
+}
+
 export async function serveCompareIndex(context: PagesContext): Promise<Response> {
   applyRuntimeEnv(context.env);
   const env = context.env as ContentEnv;
   const entries = await readIndex(env, 'compare').catch(() => []);
+  const visible = await visibleExplainers(env, entries);
   const canonical = `${siteUrl(env)}/explainer/`;
-  return new Response(renderColumnIndex('compare', entries, canonical, { ads: adConfig(env) }), { headers: HTML_HEADERS });
+  return new Response(renderColumnIndex('compare', visible, canonical, { ads: adConfig(env) }), { headers: HTML_HEADERS });
 }
 
 export async function serveBriefing(context: PagesContext): Promise<Response> {
@@ -312,21 +400,33 @@ export async function warmColumns(context: PagesContext): Promise<Response> {
     }
     const kind = new URL(context.request.url).searchParams.get('kind') || '';
     if (kind === 'status') return Response.json(await columnStatus(env));
+    const url = new URL(context.request.url);
+    const force = url.searchParams.get('force') === '1';
     if (kind === 'briefing') {
-      const result = await generateBriefing(env);
+      const slot = url.searchParams.get('slot') || '';
+      const when = force && slot ? slotInstant(slot) : null;
+      if (force && slot && !when) {
+        return Response.json({ error: 'slot' }, { status: 400, headers: { 'cache-control': 'no-store' } });
+      }
+      const result = await generateBriefing(env, when ?? new Date(), { force });
       const status = typeof result.status === 'number' ? result.status : 200;
       return Response.json(result, { status, headers: { 'cache-control': 'no-store' } });
     }
     if (kind === 'compare' || kind === 'explainer') {
-      const requested = Number(new URL(context.request.url).searchParams.get('limit') || COMPARE_BATCH);
+      const requested = Number(url.searchParams.get('limit') || COMPARE_BATCH);
       const limit = Number.isFinite(requested) ? requested : COMPARE_BATCH;
-      const result = await generateCompare(env, limit);
+      const key = url.searchParams.get('key') || '';
+      const result = await generateCompare(env, limit, new Date(), { force, ...(key ? { key } : {}) });
       const status = typeof result.status === 'number' ? result.status : 200;
       return Response.json(result, { status, headers: { 'cache-control': 'no-store' } });
     }
     if (kind === 'focus') {
-      const requested = Number(new URL(context.request.url).searchParams.get('limit') || '');
-      const result = await generateFocus(env, Number.isFinite(requested) ? requested : undefined);
+      const requested = Number(url.searchParams.get('limit') || '');
+      const result = await generateFocus(env, Number.isFinite(requested) ? requested : undefined, new Date(), {
+        force,
+        scope: url.searchParams.get('scope') || '',
+        id: url.searchParams.get('id') || '',
+      });
       const status = typeof result.status === 'number' ? result.status : 200;
       return Response.json(result, { status, headers: { 'cache-control': 'no-store' } });
     }

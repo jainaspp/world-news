@@ -37,9 +37,11 @@ jobs:
             curl -fsS -X POST "${auth[@]}" "$base/api/generate?kind=weekly"
             echo
           fi
-          # Briefing, comparisons, and focus intros run in small batches.
+          # Briefing, explainers, and focus intros run in small batches.
           # Retry when the HTTP status is not 2xx or the body says "fallback": true
           # (cold cache, sources-only, or Workers AI standing in before the cap).
+          # Explainers stop when a successful call returns the same non-empty keys again,
+          # so a thin batch is not requested for the rest of the night.
           # These endpoints never render the homepage.
           fail=0
           post() {
@@ -64,9 +66,32 @@ jobs:
             return 1
           }
           post "$base/api/generate?kind=briefing" 3 || fail=1
+          prev_keys=""
+          explainer_ok=0
           for _ in 1 2 3 4 5 6 7; do
-            post "$base/api/generate?kind=explainer&limit=3" 3 || fail=1
+            body=$(mktemp)
+            code=$(curl -sS -o "$body" -w '%{http_code}' --max-time 90 -X POST "${auth[@]}" "$base/api/generate?kind=explainer&limit=3" || true)
+            cat "$body"
+            echo
+            keys=$(python3 -c 'import json,sys
+try:
+    data=json.load(open(sys.argv[1], encoding="utf-8"))
+except Exception:
+    data={}
+print(",".join(str(key) for key in (data.get("keys") or [])))' "$body")
+            if [ "$code" -ge 200 ] && [ "$code" -lt 300 ] && ! grep -q '"fallback":true' "$body"; then
+              explainer_ok=1
+              if [ -n "$keys" ] && [ "$keys" = "$prev_keys" ]; then
+                rm -f "$body"
+                break
+              fi
+              prev_keys="$keys"
+            fi
+            rm -f "$body"
           done
+          if [ "$explainer_ok" -eq 0 ]; then
+            fail=1
+          fi
           for _ in 1 2 3 4 5 6 7; do
             post "$base/api/generate?kind=focus&limit=3" 2 || fail=1
           done

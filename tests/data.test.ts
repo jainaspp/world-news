@@ -252,19 +252,17 @@ describe('homepage intro stays in the HTML without leading the screen', () => {
     expect(html).toContain('每日香港導讀');
     expect(html).toContain('新聞懶人包');
     expect(html).toContain('href="/data/"');
-    const lazy = html.match(/<strong>新聞懶人包<\/strong>[^<]*<\/li>/g) || [];
+    const lazy = html.match(/<strong><a href="\/explainer\/">新聞懶人包<\/a><\/strong>[^<]*<\/li>/g) || [];
     expect(lazy.length).toBeGreaterThan(0);
     for (const item of lazy) {
       expect(item).toContain('整合多方報道、配時間線');
-      expect(item).not.toContain('href=');
     }
     const about = renderAboutPage();
     expect(about).toContain(HOME_INTRO);
     expect(about).toContain('href="/briefing/"');
-    const aboutLazy = about.match(/<strong>新聞懶人包<\/strong>[^<]*<\/li>/g) || [];
+    const aboutLazy = about.match(/<strong><a href="\/explainer\/">新聞懶人包<\/a><\/strong>[^<]*<\/li>/g) || [];
     expect(aboutLazy).toHaveLength(1);
     expect(aboutLazy[0]).toContain('整合多方報道、配時間線');
-    expect(aboutLazy[0]).not.toContain('href=');
     expect(about).not.toContain('adsbygoogle');
     const sitemap = readFileSync('functions/sitemap.xml.ts', 'utf8');
     expect(sitemap).toContain('DATA_PAGES');
