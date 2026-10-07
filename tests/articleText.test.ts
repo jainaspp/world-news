@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
   ARTICLE_CHARS,
-  ARTICLE_TTL_SECONDS,
+
   blockedOutlet,
   extractArticle,
   needsSearch,
@@ -68,7 +68,8 @@ describe('article text', () => {
     expect(first.texts.get(open)).toContain('港鐵');
     expect(first.texts.has(denied)).toBe(false);
     expect(fetchImpl).toHaveBeenCalledTimes(2);
-    expect(store.get(articleCacheKey(open))?.ttl).toBe(ARTICLE_TTL_SECONDS);
+    // Article text is a cache: memory and the edge cache, never a KV put.
+    expect(store.has(articleCacheKey(open))).toBe(false);
     fetchImpl.mockClear();
     const second = await fetchArticleTexts(env, [open], fetchImpl as typeof fetch, 4);
     expect(second.texts.get(open)).toContain('港鐵');
