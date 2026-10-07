@@ -5,13 +5,18 @@ export interface GrokCompletion {
   text: string;
   input: number;
   output: number;
+  /** HTTP status from xAI; 0 when the call timed out or the network failed. */
+  status: number;
 }
+
+/** grok-4.3 reasons before it writes; a full briefing takes 15–20 s, so 12 s always timed out. */
+export const XAI_TIMEOUT_MS = 45_000;
 
 /**
  * One xAI chat completion. A 429 or 5xx is retried once. The bearer token is never logged.
  * Token counts come from the response usage field; a failed parse still returns them.
  */
-export async function completeGrok(apiKey: string, doc: ContentDoc, strict = false): Promise<GrokCompletion | null> {
+export async function completeGrok(apiKey: string, doc: ContentDoc, strict = false, timeoutMs = XAI_TIMEOUT_MS): Promise<GrokCompletion> {
   const prompt = promptFor(doc, strict);
   const body = JSON.stringify({
     model: GROK_MODEL,
@@ -31,18 +36,22 @@ export async function completeGrok(apiKey: string, doc: ContentDoc, strict = fal
           'content-type': 'application/json',
         },
         body,
-        signal: AbortSignal.timeout(12_000),
+        signal: AbortSignal.timeout(timeoutMs),
       });
       const payload = await response.json().catch(() => null);
       const tokens = usageTokens(payload);
       const text = textFromAi(payload);
-      if (response.ok) return { text, input: tokens.input, output: tokens.output };
-      if (response.status === 401 || response.status === 403) return { text: '', input: tokens.input, output: tokens.output };
-      if (attempt === 0 && (response.status === 429 || response.status >= 500)) continue;
-      return { text: '', input: tokens.input, output: tokens.output };
-    } catch {
-      if (attempt === 0) continue;
+      const status = response.status;
+      if (response.ok) return { text, input: tokens.input, output: tokens.output, status };
+      if (status === 401 || status === 403) return { text: '', input: tokens.input, output: tokens.output, status };
+      if (attempt === 0 && (status === 429 || status >= 500)) continue;
+      return { text: '', input: tokens.input, output: tokens.output, status };
+    } catch (error) {
+      // A timeout already spent the budget; only a fast network failure is worth a second try.
+      const timedOut = error instanceof Error && (error.name === 'TimeoutError' || error.name === 'AbortError');
+      if (attempt === 0 && !timedOut) continue;
+      break;
     }
   }
-  return null;
+  return { text: '', input: 0, output: 0, status: 0 };
 }

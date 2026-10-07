@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { applyModelText, promptFor, renderColumnIndex, renderContentPage } from '../shared/content';
 import {
+  usageTokens,
   COMPARE_BATCH,
   COMPARE_PER_DAY,
   GROK_MODEL,
@@ -328,3 +329,17 @@ function writePreview(name: 'briefing' | 'compare', page: string): void {
     .replace('<link rel="stylesheet" href="/columns.css" />', '');
   writeFileSync(`${dir}/index.html`, standalone);
 }
+
+describe('xAI usage accounting', () => {
+  it('counts reasoning tokens as billed output', () => {
+    const payload = { usage: { prompt_tokens: 1112, completion_tokens: 702, completion_tokens_details: { reasoning_tokens: 1120 } } };
+    expect(usageTokens(payload)).toEqual({ input: 1112, output: 1822 });
+    expect(usageTokens({ usage: { prompt_tokens: 10, completion_tokens: 5 } })).toEqual({ input: 10, output: 5 });
+  });
+
+  it('gives grok-4.3 enough time to reason and write', () => {
+    const source = readFileSync('functions/content/xai.ts', 'utf8');
+    expect(source).toContain('XAI_TIMEOUT_MS = 45_000');
+    expect(source).not.toContain('AbortSignal.timeout(12_000)');
+  });
+});
