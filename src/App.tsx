@@ -20,11 +20,13 @@ import { BackToTop } from './components/BackToTop';
 import { AlertRow } from './components/AlertRow';
 import { HkInfoStrip } from './components/HkInfoStrip';
 import { MajorBanner } from './components/MajorBanner';
+import { BoardToggles } from './components/BoardToggles';
 import { MostRead } from './components/MostRead';
 import { TrendingTopics } from './components/TrendingTopics';
 import { trendingTopics } from '../shared/topics';
 import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_NAME, SITE_URL } from './config';
 import { usePopular } from './hooks/useBoard';
+import { useBoardPrefs } from './hooks/useBoardPrefs';
 import { useBookmarks } from './hooks/useBookmarks';
 import { useFollows } from './hooks/useFollows';
 import { useNews } from './hooks/useNews';
@@ -84,9 +86,12 @@ export default function App() {
   const [shownState, setShownState] = useState({ key: '', count: PAGE_SIZE });
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [layoutOpen, setLayoutOpen] = useState(false);
+  const board = useBoardPrefs();
   const wide = useWide('(min-width: 1200px)');
   const topics = useMemo(() => trendingTopics(items), [items]);
-  const popular = usePopular();
+  const showBlocks = !(view.bookmarks || view.following);
+  const popular = usePopular(showBlocks && board.prefs.mostRead);
   const angleMap = useMemo(() => {
     const map = new Map<string, ClusterMember[]>();
     for (const cluster of clusterStories(items)) {
@@ -297,8 +302,29 @@ export default function App() {
           </header>
 
           <div className="tab-bar">
-            <button type="button" className={filtersOpen || filtersActive ? 'chip active' : 'chip'} aria-expanded={filtersOpen} aria-controls="filter-panel" onClick={() => setFiltersOpen((open) => !open)}>
+            <button
+              type="button"
+              className={filtersOpen || filtersActive ? 'chip active' : 'chip'}
+              aria-expanded={filtersOpen}
+              aria-controls="filter-panel"
+              onClick={() => {
+                setFiltersOpen((open) => !open);
+                setLayoutOpen(false);
+              }}
+            >
               {t('filter', lang)}
+            </button>
+            <button
+              type="button"
+              className={layoutOpen ? 'chip layout-toggle active' : 'chip layout-toggle'}
+              aria-expanded={layoutOpen}
+              aria-controls="layout-panel"
+              onClick={() => {
+                setLayoutOpen((open) => !open);
+                setFiltersOpen(false);
+              }}
+            >
+              {t('layout', lang)}
             </button>
             <nav className="filters filters-primary" aria-label="time">
               {TIMES.map((item) => (
@@ -315,15 +341,23 @@ export default function App() {
               <button type="button" className={view.bookmarks ? 'chip active' : 'chip'} aria-pressed={view.bookmarks} onClick={() => go({ ...view, bookmarks: !view.bookmarks, following: false })}>
                 {t('bookmarks', lang)}
               </button>
-              <button
-                type="button"
-                className="chip more-topics"
-                onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              >
-                {t('more', lang)}
-              </button>
+              {board.prefs.keywords && (
+                <button
+                  type="button"
+                  className="chip more-topics"
+                  onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                >
+                  {t('more', lang)}
+                </button>
+              )}
             </nav>
           </div>
+
+          {layoutOpen && (
+            <div className="layout-panel" id="layout-panel">
+              <BoardToggles prefs={board.prefs} onToggle={board.toggle} lang={lang} />
+            </div>
+          )}
 
           {filtersOpen && !special && (
             <div className="filter-panel" id="filter-panel">
@@ -384,9 +418,11 @@ export default function App() {
                   );
                 })}
               </nav>
-              <button type="button" className="chip more-topics" onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
-                {t('more', lang)} · {t('trending', lang)}
-              </button>
+              {board.prefs.keywords && (
+                <button type="button" className="chip more-topics" onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+                  {t('more', lang)} · {t('keywords', lang)}
+                </button>
+              )}
             </div>
           )}
         </div>
@@ -470,7 +506,7 @@ export default function App() {
                     )}
                   </div>
                 )}
-                {!special && <MostRead rows={popular} variant="feed" lang={lang} />}
+                {!special && board.prefs.mostRead && <MostRead rows={popular} variant="feed" lang={lang} />}
                 <div className="news-grid">
                   {gridItems.flatMap((item: NewsItem, index) => {
                     const card = (
@@ -503,13 +539,17 @@ export default function App() {
             )}
           </main>
           <aside className="sidebar" aria-label="sidebar">
+            <div className="board-prefs">
+              <p className="filter-label">{t('layout', lang)}</p>
+              <BoardToggles prefs={board.prefs} onToggle={board.toggle} lang={lang} />
+            </div>
             {wide && !special && <HkInfoStrip />}
-            {!special && <MostRead rows={popular} variant="side" lang={lang} />}
-            {!special && <TrendingTopics topics={topics} active={view.q} onPick={(term) => go({ ...view, q: term, ...clearSpecial }, 'replace')} />}
+            {!special && board.prefs.mostRead && <MostRead rows={popular} variant="side" lang={lang} />}
+            {!special && board.prefs.keywords && <TrendingTopics topics={topics} active={view.q} lang={lang} onPick={(term) => go({ ...view, q: term, ...clearSpecial }, 'replace')} />}
             {showSideAd && <AdSlot slot={AD_SLOT_TOP} variant="sidebar" />}
-            {!special && !view.q.trim() && clusters.length > 0 && (
-              <section className="trending" aria-label={t('trending', lang)}>
-                <h2>{t('trending', lang)}</h2>
+            {!special && board.prefs.coverage && !view.q.trim() && clusters.length > 0 && (
+              <section className="trending" aria-label={t('multiCoverage', lang)}>
+                <h2>{t('multiCoverage', lang)}</h2>
                 <ol>
                   {clusters.slice(0, 5).map((cluster, index) => (
                     <li key={cluster.id}>

@@ -36,6 +36,24 @@ describe('language toggle', () => {
     expect(t('following', 'en')).toBe('Following');
     expect(categoryLabelI18n('tech', 'en')).toBe('Tech');
   });
+
+  it('gives the three sidebar blocks distinct labels', () => {
+    expect(t('mostRead', 'zh-HK')).toBe('最多人睇');
+    expect(t('mostRead', 'zh-CN')).toBe('最多人看');
+    expect(t('mostRead', 'en')).toBe('Most read');
+    expect(t('keywords', 'zh-HK')).toBe('標題熱詞');
+    expect(t('keywords', 'zh-CN')).toBe('标题热词');
+    expect(t('keywords', 'en')).toBe('Keywords');
+    expect(t('multiCoverage', 'zh-HK')).toBe('多方報道');
+    expect(t('multiCoverage', 'zh-CN')).toBe('多方报道');
+    expect(t('multiCoverage', 'en')).toBe('Coverage');
+    expect(t('layout', 'zh-HK')).toBe('版面');
+    expect(t('layout', 'en')).toBe('Layout');
+    for (const lang of ['zh-HK', 'zh-CN', 'en'] as const) {
+      const labels = [t('mostRead', lang), t('keywords', lang), t('multiCoverage', lang)];
+      expect(new Set(labels).size).toBe(3);
+    }
+  });
 });
 
 describe('follow routing', () => {

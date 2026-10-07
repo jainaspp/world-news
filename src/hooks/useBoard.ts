@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import type { PopularRow } from '../../shared/reads';
 
-export function usePopular(): PopularRow[] {
+export function usePopular(enabled = true): PopularRow[] {
   const [rows, setRows] = useState<PopularRow[]>([]);
 
   useEffect(() => {
+    if (!enabled) return undefined;
     let cancel = false;
     const load = () => {
       void fetch('/api/popular')
@@ -20,7 +21,7 @@ export function usePopular(): PopularRow[] {
       cancel = true;
       window.clearInterval(timer);
     };
-  }, []);
+  }, [enabled]);
 
   return rows;
 }

@@ -357,6 +357,19 @@ html.dark .hk-info-hsi.hsi-down { color: #7fd6b4; }
 .angle-more ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 4px; }
 .angle-more a { color: inherit; text-decoration: none; }
 .angle-more a:hover { text-decoration: underline; }
+.board-prefs {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 8px 12px;
+}
+.board-prefs .filter-label { margin: 0; }
+.board-toggles { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.board-check {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 36px;
+  font-size: 0.85rem; font-weight: 700; cursor: pointer;
+}
+.board-check input { width: 16px; height: 16px; margin: 0; accent-color: var(--color-primary); }
+.layout-toggle, .layout-panel { display: none; }
+.layout-panel { gap: 6px; padding: 0 0 6px; overflow-x: auto; }
 .most-read-feed { margin-top: 12px; }
 .most-read .cluster-badge { display: inline-flex; margin-top: 4px; }
 @media (min-width: 1200px) {
@@ -371,6 +384,9 @@ html.dark .hk-info-hsi.hsi-down { color: #7fd6b4; }
 @media (max-width: 1199px) {
   .story-hero .source-follow { display: none; }
   .sidebar { margin-top: var(--space-5); }
+  .sidebar .board-prefs { display: none; }
+  .layout-toggle { display: inline-flex; }
+  .layout-panel { display: flex; }
 }
 @media (min-width: 1200px) {
   .source-follow { opacity: 0; }
@@ -410,7 +426,7 @@ html.dark .aqhi-low { color: #7fd6b4; } html.dark .aqhi-mid { color: #f0b46a; }
 .hsi-down .hsi-price, .hsi-down .hsi-change { color: #0b6b4f; }
 html.dark .hsi-down .hsi-price, html.dark .hsi-down .hsi-change { color: #7fd6b4; }
 .hsi-flat .hsi-change { color: var(--muted); }
-/* 熱搜 */
+/* 標題熱詞 */
 .topics { margin-top: 8px; }
 .sidebar .topics { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-4); margin-top: 0; }
 .topics-title { font-family: var(--font-serif); font-size: 1.05rem; margin: 0 0 6px; }
