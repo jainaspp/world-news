@@ -194,6 +194,8 @@ export function tidyMixedNumbers(text: string): string {
       return value == null ? full : `${value}${unit}`;
     })
     .replace(/([一二三四五六七八九十]{1,3})月([一二三四五六七八九十]{1,3})日/g, (full, month: string, day: string) => monthDay(month, day) ?? full)
+    // 九月19日 → 9月19日 when the day is already Arabic.
+    .replace(/([一二三四五六七八九十]{1,3})月(?=\d{1,2}日)/g, (full, month: string) => monthDay(month) ?? full)
     .replace(/(\d{4}年)([一二三四五六七八九十]{1,3})月/g, (full, year: string, month: string) => {
       const fixed = monthDay(month);
       return fixed ? `${year}${fixed}` : full;

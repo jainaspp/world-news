@@ -24,6 +24,7 @@ describe('prose guards', () => {
     expect(tidyMixedNumbers('2026年十月七日作出裁決')).toBe('2026年10月7日作出裁決');
     expect(tidyMixedNumbers('2026年五月爆發')).toBe('2026年5月爆發');
     expect(tidyMixedNumbers('十月革命')).toBe('十月革命');
+    expect(tidyMixedNumbers('洪廣玉九月19日被拘留')).toBe('洪廣玉9月19日被拘留');
     expect(tidyDisplay('判處二萬8000英鎊，2026年十月七日')).toBe('判處2萬8000英鎊，2026年10月7日');
   });
 
