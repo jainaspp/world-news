@@ -150,6 +150,9 @@ function stampProvider(doc: ContentDoc): ContentDoc {
   return doc;
 }
 
+/** A material draft below this many body characters retries with web_search instead of a strict rewrite. */
+const MATERIAL_RETRY_CHARS = 400;
+
 interface Job {
   draft: ContentDoc;
   route: 'grok' | 'workers';
@@ -203,12 +206,17 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
     let output = 0;
     let requests = 0;
     let searchCalls = 0;
-    const attempts = job.search || job.material ? 1 : 2;
+    // Material drafts get one more try: a strict rewrite when the first draft is close to the
+    // floor, or the web_search fallback when the fetched text was not enough to write from.
+    const attempts = job.search ? 1 : 2;
     for (let attempt = 0; attempt < attempts && !(grokDoc && pieceReady(grokDoc) && grokDoc.provider === 'grok'); attempt += 1) {
       if (attempt === 1 && Date.now() - started > RETRY_BEFORE_MS) break;
-      const result = await completeGrok(key, job.draft, attempt === 1, XAI_TIMEOUT_MS, {
-        search: Boolean(job.search),
-        material: Boolean(job.material),
+      const searchRetry = attempt === 1 && Boolean(job.material) && !capReached(usage)
+        && (!grokDoc || bodyChars(grokDoc) < MATERIAL_RETRY_CHARS);
+      // The search retry uses the normal researched prompt; strict + search dropped commas in live output.
+      const result = await completeGrok(key, job.draft, attempt === 1 && !searchRetry, XAI_TIMEOUT_MS, {
+        search: Boolean(job.search) || searchRetry,
+        material: Boolean(job.material) && !searchRetry,
       });
       statuses.push(result.status);
       if (result.error) errors.push(result.error);

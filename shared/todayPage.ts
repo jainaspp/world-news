@@ -117,6 +117,9 @@ function matches(cluster: StoryCluster, region?: string, category?: string): boo
   return true;
 }
 
+/** Fewer multi-outlet stories than this and the day page stays noindex (thin list). */
+export const TODAY_INDEX_FLOOR = 5;
+
 /** Most-covered clusters for one Hong Kong day. Hong Kong stories lead the unfiltered list. */
 export function buildToday(options: {
   clusters: StoryCluster[];
@@ -150,7 +153,8 @@ export function buildToday(options: {
     : options.category
       ? categoryLabel(options.category)
       : '香港';
-  const title = filtered ? `${when}${scope}新聞時間線` : `${when}香港十大新聞時間線`;
+  const hkShare = stories.length ? ordered.slice(0, stories.length).filter(isHk).length / stories.length : 0;
+  const title = filtered ? `${when}${scope}新聞時間線` : `${when}${hkShare >= 0.5 ? '香港' : ''}十大新聞時間線`;
   const description = stories.length
     ? `${when}按報道時間排列的多方新聞，共 ${stories.length} 則，列出媒體與原文連結。`
     : `${chineseDate(options.date)}尚未有足夠的多方報道。`;
@@ -161,7 +165,7 @@ export function buildToday(options: {
     stories,
     regions: regionCounts,
     categories: categoryCounts,
-    index: stories.length > 0,
+    index: stories.length >= TODAY_INDEX_FLOOR,
     filtered,
   };
 }
