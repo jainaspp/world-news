@@ -47,8 +47,9 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     ...digest.map((row) => entry(`https://world-news.xyz/digest/${row.key}`, row.publishedAt, 'weekly', '0.5')),
     ...weekly.map((row) => entry(`https://world-news.xyz/weekly/${row.key}`, row.publishedAt, 'monthly', '0.5')),
   ].join('') + storySitemapEntries(stories);
+  const major = base.includes('/major/') ? '' : entry('https://world-news.xyz/major/', new Date().toISOString(), 'hourly', '0.8');
   const xml = base.includes('</urlset>')
-    ? base.replace('</urlset>', `${extra}</urlset>`)
-    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${extra}</urlset>\n`;
+    ? base.replace('</urlset>', `${major}${extra}</urlset>`)
+    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${extra}</urlset>\n`;
   return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=600' } });
 }

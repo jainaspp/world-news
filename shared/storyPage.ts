@@ -18,7 +18,7 @@ export function renderStoryPage(item: NewsItem, cluster: StoryCluster | null, re
   const ld = `<meta name="robots" content="noindex, follow" />`;
   const timeline = coverage.length > 1 ? `<section class="story column-block timeline-card" aria-label="各媒體報道"><div class="story-body">
         <h2 class="column-h2">各媒體報道（香港時間）</h2>
-        <ol class="timeline">${coverage.map((row) => `<li><time datetime="${esc(row.pubDate)}">${esc(hkt(row.pubDate, false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body">${favicon(row.link)} <strong>${esc(row.source)}</strong> <a href="${esc(safeHttp(row.link))}" target="_blank" rel="noopener noreferrer">${esc(row.title)}</a></span></li>`).join('')}</ol>
+        <ol class="timeline">${coverage.map((row) => `<li data-story-id="${esc(row.id)}"><time datetime="${esc(row.pubDate)}">${esc(hkt(row.pubDate, false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body">${favicon(row.link)} <strong>${esc(row.source)}</strong> <a href="${esc(safeHttp(row.link))}" target="_blank" rel="noopener noreferrer">${esc(row.title)}</a></span></li>`).join('')}</ol>
       </div></section>` : '';
   const cards = related.slice(0, 6).map((row) => `<article class="story">
           <a class="story-media" href="/story/${esc(row.id)}/" tabindex="-1" aria-hidden="true">${media(row.image, row.category, row.source)}</a>
@@ -36,7 +36,7 @@ ${head(item.title, description, canonical, image, 'article', ld, adClient)}
   ${chrome('none')}
   <div class="layout">
     <main id="content" class="column-main">
-      <article class="story story-hero column-hero">
+      <article class="story story-hero column-hero" data-story-id="${esc(item.id)}">
         <div class="story-media">${media(image, item.category, item.source, true)}</div>
         <div class="story-body">
           <div class="story-kicker">${catChip(item.category)}${heatBadge(outlets)}</div>

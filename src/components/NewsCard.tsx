@@ -1,7 +1,9 @@
+import type { ClusterMember } from '../../shared/angles';
 import type { NewsItem } from '../../shared/types';
 import { titleLang, type UiLang } from '../../shared/zh';
 import { categoryLabelI18n, t } from '../../shared/i18n';
 import { timeAgo } from '../utils/time';
+import { trackRead } from '../utils/trackRead';
 import { safeUrl } from '../utils/url';
 import { RegionIcon } from './RegionIcon';
 import { StoryMedia } from './StoryMedia';
@@ -19,6 +21,7 @@ interface Props {
   followedSource?: boolean;
   onToggleSource?: (source: string) => void;
   breaking?: boolean;
+  angles?: ClusterMember[];
 }
 
 function hostOf(url: string): string {
@@ -42,6 +45,7 @@ export function NewsCard({
   followedSource = false,
   onToggleSource,
   breaking = false,
+  angles = [],
 }: Props) {
   const articleUrl = safeUrl(item.link);
   const sourceUrl = safeUrl(item.sourceUrl);
@@ -49,9 +53,13 @@ export function NewsCard({
   const script = titleLang(title);
   const titleLangAttr = script === 'zh' ? (lang === 'zh-CN' ? 'zh-CN' : 'zh-HK') : script;
   const className = featured ? 'story story-hero' : compact ? 'story story-compact' : 'story';
+  const others = angles.filter((row) => row.id !== item.id && row.source !== item.source);
+  const extra = new Set(others.map((row) => row.source)).size;
+  const moreLabel = lang === 'en' ? `${extra} other outlets` : lang === 'zh-CN' ? `另有 ${extra} 家媒体报道` : `另有 ${extra} 間媒體報道`;
+  const openStory = () => trackRead(item.id);
 
   const media = articleUrl ? (
-    <a className="story-media" href={articleUrl} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden="true">
+    <a className="story-media" href={articleUrl} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden="true" onClick={openStory}>
       <StoryMedia item={item} eager={featured} />
     </a>
   ) : (
@@ -61,7 +69,7 @@ export function NewsCard({
   );
 
   return (
-    <article className={className}>
+    <article className={className} data-story-id={item.id}>
       {media}
       <div className="story-body">
         {!compact && (
@@ -75,7 +83,7 @@ export function NewsCard({
         )}
         <h2 className={script === 'zh' ? 'story-title' : 'story-title title-sans'} lang={titleLangAttr}>
           {articleUrl ? (
-            <a href={articleUrl} target="_blank" rel="noopener noreferrer">
+            <a href={articleUrl} target="_blank" rel="noopener noreferrer" onClick={openStory}>
               {title}
             </a>
           ) : (
@@ -113,7 +121,7 @@ export function NewsCard({
             </button>
           )}
           {item.pubDate && <time dateTime={item.pubDate}>{timeAgo(item.pubDate)}</time>}
-          {sourceCount >= 2 && (
+          {extra === 0 && sourceCount >= 2 && (
             <a className="cluster-badge cluster-link" href={`/story/${item.id}/`} aria-label={`${sourceCount} ${t('outlets', lang)}`}>
               {sourceCount} {t('outlets', lang)} →
             </a>
@@ -137,9 +145,23 @@ export function NewsCard({
             </button>
           )}
         </div>
+        {extra > 0 && (
+          <details className="angle-more">
+            <summary>{moreLabel}</summary>
+            <ul>
+              {others.map((row) => (
+                <li key={row.id}>
+                  <a href={safeUrl(row.link) || `/story/${row.id}/`} target="_blank" rel="noopener noreferrer" onClick={() => trackRead(row.id)}>
+                    <strong>{row.source}</strong> {row.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
         {!compact && articleUrl && (
           <div className="card-links">
-            <a className="read-original" href={articleUrl} target="_blank" rel="noopener noreferrer">
+            <a className="read-original" href={articleUrl} target="_blank" rel="noopener noreferrer" onClick={openStory}>
               {t('readOriginal', lang)}
             </a>
             <a className="read-original story-link" href={`/story/${item.id}/`}>

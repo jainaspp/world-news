@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { hkInfoParts } from '../../shared/hkInfo';
 import { HSI_QUOTE_URL, type HsiQuote } from '../../shared/hsi';
+import type { MarketTick } from '../../shared/markets';
 import type { HkNow } from '../../shared/hk';
 
 const HKO_URL = 'https://www.hko.gov.hk/tc/wxinfo/currwx/current.htm';
@@ -25,6 +26,7 @@ export function HkInfoStrip() {
   const boot = readMarket();
   const [hk, setHk] = useState<HkNow | null>(boot.hk);
   const [hsi, setHsi] = useState<HsiQuote | null>(boot.hsi);
+  const [ticks, setTicks] = useState<MarketTick[]>([]);
 
   useEffect(() => {
     let cancel = false;
@@ -53,6 +55,13 @@ export function HkInfoStrip() {
       }).catch(() => {
         if (!cancel) setHsi((current) => current);
       });
+      void fetch('/api/markets').then((response) => (response.ok ? response.json() : Promise.reject())).then((json: { ticks?: MarketTick[] } | null) => {
+        if (cancel) return;
+        const rows = Array.isArray(json?.ticks) ? json.ticks.filter((tick) => tick && tick.text && tick.href) : [];
+        setTicks(rows);
+      }).catch(() => {
+        if (!cancel) setTicks([]);
+      });
     };
     load();
     const timer = window.setInterval(load, 10 * 60 * 1000);
@@ -63,20 +72,34 @@ export function HkInfoStrip() {
   }, []);
 
   const parts = hkInfoParts(hk, hsi);
-  if (!parts) return null;
+  if (!parts && ticks.length === 0) return null;
+  const bits: Array<{ key: string; node: ReactNode }> = [];
+  if (parts?.weather) {
+    bits.push({
+      key: 'wx',
+      node: <a className="hk-info-wx" href={HKO_URL} target="_blank" rel="noopener noreferrer">{parts.weather}</a>,
+    });
+  }
+  if (parts?.hsi) {
+    bits.push({
+      key: 'hsi',
+      node: <a className={`hk-info-hsi hsi-${parts.direction}`} href={HSI_QUOTE_URL} target="_blank" rel="noopener noreferrer">{parts.hsi}</a>,
+    });
+  }
+  for (const tick of ticks) {
+    bits.push({
+      key: tick.id,
+      node: <a className={`hk-info-tick hsi-${tick.direction}`} href={tick.href} title={tick.title} target="_blank" rel="noopener noreferrer">{tick.text}</a>,
+    });
+  }
   return (
     <section className="hk-info" aria-label="香港天氣同恒生指數">
-      {parts.weather && (
-        <a className="hk-info-wx" href={HKO_URL} target="_blank" rel="noopener noreferrer">
-          {parts.weather}
-        </a>
-      )}
-      {parts.weather && parts.hsi && <span className="hk-info-sep" aria-hidden="true">|</span>}
-      {parts.hsi && (
-        <a className={`hk-info-hsi hsi-${parts.direction}`} href={HSI_QUOTE_URL} target="_blank" rel="noopener noreferrer">
-          {parts.hsi}
-        </a>
-      )}
+      {bits.map((bit, index) => (
+        <span key={bit.key} className="hk-info-bit">
+          {index > 0 && <span className="hk-info-sep" aria-hidden="true">|</span>}
+          {bit.node}
+        </span>
+      ))}
     </section>
   );
 }

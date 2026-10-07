@@ -39,6 +39,9 @@ const LABELS = {
   minutesAgo: { 'zh-HK': '分鐘前', 'zh-CN': '分钟前', en: 'm ago' },
   hoursAgo: { 'zh-HK': '小時前', 'zh-CN': '小时前', en: 'h ago' },
   daysAgo: { 'zh-HK': '日前', 'zh-CN': '日前', en: 'd ago' },
+  mostRead: { 'zh-HK': '熱門排行', 'zh-CN': '热门排行', en: 'Most read' },
+  majorUpdate: { 'zh-HK': '重大更新', 'zh-CN': '重大更新', en: 'Major update' },
+  dismiss: { 'zh-HK': '關閉', 'zh-CN': '关闭', en: 'Dismiss' },
 } as const;
 
 export type LabelKey = keyof typeof LABELS;

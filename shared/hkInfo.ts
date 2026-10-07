@@ -1,6 +1,7 @@
+import { esc } from './contentPage.js';
 import type { HkNow } from './hk.js';
 import { formatIndex, formatSigned, hsiDirection, HSI_QUOTE_URL, type HsiQuote } from './hsi.js';
-import { esc } from './contentPage.js';
+import type { MarketTick } from './markets.js';
 
 export interface HkInfoParts {
   weather: string;
@@ -27,15 +28,19 @@ export function hkInfoParts(hk: HkNow | null | undefined, quote: HsiQuote | null
   };
 }
 
-export function renderHkInfo(hk: HkNow | null | undefined, quote: HsiQuote | null | undefined): string {
+export function renderHkInfo(hk: HkNow | null | undefined, quote: HsiQuote | null | undefined, ticks: MarketTick[] = []): string {
   const parts = hkInfoParts(hk, quote);
-  if (!parts) return '';
-  const weather = parts.weather
-    ? `<a class="hk-info-wx" href="${HKO_URL}" target="_blank" rel="noopener noreferrer">${esc(parts.weather)}</a>`
-    : '';
-  const quoteLink = parts.hsi
-    ? `<a class="hk-info-hsi hsi-${parts.direction}" href="${HSI_QUOTE_URL}" target="_blank" rel="noopener noreferrer">${esc(parts.hsi)}</a>`
-    : '';
-  const sep = weather && quoteLink ? '<span class="hk-info-sep" aria-hidden="true">|</span>' : '';
-  return `<section class="hk-info" aria-label="香港天氣同恒生指數">${weather}${sep}${quoteLink}</section>`;
+  const bits: string[] = [];
+  if (parts?.weather) {
+    bits.push(`<a class="hk-info-wx" href="${HKO_URL}" target="_blank" rel="noopener noreferrer">${esc(parts.weather)}</a>`);
+  }
+  if (parts?.hsi) {
+    bits.push(`<a class="hk-info-hsi hsi-${parts.direction}" href="${HSI_QUOTE_URL}" target="_blank" rel="noopener noreferrer">${esc(parts.hsi)}</a>`);
+  }
+  for (const tick of ticks) {
+    bits.push(`<a class="hk-info-tick hsi-${tick.direction}" href="${esc(tick.href)}" title="${esc(tick.title)}" target="_blank" rel="noopener noreferrer">${esc(tick.text)}</a>`);
+  }
+  if (!bits.length) return '';
+  const sep = '<span class="hk-info-sep" aria-hidden="true">|</span>';
+  return `<section class="hk-info" aria-label="香港天氣同恒生指數">${bits.join(sep)}</section>`;
 }
