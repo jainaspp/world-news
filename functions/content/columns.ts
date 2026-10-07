@@ -125,7 +125,11 @@ function htmlPage(
   status = 200,
   explainers: Awaited<ReturnType<typeof readIndex>> = [],
 ): Response {
-  const shown = doc.mode === 'ai' ? guardDoc(doc) : doc;
+  // An unchecked MiniMax draft is never shown: only its source list.
+  const listed = doc.stage === 'drafted'
+    ? { ...doc, mode: 'sources' as const, points: [], blocks: doc.blocks.map((block) => ({ ...block, sentences: block.sources.slice(0, 6).map((ref) => `${ref.source}報道：${ref.title}。`) })) }
+    : doc;
+  const shown = listed.mode === 'ai' ? guardDoc(listed) : listed;
   return new Response(renderContentPage(shown, canonical, { ads: adConfig(env), archive, explainers }), { status, headers: HTML_HEADERS });
 }
 
@@ -363,16 +367,21 @@ function settledPiece(doc: ContentDoc | undefined): boolean {
   return model.includes('grok') || model.includes('minimax');
 }
 
+/** A brief still mid-pipeline answers 503 + fallback so the warm run's retry finishes it. */
+function withPending(doc: ContentDoc, body: Record<string, unknown>): Record<string, unknown> {
+  return doc.stage ? { ...body, stage: doc.stage, status: 503, ok: false, fallback: true } : body;
+}
+
 async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingScope, 'hk'>, now: Date, options: { force?: boolean }): Promise<Record<string, unknown>> {
   const key = scopedBriefingKey(scope, now);
   const existing = await readDoc(env, docKey('briefing', key));
-  if (!options.force && existing?.doc.stage === 'checked' && minimaxKey(env)) {
+  if (!options.force && existing?.doc.stage && minimaxKey(env)) {
     const expanded = await expandMiniMax(minimaxKey(env), existing.doc, Date.now() + MINIMAX_DEADLINE_MS);
     await writeDoc(env, expanded.doc);
     const doc = expanded.doc;
     const chars = bodyChars(doc);
     const ready = doc.mode === 'ai' && pieceReady(doc);
-    return delivered(columnDelivery({ docs: [{ mode: doc.mode, model: doc.model, provider: doc.provider, chars, key: doc.key, ready }] }), {
+    return withPending(doc, delivered(columnDelivery({ docs: [{ mode: doc.mode, model: doc.model, provider: doc.provider, chars, key: doc.key, ready }] }), {
       kind: 'briefing',
       scope,
       key,
@@ -384,10 +393,10 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
       expanded: true,
       steps: expanded.steps,
       grokError: [...new Set(expanded.errors)],
-    });
+    }));
   }
   // A listed brief (400-character floor) is settled for idempotent warm calls.
-  if (!options.force && existing?.doc && existing.doc.mode === 'ai' && existing.doc.stage !== 'checked' && (settledPiece(existing.doc) || briefingPublic(existing.doc))) {
+  if (!options.force && existing?.doc && existing.doc.mode === 'ai' && !existing.doc.stage && (settledPiece(existing.doc) || briefingPublic(existing.doc))) {
     return delivered(columnDelivery({ skipped: 'exists' }), { kind: 'briefing', scope, key, mode: 'ai', provider: existing?.doc.provider ?? 'minimax', skipped: 'exists' });
   }
   const material = await loadMaterial(env);
@@ -434,7 +443,7 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
   if (!keep) await writeDoc(env, doc);
   const chars = bodyChars(doc);
   const ready = doc.mode === 'ai' && pieceReady(doc);
-  return delivered(columnDelivery({ capped: first.capped, docs: [{ mode: doc.mode, model: doc.model, provider: doc.provider, chars, key: doc.key, ready }] }), {
+  return withPending(doc, delivered(columnDelivery({ capped: first.capped, docs: [{ mode: doc.mode, model: doc.model, provider: doc.provider, chars, key: doc.key, ready }] }), {
     kind: 'briefing',
     scope,
     key: doc.key,
@@ -449,7 +458,7 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
     steps,
     ...(keep ? { kept: true } : {}),
     cost: summedCost(costs, doc.key),
-  });
+  }));
 }
 
 export async function generateBriefing(env: ContentEnv, now = new Date(), options: { force?: boolean; scope?: BriefingScope } = {}): Promise<Record<string, unknown>> {
@@ -861,17 +870,20 @@ async function expandPending(env: ContentEnv, pending: string[], requestStart: n
   const steps: string[] = [];
   const errors: string[] = [];
   const keys: string[] = [];
+  const requeue: string[] = [];
   await Promise.all(batch.map(async (key) => {
     const saved = await readDoc(env, docKey('compare', key)).catch(() => null);
     const doc = saved?.doc;
-    if (!doc || doc.stage !== 'checked' || !mini) return;
+    if (!doc || !doc.stage || !mini) return;
     const expanded = await expandMiniMax(mini, doc, requestStart + MINIMAX_DEADLINE_MS);
     errors.push(...expanded.errors);
     steps.push(`${key}:${expanded.steps.join(',')}`);
     await writeDoc(env, expanded.doc, false);
     keys.push(key);
+    // Re-queue only when the piece moved forward (drafted → checked); a stuck one stays hidden.
+    if (expanded.doc.stage && expanded.doc.stage !== doc.stage) requeue.push(key);
   }));
-  await writePending(env, pending.filter((key) => !batch.includes(key)));
+  await writePending(env, [...pending.filter((key) => !batch.includes(key)), ...requeue]);
   return { keys, steps, errors };
 }
 
@@ -1011,7 +1023,7 @@ export async function generateCompare(
   }
   await writeEvents(env, events, now.getTime());
   if (saved.length) await rememberIndexMany(env, saved).catch(() => undefined);
-  const checked = saved.filter((doc) => doc.stage === 'checked').map((doc) => doc.key);
+  const checked = saved.filter((doc) => Boolean(doc.stage)).map((doc) => doc.key);
   if (checked.length) await writePending(env, [...(await readPending(env)), ...checked]);
   return delivered(columnDelivery({
     capped,

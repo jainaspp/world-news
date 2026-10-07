@@ -383,11 +383,12 @@ export async function pipelineMiniMax(apiKey: string, draft: ContentDoc, deadlin
   }
   if (!first.doc) return { doc: null, errors, steps: [...steps, 'draft-failed'] };
   steps.push(`draft:${bodyChars(first.doc)}`);
-  if (left() < 12_000) return { doc: null, errors, steps: [...steps, 'no-time-check'] };
+  // Nothing goes out without a completed fact-check: an unchecked draft is saved hidden ('drafted')
+  // and checked on the next call.
+  if (left() < 12_000) return { doc: { ...cleanMiniMax(first.doc), stage: 'drafted' }, errors, steps: [...steps, 'no-time-check'], pending: true };
   const checked = await verifyMiniMax(apiKey, draft, cleanMiniMax(first.doc), timeout(5_000));
   if (checked.error) errors.push(checked.error);
-  // Nothing goes out without a completed fact-check.
-  if (!checked.ok) return { doc: null, errors, steps: [...steps, 'check-failed'] };
+  if (!checked.ok) return { doc: { ...cleanMiniMax(first.doc), stage: 'drafted' }, errors, steps: [...steps, 'check-failed'], pending: true };
   let doc = cleanMiniMax(checked.doc);
   steps.push(`check:-${checked.dropped}:${bodyChars(doc)}`);
   // Out of time for the second draft in this request: it runs on the next call (stage 'checked').
@@ -414,6 +415,14 @@ export async function expandMiniMax(apiKey: string, stored: ContentDoc, deadline
   const timeout = (reserve: number) => Math.max(8_000, Math.min(MINIMAX_TIMEOUT_MS, left() - reserve));
   let doc: ContentDoc = { ...stored };
   delete doc.stage;
+  if (stored.stage === 'drafted') {
+    const checked = await verifyMiniMax(apiKey, doc, doc, timeout(5_000));
+    if (checked.error) errors.push(checked.error);
+    if (!checked.ok) return { doc: stored, errors, steps: ['check-failed'] };
+    doc = cleanMiniMax(checked.doc);
+    steps.push(`check:-${checked.dropped}:${bodyChars(doc)}`);
+    if (left() < 35_000) return { doc: { ...doc, stage: 'checked' }, errors, steps: [...steps, 'no-time-rewrite'] };
+  }
   const second = await rewriteMiniMax(apiKey, doc, doc, timeout(15_000));
   if (second.error) errors.push(second.error);
   if (!second.doc) return { doc, errors, steps: ['rewrite-failed'] };
