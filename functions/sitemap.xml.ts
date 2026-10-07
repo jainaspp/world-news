@@ -1,5 +1,5 @@
 import { applyRuntimeEnv } from '../server/runtimeEnv.js';
-import { explainerCurrent, type IndexEntry } from '../shared/content.js';
+import { briefingPublic, explainerCurrent, type IndexEntry } from '../shared/content.js';
 import { DATA_HUB, DATA_PAGES } from '../shared/dataSeries.js';
 import { docKey, readDoc, readIndex, type ContentEnv } from './content/store.js';
 import type { PagesContext } from './env.js';
@@ -33,6 +33,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     readIndex(env, 'compare').catch(() => []),
   ]);
   const explainers = await currentExplainers(env, compare);
+  const briefings = await currentBriefings(env, briefing);
   const legal = LEGAL
     .filter(([loc]) => !base.includes(loc))
     .map(([loc, freq, priority]) => entry(loc, '2026-10-07', freq, priority))
@@ -41,7 +42,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     ...analysis.map((row) => entry(`https://world-news.xyz/analysis/${encodeURIComponent(row.key)}`, row.publishedAt, 'daily', '0.6')),
     ...digest.map((row) => entry(`https://world-news.xyz/digest/${row.key}`, row.publishedAt, 'weekly', '0.5')),
     ...weekly.map((row) => entry(`https://world-news.xyz/weekly/${row.key}`, row.publishedAt, 'monthly', '0.5')),
-    ...briefing.map((row) => entry(`https://world-news.xyz/briefing/${row.key}`, row.publishedAt, 'daily', '0.7')),
+    ...briefings.map((row) => entry(`https://world-news.xyz/briefing/${row.key}`, row.publishedAt, 'daily', '0.7')),
     ...explainers.map((row) => entry(`https://world-news.xyz/explainer/${encodeURIComponent(row.key)}`, row.publishedAt, 'daily', '0.6')),
   ].join('');
   const major = base.includes('/major/') ? '' : entry('https://world-news.xyz/major/', new Date().toISOString(), 'hourly', '0.8');
@@ -57,6 +58,15 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     ? base.replace('</urlset>', `${major}${legal}${data}${extra}</urlset>`)
     : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${extra}</urlset>\n`;
   return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=600' } });
+}
+
+/** Briefings under the floor stay out of the sitemap. */
+async function currentBriefings(env: ContentEnv, rows: IndexEntry[]): Promise<IndexEntry[]> {
+  const saved = await Promise.all(rows.map((row) => readDoc(env, docKey('briefing', row.key)).catch(() => null)));
+  return rows.filter((_row, index) => {
+    const doc = saved[index]?.doc;
+    return Boolean(doc && briefingPublic(doc));
+  });
 }
 
 /** Old-format comparisons stay out of the sitemap until they are rewritten. */

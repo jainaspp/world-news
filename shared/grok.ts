@@ -1,4 +1,4 @@
-import type { StoryCluster } from './angles.js';
+import { ANGLE_WINDOW_MS, sameEvent, type StoryCluster } from './angles.js';
 import { clustersFromSnapshot, type BoardSnapshot } from './board.js';
 import {
   analysisSlug,
@@ -12,7 +12,6 @@ import {
 } from './content.js';
 import { FEEDS } from './feeds.js';
 import { stableId } from './rss.js';
-import { textTokens } from './text.js';
 import type { NewsItem } from './types.js';
 
 /** xAI model id. The key stays in the Pages secret XAI_API_KEY. */
@@ -20,9 +19,12 @@ export const GROK_MODEL = 'grok-4.3';
 
 export const XAI_URL = 'https://api.x.ai/v1/chat/completions';
 
-/** USD per 1,000,000 tokens. */
+/** USD per 1,000,000 tokens. grok-4.3 below 200k prompt tokens. */
 export const XAI_INPUT_USD_PER_MILLION = 1.25;
 export const XAI_OUTPUT_USD_PER_MILLION = 2.5;
+
+/** xAI web_search is $5 per 1,000 successful calls. Failed attempts are not billed. */
+export const XAI_WEB_SEARCH_USD_PER_CALL = 5 / 1000;
 
 /** Hard stop. At this month-to-date cost, new pieces use Workers AI. */
 export const XAI_MONTHLY_CAP_USD = 10;
@@ -37,10 +39,9 @@ export const COMPARE_BATCH = 3;
 export const MIN_AI_CHARS = 500;
 
 /**
- * A complete explainer or briefing may stop here. Retrying a 450-character piece
- * that already has its sections only burns another model call.
+ * Pieces under this stay unpublished. A short draft is not saved as ready.
  */
-export const ACCEPT_AI_CHARS = 450;
+export const ACCEPT_AI_CHARS = MIN_AI_CHARS;
 
 /** Thin or failed drafts are retried at most this many times in one HKT day. */
 export const THIN_ATTEMPTS = 2;
@@ -49,6 +50,8 @@ export interface MonthUsage {
   month: string;
   inputTokens: number;
   outputTokens: number;
+  /** Successful web_search calls billed this month. Missing on rows written before search. */
+  searchCalls: number;
   costUsd: number;
   requests: number;
   grokBriefing: number;
@@ -79,6 +82,8 @@ export interface ColumnStatus {
   inputTokens: number;
   outputTokens: number;
   costUsd: number;
+  searchCalls: number;
+  searchUsd: number;
   capUsd: number;
   remainingUsd: number;
   capped: boolean;
@@ -110,8 +115,15 @@ export function roundUsd(value: number): number {
   return Math.round(value * 1_000_000) / 1_000_000;
 }
 
-export function xaiCostUsd(inputTokens: number, outputTokens: number): number {
-  return (inputTokens / 1_000_000) * XAI_INPUT_USD_PER_MILLION + (outputTokens / 1_000_000) * XAI_OUTPUT_USD_PER_MILLION;
+export function xaiCostUsd(inputTokens: number, outputTokens: number, searchCalls = 0): number {
+  return (inputTokens / 1_000_000) * XAI_INPUT_USD_PER_MILLION
+    + (outputTokens / 1_000_000) * XAI_OUTPUT_USD_PER_MILLION
+    + Math.max(0, searchCalls) * XAI_WEB_SEARCH_USD_PER_CALL;
+}
+
+/** One article's token and search cost, rounded the same way as the monthly total. */
+export function callCostUsd(inputTokens: number, outputTokens: number, searchCalls: number): number {
+  return roundUsd(xaiCostUsd(inputTokens, outputTokens, searchCalls));
 }
 
 export function emptyUsage(month: string): MonthUsage {
@@ -119,6 +131,7 @@ export function emptyUsage(month: string): MonthUsage {
     month,
     inputTokens: 0,
     outputTokens: 0,
+    searchCalls: 0,
     costUsd: 0,
     requests: 0,
     grokBriefing: 0,
@@ -140,6 +153,7 @@ export function parseUsage(raw: string | null, month: string): MonthUsage {
       ...base,
       inputTokens: num(parsed.inputTokens),
       outputTokens: num(parsed.outputTokens),
+      searchCalls: num(parsed.searchCalls),
       requests: num(parsed.requests),
       grokBriefing: num(parsed.grokBriefing),
       grokCompare: num(parsed.grokCompare),
@@ -147,7 +161,7 @@ export function parseUsage(raw: string | null, month: string): MonthUsage {
       workersCompare: num(parsed.workersCompare),
       grokFocus: num(parsed.grokFocus),
       workersFocus: num(parsed.workersFocus),
-      costUsd: roundUsd(xaiCostUsd(num(parsed.inputTokens), num(parsed.outputTokens))),
+      costUsd: roundUsd(xaiCostUsd(num(parsed.inputTokens), num(parsed.outputTokens), num(parsed.searchCalls))),
     };
   } catch {
     return emptyUsage(month);
@@ -163,15 +177,17 @@ export function capReached(usage: MonthUsage | null | undefined): boolean {
   return (usage?.costUsd ?? 0) >= XAI_MONTHLY_CAP_USD;
 }
 
-export function withTokens(usage: MonthUsage, input: number, output: number, requests = 1): MonthUsage {
+export function withTokens(usage: MonthUsage, input: number, output: number, requests = 1, searchCalls = 0): MonthUsage {
   const inputTokens = usage.inputTokens + Math.max(0, Math.floor(input));
   const outputTokens = usage.outputTokens + Math.max(0, Math.floor(output));
+  const nextSearch = usage.searchCalls + Math.max(0, Math.floor(searchCalls));
   return {
     ...usage,
     inputTokens,
     outputTokens,
+    searchCalls: nextSearch,
     requests: usage.requests + Math.max(0, requests),
-    costUsd: roundUsd(xaiCostUsd(inputTokens, outputTokens)),
+    costUsd: roundUsd(xaiCostUsd(inputTokens, outputTokens, nextSearch)),
   };
 }
 
@@ -199,6 +215,8 @@ export function statusFrom(usage: MonthUsage): ColumnStatus {
     month: usage.month,
     inputTokens: usage.inputTokens,
     outputTokens: usage.outputTokens,
+    searchCalls: usage.searchCalls,
+    searchUsd: roundUsd(usage.searchCalls * XAI_WEB_SEARCH_USD_PER_CALL),
     costUsd: usage.costUsd,
     capUsd: XAI_MONTHLY_CAP_USD,
     remainingUsd: roundUsd(Math.max(0, XAI_MONTHLY_CAP_USD - usage.costUsd)),
@@ -334,11 +352,11 @@ export function bodyChars(doc: ContentDoc): number {
   return hanCount([...(doc.points ?? []), ...sentences].join(''));
 }
 
-/** An explainer has its sections and three summary lines. A briefing has a watch section and one side. */
+/** An explainer needs the narrative and three summary lines. Empty 後續關注 is omitted, not required. */
 export function structureComplete(doc: ContentDoc): boolean {
   const titles = new Set(doc.blocks.map((block) => block.title));
   if (doc.kind === 'compare') {
-    return titles.has('事件經過') && titles.has('後續關注') && (doc.points?.length ?? 0) >= 3;
+    return titles.has('事件經過') && (doc.points?.length ?? 0) >= 3;
   }
   if (doc.kind === 'briefing') {
     return titles.has('今日值得留意') && (titles.has('香港') || titles.has('內地'));
@@ -346,12 +364,10 @@ export function structureComplete(doc: ContentDoc): boolean {
   return true;
 }
 
-/** Long enough to publish. Complete pieces may stop at ACCEPT_AI_CHARS instead of waiting for 500. */
+/** Publish only at the 500-character floor, with the sections a reader needs. */
 export function pieceReady(doc: ContentDoc): boolean {
-  const body = bodyChars(doc);
   if (doc.kind !== 'briefing' && doc.kind !== 'compare') return richness(doc) >= MIN_AI_CHARS;
-  if (body >= MIN_AI_CHARS) return true;
-  return body >= ACCEPT_AI_CHARS && structureComplete(doc);
+  return bodyChars(doc) >= MIN_AI_CHARS && structureComplete(doc);
 }
 
 /**
@@ -450,7 +466,7 @@ function toSource(item: NewsItem): SourceRef {
     title: item.title,
     url: item.link,
     source: item.source,
-    ...(item.excerpt ? { excerpt: item.excerpt.slice(0, 300) } : {}),
+    ...(item.excerpt ? { excerpt: item.excerpt.slice(0, 600) } : {}),
     ...(item.image ? { image: item.image } : {}),
     ...(item.category ? { category: item.category } : {}),
     ...(item.pubDate ? { pubDate: item.pubDate } : {}),
@@ -492,10 +508,8 @@ export function briefingFromItems(hk: NewsItem[], china: NewsItem[], key: string
   };
 }
 
-/** Earlier board headlines that share wording with this story, for the explainer timeline. */
+/** Earlier board headlines of this same event, for the explainer timeline. */
 export function relatedEarlier(cluster: StoryCluster, items: NewsItem[]): NewsItem[] {
-  const lead = new Set(textTokens(cluster.lead.title));
-  if (lead.size < 2) return [];
   const ids = new Set(cluster.items.map((item) => item.id));
   const links = new Set(cluster.items.map((item) => item.link));
   const earliest = Math.min(...cluster.items.map((item) => Date.parse(item.pubDate) || Number.POSITIVE_INFINITY));
@@ -503,9 +517,7 @@ export function relatedEarlier(cluster: StoryCluster, items: NewsItem[]): NewsIt
     if (ids.has(item.id) || links.has(item.link)) return false;
     const time = Date.parse(item.pubDate);
     if (!Number.isFinite(time) || time >= earliest) return false;
-    let shared = 0;
-    for (const token of textTokens(item.title)) if (lead.has(token)) shared += 1;
-    return shared >= 2;
+    return sameEvent(cluster.lead, item, ANGLE_WINDOW_MS);
   }).sort((a, b) => Date.parse(a.pubDate) - Date.parse(b.pubDate)).slice(0, 4);
 }
 

@@ -118,13 +118,13 @@ npx wrangler kv namespace create CONTENT
 
 ## Grok 導讀同新聞懶人包
 
-`/briefing/`、`/briefing/<slot>/`（`YYYY-MM-DD-am` 或 `pm`）和 `/explainer/`、`/explainer/<key>/` 都是可索引的 HTML，會寫進 `sitemap.xml`。導讀用當日香港和內地標題（包括「歐中貿易談判」這類歸在財經、但內容是中國的報道），每日 07:30 和 18:30（香港時間）各一篇，並連到同日的懶人包。新聞懶人包跟現有「多方報道」分組，按不同媒體數目排，每日最多 20 篇：一篇整合各家來源，文首三行重點，下面是事件時間線、重點數字、事件經過、各方回應和後續關注。舊網址 `/compare/` 會 301 到 `/explainer/`。導讀和懶人包一律用 xAI `grok-4.3`，正文是正式新聞書面語。Workers AI 只在本月 10 美元上限用盡，或 xAI 沒有回應時才用。
+`/briefing/`、`/briefing/<slot>/`（`YYYY-MM-DD-am` 或 `pm`）和 `/explainer/`、`/explainer/<key>/` 都是可索引的 HTML，會寫進 `sitemap.xml`。正文少於 500 字、或未完成應有段落的導讀和懶人包會 `noindex`，不進列表和 sitemap。導讀用當日香港和內地標題（包括「歐中貿易談判」這類歸在財經、但內容是中國的報道），每日 07:30 和 18:30（香港時間）各一篇，並連到同日已發布的懶人包。新聞懶人包先收緊到同一事件（標題重疊、同一分類、數小時內），再由 Grok 剔走不是該事件的標題；每日最多 20 篇。標題用模型寫的中文，不拼接來源標題。文首三行重點，下面是事件時間線、事件經過；各方回應和後續關注沒有來源就不寫。舊網址 `/compare/` 會 301 到 `/explainer/`。導讀和懶人包用 xAI `grok-4.3` 的 Responses API，並開啟 `web_search`（每次最多約 5 次搜尋、來源列表最多 10 條，排除社交網站）。Workers AI 只在本月 10 美元上限用盡，或 xAI 沒有回應時才用。
 
 `/region/<code>/` 和 `/category/<slug>/` 在標題列表上方有一段「本週重點」（約 250 至 400 字，標明 AI 整合）。同一日只寫一次，跟導讀共用 10 美元上限。KV 未有這段時，頁面只顯示標題列表，不會報錯。
 
-生成由 `.github/workflows/warm-content.yml` 分批呼叫 `POST /api/generate`（header `x-generate-secret`）。導讀、懶人包和本週重點只讀已快取的新聞板，不會在這次請求裡重抓 RSS。快取未有、或結果只是來源標題稿時，回應是 503 且 `fallback: true`，工作流程會再試。每批最多 3 篇。當日已經寫好、正文夠長的 Grok 稿不會重寫；過短的來源稿可以重寫。結構完整的懶人包或導讀達到 450 字即可保存，不必為湊滿 500 字再叫一次模型。同一題過薄的稿每日最多再試兩次；工作流程若連續收到同一組 key 就停止。`force=1` 可覆寫指定導讀時段、尚未符合現行格式的懶人包，或本週重點。舊格式懶人包在重寫前不列入 `/explainer/` 和 sitemap，頁面標 `noindex`。模型失敗會改用 Workers AI，再退回來源標題稿，不會令首頁 500。
+生成由 `.github/workflows/warm-content.yml` 分批呼叫 `POST /api/generate`（header `x-generate-secret`）。導讀、懶人包和本週重點只讀已快取的新聞板，不會在這次請求裡重抓 RSS。快取未有、或結果只是來源標題稿時，回應是 503 且 `fallback: true`，工作流程會再試。每批最多 3 篇。當日已經寫好、正文夠長的 Grok 稿不會重寫；未到 500 字的稿可以重寫。同一題過薄的稿每日最多再試兩次；工作流程若連續收到同一組 key 就停止。`force=1` 可覆寫指定導讀時段、尚未發布的懶人包，或本週重點。模型失敗會改用 Workers AI，再退回來源標題稿，不會令首頁 500。回應裡的 `cost`（導讀）和 `costs`（懶人包）是該篇的 token 加搜尋費用。
 
-xAI 定價：輸入每百萬 token 1.25 美元，輸出每百萬 token 2.50 美元。推理 token 計入輸出。用量按香港時間曆月存在 KV `xai-usage:YYYY-MM`。當月累計達到 10 美元之後，新文章自動改走 Workers AI。`POST /api/generate?kind=status`（同樣要 `x-generate-secret`）回傳本月 token、費用和篇數。
+xAI 定價（`grok-4.3`，提示少於 20 萬 token）：輸入每百萬 token 1.25 美元，輸出每百萬 token 2.50 美元。推理 token 計入輸出。`web_search` 每次成功呼叫 0.005 美元（每千次 5 美元），次數讀回應裡的 `usage.server_side_tool_usage_details.web_search_calls`（否則用 `SERVER_SIDE_TOOL_WEB_SEARCH`）。搜尋費用加進同一個 10 美元月上限。用量按香港時間曆月存在 KV `xai-usage:YYYY-MM`（含 `searchCalls`）。當月累計達到 10 美元之後，新文章自動改走 Workers AI。`POST /api/generate?kind=status`（同樣要 `x-generate-secret`）回傳本月 token、搜尋次數、費用和篇數。
 
 | 名稱 | 放哪裡 | 填什麼 |
 | --- | --- | --- |

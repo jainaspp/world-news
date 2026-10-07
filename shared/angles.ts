@@ -27,6 +27,15 @@ export interface ClusterCard {
 /** Articles further apart than this are not the same developing story. */
 export const ANGLE_WINDOW_MS = 12 * 60 * 60 * 1000;
 
+/** Explainers only group headlines from the same few hours. */
+export const EXPLAINER_WINDOW_MS = 6 * 60 * 60 * 1000;
+
+/** Bigrams that show up in unrelated headlines and must not glue two stories together. */
+const GENERIC_TOKENS = new Set([
+  '香港', '中國', '美國', '日本', '韓國', '英國', '俄羅斯', '政府', '表示', '今日', '今年',
+  '公司', '市場', '經濟', '國際', '新聞', '報道', '總統', '主席',
+]);
+
 export const MAJOR_WINDOW_MS = 3 * 60 * 60 * 1000;
 export const MAJOR_TIMELINE_MS = 24 * 60 * 60 * 1000;
 export const MAJOR_OUTLETS = 4;
@@ -128,6 +137,41 @@ function preparedMatch(left: Prepared, right: Prepared): boolean {
   const shared = left.entities.filter((key) => right.entitySet.has(key));
   if (shared.length < 2) return false;
   return shared.some((key) => !GENERIC.has(key) && !key.startsWith('n:'));
+}
+
+/**
+ * Same event for an explainer: same category, a short time window, and either a high
+ * title overlap or a shared specific entity. Country names alone do not match.
+ */
+export function sameEvent(left: NewsItem, right: NewsItem, windowMs = EXPLAINER_WINDOW_MS): boolean {
+  if (left.id === right.id || (left.link && left.link === right.link)) return true;
+  if (left.category && right.category && left.category !== right.category) return false;
+  const delta = Math.abs(timeOf(left) - timeOf(right));
+  if (windowMs > 0 && delta > windowMs) return false;
+  const tokensA = textTokens(left.title).filter((token) => !GENERIC_TOKENS.has(token));
+  const tokensB = textTokens(right.title).filter((token) => !GENERIC_TOKENS.has(token));
+  const overlap = jaccard(tokensA, tokensB);
+  // Long headlines can share the event in a few bigrams and still have a low ratio.
+  if (overlap.shared >= 6) return true;
+  if (overlap.shared >= 4 && overlap.score >= 0.34) return true;
+  if (overlap.shared >= 3 && overlap.score >= 0.45) return true;
+  const leftKeys = titleEntities(left.title);
+  const rightKeys = titleEntities(right.title);
+  const sharedKeys = [...leftKeys].filter((key) => rightKeys.has(key));
+  const specific = sharedKeys.filter((key) => !GENERIC.has(key) && !key.startsWith('n:'));
+  if (specific.length >= 1 && sharedKeys.length >= 2) return true;
+  if (!specific.length) return false;
+  return overlap.shared >= 1 || specific.length >= 2;
+}
+
+/** Keep only members that are the same event as the lead. Fewer than two outlets is not an explainer. */
+export function coherentCluster(cluster: StoryCluster, windowMs = EXPLAINER_WINDOW_MS): StoryCluster | null {
+  const items = cluster.items.filter((item) => item.id === cluster.lead.id || sameEvent(cluster.lead, item, windowMs));
+  const sources = [...new Set(items.map((item) => item.source))];
+  if (sources.length < 2) return null;
+  const lead = items.find((item) => item.id === cluster.lead.id) ?? items[0];
+  if (!lead) return null;
+  return { ...cluster, lead, items, sources, count: sources.length };
 }
 
 function addPosting(index: Map<string, number[]>, key: string, groupIndex: number): void {

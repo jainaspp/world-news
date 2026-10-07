@@ -127,7 +127,7 @@ describe('cache-only generation and fallback signalling', () => {
     expect(blocksRewrite(second[0], NOW)).toBe(true);
   });
 
-  it('accepts a complete explainer at 450 characters and a briefing slot instant', () => {
+  it('keeps an explainer unpublished under 500 characters and accepts a complete one', () => {
     const filler = (count: number) => '測'.repeat(count);
     const doc: ContentDoc = {
       kind: 'compare',
@@ -145,10 +145,19 @@ describe('cache-only generation and fallback signalling', () => {
       ],
     };
     expect(bodyChars(doc)).toBe(453);
-    expect(pieceReady(doc)).toBe(true);
-    expect(explainerCurrent(doc)).toBe(true);
-    expect(explainerCurrent({ ...doc, blocks: doc.blocks.filter((block) => block.title !== '事件時間線') })).toBe(false);
-    expect(pieceReady({ ...doc, points: ['一'], blocks: doc.blocks.slice(0, 1) })).toBe(false);
+    expect(pieceReady(doc)).toBe(false);
+    expect(explainerCurrent(doc)).toBe(false);
+    const published: ContentDoc = {
+      ...doc,
+      blocks: [
+        { title: '事件經過', sentences: [filler(510)], sources: [] },
+        { title: '事件時間線', sentences: [filler(20)], sources: [] },
+      ],
+    };
+    expect(pieceReady(published)).toBe(true);
+    expect(explainerCurrent(published)).toBe(true);
+    expect(explainerCurrent({ ...published, blocks: published.blocks.filter((block) => block.title !== '事件時間線') })).toBe(false);
+    expect(pieceReady({ ...published, points: ['一'] })).toBe(false);
     expect(slotInstant('2026-10-07-pm')?.toISOString()).toBe('2026-10-07T10:30:00.000Z');
     expect(slotInstant('2026-10-07-am')?.toISOString()).toBe('2026-10-07T00:30:00.000Z');
     expect(slotInstant('2026-10-07')).toBeNull();

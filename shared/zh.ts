@@ -22,6 +22,9 @@ function t2sMap(): Map<string, string> {
   return t2s;
 }
 
+/** Simplified characters that are also the right Traditional form in news (長征, not 長徵). */
+const KEEP_CHAR = new Set(['征']);
+
 /** Deterministic Simplified → Traditional (Hong Kong). Traditional text passes through unchanged. */
 export function toHK(text: string): string {
   if (!text) return text;
@@ -37,10 +40,10 @@ export function toHK(text: string): string {
       }
     }
     const char = text[index]!;
-    result += map.get(char) ?? char;
+    result += KEEP_CHAR.has(char) ? char : (map.get(char) ?? char);
     index += 1;
   }
-  return result;
+  return result.replaceAll('長徵', '長征').replaceAll('核光鍾', '核光鐘');
 }
 
 /** Deterministic Traditional → Simplified. Uses the reverse of the OpenCC-derived map (no AI). */
