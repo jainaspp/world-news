@@ -2,6 +2,8 @@ import { ANGLE_WINDOW_MS, sameEvent, type StoryCluster } from './angles.js';
 import { clustersFromSnapshot, type BoardSnapshot } from './board.js';
 import {
   analysisSlug,
+  briefingHeadings,
+  briefingScopeOf,
   formatHkt,
   hktParts,
   slotId,
@@ -60,6 +62,9 @@ export interface MonthUsage {
   workersCompare: number;
   grokFocus: number;
   workersFocus: number;
+  minimaxBriefing: number;
+  minimaxCompare: number;
+  minimaxFocus: number;
 }
 
 export interface WrittenStory {
@@ -74,6 +79,8 @@ export interface WrittenStory {
   attempts?: number;
   /** True when the saved piece is long enough and, for an explainer, structurally complete. */
   ready?: boolean;
+  /** Writer that finished this story. Missing rows count toward the Grok daily cap. */
+  provider?: 'grok' | 'minimax' | 'workers-ai';
 }
 
 export interface ColumnStatus {
@@ -94,6 +101,9 @@ export interface ColumnStatus {
     workersCompare: number;
     grokFocus: number;
     workersFocus: number;
+    minimaxBriefing: number;
+    minimaxCompare: number;
+    minimaxFocus: number;
     total: number;
   };
 }
@@ -140,6 +150,9 @@ export function emptyUsage(month: string): MonthUsage {
     workersCompare: 0,
     grokFocus: 0,
     workersFocus: 0,
+    minimaxBriefing: 0,
+    minimaxCompare: 0,
+    minimaxFocus: 0,
   };
 }
 
@@ -161,6 +174,9 @@ export function parseUsage(raw: string | null, month: string): MonthUsage {
       workersCompare: num(parsed.workersCompare),
       grokFocus: num(parsed.grokFocus),
       workersFocus: num(parsed.workersFocus),
+      minimaxBriefing: num(parsed.minimaxBriefing),
+      minimaxCompare: num(parsed.minimaxCompare),
+      minimaxFocus: num(parsed.minimaxFocus),
       costUsd: roundUsd(xaiCostUsd(num(parsed.inputTokens), num(parsed.outputTokens), num(parsed.searchCalls))),
     };
   } catch {
@@ -191,10 +207,12 @@ export function withTokens(usage: MonthUsage, input: number, output: number, req
   };
 }
 
-export function withArticle(usage: MonthUsage, route: 'grok' | 'workers', kind: 'briefing' | 'compare' | 'focus'): MonthUsage {
-  const key = route === 'grok'
-    ? (kind === 'briefing' ? 'grokBriefing' : kind === 'compare' ? 'grokCompare' : 'grokFocus')
-    : (kind === 'briefing' ? 'workersBriefing' : kind === 'compare' ? 'workersCompare' : 'workersFocus');
+export function withArticle(usage: MonthUsage, route: 'grok' | 'workers' | 'minimax', kind: 'briefing' | 'compare' | 'focus'): MonthUsage {
+  const key = route === 'minimax'
+    ? (kind === 'briefing' ? 'minimaxBriefing' : kind === 'compare' ? 'minimaxCompare' : 'minimaxFocus')
+    : route === 'grok'
+      ? (kind === 'briefing' ? 'grokBriefing' : kind === 'compare' ? 'grokCompare' : 'grokFocus')
+      : (kind === 'briefing' ? 'workersBriefing' : kind === 'compare' ? 'workersCompare' : 'workersFocus');
   return { ...usage, [key]: usage[key] + 1 };
 }
 
@@ -209,7 +227,8 @@ export function writerFor(input: { route?: 'grok' | 'workers'; costUsd: number; 
 }
 
 export function statusFrom(usage: MonthUsage): ColumnStatus {
-  const articles = usage.grokBriefing + usage.grokCompare + usage.workersBriefing + usage.workersCompare + usage.grokFocus + usage.workersFocus;
+  const articles = usage.grokBriefing + usage.grokCompare + usage.workersBriefing + usage.workersCompare + usage.grokFocus + usage.workersFocus
+    + usage.minimaxBriefing + usage.minimaxCompare + usage.minimaxFocus;
   return {
     ok: true,
     month: usage.month,
@@ -228,6 +247,9 @@ export function statusFrom(usage: MonthUsage): ColumnStatus {
       workersCompare: usage.workersCompare,
       grokFocus: usage.grokFocus,
       workersFocus: usage.workersFocus,
+      minimaxBriefing: usage.minimaxBriefing,
+      minimaxCompare: usage.minimaxCompare,
+      minimaxFocus: usage.minimaxFocus,
       total: articles,
     },
   };
@@ -314,6 +336,7 @@ export function parseWritten(raw: string | null): WrittenStory[] {
       ...(typeof row.chars === 'number' && Number.isFinite(row.chars) ? { chars: Math.max(0, Math.floor(row.chars)) } : {}),
       ...(typeof row.attempts === 'number' && Number.isFinite(row.attempts) ? { attempts: Math.max(0, Math.floor(row.attempts)) } : {}),
       ...(row.ready === true ? { ready: true as const } : row.ready === false ? { ready: false as const } : {}),
+      ...(row.provider === 'grok' || row.provider === 'minimax' || row.provider === 'workers-ai' ? { provider: row.provider } : {}),
     }));
   } catch {
     return [];
@@ -363,7 +386,9 @@ export function structureComplete(doc: ContentDoc): boolean {
     return titles.has('事件經過') && (doc.points?.length ?? 0) >= 2;
   }
   if (doc.kind === 'briefing') {
-    return titles.has('今日值得留意') && (titles.has('香港') || titles.has('內地'));
+    const headings = briefingHeadings(briefingScopeOf(doc.key));
+    const body = headings.filter((heading) => heading !== '今日值得留意');
+    return titles.has('今日值得留意') && body.some((heading) => titles.has(heading)) && (doc.points?.length ?? 0) >= 2;
   }
   return true;
 }
@@ -392,13 +417,14 @@ export function upsertWritten(existing: WrittenStory[], row: WrittenStory, clust
   previous.links = row.links;
   if (typeof row.chars === 'number') previous.chars = row.chars;
   if (typeof row.ready === 'boolean') previous.ready = row.ready;
+  if (row.provider) previous.provider = row.provider;
   previous.attempts = (previous.attempts ?? 1) + 1;
   return next;
 }
 
 /** HKT morning or evening instant for a briefing slot such as 2026-10-07-pm. */
 export function slotInstant(slot: string): Date | null {
-  const match = /^(\d{4})-(\d{2})-(\d{2})-(am|pm)$/.exec(slot);
+  const match = /^(\d{4})-(\d{2})-(\d{2})-(am|pm)(?:-(world|techfin))?$/.exec(slot);
   if (!match) return null;
   const year = Number(match[1]);
   const month = Number(match[2]);
@@ -406,7 +432,8 @@ export function slotInstant(slot: string): Date | null {
   if (!year || month < 1 || month > 12 || day < 1 || day > 31) return null;
   const hourUtc = match[4] === 'am' ? 0 : 10;
   const when = new Date(Date.UTC(year, month - 1, day, hourUtc, 30));
-  return slotId(when) === slot ? when : null;
+  const base = `${match[1]}-${match[2]}-${match[3]}-${match[4]}`;
+  return slotId(when) === base ? when : null;
 }
 
 /**
@@ -632,11 +659,17 @@ export interface ColumnDelivery {
  * so the workflow retries. A Workers AI piece is a normal 200 only when Grok was not available
  * (monthly cap, or no key).
  */
-function draftAccepted(doc: { mode: string; model?: string; chars?: number; ready?: boolean }, capped?: boolean): boolean {
+function namedWriter(doc: { model?: string; provider?: string }): boolean {
+  if (doc.provider === 'grok' || doc.provider === 'minimax') return true;
+  const model = (doc.model || '').toLowerCase();
+  return model.includes('grok') || model.includes('minimax');
+}
+
+function draftAccepted(doc: { mode: string; model?: string; provider?: string; chars?: number; ready?: boolean }, capped?: boolean): boolean {
   if (doc.ready === true && (doc.chars ?? 0) >= ACCEPT_AI_CHARS) return true;
   if (doc.mode !== 'ai') return false;
   if (capped) return true;
-  if (!doc.model?.includes('grok')) return false;
+  if (!namedWriter(doc)) return false;
   return (doc.chars ?? 0) >= MIN_AI_CHARS && doc.ready !== false;
 }
 
@@ -644,9 +677,9 @@ export function columnDelivery(input: {
   cold?: boolean;
   skipped?: string;
   capped?: boolean;
-  docs?: { mode: string; model?: string; chars?: number; key?: string; ready?: boolean }[];
+  docs?: { mode: string; model?: string; provider?: string; chars?: number; key?: string; ready?: boolean }[];
 }): ColumnDelivery {
-  const thinKeys = (docs: { mode: string; model?: string; chars?: number; key?: string; ready?: boolean }[]) => docs
+  const thinKeys = (docs: { mode: string; model?: string; provider?: string; chars?: number; key?: string; ready?: boolean }[]) => docs
     .filter((doc) => !draftAccepted(doc, input.capped))
     .map((doc) => doc.key)
     .filter((key): key is string => Boolean(key));
@@ -658,7 +691,7 @@ export function columnDelivery(input: {
   if (!docs.length) return { status: 200, ok: true, fallback: false, thin: [] };
   const thin = thinKeys(docs);
   const anyAccepted = docs.some((doc) => draftAccepted(doc, input.capped));
-  const prematureWorkers = !input.capped && docs.some((doc) => doc.mode === 'ai' && Boolean(doc.model) && !doc.model?.includes('grok') && doc.ready !== true);
+  const prematureWorkers = !input.capped && docs.some((doc) => doc.mode === 'ai' && Boolean(doc.model) && !namedWriter(doc) && doc.ready !== true);
   const allSources = docs.every((doc) => doc.mode !== 'ai');
   if (!anyAccepted && !input.capped && (allSources || prematureWorkers)) {
     return { status: 503, ok: false, fallback: true, thin };

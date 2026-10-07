@@ -23,6 +23,7 @@ export interface FocusIntro {
   text: string;
   model: string;
   at: number;
+  provider?: 'grok' | 'minimax' | 'workers-ai';
 }
 
 export function focusPages(): FocusPage[] {
@@ -46,23 +47,27 @@ export function parseFocus(raw: string | null): FocusIntro | null {
   try {
     const parsed = JSON.parse(raw) as Partial<FocusIntro>;
     if (!parsed || typeof parsed.text !== 'string' || !parsed.text.trim()) return null;
+    const provider = parsed.provider === 'grok' || parsed.provider === 'minimax' || parsed.provider === 'workers-ai' ? parsed.provider : undefined;
     return {
       text: parsed.text.trim(),
       model: typeof parsed.model === 'string' ? parsed.model : '',
       at: Number.isFinite(parsed.at) ? Number(parsed.at) : 0,
+      ...(provider ? { provider } : {}),
     };
   } catch {
     return null;
   }
 }
 
-/** A stored intro counts for today when Grok wrote it, or when the cap forced Workers AI. */
+/** A stored intro counts for today when Grok or MiniMax wrote it, or when the cap forced Workers AI. */
 export function focusSatisfied(raw: string | null, capped: boolean): boolean {
   const saved = parseFocus(raw);
   if (!saved) return false;
   const chars = hanCount(saved.text);
   if (chars < FOCUS_MIN_CHARS || chars > FOCUS_MAX_CHARS) return false;
-  if (saved.model.includes('grok')) return true;
+  if (saved.provider === 'workers-ai') return capped;
+  if (saved.provider === 'grok' || saved.provider === 'minimax') return true;
+  if (saved.model.includes('grok') || saved.model.toLowerCase().includes('minimax')) return true;
   return capped && saved.model.length > 0;
 }
 
@@ -84,7 +89,8 @@ export function focusPrompt(page: FocusPage, items: NewsItem[]): { system: strin
   const system = [
     '你是香港報紙的編輯，用繁體中文正式新聞書面語寫「本週重點」。不要用粵語口語，不要用簡體字。判斷用「是」。',
     '只回傳一段正文，不要標題，不要 JSON，不要 Markdown。使用全形標點。數字和年份用阿拉伯數字，例如 2026、307、21.44億、57.7%。',
-    '只可根據提供的標題和摘錄。同一事實只寫一次，不要按媒體各寫一遍。禁止添加來源沒有的事實、數字、引言或形容。',
+    '只可根據提供的標題和摘錄。同一事實只寫一次，不要按媒體各寫一遍。禁止添加來源沒有的事實、數字、引言或形容。不要添加資料以外的背景事實。',
+    '不要寫免責聲明，也不要寫說教或呼籲句。',
     '點名報道的媒體，寫出帶名稱和單位的關鍵數字，並說明為何值得留意。正文 280 至 360 個中文字。短於 250 或長於 400 會被捨棄。',
   ].join('');
   const data = items.slice(0, 12).map((item) => ({

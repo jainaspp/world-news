@@ -37,7 +37,8 @@ jobs:
             curl -fsS -X POST "${auth[@]}" "$base/api/generate?kind=weekly"
             echo
           fi
-          # One briefing, then up to nine explainers (three calls of three).
+          # One briefing (three editions), then explainers.
+          # Each explainer call writes up to five MiniMax pieces; three calls fill 15 per half-day.
           # Retry when the HTTP status is not 2xx or the body says "fallback": true
           # (cold cache, sources-only, or Workers AI standing in before the cap).
           # Explainers stop on pace, on none, or when the same non-empty keys repeat.
@@ -64,7 +65,11 @@ jobs:
             done
             return 1
           }
+          # Unscoped briefing writes Hong Kong, international, and tech/finance.
+          # The scoped calls are idempotent if that edition is already ready.
           post "$base/api/generate?kind=briefing" 3 || fail=1
+          post "$base/api/generate?kind=briefing&scope=world" 2 || fail=1
+          post "$base/api/generate?kind=briefing&scope=techfin" 2 || fail=1
           prev_keys=""
           explainer_ok=0
           for _ in 1 2 3; do

@@ -9,6 +9,7 @@ export interface ContentEnv {
   AI?: { run(model: string, input: Record<string, unknown>): Promise<unknown> };
   GENERATE_SECRET?: string;
   XAI_API_KEY?: string;
+  MINIMAX_API_KEY?: string;
   VITE_AD_SLOT_TOP?: string;
   AD_SLOT_TOP?: string;
   AD_SLOT_MID?: string;
@@ -98,7 +99,7 @@ const INDEX_LIMIT: Record<ContentDoc['kind'], number> = {
   digest: 40,
   analysis: 40,
   weekly: 40,
-  briefing: 62,
+  briefing: 186,
   compare: 80,
 };
 
