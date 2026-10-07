@@ -386,7 +386,8 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
       grokError: [...new Set(expanded.errors)],
     });
   }
-  if (!options.force && settledPiece(existing?.doc)) {
+  // A listed brief (400-character floor) is settled for idempotent warm calls.
+  if (!options.force && existing?.doc && existing.doc.mode === 'ai' && existing.doc.stage !== 'checked' && (settledPiece(existing.doc) || briefingPublic(existing.doc))) {
     return delivered(columnDelivery({ skipped: 'exists' }), { kind: 'briefing', scope, key, mode: 'ai', provider: existing?.doc.provider ?? 'minimax', skipped: 'exists' });
   }
   const material = await loadMaterial(env);
@@ -422,12 +423,15 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
     material: true,
     fetchedSources,
   }], started);
-  const doc = first.docs[0] ?? draft;
+  const written = first.docs[0] ?? draft;
+  // Never replace a listed brief with a failed or thinner run.
+  const keep = existing?.doc && existing.doc.mode === 'ai' && briefingPublic(existing.doc) && !briefingPublic(written);
+  const doc = keep && existing ? existing.doc : written;
   const costs = first.costs;
   const grokStatus = first.grokStatus;
   const grokError = first.grokError;
   const steps = first.steps;
-  await writeDoc(env, doc);
+  if (!keep) await writeDoc(env, doc);
   const chars = bodyChars(doc);
   const ready = doc.mode === 'ai' && pieceReady(doc);
   return delivered(columnDelivery({ capped: first.capped, docs: [{ mode: doc.mode, model: doc.model, provider: doc.provider, chars, key: doc.key, ready }] }), {
@@ -443,6 +447,7 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
     grokStatus,
     grokError,
     steps,
+    ...(keep ? { kept: true } : {}),
     cost: summedCost(costs, doc.key),
   });
 }
