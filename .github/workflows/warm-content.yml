@@ -37,14 +37,38 @@ jobs:
             curl -fsS -X POST "${auth[@]}" "$base/api/generate?kind=weekly"
             echo
           fi
-          # Briefing and comparisons run in small batches. One failed call does not skip the rest,
-          # and these endpoints never render the homepage.
+          # Briefing, comparisons, and focus intros run in small batches.
+          # Retry when the HTTP status is not 2xx or the body says "fallback": true
+          # (cold cache, sources-only, or Workers AI standing in before the cap).
+          # These endpoints never render the homepage.
           fail=0
-          curl -fsS --retry 3 --retry-delay 5 --retry-all-errors --max-time 90 -X POST "${auth[@]}" "$base/api/generate?kind=briefing" || fail=1
-          echo
+          post() {
+            url="$1"
+            tries="$2"
+            attempt=1
+            while [ "$attempt" -le "$tries" ]; do
+              body=$(mktemp)
+              code=$(curl -sS -o "$body" -w '%{http_code}' --max-time 90 -X POST "${auth[@]}" "$url" || true)
+              cat "$body"
+              echo
+              if [ "$code" -ge 200 ] && [ "$code" -lt 300 ] && ! grep -q '"fallback":true' "$body"; then
+                rm -f "$body"
+                return 0
+              fi
+              rm -f "$body"
+              attempt=$((attempt + 1))
+              if [ "$attempt" -le "$tries" ]; then
+                sleep 5
+              fi
+            done
+            return 1
+          }
+          post "$base/api/generate?kind=briefing" 3 || fail=1
           for _ in 1 2 3 4 5 6 7; do
-            curl -fsS --retry 2 --retry-delay 4 --retry-all-errors --max-time 90 -X POST "${auth[@]}" "$base/api/generate?kind=compare&limit=3" || fail=1
-            echo
+            post "$base/api/generate?kind=explainer&limit=3" 3 || fail=1
+          done
+          for _ in 1 2 3 4 5 6 7; do
+            post "$base/api/generate?kind=focus&limit=3" 2 || fail=1
           done
           curl -fsS --retry 2 --retry-delay 2 --max-time 30 -X POST "${auth[@]}" "$base/api/generate?kind=status" || true
           echo

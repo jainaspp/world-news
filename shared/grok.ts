@@ -1,4 +1,5 @@
 import type { StoryCluster } from './angles.js';
+import { clustersFromSnapshot, type BoardSnapshot } from './board.js';
 import {
   analysisSlug,
   formatHkt,
@@ -9,7 +10,9 @@ import {
   type DigestBlock,
   type SourceRef,
 } from './content.js';
+import { FEEDS } from './feeds.js';
 import { stableId } from './rss.js';
+import { textTokens } from './text.js';
 import type { NewsItem } from './types.js';
 
 /** xAI model id. The key stays in the Pages secret XAI_API_KEY. */
@@ -30,8 +33,8 @@ export const COMPARE_PER_DAY = 20;
 /** Articles per generate call, so one invocation stays inside Workers subrequest and wall-clock limits. */
 export const COMPARE_BATCH = 3;
 
-/** A source draft younger than this is left alone; an older draft can be upgraded to AI. */
-export const DRAFT_HOLD_MS = 2 * 60 * 60 * 1000;
+/** A finished Grok piece is at least this many Chinese characters. Shorter drafts can be rewritten the same day. */
+export const MIN_AI_CHARS = 500;
 
 export interface MonthUsage {
   month: string;
@@ -43,6 +46,8 @@ export interface MonthUsage {
   grokCompare: number;
   workersBriefing: number;
   workersCompare: number;
+  grokFocus: number;
+  workersFocus: number;
 }
 
 export interface WrittenStory {
@@ -51,6 +56,8 @@ export interface WrittenStory {
   links: string[];
   mode: 'ai' | 'sources';
   at: number;
+  /** Chinese characters in the saved piece. Missing on rows written before this field existed. */
+  chars?: number;
 }
 
 export interface ColumnStatus {
@@ -67,6 +74,8 @@ export interface ColumnStatus {
     grokCompare: number;
     workersBriefing: number;
     workersCompare: number;
+    grokFocus: number;
+    workersFocus: number;
     total: number;
   };
 }
@@ -80,7 +89,8 @@ export function usageKey(month: string): string {
 }
 
 export function writtenKey(now = new Date()): string {
-  return `compare-written:${hktParts(now).date}`;
+  // New key so the 2026-10-07 compare rows are not locked and the next run rewrites them as explainers.
+  return `explainer-written:${hktParts(now).date}`;
 }
 
 export function roundUsd(value: number): number {
@@ -102,6 +112,8 @@ export function emptyUsage(month: string): MonthUsage {
     grokCompare: 0,
     workersBriefing: 0,
     workersCompare: 0,
+    grokFocus: 0,
+    workersFocus: 0,
   };
 }
 
@@ -120,6 +132,8 @@ export function parseUsage(raw: string | null, month: string): MonthUsage {
       grokCompare: num(parsed.grokCompare),
       workersBriefing: num(parsed.workersBriefing),
       workersCompare: num(parsed.workersCompare),
+      grokFocus: num(parsed.grokFocus),
+      workersFocus: num(parsed.workersFocus),
       costUsd: roundUsd(xaiCostUsd(num(parsed.inputTokens), num(parsed.outputTokens))),
     };
   } catch {
@@ -148,21 +162,25 @@ export function withTokens(usage: MonthUsage, input: number, output: number, req
   };
 }
 
-export function withArticle(usage: MonthUsage, route: 'grok' | 'workers', kind: 'briefing' | 'compare'): MonthUsage {
+export function withArticle(usage: MonthUsage, route: 'grok' | 'workers', kind: 'briefing' | 'compare' | 'focus'): MonthUsage {
   const key = route === 'grok'
-    ? (kind === 'briefing' ? 'grokBriefing' : 'grokCompare')
-    : (kind === 'briefing' ? 'workersBriefing' : 'workersCompare');
+    ? (kind === 'briefing' ? 'grokBriefing' : kind === 'compare' ? 'grokCompare' : 'grokFocus')
+    : (kind === 'briefing' ? 'workersBriefing' : kind === 'compare' ? 'workersCompare' : 'workersFocus');
   return { ...usage, [key]: usage[key] + 1 };
 }
 
-/** Grok only for an HK/China piece while the month is under the cap and a key is configured. */
-export function writerFor(input: { route: 'grok' | 'workers'; costUsd: number; hasKey: boolean }): 'grok' | 'workers' {
-  if (input.route === 'grok' && input.hasKey && input.costUsd < XAI_MONTHLY_CAP_USD) return 'grok';
+/**
+ * Every briefing and comparison uses Grok while the month is under the cap and a key is set.
+ * Workers AI is only the fallback once the cap is reached or the key is missing.
+ * `route` is accepted so older callers still compile; it no longer picks the model.
+ */
+export function writerFor(input: { route?: 'grok' | 'workers'; costUsd: number; hasKey: boolean }): 'grok' | 'workers' {
+  if (input.hasKey && input.costUsd < XAI_MONTHLY_CAP_USD) return 'grok';
   return 'workers';
 }
 
 export function statusFrom(usage: MonthUsage): ColumnStatus {
-  const articles = usage.grokBriefing + usage.grokCompare + usage.workersBriefing + usage.workersCompare;
+  const articles = usage.grokBriefing + usage.grokCompare + usage.workersBriefing + usage.workersCompare + usage.grokFocus + usage.workersFocus;
   return {
     ok: true,
     month: usage.month,
@@ -177,6 +195,8 @@ export function statusFrom(usage: MonthUsage): ColumnStatus {
       grokCompare: usage.grokCompare,
       workersBriefing: usage.workersBriefing,
       workersCompare: usage.workersCompare,
+      grokFocus: usage.grokFocus,
+      workersFocus: usage.workersFocus,
       total: articles,
     },
   };
@@ -221,13 +241,19 @@ export function preferWritten(primary: ContentDoc | null, secondary: ContentDoc)
   return ranked[0] ?? secondary;
 }
 
-/** HK and mainland stories go to Grok. Tech, finance, and international stay on Workers AI. */
+/** Briefings and comparisons all go to Grok. The cap in `writerFor` is what switches a piece to Workers AI. */
 export function routeForCluster(cluster: StoryCluster): 'grok' | 'workers' {
-  const categories = cluster.items.map((item) => item.category).filter((id): id is string => Boolean(id));
-  const hkChina = categories.filter((id) => id === 'hk' || id === 'china').length;
-  if (categories.length > 0 && hkChina * 2 > categories.length) return 'grok';
-  if (cluster.lead.category === 'hk' || cluster.lead.category === 'china') return 'grok';
-  return 'workers';
+  void cluster;
+  return 'grok';
+}
+
+const CHINA_RE = /中國|中共|北京|上海|台灣|臺灣|歐中|中歐|中美|中日|中方|兩岸|習近平|國務院|人大|大陸|內地/;
+
+/** Mainland and China-related headlines, including ones the category rules filed under business. Hong Kong stories stay in Hong Kong. */
+export function isChinaItem(item: NewsItem): boolean {
+  if (item.category === 'hk') return false;
+  if (item.category === 'china') return true;
+  return CHINA_RE.test(`${item.title}\n${item.excerpt || ''}`);
 }
 
 export function storySignature(cluster: StoryCluster): string {
@@ -250,6 +276,7 @@ export function parseWritten(raw: string | null): WrittenStory[] {
       links: row.links.filter((link) => typeof link === 'string'),
       mode: row.mode === 'ai' ? 'ai' as const : 'sources' as const,
       at: Number.isFinite(row.at) ? row.at : 0,
+      ...(typeof row.chars === 'number' && Number.isFinite(row.chars) ? { chars: Math.max(0, Math.floor(row.chars)) } : {}),
     }));
   } catch {
     return [];
@@ -271,11 +298,15 @@ export function findWritten(cluster: StoryCluster, written: WrittenStory[], now 
   return undefined;
 }
 
-/** AI pieces are never rewritten the same day. A fresh source draft is held briefly so a retry can upgrade it later. */
-export function blocksRewrite(row: WrittenStory | undefined, nowMs: number): boolean {
-  if (!row) return false;
-  if (row.mode === 'ai') return true;
-  return nowMs - row.at < DRAFT_HOLD_MS;
+/**
+ * A full Grok piece stays for the day. Sources-only drafts and thin pieces (under 500 characters)
+ * stay open so the same day's run can replace them. Rows saved before `chars` existed stay locked
+ * when they were marked as AI, so a finished piece is not regenerated just because the field is new.
+ */
+export function blocksRewrite(row: WrittenStory | undefined, _nowMs: number): boolean {
+  if (!row || row.mode !== 'ai') return false;
+  if (typeof row.chars === 'number' && row.chars < MIN_AI_CHARS) return false;
+  return true;
 }
 
 /**
@@ -319,18 +350,18 @@ function onHktDate(item: NewsItem, date: string): boolean {
   return hktParts(new Date(time)).date === date;
 }
 
-/** Today's HK and mainland headlines. If today is thin, use the newest items in that category. */
+/** Today's HK and mainland headlines. China includes related stories the category list filed elsewhere. */
 export function selectBriefingItems(items: NewsItem[], now = new Date(), perSide = 8): { hk: NewsItem[]; china: NewsItem[] } {
   const today = hktParts(now).date;
-  const take = (category: 'hk' | 'china'): NewsItem[] => {
+  const take = (pick: (item: NewsItem) => boolean): NewsItem[] => {
     const rows = items
-      .filter((item) => item.category === category)
+      .filter(pick)
       .slice()
       .sort((a, b) => Date.parse(b.pubDate) - Date.parse(a.pubDate));
     const current = rows.filter((item) => onHktDate(item, today));
     return (current.length >= 3 ? current : rows).slice(0, perSide);
   };
-  return { hk: take('hk'), china: take('china') };
+  return { hk: take((item) => item.category === 'hk'), china: take(isChinaItem) };
 }
 
 function toSource(item: NewsItem): SourceRef {
@@ -358,14 +389,13 @@ export function briefingFromItems(hk: NewsItem[], china: NewsItem[], key: string
     };
   };
   const blocks = [section('香港', hk, 'hk'), section('內地', china, 'china')].filter((block): block is DigestBlock => Boolean(block));
-  const all = blocks.flatMap((block) => block.sources);
   blocks.push({
     title: '今日值得留意',
     category: hk.length ? 'hk' : 'china',
-    sources: all.slice(0, 8),
+    sources: [],
     sentences: [
-      `這一節綜合 ${all.length} 則香港同內地標題。`,
-      ...all.slice(0, 4).map((source) => `${source.source}的標題是：${source.title}。`),
+      `香港有 ${hk.length} 則，內地有 ${china.length} 則。`,
+      '這一版尚未寫成分析。模型完成後會說明事件為何重要，以及值得留意的具體事項。',
     ],
   });
   const when = key.endsWith('pm') ? '傍晚' : '早上';
@@ -373,7 +403,7 @@ export function briefingFromItems(hk: NewsItem[], china: NewsItem[], key: string
     kind: 'briefing',
     key,
     title: `每日香港導讀 ${key.slice(0, 10)} ${when}`,
-    description: blocks[0]?.sentences[0] || '香港同內地標題導讀',
+    description: blocks[0]?.sentences[0] || '香港和內地新聞導讀',
     blocks,
     publishedAt: now.toISOString(),
     hkt: formatHkt(now.toISOString()),
@@ -381,26 +411,55 @@ export function briefingFromItems(hk: NewsItem[], china: NewsItem[], key: string
   };
 }
 
-export function compareFromCluster(cluster: StoryCluster, now = new Date()): ContentDoc {
+/** Earlier board headlines that share wording with this story, for the explainer timeline. */
+export function relatedEarlier(cluster: StoryCluster, items: NewsItem[]): NewsItem[] {
+  const lead = new Set(textTokens(cluster.lead.title));
+  if (lead.size < 2) return [];
+  const ids = new Set(cluster.items.map((item) => item.id));
+  const links = new Set(cluster.items.map((item) => item.link));
+  const earliest = Math.min(...cluster.items.map((item) => Date.parse(item.pubDate) || Number.POSITIVE_INFINITY));
+  return items.filter((item) => {
+    if (ids.has(item.id) || links.has(item.link)) return false;
+    const time = Date.parse(item.pubDate);
+    if (!Number.isFinite(time) || time >= earliest) return false;
+    let shared = 0;
+    for (const token of textTokens(item.title)) if (lead.has(token)) shared += 1;
+    return shared >= 2;
+  }).sort((a, b) => Date.parse(a.pubDate) - Date.parse(b.pubDate)).slice(0, 4);
+}
+
+export function compareFromCluster(cluster: StoryCluster, now = new Date(), earlier: NewsItem[] = []): ContentDoc {
   const sources = sourcesFromCluster(cluster, 8);
+  const prior = earlier.filter((item) => !sources.some((source) => source.url === item.link)).slice(0, 4).map(toSource);
+  const timed = [...prior, ...sources].sort((a, b) => Date.parse(a.pubDate || '') - Date.parse(b.pubDate || ''));
   const key = compareKey(cluster, now);
   const category = cluster.lead.category || 'world';
   const names = sources.slice(0, 4).map((source) => source.source).join('、');
+  const section = (title: string, sentences: string[]): DigestBlock => ({
+    title,
+    category,
+    sources,
+    sentences,
+  });
   return {
     kind: 'compare',
     key,
     title: cluster.lead.title,
-    description: `${new Set(sources.map((source) => source.source)).size} 間媒體點樣報道：${cluster.lead.title}`,
-    blocks: [{
-      title: '各家標題',
-      category,
-      sources,
-      sentences: [
-        `${names}都有報道：${cluster.lead.title}。`,
-        ...sources.slice(0, 4).map((source) => `${source.source}的標題是「${source.title}」。`),
-        '下面比較各家強調的角度、數字同語氣。細節以來源原文為準。',
-      ],
-    }],
+    description: `${new Set(sources.map((source) => source.source)).size} 間媒體報道：${cluster.lead.title}`,
+    blocks: [
+      {
+        title: '事件時間線',
+        category,
+        sources: timed,
+        sentences: timed.slice(0, 6).map((source) => `${source.source}：${source.title}。`),
+      },
+      section('事件經過', [
+        `${names}都報道了同一件事：${cluster.lead.title}。`,
+        '這一版尚未寫成懶人包。完成後會按時間說明經過，並只使用來源已經寫出的事實。',
+      ]),
+      section('各方回應', ['來源若引述了當事人，完成後會寫在這一節。現在只保留各家標題。']),
+      section('後續關注', ['後續日期、程序或未決事項，只會在來源已經寫到時才列出。']),
+    ],
     publishedAt: now.toISOString(),
     hkt: formatHkt(now.toISOString()),
     mode: 'sources',
@@ -411,4 +470,86 @@ export function compareFromCluster(cluster: StoryCluster, now = new Date()): Con
 
 export function briefingKey(now = new Date()): string {
   return slotId(now);
+}
+
+const regionsBySource = new Map<string, string[]>();
+for (const feed of FEEDS) {
+  const prev = regionsBySource.get(feed.label) ?? [];
+  const next = [...prev];
+  for (const region of feed.regions) if (!next.includes(region)) next.push(region);
+  regionsBySource.set(feed.label, next);
+}
+
+function withFeedRegions(item: NewsItem): NewsItem {
+  if (item.regions.length) return item;
+  const regions = regionsBySource.get(item.source);
+  return regions?.length ? { ...item, regions } : item;
+}
+
+/**
+ * Headlines and clusters already stored on the board. Null when the cache has no headlines,
+ * so generate can fail the request instead of crawling every feed.
+ */
+export function materialFromBoard(snapshot: BoardSnapshot | null): { items: NewsItem[]; clusters: StoryCluster[] } | null {
+  if (!snapshot?.headlines.length) return null;
+  const items = snapshot.headlines.map((row) => withFeedRegions({
+    id: row.id,
+    title: row.title,
+    link: row.link,
+    source: row.source,
+    sourceUrl: '',
+    regions: [],
+    pubDate: row.pubDate,
+    ...(row.category ? { category: row.category } : {}),
+  }));
+  const byId = new Map(items.map((item) => [item.id, item]));
+  const clusters = clustersFromSnapshot(snapshot).map((cluster) => {
+    const joined = cluster.items.map((item) => {
+      const live = byId.get(item.id);
+      if (!live) return item;
+      return {
+        ...item,
+        ...(live.category ? { category: live.category } : {}),
+        regions: live.regions.length ? live.regions : item.regions,
+      };
+    });
+    const lead = joined[0] ?? cluster.lead;
+    const sources = [...new Set(joined.map((item) => item.source))];
+    return { ...cluster, lead, items: joined, sources, count: sources.length };
+  }).filter((cluster) => cluster.count >= 2);
+  return { items, clusters };
+}
+
+export interface ColumnDelivery {
+  status: number;
+  ok: boolean;
+  fallback: boolean;
+  cold?: boolean;
+  error?: string;
+}
+
+/**
+ * HTTP result for one generate call. A cold cache or a sources-only / non-Grok piece is 503
+ * so the workflow retries. A Workers AI piece is a normal 200 only when Grok was not available
+ * (monthly cap, or no key).
+ */
+export function columnDelivery(input: {
+  cold?: boolean;
+  skipped?: string;
+  capped?: boolean;
+  docs?: { mode: string; model?: string; chars?: number }[];
+}): ColumnDelivery {
+  if (input.cold) return { status: 503, ok: false, fallback: true, cold: true, error: 'cache-cold' };
+  if (input.skipped === 'exists' || input.skipped === 'none' || input.skipped === 'no-headlines' || input.skipped === 'done') {
+    return { status: 200, ok: true, fallback: false };
+  }
+  const docs = input.docs ?? [];
+  if (!docs.length) return { status: 200, ok: true, fallback: false };
+  const fallback = docs.some((doc) => {
+    if (doc.mode !== 'ai') return true;
+    if (input.capped) return false;
+    if (!doc.model?.includes('grok')) return true;
+    return (doc.chars ?? 0) < MIN_AI_CHARS;
+  });
+  return fallback ? { status: 503, ok: false, fallback: true } : { status: 200, ok: true, fallback: false };
 }

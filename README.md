@@ -116,18 +116,20 @@ npx wrangler kv namespace create CONTENT
 
 `[ai]` 綁定只能走遠端。`npx wrangler pages dev dist` 因此需要環境變數 `CLOUDFLARE_API_TOKEN`（權限要有 Workers AI）。沒有 token 時，先把 `wrangler.toml` 的 `[ai]` 三段註解掉，頁面會用來源標題稿，不會叫模型。
 
-## Grok 導讀同多方對比
+## Grok 導讀同新聞懶人包
 
-`/briefing/`、`/briefing/<slot>/`（`YYYY-MM-DD-am` 或 `pm`）同 `/compare/`、`/compare/<key>/` 都是可索引的 HTML，會寫進 `sitemap.xml`。導讀用當日香港同內地標題，每日 07:30 同 18:30（香港時間）各一篇。對比跟現有「多方報道」分組，按唔同媒體數目排，每日最多 20 篇；香港同內地用 xAI `grok-4.3`，科技、財經、國際用 Workers AI。
+`/briefing/`、`/briefing/<slot>/`（`YYYY-MM-DD-am` 或 `pm`）和 `/explainer/`、`/explainer/<key>/` 都是可索引的 HTML，會寫進 `sitemap.xml`。導讀用當日香港和內地標題（包括「歐中貿易談判」這類歸在財經、但內容是中國的報道），每日 07:30 和 18:30（香港時間）各一篇，並連到同日的懶人包。新聞懶人包跟現有「多方報道」分組，按不同媒體數目排，每日最多 20 篇：一篇整合各家來源，文首三行重點，下面是事件時間線、重點數字、事件經過、各方回應和後續關注。舊網址 `/compare/` 會 301 到 `/explainer/`。導讀和懶人包一律用 xAI `grok-4.3`，正文是正式新聞書面語。Workers AI 只在本月 10 美元上限用盡，或 xAI 沒有回應時才用。
 
-生成由 `.github/workflows/warm-content.yml` 分批呼叫 `POST /api/generate`（header `x-generate-secret`）。每批最多 3 篇。同一日同一件事不會寫兩次。模型失敗會改用 Workers AI，再退回來源標題稿，唔會令首頁 500。
+`/region/<code>/` 和 `/category/<slug>/` 在標題列表上方有一段「本週重點」（約 250 至 400 字，標明 AI 整合）。同一日只寫一次，跟導讀共用 10 美元上限。KV 未有這段時，頁面只顯示標題列表，不會報錯。
 
-xAI 定價：輸入每百萬 token 1.25 美元，輸出每百萬 token 2.50 美元。用量按香港時間曆月存在 KV `xai-usage:YYYY-MM`。當月累計達到 10 美元之後，新文章自動改走 Workers AI。`POST /api/generate?kind=status`（同樣要 `x-generate-secret`）回傳本月 token、費用同篇數。
+生成由 `.github/workflows/warm-content.yml` 分批呼叫 `POST /api/generate`（header `x-generate-secret`）。導讀、懶人包和本週重點只讀已快取的新聞板，不會在這次請求裡重抓 RSS。快取未有、或結果只是來源標題稿時，回應是 503 且 `fallback: true`，工作流程會再試。每批最多 3 篇。當日已經寫好、正文夠長的 Grok 稿不會重寫；過短的來源稿可以重寫。模型失敗會改用 Workers AI，再退回來源標題稿，不會令首頁 500。
+
+xAI 定價：輸入每百萬 token 1.25 美元，輸出每百萬 token 2.50 美元。推理 token 計入輸出。用量按香港時間曆月存在 KV `xai-usage:YYYY-MM`。當月累計達到 10 美元之後，新文章自動改走 Workers AI。`POST /api/generate?kind=status`（同樣要 `x-generate-secret`）回傳本月 token、費用和篇數。
 
 | 名稱 | 放哪裡 | 填什麼 |
 | --- | --- | --- |
 | `XAI_API_KEY` | Pages secret，`npx wrangler pages secret put XAI_API_KEY` | xAI API key。唔好寫入 repo，亦唔好放在 `VITE_` |
-| `GENERATE_SECRET` | 已有的 Pages 變數同 GitHub Actions secret | 導讀、對比、status 用同一組密碼 |
+| `GENERATE_SECRET` | 已有的 Pages 變數同 GitHub Actions secret | 導讀、懶人包、status 用同一組密碼 |
 
 KV 綁定 `CONTENT` 沿用現有 namespace，唔使再開一個。Workflow 唔使新 secret：key 只放在 Pages。
 

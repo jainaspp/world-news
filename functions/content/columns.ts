@@ -1,7 +1,6 @@
-import { getNews } from '../../server/newsService.js';
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
 import type { StoryCluster } from '../../shared/angles.js';
-import { clusterRecent, clustersFromSnapshot, type BoardSnapshot } from '../../shared/board.js';
+import type { NewsItem } from '../../shared/types.js';
 import {
   applyModelText,
   formatHkt,
@@ -13,17 +12,22 @@ import {
 import {
   COMPARE_BATCH,
   GROK_MODEL,
+  MIN_AI_CHARS,
   briefingFromItems,
   briefingKey,
+  capReached,
+  columnDelivery,
   compareFromCluster,
   compareKey,
   emptyUsage,
   findWritten,
   hktMonth,
+  materialFromBoard,
   parseUsage,
   parseWritten,
   pickCompareBatch,
   preferWritten,
+  relatedEarlier,
   richness,
   routeForCluster,
   selectBriefingItems,
@@ -34,12 +38,13 @@ import {
   withTokens,
   writerFor,
   writtenKey,
+  type ColumnDelivery,
   type MonthUsage,
   type WrittenStory,
 } from '../../shared/grok.js';
-import type { NewsItem } from '../../shared/types.js';
 import type { PagesContext } from '../env.js';
 import { readBoard } from '../board/store.js';
+import { generateFocus } from './focus.js';
 import { adConfig, polish } from './publish.js';
 import { docKey, readDoc, readIndex, readValue, rememberIndexMany, writeDoc, writeValue, type ContentEnv } from './store.js';
 import { completeGrok } from './xai.js';
@@ -72,9 +77,16 @@ function emptyDoc(kind: 'briefing' | 'compare', key: string, title: string): Con
   };
 }
 
-function htmlPage(doc: ContentDoc, canonical: string, env: ContentEnv, archive: Awaited<ReturnType<typeof readIndex>>, status = 200): Response {
+function htmlPage(
+  doc: ContentDoc,
+  canonical: string,
+  env: ContentEnv,
+  archive: Awaited<ReturnType<typeof readIndex>>,
+  status = 200,
+  explainers: Awaited<ReturnType<typeof readIndex>> = [],
+): Response {
   const shown = doc.mode === 'ai' ? guardDoc(doc) : doc;
-  return new Response(renderContentPage(shown, canonical, { ads: adConfig(env), archive }), { status, headers: HTML_HEADERS });
+  return new Response(renderContentPage(shown, canonical, { ads: adConfig(env), archive, explainers }), { status, headers: HTML_HEADERS });
 }
 
 async function monthUsage(env: ContentEnv, now = new Date()): Promise<MonthUsage> {
@@ -95,10 +107,11 @@ interface Job {
   route: 'grok' | 'workers';
 }
 
-/** Grok calls for a batch run together. Workers AI runs only when Grok is short, capped, or not the route. */
-async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()): Promise<{ docs: ContentDoc[]; usage: MonthUsage; grokStatus: number[]; grokError: string[] }> {
+/** Grok calls for a batch run together. Workers AI runs only when the cap is hit, the key is missing, or xAI returns nothing. */
+async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()): Promise<{ docs: ContentDoc[]; usage: MonthUsage; grokStatus: number[]; grokError: string[]; capped: boolean }> {
   let usage = await monthUsage(env);
   const key = apiKey(env);
+  const capped = capReached(usage) || !key;
   const statuses: number[] = [];
   const errors: string[] = [];
   const grok = await Promise.all(jobs.map(async (job) => {
@@ -129,13 +142,13 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
   if (grok.some((row) => row.requests)) await saveUsage(env, usage);
 
   const docs = await Promise.all(grok.map(async (row) => {
-    if (row.grokDoc && richness(row.grokDoc) >= 500) return row.grokDoc;
-    if (Date.now() - started > WALL_MS) return row.grokDoc ?? row.job.draft;
+    if (row.grokDoc) return row.grokDoc;
+    if (Date.now() - started > WALL_MS) return row.job.draft;
     try {
       const polished = await polish(env, row.job.draft);
-      return preferWritten(row.grokDoc, polished);
+      return preferWritten(null, polished);
     } catch {
-      return row.grokDoc ?? row.job.draft;
+      return row.job.draft;
     }
   }));
   for (const doc of docs) {
@@ -143,25 +156,17 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
     usage = withArticle(usage, doc.model?.includes('grok') ? 'grok' : 'workers', doc.kind);
   }
   await saveUsage(env, usage);
-  return { docs, usage, grokStatus: statuses, grokError: [...new Set(errors)] };
+  return { docs, usage, grokStatus: statuses, grokError: [...new Set(errors)], capped };
 }
 
-function withLiveItems(snapshot: BoardSnapshot, items: NewsItem[]): StoryCluster[] {
-  const byId = new Map(items.map((item) => [item.id, item]));
-  return clustersFromSnapshot(snapshot).map((cluster) => {
-    const joined = cluster.items.map((item) => byId.get(item.id) ?? item);
-    const lead = joined[0] ?? cluster.lead;
-    const sources = [...new Set(joined.map((item) => item.source))];
-    return { ...cluster, lead, items: joined, sources, count: sources.length };
-  }).filter((cluster) => cluster.count >= 2);
-}
-
-/** Prefer the precomputed 多方報道 board so this request does not cluster the whole feed. */
-async function loadMaterial(env: ContentEnv): Promise<{ items: NewsItem[]; clusters: StoryCluster[] }> {
-  const news = await getNews();
+/** The cached board only. A cold cache returns null so the caller can answer 503 without crawling feeds. */
+async function loadMaterial(env: ContentEnv): Promise<{ items: NewsItem[]; clusters: StoryCluster[] } | null> {
   const board = await readBoard(env).catch(() => null);
-  const clusters = board?.clusters.length ? withLiveItems(board, news.items) : clusterRecent(news.items);
-  return { items: news.items, clusters };
+  return materialFromBoard(board);
+}
+
+function delivered(delivery: ColumnDelivery, extra: Record<string, unknown>): Record<string, unknown> {
+  return { ...extra, ...delivery };
 }
 
 export async function columnStatus(env: ContentEnv, now = new Date()): Promise<ReturnType<typeof statusFrom>> {
@@ -172,29 +177,42 @@ export async function columnStatus(env: ContentEnv, now = new Date()): Promise<R
 export async function generateBriefing(env: ContentEnv, now = new Date()): Promise<Record<string, unknown>> {
   const key = briefingKey(now);
   const existing = await readDoc(env, docKey('briefing', key));
-  if (existing?.doc.mode === 'ai') return { ok: true, kind: 'briefing', key, mode: 'ai', skipped: 'exists' };
-  const { items } = await loadMaterial(env);
-  const selected = selectBriefingItems(items, now);
+  if (existing?.doc.mode === 'ai' && existing.doc.model?.includes('grok') && richness(existing.doc) >= MIN_AI_CHARS) {
+    return delivered(columnDelivery({ skipped: 'exists' }), { kind: 'briefing', key, mode: 'ai', skipped: 'exists' });
+  }
+  const material = await loadMaterial(env);
+  if (!material) return delivered(columnDelivery({ cold: true }), { kind: 'briefing', key });
+  const selected = selectBriefingItems(material.items, now);
   const draft = briefingFromItems(selected.hk, selected.china, key, now);
-  if (!draft) return { ok: true, kind: 'briefing', key, skipped: 'no-headlines' };
-  const { docs, grokStatus, grokError } = await composeBatch(env, [{ draft, route: 'grok' }]);
+  if (!draft) return delivered(columnDelivery({ skipped: 'no-headlines' }), { kind: 'briefing', key, skipped: 'no-headlines' });
+  const { docs, grokStatus, grokError, capped } = await composeBatch(env, [{ draft, route: 'grok' }]);
   const doc = docs[0] ?? draft;
   await writeDoc(env, doc);
-  return { ok: true, kind: 'briefing', key, mode: doc.mode, model: doc.model ?? '', chars: richness(doc), grokStatus, grokError };
+  const chars = richness(doc);
+  return delivered(columnDelivery({ capped, docs: [{ mode: doc.mode, model: doc.model, chars }] }), {
+    kind: 'briefing',
+    key,
+    mode: doc.mode,
+    model: doc.model ?? '',
+    chars,
+    grokStatus,
+    grokError,
+  });
 }
 
 export async function generateCompare(env: ContentEnv, limit = COMPARE_BATCH, now = new Date()): Promise<Record<string, unknown>> {
   const take = Math.max(1, Math.min(COMPARE_BATCH, limit));
   const written = parseWritten(await readValue(env, writtenKey(now)).catch(() => null));
-  const { clusters } = await loadMaterial(env);
-  const picked = pickCompareBatch(clusters, written, take, now);
-  if (!picked.length) return { ok: true, kind: 'compare', keys: [], skipped: 'none' };
+  const material = await loadMaterial(env);
+  if (!material) return delivered(columnDelivery({ cold: true }), { kind: 'compare', keys: [] });
+  const picked = pickCompareBatch(material.clusters, written, take, now);
+  if (!picked.length) return delivered(columnDelivery({ skipped: 'none' }), { kind: 'compare', keys: [], skipped: 'none' });
   const jobs = picked.map((cluster) => ({
-    draft: compareFromCluster(cluster, now),
+    draft: compareFromCluster(cluster, now, relatedEarlier(cluster, material.items)),
     route: routeForCluster(cluster),
     cluster,
   }));
-  const { docs, grokStatus, grokError } = await composeBatch(env, jobs);
+  const { docs, grokStatus, grokError, capped } = await composeBatch(env, jobs);
   const saved: ContentDoc[] = [];
   const nextWritten: WrittenStory[] = [...written];
   for (const [index, doc] of docs.entries()) {
@@ -208,6 +226,7 @@ export async function generateCompare(env: ContentEnv, limit = COMPARE_BATCH, no
       links: [...new Set(cluster.items.map((item) => item.link))],
       mode: doc.mode,
       at: now.getTime(),
+      chars: richness(doc),
     };
     const previous = findWritten(cluster, nextWritten, now);
     if (previous) {
@@ -218,8 +237,10 @@ export async function generateCompare(env: ContentEnv, limit = COMPARE_BATCH, no
     await writeValue(env, writtenKey(now), JSON.stringify(nextWritten));
   }
   if (saved.length) await rememberIndexMany(env, saved).catch(() => undefined);
-  return {
-    ok: true,
+  return delivered(columnDelivery({
+    capped,
+    docs: saved.map((doc) => ({ mode: doc.mode, model: doc.model, chars: richness(doc) })),
+  }), {
     kind: 'compare',
     keys: saved.map((doc) => doc.key),
     modes: saved.map((doc) => doc.mode),
@@ -227,7 +248,7 @@ export async function generateCompare(env: ContentEnv, limit = COMPARE_BATCH, no
     models: saved.map((doc) => doc.model ?? ''),
     grokStatus,
     grokError,
-  };
+  });
 }
 
 function slotOk(slot: string): boolean {
@@ -250,7 +271,7 @@ export async function serveCompareIndex(context: PagesContext): Promise<Response
   applyRuntimeEnv(context.env);
   const env = context.env as ContentEnv;
   const entries = await readIndex(env, 'compare').catch(() => []);
-  const canonical = `${siteUrl(env)}/compare/`;
+  const canonical = `${siteUrl(env)}/explainer/`;
   return new Response(renderColumnIndex('compare', entries, canonical, { ads: adConfig(env) }), { headers: HTML_HEADERS });
 }
 
@@ -260,21 +281,23 @@ export async function serveBriefing(context: PagesContext): Promise<Response> {
   const slot = decodeURIComponent(new URL(context.request.url).pathname.split('/').filter(Boolean)[1] || '');
   const canonical = `${siteUrl(env)}/briefing/${slot}`;
   const archive = await readIndex(env, 'briefing').catch(() => []);
-  if (!slotOk(slot)) return htmlPage(emptyDoc('briefing', slot, '未有這一期'), canonical, env, archive, 404);
+  const day = slot.slice(0, 10);
+  const explainers = (await readIndex(env, 'compare').catch(() => [])).filter((entry) => entry.key.startsWith(day));
+  if (!slotOk(slot)) return htmlPage(emptyDoc('briefing', slot, '未有這一期'), canonical, env, archive, 404, explainers);
   const saved = await readDoc(env, docKey('briefing', slot)).catch(() => null);
-  if (!saved) return htmlPage(emptyDoc('briefing', slot, '未有這一期'), canonical, env, archive, 404);
-  return htmlPage(saved.doc, canonical, env, archive);
+  if (!saved) return htmlPage(emptyDoc('briefing', slot, '未有這一期'), canonical, env, archive, 404, explainers);
+  return htmlPage(saved.doc, canonical, env, archive, 200, explainers);
 }
 
 export async function serveCompare(context: PagesContext): Promise<Response> {
   applyRuntimeEnv(context.env);
   const env = context.env as ContentEnv;
   const key = decodeURIComponent(new URL(context.request.url).pathname.split('/').filter(Boolean)[1] || '');
-  const canonical = `${siteUrl(env)}/compare/${encodeURIComponent(key)}`;
+  const canonical = `${siteUrl(env)}/explainer/${encodeURIComponent(key)}`;
   const archive = await readIndex(env, 'compare').catch(() => []);
-  if (!compareOk(key)) return htmlPage(emptyDoc('compare', key, '未有這則對比'), canonical, env, archive, 404);
+  if (!compareOk(key)) return htmlPage(emptyDoc('compare', key, '未有這則懶人包'), canonical, env, archive, 404);
   const saved = await readDoc(env, docKey('compare', key)).catch(() => null);
-  if (!saved) return htmlPage(emptyDoc('compare', key, '未有這則對比'), canonical, env, archive, 404);
+  if (!saved) return htmlPage(emptyDoc('compare', key, '未有這則懶人包'), canonical, env, archive, 404);
   return htmlPage(saved.doc, canonical, env, archive);
 }
 
@@ -289,11 +312,23 @@ export async function warmColumns(context: PagesContext): Promise<Response> {
     }
     const kind = new URL(context.request.url).searchParams.get('kind') || '';
     if (kind === 'status') return Response.json(await columnStatus(env));
-    if (kind === 'briefing') return Response.json(await generateBriefing(env));
-    if (kind === 'compare') {
+    if (kind === 'briefing') {
+      const result = await generateBriefing(env);
+      const status = typeof result.status === 'number' ? result.status : 200;
+      return Response.json(result, { status, headers: { 'cache-control': 'no-store' } });
+    }
+    if (kind === 'compare' || kind === 'explainer') {
       const requested = Number(new URL(context.request.url).searchParams.get('limit') || COMPARE_BATCH);
       const limit = Number.isFinite(requested) ? requested : COMPARE_BATCH;
-      return Response.json(await generateCompare(env, limit));
+      const result = await generateCompare(env, limit);
+      const status = typeof result.status === 'number' ? result.status : 200;
+      return Response.json(result, { status, headers: { 'cache-control': 'no-store' } });
+    }
+    if (kind === 'focus') {
+      const requested = Number(new URL(context.request.url).searchParams.get('limit') || '');
+      const result = await generateFocus(env, Number.isFinite(requested) ? requested : undefined);
+      const status = typeof result.status === 'number' ? result.status : 200;
+      return Response.json(result, { status, headers: { 'cache-control': 'no-store' } });
     }
     return Response.json({ error: 'kind' }, { status: 400, headers: { 'cache-control': 'no-store' } });
   } catch {
