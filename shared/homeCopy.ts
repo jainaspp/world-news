@@ -3,7 +3,6 @@
 export interface HomeSection {
   name: string;
   text: string;
-  /** Omitted when another change owns the URL, so this copy does not invent one. */
   href?: string;
 }
 
@@ -18,5 +17,5 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
   { name: '週報', href: '/weekly/', text: '回顧一週科技與一週財經的公開標題，並非投資建議。' },
   { name: '熱門分析', href: '/analysis/', text: '三間或以上媒體報道同一件事時，整理背景與各方說法，並連結原文。' },
   { name: '每日香港導讀', href: '/briefing/', text: '每日整理與香港相關的公開標題，方便先看本地重點，再前往原文核對。' },
-  { name: '新聞懶人包', text: '整合多方報道、配時間線，方便對照同一件事的各家說法。' },
+  { name: '新聞懶人包', href: '/explainer/', text: '整合多方報道、配時間線，方便對照同一件事的各家說法。' },
 ];

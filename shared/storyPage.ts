@@ -43,8 +43,8 @@ ${head(item.title, description, canonical, image, 'article', ld, '', false)}
           <h1 class="story-title column-title">${esc(item.title)}</h1>
           <div class="story-meta">${favicon(item.link)}<strong>${esc(item.source)}</strong><time datetime="${esc(item.pubDate)}">· ${esc(hkt(item.pubDate))} 香港時間</time></div>
           <div class="story-actions">
-            ${url ? `<a class="primary" href="${esc(url)}" target="_blank" rel="noopener noreferrer">睇 ${esc(item.source)} 原文 →</a>` : ''}
-            ${analysis ? `<a class="chip analysis-chip" href="${analysis}"><span class="badge ai-badge">AI 整合</span> 背景同各方說法</a>` : ''}
+            ${url ? `<a class="primary" href="${esc(url)}" target="_blank" rel="noopener noreferrer">閱讀 ${esc(item.source)} 原文 →</a>` : ''}
+            ${analysis ? `<a class="chip analysis-chip" href="${analysis}"><span class="badge ai-badge">AI 整合</span> 背景與各方說法</a>` : ''}
           </div>
           ${share(item.title, canonical)}
         </div>
@@ -53,7 +53,7 @@ ${head(item.title, description, canonical, image, 'article', ld, '', false)}
       ${cards ? `<section class="related"><h2 class="section-title">相關頭條</h2><div class="news-grid related-grid">${cards}</div></section>` : ''}
     </main>
     <aside class="sidebar" aria-label="側欄">
-      <section class="side-card"><h2>關於呢版</h2><p>世界頭條只列出標題、來源同原文連結，不轉載內文。全文請到原文網站閱讀。</p></section>
+      <section class="side-card"><h2>關於此頁</h2><p>世界頭條只列出標題、來源與原文連結，不轉載內文。全文請到原文網站閱讀。</p></section>
     </aside>
   </div>
   ${footer()}
@@ -65,8 +65,8 @@ ${head(item.title, description, canonical, image, 'article', ld, '', false)}
 export function renderStoryMissing(canonical: string): string {
   return `<!doctype html>
 <html lang="zh-HK">
-${head('呢則頭條已經下架', '標題只保留一段時間。', canonical, '', 'website', '<meta name="robots" content="noindex" />', '', false)}
-<body><div class="page column-page">${chrome('none')}<main id="content" class="column-index"><div class="status-panel"><h2>呢則頭條已經下架</h2><p>世界頭條只保留最近的標題。可以返回首頁睇最新頭條。</p><a class="primary" href="/">返回首頁</a></div></main>${footer()}</div></body></html>`;
+${head('此則頭條已經下架', '標題只保留一段時間。', canonical, '', 'website', '<meta name="robots" content="noindex" />', '', false)}
+<body><div class="page column-page">${chrome('none')}<main id="content" class="column-index"><div class="status-panel"><h2>此則頭條已經下架</h2><p>世界頭條只保留最近的標題。可以返回首頁查看最新頭條。</p><a class="primary" href="/">返回首頁</a></div></main>${footer()}</div></body></html>`;
 }
 
 /** Same-category headlines first, newest first, excluding the story's own cluster. */

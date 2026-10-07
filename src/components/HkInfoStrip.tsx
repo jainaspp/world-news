@@ -153,7 +153,7 @@ export function HkInfoStrip() {
           if (!parsed || typeof parsed.temperature !== 'number') {
             setAbroad(null);
             setAbroadFailed(true);
-            setNote('你所在位置嘅天氣暫時攞唔到，照顯示香港。');
+            setNote('你所在位置的天氣暫時未能取得，改為顯示香港。');
             return;
           }
           setAbroad(parsed);
@@ -164,7 +164,7 @@ export function HkInfoStrip() {
           if (cancel) return;
           setAbroad(null);
           setAbroadFailed(true);
-          setNote('你所在位置嘅天氣暫時攞唔到，照顯示香港。');
+          setNote('你所在位置的天氣暫時未能取得，改為顯示香港。');
         });
     };
     load();
@@ -241,7 +241,7 @@ export function HkInfoStrip() {
     setMenu(false);
     if (!navigator.geolocation) {
       setChoice({ mode: 'territory' });
-      setNote('呢部機冇定位，照顯示香港。');
+      setNote('此裝置沒有定位功能，改為顯示香港。');
       return;
     }
     setLocating(true);
@@ -256,7 +256,7 @@ export function HkInfoStrip() {
         setLocating(false);
         setAbroad(null);
         setChoice({ mode: 'territory' });
-        setNote(error.code === 1 ? '你拒絕咗定位，照顯示香港。' : '定位唔到，照顯示香港。');
+        setNote(error.code === 1 ? '你已拒絕定位，改為顯示香港。' : '暫時無法定位，改為顯示香港。');
       },
       { enableHighAccuracy: false, timeout: 8000, maximumAge: 600_000 },
     );
@@ -390,7 +390,7 @@ export function HkInfoStrip() {
           </dl>
         )}
         {forecast && <p className="wx-forecast">{forecast}</p>}
-        {focus.place && !fallbackHk && (forecast || days.length > 0) && <p className="wx-kicker">以下係全港預測</p>}
+        {focus.place && !fallbackHk && (forecast || days.length > 0) && <p className="wx-kicker">以下為全港預測</p>}
         {days.length > 0 && (
           <div className="wx-days">
             {days.map((day) => (
@@ -419,7 +419,7 @@ export function HkInfoStrip() {
           </div>
         )}
         {!detailRows.length && !forecast && days.length === 0 && abroadDays.length === 0 && (
-          <p className="wx-forecast">{focus.outside && !abroadFailed ? '載入中' : '暫時冇更多天氣資料。'}</p>
+          <p className="wx-forecast">{focus.outside && !abroadFailed ? '載入中' : '暫時沒有更多天氣資料。'}</p>
         )}
         {updated && <p className="wx-meta">更新時間 {updated}</p>}
         <p className="wx-meta">

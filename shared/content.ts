@@ -28,6 +28,20 @@ export const BRIEFING_HEADINGS = ['香港', '內地', '今日值得留意'] as c
 
 export const COMPARE_HEADINGS = ['事件經過', '各方回應', '後續關注'] as const;
 
+/** A comparison saved before the 懶人包 format, or one that still contains Cantonese, stays out of the public list. */
+export function explainerCurrent(doc: ContentDoc): boolean {
+  if (doc.kind !== 'compare') return false;
+  const titles = new Set(doc.blocks.map((block) => block.title));
+  if (!titles.has('事件時間線') || !titles.has('事件經過')) return false;
+  const prose = [
+    doc.title,
+    doc.description,
+    ...(doc.points ?? []),
+    ...doc.blocks.filter((block) => block.title !== '事件時間線').flatMap((block) => block.sentences),
+  ].join('\n');
+  return !cantoneseLeft(prose);
+}
+
 export const TIMELINE_HEADING = '事件時間線';
 
 export interface SourceRef {
@@ -328,14 +342,14 @@ export function weeklyFromHeadlines(tech: SourceRef[], business: SourceRef[], ke
 
 function columnPrompt(doc: ContentDoc, strict: boolean): { system: string; user: string; maxTokens: number } {
   const system = [
-    '你是世界頭條的編輯，寫原創整合，不是改寫任何一篇報道。一律用繁體中文（香港報紙書面語），不要用簡體字，不要用粵語口語。',
-    '用正式新聞書面語。不要使用粵語口語，包括「嘅」「係」「喺」「佢」「咩」「同埋」「咗」「嘢」「咁」「唔」「冇」。判斷用「是」。使用全形標點，中文之間不要用空格分隔。數字用阿拉伯數字。',
-    '只可使用提供的標題和摘錄。可以綜合、對照、解釋各則標題之間的關係，但禁止添加來源沒有寫的事實、數字、引言、人名、地點或因果。',
+    '你是世界頭條的編輯，寫原創整合，不是改寫任何一篇報道。一律用繁體中文正式新聞書面語，不要用簡體字，不要用粵語口語。',
+    '判斷用「是」。使用全形標點，一句只說一件事，中文之間不要用空格分隔。數字和年份一律用阿拉伯數字，例如 2026、3.2%、21.44億。',
+    '只可使用提供的標題和摘錄。同一事實只寫一次：各家說法相同就合併成一句，只有數字或措辭不同時才點名是哪一家。禁止添加來源沒有寫的事實、數字、引言、人名、地點、因果或形容，例如「迅速」「安全救下」。',
     '不要稱呼資料欄位，也不要談論材料的格式。不要把標題原句串成內文。',
-    '提到媒體時照用資料中 source 的名稱，不要自行翻譯或改名。句子裡要點出是哪一家媒體的講法，方便讀者對回原文。',
-    '標題必須點出這則新聞本身的事件，不要換成另一件事。不要用 Markdown。回覆必須是 JSON。',
-    '正文合計至少 500 個中文字。',
-    strict ? '上一次太短、太多英文，或夾有粵語口語。今次每一句都用正式新聞書面語，正文至少 500 個中文字。' : '',
+    '提到媒體時照用資料中 source 的名稱，不要自行翻譯或改名，也不要在名稱後面再加一次分類。',
+    '標題必須是中文，英文來源也要譯成中文標題，並且點出這則新聞本身的事件。不要用 Markdown。回覆必須是 JSON。',
+    '正文至少 450 個中文字。結構完整時無須為了湊字而重複同一事實。',
+    strict ? '上一次太短、太多英文，或夾有粵語口語。今次每一句都用正式新聞書面語，正文至少 450 個中文字，同一事實只寫一次。' : '',
   ].join('');
   const clip = (source: SourceRef, index: number) => ({
     n: index + 1,
@@ -348,8 +362,8 @@ function columnPrompt(doc: ContentDoc, strict: boolean): { system: string; user:
       .filter((block) => block.title === '香港' || block.title === '內地')
       .map((block) => ({ heading: block.title, sources: block.sources.map(clip) }));
     const shape = [
-      '回傳 {"title":"20字以內的導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"四至六句"}],"points":["重點","重點","重點"]}。',
-      '這是分析，不是標題清單。每一段要寫事件為何重要、有甚麼背景，以及讀者可以留意的具體事項。',
+      '回傳 {"title":"20字以內的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"四至六句"}],"points":["重點","重點","重點"]}。',
+      '這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫為何重要。同一事實只寫一次。',
       '香港段只根據香港來源，內地段只根據內地來源。沒有來源的一邊就整段省略。',
       '今日值得留意綜合兩邊，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。',
       'points 三至四項，每項 30 字以內。數字必須在來源出現過。',
@@ -359,9 +373,9 @@ function columnPrompt(doc: ContentDoc, strict: boolean): { system: string; user:
   const timeline = doc.blocks.find((block) => block.title === TIMELINE_HEADING);
   const sources = (timeline?.sources.length ? timeline.sources : doc.blocks[0]?.sources) ?? [];
   const shape = [
-    '回傳 {"title":"中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"highlight":{"label":"重點數字","items":["來源裡的數字"]},"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"四至六句"}]}。',
-    '這是一篇新聞懶人包，把各家報道收成一篇，讓讀者立刻明白發生了甚麼。不要做成對照表，不要逐則複述標題。',
-    'points 剛好三行，每行 40 字以內，是文首摘要。highlight 只放來源已經寫出的數字；沒有數字就省略 highlight。',
+    '回傳 {"title":"中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"highlight":{"label":"重點數字","items":["名稱與單位，例如加幅 3.2%"]},"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"四至六句"}]}。',
+    '這是一篇新聞懶人包，把各家報道收成一篇，讓讀者立刻明白發生了甚麼。不要做成對照表，不要按媒體各寫一遍同一個事實。',
+    'points 剛好三行，每行 40 字以內，是文首摘要。highlight 的每一項都要有中文名稱和單位，例如「加幅 3.2%」「規模 21.44億歐元」；沒有數字就省略 highlight。不要只寫「3.2%」或「307」。',
     '「事件經過」按時間寫清經過。「各方回應」只寫來源點名的人或機構說了甚麼；沒有回應就整段省略。「後續關注」只寫來源提到的下一步、日期或未決事項。',
     '標題必須是這一件事。禁止添加來源沒有的事實。',
   ].join('');
@@ -470,6 +484,7 @@ export function cleanHighlight(doc: ContentDoc, value: unknown): Highlight | und
     .map((item) => item.replace(/\s+/g, ' ').trim())
     .filter((item) => item.length > 0 && item.length <= 28)
     .filter((item) => (arabicDigits(item).replace(/,/g, '').match(/\d+(?:\.\d+)?/g) || []).every((number) => haystack.includes(number)))
+    .filter((item) => label !== '重點數字' || labeledNumber(item))
     .slice(0, 4);
   if (!items.length) return undefined;
   if (label === '重點數字' && !items.some((item) => /\d/.test(item))) return { label: '關鍵詞', items };
@@ -484,6 +499,26 @@ function withHighlight(doc: ContentDoc, record: { highlight?: unknown }): Conten
     return rest;
   }
   return { ...doc, highlight };
+}
+
+/** A 重點數字 item needs a unit and a Chinese label, not a bare figure such as 3.2% or 約 3%. */
+function labeledNumber(item: string): boolean {
+  const text = arabicDigits(item);
+  if (!/\d/.test(text)) return false;
+  const hasUnit = /%|％|億|萬|元|美元|港元|歐元|人|項|次|公里|米|噸|歲/.test(text);
+  const rest = text.replace(/\d+(?:\.\d+)?/g, '').replace(/[%％\s·]/g, '');
+  if (!hasUnit || !/[\u3400-\u9fff]/.test(rest)) return false;
+  return !/^[約大概左右]+$/.test(rest);
+}
+
+const EMBELLISHMENTS = ['迅速', '安全救下', '英勇', '驚險', '慘烈', '史無前例'];
+
+function stripEmbellishments(text: string, haystack: string): string {
+  let out = text;
+  for (const word of EMBELLISHMENTS) {
+    if (!haystack.includes(word)) out = out.split(word).join('');
+  }
+  return out.replace(/，{2,}/g, '，').replace(/^[，、\s]+/, '').replace(/[，、\s]+$/, '');
 }
 
 function sourceText(sources: SourceRef[], extra: string[] = []): string {
@@ -506,8 +541,9 @@ function cjkBigrams(text: string): Set<string> {
 /** The title has to share wording with a source headline, so a wrong story cannot stay up. */
 function titleFitsStory(title: string, sources: SourceRef[]): boolean {
   const grams = cjkBigrams(title);
-  if (!grams.size) return false;
   const hay = cjkBigrams(sources.map((source) => source.title).join(''));
+  if (!hay.size) return grams.size >= 2;
+  if (!grams.size) return false;
   for (const gram of grams) if (hay.has(gram)) return true;
   return false;
 }
@@ -542,7 +578,8 @@ export function guardDoc(doc: ContentDoc): ContentDoc {
   const clean = (text: string, haystack: string): string | null => {
     const outlets = fixOutlets(text, names);
     log.push(...outlets.removed);
-    const places = scrubPlaces(outlets.text, haystack);
+    const plain = stripEmbellishments(outlets.text, haystack);
+    const places = scrubPlaces(plain, haystack);
     log.push(...places.removed);
     return places.dropped ? null : places.text;
   };

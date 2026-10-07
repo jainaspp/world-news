@@ -82,12 +82,10 @@ export function itemsForFocus(items: NewsItem[], page: FocusPage, now = new Date
 
 export function focusPrompt(page: FocusPage, items: NewsItem[]): { system: string; user: string } {
   const system = [
-    '你是香港報紙的編輯，用繁體中文書面語寫「本週重點」。不要用粵語口語，不要用簡體字。',
-    '用正式新聞書面語。不要使用粵語口語（嘅、係、喺、佢、咩、同埋、咗、嘢、咁）。判斷用「是」。',
-    '使用全形標點，中文之間不要用空格分隔。數字用阿拉伯數字，例如 307、21.44億、57.7%。',
-    '只可根據提供的標題和摘錄。禁止添加來源沒有寫的事實、數字、引言、人名或因果。',
-    '不要稱呼資料欄位，也不要談論材料的格式或來源的樣子。',
-    '點名報道的媒體，寫出關鍵數字，並說明為何值得留意。正文 250 至 400 個中文字。不要用 Markdown。',
+    '你是香港報紙的編輯，用繁體中文正式新聞書面語寫「本週重點」。不要用粵語口語，不要用簡體字。判斷用「是」。',
+    '只回傳一段正文，不要標題，不要 JSON，不要 Markdown。使用全形標點。數字和年份用阿拉伯數字，例如 2026、307、21.44億、57.7%。',
+    '只可根據提供的標題和摘錄。同一事實只寫一次，不要按媒體各寫一遍。禁止添加來源沒有的事實、數字、引言或形容。',
+    '點名報道的媒體，寫出帶名稱和單位的關鍵數字，並說明為何值得留意。正文 280 至 360 個中文字。短於 250 或長於 400 會被捨棄。',
   ].join('');
   const data = items.slice(0, 12).map((item) => ({
     source: item.source,
@@ -111,10 +109,18 @@ export function focusBody(raw: string): string | null {
       text = trimmed;
     }
   }
-  const polished = polishProse(text).trim();
+  let polished = polishProse(text).trim();
+  if (/標題同描述|標題和描述|短描述/.test(polished) || cantoneseLeft(polished)) return null;
+  if (hanCount(polished) > FOCUS_MAX_CHARS) {
+    let kept = '';
+    for (const sentence of polished.split(/(?<=[。！？])/)) {
+      if (hanCount(kept + sentence) > FOCUS_MAX_CHARS) break;
+      kept += sentence;
+    }
+    polished = kept.trim();
+  }
   const chars = hanCount(polished);
   if (chars < FOCUS_MIN_CHARS || chars > FOCUS_MAX_CHARS) return null;
-  if (/標題同描述|標題和描述|短描述/.test(polished) || cantoneseLeft(polished)) return null;
   return polished;
 }
 

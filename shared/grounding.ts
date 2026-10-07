@@ -172,6 +172,15 @@ export function fixOutlets(text: string, sourceNames: string[]): GuardResult {
       return real || '有媒體';
     });
   }
+  for (const name of sourceNames) {
+    const suffix = name.match(/[\u3400-\u9fff]{1,4}$/)?.[0];
+    if (!suffix || suffix === name) continue;
+    const doubled = `${name}${suffix}`;
+    if (out.includes(doubled)) {
+      removed.push(`${doubled}→${name}`);
+      out = out.split(doubled).join(name);
+    }
+  }
   return { text: out, removed, dropped: false };
 }
 

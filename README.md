@@ -122,7 +122,7 @@ npx wrangler kv namespace create CONTENT
 
 `/region/<code>/` 和 `/category/<slug>/` 在標題列表上方有一段「本週重點」（約 250 至 400 字，標明 AI 整合）。同一日只寫一次，跟導讀共用 10 美元上限。KV 未有這段時，頁面只顯示標題列表，不會報錯。
 
-生成由 `.github/workflows/warm-content.yml` 分批呼叫 `POST /api/generate`（header `x-generate-secret`）。導讀、懶人包和本週重點只讀已快取的新聞板，不會在這次請求裡重抓 RSS。快取未有、或結果只是來源標題稿時，回應是 503 且 `fallback: true`，工作流程會再試。每批最多 3 篇。當日已經寫好、正文夠長的 Grok 稿不會重寫；過短的來源稿可以重寫。模型失敗會改用 Workers AI，再退回來源標題稿，不會令首頁 500。
+生成由 `.github/workflows/warm-content.yml` 分批呼叫 `POST /api/generate`（header `x-generate-secret`）。導讀、懶人包和本週重點只讀已快取的新聞板，不會在這次請求裡重抓 RSS。快取未有、或結果只是來源標題稿時，回應是 503 且 `fallback: true`，工作流程會再試。每批最多 3 篇。當日已經寫好、正文夠長的 Grok 稿不會重寫；過短的來源稿可以重寫。結構完整的懶人包或導讀達到 450 字即可保存，不必為湊滿 500 字再叫一次模型。同一題過薄的稿每日最多再試兩次；工作流程若連續收到同一組 key 就停止。`force=1` 可覆寫指定導讀時段、尚未符合現行格式的懶人包，或本週重點。舊格式懶人包在重寫前不列入 `/explainer/` 和 sitemap，頁面標 `noindex`。模型失敗會改用 Workers AI，再退回來源標題稿，不會令首頁 500。
 
 xAI 定價：輸入每百萬 token 1.25 美元，輸出每百萬 token 2.50 美元。推理 token 計入輸出。用量按香港時間曆月存在 KV `xai-usage:YYYY-MM`。當月累計達到 10 美元之後，新文章自動改走 Workers AI。`POST /api/generate?kind=status`（同樣要 `x-generate-secret`）回傳本月 token、費用和篇數。
 

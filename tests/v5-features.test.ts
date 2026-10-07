@@ -38,7 +38,7 @@ describe('language toggle', () => {
   });
 
   it('gives the three sidebar blocks distinct labels', () => {
-    expect(t('mostRead', 'zh-HK')).toBe('最多人睇');
+    expect(t('mostRead', 'zh-HK')).toBe('最多人看');
     expect(t('mostRead', 'zh-CN')).toBe('最多人看');
     expect(t('mostRead', 'en')).toBe('Most read');
     expect(t('keywords', 'zh-HK')).toBe('標題熱詞');
