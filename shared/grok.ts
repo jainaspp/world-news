@@ -360,7 +360,7 @@ export function bodyChars(doc: ContentDoc): number {
 export function structureComplete(doc: ContentDoc): boolean {
   const titles = new Set(doc.blocks.map((block) => block.title));
   if (doc.kind === 'compare') {
-    return titles.has('事件經過') && (doc.points?.length ?? 0) >= 3;
+    return titles.has('事件經過') && (doc.points?.length ?? 0) >= 2;
   }
   if (doc.kind === 'briefing') {
     return titles.has('今日值得留意') && (titles.has('香港') || titles.has('內地'));
