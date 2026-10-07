@@ -10,6 +10,7 @@ import { clusterStories, sourceCounts } from '../shared/trending';
 import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem, TimeRange } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
+import { focusTarget } from '../shared/focusView';
 import { HOME_INTRO, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
@@ -25,6 +26,7 @@ import { HkInfoStrip } from './components/HkInfoStrip';
 import { MajorBanner } from './components/MajorBanner';
 import { BoardToggles } from './components/BoardToggles';
 import { MostRead } from './components/MostRead';
+import { WeekFocus } from './components/WeekFocus';
 import { TrendingTopics } from './components/TrendingTopics';
 import { trendingTopics } from '../shared/topics';
 import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_NAME, SITE_URL } from './config';
@@ -94,6 +96,7 @@ export default function App() {
   const wide = useWide('(min-width: 1200px)');
   const topics = useMemo(() => trendingTopics(items), [items]);
   const showBlocks = !(view.bookmarks || view.following);
+  const focusPage = focusTarget(view);
   const popular = usePopular(showBlocks && board.prefs.mostRead);
   const angleMap = useMemo(() => {
     const map = new Map<string, ClusterMember[]>();
@@ -480,11 +483,12 @@ export default function App() {
                     <span className="badge">AI</span>
                     <a className="digest-primary" href="/digest/">{t('todayPicks', lang)}</a>
                     <a className="digest-keep" href="/briefing/">{t('hkBriefing', lang)}</a>
-                    <a className="digest-keep" href="/compare/">{t('multiCompare', lang)}</a>
+                    <a className="digest-keep" href="/explainer/">{t('multiCompare', lang)}</a>
                     <a href="/weekly/">{t('weekly', lang)}</a>
                     <a href="/analysis/">{t('hotAnalysis', lang)}</a>
                   </aside>
                 )}
+                {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
                 {(hero || secondary.length > 0) && (
                   <div className="top-stories">
                     {hero && (
