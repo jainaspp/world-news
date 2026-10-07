@@ -168,6 +168,8 @@ export interface ContentDoc {
   model?: string;
   /** Which writer produced this piece. Missing on rows from before MiniMax. */
   provider?: ArticleProvider;
+  /** MiniMax piece fact-checked once; the facts-only second draft runs on the next call. */
+  stage?: 'checked';
   highlight?: Highlight;
   /** Short takeaways for the key-points box. Briefing and comparison pieces. */
   points?: string[];

@@ -367,7 +367,7 @@ function better(next: ContentDoc, current: ContentDoc): boolean {
  * MiniMax desk pipeline: draft → fact-check → facts-only rewrite → fact-check. The rewrite is used
  * only when its own fact-check ran and it beats the checked draft. Never falls back to Grok.
  */
-export async function pipelineMiniMax(apiKey: string, draft: ContentDoc, deadline: number): Promise<{ doc: ContentDoc | null; errors: string[]; steps: string[] }> {
+export async function pipelineMiniMax(apiKey: string, draft: ContentDoc, deadline: number): Promise<{ doc: ContentDoc | null; errors: string[]; steps: string[]; pending?: boolean }> {
   const errors: string[] = [];
   const steps: string[] = [];
   const left = () => deadline - Date.now();
@@ -390,13 +390,36 @@ export async function pipelineMiniMax(apiKey: string, draft: ContentDoc, deadlin
   if (!checked.ok) return { doc: null, errors, steps: [...steps, 'check-failed'] };
   let doc = cleanMiniMax(checked.doc);
   steps.push(`check:-${checked.dropped}:${bodyChars(doc)}`);
-  if (left() < 35_000) return { doc, errors, steps: [...steps, 'no-time-rewrite'] };
+  // Out of time for the second draft in this request: it runs on the next call (stage 'checked').
+  if (left() < 35_000) return { doc: { ...doc, stage: 'checked' }, errors, steps: [...steps, 'no-time-rewrite'], pending: true };
   const second = await rewriteMiniMax(apiKey, draft, doc, timeout(15_000));
   if (second.error) errors.push(second.error);
   if (!second.doc) return { doc, errors, steps: [...steps, 'rewrite-failed'] };
   steps.push(`rewrite:${bodyChars(second.doc)}`);
   if (left() < 10_000) return { doc, errors, steps: [...steps, 'no-time-recheck'] };
   const rechecked = await verifyMiniMax(apiKey, draft, cleanMiniMax(second.doc), timeout(2_000));
+  if (rechecked.error) errors.push(rechecked.error);
+  if (!rechecked.ok) return { doc, errors, steps: [...steps, 'recheck-failed'] };
+  const final = cleanMiniMax(rechecked.doc);
+  steps.push(`recheck:-${rechecked.dropped}:${bodyChars(final)}`);
+  if (better(final, doc)) doc = final;
+  return { doc, errors, steps };
+}
+
+/** Second half of the pipeline for a stored, once-checked piece: facts-only rewrite, then fact-check. */
+export async function expandMiniMax(apiKey: string, stored: ContentDoc, deadline: number): Promise<{ doc: ContentDoc; errors: string[]; steps: string[] }> {
+  const errors: string[] = [];
+  const steps: string[] = [];
+  const left = () => deadline - Date.now();
+  const timeout = (reserve: number) => Math.max(8_000, Math.min(MINIMAX_TIMEOUT_MS, left() - reserve));
+  let doc: ContentDoc = { ...stored };
+  delete doc.stage;
+  const second = await rewriteMiniMax(apiKey, doc, doc, timeout(15_000));
+  if (second.error) errors.push(second.error);
+  if (!second.doc) return { doc, errors, steps: ['rewrite-failed'] };
+  steps.push(`rewrite:${bodyChars(second.doc)}`);
+  if (left() < 10_000) return { doc, errors, steps: [...steps, 'no-time-recheck'] };
+  const rechecked = await verifyMiniMax(apiKey, doc, cleanMiniMax(second.doc), timeout(2_000));
   if (rechecked.error) errors.push(rechecked.error);
   if (!rechecked.ok) return { doc, errors, steps: [...steps, 'recheck-failed'] };
   const final = cleanMiniMax(rechecked.doc);
