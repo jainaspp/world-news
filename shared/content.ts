@@ -72,6 +72,9 @@ export const MIN_PUBLIC_POINTS = 2;
 /** Below this, a briefing or explainer stays unpublished. */
 export const PUBLISH_FLOOR = 500;
 
+/** Briefings are multi-section digests; list them from 400 narrative characters. Explainers keep the 500 floor. */
+export const BRIEFING_PUBLIC_FLOOR = 400;
+
 /** A comparison that is thin, old-format, or still Cantonese stays out of the public list. */
 export function explainerCurrent(stored: ContentDoc): boolean {
   if (stored.kind !== 'compare') return false;
@@ -100,7 +103,7 @@ export function briefingPublic(stored: ContentDoc): boolean {
   const headings = briefingHeadings(briefingScopeOf(doc.key));
   const body = headings.filter((heading) => heading !== '今日值得留意');
   if (!titles.has('今日值得留意') || !body.some((heading) => titles.has(heading))) return false;
-  if (narrativeChars(doc) < PUBLISH_FLOOR) return false;
+  if (narrativeChars(doc) < BRIEFING_PUBLIC_FLOOR) return false;
   const prose = [doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => block.sentences)].join('\n');
   return !cantoneseLeft(prose);
 }
@@ -479,9 +482,9 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode =
         ? '每個 heading 只出現一次；國際段寫 350 至 550 字，涵蓋兩至三件事，並只用提供的摘錄說明為何重要；今日值得留意寫 100 至 150 字。每句 25 至 45 字，不要寫成一連串短句。'
         : `每個 heading 只出現一次；香港和內地兩段各寫 250 至 350 字，涵蓋兩至三件事，並用${background}說明為何重要；今日值得留意寫 100 至 150 字。每句 25 至 45 字，不要寫成一連串短句。`;
     const sectionRule = scope === 'techfin'
-      ? '科技段只根據科技來源，財經段只根據財經來源。沒有來源的一邊就整段省略。'
+      ? '科技段只根據科技來源，財經段只根據財經來源。兩段都要寫；只有標題沒有摘錄的來源，就只寫標題已說明的事實，不要推測。資料完全沒有該類來源時才省略那一段。今日值得留意必須寫。'
       : scope === 'world'
-        ? '國際段只根據提供的國際來源。沒有來源就整段省略。'
+        ? '國際段只根據提供的國際來源；只有標題沒有摘錄的來源，就只寫標題已說明的事實，不要推測。今日值得留意必須寫。'
         : '香港段只根據香港來源，內地段只根據內地來源。沒有來源的一邊就整段省略。';
     const watch = scope === 'hk'
       ? '今日值得留意綜合兩邊，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。'

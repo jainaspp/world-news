@@ -196,6 +196,13 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
       quota = written.quota;
       if (written.error) errors.push(written.error);
       if (written.doc) grokDoc = written.doc;
+      // Flat-fee writer: one stricter rewrite when the first draft is thin or missing a section.
+      if (!quota && !(grokDoc && pieceReady(grokDoc)) && Date.now() - started < RETRY_BEFORE_MS) {
+        const again = await writeMiniMax(mini, job.draft, job.material ? 'material' : false, true);
+        quota = again.quota;
+        if (again.error) errors.push(again.error);
+        if (again.doc && (!grokDoc || (pieceReady(again.doc) && !pieceReady(grokDoc)) || richness(again.doc) > richness(grokDoc))) grokDoc = again.doc;
+      }
     }
     const readyMini = Boolean(grokDoc && pieceReady(grokDoc));
     const tryGrok = !readyMini && (writer !== 'minimax' || quota || !grokDoc || !mini);
@@ -323,12 +330,12 @@ function settledPiece(doc: ContentDoc | undefined): boolean {
   return model.includes('grok') || model.includes('minimax');
 }
 
-async function fillRows(env: ContentEnv, rows: NewsItem[], now: Date): Promise<{ rows: NewsItem[]; fetchedSources: number }> {
+async function fillRows(env: ContentEnv, rows: NewsItem[], now: Date, fetchLimit = 4): Promise<{ rows: NewsItem[]; fetchedSources: number }> {
   const bundles = await readBundles(env, hktParts(now).date);
   let next = applyBundles(rows, bundles);
   if (needsSearch(excerptChars(next))) {
     const missing = next.filter((item) => (item.excerpt || '').length < 200 && /^https?:\/\//.test(item.link));
-    const fetched = await fetchArticleTexts(env, missing.map((item) => item.link), fetch, 4);
+    const fetched = await fetchArticleTexts(env, missing.map((item) => item.link), fetch, fetchLimit);
     next = stampExcerpts(next, fetched.texts);
   }
   return { rows: next, fetchedSources: next.filter((item) => (item.excerpt || '').length >= 80).length };
@@ -346,9 +353,14 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
   const draftOf = async (perSide: number) => {
     const skeleton = briefingDraft(material.items, scope, now, perSide);
     if (!skeleton) return null;
-    const body = skeleton.blocks.filter((block) => block.title !== '今日值得留意').flatMap((block) => block.sources);
-    const items = material.items.filter((item) => body.some((source) => source.url === item.link));
-    const filled = await fillRows(env, items.length ? items : material.items, now);
+    // Interleave sections so the article-text fetch covers every section, not just the first.
+    const sections = skeleton.blocks.filter((block) => block.title !== '今日值得留意').map((block) => block.sources);
+    const longest = Math.max(0, ...sections.map((rows) => rows.length));
+    const order: string[] = [];
+    for (let i = 0; i < longest; i += 1) for (const rows of sections) if (rows[i]) order.push(rows[i].url);
+    const byLink = new Map(material.items.map((item) => [item.link, item]));
+    const items = order.map((link) => byLink.get(link)).filter((item): item is NewsItem => Boolean(item));
+    const filled = await fillRows(env, items.length ? items : material.items, now, 8);
     return { draft: briefingDraft(filled.rows, scope, now, perSide), fetchedSources: filled.fetchedSources };
   };
   const firstDraft = await draftOf(8);
@@ -695,7 +707,7 @@ export async function generateCompare(
   env: ContentEnv,
   limit = COMPARE_BATCH,
   now = new Date(),
-  options: { force?: boolean; key?: string } = {},
+  options: { force?: boolean; key?: string; minimaxOnly?: boolean } = {},
 ): Promise<Record<string, unknown>> {
   const take = Math.max(1, Math.min(COMPARE_BATCH, limit));
   const written = parseWritten(await readValue(env, writtenKey(now)).catch(() => null));
@@ -703,13 +715,13 @@ export async function generateCompare(
   if (!material) return delivered(columnDelivery({ cold: true }), { kind: 'compare', keys: [] });
 
   let events = await readEvents(env);
-  const update = options.force
+  const update = options.force || options.minimaxOnly
     ? { keys: [] as string[], costs: [] as ArticleCost[], events }
     : await runUpdates(env, material.clusters, events, now);
   events = update.events;
 
   const spent = await monthUsage(env, now);
-  const room = options.force ? take : Math.min(take, articleRoom(spent.costUsd, now));
+  const room = options.force ? take : options.minimaxOnly ? 0 : Math.min(take, articleRoom(spent.costUsd, now));
   const miniTake = options.force ? 0 : Math.min(MINIMAX_PER_CALL, pickMiniMaxBatch(material.clusters, written, MINIMAX_PER_CALL, now).length > 0 ? MINIMAX_PER_CALL : 0);
   if (!options.force && room <= 0 && miniTake <= 0) {
     await writeEvents(env, events, now.getTime());
@@ -928,7 +940,8 @@ export async function warmColumns(context: PagesContext): Promise<Response> {
       const requested = Number(url.searchParams.get('limit') || COMPARE_BATCH);
       const limit = Number.isFinite(requested) ? requested : COMPARE_BATCH;
       const key = url.searchParams.get('key') || '';
-      const result = await generateCompare(env, limit, new Date(), { force, ...(key ? { key } : {}) });
+      const minimaxOnly = url.searchParams.get('only') === 'minimax';
+      const result = await generateCompare(env, limit, new Date(), { force, ...(key ? { key } : {}), ...(minimaxOnly ? { minimaxOnly } : {}) });
       const status = typeof result.status === 'number' ? result.status : 200;
       return Response.json(result, { status, headers: { 'cache-control': 'no-store' } });
     }
