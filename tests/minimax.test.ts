@@ -280,5 +280,6 @@ describe('MiniMax output repair and tidy', () => {
     const seen = new Set<string>();
     expect(stripGlosses('總部（head office）裁員', seen)).toBe('總部裁員');
     expect(stripGlosses('博姿（Boots）出售，博姿（Boots）', seen)).toBe('博姿（Boots）出售，博姿');
+    expect(stripGlosses('宣布「不去軍隊」（not going to the military）。', seen)).toBe('宣布「不去軍隊」。');
   });
 });

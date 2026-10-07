@@ -7,8 +7,8 @@ export const MINIMAX_URL = 'https://api.minimaxi.com/v1/text/chatcompletion_v2';
 export const MINIMAX_MODEL = 'MiniMax-M2.5';
 export const MINIMAX_FALLBACK_MODEL = 'MiniMax-M2';
 export const MINIMAX_TIMEOUT_MS = 45_000;
-export const MINIMAX_MAX_TOKENS = 5_000;
-export const MINIMAX_RETRY_TOKENS = 8_000;
+export const MINIMAX_MAX_TOKENS = 8_000;
+export const MINIMAX_RETRY_TOKENS = 10_000;
 
 /** Source text per article handed to MiniMax (flat fee). */
 export const MINIMAX_EXCERPT_CHARS = 2_500;
@@ -270,7 +270,7 @@ const COMMENTARY_RE = /揭示|可以預期|可預期|輿論普遍|值得關注|�
 
 /** `中文（English gloss）`: lowercase glosses go; a capitalised proper noun keeps its first gloss only. */
 export function stripGlosses(text: string, seen: Set<string>): string {
-  return text.replace(/([\u3400-\u9fff])\s*[（(]\s*([A-Za-z][A-Za-z0-9 .,'’&-]*?)\s*[）)]/g, (_whole, ch: string, inner: string) => {
+  return text.replace(/([\u3400-\u9fff」』”])\s*[（(]\s*([A-Za-z][A-Za-z0-9 .,'’&-]*?)\s*[）)]/g, (_whole, ch: string, inner: string) => {
     const key = inner.toLowerCase();
     if (/^[A-Z]/.test(inner) && !seen.has(key)) {
       seen.add(key);
@@ -301,7 +301,6 @@ export function cleanMiniMax(doc: ContentDoc): ContentDoc {
 export const NAME_RULE = '來源是英文而沒有中文寫法的人名，直接用來源的英文原名（例如 Lee Gi-hyuk），不要自行音譯成中文；國家元首和常見機構可用香港通用譯名。';
 
 const REWRITE_RULES = [
-  '你現在做第二稿：把已核實的稿件擴寫得更詳細。',
   '只可以使用「來源原文」中明確寫出的事實擴寫：更多經過細節、註明說話者的直接引述（每次不超過 30 字）、數字、日期和先後次序。',
   '已核實稿件的事實可以保留；不可以加入來源原文沒有的背景知識、人名、地點、數字、機構關係、因果或比較。來源說「調查是否」「據報」就照樣寫，不要寫成已確定的結論。',
   '不要寫評論、推測、預測、輿論概括或說教，不要用以下字詞：反映、揭示、可以預期、預料、輿論普遍、建議、值得關注、凸顯、意味著。',
@@ -324,8 +323,11 @@ function rewriteShape(draft: ContentDoc): string {
   return '回傳 {"title":"中文標題","description":"40字以內的摘要","points":["重點","重點","重點"],"sections":[{"heading":"事件經過"|"各方回應"|"後續關注","text":"..."}]}。每個 heading 只出現一次。「事件經過」分兩至三段（段與段之間用換行），寫 350 至 550 字，按時間交代經過、數字和來源提到的較早發展；「各方回應」只寫來源點名的人或機構說了甚麼，120 至 220 字，沒有引述就不要輸出；「後續關注」只寫來源提到的下一步、日期或未決事項，沒有就不要輸出。points 剛好三行，每行 20 至 35 字。';
 }
 
-/** Facts-only second draft: verified sentences plus the source text, expanded from the sources alone. */
-export async function rewriteMiniMax(apiKey: string, draft: ContentDoc, verified: ContentDoc, timeoutMs = MINIMAX_TIMEOUT_MS): Promise<{ doc: ContentDoc | null; error?: string }> {
+/**
+ * Facts-only write from the source text. With `verified`, it is a second draft that keeps the
+ * checked sentences and expands them from the sources alone.
+ */
+export async function rewriteMiniMax(apiKey: string, draft: ContentDoc, verified: ContentDoc | null, timeoutMs = MINIMAX_TIMEOUT_MS): Promise<{ doc: ContentDoc | null; error?: string }> {
   const seen = new Set<string>();
   const sources: { n: number; source: string; title: string; text: string }[] = [];
   for (const block of draft.blocks) {
@@ -336,13 +338,16 @@ export async function rewriteMiniMax(apiKey: string, draft: ContentDoc, verified
     }
   }
   if (!sources.length) return { doc: null };
-  const story = {
+  const story = verified ? {
     title: verified.title,
     points: verified.points ?? [],
     sections: verified.blocks.filter((block) => block.title !== '事件時間線').map((block) => ({ heading: block.title, text: block.sentences.join('') })),
-  };
+  } : null;
   const base = promptFor(draft, false, 'material').system;
-  const user = `${REWRITE_RULES}\n${rewriteShape(draft)}\n已核實稿件：${JSON.stringify(story)}\n來源原文：${JSON.stringify(sources)}`;
+  const lead = story
+    ? '你現在做第二稿：把已核實的稿件擴寫得更詳細。'
+    : `根據來源原文撰寫${draft.kind === 'briefing' ? '導讀' : `新聞懶人包，主事件是「${draft.title}」，與主事件無關的來源不要寫`}。`;
+  const user = `${lead}${REWRITE_RULES}\n${rewriteShape(draft)}\n${story ? `已核實稿件：${JSON.stringify(story)}\n` : ''}來源原文：${JSON.stringify(sources)}`;
   const result = await completeMiniMax(apiKey, base, user, timeoutMs);
   if (!result.text) return { doc: null, ...(result.error ? { error: result.error } : {}) };
   const applied = applyModelText(draft, repairJson(result.text), result.model || MINIMAX_MODEL);
@@ -366,11 +371,13 @@ export async function pipelineMiniMax(apiKey: string, draft: ContentDoc, deadlin
   const steps: string[] = [];
   const left = () => deadline - Date.now();
   const timeout = (reserve: number) => Math.max(8_000, Math.min(MINIMAX_TIMEOUT_MS, left() - reserve));
-  let first = await writeMiniMax(apiKey, draft, 'material', false, MINIMAX_EXCERPT_CHARS, timeout(30_000));
+  // One MiniMax call runs about 25 s (reasoning cannot be turned off), so the first draft is
+  // already the facts-only write from the source text; the second draft runs when time allows.
+  let first = await rewriteMiniMax(apiKey, draft, null, timeout(30_000));
   if (first.error) errors.push(first.error);
-  if (!first.doc && !first.quota && left() > 55_000) {
+  if (!first.doc && left() > 60_000) {
     steps.push('draft-retry');
-    first = await writeMiniMax(apiKey, draft, 'material', true, MINIMAX_EXCERPT_CHARS, timeout(30_000));
+    first = await rewriteMiniMax(apiKey, draft, null, timeout(30_000));
     if (first.error) errors.push(first.error);
   }
   if (!first.doc) return { doc: null, errors, steps: [...steps, 'draft-failed'] };
