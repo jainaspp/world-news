@@ -2,7 +2,7 @@ import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
 import { angleClusters } from '../../shared/angles.js';
 import { hktParts } from '../../shared/content.js';
 import { materialFromBoard } from '../../shared/grok.js';
-import { buildToday, onHktDate, parseTodayPath, renderToday, renderTodayMissing } from '../../shared/todayPage.js';
+import { buildToday, onHktDate, parseTodayPath, renderToday, renderTodayMissing, TODAY_INDEX_FLOOR } from '../../shared/todayPage.js';
 import { readBoard } from '../board/store.js';
 import { readIndex, type ContentEnv } from '../content/store.js';
 import type { PagesContext } from '../env.js';
@@ -27,23 +27,30 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     return new Response(renderTodayMissing(), { status: 404, headers: { ...HTML, 'cache-control': 'no-store' } });
   }
   const today = hktParts(new Date()).date;
-  const date = parsed.date || today;
   const board = await readBoard(env).catch(() => null);
   const material = materialFromBoard(board);
-  const items = (material?.items ?? []).filter((item) => onHktDate(item, date));
-  const clusters = angleClusters(items);
   const index = await readIndex(env, 'compare').catch(() => []);
-  const explainers = index
-    .filter((entry) => entry.key.startsWith(date))
-    .map((entry) => ({ key: entry.key, title: entry.title }));
-  const model = buildToday({
-    clusters,
+  const build = (date: string) => buildToday({
+    clusters: angleClusters((material?.items ?? []).filter((item) => onHktDate(item, date))),
     date,
-    explainers,
+    explainers: index
+      .filter((entry) => entry.key.startsWith(date))
+      .map((entry) => ({ key: entry.key, title: entry.title })),
     ...(parsed.region ? { region: parsed.region } : {}),
     ...(parsed.category ? { category: parsed.category } : {}),
     today: date === today,
   });
+  let date = parsed.date || today;
+  let model = build(date);
+  // Just after midnight the new day has only a few stories. Plain /today/ shows the previous day until it fills up.
+  if (!parsed.date && model.stories.length < TODAY_INDEX_FLOOR) {
+    const yesterday = hktParts(new Date(Date.now() - 24 * 60 * 60 * 1000)).date;
+    const previous = build(yesterday);
+    if (previous.stories.length > model.stories.length) {
+      date = yesterday;
+      model = previous;
+    }
+  }
   const canonical = `${siteUrl(env)}/today/${date}/`;
   return new Response(renderToday(model, canonical), { headers: HTML });
 }

@@ -61,9 +61,15 @@ describe('today timeline', () => {
     expect(model.stories[0]?.title).toContain('東涌');
     expect(model.stories[0]?.explainerKey).toBe('2026-10-07-site-death');
     expect(model.stories[0]?.outlets).toBe(3);
-    expect(model.index).toBe(true);
+    // Two stories is a thin list: rendered, but noindex until the day fills up.
+    expect(model.index).toBe(false);
+    expect(renderToday(model, 'https://world-news.xyz/today/2026-10-07/')).toContain('noindex,follow');
+    const extra = [1, 2, 3].map((n) => cluster([
+      item(`x${n}a`, `香港新聞${n}`, '香港電台', 'hk', ['HKG']),
+      item(`x${n}b`, `香港新聞${n} 跟進`, 'Now 新聞', 'hk', ['HKG']),
+    ]));
+    expect(buildToday({ clusters: [world, hk, ...extra], date: '2026-10-07', today: true }).index).toBe(true);
     const html = renderToday(model, 'https://world-news.xyz/today/2026-10-07/');
-    expect(html).toContain('index,follow');
     expect(html).toContain('今日香港十大新聞時間線');
     expect(html).toContain('/explainer/2026-10-07-site-death/');
     expect(html).toContain('href="/today/2026-10-07/region/HKG/"');
@@ -72,6 +78,7 @@ describe('today timeline', () => {
     const region = buildToday({ clusters: [world, hk], date: '2026-10-07', region: 'INT' });
     expect(region.stories).toHaveLength(1);
     expect(region.title).toContain('國際');
+    expect(buildToday({ clusters: [world], date: '2026-10-07', today: true }).title).toBe('今日十大新聞時間線');
     const empty = buildToday({ clusters: [], date: '2026-10-06' });
     expect(renderToday(empty, 'https://world-news.xyz/today/2026-10-06/')).toContain('noindex,follow');
   });

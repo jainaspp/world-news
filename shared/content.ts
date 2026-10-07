@@ -469,6 +469,7 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode =
     'points 剛好三行，每行 20 至 35 字，是文首摘要。highlight 的每一項都要有中文名稱和單位，例如「加幅 3.2%」「規模 21.44億歐元」；沒有數字就省略 highlight。不要只寫「3.2%」或「307」。',
     '「事件經過」按時間寫清經過，分成自然段落。「各方回應」只寫來源點名的人或機構說了甚麼；來源沒有引述就不要輸出這一節。「後續關注」只寫來源提到的下一步、日期或未決事項；沒有就不要輸出這一節。',
     'title 是這一件事的中文標題，不要拼接來源標題。禁止添加來源沒有的事實。',
+    `主事件是「${doc.title}」。資料若混有另一件事，只寫主事件，與主事件無關的來源完全不要寫，也不要把兩件事寫在一起。`,
     depth,
   ].join('');
   const maxTokens = usingSearch ? 4_000 : usingMaterial ? 2_800 : 2_000;
