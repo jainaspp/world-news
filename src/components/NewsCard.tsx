@@ -22,6 +22,7 @@ interface Props {
   onToggleSource?: (source: string) => void;
   breaking?: boolean;
   angles?: ClusterMember[];
+  arriving?: boolean;
 }
 
 function hostOf(url: string): string {
@@ -46,13 +47,14 @@ export function NewsCard({
   onToggleSource,
   breaking = false,
   angles = [],
+  arriving = false,
 }: Props) {
   const articleUrl = safeUrl(item.link);
   const sourceUrl = safeUrl(item.sourceUrl);
   const faviconHost = hostOf(sourceUrl || articleUrl);
   const script = titleLang(title);
   const titleLangAttr = script === 'zh' ? (lang === 'zh-CN' ? 'zh-CN' : 'zh-HK') : script;
-  const className = featured ? 'story story-hero' : compact ? 'story story-compact' : 'story';
+  const className = `${featured ? 'story story-hero' : compact ? 'story story-compact' : 'story'}${arriving ? ' story-arrive' : ''}`;
   const others = angles.filter((row) => row.id !== item.id && row.source !== item.source);
   const extra = new Set(others.map((row) => row.source)).size;
   const moreLabel = lang === 'en' ? `${extra} other outlets` : lang === 'zh-CN' ? `另有 ${extra} 家媒体报道` : `另有 ${extra} 間媒體報道`;

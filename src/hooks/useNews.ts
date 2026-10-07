@@ -20,6 +20,12 @@ export function newItems(current: NewsItem[], next: NewsItem[]): NewsItem[] {
   return next.filter((item) => !ids.has(item.id));
 }
 
+/** Ids that should fade in. The first paint (empty → list) stays still so LCP is unchanged. */
+export function arrivedIds(current: NewsItem[], next: NewsItem[]): string[] {
+  if (current.length === 0) return [];
+  return newItems(current, next).map((item) => item.id);
+}
+
 function readBootstrap(): NewsPayload | null {
   try {
     const node = document.getElementById('wn-bootstrap');
@@ -41,17 +47,20 @@ export function useNews() {
   const [stale, setStale] = useState(() => Boolean(boot?.stale));
   const [pending, setPending] = useState<NewsItem[] | null>(null);
   const [freshCount, setFreshCount] = useState(0);
+  const [arrived, setArrived] = useState<string[]>([]);
   const itemsRef = useRef<NewsItem[]>(boot?.items ?? []);
   const lastPayload = useRef<NewsPayload | null>(boot);
   const bootstrapped = useRef(Boolean(boot?.items.length));
 
   const apply = useCallback((payload: NewsPayload, next: NewsItem[]) => {
+    const fresh = arrivedIds(itemsRef.current, next);
     itemsRef.current = next;
     setItems(next);
     setPartial((payload.feedErrors ?? 0) > 0 && next.length > 0);
     setStale(Boolean(payload.stale));
     setPending(null);
     setFreshCount(0);
+    setArrived(fresh);
   }, []);
 
   const refresh = useCallback(async () => {
@@ -128,5 +137,5 @@ export function useNews() {
     if (pending && lastPayload.current) apply(lastPayload.current, pending);
   }, [apply, pending]);
 
-  return { items, loading, error, partial, stale, refresh, freshCount, showPending, pending };
+  return { items, loading, error, partial, stale, refresh, freshCount, showPending, pending, arrived };
 }

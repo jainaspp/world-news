@@ -299,10 +299,13 @@ export function chrome(active: ContentDoc['kind'] | 'none'): string {
     <header class="masthead">
       <div class="masthead-title">
         <a class="logo-link" href="/" aria-label="世界頭條">
-          <img class="logo-full logo-light" src="/brand/logo.svg" alt="" />
-          <img class="logo-full logo-dark" src="/brand/logo-dark.svg" alt="" />
-          <img class="logo-compact logo-light" src="/brand/logo-compact.svg" alt="" />
-          <img class="logo-compact logo-dark" src="/brand/logo-compact-dark.svg" alt="" />
+          <span class="logo-frame">
+            <span class="logo-live" aria-hidden="true"></span>
+            <img class="logo-full logo-light" src="/brand/logo.svg" alt="" />
+            <img class="logo-full logo-dark" src="/brand/logo-dark.svg" alt="" />
+            <img class="logo-compact logo-light" src="/brand/logo-compact.svg" alt="" />
+            <img class="logo-compact logo-dark" src="/brand/logo-compact-dark.svg" alt="" />
+          </span>
         </a>
       </div>
       <form class="search-bar" role="search" action="/" method="get">
