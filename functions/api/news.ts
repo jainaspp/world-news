@@ -1,4 +1,4 @@
-import { feedsInShard } from '../../shared/feeds.js';
+import { SHARD_COUNT, feedsInShard, shardIndex } from '../../shared/feeds.js';
 import { toListPayload } from '../../shared/listPayload.js';
 import { assemblePayload, mergePayloads } from '../../server/newsService.js';
 import { buildNewsResponse, type JsonResult } from '../../server/responses.js';
@@ -35,18 +35,18 @@ async function store(cache: Cache, key: Request, response: Response): Promise<vo
   }
 }
 
-function cacheId(url: URL): 'a' | 'b' | 'all' {
+function cacheId(url: URL): string {
   const part = url.searchParams.get('part');
-  return part === 'a' || part === 'b' ? part : 'all';
+  return shardIndex(part) == null ? 'all' : part!;
 }
 
-function jsonResult(payload: NewsPayload, forList: boolean): JsonResult {
+function jsonResult(payload: NewsPayload): JsonResult {
   const status = payload.items.length > 0 ? 200 : 503;
-  // Shard parts stay complete so the merge can store excerpts for story pages and AI drafts.
-  const body = forList ? toListPayload(payload) : payload;
+  // Public shards are slim. Excerpts are not stored, and parsing them in the parent
+  // was burning the CPU budget the list response needs.
   return {
     status,
-    body: JSON.stringify(body),
+    body: JSON.stringify(toListPayload(payload)),
     cacheControl: status === 200 ? 'public, s-maxage=300, stale-while-revalidate=600' : 'no-store',
   };
 }
@@ -54,6 +54,29 @@ function jsonResult(payload: NewsPayload, forList: boolean): JsonResult {
 function isLocalRequest(requestUrl: string): boolean {
   const host = new URL(requestUrl).hostname;
   return host === '127.0.0.1' || host === 'localhost' || host === '[::1]';
+}
+
+function emptyShard(): NewsPayload {
+  return {
+    items: [],
+    fetchedAt: new Date().toISOString(),
+    source: 'rss',
+    feedErrors: 1,
+    feedErrorSources: [{ source: 'shard', reason: 'unavailable' }],
+    stale: true,
+  };
+}
+
+async function fetchShard(requestUrl: string, part: string): Promise<NewsPayload> {
+  const shardUrl = new URL(requestUrl);
+  shardUrl.searchParams.set('part', part);
+  try {
+    const response = await fetch(shardUrl.href, { headers: { accept: 'application/json' } });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json() as NewsPayload;
+  } catch {
+    return emptyShard();
+  }
 }
 
 async function loadMerged(requestUrl: string): Promise<NewsPayload> {
@@ -67,51 +90,36 @@ async function loadMerged(requestUrl: string): Promise<NewsPayload> {
       stale: false,
     };
   }
-  // Local dev has no 50-subrequest cap, and a self-fetch would deadlock the single wrangler thread.
-  if (isLocalRequest(requestUrl)) {
-    const [shardA, shardB] = await Promise.all([
-      assemblePayload(feedsInShard('a')),
-      assemblePayload(feedsInShard('b')),
-    ]);
-    const merged = mergePayloads([shardA, shardB]);
-    if (merged.items.length > 0) void storeNews(merged.items).catch(() => undefined);
-    return merged;
-  }
-  const shardA = await assemblePayload(feedsInShard('a'));
-  const shardUrl = new URL(requestUrl);
-  shardUrl.searchParams.set('part', 'b');
-  let shardB: NewsPayload;
-  try {
-    const response = await fetch(shardUrl.href, { headers: { accept: 'application/json' } });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    shardB = await response.json() as NewsPayload;
-  } catch {
-    shardB = {
-      items: [],
-      fetchedAt: new Date().toISOString(),
-      source: 'rss',
-      feedErrors: 1,
-      feedErrorSources: [{ source: 'shard-b', reason: 'unavailable' }],
-      stale: true,
-    };
-  }
-  const merged = mergePayloads([shardA, shardB]);
+  const parts = isLocalRequest(requestUrl)
+    ? await Promise.all(Array.from({ length: SHARD_COUNT }, (_, index) => assemblePayload(feedsInShard(String(index)))))
+    : await Promise.all(Array.from({ length: SHARD_COUNT }, (_, index) => fetchShard(requestUrl, String(index))));
+  const merged = mergePayloads(parts);
   if (merged.items.length > 0) void storeNews(merged.items).catch(() => undefined);
   return merged;
 }
 
-async function buildPart(requestUrl: string, part: 'a' | 'b' | 'all'): Promise<JsonResult> {
-  if (part === 'a' || part === 'b') return jsonResult(await assemblePayload(feedsInShard(part)), false);
-  return jsonResult(await loadMerged(requestUrl), true);
+async function buildPart(requestUrl: string, part: string): Promise<JsonResult> {
+  if (shardIndex(part) != null) return jsonResult(await assemblePayload(feedsInShard(part)));
+  return jsonResult(await loadMerged(requestUrl));
 }
 
 export async function onRequest(context: PagesContext): Promise<Response> {
   applyRuntimeEnv(context.env);
   const url = new URL(context.request.url);
   const part = cacheId(url);
-  // v2 drops list excerpts. Don't keep serving the previous fat edge entry after deploy.
-  const cacheKey = new Request(`${url.origin}/api/news?cache=v2-${part}`, { method: 'GET' });
+  // v3: smaller shards, slim bodies. Don't keep serving a v2 entry from the previous deploy.
+  const cacheKey = new Request(`${url.origin}/api/news?cache=v3-${part}`, { method: 'GET' });
   const cache = edgeCache();
+
+  const finish = (result: JsonResult, response: Response) => {
+    if (result.status !== 200 || context.request.method !== 'GET') return;
+    const boardUrl = new URL('/api/board', context.request.url).href;
+    context.waitUntil((async () => {
+      if (cache) await store(cache, cacheKey, response);
+      // Separate invocation so clustering does not share this request's CPU budget.
+      if (part === 'all') await fetch(boardUrl, { method: 'POST' }).catch(() => undefined);
+    })());
+  };
 
   if (cache && context.request.method === 'GET') {
     try {
@@ -120,9 +128,11 @@ export async function onRequest(context: PagesContext): Promise<Response> {
         const age = ageSeconds(hit);
         if (age >= FRESH_S && age < STALE_S) {
           context.waitUntil(
-            buildPart(context.request.url, part).then((result) => {
+            buildPart(context.request.url, part).then(async (result) => {
               if (result.status !== 200) return;
-              return store(cache, cacheKey, toResponse(result, Date.now()));
+              const response = toResponse(result, Date.now());
+              await store(cache, cacheKey, response);
+              if (part === 'all') await fetch(new URL('/api/board', context.request.url).href, { method: 'POST' }).catch(() => undefined);
             }),
           );
         }
@@ -137,8 +147,6 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     ? await buildNewsResponse()
     : await buildPart(context.request.url, part);
   const response = toResponse(result, result.status === 200 ? Date.now() : undefined);
-  if (cache && result.status === 200 && context.request.method === 'GET') {
-    context.waitUntil(store(cache, cacheKey, response));
-  }
+  finish(result, response);
   return response;
 }

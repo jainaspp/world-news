@@ -96,36 +96,105 @@ export function titlesMatch(left: string, right: string): boolean {
   return shared.some((key) => !GENERIC.has(key) && !key.startsWith('n:'));
 }
 
+interface Prepared {
+  item: NewsItem;
+  time: number;
+  tokens: string[];
+  tokenSet: Set<string>;
+  entities: string[];
+  entitySet: Set<string>;
+}
+
+function prepare(item: NewsItem): Prepared {
+  const tokens = textTokens(item.title);
+  const entities = [...titleEntities(item.title)];
+  return { item, time: timeOf(item), tokens, tokenSet: new Set(tokens), entities, entitySet: new Set(entities) };
+}
+
+function setOverlap(left: Set<string>, right: Set<string>): { score: number; shared: number } {
+  const [small, large] = left.size <= right.size ? [left, right] : [right, left];
+  let shared = 0;
+  for (const token of small) if (large.has(token)) shared += 1;
+  const union = left.size + right.size - shared;
+  return { score: union ? shared / union : 0, shared };
+}
+
+/** Same decision as {@link titlesMatch}, using tokens and entities computed once per headline. */
+function preparedMatch(left: Prepared, right: Prepared): boolean {
+  if (left.tokens.length >= 2 && right.tokens.length >= 2) {
+    const overlap = setOverlap(left.tokenSet, right.tokenSet);
+    if (overlap.score >= 0.34 || (overlap.shared >= 3 && overlap.score >= 0.22)) return true;
+  }
+  const shared = left.entities.filter((key) => right.entitySet.has(key));
+  if (shared.length < 2) return false;
+  return shared.some((key) => !GENERIC.has(key) && !key.startsWith('n:'));
+}
+
+function addPosting(index: Map<string, number[]>, key: string, groupIndex: number): void {
+  const list = index.get(key);
+  if (list) list.push(groupIndex);
+  else index.set(key, [groupIndex]);
+}
+
+/**
+ * Group same-event headlines.
+ * Tokens and entities are computed once. A lead is compared only when it already shares
+ * two tokens or two entities with the candidate, which is the minimum {@link titlesMatch} accepts.
+ */
 export function angleClusters(items: NewsItem[], windowMs = ANGLE_WINDOW_MS): StoryCluster[] {
-  const sorted = [...items].sort((a, b) => timeOf(b) - timeOf(a) || a.id.localeCompare(b.id));
-  const groups: NewsItem[][] = [];
+  const sorted = items.map(prepare).sort((a, b) => b.time - a.time || a.item.id.localeCompare(b.item.id));
+  const groups: Prepared[][] = [];
+  const tokenIndex = new Map<string, number[]>();
+  const entityIndex = new Map<string, number[]>();
+
   for (const item of sorted) {
-    const published = timeOf(item);
+    const tokenHits = new Map<number, number>();
+    for (const token of item.tokenSet) {
+      const postings = tokenIndex.get(token);
+      if (!postings) continue;
+      for (const groupIndex of postings) tokenHits.set(groupIndex, (tokenHits.get(groupIndex) ?? 0) + 1);
+    }
+    const entityHits = new Map<number, number>();
+    for (const key of item.entities) {
+      const postings = entityIndex.get(key);
+      if (!postings) continue;
+      for (const groupIndex of postings) entityHits.set(groupIndex, (entityHits.get(groupIndex) ?? 0) + 1);
+    }
+    const candidates = new Set<number>();
+    for (const [groupIndex, count] of tokenHits) if (count >= 2) candidates.add(groupIndex);
+    for (const [groupIndex, count] of entityHits) if (count >= 2) candidates.add(groupIndex);
+
     let placed = false;
-    for (const group of groups) {
-      const lead = group[0];
+    for (const groupIndex of [...candidates].sort((a, b) => a - b)) {
+      const lead = groups[groupIndex]?.[0];
       if (!lead) continue;
-      if (windowMs > 0 && timeOf(lead) - published > windowMs) continue;
-      if (titlesMatch(lead.title, item.title)) {
-        group.push(item);
+      if (windowMs > 0 && lead.time - item.time > windowMs) continue;
+      if (preparedMatch(lead, item)) {
+        groups[groupIndex]!.push(item);
         placed = true;
         break;
       }
     }
-    if (!placed) groups.push([item]);
+    if (!placed) {
+      const groupIndex = groups.length;
+      groups.push([item]);
+      for (const token of item.tokenSet) addPosting(tokenIndex, token, groupIndex);
+      for (const key of item.entities) addPosting(entityIndex, key, groupIndex);
+    }
   }
 
   return groups
     .map((group) => {
-      const sources = [...new Set(group.map((item) => item.source))];
-      const lead = [...group].sort((a, b) => {
+      const rows = group.map((entry) => entry.item);
+      const sources = [...new Set(rows.map((row) => row.source))];
+      const lead = [...rows].sort((a, b) => {
         if (a.image && !b.image) return -1;
         if (!a.image && b.image) return 1;
         return timeOf(b) - timeOf(a);
       })[0];
       if (!lead) return null;
-      const latest = Math.max(...group.map(timeOf));
-      return { id: lead.id, lead, items: group, sources, count: sources.length, latest };
+      const latest = Math.max(...group.map((entry) => entry.time));
+      return { id: lead.id, lead, items: rows, sources, count: sources.length, latest };
     })
     .filter((cluster): cluster is StoryCluster => cluster !== null && cluster.count >= 2)
     .sort((a, b) => b.count - a.count || b.latest - a.latest);
@@ -140,8 +209,8 @@ export function sourceCounts(clusters: StoryCluster[]): Map<string, number> {
 }
 
 /** Slim cards for `/api/clusters`. Every member id points at the same list. */
-export function clusterCards(items: NewsItem[], limit = 8): ClusterCard[] {
-  return angleClusters(items).map((cluster) => ({
+export function cardsFromClusters(clusters: StoryCluster[], limit = 8): ClusterCard[] {
+  return clusters.map((cluster) => ({
     id: cluster.id,
     members: [...cluster.items]
       .sort((a, b) => timeOf(b) - timeOf(a))
@@ -154,6 +223,10 @@ export function clusterCards(items: NewsItem[], limit = 8): ClusterCard[] {
         pubDate: item.pubDate,
       })),
   }));
+}
+
+export function clusterCards(items: NewsItem[], limit = 8): ClusterCard[] {
+  return cardsFromClusters(angleClusters(items), limit);
 }
 
 export function headlineIsMajor(title: string): boolean {

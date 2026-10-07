@@ -25,7 +25,7 @@ import {
   type ContentDoc,
   type SourceRef,
 } from '../../shared/content.js';
-import { clusterStories } from '../../shared/trending.js';
+import { clusterRecent } from '../../shared/board.js';
 import type { NewsItem } from '../../shared/types';
 import type { PagesContext } from '../env.js';
 import { docKey, readDoc, readIndex, rememberIndex, rememberIndexMany, readValue, writeDoc, writeValue, type ContentEnv, type SavedDoc } from './store.js';
@@ -194,9 +194,10 @@ async function finish(env: ContentEnv, doc: ContentDoc, reserved = false, index 
   return polished;
 }
 
-async function loadClusters(): Promise<{ items: NewsItem[]; clusters: ReturnType<typeof clusterStories> }> {
+async function loadClusters(): Promise<{ items: NewsItem[]; clusters: ReturnType<typeof clusterRecent> }> {
   const news = await getNews();
-  const clusters = clusterStories(news.items);
+  // Generate stays on the newest window so a model run does not cluster the whole board.
+  const clusters = clusterRecent(news.items);
   return { items: news.items, clusters };
 }
 
