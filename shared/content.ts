@@ -1,4 +1,4 @@
-import { arabicDigits, cantoneseLeft, polishProse } from './prose.js';
+import { arabicDigits, cantoneseLeft, polishProse, preachySentence, tidyNumerals } from './prose.js';
 import { researchSources, SOURCE_LIST_CAP } from './search.js';
 import { stableId } from './rss.js';
 import { hasChinese, isMostlyEnglish, toHK } from './zh.js';
@@ -38,12 +38,29 @@ export function narrativeChars(doc: ContentDoc): number {
   return (text.match(/[\u3400-\u9fff]/g) || []).length;
 }
 
+/** Render-time cleanup for stored briefings and explainers: numeral fixes and model commentary removed. */
+export function tidyStored(doc: ContentDoc): ContentDoc {
+  if (doc.kind !== 'briefing' && doc.kind !== 'compare') return doc;
+  const blocks = doc.blocks.map((block) => (block.title === '事件時間線'
+    ? block
+    : { ...block, sentences: block.sentences.map(tidyNumerals).filter((line) => line.trim() && !preachySentence(line)) }))
+    .filter((block) => block.title === '事件時間線' || block.sentences.length > 0);
+  const next: ContentDoc = { ...doc, title: tidyNumerals(doc.title), description: tidyNumerals(doc.description), blocks };
+  if (doc.points) next.points = doc.points.map(tidyNumerals).filter((line) => line.trim() && !preachySentence(line));
+  return next;
+}
+
+/** Fewer summary points than this and the piece is treated as thin. */
+export const MIN_PUBLIC_POINTS = 2;
+
 /** Below this, a briefing or explainer stays unpublished. */
 export const PUBLISH_FLOOR = 500;
 
 /** A comparison that is thin, old-format, or still Cantonese stays out of the public list. */
-export function explainerCurrent(doc: ContentDoc): boolean {
-  if (doc.kind !== 'compare') return false;
+export function explainerCurrent(stored: ContentDoc): boolean {
+  if (stored.kind !== 'compare') return false;
+  const doc = tidyStored(stored);
+  if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;
   const titles = new Set(doc.blocks.map((block) => block.title));
   if (!titles.has('事件時間線') || !titles.has('事件經過')) return false;
@@ -58,8 +75,10 @@ export function explainerCurrent(doc: ContentDoc): boolean {
 }
 
 /** A briefing under the floor is noindex and omitted from the index and sitemap. */
-export function briefingPublic(doc: ContentDoc): boolean {
-  if (doc.kind !== 'briefing') return false;
+export function briefingPublic(stored: ContentDoc): boolean {
+  if (stored.kind !== 'briefing') return false;
+  const doc = tidyStored(stored);
+  if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;
   const titles = new Set(doc.blocks.map((block) => block.title));
   if (!titles.has('今日值得留意') || (!titles.has('香港') && !titles.has('內地'))) return false;
@@ -715,7 +734,7 @@ export function guardDoc(doc: ContentDoc, options?: { researched?: boolean }): C
   else delete next.guard;
   if (researched) next.researched = true;
   else delete next.researched;
-  return next;
+  return tidyStored(next);
 }
 
 function polishColumn(doc: ContentDoc): ContentDoc {

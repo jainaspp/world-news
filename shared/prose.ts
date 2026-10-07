@@ -130,3 +130,44 @@ export function dropBannedSentences(text: string): string {
 export function polishProse(text: string): string {
   return dropBannedSentences(toWritten(text));
 }
+
+const SMALL_CN: Record<string, number> = { 零: 0, 〇: 0, '○': 0, 一: 1, 二: 2, 兩: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9 };
+
+/** 七 → 7, 十二 → 12, 二十三 → 23 for clock hours; null when it is not a plain number. */
+function smallCnInt(text: string): number | null {
+  if (!text) return null;
+  if (text === '十') return 10;
+  const ten = text.indexOf('十');
+  if (ten < 0) return text.length === 1 && text in SMALL_CN ? SMALL_CN[text]! : null;
+  const tens = ten === 0 ? 1 : SMALL_CN[text.slice(0, ten)];
+  const rest = text.slice(ten + 1);
+  const ones = rest ? SMALL_CN[rest] : 0;
+  if (tens == null || ones == null || rest.length > 1) return null;
+  return tens * 10 + ones;
+}
+
+/**
+ * Display fixes applied to stored pieces at render time as well as new ones:
+ * 二○26年 → 2026年, 七時54分 → 7時54分, and a stray digit glued before 去年/今年 (大樓1去年 → 大樓去年).
+ */
+export function tidyNumerals(text: string): string {
+  if (!text) return text;
+  return arabicDigits(text)
+    .replace(/[零〇○一二三四五六七八九]+(?=\d{1,3}年)/g, (run) => [...run].map((ch) => String(SMALL_CN[ch] ?? ch)).join(''))
+    .replace(/([零〇一二兩三四五六七八九十]{1,3})(時|點)(?=\d{1,2}分)/g, (full, hour: string, unit: string) => {
+      const value = smallCnInt(hour);
+      return value == null || value > 24 ? full : `${value}${unit}`;
+    })
+    .replace(/(?<=[\u3400-\u9fff])\d(?=(?:去年|今年|明年|前年|上月|本月|昨日|今日|昨晚|今晚))/g, '');
+}
+
+const PREACHY_ANYWHERE = /凸顯.{0,20}重要性|為.{0,20}鋪路/;
+const PREACHY_OPENING = /^(?:此事|此舉|事件|事態|這|此|有關事件|相關事件|該事件)/;
+const PREACHY_SOFT = /提醒(?:市民|家長)|引起.{0,20}關注/;
+
+/** Closing commentary the model adds on its own, such as 此事凸顯…重要性 or 此舉為…鋪路. Attributed lines stay. */
+export function preachySentence(sentence: string): boolean {
+  const line = sentence.trim();
+  if (PREACHY_ANYWHERE.test(line)) return !/表示|指出|強調|認為|批評|聲稱/.test(line);
+  return PREACHY_SOFT.test(line) && PREACHY_OPENING.test(line);
+}

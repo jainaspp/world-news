@@ -242,4 +242,15 @@ describe('publish floor and conversion', () => {
     expect(arabicDigits('十一黃金周累計')).toBe('十一黃金周累計');
     expect(usageTokens({ usage: { input_tokens: 10, output_tokens: 30, output_tokens_details: { reasoning_tokens: 20 } } })).toEqual({ input: 10, output: 30 });
   });
+
+  it('tidies stored pieces at render and drops model commentary', async () => {
+    const { tidyNumerals, preachySentence } = await import('../shared/prose');
+    expect(tidyNumerals('昨晚七時54分發生火警')).toBe('昨晚7時54分發生火警');
+    expect(tidyNumerals('食用二○26年10月17日')).toBe('食用2026年10月17日');
+    expect(tidyNumerals('臨牀大樓1去年11月起啟用')).toBe('臨牀大樓去年11月起啟用');
+    expect(preachySentence('此事凸顯兒童安全監管重要性，提醒家長履行看管責任。')).toBe(true);
+    expect(preachySentence('此舉為11月22日選舉鋪路。')).toBe(true);
+    expect(preachySentence('衞生防護中心提醒市民盡快接種疫苗。')).toBe(false);
+    expect(preachySentence('美國國務院表示，此舉為和談鋪路。')).toBe(false);
+  });
 });
