@@ -387,9 +387,11 @@ export function structureComplete(doc: ContentDoc): boolean {
     return titles.has('事件經過') && (doc.points?.length ?? 0) >= 2;
   }
   if (doc.kind === 'briefing') {
-    const headings = briefingHeadings(briefingScopeOf(doc.key));
+    const scope = briefingScopeOf(doc.key);
+    const headings = briefingHeadings(scope);
     const body = headings.filter((heading) => heading !== '今日值得留意');
-    return titles.has('今日值得留意') && body.some((heading) => titles.has(heading)) && (doc.points?.length ?? 0) >= 2;
+    const watch = scope !== 'hk' || titles.has('今日值得留意');
+    return watch && body.some((heading) => titles.has(heading)) && (doc.points?.length ?? 0) >= 2;
   }
   return true;
 }
