@@ -283,3 +283,21 @@ describe('MiniMax output repair and tidy', () => {
     expect(stripGlosses('宣布「不去軍隊」（not going to the military）。', seen)).toBe('宣布「不去軍隊」。');
   });
 });
+
+describe('fillPoints and stripHalfGloss', () => {
+  it('refills points from checked sentences', async () => {
+    const { fillPoints } = await import('../functions/content/minimax.js');
+    const blocks = [{ title: '國際', sentences: ['西班牙一名87歲老奶奶被驅逐後離世。', '以色列方面，拉比Dov Lando的言論掀起政治風波。'], sources: [] }];
+    const out = fillPoints(['厄立特里亞士兵進入提格雷'], blocks as never);
+    expect(out).toEqual(['厄立特里亞士兵進入提格雷', '西班牙一名87歲老奶奶被驅逐後離世', '拉比Dov Lando的言論掀起政治風波']);
+  });
+  it('keeps enough points untouched', async () => {
+    const { fillPoints } = await import('../functions/content/minimax.js');
+    expect(fillPoints(['a', 'b'], [])).toEqual(['a', 'b']);
+  });
+  it('drops a stray English word inside a Chinese name', async () => {
+    const { stripHalfGloss } = await import('../functions/content/minimax.js');
+    expect(stripHalfGloss('以色列聯合妥拉 Judaism聯盟')).toBe('以色列聯合妥拉聯盟');
+    expect(stripHalfGloss('名叫Maricarmen Abascal的奶奶')).toBe('名叫Maricarmen Abascal的奶奶');
+  });
+});

@@ -31,6 +31,7 @@ import {
   renderContentPage,
   type BriefingScope,
   type ContentDoc,
+  narrativeChars,
 } from '../../shared/content.js';
 import {
   COMPARE_BATCH,
@@ -434,7 +435,8 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
   }], started);
   const written = first.docs[0] ?? draft;
   // Never replace a listed brief with a failed or thinner run.
-  const keep = existing?.doc && existing.doc.mode === 'ai' && briefingPublic(existing.doc) && !briefingPublic(written);
+  const prior = existing?.doc && existing.doc.mode === 'ai' && !existing.doc.stage ? existing.doc : undefined;
+  const keep = Boolean(prior && !briefingPublic(written) && (briefingPublic(prior) || narrativeChars(prior) > narrativeChars(written)));
   const doc = keep && existing ? existing.doc : written;
   const costs = first.costs;
   const grokStatus = first.grokStatus;
