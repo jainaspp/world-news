@@ -85,9 +85,18 @@ export function narrativeSane(doc: ContentDoc): boolean {
   return proseSane(narrativeProse(doc));
 }
 
+/**
+ * A MiniMax piece that is mid-pipeline or has not passed Grok's verification pass. It is never
+ * listed and its page shows only the source list.
+ */
+export function heldMiniMax(doc: ContentDoc): boolean {
+  if (doc.stage === 'drafted' || doc.stage === 'verify') return true;
+  return doc.provider === 'minimax' && doc.mode === 'ai' && doc.verified !== 'grok';
+}
+
 /** A comparison that is thin, old-format, or still Cantonese stays out of the public list. */
 export function explainerCurrent(stored: ContentDoc): boolean {
-  if (stored.kind !== 'compare' || stored.stage === 'drafted') return false;
+  if (stored.kind !== 'compare' || heldMiniMax(stored)) return false;
   const doc = tidyStored(stored);
   if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;
@@ -106,7 +115,7 @@ export function explainerCurrent(stored: ContentDoc): boolean {
 
 /** A briefing under the floor is noindex and omitted from the index and sitemap. */
 export function briefingPublic(stored: ContentDoc): boolean {
-  if (stored.kind !== 'briefing' || stored.stage === 'drafted') return false;
+  if (stored.kind !== 'briefing' || heldMiniMax(stored)) return false;
   const doc = tidyStored(stored);
   if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;
@@ -169,7 +178,11 @@ export interface ContentDoc {
   /** Which writer produced this piece. Missing on rows from before MiniMax. */
   provider?: ArticleProvider;
   /** MiniMax piece mid-pipeline: 'drafted' is not fact-checked yet and never shown; 'checked' awaits its second draft. */
-  stage?: 'drafted' | 'checked';
+  stage?: 'drafted' | 'checked' | 'verify';
+  /** Set once Grok's final verification pass has run on a MiniMax piece. */
+  verified?: 'grok';
+  /** Grok verification cost for this piece, in US dollars. */
+  verifyUsd?: number;
   highlight?: Highlight;
   /** Short takeaways for the key-points box. Briefing and comparison pieces. */
   points?: string[];
