@@ -91,8 +91,8 @@ const HTML_HEADERS = {
 };
 
 const WALL_MS = 60_000;
-/** MiniMax pipeline budget from the start of the batch; the warm run's curl waits 90 s. */
-const MINIMAX_DEADLINE_MS = 82_000;
+/** MiniMax pipeline budget from the start of the request; the warm run's curl waits 90 s. */
+const MINIMAX_DEADLINE_MS = 76_000;
 /** Article pages read for one world or tech/finance brief. */
 const SCOPED_FETCH = 10;
 /** Only start the stricter second Grok attempt while there is room before the edge's 100 s limit. */
