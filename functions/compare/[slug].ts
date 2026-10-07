@@ -1,6 +1,11 @@
 import type { PagesContext } from '../env.js';
-import { serveCompare } from '../content/columns.js';
 
 export function onRequest(context: PagesContext): Promise<Response> {
-  return serveCompare(context);
+  const url = new URL(context.request.url);
+  const key = decodeURIComponent(url.pathname.split('/').filter(Boolean)[1] || '');
+  const dest = key ? `/explainer/${encodeURIComponent(key)}` : '/explainer/';
+  return Promise.resolve(new Response(null, {
+    status: 301,
+    headers: { location: new URL(dest, url).href, 'cache-control': 'public, max-age=86400' },
+  }));
 }

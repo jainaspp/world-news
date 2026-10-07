@@ -248,9 +248,9 @@ describe('homepage intro stays in the HTML without leading the screen', () => {
     expect(html).toContain(HOME_INTRO_LINE);
     expect(html.split(HOME_INTRO).length - 1).toBe(2);
     expect(html).toContain('href="/briefing/"');
-    expect(html).toContain('href="/compare/"');
+    expect(html).toContain('href="/explainer/"');
     expect(html).toContain('每日香港導讀');
-    expect(html).toContain('多方報道對比');
+    expect(html).toContain('新聞懶人包');
     expect(html).toContain('href="/data/"');
     const lazy = html.match(/<strong>新聞懶人包<\/strong>[^<]*<\/li>/g) || [];
     expect(lazy.length).toBeGreaterThan(0);

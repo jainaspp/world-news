@@ -25,13 +25,18 @@ export const XAI_TIMEOUT_MS = 45_000;
  */
 export async function completeGrok(apiKey: string, doc: ContentDoc, strict = false, timeoutMs = XAI_TIMEOUT_MS): Promise<GrokCompletion> {
   const prompt = promptFor(doc, strict);
+  return completeText(apiKey, prompt.system, prompt.user, prompt.maxTokens, timeoutMs);
+}
+
+/** One xAI chat completion from an explicit prompt. Same retry and usage rules as completeGrok. */
+export async function completeText(apiKey: string, system: string, user: string, maxTokens = 1200, timeoutMs = XAI_TIMEOUT_MS): Promise<GrokCompletion> {
   const body = JSON.stringify({
     model: GROK_MODEL,
     messages: [
-      { role: 'system', content: prompt.system },
-      { role: 'user', content: prompt.user.replace(/ \/no_think$/, '') },
+      { role: 'system', content: system },
+      { role: 'user', content: user.replace(/ \/no_think$/, '') },
     ],
-    max_tokens: prompt.maxTokens,
+    max_tokens: maxTokens,
     temperature: 0.4,
   });
   let lastError = '';

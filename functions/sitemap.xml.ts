@@ -40,7 +40,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     ...digest.map((row) => entry(`https://world-news.xyz/digest/${row.key}`, row.publishedAt, 'weekly', '0.5')),
     ...weekly.map((row) => entry(`https://world-news.xyz/weekly/${row.key}`, row.publishedAt, 'monthly', '0.5')),
     ...briefing.map((row) => entry(`https://world-news.xyz/briefing/${row.key}`, row.publishedAt, 'daily', '0.7')),
-    ...compare.map((row) => entry(`https://world-news.xyz/compare/${encodeURIComponent(row.key)}`, row.publishedAt, 'daily', '0.6')),
+    ...compare.map((row) => entry(`https://world-news.xyz/explainer/${encodeURIComponent(row.key)}`, row.publishedAt, 'daily', '0.6')),
   ].join('');
   const major = base.includes('/major/') ? '' : entry('https://world-news.xyz/major/', new Date().toISOString(), 'hourly', '0.8');
   const dataLocs: [string, string, string][] = [
