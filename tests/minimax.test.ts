@@ -258,3 +258,13 @@ describe('writer routing', () => {
     expect(prompt.user).not.toContain('搜尋最多');
   });
 });
+
+describe('parseDrop', () => {
+  it('keeps in-range unique integers and rejects malformed replies', async () => {
+    const { parseDrop } = await import('../functions/content/minimax.js');
+    expect(parseDrop('```json\n{"drop":[1,1,3,9,"2"]}\n```', 5)).toEqual([1, 3, 2]);
+    expect(parseDrop('{"drop":[]}', 5)).toEqual([]);
+    expect(parseDrop('no json', 5)).toBeNull();
+    expect(parseDrop('{"keep":[1]}', 5)).toBeNull();
+  });
+});

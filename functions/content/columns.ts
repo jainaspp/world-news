@@ -73,7 +73,7 @@ import { adConfig, polish } from './publish.js';
 import { fetchArticleTexts, fetchTitles, readBundles, readEvents, stampExcerpts, writeBundle, writeEvents } from './material.js';
 import { docKey, readDoc, readIndex, readValue, rememberIndexMany, writeDoc, writeValue, type ContentEnv } from './store.js';
 import { completeGrok, completeText, XAI_TIMEOUT_MS } from './xai.js';
-import { writeMiniMax } from './minimax.js';
+import { verifyMiniMax, writeMiniMax } from './minimax.js';
 import {
   briefingDraft,
   clusterWriter,
@@ -205,6 +205,12 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
         quota = again.quota;
         if (again.error) errors.push(again.error);
         if (again.doc && (!grokDoc || (pieceReady(again.doc) && !pieceReady(grokDoc)) || richness(again.doc) > richness(grokDoc))) grokDoc = again.doc;
+      }
+      // Fact check against the supplied material; unsupported or commentary sentences are removed.
+      if (grokDoc && grokDoc.provider === 'minimax' && Date.now() - started < WALL_MS - 15_000) {
+        const checked = await verifyMiniMax(mini, job.draft, grokDoc);
+        if (checked.error) errors.push(checked.error);
+        grokDoc = checked.doc;
       }
     }
     const readyMini = Boolean(grokDoc && pieceReady(grokDoc));
