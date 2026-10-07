@@ -87,7 +87,7 @@ export function narrativeSane(doc: ContentDoc): boolean {
 
 /** A comparison that is thin, old-format, or still Cantonese stays out of the public list. */
 export function explainerCurrent(stored: ContentDoc): boolean {
-  if (stored.kind !== 'compare') return false;
+  if (stored.kind !== 'compare' || stored.stage === 'drafted') return false;
   const doc = tidyStored(stored);
   if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;
@@ -106,7 +106,7 @@ export function explainerCurrent(stored: ContentDoc): boolean {
 
 /** A briefing under the floor is noindex and omitted from the index and sitemap. */
 export function briefingPublic(stored: ContentDoc): boolean {
-  if (stored.kind !== 'briefing') return false;
+  if (stored.kind !== 'briefing' || stored.stage === 'drafted') return false;
   const doc = tidyStored(stored);
   if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;
@@ -168,8 +168,8 @@ export interface ContentDoc {
   model?: string;
   /** Which writer produced this piece. Missing on rows from before MiniMax. */
   provider?: ArticleProvider;
-  /** MiniMax piece fact-checked once; the facts-only second draft runs on the next call. */
-  stage?: 'checked';
+  /** MiniMax piece mid-pipeline: 'drafted' is not fact-checked yet and never shown; 'checked' awaits its second draft. */
+  stage?: 'drafted' | 'checked';
   highlight?: Highlight;
   /** Short takeaways for the key-points box. Briefing and comparison pieces. */
   points?: string[];
