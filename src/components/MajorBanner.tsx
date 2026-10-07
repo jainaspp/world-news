@@ -24,11 +24,16 @@ function dismissed(id: string): boolean {
   }
 }
 
+function prefersReducedMotion(): boolean {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 /** In-flow red banner. Not sticky, so it does not add to the mobile chrome budget. */
 export function MajorBanner() {
   const boot = readBoot();
   const [entry, setEntry] = useState<MajorEntry | null>(boot);
   const [hidden, setHidden] = useState(() => (boot ? dismissed(boot.id) : false));
+  const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
     let cancel = false;
@@ -51,9 +56,29 @@ export function MajorBanner() {
     };
   }, []);
 
-  if (!entry || hidden) return null;
+  useEffect(() => {
+    if (!leaving) return;
+    const timer = window.setTimeout(() => {
+      setHidden(true);
+      setLeaving(false);
+    }, 420);
+    return () => window.clearTimeout(timer);
+  }, [leaving]);
+
+  if (!entry || (hidden && !leaving)) return null;
   return (
-    <section className="major-banner" data-major-id={entry.id} role="region" aria-label="重大更新">
+    <section
+      className={leaving ? 'major-banner is-leaving' : 'major-banner'}
+      data-major-id={entry.id}
+      role="region"
+      aria-label="重大更新"
+      onAnimationEnd={(event) => {
+        if (leaving && event.animationName === 'banner-out' && event.target === event.currentTarget) {
+          setHidden(true);
+          setLeaving(false);
+        }
+      }}
+    >
       <span className="major-kicker">重大更新</span>
       <a href={entry.href}>{entry.title}</a>
       <button
@@ -66,7 +91,11 @@ export function MajorBanner() {
           } catch {
             /* private mode */
           }
-          setHidden(true);
+          if (prefersReducedMotion()) {
+            setHidden(true);
+            return;
+          }
+          setLeaving(true);
         }}
       >
         ×

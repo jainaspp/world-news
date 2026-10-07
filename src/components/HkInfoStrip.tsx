@@ -30,6 +30,7 @@ import {
   type AbroadWx,
   type WxChoice,
 } from '../../shared/wx';
+import { wxIconClass } from '../utils/wxMotion';
 
 function storageGet(key: string): string | null {
   try {
@@ -288,7 +289,7 @@ export function HkInfoStrip() {
               aria-label={`${summary}，天氣詳情`}
               onClick={togglePanel}
             >
-              {emoji ? <span aria-hidden="true">{emoji} </span> : null}
+              {emoji ? <span className={wxIconClass(emoji)} aria-hidden="true">{emoji} </span> : null}
               {summary}
             </button>
           )}
@@ -374,7 +375,7 @@ export function HkInfoStrip() {
       {note && <p className="wx-note" role="status">{note}</p>}
       <div id={panelId} className="wx-panel" role="region" aria-label="天氣詳情" hidden={!panelOpen || !showCluster}>
         <p className="wx-panel-head">
-          {emoji ? <span aria-hidden="true">{emoji} </span> : null}
+          {emoji ? <span className={wxIconClass(emoji)} aria-hidden="true">{emoji} </span> : null}
           <span className="wx-panel-place">{chip}</span>
           {typeof temperature === 'number' && !showAbroad ? <span>{Math.round(temperature)}°C</span> : null}
           {showAbroad && abroad && typeof abroad.temperature === 'number' ? <span>{Math.round(abroad.temperature)}°C</span> : null}
@@ -397,7 +398,7 @@ export function HkInfoStrip() {
               <div key={day.date} className="wx-day">
                 <div className="wx-day-date">{formatStamp(day.date)}</div>
                 <div className="wx-day-week">{day.weekday}</div>
-                <div className="wx-day-icon" aria-hidden="true">{dayEmoji(day)}</div>
+                <div className={`wx-day-icon ${wxIconClass(dayEmoji(day))}`} aria-hidden="true">{dayEmoji(day)}</div>
                 <div>{formatRange(day.min, day.max)}</div>
                 {day.psr ? <div className="wx-day-psr" title="降雨概率">{day.psr}</div> : null}
               </div>
@@ -410,7 +411,7 @@ export function HkInfoStrip() {
               <div key={day.date} className="wx-day">
                 <div className="wx-day-date">{formatStamp(day.date)}</div>
                 <div className="wx-day-week">{day.weekday}</div>
-                <div className="wx-day-icon" aria-hidden="true">{wmoEmoji(day.code)}</div>
+                <div className={`wx-day-icon ${wxIconClass(wmoEmoji(day.code))}`} aria-hidden="true">{wmoEmoji(day.code)}</div>
                 <div>{formatRange(day.min, day.max)}</div>
                 {typeof day.pop === 'number' ? <div className="wx-day-psr" title="降雨概率">{Math.round(day.pop)}%</div> : null}
                 {typeof day.uv === 'number' ? <div className="wx-day-uv">UV {formatLoose(day.uv)}</div> : null}

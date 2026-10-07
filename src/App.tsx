@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { breakingIds } from '../shared/breaking';
 import { analysisSlug } from '../shared/content';
 import { CATEGORIES } from '../shared/categories';
@@ -105,19 +105,43 @@ function Logo() {
   const [failed, setFailed] = useState(false);
   if (failed) return <span className="logo-word">{SITE_NAME}</span>;
   return (
-    <>
+    <span className="logo-frame">
+      <span className="logo-live" aria-hidden="true" />
       <img className="logo-full logo-light" src="/brand/logo.svg" alt="" onError={() => setFailed(true)} />
       <img className="logo-full logo-dark" src="/brand/logo-dark.svg" alt="" />
       <img className="logo-compact logo-light" src="/brand/logo-compact.svg" alt="" />
       <img className="logo-compact logo-dark" src="/brand/logo-compact-dark.svg" alt="" />
-    </>
+    </span>
   );
+}
+
+function useSpinOnce() {
+  const [on, setOn] = useState(false);
+  const timer = useRef(0);
+  const frame = useRef(0);
+  const start = useCallback(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    window.clearTimeout(timer.current);
+    window.cancelAnimationFrame(frame.current);
+    setOn(false);
+    frame.current = requestAnimationFrame(() => {
+      setOn(true);
+      timer.current = window.setTimeout(() => setOn(false), 640);
+    });
+  }, []);
+  useEffect(() => () => {
+    window.clearTimeout(timer.current);
+    window.cancelAnimationFrame(frame.current);
+  }, []);
+  return [on, start] as const;
 }
 
 const clearSpecial = { bookmarks: false, following: false };
 
 export default function App() {
-  const { items, loading, error, partial, stale, refresh, freshCount, showPending, pending } = useNews();
+  const { items, loading, error, partial, stale, refresh, freshCount, showPending, pending, arrived } = useNews();
+  const arrivedSet = useMemo(() => new Set(arrived), [arrived]);
+  const [refreshing, spinRefresh] = useSpinOnce();
   const { items: bookmarks, ids: bookmarkIds, toggle } = useBookmarks();
   const follows = useFollows();
   const [view, setView] = useState<ViewState>(readView);
@@ -309,7 +333,7 @@ export default function App() {
               <input id="news-search" value={view.q} placeholder={t('search', lang)} onChange={(event) => go({ ...view, q: event.target.value }, 'replace')} />
             </form>
             <div className="header-actions">
-              <button type="button" className="icon-btn" aria-label={t('refresh', lang)} onClick={() => void refresh()} disabled={loading}>
+              <button type="button" className={refreshing ? 'icon-btn refresh-btn is-refreshing' : 'icon-btn refresh-btn'} aria-label={t('refresh', lang)} onClick={() => { spinRefresh(); void refresh(); }} disabled={loading}>
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                   <path d="M20 12a8 8 0 1 1-2.2-5.5" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
                   <path d="M20 4v5h-5" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
@@ -532,6 +556,7 @@ export default function App() {
                         onToggleSource={follows.toggleSource}
                         breaking={breaking.has(hero.id)}
                         angles={angleMap.get(hero.id)}
+                        arriving={arrivedSet.has(hero.id)}
                       />
                     )}
                     {secondary.length > 0 && (
@@ -549,6 +574,7 @@ export default function App() {
                             lang={lang}
                             breaking={breaking.has(item.id)}
                             angles={angleMap.get(item.id)}
+                            arriving={arrivedSet.has(item.id)}
                           />
                         ))}
                       </div>
@@ -572,6 +598,7 @@ export default function App() {
                         onToggleSource={follows.toggleSource}
                         breaking={breaking.has(item.id)}
                         angles={angleMap.get(item.id)}
+                        arriving={arrivedSet.has(item.id)}
                       />
                     );
                     const ordinal = secondary.length + index + 1;

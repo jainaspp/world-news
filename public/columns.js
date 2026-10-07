@@ -223,7 +223,18 @@
         close.textContent = '×';
         close.addEventListener('click', function () {
           try { localStorage.setItem(DISMISS, banner.id); } catch (e) {}
-          box.remove();
+          var reduce = false;
+          try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+          if (reduce) { box.remove(); return; }
+          box.classList.add('is-leaving');
+          var removed = false;
+          function finish() {
+            if (removed) return;
+            removed = true;
+            box.remove();
+          }
+          box.addEventListener('animationend', finish);
+          window.setTimeout(finish, 420);
         });
         box.appendChild(kicker);
         box.appendChild(link);
