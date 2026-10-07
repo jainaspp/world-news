@@ -276,11 +276,11 @@ a.chip { color: inherit; text-decoration: none; }
   .hk-info-wrap { margin-top: 4px; }
   .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 8px; font-size: 13px; overflow: visible; flex-wrap: wrap; white-space: normal; }
   .digest-strip {
-    display: flex; width: fit-content; margin-top: 4px; padding: 0; background: transparent;
-    border: 0; border-radius: 0; box-shadow: none;
+    display: flex; width: fit-content; max-width: 100%; margin-top: 4px; padding: 0; background: transparent;
+    border: 0; border-radius: 0; box-shadow: none; overflow: auto;
   }
-  .digest-strip .badge, .digest-strip a:not(.digest-primary) { display: none; }
-  .digest-strip a.digest-primary { padding: 4px 10px; font-size: 14px; line-height: 1.35; font-weight: 700; }
+  .digest-strip .badge, .digest-strip a:not(.digest-primary):not(.digest-keep) { display: none; }
+  .digest-strip a.digest-primary, .digest-strip a.digest-keep { padding: 4px 10px; font-size: 14px; line-height: 1.35; font-weight: 700; }
   /* Dense mobile cards: image on the left so photos don't dominate the screen. */
   .news-grid .story {
     display: flex; flex-direction: row; align-items: flex-start; min-width: 0; min-height: 0;

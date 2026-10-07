@@ -463,6 +463,8 @@ export default function App() {
                   <aside className="digest-strip">
                     <span className="badge">AI</span>
                     <a className="digest-primary" href="/digest/">{t('todayPicks', lang)}</a>
+                    <a className="digest-keep" href="/briefing/">{t('hkBriefing', lang)}</a>
+                    <a className="digest-keep" href="/compare/">{t('multiCompare', lang)}</a>
                     <a href="/weekly/">{t('weekly', lang)}</a>
                     <a href="/analysis/">{t('hotAnalysis', lang)}</a>
                   </aside>

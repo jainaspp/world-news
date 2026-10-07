@@ -34,6 +34,8 @@ const FRESH_MS: Record<ContentDoc['kind'], number> = {
   digest: 6 * 60 * 60 * 1000,
   analysis: 12 * 60 * 60 * 1000,
   weekly: 6 * 24 * 60 * 60 * 1000,
+  briefing: 6 * 60 * 60 * 1000,
+  compare: 12 * 60 * 60 * 1000,
 };
 
 function envOf(context: PagesContext): ContentEnv {
@@ -132,7 +134,7 @@ async function runModel(env: ContentEnv, doc: ContentDoc, strict: boolean): Prom
  * One model call, plus one stricter retry if the reply was unusable (bad JSON, empty, or mostly
  * English). Both count against DAILY_AI_CALLS. `reserved` means the first call was already counted.
  */
-async function polish(env: ContentEnv, doc: ContentDoc, reserved = false): Promise<ContentDoc> {
+export async function polish(env: ContentEnv, doc: ContentDoc, reserved = false): Promise<ContentDoc> {
   if (!env.AI?.run) return doc;
   if (!reserved && !(await allowModel(env))) return doc;
   const first = await runModel(env, doc, false);

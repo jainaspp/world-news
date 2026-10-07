@@ -90,7 +90,7 @@ export function renderHomeFeed(
     <main id="news">
       ${major}
       ${info}
-      <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
+      <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a><a class="digest-keep" href="/briefing/">每日香港導讀</a><a class="digest-keep" href="/compare/">多方報道對比</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
       ${top}
       <div class="news-grid">${grid}</div>
     </main>

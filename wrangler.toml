@@ -11,6 +11,7 @@ binding = "AI"
 
 # Durable store for generated pages. Created with:
 #   npx wrangler kv namespace create CONTENT
+# Grok uses the Pages secret XAI_API_KEY (wrangler pages secret put XAI_API_KEY). It is not a binding.
 [[kv_namespaces]]
 binding = "CONTENT"
 id = "807fa3f477704af287ca5a9dd3ab6bc5"
