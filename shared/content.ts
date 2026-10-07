@@ -27,6 +27,22 @@ export const ANALYSIS_HEADINGS = ['背景', '各方說法', '點解要關心', '
 
 export const BRIEFING_HEADINGS = ['香港', '內地', '今日值得留意'] as const;
 
+export type BriefingScope = 'hk' | 'world' | 'techfin';
+
+export type ArticleProvider = 'grok' | 'minimax' | 'workers-ai';
+
+export function briefingScopeOf(key: string): BriefingScope {
+  if (key.endsWith('-techfin')) return 'techfin';
+  if (key.endsWith('-world')) return 'world';
+  return 'hk';
+}
+
+export function briefingHeadings(scope: BriefingScope = 'hk'): readonly string[] {
+  if (scope === 'world') return ['國際', '今日值得留意'];
+  if (scope === 'techfin') return ['科技', '財經', '今日值得留意'];
+  return BRIEFING_HEADINGS;
+}
+
 export const COMPARE_HEADINGS = ['事件經過', '各方回應', '後續關注'] as const;
 
 /** Narrative Chinese characters. Timeline titles are not the article. */
@@ -81,7 +97,9 @@ export function briefingPublic(stored: ContentDoc): boolean {
   if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;
   const titles = new Set(doc.blocks.map((block) => block.title));
-  if (!titles.has('今日值得留意') || (!titles.has('香港') && !titles.has('內地'))) return false;
+  const headings = briefingHeadings(briefingScopeOf(doc.key));
+  const body = headings.filter((heading) => heading !== '今日值得留意');
+  if (!titles.has('今日值得留意') || !body.some((heading) => titles.has(heading))) return false;
   if (narrativeChars(doc) < PUBLISH_FLOOR) return false;
   const prose = [doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => block.sentences)].join('\n');
   return !cantoneseLeft(prose);
@@ -131,6 +149,8 @@ export interface ContentDoc {
   hkt: string;
   mode: 'ai' | 'sources';
   model?: string;
+  /** Which writer produced this piece. Missing on rows from before MiniMax. */
+  provider?: ArticleProvider;
   highlight?: Highlight;
   /** Short takeaways for the key-points box. Briefing and comparison pieces. */
   points?: string[];
@@ -425,6 +445,7 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode =
     '判斷用「是」。使用全形標點，一句只說一件事，中文之間不要用空格分隔。數字和年份一律用阿拉伯數字，例如 2026、3.2%、21.44億、13歲、305份，不要寫成「十三歲」「三百零五份」。',
     bounds,
     '不要寫「未有回應」「未有評論」「政府未有表態」這類否定句，除非摘錄原文這樣寫。沒有回應、沒有數字、沒有下一步，就整段省略，不要用空話填篇幅。',
+    '不要添加資料以外的背景事實。不要寫免責聲明，也不要寫說教或呼籲句。',
     '用新聞書面語寫成自然段落，句子長短要有變化，每段二至四句，使用全形逗號。不要把一句話拆成許多短句，也不要寫「事件造成…結果」這類空話。引文每次不超過二十字，不要大段照抄摘錄。',
     '不要稱呼資料欄位，也不要談論材料的格式。不要把標題原句串成內文。',
     '來源標題或引述若是粵語口語（例如 嘢、咗、嘅、係、拎、喺），一律改寫成書面語轉述，不要照抄粵語字詞，引號內也一樣。',
@@ -446,14 +467,30 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode =
   });
   const background = usingSearch ? '搜尋到的背景' : '摘錄中的背景';
   if (doc.kind === 'briefing') {
+    const scope = briefingScopeOf(doc.key);
+    const headings = briefingHeadings(scope);
     const data = doc.blocks
-      .filter((block) => block.title === '香港' || block.title === '內地')
+      .filter((block) => headings.includes(block.title) && block.title !== '今日值得留意')
       .map((block) => ({ heading: block.title, sources: block.sources.map(clip) }));
+    const headingUnion = headings.map((heading) => `"${heading}"`).join('|');
+    const lengthRule = scope === 'techfin'
+      ? '每個 heading 只出現一次；科技和財經兩段各寫 250 至 350 字，涵蓋兩至三件事，並只用提供的摘錄說明為何重要；今日值得留意寫 100 至 150 字。每句 25 至 45 字，不要寫成一連串短句。'
+      : scope === 'world'
+        ? '每個 heading 只出現一次；國際段寫 350 至 550 字，涵蓋兩至三件事，並只用提供的摘錄說明為何重要；今日值得留意寫 100 至 150 字。每句 25 至 45 字，不要寫成一連串短句。'
+        : `每個 heading 只出現一次；香港和內地兩段各寫 250 至 350 字，涵蓋兩至三件事，並用${background}說明為何重要；今日值得留意寫 100 至 150 字。每句 25 至 45 字，不要寫成一連串短句。`;
+    const sectionRule = scope === 'techfin'
+      ? '科技段只根據科技來源，財經段只根據財經來源。沒有來源的一邊就整段省略。'
+      : scope === 'world'
+        ? '國際段只根據提供的國際來源。沒有來源就整段省略。'
+        : '香港段只根據香港來源，內地段只根據內地來源。沒有來源的一邊就整段省略。';
+    const watch = scope === 'hk'
+      ? '今日值得留意綜合兩邊，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。'
+      : '今日值得留意綜合上面各段，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。';
     const shape = [
-      `回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"..."}],"points":["重點","重點","重點"]}。每個 heading 只出現一次；香港和內地兩段各寫 250 至 350 字，涵蓋兩至三件事，並用${background}說明為何重要；今日值得留意寫 100 至 150 字。每句 25 至 45 字，不要寫成一連串短句。`,
+      `回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":${headingUnion},"text":"..."}],"points":["重點","重點","重點"]}。${lengthRule}`,
       `這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫${usingSearch ? '搜尋結果或來源' : '來源'}提到的影響。不要寫「凸顯…重要性」「提醒市民…」「為…鋪路」這類評論或說教。同一事實只寫一次。句子長短要有變化。`,
-      '香港段只根據香港來源，內地段只根據內地來源。沒有來源的一邊就整段省略。',
-      '今日值得留意綜合兩邊，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。',
+      sectionRule,
+      watch,
       'points 三至四項，每項 30 字以內。數字必須在來源出現過。',
     ].join('');
     const maxTokens = usingSearch ? 4_500 : usingMaterial ? 3_200 : 2_400;
@@ -825,7 +862,7 @@ function applyColumnModel(
 ): { doc: ContentDoc; record: { highlight?: unknown } } | null {
   if (doc.kind !== 'briefing' && doc.kind !== 'compare') return null;
   if (!Array.isArray(record.sections)) return null;
-  const allowed = new Set<string>(doc.kind === 'briefing' ? BRIEFING_HEADINGS : COMPARE_HEADINGS);
+  const allowed = new Set<string>(doc.kind === 'briefing' ? briefingHeadings(briefingScopeOf(doc.key)) : COMPARE_HEADINGS);
   const byHeading = new Map<string, string[]>();
   for (const section of record.sections) {
     const heading = toHK(String(section?.heading || '').trim());

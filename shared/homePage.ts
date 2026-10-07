@@ -19,6 +19,12 @@ export interface HomeMarket {
 
 const SSR_COUNT = 12;
 
+export const DEFAULT_BRIEFING_LINKS = [
+  { href: '/briefing/', label: '每日香港導讀' },
+  { href: '/briefing/', label: '國際導讀' },
+  { href: '/briefing/', label: '科技財經導讀' },
+];
+
 function hostOf(url: string): string {
   try {
     return new URL(url).hostname.replace(/^www\./, '');
@@ -74,6 +80,7 @@ export function renderHomeFeed(
   feedSlot = '',
   banner: MajorEntry | null = null,
   focusHtml = '',
+  briefingLinks: { href: string; label: string }[] = DEFAULT_BRIEFING_LINKS,
 ): string {
   const list = items.slice(0, SSR_COUNT);
   if (!list.length) {
@@ -94,7 +101,7 @@ export function renderHomeFeed(
       ${major}
       ${homeIntroTop()}
       ${info}
-      <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a><a class="digest-keep" href="/briefing/">每日香港導讀</a><a class="digest-keep" href="/explainer/">新聞懶人包</a><a href="/today/">今日時間線</a><a href="/data/">數據</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
+      <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a>${briefingLinks.map((link) => `<a class="digest-keep" href="${esc(link.href)}">${esc(link.label)}</a>`).join('')}<a class="digest-keep" href="/explainer/">新聞懶人包</a><a href="/today/">今日時間線</a><a href="/data/">數據</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
       ${focusHtml.trim()}
       ${top}
       <div class="news-grid">${grid}</div>
@@ -145,8 +152,9 @@ export function injectHomeShell(
   feedSlot = '',
   banner: MajorEntry | null = null,
   focusHtml = '',
+  briefingLinks: { href: string; label: string }[] = DEFAULT_BRIEFING_LINKS,
 ): string {
-  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml);
+  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks);
   const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner);
   const heroImage = items[0]?.image && /^https?:\/\//.test(items[0].image) ? items[0].image : '';
   const preload = heroImage

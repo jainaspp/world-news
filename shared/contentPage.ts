@@ -1,6 +1,6 @@
 import { readableSourceTitle } from './search.js';
 import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
-import { briefingPublic, explainerCurrent, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
+import { briefingPublic, briefingScopeOf, explainerCurrent, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
 import { bestImage } from './media.js';
 import { FOOTER_LINKS } from './siteNav.js';
 
@@ -195,9 +195,19 @@ const KIND_NAME: Record<ContentDoc['kind'], string> = {
 
 function modelCredit(doc: ContentDoc): string {
   if (doc.mode !== 'ai') return '';
-  if (doc.model?.includes('grok')) return 'xAI Grok 4.3';
-  if (doc.model) return 'Workers AI';
+  if (doc.provider === 'minimax' || doc.model?.toLowerCase().includes('minimax')) return 'MiniMax';
+  if (doc.provider === 'grok' || doc.model?.includes('grok')) return 'xAI Grok 4.3';
+  if (doc.provider === 'workers-ai' || doc.model) return 'Workers AI';
   return '';
+}
+
+function columnName(doc: ContentDoc): string {
+  if (doc.kind === 'briefing') {
+    const scope = briefingScopeOf(doc.key);
+    if (scope === 'world') return '國際導讀';
+    if (scope === 'techfin') return '科技財經導讀';
+  }
+  return KIND_NAME[doc.kind];
 }
 
 export function cjkChars(text: string): number {
@@ -417,7 +427,7 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
       <article class="story story-hero column-hero">
         <div class="story-media">${media(image, leadCategory, sources[0]?.source || '世界頭條', true)}</div>
         <div class="story-body">
-          <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">${KIND_NAME[doc.kind]}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
+          <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">${columnName(doc)}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
           <h1 class="story-title column-title">${esc(doc.title)}</h1>
           ${doc.kind === 'analysis' || doc.kind === 'compare' ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : ''}
           ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}
@@ -506,9 +516,9 @@ ${head(title, description, canonical, entries.find((entry) => entry.image)?.imag
 
 const LISTING: Record<'briefing' | 'compare', { title: string; description: string; empty: string; kicker: string }> = {
   briefing: {
-    title: '每日香港導讀',
-    description: '每日早上與傍晚，按當日香港與內地標題寫成一篇導讀。',
-    empty: '暫時未有導讀。每日 07:30 與 18:30（香港時間）會根據當日標題整理一篇。',
+    title: '每日導讀',
+    description: '每日早上與傍晚：香港與內地、國際、科技與財經，各寫成一篇導讀。',
+    empty: '暫時未有導讀。每日 07:30 與 18:30（香港時間）會整理香港、國際和科技財經三篇。',
     kicker: '導讀',
   },
   compare: {

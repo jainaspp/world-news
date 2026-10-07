@@ -120,7 +120,9 @@ npx wrangler kv namespace create CONTENT
 
 `/briefing/`、`/briefing/<slot>/`（`YYYY-MM-DD-am` 或 `pm`）和 `/explainer/`、`/explainer/<key>/` 都是可索引的 HTML，會寫進 `sitemap.xml`。正文少於 500 字、或未完成應有段落的導讀和懶人包會 `noindex`，不進列表和 sitemap。導讀用當日香港和內地標題（包括「歐中貿易談判」這類歸在財經、但內容是中國的報道），每日 07:30 和 18:30（香港時間）各一篇，並連到同日已發布的懶人包。新聞懶人包先收緊到同一事件（標題重疊、同一分類、數小時內），再由 Grok 剔走不是該事件的標題；每日最多 20 篇。標題用模型寫的中文，不拼接來源標題。文首三行重點，下面是事件時間線、事件經過；各方回應和後續關注沒有來源就不寫。舊網址 `/compare/` 會 301 到 `/explainer/`。導讀和懶人包用 xAI `grok-4.3` 的 Responses API，並開啟 `web_search`（每次最多約 5 次搜尋、來源列表最多 10 條，排除社交網站）。Workers AI 只在本月 10 美元上限用盡，或 xAI 沒有回應時才用。
 
-`/region/<code>/` 和 `/category/<slug>/` 在標題列表上方有一段「本週重點」（約 250 至 400 字，標明 AI 整合）。同一日只寫一次，跟導讀共用 10 美元上限。KV 未有這段時，頁面只顯示標題列表，不會報錯。
+香港和內地的導讀、懶人包、本週重點仍用 Grok。科技、財經、國際、科學、健康、體育、娛樂的懶人包，以及國際導讀（`scope=world`）和科技財經導讀（`scope=techfin`），用 MiniMax（`MiniMax-M2.5`，不夠則 `MiniMax-M2`）。MiniMax 是編碼方案月費，每篇費用記 0，不計入 10 美元上限。429 或額度用盡才改走 Grok，Grok 也不可用才用 Workers AI。輸出會做簡轉繁。每個早上或傍晚最多 15 篇 MiniMax 懶人包（每次 `kind=explainer` 最多 5 篇，現有排程連打三次就滿）。不帶 `scope` 的 `kind=briefing` 會一次寫香港、國際、科技財經三篇。
+
+`/region/<code>/` 和 `/category/<slug>/` 在標題列表上方有一段「本週重點」（約 250 至 400 字，標明 AI 整合）。香港和中國分類仍用 Grok，其餘用 MiniMax。KV 未有這段時，頁面只顯示標題列表，不會報錯。
 
 生成由 `.github/workflows/warm-content.yml` 分批呼叫 `POST /api/generate`（header `x-generate-secret`）。導讀、懶人包和本週重點只讀已快取的新聞板，不會在這次請求裡重抓 RSS。快取未有、或結果只是來源標題稿時，回應是 503 且 `fallback: true`，工作流程會再試。每批最多 3 篇。當日已經寫好、正文夠長的 Grok 稿不會重寫；未到 500 字的稿可以重寫。同一題過薄的稿每日最多再試兩次；工作流程若連續收到同一組 key 就停止。`force=1` 可覆寫指定導讀時段、尚未發布的懶人包，或本週重點。模型失敗會改用 Workers AI，再退回來源標題稿，不會令首頁 500。回應裡的 `cost`（導讀）和 `costs`（懶人包）是該篇的 token 加搜尋費用。
 
@@ -129,6 +131,7 @@ xAI 定價（`grok-4.3`，提示少於 20 萬 token）：輸入每百萬 token 1
 | 名稱 | 放哪裡 | 填什麼 |
 | --- | --- | --- |
 | `XAI_API_KEY` | Pages secret，`npx wrangler pages secret put XAI_API_KEY` | xAI API key。唔好寫入 repo，亦唔好放在 `VITE_` |
+| `MINIMAX_API_KEY` | Pages secret，已在正式環境設定 | MiniMax 中國編碼方案 key。唔好寫入 repo |
 | `GENERATE_SECRET` | 已有的 Pages 變數同 GitHub Actions secret | 導讀、懶人包、status 用同一組密碼 |
 
 KV 綁定 `CONTENT` 沿用現有 namespace，唔使再開一個。Workflow 唔使新 secret：key 只放在 Pages。

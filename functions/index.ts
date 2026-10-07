@@ -2,9 +2,10 @@ import { loadHkNow } from '../server/hkService.js';
 import { loadHsiQuote } from '../server/hsiService.js';
 import { applyRuntimeEnv } from '../server/runtimeEnv.js';
 import { injectHomeShell, type HomeMarket } from '../shared/homePage.js';
+import { latestBriefingLinks } from '../shared/writers.js';
 import { loadList } from './board/list.js';
 import { readBoard, scheduleBoard } from './board/store.js';
-import type { ContentEnv } from './content/store.js';
+import { readIndex, type ContentEnv } from './content/store.js';
 import { edgeCache, type PagesContext } from './env.js';
 
 const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v4');
@@ -66,7 +67,13 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   } catch {
     items = [];
   }
-  const html = injectHomeShell(shell, items, counts, market, envSlot(context.env), major);
+  let briefings: { href: string; label: string }[] | undefined;
+  try {
+    briefings = latestBriefingLinks(await readIndex(context.env as ContentEnv, 'briefing'));
+  } catch {
+    briefings = undefined;
+  }
+  const html = injectHomeShell(shell, items, counts, market, envSlot(context.env), major, '', briefings);
   const headers = new Headers({
     'content-type': 'text/html; charset=utf-8',
     'cache-control': 'public, max-age=60, s-maxage=120, stale-while-revalidate=600',
