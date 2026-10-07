@@ -23,10 +23,12 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   const assets = context.env.ASSETS as { fetch(request: Request): Promise<Response> } | undefined;
   const base = assets ? await assets.fetch(context.request).then((r) => r.text()).catch(() => '') : '';
   const env = context.env as ContentEnv;
-  const [analysis, digest, weekly] = await Promise.all([
+  const [analysis, digest, weekly, briefing, compare] = await Promise.all([
     readIndex(env, 'analysis').catch(() => []),
     readIndex(env, 'digest').catch(() => []),
     readIndex(env, 'weekly').catch(() => []),
+    readIndex(env, 'briefing').catch(() => []),
+    readIndex(env, 'compare').catch(() => []),
   ]);
   const legal = LEGAL
     .filter(([loc]) => !base.includes(loc))
@@ -36,6 +38,8 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     ...analysis.map((row) => entry(`https://world-news.xyz/analysis/${encodeURIComponent(row.key)}`, row.publishedAt, 'daily', '0.6')),
     ...digest.map((row) => entry(`https://world-news.xyz/digest/${row.key}`, row.publishedAt, 'weekly', '0.5')),
     ...weekly.map((row) => entry(`https://world-news.xyz/weekly/${row.key}`, row.publishedAt, 'monthly', '0.5')),
+    ...briefing.map((row) => entry(`https://world-news.xyz/briefing/${row.key}`, row.publishedAt, 'daily', '0.7')),
+    ...compare.map((row) => entry(`https://world-news.xyz/compare/${encodeURIComponent(row.key)}`, row.publishedAt, 'daily', '0.6')),
   ].join('');
   const major = base.includes('/major/') ? '' : entry('https://world-news.xyz/major/', new Date().toISOString(), 'hourly', '0.8');
   const xml = base.includes('</urlset>')

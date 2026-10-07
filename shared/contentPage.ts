@@ -164,7 +164,70 @@ function timeline(sources: SourceRef[]): string {
       </div></section>`;
 }
 
-const KIND_LABEL: Record<ContentDoc['kind'], string> = { digest: '日報', weekly: '週報', analysis: '分析' };
+const KIND_LABEL: Record<ContentDoc['kind'], string> = {
+  digest: '日報',
+  weekly: '週報',
+  analysis: '分析',
+  briefing: '導讀',
+  compare: '對比',
+};
+
+const KIND_NAME: Record<ContentDoc['kind'], string> = {
+  ...KIND_LABEL,
+  briefing: '每日香港導讀',
+  compare: '多方報道對比',
+};
+
+function modelCredit(doc: ContentDoc): string {
+  if (doc.mode !== 'ai') return '';
+  if (doc.model?.includes('grok')) return 'xAI Grok 4.3';
+  if (doc.model) return 'Workers AI';
+  return '';
+}
+
+function distinctOutlets(sources: SourceRef[]): SourceRef[] {
+  const seen = new Set<string>();
+  return sources.filter((source) => (seen.has(source.source) ? false : (seen.add(source.source), true)));
+}
+
+function sourceChips(sources: SourceRef[]): string {
+  const chips = distinctOutlets(sources).map((source) => {
+    const url = safeHttp(source.url);
+    if (!url) return '';
+    return `<li><a class="chip source-chip" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${favicon(url)}${esc(source.source)}</a></li>`;
+  }).filter(Boolean);
+  if (chips.length < 2) return '';
+  return `<ul class="source-chips" aria-label="來源">${chips.join('')}</ul>`;
+}
+
+function comparisonTable(sources: SourceRef[]): string {
+  const rows = distinctOutlets(sources);
+  if (rows.length < 2) return '';
+  const body = rows.map((source) => {
+    const url = safeHttp(source.url);
+    const name = url
+      ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${favicon(url)}${esc(source.source)}</a>`
+      : esc(source.source);
+    return `<tr><th scope="row">${name}</th><td>${esc(source.angle || source.title)}</td><td>${esc(source.facts || '—')}</td><td>${esc(source.tone || '—')}</td></tr>`;
+  }).join('');
+  return `<section class="compare-wrap" aria-label="各方對照"><h2 class="section-title">各方對照</h2><table class="compare-table"><thead><tr><th>媒體</th><th>強調</th><th>事實同數字</th><th>語氣</th></tr></thead><tbody>${body}</tbody></table></section>`;
+}
+
+function compareCards(sources: SourceRef[]): string {
+  const rows = distinctOutlets(sources);
+  if (rows.length < 2) return '';
+  const cards = rows.map((source) => {
+    const url = safeHttp(source.url);
+    const when = source.pubDate ? hkt(source.pubDate, false) : '';
+    return `<li class="angle-card">
+          <div class="angle-head">${favicon(url)}<strong>${esc(source.source)}</strong>${source.tone ? `<span class="tone-chip">${esc(source.tone)}</span>` : ''}${when ? `<time datetime="${esc(source.pubDate || '')}">${esc(when)}</time>` : ''}</div>
+          <p class="angle-text">${esc(source.angle || source.title)}</p>
+          ${source.facts ? `<p class="angle-facts">${esc(source.facts)}</p>` : ''}
+          ${url ? `<a class="read-original" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(source.title)} →</a>` : ''}
+        </li>`;
+  }).join('');
+  return `<section class="angles" aria-label="各媒體並排"><h2 class="section-title">各媒體並排</h2><ul class="angle-grid">${cards}</ul></section>`;
+}
 
 /** Publisher intro on every column article. Static, so it does not spend Workers AI. */
 export const MIN_BODY_CHARS = 400;
@@ -172,6 +235,8 @@ export const MIN_BODY_CHARS = 400;
 const EDITOR_NOTES: Record<ContentDoc['kind'], string> = {
   digest: '世界頭條日報由編輯部劃定範圍，每日整理多間媒體同時報道的公開標題。我哋只讀 RSS 入面的標題同短描述，不會下載或轉載原文全文。下面各節標明「AI 整合」，由模型按呢啲材料寫成摘要。來源沒有寫明的數字、引言、人物背景同因果，一律不會補上。想知詳情，請用每節下面的連結去讀原文。標題同內文的版權屬於原來的出版者。',
   weekly: '一週科技同一週財經是世界頭條的週報。編輯部每週從已收錄的科技同財經標題做一次回顧，仍然只根據公開 RSS 的標題同短描述，不會轉載全文。下面兩節都標明「AI 整合」，方便你先看我哋點樣把一週的標題歸類，再自己去原文核對。這篇不是投資建議，也不是任何機構的官方摘要。來源沒有寫的數字同判斷，不會在這裡出現。',
+  briefing: '每日香港導讀是世界頭條的原創欄目，每日早晚各一期。編輯部先從已收錄的香港同內地新聞標題中，揀出多間媒體同時報道的題目，再由 xAI Grok 模型按公開 RSS 的標題同短描述，寫成一篇有分段的導讀。每一段都標明「AI 整合」，並在文末列出所有引用的原文連結。我哋不會轉載原文全文，亦不會加入來源沒有寫的數字、引言或因果。想知詳情，請用連結去讀出版者的原文。',
+  compare: '多方報道對比把同一件事的不同報道並排放在一起，方便你看清各家媒體強調甚麼、引用甚麼數字、用甚麼語氣。香港同內地題目由 xAI Grok 模型整理，其他題目由 Workers AI 整理，兩者都只根據公開 RSS 的標題同短描述，並標明「AI 整合」。對照表只概括每間媒體自己的標題，不代表本站立場。來源沒有寫的情節一律不會補上，詳情以各出版者的原文為準。',
   analysis: '熱門分析針對多間媒體同時報道的同一件事。世界頭條先把各家標題放在一起，再由模型按標題同短描述，寫成背景、各方說法、點解要關心、與香港的關係、接落嚟留意咩。每一節都標明「AI 整合」。我哋不會為了寫得完整而添加來源沒有講的情節。與香港的關係只在材料直接提到香港，或者對香港讀者有明顯影響時才寫。各媒體點報只概括該來源自己的標題，並附上原文連結。',
 };
 
@@ -287,7 +352,7 @@ export function chrome(active: ContentDoc['kind'] | 'none'): string {
     <div class="tab-bar">
       <nav class="filters" aria-label="欄目">
         <a class="chip" href="/">頭條</a>
-        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}
+        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/compare/')}
       </nav>
     </div>
     <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣同恒生指數"></div>
@@ -301,7 +366,7 @@ export function footer(): string {
   return `<footer class="app-footer">
       <p>世界頭條 只列出標題同出處連結，不轉載內文。<a href="https://world-news.xyz"> world-news.xyz</a> · <a href="/major/">重大更新</a></p>
       <nav class="footer-nav" aria-label="網站資料">${links}</nav>
-      <p class="ai-footnote"><span class="badge">AI 整合</span> 日報、週報同分析由 AI 根據公開標題同短描述整理，只供參考，詳情以來源原文為準。</p>
+      <p class="ai-footnote"><span class="badge">AI 整合</span> 日報、週報、分析、導讀同對比由 AI 根據公開標題同短描述整理，只供參考，詳情以來源原文為準。</p>
     </footer>`;
 }
 
@@ -317,11 +382,14 @@ export function share(title: string, canonical: string): string {
 function archiveCard(entries: IndexEntry[], kind: ContentDoc['kind'], currentKey: string): string {
   const rows = entries.filter((entry) => entry.key !== currentKey).slice(0, 8);
   if (!rows.length) return '';
-  const base = kind === 'analysis' ? '/analysis/' : `/${kind}/`;
+  const titled = kind === 'analysis' || kind === 'briefing' || kind === 'compare';
+  const base = `/${kind}/`;
+  const more = kind === 'analysis' ? '更多分析' : kind === 'briefing' ? '更多導讀' : kind === 'compare' ? '更多對比' : '往期';
+  const all = kind === 'analysis' ? '全部分析' : kind === 'briefing' ? '全部導讀' : kind === 'compare' ? '全部對比' : '';
   return `<section class="side-card archive" aria-label="往期">
-        <h2>${kind === 'analysis' ? '更多分析' : '往期'}</h2>
-        <ol>${rows.map((entry) => `<li><a href="${base}${encodeURIComponent(entry.key)}${kind === 'analysis' ? '/' : ''}">${esc(kind === 'analysis' ? entry.title : entry.key)}</a><span>${esc(hkt(entry.publishedAt, false))}</span></li>`).join('')}</ol>
-        ${kind === 'analysis' ? '<a class="read-original" href="/analysis/">全部分析 →</a>' : ''}
+        <h2>${more}</h2>
+        <ol>${rows.map((entry) => `<li><a href="${base}${encodeURIComponent(entry.key)}${titled ? '/' : ''}">${esc(titled ? entry.title : entry.key)}</a><span>${esc(hkt(entry.publishedAt, false))}</span></li>`).join('')}</ol>
+        ${all ? `<a class="read-original" href="${base}">${all} →</a>` : ''}
       </section>`;
 }
 
@@ -333,6 +401,7 @@ function aboutCard(): string {
 }
 
 function keyPoints(doc: ContentDoc): string[] {
+  if (doc.points?.length) return doc.points.slice(0, 4);
   if (doc.kind === 'digest') return doc.blocks.slice(0, 5).map((block) => block.title);
   return doc.blocks.map((block) => realSentences(block.sentences)[0] || '').filter(Boolean).slice(0, 4);
 }
@@ -371,10 +440,12 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
       { '@type': 'Article', headline: doc.title, datePublished: doc.publishedAt, inLanguage: 'zh-HK', mainEntityOfPage: canonical },
     ],
   };
-  const ld = `<script type="application/ld+json">${JSON.stringify(json).replace(/</g, '\\u003c')}</script>`;
+  const robots = doc.kind === 'briefing' || doc.kind === 'compare' ? '<meta name="robots" content="index,follow" />' : '';
+  const ld = `${robots}<script type="application/ld+json">${JSON.stringify(json).replace(/</g, '\\u003c')}</script>`;
   const note = doc.mode === 'ai' ? '' : '<p class="notice" role="status">模型暫時未能完成。這一版只列出來源標題，沒有加寫情節。</p>';
   const points = keyPoints(doc);
-  const pointsBox = points.length > 1 ? `<section class="key-points" aria-label="今期重點"><h2>${doc.kind === 'digest' ? '今期重點' : '重點'}</h2><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></section>` : '';
+  const pointsLabel = doc.kind === 'digest' ? '今期重點' : '重點';
+  const pointsBox = points.length > 1 ? `<section class="key-points" aria-label="${pointsLabel}"><h2>${pointsLabel}</h2><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></section>` : '';
   const highlight = doc.highlight?.items.length
     ? `<section class="highlight-box" aria-label="${esc(doc.highlight.label)}"><h2>${esc(doc.highlight.label)}</h2><ul>${doc.highlight.items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul></section>`
     : '';
@@ -390,7 +461,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
           <h2 class="column-h2">${esc(block.title)}</h2>
           ${doc.kind === 'digest' ? originalTitle(block.originalTitle, block.sources[0]?.url) : ''}
           <ul class="points">${block.sentences.map((sentence) => `<li>${esc(sentence)}</li>`).join('')}</ul>
-          ${doc.kind === 'analysis' ? '' : `<details class="sources"${index === 0 ? ' open' : ''}><summary>來源（${block.sources.length}）</summary>${sourceList(block.sources)}</details>`}
+          ${doc.kind === 'analysis' || doc.kind === 'compare' ? '' : `<details class="sources"${index === 0 ? ' open' : ''}><summary>來源（${block.sources.length}）</summary>${sourceList(block.sources)}</details>`}
         </div>
       </section>`;
     return section + (index + 1 === midAt && shownBlocks.length > 1 ? adUnit(ads, ads?.mid, 'mid', true) : '');
@@ -399,6 +470,14 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
     ? `${timeline(sources)}<section class="story column-block"><div class="story-body"><h2 class="column-h2">來源（${sources.length}）</h2>${sourceList(sources)}</div></section>`
     : '';
   const angles = doc.kind === 'analysis' ? outletAngles(sources) : '';
+  const rich = doc.kind === 'briefing' || doc.kind === 'compare';
+  const compared = doc.kind === 'compare' ? `${sourceChips(sources)}${compareCards(sources)}${comparisonTable(sources)}` : '';
+  const briefingChips = doc.kind === 'briefing' ? sourceChips(sources) : '';
+  const columnTail = rich && sources.length
+    ? `${timeline(sources)}<section class="story column-block"><div class="story-body"><h2 class="column-h2">來源（${sources.length}）</h2>${sourceList(sources)}</div></section>`
+    : '';
+  const credit = rich ? modelCredit(doc) : '';
+  const showDek = doc.kind === 'analysis' || rich;
   const relatedCats = categories.join(',');
   const exclude = sources.map((source) => source.url).slice(0, 30);
   const empty = !shownBlocks.length ? '<p class="notice">這一期暫時沒有足夠的多方來源。</p>' : '';
@@ -414,10 +493,10 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
       <article class="story story-hero column-hero">
         <div class="story-media">${media(image, leadCategory, sources[0]?.source || '世界頭條', true)}</div>
         <div class="story-body">
-          <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">${KIND_LABEL[doc.kind]}</span>${doc.kind === 'analysis' ? heatBadge(outlets) : ''}${categories.map(catChip).join('')}</div>
+          <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">${KIND_NAME[doc.kind]}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
           <h1 class="story-title column-title">${esc(doc.title)}</h1>
-          ${doc.kind === 'analysis' ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : ''}
-          ${doc.kind === 'analysis' ? `<p class="dek">${esc(description)}</p>` : ''}
+          ${doc.kind === 'analysis' || doc.kind === 'compare' ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : ''}
+          ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}
           <div class="story-meta"><time datetime="${esc(doc.publishedAt)}">${esc(doc.hkt || hkt(doc.publishedAt))} 香港時間</time><span>· 閱讀約 ${minutes} 分鐘</span>${sources.length ? `<span>· ${outlets} 間媒體 · ${sources.length} 篇報道</span>` : ''}</div>
           ${share(doc.title, canonical)}
         </div>
@@ -427,10 +506,13 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
       ${note}
       ${empty}
       ${pointsBox || highlight ? `<div class="column-boxes">${pointsBox}${highlight}</div>` : ''}
-      ${doc.kind === 'analysis' ? angles : ''}
+      ${briefingChips}
+      ${compared}
+      ${angles}
       ${blocks}
       ${supplement}
       ${analysisSources}
+      ${columnTail}
       ${adUnit(ads, ads?.bottom, 'bottom')}
       <section class="related" id="related" data-categories="${esc(relatedCats)}" data-exclude="${esc(JSON.stringify(exclude))}" hidden>
         <h2 class="section-title">相關頭條</h2>
@@ -495,6 +577,70 @@ ${head(title, description, canonical, entries.find((entry) => entry.image)?.imag
     ${editor}
     ${adUnit(ads, ads.top, 'top')}
     ${entries.length ? `<div class="news-grid analysis-grid">${withAd}</div>` : '<p class="notice">暫時未有分析。熱門新聞有三個或以上來源報道時，會自動整理一篇。</p>'}
+    ${adUnit(ads, ads.bottom, 'bottom')}
+  </main>
+  ${footer()}
+  </div>
+</body>
+</html>`;
+}
+
+const LISTING: Record<'briefing' | 'compare', { title: string; description: string; empty: string; kicker: string }> = {
+  briefing: {
+    title: '每日香港導讀',
+    description: '每日早上同傍晚，按當日香港同內地標題寫成一篇導讀，標明出處同原文連結。',
+    empty: '暫時未有導讀。每日 07:30 同 18:30（香港時間）會根據當日標題整理一篇。',
+    kicker: '導讀',
+  },
+  compare: {
+    title: '多方報道對比',
+    description: '同一件事被最多不同媒體報道時，比較各家強調什麼、數字同語氣有何分別。',
+    empty: '暫時未有對比。有多間媒體報道同一件事時，會逐則比較。',
+    kicker: '對比',
+  },
+};
+
+/** Listing page for 每日香港導讀 or 多方報道對比. */
+export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEntry[], canonical: string, options: PageOptions = {}): string {
+  const ads = options.ads ?? { client: DEFAULT_CLIENT };
+  const client = ads.client || DEFAULT_CLIENT;
+  const meta = LISTING[kind];
+  const sorted = [...entries].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
+  const cards = sorted.map((entry, index) => `<article class="story">
+          <a class="story-media" href="/${kind}/${encodeURIComponent(entry.key)}/" tabindex="-1" aria-hidden="true">${media(entry.image, entry.category, categoryLabel(entry.category || 'world'), index < 2)}</a>
+          <div class="story-body">
+            <div class="story-kicker"><span class="badge ai-badge">AI 整合</span>${heatBadge(entry.outlets ?? entry.sources) || `<span class="cluster-badge">${entry.sources} 篇來源</span>`}${catChip(entry.category)}</div>
+            <h2 class="story-title"><a href="/${kind}/${encodeURIComponent(entry.key)}/">${esc(entry.title)}</a></h2>
+            <p class="dek">${esc(entry.description)}</p>
+            <div class="story-meta"><time datetime="${esc(entry.publishedAt)}">${esc(hkt(entry.publishedAt, false))}</time></div>
+          </div>
+        </article>`);
+  const withAd = cards.flatMap((card, index) => (index === 3 ? [card, adUnit(ads, ads.mid, 'mid', true)] : [card])).join('');
+  const ld = `<script type="application/ld+json">${JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: meta.title,
+    itemListElement: sorted.map((entry, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: entry.title,
+      url: `https://world-news.xyz/${kind}/${encodeURIComponent(entry.key)}`,
+    })),
+  }).replace(/</g, '\\u003c')}</script>`;
+  return `<!doctype html>
+<html lang="zh-HK">
+${head(meta.title, meta.description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', `<meta name="robots" content="index,follow" />${ld}`, client)}
+<body>
+  <div class="page column-page" data-kind="${kind}-index">
+  ${chrome(kind)}
+  <main id="content" class="column-index">
+    ${adUnit(ads, ads.top, 'top')}
+    <header class="index-head">
+      <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">${meta.kicker}</span></div>
+      <h1 class="column-title">${meta.title}</h1>
+      <p class="dek">${esc(meta.description)}</p>
+    </header>
+    ${entries.length ? `<div class="news-grid analysis-grid">${withAd}</div>` : `<p class="notice">${esc(meta.empty)}</p>`}
     ${adUnit(ads, ads.bottom, 'bottom')}
   </main>
   ${footer()}

@@ -8,6 +8,7 @@ export interface ContentEnv {
   };
   AI?: { run(model: string, input: Record<string, unknown>): Promise<unknown> };
   GENERATE_SECRET?: string;
+  XAI_API_KEY?: string;
   VITE_AD_SLOT_TOP?: string;
   AD_SLOT_TOP?: string;
   AD_SLOT_MID?: string;
@@ -92,13 +93,21 @@ export async function rememberIndex(env: ContentEnv, doc: ContentDoc): Promise<v
   await rememberIndexMany(env, [doc]);
 }
 
+const INDEX_LIMIT: Record<ContentDoc['kind'], number> = {
+  digest: 40,
+  analysis: 40,
+  weekly: 40,
+  briefing: 62,
+  compare: 80,
+};
+
 /** One read and one write for several docs of the same kind (parallel writers would lose rows). */
 export async function rememberIndexMany(env: ContentEnv, docs: ContentDoc[]): Promise<void> {
   const rows = docs.filter((doc) => doc.blocks.length);
   const kind = rows[0]?.kind;
   if (!kind) return;
   let index = await readIndex(env, kind);
-  for (const doc of rows) if (doc.kind === kind) index = mergeIndex(index, doc);
+  for (const doc of rows) if (doc.kind === kind) index = mergeIndex(index, doc, INDEX_LIMIT[kind]);
   await writeValue(env, indexKey(kind), JSON.stringify(index));
 }
 

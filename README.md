@@ -115,3 +115,19 @@ npx wrangler kv namespace create CONTENT
 模型定價（Cloudflare 公開價）：輸入每百萬 token 4,625 neurons，輸出每百萬 token 30,475 neurons。以每日 2 篇日報、最多 8 篇分析、週報攤分計，大約 300 neurons，低過免費額度 10,000 neurons。程式每日最多叫模型 12 次。
 
 `[ai]` 綁定只能走遠端。`npx wrangler pages dev dist` 因此需要環境變數 `CLOUDFLARE_API_TOKEN`（權限要有 Workers AI）。沒有 token 時，先把 `wrangler.toml` 的 `[ai]` 三段註解掉，頁面會用來源標題稿，不會叫模型。
+
+## Grok 導讀同多方對比
+
+`/briefing/`、`/briefing/<slot>/`（`YYYY-MM-DD-am` 或 `pm`）同 `/compare/`、`/compare/<key>/` 都是可索引的 HTML，會寫進 `sitemap.xml`。導讀用當日香港同內地標題，每日 07:30 同 18:30（香港時間）各一篇。對比跟現有「多方報道」分組，按唔同媒體數目排，每日最多 20 篇；香港同內地用 xAI `grok-4.3`，科技、財經、國際用 Workers AI。
+
+生成由 `.github/workflows/warm-content.yml` 分批呼叫 `POST /api/generate`（header `x-generate-secret`）。每批最多 3 篇。同一日同一件事不會寫兩次。模型失敗會改用 Workers AI，再退回來源標題稿，唔會令首頁 500。
+
+xAI 定價：輸入每百萬 token 1.25 美元，輸出每百萬 token 2.50 美元。用量按香港時間曆月存在 KV `xai-usage:YYYY-MM`。當月累計達到 10 美元之後，新文章自動改走 Workers AI。`POST /api/generate?kind=status`（同樣要 `x-generate-secret`）回傳本月 token、費用同篇數。
+
+| 名稱 | 放哪裡 | 填什麼 |
+| --- | --- | --- |
+| `XAI_API_KEY` | Pages secret，`npx wrangler pages secret put XAI_API_KEY` | xAI API key。唔好寫入 repo，亦唔好放在 `VITE_` |
+| `GENERATE_SECRET` | 已有的 Pages 變數同 GitHub Actions secret | 導讀、對比、status 用同一組密碼 |
+
+KV 綁定 `CONTENT` 沿用現有 namespace，唔使再開一個。Workflow 唔使新 secret：key 只放在 Pages。
+

@@ -31,6 +31,8 @@ const LABELS = {
   weekly: { 'zh-HK': '週報', 'zh-CN': '周报', en: 'Weekly' },
   hotAnalysis: { 'zh-HK': '熱門分析', 'zh-CN': '热门分析', en: 'Analysis' },
   todayPicks: { 'zh-HK': '今日精選', 'zh-CN': '今日精选', en: "Today's picks" },
+  hkBriefing: { 'zh-HK': '每日香港導讀', 'zh-CN': '每日香港导读', en: 'HK briefing' },
+  multiCompare: { 'zh-HK': '多方報道對比', 'zh-CN': '多方报道对比', en: 'Compare coverage' },
   keywords: { 'zh-HK': '標題熱詞', 'zh-CN': '标题热词', en: 'Keywords' },
   multiCoverage: { 'zh-HK': '多方報道', 'zh-CN': '多方报道', en: 'Coverage' },
   layout: { 'zh-HK': '版面', 'zh-CN': '版面', en: 'Layout' },

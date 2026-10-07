@@ -111,6 +111,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://world-news.xyz/briefing/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/compare/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://world-news.xyz/major/</loc>
     <changefreq>hourly</changefreq>
     <priority>0.8</priority>

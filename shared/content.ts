@@ -12,15 +12,20 @@ export const AI_MODEL = '@cf/qwen/qwen3-30b-a3b-fp8';
 export const MODEL_NEURONS = { inputPerMillion: 4625, outputPerMillion: 30475 };
 
 /**
- * Per HKT day. Schedule: 2 digests + 2 × 6 analyses + Sunday weekly = 15, plus one retry per doc
- * at most and a few on-demand analysis pages. About 60 neurons per call, so 30 calls ≈ 1,800 neurons.
+ * Per HKT day. Existing columns use about 15 calls. Grok briefings and comparisons fall back here
+ * when the monthly cap is hit or the story is tech, finance, or international, so the pool is
+ * larger. A digest-sized call is about 110 neurons; 60 of those stay under the free 10k/day.
  */
-export const DAILY_AI_CALLS = 30;
+export const DAILY_AI_CALLS = 60;
 
 /** Analysis pieces per scheduled run. */
 export const ANALYSIS_PER_RUN = 6;
 
 export const ANALYSIS_HEADINGS = ['背景', '各方說法', '點解要關心', '與香港的關係', '接落嚟留意咩'] as const;
+
+export const BRIEFING_HEADINGS = ['香港', '內地', '今日值得留意'] as const;
+
+export const COMPARE_HEADINGS = ['各家強調咩', '事實同數字有咩出入', '語氣同取態', '讀者可以點睇'] as const;
 
 export interface SourceRef {
   title: string;
@@ -33,6 +38,10 @@ export interface SourceRef {
   pubDate?: string;
   /** One-line paraphrase of this outlet's angle, from the model. */
   angle?: string;
+  /** Fact or figure this outlet itself reported. */
+  facts?: string;
+  /** Short description of how this outlet framed the story. */
+  tone?: string;
 }
 
 export interface DigestBlock {
@@ -51,7 +60,7 @@ export interface Highlight {
 }
 
 export interface ContentDoc {
-  kind: 'digest' | 'analysis' | 'weekly';
+  kind: 'digest' | 'analysis' | 'weekly' | 'briefing' | 'compare';
   key: string;
   title: string;
   description: string;
@@ -61,6 +70,8 @@ export interface ContentDoc {
   mode: 'ai' | 'sources';
   model?: string;
   highlight?: Highlight;
+  /** Short takeaways for the key-points box. Briefing and comparison pieces. */
+  points?: string[];
   originalTitle?: string;
   originalUrl?: string;
   /** Phrases the grounding guard removed or changed. Stored for audit, not shown. */
@@ -312,7 +323,48 @@ export function weeklyFromHeadlines(tech: SourceRef[], business: SourceRef[], ke
   };
 }
 
+function columnPrompt(doc: ContentDoc, strict: boolean): { system: string; user: string; maxTokens: number } {
+  const system = [
+    '你是世界頭條的編輯，寫原創整合，不是改寫任何一篇報道。一律用繁體中文（香港書面語），不要用簡體字。',
+    '只可使用提供的標題同短描述。可以綜合、對照、解釋各則標題之間的關係，但禁止添加來源沒有寫的事實、數字、引言、人名、地點或因果。',
+    '提到媒體時照用資料中 source 的名稱，不要自行翻譯或改名。句子裡要點出是哪一家媒體的講法，方便讀者對回原文。',
+    '不要把標題原句串成內文，要寫成自己的句子。不要用 Markdown。回覆必須是 JSON。',
+    '正文合計至少 500 個中文字。',
+    strict ? '上一次太短或太多英文。今次每一句都用繁體中文，正文至少 500 個中文字。' : '',
+  ].join('');
+  const clip = (source: SourceRef, index: number) => ({
+    n: index + 1,
+    source: source.source,
+    title: source.title,
+    excerpt: (source.excerpt || '').slice(0, 180),
+  });
+  if (doc.kind === 'briefing') {
+    const data = doc.blocks
+      .filter((block) => block.title === '香港' || block.title === '內地')
+      .map((block) => ({ heading: block.title, sources: block.sources.map(clip) }));
+    const shape = [
+      '回傳 {"title":"20字以內的導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"四至六句"}],"points":["重點","重點","重點"]}。',
+      '香港段只根據香港來源，內地段只根據內地來源。沒有來源的一邊就整段省略。',
+      '今日值得留意綜合兩邊，寫讀者今日要追的事，仍然只可以用上面出現過的事實。',
+      'points 三至四項，每項 30 字以內。數字必須在來源出現過。',
+    ].join('');
+    return { system, user: `${shape}\n資料：${JSON.stringify(data)} /no_think`, maxTokens: 2400 };
+  }
+  const sources = doc.blocks[0]?.sources ?? [];
+  const shape = [
+    '回傳 {"title":"中文標題","description":"40字以內","sections":[{"heading":"各家強調咩"|"事實同數字有咩出入"|"語氣同取態"|"讀者可以點睇","text":"三至五句"}],"outlets":[{"n":1,"emphasis":"這家媒體強調的重點","facts":"這家標題或描述裡的數字或事實，沒有就留空字串","tone":"十二字以內形容語氣"}],"points":["重點","重點","重點"]}。',
+    '比較各家怎樣框同一件事：誰強調什麼、數字或事實有沒有不同、語氣是速報、質疑還是跟官方口徑。來源看不出分別就不要寫成衝突。',
+    'outlets 每個來源一項。emphasis、facts、tone 只可概括該來源自己的標題同 excerpt。',
+  ].join('');
+  return {
+    system,
+    user: `${shape}\n資料：${JSON.stringify(sources.map(clip))} /no_think`,
+    maxTokens: 2000,
+  };
+}
+
 export function promptFor(doc: ContentDoc, strict = false): { system: string; user: string; maxTokens: number } {
+  if (doc.kind === 'briefing' || doc.kind === 'compare') return columnPrompt(doc, strict);
   const system = [
     '你是世界頭條的編輯。一律用繁體中文（香港書面語），不要用簡體字，英文來源都要譯成中文；可以有輕微本地語氣，不要堆砌俚語。',
     '只可使用提供的標題同短描述（excerpt）。禁止添加來源沒有寫的事實、數字、引言、人名、地點、國籍、身份或因果。',
@@ -366,8 +418,14 @@ function sentencesOf(text: string, max: number): string[] {
 
 /** Every human-readable string the model wrote, for the language check. */
 export function generatedText(doc: ContentDoc): string {
-  const parts = [doc.title, ...doc.blocks.flatMap((block) => [doc.kind === 'digest' ? block.title : '', ...block.sentences])];
-  for (const block of doc.blocks) for (const source of block.sources) if (source.angle) parts.push(source.angle);
+  const parts = [doc.title, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => [doc.kind === 'digest' ? block.title : '', ...block.sentences])];
+  for (const block of doc.blocks) {
+    for (const source of block.sources) {
+      if (source.angle) parts.push(source.angle);
+      if (source.facts) parts.push(source.facts);
+      if (source.tone) parts.push(source.tone);
+    }
+  }
   return parts.join(' ');
 }
 
@@ -377,10 +435,17 @@ export function toTraditional(doc: ContentDoc): ContentDoc {
     ...block,
     title: block.originalTitle ? toHK(block.title) : block.title,
     sentences: block.sentences.map(toHK),
-    sources: block.sources.map((source) => (source.angle ? { ...source, angle: toHK(source.angle) } : source)),
+    sources: block.sources.map((source) => {
+      const next = { ...source };
+      if (source.angle) next.angle = toHK(source.angle);
+      if (source.facts) next.facts = toHK(source.facts);
+      if (source.tone) next.tone = toHK(source.tone);
+      return next;
+    }),
   }));
   const next: ContentDoc = { ...doc, blocks, description: toHK(doc.description), title: doc.originalTitle ? toHK(doc.title) : doc.title };
   if (doc.highlight) next.highlight = { ...doc.highlight, items: doc.highlight.items.map(toHK) };
+  if (doc.points) next.points = doc.points.map(toHK);
   return next;
 }
 
@@ -416,6 +481,19 @@ function sourceText(sources: SourceRef[], extra: string[] = []): string {
   return [...extra, ...sources.flatMap((source) => [source.title, source.excerpt || ''])].join(' \n ');
 }
 
+/** Every number in `text` has to show up in the source haystack. Commas are ignored. */
+function numbersSupported(text: string, haystack: string): boolean {
+  const hay = haystack.replace(/,/g, '');
+  return (text.replace(/,/g, '').match(/\d+(?:\.\d+)?/g) || []).every((number) => hay.includes(number));
+}
+
+function groundedField(value: string | undefined, haystack: string, clean: (text: string, haystack: string) => string | null): string | undefined {
+  if (!value) return undefined;
+  if (!numbersSupported(value, haystack)) return undefined;
+  const cleaned = clean(value, haystack);
+  return cleaned || undefined;
+}
+
 /** A Chinese source headline if any outlet has one (faithful by definition), else the original headline. */
 function fallbackTitle(doc: ContentDoc, sources: SourceRef[]): string {
   return sources.find((source) => hasChinese(source.title))?.title || doc.originalTitle || doc.title;
@@ -447,6 +525,18 @@ export function guardDoc(doc: ContentDoc): ContentDoc {
       log.push(`標題改用來源標題：${doc.title} → ${title}`);
     }
   }
+  if ((doc.kind === 'briefing' || doc.kind === 'compare') && title === doc.title) {
+    const cleaned = clean(title, allText);
+    const unsupportedNumber = Boolean(cleaned) && !numbersSupported(cleaned || '', allText);
+    if (cleaned === null || unsupportedNumber) {
+      const fallback = doc.kind === 'briefing' ? `每日香港導讀 ${doc.key.slice(0, 10)}` : fallbackTitle(doc, allSources);
+      if (fallback !== title) log.push(`標題改用來源標題：${title} → ${fallback}`);
+      title = fallback;
+    } else if (cleaned !== title) {
+      log.push(`標題改用來源標題：${title} → ${cleaned}`);
+      title = cleaned;
+    }
+  }
   const blocks = doc.blocks.map((block) => {
     // Only the published headlines/summaries count as support, never the model's own title.
     const haystack = sourceText(block.sources, [block.originalTitle || '']);
@@ -463,12 +553,18 @@ export function guardDoc(doc: ContentDoc): ContentDoc {
     let sentences = block.sentences.map((line) => clean(line, haystack)).filter((line): line is string => Boolean(line && line.trim()));
     if (doc.kind === 'digest' && sentences.length < 2) sentences = draftSentences(block.sources);
     const sources = block.sources.map((source) => {
-      if (!source.angle) return source;
-      const angle = clean(source.angle, sourceText([source]));
-      if (angle) return { ...source, angle };
-      const rest = { ...source };
-      delete rest.angle;
-      return rest;
+      const own = sourceText([source]);
+      const next = { ...source };
+      const angle = groundedField(source.angle, own, clean);
+      const facts = groundedField(source.facts, own, clean);
+      const tone = groundedField(source.tone, own, clean);
+      if (angle) next.angle = angle;
+      else delete next.angle;
+      if (facts) next.facts = facts;
+      else delete next.facts;
+      if (tone) next.tone = tone;
+      else delete next.tone;
+      return next;
     });
     const next: DigestBlock = { ...block, title: blockTitle, sentences, sources };
     if (blockOriginal) next.originalTitle = blockOriginal;
@@ -498,6 +594,12 @@ export function guardDoc(doc: ContentDoc): ContentDoc {
   else delete next.originalTitle;
   if (highlight) next.highlight = highlight;
   else delete next.highlight;
+  const points = (doc.points ?? [])
+    .map((item) => (numbersSupported(item, allText) ? clean(item, allText) : null))
+    .filter((item): item is string => Boolean(item))
+    .slice(0, 4);
+  if (points.length) next.points = points;
+  else delete next.points;
   if (log.length) next.guard = log;
   else delete next.guard;
   return next;
@@ -524,6 +626,84 @@ export function digestHasEnglishHeadlines(doc: ContentDoc): boolean {
   return englishTitles.length >= Math.ceil(blocks.length / 2);
 }
 
+function pointList(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((item): item is string => typeof item === 'string')
+    .map((item) => toHK(item.trim()))
+    .filter((item) => meaningful(item) && item.length <= 40)
+    .slice(0, 4);
+}
+
+function applyColumnModel(
+  doc: ContentDoc,
+  record: {
+    title?: unknown;
+    description?: unknown;
+    points?: unknown;
+    sections?: { heading?: string; text?: string }[];
+    outlets?: { n?: number; emphasis?: unknown; angle?: unknown; facts?: unknown; tone?: unknown }[];
+  },
+  model: string,
+): { doc: ContentDoc; record: { highlight?: unknown } } | null {
+  if (doc.kind !== 'briefing' && doc.kind !== 'compare') return null;
+  if (!Array.isArray(record.sections)) return null;
+  const allowed = new Set<string>(doc.kind === 'briefing' ? BRIEFING_HEADINGS : COMPARE_HEADINGS);
+  const byHeading = new Map<string, string[]>();
+  for (const section of record.sections) {
+    const heading = toHK(String(section?.heading || '').trim());
+    if (!allowed.has(heading) || byHeading.has(heading)) continue;
+    const sentences = sentencesOf(String(section?.text || ''), 8);
+    if (sentences.length) byHeading.set(heading, sentences);
+  }
+  const draftByHeading = new Map(doc.blocks.map((block) => [block.title, block]));
+  const allSources = uniqueSources(doc);
+  const blocks = [...allowed].filter((heading) => byHeading.has(heading)).map((heading) => {
+    const draft = draftByHeading.get(heading);
+    const sources = draft?.sources.length ? draft.sources : allSources;
+    const category = draft?.category || doc.blocks[0]?.category;
+    return {
+      title: heading,
+      sentences: byHeading.get(heading) ?? [],
+      sources,
+      ...(category ? { category } : {}),
+    };
+  });
+  if (!blocks.length) return null;
+  let withFrames = blocks;
+  if (doc.kind === 'compare') {
+    const frames = new Map<number, { angle?: string; facts?: string; tone?: string }>();
+    for (const [index, row] of (Array.isArray(record.outlets) ? record.outlets : []).entries()) {
+      const n = typeof row?.n === 'number' ? row.n : index + 1;
+      const emphasis = typeof row?.emphasis === 'string' ? row.emphasis : typeof row?.angle === 'string' ? row.angle : '';
+      const frame: { angle?: string; facts?: string; tone?: string } = {};
+      const angle = toHK(emphasis.trim());
+      const facts = typeof row?.facts === 'string' ? toHK(row.facts.trim()) : '';
+      const tone = typeof row?.tone === 'string' ? toHK(row.tone.trim()) : '';
+      if (angle && meaningful(angle) && angle.length <= 80) frame.angle = angle;
+      if (facts && meaningful(facts) && facts.length <= 80) frame.facts = facts;
+      if (tone && meaningful(tone) && tone.length <= 16) frame.tone = tone;
+      if (frame.angle || frame.facts || frame.tone) frames.set(n, frame);
+    }
+    const sources = (blocks[0]?.sources ?? []).map((source, index) => {
+      const frame = frames.get(index + 1);
+      return frame ? { ...source, ...frame } : source;
+    });
+    withFrames = blocks.map((block) => ({ ...block, sources }));
+  }
+  const zh = typeof record.title === 'string' ? toHK(record.title.trim()) : '';
+  const titled = zh && hasChinese(zh) && zh.length <= 48
+    ? { title: zh, ...(!hasChinese(doc.title) ? { originalTitle: doc.originalTitle || doc.title } : {}) }
+    : {};
+  const described = typeof record.description === 'string' ? toHK(record.description.trim()) : '';
+  const description = described && hasChinese(described) ? described.slice(0, 140) : (withFrames[0]?.sentences[0] || doc.description);
+  const points = pointList(record.points);
+  const next: ContentDoc = { ...doc, ...titled, blocks: withFrames, mode: 'ai', model, description };
+  if (points.length) next.points = points;
+  else delete next.points;
+  return { doc: next, record: {} };
+}
+
 function applyModelBody(doc: ContentDoc, raw: string, model: string): { doc: ContentDoc; record: { highlight?: unknown } } | null {
   const fenced = raw.replace(/```json|```/gi, '').trim();
   const start = fenced.indexOf('{');
@@ -541,8 +721,11 @@ function applyModelBody(doc: ContentDoc, raw: string, model: string): { doc: Con
     title?: unknown;
     items?: { n?: number; title?: unknown; sentences?: unknown }[];
     sections?: { heading?: string; text?: string }[];
-    outlets?: { n?: number; angle?: unknown }[];
+    outlets?: { n?: number; angle?: unknown; emphasis?: unknown; facts?: unknown; tone?: unknown }[];
+    points?: unknown;
+    description?: unknown;
   };
+  if (doc.kind === 'briefing' || doc.kind === 'compare') return applyColumnModel(doc, record, model);
   if (doc.kind === 'digest' && Array.isArray(record.items)) {
     const blocks = doc.blocks.map((block, index) => {
       const match = record.items?.find((item) => item.n === index + 1) ?? record.items?.[index];
@@ -616,4 +799,4 @@ export function escapeHtml(value: string): string {
   ));
 }
 
-export { renderContentPage, renderAnalysisIndex, type AdConfig, type PageOptions } from './contentPage.js';
+export { renderContentPage, renderAnalysisIndex, renderColumnIndex, type AdConfig, type PageOptions } from './contentPage.js';
