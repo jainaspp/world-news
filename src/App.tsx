@@ -11,7 +11,6 @@ import type { NewsItem, TimeRange } from '../shared/types';
 import { AdSlot } from './components/AdSlot';
 import { DarkModeToggle } from './components/DarkModeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { InstallPrompt } from './components/InstallPrompt';
 import { LanguageSelector } from './components/LanguageSelector';
 import { NewsCard } from './components/NewsCard';
 import { RegionIcon } from './components/RegionIcon';
@@ -537,7 +536,6 @@ export default function App() {
             <a href={SITE_URL}> {SITE_URL.replace('https://', '')}</a>
           </p>
         </footer>
-        <InstallPrompt />
         <BackToTop />
         {freshCount > 0 && (
           <button
