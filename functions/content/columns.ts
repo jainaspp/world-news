@@ -308,6 +308,9 @@ export async function columnStatus(env: ContentEnv, now = new Date()): Promise<R
   return statusFrom(usage);
 }
 
+/** Article text per briefing side below this many characters is topped up from the source pages. */
+const BRIEFING_SIDE_FLOOR = 1_200;
+
 async function fillBriefing(
   env: ContentEnv,
   hk: NewsItem[],
@@ -317,9 +320,18 @@ async function fillBriefing(
   const bundles = await readBundles(env, hktParts(now).date);
   let nextHk = applyBundles(hk, bundles);
   let nextChina = applyBundles(china, bundles);
-  if (needsSearch(excerptChars([...nextHk, ...nextChina]))) {
-    const missing = [...nextHk, ...nextChina].filter((item) => (item.excerpt || '').length < 200 && /^https?:\/\//.test(item.link));
-    const fetched = await fetchArticleTexts(env, missing.map((item) => item.link), fetch, 4);
+  // Each side needs its own article text. With only bare 內地 headlines next to rich Hong Kong
+  // excerpts, Grok drops the 內地 section, so a thin side is fetched even when the total is enough.
+  const missingOf = (rows: NewsItem[]) => rows.filter((item) => (item.excerpt || '').length < 200 && /^https?:\/\//.test(item.link));
+  const wanted: string[] = [];
+  for (const rows of [nextHk, nextChina]) {
+    if (rows.length && excerptChars(rows) < BRIEFING_SIDE_FLOOR) wanted.push(...missingOf(rows).slice(0, 4).map((item) => item.link));
+  }
+  if (!wanted.length && needsSearch(excerptChars([...nextHk, ...nextChina]))) {
+    wanted.push(...missingOf([...nextHk, ...nextChina]).slice(0, 4).map((item) => item.link));
+  }
+  if (wanted.length) {
+    const fetched = await fetchArticleTexts(env, wanted, fetch, wanted.length);
     nextHk = stampExcerpts(nextHk, fetched.texts);
     nextChina = stampExcerpts(nextChina, fetched.texts);
   }
