@@ -175,7 +175,8 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now()):
       if (attempt === 1 && Date.now() - started > RETRY_BEFORE_MS) break;
       const searchRetry = attempt === 1 && Boolean(job.material) && !capReached(usage)
         && (!grokDoc || bodyChars(grokDoc) < MATERIAL_RETRY_CHARS);
-      const result = await completeGrok(key, job.draft, attempt === 1, XAI_TIMEOUT_MS, {
+      // The search retry uses the normal researched prompt; strict + search dropped commas in live output.
+      const result = await completeGrok(key, job.draft, attempt === 1 && !searchRetry, XAI_TIMEOUT_MS, {
         search: Boolean(job.search) || searchRetry,
         material: Boolean(job.material) && !searchRetry,
       });
