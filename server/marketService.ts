@@ -1,4 +1,4 @@
-import { MARKET_SPECS, tickFromQuote, yahooChartUrl, type MarketTick } from '../shared/markets.js';
+import { MARKET_SPECS, tickFromQuote, yahooChartUrl, type MarketSpec, type MarketTick } from '../shared/markets.js';
 import { parseYahooHsi } from '../shared/hsi.js';
 
 const HEADERS = {
@@ -35,5 +35,22 @@ export async function loadMarketTicks(): Promise<MarketTick[]> {
   return MARKET_SPECS.flatMap((spec, index) => {
     const tick = tickFromQuote(spec, quotes[index] ?? null);
     return tick ? [tick] : [];
+  });
+}
+
+export interface MarketQuote {
+  id: MarketSpec['id'];
+  price: number;
+  updated: string;
+}
+
+/** Latest prices for the daily data pages. Only the requested symbols are fetched. */
+export async function loadMarketQuotes(ids: Array<MarketSpec['id']>): Promise<MarketQuote[]> {
+  const specs = MARKET_SPECS.filter((spec) => ids.includes(spec.id));
+  const quotes = await Promise.all(specs.map((spec) => loadSymbol(spec.symbol)));
+  return specs.flatMap((spec, index) => {
+    const quote = quotes[index];
+    if (!quote || !(quote.price > 0)) return [];
+    return [{ id: spec.id, price: quote.price, updated: quote.updated }];
   });
 }

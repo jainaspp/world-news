@@ -208,7 +208,7 @@ describe('daily Hong Kong briefing sources', () => {
     expect(doc?.kind).toBe('briefing');
     expect(doc?.blocks.map((block) => block.title)).toEqual(['香港', '內地', '今日值得留意']);
     expect(promptFor(doc!).user).toContain('立法會通過預算');
-    expect(promptFor(doc!).system).toContain('500');
+    expect(promptFor(doc!).system).toContain('450');
     expect(promptFor(doc!).system).toContain('禁止添加');
   });
 });
@@ -320,7 +320,7 @@ describe('mocked Grok generation', () => {
     const home = renderHomeFeed([story('home', '首頁', '香港電台', 'hk')]);
     expect(home).toContain('href="/briefing/"');
     expect(home).toContain('href="/explainer/"');
-    expect(home).toContain('class="home-intro"');
+    expect(home).toContain('class="home-intro home-intro-top"');
     expect(chrome('briefing')).toContain('href="/briefing/"');
     expect(chrome('compare')).toContain('href="/explainer/"');
     expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('/briefing/');

@@ -4,7 +4,7 @@ import type { MajorEntry } from './angles.js';
 import { breakingIds } from './breaking.js';
 import { categoryLabel } from './categories.js';
 import { esc, favicon, footer, media, safeHttp } from './contentPage.js';
-import { HOME_INTRO, HOME_SECTIONS } from './homeCopy.js';
+import { homeIntroFoot, homeIntroTop } from './homeIntro.js';
 import { renderHkInfo } from './hkInfo.js';
 import { renderMajorBanner } from './majorPage.js';
 import type { HkNow } from './hk.js';
@@ -87,20 +87,19 @@ export function renderHomeFeed(
     return (index + 1) % FEED_AD_EVERY === 0 ? html + adSlotMarkup('feed', feedSlot) : html;
   }).join('');
   const info = renderHkInfo(market?.hk, market?.hsi);
-  const introItems = HOME_SECTIONS.map((section) => `<li><strong>${esc(section.name)}</strong> ${esc(section.text)}</li>`).join('');
-  const intro = `<section class="home-intro" aria-label="關於世界頭條"><p>${esc(HOME_INTRO)}</p><ul class="home-sections">${introItems}</ul></section>`;
   const major = banner ? `${renderMajorBanner(banner)}<script>try{var n=document.currentScript.previousElementSibling;if(n&&localStorage.getItem('wn-major-dismiss')===n.getAttribute('data-major-id'))n.remove()}catch(e){}</script>` : '';
   return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
     <main id="news">
       ${major}
-      ${intro}
+      ${homeIntroTop()}
       ${info}
-      <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a><a class="digest-keep" href="/briefing/">每日香港導讀</a><a class="digest-keep" href="/explainer/">新聞懶人包</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
+      <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a><a class="digest-keep" href="/briefing/">每日香港導讀</a><a class="digest-keep" href="/explainer/">新聞懶人包</a><a href="/data/">數據</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
       ${focusHtml.trim()}
       ${top}
       <div class="news-grid">${grid}</div>
     </main>
+    ${homeIntroFoot()}
     ${footer()}
   </div>`;
 }

@@ -53,7 +53,7 @@ ${head('24小時重大更新', description, canonical, '', 'website', ld, '', fa
       </div></section>
     </main>
     <aside class="sidebar" aria-label="側欄">
-      <section class="side-card"><h2>點樣列入</h2><p>同一件事喺約三小時內有四間或以上媒體報道，又或者標題寫明突發、快訊、Breaking。只列標題同出處。</p><p><a href="/">返回頭條</a></p></section>
+      <section class="side-card"><h2>如何列入</h2><p>同一件事在約三小時內有四間或以上媒體報道，或者標題寫明突發、快訊、Breaking。只列標題與出處。</p><p><a href="/">返回頭條</a></p></section>
     </aside>
   </div>
   ${footer()}

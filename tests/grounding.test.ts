@@ -44,6 +44,7 @@ describe('grounding guard', () => {
     const fixed = fixOutlets('英國《觀察者》報導指哈岑獲獎，半島電視台亦有報道。', ['Guardian 科學', 'Al Jazeera', 'BBC News']);
     expect(fixed.text).toBe('英國Guardian 科學報導指哈岑獲獎，Al Jazeera亦有報道。');
     expect(fixOutlets('路透社報道', ['BBC News']).text).toBe('有媒體報道');
+    expect(fixOutlets('衛報體育報道', ['Guardian 體育']).text).toBe('Guardian 體育報道');
   });
 
   it('brackets the English name after the first transliteration', () => {

@@ -21,12 +21,12 @@ const CN_DIGIT: Record<string, number> = {
 const BANNED = /標題同描述|標題和描述|標題同短描述|標題和短描述|短描述/;
 
 /** Colloquial Cantonese that must not survive into formal news copy. */
-const PARTICLES = /嘅|喺|佢|咩|咗|嘢|咁|唔|冇|嚟|哋|啦|囉|啲|乜|喎|嘛|畀|嘥|噉|嗰|點解|而家|同埋|决|入面|呢啲|呢個|嗰啲/;
+const PARTICLES = /\u5605|\u55BA|\u4F62|\u54A9|\u5497|\u5622|\u5481|\u5514|\u5187|\u569F|\u54CB|\u5566|\u56C9|\u5572|\u4E5C|\u55CE|\u561B|\u7540|\u5625|\u5649|\u55F0|\u9EDE\u89E3|\u800C\u5BB6|\u540C\u57CB|\u51B3|\u5165\u9762|\u5462\u5572|\u5462\u500B|\u55F0\u5572/;
 
 /** True when formal news copy still contains Cantonese particles. 關係 / 係數 stay legal. */
 export function cantoneseLeft(text: string): boolean {
   if (PARTICLES.test(text)) return true;
-  return /(?<![關干])係(?![數統列])/.test(text);
+  return /(?<![\u95DC\u5E72])\u4FC2(?![\u6578\u7D71\u5217])/.test(text);
 }
 
 /** A Chinese number that includes a unit or a decimal point. Bare 一 / 十 are left alone. */
@@ -72,17 +72,29 @@ export function arabicDigits(text: string): string {
     const value = cnNumber(body);
     return value == null ? full : `${value}%`;
   });
-  return percent.replace(NUMBER_BODY, (full) => cnNumber(full) ?? full);
+  const placed = percent.replace(NUMBER_BODY, (full) => cnNumber(full) ?? full);
+  return placed.replace(/[零〇一二三四五六七八九]{2,}/g, (run) => [...run].map((ch) => String(CN_DIGIT[ch] ?? ch)).join(''));
 }
 
 /** Colloquial particles, full-width punctuation, and Arabic digits. Source titles are not passed here. */
 export function toWritten(text: string): string {
   let out = text
-    .replace(/喺/g, '在')
-    .replace(/嘅/g, '的')
-    .replace(/同埋/g, '和')
-    .replace(/决/g, '決')
-    .replace(/(?<![關干])係(?![數統列])/g, '是');
+    .replace(/\u55BA/g, '在')
+    .replace(/\u5605/g, '的')
+    .replace(/\u6211\u54CB/g, '我們')
+    .replace(/\u800C\u5BB6/g, '目前')
+    .replace(/\u9EDE\u89E3/g, '為何')
+    .replace(/\u5462\u500B/g, '這個')
+    .replace(/\u5462\u5572/g, '這些')
+    .replace(/\u55F0\u500B/g, '那個')
+    .replace(/\u55F0\u5572/g, '那些')
+    .replace(/\u5165\u9762/g, '之中')
+    .replace(/\u540C\u57CB/g, '和')
+    .replace(/\u5514/g, '不')
+    .replace(/\u5187/g, '沒有')
+    .replace(/\u5497/g, '了')
+    .replace(/\u51B3/g, '決')
+    .replace(/(?<![\u95DC\u5E72])\u4FC2(?![\u6578\u7D71\u5217])/g, '是');
   out = arabicDigits(out);
   let previous = '';
   while (out !== previous) {

@@ -121,6 +121,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://world-news.xyz/data/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/data/weather/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/data/aqhi/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/data/fx/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/data/gold/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/data/oil/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://world-news.xyz/major/</loc>
     <changefreq>hourly</changefreq>
     <priority>0.8</priority>

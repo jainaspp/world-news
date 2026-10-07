@@ -39,7 +39,12 @@ async function writeIntro(env: ContentEnv, page: FocusPage, text: string, model:
 }
 
 /** One small batch of region and category intros. Reads the cached board and never crawls feeds. */
-export async function generateFocus(env: ContentEnv, limit = FOCUS_BATCH, now = new Date()): Promise<Record<string, unknown>> {
+export async function generateFocus(
+  env: ContentEnv,
+  limit = FOCUS_BATCH,
+  now = new Date(),
+  options: { force?: boolean; scope?: string; id?: string } = {},
+): Promise<Record<string, unknown>> {
   const take = Math.max(1, Math.min(FOCUS_BATCH, limit));
   const board = await readBoard(env).catch(() => null);
   const material = materialFromBoard(board);
@@ -51,7 +56,13 @@ export async function generateFocus(env: ContentEnv, limit = FOCUS_BATCH, now = 
   const capped = capReached(usage) || !key;
   const pages = focusPages();
   const stored = await Promise.all(pages.map((page) => readValue(env, focusKey(page, now)).catch(() => null)));
-  const pending = pages.filter((page, index) => !focusSatisfied(stored[index] ?? null, capped) && itemsForFocus(material.items, page, now).length >= 3);
+  const pending = pages.filter((page, index) => {
+    if (options.scope && page.scope !== options.scope) return false;
+    if (options.id && page.id !== options.id) return false;
+    if (itemsForFocus(material.items, page, now).length < 3) return false;
+    if (options.force) return true;
+    return !focusSatisfied(stored[index] ?? null, capped);
+  });
   if (!pending.length) return { ...columnDelivery({ skipped: 'done' }), kind: 'focus', keys: [], skipped: 'done' };
 
   const batch = pending.slice(0, take);

@@ -30,8 +30,9 @@ describe('written Chinese post-processing', () => {
   it('uses Arabic digits, full-width punctuation, and drops banned phrasing', () => {
     const raw = '喺談判入面，規模係三百零七項、二十一點四四億，占比百分之五十七點七。港鐵 建議 加價。詳情見標題同描述。關係同埋係數都要保留。';
     const text = polishProse(raw);
-    expect(text).toContain('在談判入面');
-    expect(cantoneseLeft(text)).toBe(true);
+    expect(text).toContain('在談判之中');
+    expect(cantoneseLeft(text)).toBe(false);
+    expect(cantoneseLeft('佢話')).toBe(true);
     expect(text).toContain('307');
     expect(text).toContain('21.44億');
     expect(text).toContain('57.7%');
