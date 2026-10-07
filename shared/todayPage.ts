@@ -265,3 +265,15 @@ ${head('找不到這一頁', '這個時間線頁不存在。可以返回今日�
 </body>
 </html>`;
 }
+
+/** Sitemap paths for a built day: the day page and only the region or category lists that are indexable. */
+export function indexableTodayPaths(model: TodayModel): string[] {
+  if (!model.index) return ['/today/'];
+  const root = `/today/${model.date}/`;
+  return [
+    '/today/',
+    root,
+    ...model.regions.filter((region) => region.count >= TODAY_INDEX_FLOOR).map((region) => `${root}region/${region.code}/`),
+    ...model.categories.filter((category) => category.count >= TODAY_INDEX_FLOOR).map((category) => `${root}category/${category.id}/`),
+  ];
+}

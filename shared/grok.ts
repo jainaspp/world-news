@@ -1,4 +1,4 @@
-import { ANGLE_WINDOW_MS, sameEvent, type StoryCluster } from './angles.js';
+import { ANGLE_WINDOW_MS, angleClusters, sameEvent, type StoryCluster } from './angles.js';
 import { clustersFromSnapshot, type BoardSnapshot } from './board.js';
 import {
   analysisSlug,
@@ -11,6 +11,7 @@ import {
   type ContentDoc,
   type DigestBlock,
   type SourceRef,
+  narrativeSane,
 } from './content.js';
 import { FEEDS } from './feeds.js';
 import { stableId } from './rss.js';
@@ -396,7 +397,7 @@ export function structureComplete(doc: ContentDoc): boolean {
 /** Publish only at the 500-character floor, with the sections a reader needs. */
 export function pieceReady(doc: ContentDoc): boolean {
   if (doc.kind !== 'briefing' && doc.kind !== 'compare') return richness(doc) >= MIN_AI_CHARS;
-  return bodyChars(doc) >= MIN_AI_CHARS && structureComplete(doc);
+  return bodyChars(doc) >= MIN_AI_CHARS && structureComplete(doc) && narrativeSane(doc);
 }
 
 /**
@@ -479,17 +480,64 @@ function onHktDate(item: NewsItem, date: string): boolean {
 }
 
 /** Today's HK and mainland headlines. China includes related stories the category list filed elsewhere. */
+/** Lifestyle, promotion, and sponsored items that are not news for a briefing. */
+export const PROMO_RE = /優惠|好去處|自助餐|快閃|\d折|半價|著數|食評|試食|抽獎|贊助|Sponsored|\$\d+起|人均\$|攻略|打卡|名車盛會|花園派對|開倉|團購|一日遊|酒店住宿|staycation|優惠碼|開箱/i;
+
+const MAINLAND_RE = /中國|中共|北京|上海|深圳|廣州|歐中|中歐|中美|中日|中方|兩岸|習近平|國務院|人大|大陸|內地|我國|外交部|商務部/;
+const FOREIGN_RE = /加州|美國|英國|日本|韓國|歐洲|台灣|臺灣|匈牙利|俄羅斯|印度|澳洲|加拿大|法國|德國/;
+
+/** Briefing material: no promotions, and a 內地 item must be about the mainland rather than a foreign or Taiwan story. */
+export function briefingNews(item: NewsItem, side: 'hk' | 'china'): boolean {
+  if (PROMO_RE.test(item.title)) return false;
+  if (side === 'hk') return item.category === 'hk';
+  if (!isChinaItem(item)) return false;
+  return !(FOREIGN_RE.test(item.title) && !MAINLAND_RE.test(item.title));
+}
+
+const BRIEFING_WINDOW_MS = 12 * 60 * 60 * 1000;
+
+/**
+ * Same-day Hong Kong and mainland items for a briefing (HKT date, or the last 12 hours just after
+ * midnight), ranked by how many outlets carried the story, at most two outlets per story.
+ */
 export function selectBriefingItems(items: NewsItem[], now = new Date(), perSide = 8): { hk: NewsItem[]; china: NewsItem[] } {
   const today = hktParts(now).date;
-  const take = (pick: (item: NewsItem) => boolean): NewsItem[] => {
-    const rows = items
-      .filter(pick)
-      .slice()
-      .sort((a, b) => Date.parse(b.pubDate) - Date.parse(a.pubDate));
-    const current = rows.filter((item) => onHktDate(item, today));
-    return (current.length >= 3 ? current : rows).slice(0, perSide);
+  const nowMs = now.getTime();
+  const recent = (item: NewsItem, windowMs: number) => {
+    const time = Date.parse(item.pubDate);
+    return Number.isFinite(time) && time <= nowMs + 60_000 && time >= nowMs - windowMs;
   };
-  return { hk: take((item) => item.category === 'hk'), china: take(isChinaItem) };
+  const take = (side: 'hk' | 'china'): NewsItem[] => {
+    const rows = items.filter((item) => briefingNews(item, side));
+    let pool = rows.filter((item) => onHktDate(item, today) || recent(item, BRIEFING_WINDOW_MS));
+    if (pool.length < 3) pool = rows.filter((item) => recent(item, 2 * BRIEFING_WINDOW_MS));
+    const clusters = angleClusters(pool)
+      .sort((a, b) => b.count - a.count || b.latest - a.latest);
+    const picked: NewsItem[] = [];
+    const seen = new Set<string>();
+    for (const cluster of clusters) {
+      const outlets = new Set<string>();
+      const ordered = [cluster.lead, ...cluster.items.filter((item) => item.id !== cluster.lead.id)];
+      for (const item of ordered) {
+        if (picked.length >= perSide || outlets.size >= 2) break;
+        if (seen.has(item.id) || outlets.has(item.source)) continue;
+        outlets.add(item.source);
+        seen.add(item.id);
+        picked.push(item);
+      }
+      if (picked.length >= perSide) break;
+    }
+    // Stories that did not cluster (one outlet) fill the rest, newest first.
+    for (const item of pool.slice().sort((a, b) => Date.parse(b.pubDate) - Date.parse(a.pubDate))) {
+      if (picked.length >= perSide) break;
+      if (!seen.has(item.id)) {
+        seen.add(item.id);
+        picked.push(item);
+      }
+    }
+    return picked;
+  };
+  return { hk: take('hk'), china: take('china') };
 }
 
 function toSource(item: NewsItem): SourceRef {
