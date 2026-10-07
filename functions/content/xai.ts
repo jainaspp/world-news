@@ -70,6 +70,20 @@ export async function completeText(apiKey: string, system: string, user: string,
   return postChat(apiKey, XAI_URL, body, timeoutMs, false);
 }
 
+/** Low-temperature completion on an explicit model, for Grok's verification pass. */
+export async function completeWith(apiKey: string, model: string, system: string, user: string, maxTokens: number, timeoutMs: number): Promise<GrokCompletion> {
+  const body = JSON.stringify({
+    model,
+    messages: [
+      { role: 'system', content: system },
+      { role: 'user', content: user },
+    ],
+    max_tokens: maxTokens,
+    temperature: 0.1,
+  });
+  return postChat(apiKey, XAI_URL, body, timeoutMs, false);
+}
+
 /**
  * Responses API with server-side web_search. grok-4.3 stays the model.
  * A 400 that rejects max_turns is retried once without that field.

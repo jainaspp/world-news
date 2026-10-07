@@ -32,6 +32,7 @@ import {
   type BriefingScope,
   type ContentDoc,
   narrativeChars,
+  heldMiniMax,
 } from '../../shared/content.js';
 import {
   COMPARE_BATCH,
@@ -40,6 +41,7 @@ import {
   briefingFromItems,
   briefingKey,
   callCostUsd,
+  XAI_MONTHLY_CAP_USD,
   capReached,
   columnDelivery,
   compareFromCluster,
@@ -75,7 +77,9 @@ import { adConfig, polish } from './publish.js';
 import { fetchArticleTexts, fetchTitles, readBundles, readEvents, stampExcerpts, writeBundle, writeEvents } from './material.js';
 import { docKey, readDoc, readIndex, readValue, rememberIndexMany, writeDoc, writeValue, type ContentEnv } from './store.js';
 import { completeGrok, completeText, XAI_TIMEOUT_MS } from './xai.js';
-import { expandMiniMax, pipelineMiniMax } from './minimax.js';
+import { cleanMiniMax, expandMiniMax, pipelineMiniMax } from './minimax.js';
+import { applyVerify, parseVerify, verifyPrompt, VERIFY_MAX_TOKENS, VERIFY_MODEL } from './grokVerify.js';
+import { completeWith } from './xai.js';
 import {
   briefingDraft,
   clusterWriter,
@@ -93,7 +97,9 @@ const HTML_HEADERS = {
 
 const WALL_MS = 60_000;
 /** MiniMax pipeline budget from the start of the request; the warm run's curl waits 90 s. */
-const MINIMAX_DEADLINE_MS = 76_000;
+const MINIMAX_DEADLINE_MS = 64_000;
+/** Grok's verification pass must end by here (the warm run's curl waits 90 s). */
+const VERIFY_DEADLINE_MS = 86_000;
 /** Article pages read for one world or tech/finance brief. */
 const SCOPED_FETCH = 10;
 /** Only start the stricter second Grok attempt while there is room before the edge's 100 s limit. */
@@ -126,8 +132,8 @@ function htmlPage(
   status = 200,
   explainers: Awaited<ReturnType<typeof readIndex>> = [],
 ): Response {
-  // An unchecked MiniMax draft is never shown: only its source list.
-  const listed = doc.stage === 'drafted'
+  // An unchecked or unverified MiniMax piece is never shown: only its source list.
+  const listed = heldMiniMax(doc)
     ? { ...doc, mode: 'sources' as const, points: [], blocks: doc.blocks.map((block) => ({ ...block, sentences: block.sources.slice(0, 6).map((ref) => `${ref.source}報道：${ref.title}。`) })) }
     : doc;
   const shown = listed.mode === 'ai' ? guardDoc(listed) : listed;
@@ -191,6 +197,72 @@ export interface ArticleCost {
 }
 
 /** MiniMax, then Grok inside the US$10 cap, then Workers AI. MiniMax calls are not added to the xAI bill. */
+/** Spend so far within the month's straight-line share of the cap (HKT days elapsed). */
+export function verifyPaceOk(costUsd: number, now = new Date()): boolean {
+  const hkt = new Date(now.getTime() + 8 * 3_600_000);
+  const days = new Date(Date.UTC(hkt.getUTCFullYear(), hkt.getUTCMonth() + 1, 0)).getUTCDate();
+  return costUsd < XAI_MONTHLY_CAP_USD * (hkt.getUTCDate() / days);
+}
+
+/** A MiniMax piece that has finished its own stages but not Grok's pass. */
+function awaitingVerify(doc: ContentDoc): boolean {
+  return doc.provider === 'minimax' && doc.mode === 'ai' && doc.verified !== 'grok' && (!doc.stage || doc.stage === 'verify');
+}
+
+interface Verified { doc: ContentDoc; input: number; output: number; requests: number; step: string; error?: string }
+
+/**
+ * Grok's final pass over a finished MiniMax piece: MiniMax text plus source extracts in, corrected
+ * sentences out. Applied, tidied, then the normal publish checks decide. Without a key, past the
+ * cap pace, out of time, or on a failed call the piece stays held (stage 'verify'); it never goes
+ * out unverified.
+ */
+async function grokVerify(env: ContentEnv, doc: ContentDoc, deadline: number, costUsd: number): Promise<Verified> {
+  const held = (step: string, extra: Partial<Verified> = {}): Verified => ({ doc: { ...doc, stage: 'verify' }, input: 0, output: 0, requests: 0, step, ...extra });
+  const key = apiKey(env);
+  if (!key) return held('verify-no-key');
+  if (costUsd >= XAI_MONTHLY_CAP_USD || !verifyPaceOk(costUsd)) return held('verify-pace');
+  const prompt = verifyPrompt(doc);
+  if (!prompt) return held('verify-no-sources');
+  const left = deadline - Date.now();
+  if (left < 10_000) return held('verify-no-time');
+  const result = await completeWith(key, VERIFY_MODEL, prompt.system, prompt.user, VERIFY_MAX_TOKENS, Math.min(30_000, left - 1_000));
+  const spent = { input: result.input, output: result.output, requests: result.status ? 1 : 0 };
+  const parsed = result.text ? parseVerify(result.text) : null;
+  if (!parsed) return held(result.error ? 'verify-failed' : 'verify-unparsed', { ...spent, ...(result.error ? { error: result.error } : {}) });
+  const applied = applyVerify(doc, parsed);
+  const usd = callCostUsd(result.input, result.output, 0);
+  const next: ContentDoc = { ...cleanMiniMax(applied.doc), verified: 'grok', verifyUsd: usd };
+  delete next.stage;
+  return { doc: next, ...spent, step: `verify:${applied.changed}:${bodyChars(next)}:$${usd.toFixed(4)}` };
+}
+
+/** Rest of the MiniMax pipeline for a stored piece: its own stages, then Grok's pass when time allows. */
+async function resumeMiniMax(env: ContentEnv, stored: ContentDoc, requestStart: number, costUsd: number): Promise<{ doc: ContentDoc; steps: string[]; errors: string[]; input: number; output: number; requests: number }> {
+  let doc = stored;
+  const steps: string[] = [];
+  const errors: string[] = [];
+  const mini = minimaxKey(env);
+  if (doc.stage === 'drafted' || doc.stage === 'checked') {
+    if (!mini) return { doc, steps, errors, input: 0, output: 0, requests: 0 };
+    const expanded = await expandMiniMax(mini, doc, requestStart + MINIMAX_DEADLINE_MS);
+    steps.push(...expanded.steps);
+    errors.push(...expanded.errors);
+    doc = expanded.doc;
+  }
+  if (!awaitingVerify(doc)) return { doc, steps, errors, input: 0, output: 0, requests: 0 };
+  const verified = await grokVerify(env, doc, requestStart + VERIFY_DEADLINE_MS, costUsd);
+  steps.push(verified.step);
+  if (verified.error) errors.push(verified.error);
+  return { doc: verified.doc, steps, errors, input: verified.input, output: verified.output, requests: verified.requests };
+}
+
+/** Adds verification tokens to the month's usage. */
+async function chargeVerify(env: ContentEnv, input: number, output: number, requests: number): Promise<void> {
+  if (!requests) return;
+  await saveUsage(env, withTokens(await monthUsage(env), input, output, requests, 0));
+}
+
 async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now(), miniDeadline = started + MINIMAX_DEADLINE_MS): Promise<{ docs: ContentDoc[]; usage: MonthUsage; grokStatus: number[]; grokError: string[]; capped: boolean; costs: ArticleCost[]; steps: string[] }> {
   let usage = await monthUsage(env);
   const key = apiKey(env);
@@ -207,13 +279,27 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now(), 
     // MiniMax desks: draft → fact-check → facts-only rewrite → fact-check. No Grok fallback,
     // so the Grok budget stays with Hong Kong and mainland desks.
     if (writer === 'minimax') {
+      let verifyInput = 0;
+      let verifyOutput = 0;
+      let verifyRequests = 0;
       if (mini) {
         const piped = await pipelineMiniMax(mini, job.draft, miniDeadline);
         errors.push(...piped.errors);
-        steps.push(`${job.draft.key}:${piped.steps.join(',')}`);
-        grokDoc = piped.doc;
+        const pipeSteps = [...piped.steps];
+        grokDoc = piped.doc ? { ...piped.doc, provider: 'minimax' } : null;
+        // Grok verifies every finished MiniMax piece before it can be listed.
+        if (grokDoc && awaitingVerify(grokDoc)) {
+          const verified = await grokVerify(env, grokDoc, started + VERIFY_DEADLINE_MS, usage.costUsd);
+          pipeSteps.push(verified.step);
+          if (verified.error) errors.push(verified.error);
+          grokDoc = verified.doc;
+          verifyInput = verified.input;
+          verifyOutput = verified.output;
+          verifyRequests = verified.requests;
+        }
+        steps.push(`${job.draft.key}:${pipeSteps.join(',')}`);
       }
-      return { job, grokDoc, input: priorInput, output: priorOutput, requests: 0, searchCalls: 0 };
+      return { job, grokDoc, input: priorInput + verifyInput, output: priorOutput + verifyOutput, requests: verifyRequests, searchCalls: 0 };
     }
     if (writerFor({ route: job.route, costUsd: usage.costUsd, hasKey: Boolean(key) }) !== 'grok') {
       return { job, grokDoc, input: priorInput, output: priorOutput, requests: 0, searchCalls: 0 };
@@ -288,7 +374,7 @@ async function composeBatch(env: ContentEnv, jobs: Job[], started = Date.now(), 
   }
   await saveUsage(env, usage);
   const costs = grok.map((row) => {
-    const miniOnly = row.grokDoc?.provider === 'minimax' && row.requests === 0;
+    const miniOnly = row.job.writer === 'minimax' && row.requests === 0;
     return {
       key: row.grokDoc?.key || row.job.draft.key,
       inputTokens: miniOnly ? 0 : row.input,
@@ -376,8 +462,11 @@ function withPending(doc: ContentDoc, body: Record<string, unknown>): Record<str
 async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingScope, 'hk'>, now: Date, options: { force?: boolean }): Promise<Record<string, unknown>> {
   const key = scopedBriefingKey(scope, now);
   const existing = await readDoc(env, docKey('briefing', key));
-  if (!options.force && existing?.doc.stage && minimaxKey(env)) {
-    const expanded = await expandMiniMax(minimaxKey(env), existing.doc, Date.now() + MINIMAX_DEADLINE_MS);
+  if (!options.force && existing?.doc && (existing.doc.stage || awaitingVerify(existing.doc))) {
+    const requestStart = Date.now();
+    const usageNow = await monthUsage(env);
+    const expanded = await resumeMiniMax(env, existing.doc, requestStart, usageNow.costUsd);
+    await chargeVerify(env, expanded.input, expanded.output, expanded.requests);
     await writeDoc(env, expanded.doc);
     const doc = expanded.doc;
     const chars = bodyChars(doc);
@@ -397,7 +486,7 @@ async function generateScopedBriefing(env: ContentEnv, scope: Exclude<BriefingSc
     }));
   }
   // A listed brief (400-character floor) is settled for idempotent warm calls.
-  if (!options.force && existing?.doc && existing.doc.mode === 'ai' && !existing.doc.stage && (settledPiece(existing.doc) || briefingPublic(existing.doc))) {
+  if (!options.force && existing?.doc && existing.doc.mode === 'ai' && !existing.doc.stage && !heldMiniMax(existing.doc) && (settledPiece(existing.doc) || briefingPublic(existing.doc))) {
     return delivered(columnDelivery({ skipped: 'exists' }), { kind: 'briefing', scope, key, mode: 'ai', provider: existing?.doc.provider ?? 'minimax', skipped: 'exists' });
   }
   const material = await loadMaterial(env);
@@ -581,7 +670,7 @@ async function legacyCompareDocs(env: ContentEnv, onlyKey = ''): Promise<Content
 
 /** MiniMax desks: outlets read per story, and the material bar before a piece is attempted. */
 const MINIMAX_FETCH_PER_CLUSTER = 6;
-const MINIMAX_MIN_OUTLETS = 3;
+const MINIMAX_MIN_OUTLETS = 2;
 const MINIMAX_MIN_TEXT = 2_500;
 
 export function miniMaterialOk(items: NewsItem[]): boolean {
@@ -873,18 +962,24 @@ async function expandPending(env: ContentEnv, pending: string[], requestStart: n
   const errors: string[] = [];
   const keys: string[] = [];
   const requeue: string[] = [];
+  const costUsd = (await monthUsage(env)).costUsd;
+  const spent = { input: 0, output: 0, requests: 0 };
   await Promise.all(batch.map(async (key) => {
     const saved = await readDoc(env, docKey('compare', key)).catch(() => null);
     const doc = saved?.doc;
-    if (!doc || !doc.stage || !mini) return;
-    const expanded = await expandMiniMax(mini, doc, requestStart + MINIMAX_DEADLINE_MS);
+    if (!doc || !mini || !(doc.stage || awaitingVerify(doc))) return;
+    const expanded = await resumeMiniMax(env, doc, requestStart, costUsd);
+    spent.input += expanded.input;
+    spent.output += expanded.output;
+    spent.requests += expanded.requests;
     errors.push(...expanded.errors);
     steps.push(`${key}:${expanded.steps.join(',')}`);
-    await writeDoc(env, expanded.doc, false);
+    await writeDoc(env, expanded.doc, !heldMiniMax(expanded.doc));
     keys.push(key);
     // Re-queue only when the piece moved forward (drafted → checked); a stuck one stays hidden.
     if (expanded.doc.stage && expanded.doc.stage !== doc.stage) requeue.push(key);
   }));
+  await chargeVerify(env, spent.input, spent.output, spent.requests);
   await writePending(env, [...pending.filter((key) => !batch.includes(key)), ...requeue]);
   return { keys, steps, errors };
 }
@@ -950,7 +1045,7 @@ export async function generateCompare(
   } else {
     const fresh = material.clusters.filter((cluster) => !matchEvent(cluster, events, now.getTime()));
     // Only clusters that pass the same-event check, so a call is not spent re-picking ones prepareExplainers drops.
-    const miniPool = fresh.filter((cluster) => cluster.count >= 3 && clusterWriter(cluster) === 'minimax' && coherentCluster(cluster));
+    const miniPool = fresh.filter((cluster) => cluster.count >= MINIMAX_MIN_OUTLETS && clusterWriter(cluster) === 'minimax' && coherentCluster(cluster));
     // One spare candidate: a story below the material bar is skipped without a MiniMax call.
     const miniPicked = miniTake > 0 ? pickMiniMaxBatch(miniPool, written, miniTake + 1, now) : [];
     const grokFresh = fresh.filter((cluster) => clusterWriter(cluster) === 'grok');
@@ -1025,7 +1120,7 @@ export async function generateCompare(
   }
   await writeEvents(env, events, now.getTime());
   if (saved.length) await rememberIndexMany(env, saved).catch(() => undefined);
-  const checked = saved.filter((doc) => Boolean(doc.stage)).map((doc) => doc.key);
+  const checked = saved.filter((doc) => Boolean(doc.stage) || awaitingVerify(doc)).map((doc) => doc.key);
   if (checked.length) await writePending(env, [...(await readPending(env)), ...checked]);
   return delivered(columnDelivery({
     capped,
