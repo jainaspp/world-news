@@ -9,6 +9,7 @@ import {
   FETCH_PER_CLUSTER,
   FETCH_TIMEOUT_MS,
   HTML_CAP,
+  RAW_HTML_CAP,
 } from '../../shared/articleText.js';
 import { stableId } from '../../shared/rss.js';
 import {
@@ -24,7 +25,7 @@ import type { NewsItem } from '../../shared/types.js';
 import { readValue, writeValue, type ContentEnv } from './store.js';
 
 export function articleCacheKey(url: string): string {
-  return `article2:${stableId(url)}`;
+  return `article3:${stableId(url)}`;
 }
 
 export interface FetchResult {
@@ -89,8 +90,8 @@ export async function fetchArticleTexts(
       if (response.status === 401 || response.status === 403 || !response.ok) return;
       const type = response.headers.get('content-type') || '';
       if (type && !/html|xml|text\/plain/i.test(type)) return;
-      const html = (await response.text()).slice(0, HTML_CAP);
-      const text = extractArticle(html, ARTICLE_CHARS_LONG);
+      // Code is stripped before the cap: an inline style or script cut open by the cap leaked into extracts.
+      const text = extractArticle((await response.text()).slice(0, RAW_HTML_CAP), ARTICLE_CHARS_LONG);
       if (!text) return;
       texts.set(url, text);
       await writeValue(env, articleCacheKey(url), JSON.stringify({ url, text }), ARTICLE_TTL_SECONDS);

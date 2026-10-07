@@ -118,11 +118,83 @@ export function toWritten(text: string): string {
     .replace(/([，。！？；：])\s+/g, '$1');
 }
 
+const OPEN_QUOTES = '「『“';
+const CLOSE_QUOTES = '」』”';
+
+/**
+ * Splits Chinese prose at 。！？ but never inside 「」 or 『』: a quote stays with its sentence and a
+ * closing mark right after the stop stays on the left. An unclosed quote over 300 characters
+ * splits normally so one broken mark cannot swallow a paragraph.
+ */
+export function splitSentences(text: string): string[] {
+  const out: string[] = [];
+  let current = '';
+  let depth = 0;
+  const chars = [...text];
+  for (let index = 0; index < chars.length; index += 1) {
+    const ch = chars[index]!;
+    current += ch;
+    if (OPEN_QUOTES.includes(ch)) depth += 1;
+    else if (CLOSE_QUOTES.includes(ch)) {
+      depth = Math.max(0, depth - 1);
+      // 「……。」 ends the sentence when the quote closes right after the stop.
+      if (depth === 0 && index > 0 && '。！？'.includes(chars[index - 1]!)) {
+        out.push(current.trim());
+        current = '';
+      }
+      continue;
+    }
+    if (!'。！？'.includes(ch)) continue;
+    if (depth > 0 && current.length < 300) continue;
+    while (index + 1 < chars.length && CLOSE_QUOTES.includes(chars[index + 1]!)) {
+      index += 1;
+      current += chars[index];
+      depth = Math.max(0, depth - 1);
+    }
+    out.push(current.trim());
+    current = '';
+    depth = 0;
+  }
+  if (current.trim()) out.push(current.trim());
+  return out.filter(Boolean);
+}
+
+function quoteBalance(text: string): number {
+  let balance = 0;
+  for (const ch of text) {
+    if (OPEN_QUOTES.includes(ch)) balance += 1;
+    else if (CLOSE_QUOTES.includes(ch)) balance -= 1;
+  }
+  return balance;
+}
+
+/**
+ * Stored sentences split inside a quote are joined again; a line that is only a closing mark joins
+ * the line before; a quote still open at the end of a joined run is closed.
+ */
+export function rejoinQuotes(sentences: string[]): string[] {
+  const out: string[] = [];
+  let open = false;
+  for (const raw of sentences) {
+    const line = raw.trim();
+    if (!line) continue;
+    const previous = out.length ? out[out.length - 1]! : '';
+    const orphan = /^[」』”]/.test(line);
+    if (out.length && (open || orphan)) out[out.length - 1] = previous + line;
+    else out.push(line);
+    open = quoteBalance(out[out.length - 1]!) > 0 && out[out.length - 1]!.length < 300;
+  }
+  return out.map((line) => {
+    const balance = quoteBalance(line);
+    if (balance <= 0) return line;
+    const closer = line.lastIndexOf('『') > line.lastIndexOf('「') ? '』' : '」';
+    return /[。！？]$/.test(line) ? `${line.slice(0, -1)}${line.slice(-1)}${closer.repeat(balance)}` : `${line}${closer.repeat(balance)}`;
+  });
+}
+
 /** Drops any sentence that names the source format. The model is told not to write these. */
 export function dropBannedSentences(text: string): string {
-  return text
-    .split(/(?<=[。！？])/)
-    .map((sentence) => sentence.trim())
+  return splitSentences(text)
     .filter((sentence) => sentence && !BANNED.test(sentence))
     .join('');
 }

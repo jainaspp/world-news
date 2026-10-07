@@ -1,4 +1,4 @@
-import { arabicDigits, cantoneseLeft, polishProse, preachySentence, proseSane, tidyDisplay } from './prose.js';
+import { arabicDigits, cantoneseLeft, polishProse, preachySentence, proseSane, rejoinQuotes, splitSentences, tidyDisplay } from './prose.js';
 import { researchSources, SOURCE_LIST_CAP } from './search.js';
 import { stableId } from './rss.js';
 import { hasChinese, isMostlyEnglish, toHK } from './zh.js';
@@ -59,7 +59,7 @@ export function tidyStored(doc: ContentDoc): ContentDoc {
   if (doc.kind !== 'briefing' && doc.kind !== 'compare') return doc;
   const blocks = doc.blocks.map((block) => (block.title === '事件時間線'
     ? block
-    : { ...block, sentences: block.sentences.map(tidyDisplay).filter((line) => line.trim() && !preachySentence(line)) }))
+    : { ...block, sentences: rejoinQuotes(block.sentences).map(tidyDisplay).filter((line) => line.trim() && !preachySentence(line)) }))
     .filter((block) => block.title === '事件時間線' || block.sentences.length > 0);
   const next: ContentDoc = { ...doc, title: tidyDisplay(doc.title), description: tidyDisplay(doc.description), blocks };
   if (doc.points) next.points = doc.points.map(tidyDisplay).filter((line) => line.trim() && !preachySentence(line));
@@ -71,6 +71,14 @@ export const MIN_PUBLIC_POINTS = 2;
 
 /** Below this, a briefing or explainer stays unpublished. */
 export const PUBLISH_FLOOR = 500;
+
+/** Grok-verified MiniMax explainers list from 400 narrative characters (with at least 2 points). */
+export const VERIFIED_MINIMAX_FLOOR = 400;
+
+/** The explainer floor for this piece: 400 when MiniMax wrote it and Grok verified it, else 500. */
+export function explainerFloor(doc: ContentDoc): number {
+  return doc.provider === 'minimax' && doc.verified === 'grok' ? VERIFIED_MINIMAX_FLOOR : PUBLISH_FLOOR;
+}
 
 /** Briefings are multi-section digests; list them from 400 narrative characters. Explainers keep the 500 floor. */
 export const BRIEFING_PUBLIC_FLOOR = 400;
@@ -102,7 +110,7 @@ export function explainerCurrent(stored: ContentDoc): boolean {
   if (!hasChinese(doc.title)) return false;
   const titles = new Set(doc.blocks.map((block) => block.title));
   if (!titles.has('事件時間線') || !titles.has('事件經過')) return false;
-  if (narrativeChars(doc) < PUBLISH_FLOOR) return false;
+  if (narrativeChars(doc) < explainerFloor(doc)) return false;
   if (!narrativeSane(doc)) return false;
   const prose = [
     doc.title,
@@ -663,7 +671,7 @@ export function meaningful(sentence: string): boolean {
 }
 
 function sentencesOf(text: string, max: number): string[] {
-  return toHK(String(text || '')).split(/(?<=[。！？])/).map((line) => line.trim()).filter(meaningful).slice(0, max);
+  return splitSentences(toHK(String(text || ''))).filter(meaningful).slice(0, max);
 }
 
 /** Every human-readable string the model wrote, for the language check. */
@@ -895,7 +903,7 @@ function polishColumn(doc: ContentDoc): ContentDoc {
   const blocks = doc.blocks.map((block) => ({
     ...block,
     title: text(block.title),
-    sentences: block.sentences.flatMap((line) => text(line).split(/(?<=[。！？])/).map((sentence) => sentence.trim()).filter(Boolean)),
+    sentences: rejoinQuotes(block.sentences.flatMap((line) => splitSentences(text(line)))),
     sources: block.sources.map((source) => {
       const next = { ...source };
       if (source.angle) next.angle = text(source.angle);

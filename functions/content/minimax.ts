@@ -1,6 +1,7 @@
 import { applyModelText, briefingHeadings, briefingScopeOf, promptFor, type ContentDoc, type ResearchMode } from '../../shared/content.js';
 import { bodyChars, pieceReady } from '../../shared/grok.js';
 import { toHK } from '../../shared/zh.js';
+import { rejoinQuotes } from '../../shared/prose.js';
 
 /** MiniMax China Coding Plan. Flat fee, so a call costs 0 USD. */
 export const MINIMAX_URL = 'https://api.minimaxi.com/v1/text/chatcompletion_v2';
@@ -286,33 +287,49 @@ export function stripHalfGloss(text: string): string {
   return text.replace(/(?<=[\u3400-\u9fff]) [A-Z][a-z]+(?=[\u3400-\u9fff])/g, '');
 }
 
-/** One headline point from a checked sentence: the whole sentence when short, else its first clause. */
-function pointFrom(sentence: string): string {
-  const text = sentence.replace(/^[^，。]{1,12}方面，/, '').replace(/[。！？]+$/, '');
-  if (text.length <= 48) return text;
-  // Leading clauses up to 48 characters; never stop on a speech verb or a cause.
-  let point = '';
-  for (const clause of text.split('，')) {
-    const next = point ? `${point}，${clause}` : clause;
-    if (next.length > 48) break;
-    point = next;
-  }
-  if (/(表示|指出|指|稱|說|認為|因為|由於|但|而)$/.test(point)) return '';
-  return point.length >= 12 ? point : '';
+/** Character bigrams, for near-duplicate points. */
+function bigrams(text: string): Set<string> {
+  const chars = [...text.replace(/[，。、「」『』\s]/g, '')];
+  const out = new Set<string>();
+  for (let index = 0; index + 1 < chars.length; index += 1) out.add(chars[index]! + chars[index + 1]!);
+  return out;
 }
 
-/** Too few points after the check: refill from the checked sentences (no new facts). */
+export function nearDuplicate(a: string, b: string): boolean {
+  if (a.includes(b) || b.includes(a)) return true;
+  const left = bigrams(a);
+  const right = bigrams(b);
+  if (!left.size || !right.size) return false;
+  let shared = 0;
+  for (const gram of left) if (right.has(gram)) shared += 1;
+  return shared / Math.min(left.size, right.size) >= 0.6;
+}
+
+/**
+ * A headline point from one whole checked sentence (never a cut clause): 12 to 50 characters, not
+ * opening on a pronoun that needs the sentence before, not ending on a dangling word.
+ */
+export function pointFrom(sentence: string): string {
+  const text = sentence.replace(/^[^，。]{1,12}方面，/, '').replace(/^(與此同時|此外|另外|其後|同時)，/, '').replace(/[。！？]+$/, '').trim();
+  if (text.length < 12 || text.length > 50) return '';
+  if (/^(她|他|它|其|該|此|這|那|佢)/.test(text)) return '';
+  if (/(表示|指出|指|稱|說|認為|因為|由於|但|而|和|及|與|的|在|於|因|將|為|把|被|對|向|從|或|並|且|：|，|「)$/.test(text)) return '';
+  if ((text.match(/[「『]/g)?.length ?? 0) !== (text.match(/[」』]/g)?.length ?? 0)) return '';
+  return text;
+}
+
+/** Too few points after the check: refill from whole checked sentences (no new facts), deduplicated. */
 export function fillPoints(points: string[], blocks: ContentDoc['blocks']): string[] {
-  if (points.length >= 2) return points;
-  const out = [...points];
-  const sentences = blocks.filter((block) => block.title !== '事件時間線');
-  const firsts = sentences.map((block) => block.sentences[0] ?? '');
-  const topics = sentences.flatMap((block) => block.sentences.filter((text) => /^[^，。]{1,12}方面，/.test(text)));
-  const rest = sentences.flatMap((block) => block.sentences);
-  for (const sentence of [...firsts, ...topics, ...rest]) {
+  const out: string[] = [];
+  for (const point of points) if (!out.some((have) => nearDuplicate(have, point))) out.push(point);
+  if (out.length >= 2) return out;
+  const prose = blocks.filter((block) => block.title !== '事件時間線');
+  const firsts = prose.map((block) => block.sentences[0] ?? '');
+  const rest = prose.flatMap((block) => block.sentences);
+  for (const sentence of [...firsts, ...rest]) {
     if (out.length >= 3) break;
     const point = pointFrom(sentence);
-    if (point && !out.some((have) => have.includes(point) || point.includes(have))) out.push(point);
+    if (point && !out.some((have) => nearDuplicate(have, point))) out.push(point);
   }
   return out;
 }
@@ -322,7 +339,7 @@ export function cleanMiniMax(doc: ContentDoc): ContentDoc {
   const seen = new Set<string>();
   const blocks = doc.blocks.map((block) => (block.title === '事件時間線'
     ? block
-    : { ...block, sentences: block.sentences.filter((text) => !COMMENTARY_RE.test(text)).map((text) => stripHalfGloss(stripGlosses(text, seen))) }))
+    : { ...block, sentences: rejoinQuotes(block.sentences).filter((text) => !COMMENTARY_RE.test(text)).map((text) => stripHalfGloss(stripGlosses(text, seen))) }))
     .filter((block) => block.title === '事件時間線' || block.sentences.length > 0);
   const points = fillPoints((doc.points ?? []).filter((text) => !COMMENTARY_RE.test(text)).map((text) => stripHalfGloss(stripGlosses(text, new Set()))), blocks);
   return {
