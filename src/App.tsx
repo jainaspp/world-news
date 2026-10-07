@@ -11,7 +11,7 @@ import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem, TimeRange } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
 import { focusTarget } from '../shared/focusView';
-import { HOME_INTRO, HOME_SECTIONS } from '../shared/homeCopy';
+import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
 import { DarkModeToggle } from './components/DarkModeToggle';
@@ -44,6 +44,42 @@ const TIMES: { id: TimeRange; labelKey: 'all' | 'hour' | 'today' | 'week' }[] = 
   { id: 'today', labelKey: 'today' },
   { id: 'week', labelKey: 'week' },
 ];
+
+function HomeIntroBody() {
+  return (
+    <>
+      <p>{HOME_INTRO}</p>
+      <ul className="home-sections">
+        {HOME_SECTIONS.map((section) => (
+          <li key={section.name}>
+            <strong>{section.href ? <a href={section.href}>{section.name}</a> : section.name}</strong> {section.text}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function HomeIntroTop() {
+  return (
+    <section className="home-intro home-intro-top" aria-label="關於世界頭條">
+      <p className="home-intro-line">{HOME_INTRO_LINE}</p>
+      <details className="home-more">
+        <summary>了解更多</summary>
+        <HomeIntroBody />
+      </details>
+    </section>
+  );
+}
+
+function HomeIntroFoot() {
+  return (
+    <section className="home-intro home-intro-foot" aria-label="關於世界頭條">
+      <h2>關於世界頭條</h2>
+      <HomeIntroBody />
+    </section>
+  );
+}
 
 const TIME_LABEL: Record<string, Record<UiLang, string>> = {
   all: { 'zh-HK': '全部', 'zh-CN': '全部', en: 'All' },
@@ -348,6 +384,7 @@ export default function App() {
               <button type="button" className={view.bookmarks ? 'chip active' : 'chip'} aria-pressed={view.bookmarks} onClick={() => go({ ...view, bookmarks: !view.bookmarks, following: false })}>
                 {t('bookmarks', lang)}
               </button>
+              <a className="chip" href="/data/">{t('dataHub', lang)}</a>
               {board.prefs.keywords && (
                 <button
                   type="button"
@@ -439,18 +476,7 @@ export default function App() {
 
         <div className="layout">
           <main id="news">
-            {allowAds && (
-              <section className="home-intro" aria-label="關於世界頭條">
-                <p>{HOME_INTRO}</p>
-                <ul className="home-sections">
-                  {HOME_SECTIONS.map((section) => (
-                    <li key={section.name}>
-                      <strong>{section.name}</strong> {section.text}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
+            {allowAds && <HomeIntroTop />}
             {loading && !special && items.length === 0 ? (
               <div className="news-grid" aria-busy="true" aria-live="polite">
                 {Array.from({ length: 6 }, (_, index) => (
@@ -484,6 +510,7 @@ export default function App() {
                     <a className="digest-primary" href="/digest/">{t('todayPicks', lang)}</a>
                     <a className="digest-keep" href="/briefing/">{t('hkBriefing', lang)}</a>
                     <a className="digest-keep" href="/explainer/">{t('multiCompare', lang)}</a>
+                    <a href="/data/">{t('dataHub', lang)}</a>
                     <a href="/weekly/">{t('weekly', lang)}</a>
                     <a href="/analysis/">{t('hotAnalysis', lang)}</a>
                   </aside>
@@ -620,6 +647,7 @@ export default function App() {
           </aside>
         </div>
 
+        {allowAds && <HomeIntroFoot />}
         <footer className="app-footer">
           <p>
             {SITE_NAME} {lang === 'en' ? 'lists headlines and source links only.' : '只列出標題同出處連結，不轉載內文。'}

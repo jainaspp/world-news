@@ -1,4 +1,5 @@
 import { applyRuntimeEnv } from '../server/runtimeEnv.js';
+import { DATA_HUB, DATA_PAGES } from '../shared/dataSeries.js';
 import { readIndex, type ContentEnv } from './content/store.js';
 import type { PagesContext } from './env.js';
 
@@ -42,8 +43,16 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     ...compare.map((row) => entry(`https://world-news.xyz/explainer/${encodeURIComponent(row.key)}`, row.publishedAt, 'daily', '0.6')),
   ].join('');
   const major = base.includes('/major/') ? '' : entry('https://world-news.xyz/major/', new Date().toISOString(), 'hourly', '0.8');
+  const dataLocs: [string, string, string][] = [
+    [`https://world-news.xyz${DATA_HUB.path}`, 'daily', '0.6'],
+    ...DATA_PAGES.map((page) => [`https://world-news.xyz${page.path}`, 'daily', '0.6'] as [string, string, string]),
+  ];
+  const data = dataLocs
+    .filter(([loc]) => !base.includes(loc))
+    .map(([loc, freq, priority]) => entry(loc, '2026-10-07', freq, priority))
+    .join('');
   const xml = base.includes('</urlset>')
-    ? base.replace('</urlset>', `${major}${legal}${extra}</urlset>`)
-    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${extra}</urlset>\n`;
+    ? base.replace('</urlset>', `${major}${legal}${data}${extra}</urlset>`)
+    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${extra}</urlset>\n`;
   return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=600' } });
 }

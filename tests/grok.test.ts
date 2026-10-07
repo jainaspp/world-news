@@ -320,7 +320,7 @@ describe('mocked Grok generation', () => {
     const home = renderHomeFeed([story('home', '首頁', '香港電台', 'hk')]);
     expect(home).toContain('href="/briefing/"');
     expect(home).toContain('href="/explainer/"');
-    expect(home).toContain('class="home-intro"');
+    expect(home).toContain('class="home-intro home-intro-top"');
     expect(chrome('briefing')).toContain('href="/briefing/"');
     expect(chrome('compare')).toContain('href="/explainer/"');
     expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('/briefing/');

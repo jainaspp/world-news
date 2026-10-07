@@ -292,7 +292,7 @@ export function head(title: string, description: string, canonical: string, imag
 </head>`;
 }
 
-export function chrome(active: ContentDoc['kind'] | 'none'): string {
+export function chrome(active: ContentDoc['kind'] | 'none' | 'data'): string {
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
@@ -322,7 +322,7 @@ export function chrome(active: ContentDoc['kind'] | 'none'): string {
     <div class="tab-bar">
       <nav class="filters" aria-label="欄目">
         <a class="chip" href="/">頭條</a>
-        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}
+        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a>
       </nav>
     </div>
     <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣同恒生指數"></div>

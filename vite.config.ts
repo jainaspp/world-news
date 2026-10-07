@@ -8,6 +8,7 @@ import { onRequest as majorApi } from './functions/api/major';
 import { onRequest as marketsApi } from './functions/api/markets';
 import { onRequest as popularApi } from './functions/api/popular';
 import { onRequest as readsApi } from './functions/api/reads';
+import { onRequest as dataPage } from './functions/data/[[path]]';
 import { onRequest as majorPage } from './functions/major/index';
 import type { PagesContext } from './functions/env';
 import { loadHkBundle } from './server/hkService';
@@ -51,7 +52,8 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
     const url = req.url ?? '';
     const handled = url.startsWith('/api/news') || url.startsWith('/api/crawl') || url.startsWith('/api/hsi') || url.startsWith('/api/hk')
       || url.startsWith('/api/markets') || url.startsWith('/api/alerts') || url.startsWith('/api/board') || url.startsWith('/api/clusters')
-      || url.startsWith('/api/major') || url.startsWith('/api/reads') || url.startsWith('/api/popular') || url.startsWith('/major');
+      || url.startsWith('/api/major') || url.startsWith('/api/reads') || url.startsWith('/api/popular') || url.startsWith('/major')
+      || url.startsWith('/data');
     if (!handled) {
       next();
       return;
@@ -90,6 +92,7 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
         if (url.startsWith('/api/reads')) { await forward(res, await readsApi(context)); return; }
         if (url.startsWith('/api/popular')) { await forward(res, await popularApi(context)); return; }
         if (url.startsWith('/major')) { await forward(res, await majorPage(context)); return; }
+        if (url.startsWith('/data')) { await forward(res, await dataPage(context)); return; }
         const header = req.headers.authorization;
         send(res, await buildCrawlResponse(req.method, typeof header === 'string' ? header : undefined));
       } catch {

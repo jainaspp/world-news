@@ -1,5 +1,6 @@
 /** Footer links on every page. The legal pages are Traditional Chinese (HK). */
 export const FOOTER_LINKS = [
+  { href: '/data/', label: '數據' },
   { href: '/about/', label: '關於我哋' },
   { href: '/privacy/', label: '私隱政策' },
   { href: '/terms/', label: '使用條款' },
