@@ -8,7 +8,7 @@ import type { NewsItem } from './types';
  * /story/<id>/: one headline with every outlet's coverage of the same story, a reporting timeline
  * and related headlines. Only headlines, sources and links (no article text), so it is noindex.
  */
-export function renderStoryPage(item: NewsItem, cluster: StoryCluster | null, related: NewsItem[], canonical: string, adClient = 'ca-pub-8392975944327076'): string {
+export function renderStoryPage(item: NewsItem, cluster: StoryCluster | null, related: NewsItem[], canonical: string): string {
   const coverage = (cluster?.items ?? [item]).slice().sort((a, b) => Date.parse(a.pubDate) - Date.parse(b.pubDate));
   const outlets = new Set(coverage.map((row) => row.source)).size;
   const image = safeHttp(bestImage(coverage)) || safeHttp(item.image);
@@ -30,7 +30,7 @@ export function renderStoryPage(item: NewsItem, cluster: StoryCluster | null, re
         </article>`).join('');
   return `<!doctype html>
 <html lang="zh-HK">
-${head(item.title, description, canonical, image, 'article', ld, adClient)}
+${head(item.title, description, canonical, image, 'article', ld, '', false)}
 <body>
   <div class="page column-page" data-kind="story">
   ${chrome('none')}
@@ -65,7 +65,7 @@ ${head(item.title, description, canonical, image, 'article', ld, adClient)}
 export function renderStoryMissing(canonical: string): string {
   return `<!doctype html>
 <html lang="zh-HK">
-${head('呢則頭條已經下架', '標題只保留一段時間。', canonical, '', 'website', '<meta name="robots" content="noindex" />', 'ca-pub-8392975944327076')}
+${head('呢則頭條已經下架', '標題只保留一段時間。', canonical, '', 'website', '<meta name="robots" content="noindex" />', '', false)}
 <body><div class="page column-page">${chrome('none')}<main id="content" class="column-index"><div class="status-panel"><h2>呢則頭條已經下架</h2><p>世界頭條只保留最近的標題。可以返回首頁睇最新頭條。</p><a class="primary" href="/">返回首頁</a></div></main>${footer()}</div></body></html>`;
 }
 

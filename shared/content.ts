@@ -335,20 +335,20 @@ export function promptFor(doc: ContentDoc, strict = false): { system: string; us
     const sources = doc.blocks[0]?.sources ?? [];
     const data = sources.map((source, index) => ({ n: index + 1, source: source.source, title: source.title, excerpt: source.excerpt || '' }));
     const shape = [
-      '回傳 {"title":"主標題的中文翻譯","sections":[{"heading":"背景"|"各方說法"|"點解要關心"|"與香港的關係"|"接落嚟留意咩","text":"兩至三句"}],"outlets":[{"n":1,"angle":"十五至三十字，概括呢間媒體報道嘅角度或重點"}],"highlight":{...}}。',
-      '只寫資料有實質內容支持的段落；冇料就整段省略，絕對不要寫「來源未有提及」或類似句子。',
+      '回傳 {"title":"主標題的中文翻譯","sections":[{"heading":"背景"|"各方說法"|"點解要關心"|"與香港的關係"|"接落嚟留意咩","text":"三至四句，每句至少三十五字"}],"outlets":[{"n":1,"angle":"十五至三十字，概括呢間媒體報道嘅角度或重點"}],"highlight":{...}}。',
+      '有資料支持的段落寫清楚，成篇正文以四百字為目標。只寫資料有實質內容支持的段落；冇料就整段省略，絕對不要寫「來源未有提及」或類似句子。',
       '「各方說法」要比較唔同媒體或當事人講法；「點解要關心」只講資料寫到的影響；「與香港的關係」只在資料直接提到香港或香港讀者明顯受影響時才寫；「接落嚟留意咩」只寫資料提到的下一步、時間表或未解決問題。',
       'outlets 每個來源一項，用 n 對應，angle 只可概括該來源自己的標題同 excerpt。',
     ].join('');
     return { system, user: `${shape}\n${highlight}\n資料：${JSON.stringify(data)} /no_think`, maxTokens: 1500 };
   }
   const shape = doc.kind === 'weekly'
-    ? '回傳 {"sections":[{"heading":"一週科技"|"一週財經","text":"..."}],"highlight":{...}}。每段三至五句，只回顧列出的標題。'
-    : '回傳 {"items":[{"n":1,"title":"該則新聞的中文標題","sentences":["...","...","..."]}],"highlight":{...}}。每一則剛好三句，綜合至少兩個來源；title 是忠實的中文翻譯。';
+    ? '回傳 {"sections":[{"heading":"一週科技"|"一週財經","text":"..."}],"highlight":{...}}。每段六至八句，每句至少三十字，只回顧列出的標題。標題足夠時兩段正文合計約四百字；標題不足就如實寫短，不要編造。'
+    : '回傳 {"items":[{"n":1,"title":"該則新聞的中文標題","sentences":["...","...","..."]}],"highlight":{...}}。每一則剛好三句，每句至少四十字，綜合至少兩個來源；title 是忠實的中文翻譯。';
   return {
     system,
     user: `${shape}\n${highlight}\n資料：${JSON.stringify(payload)} /no_think`,
-    maxTokens: doc.kind === 'digest' ? 3200 : 1000,
+    maxTokens: doc.kind === 'digest' ? 3200 : 1400,
   };
 }
 
@@ -563,7 +563,7 @@ function applyModelBody(doc: ContentDoc, raw: string, model: string): { doc: Con
     for (const section of record.sections) {
       const heading = toHK(String(section?.heading || '').trim());
       if (!allowed.has(heading) || byHeading.has(heading)) continue;
-      const sentences = sentencesOf(String(section?.text || ''), 4);
+      const sentences = sentencesOf(String(section?.text || ''), 5);
       if (sentences.length) byHeading.set(heading, sentences);
     }
     const blocks = ANALYSIS_HEADINGS.filter((heading) => byHeading.has(heading)).map((heading) => ({
@@ -589,7 +589,7 @@ function applyModelBody(doc: ContentDoc, raw: string, model: string): { doc: Con
   if (doc.kind === 'weekly' && Array.isArray(record.sections)) {
     const blocks = doc.blocks.map((block) => {
       const section = record.sections?.find((item) => item.heading === block.title);
-      const sentences = sentencesOf(String(section?.text || ''), 5);
+      const sentences = sentencesOf(String(section?.text || ''), 8);
       return sentences.length ? { ...block, sentences } : block;
     });
     if (blocks.every((block, index) => block === doc.blocks[index])) return null;

@@ -74,11 +74,23 @@
         document.head.appendChild(fonts);
       }, 8000);
       window.setTimeout(function () {
-        var ads = document.createElement('script');
-        ads.async = true;
-        ads.crossOrigin = 'anonymous';
-        ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8392975944327076';
-        document.head.appendChild(ads);
+        var path = location.pathname;
+        var params = new URLSearchParams(location.search);
+        var time = params.get('time') || '';
+        var home = (path === '/' || path === '')
+          && !params.get('q')
+          && !params.get('source')
+          && !params.get('view')
+          && !params.get('region')
+          && !params.get('category')
+          && (!time || time === 'all');
+        if (home) {
+          var ads = document.createElement('script');
+          ads.async = true;
+          ads.crossOrigin = 'anonymous';
+          ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8392975944327076';
+          document.head.appendChild(ads);
+        }
         var ga = document.createElement('script');
         ga.async = true;
         ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-WHXYS5YE2K';
