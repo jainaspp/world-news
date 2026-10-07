@@ -27,19 +27,22 @@ export interface SavedDoc {
 
 const memory = new Map<string, string>();
 
+/**
+ * Keys that are only caches (article text, cited-page titles, shared research, rejected drafts,
+ * the Workers AI call counter, the board rebuild lock). They live in memory and the edge cache,
+ * never in KV: the free plan allows 1,000 KV puts a day and these were most of them.
+ */
+const EPHEMERAL_PREFIXES = ['article:', 'article2:', 'article3:', 'title:', 'research:', 'research-index:', 'rejected:', 'ai-calls:', 'board:lock'];
+
+export function isEphemeralKey(key: string): boolean {
+  return EPHEMERAL_PREFIXES.some((prefix) => key.startsWith(prefix));
+}
+
 function cacheKey(key: string): Request {
   return new Request(`https://world-news.xyz/content-store/${encodeURIComponent(key)}`);
 }
 
-export async function readValue(env: ContentEnv, key: string): Promise<string | null> {
-  if (env.CONTENT) {
-    try {
-      const value = await env.CONTENT.get(key);
-      if (value) return value;
-    } catch {
-      /* try the cache */
-    }
-  }
+async function readCached(key: string): Promise<string | null> {
   const hit = memory.get(key);
   if (hit) return hit;
   const cache = edgeCache();
@@ -52,17 +55,107 @@ export async function readValue(env: ContentEnv, key: string): Promise<string | 
   }
 }
 
-export async function writeValue(env: ContentEnv, key: string, value: string, ttlSeconds?: number): Promise<void> {
-  memory.set(key, value);
+export async function readValue(env: ContentEnv, key: string): Promise<string | null> {
+  if (isEphemeralKey(key)) {
+    const cached = await readCached(key);
+    if (cached) return cached;
+  }
   if (env.CONTENT) {
     try {
-      await env.CONTENT.put(key, value, ttlSeconds ? { expirationTtl: ttlSeconds } : undefined);
+      const value = await env.CONTENT.get(key);
+      if (value) return value;
     } catch {
-      /* cache still holds it */
+      /* try the cache */
+    }
+  }
+  return isEphemeralKey(key) ? null : readCached(key);
+}
+
+/** Until the next 00:00 UTC (when the KV daily write quota resets). */
+function secondsToUtcMidnight(now = Date.now()): number {
+  const next = new Date(now);
+  next.setUTCHours(24, 0, 0, 0);
+  return Math.max(60, Math.ceil((next.getTime() - now) / 1000));
+}
+
+let kvBlockedUntil = 0;
+const KV_LIMIT_FLAG = new Request('https://world-news.xyz/content-store/__kv-write-limit');
+
+export function isKvLimitError(error: unknown): boolean {
+  const text = error instanceof Error ? `${error.name} ${error.message}` : String(error);
+  return /429|limit|quota|exceeded|too many/i.test(text);
+}
+
+/** Called when a KV put fails with the daily limit: later puts are skipped until 00:00 UTC. */
+export async function markKvWriteLimited(now = Date.now()): Promise<void> {
+  const ttl = secondsToUtcMidnight(now);
+  kvBlockedUntil = now + ttl * 1000;
+  console.warn(`KV put limit reached; skipping KV writes for ${ttl}s`);
+  const cache = edgeCache();
+  if (!cache) return;
+  try {
+    await cache.put(KV_LIMIT_FLAG, new Response(String(kvBlockedUntil), { headers: { 'cache-control': `public, max-age=${ttl}` } }));
+  } catch {
+    /* best effort */
+  }
+}
+
+/** True after a KV put hit the daily limit (this isolate, or this data center via the edge cache). */
+export async function kvWritesBlocked(now = Date.now()): Promise<boolean> {
+  if (kvBlockedUntil > now) return true;
+  const cache = edgeCache();
+  if (!cache) return false;
+  try {
+    const hit = await cache.match(KV_LIMIT_FLAG);
+    if (!hit) return false;
+    const until = Number(await hit.text());
+    if (Number.isFinite(until) && until > now) {
+      kvBlockedUntil = until;
+      return true;
+    }
+  } catch {
+    /* no flag */
+  }
+  return false;
+}
+
+/** Test hook. */
+export function resetKvWriteState(): void {
+  kvBlockedUntil = 0;
+  memory.clear();
+}
+
+/**
+ * Writes memory and the edge cache always; KV only for durable keys, only when the value changed,
+ * and never after the daily put limit was hit. A failed put is logged, never thrown.
+ * Returns false when a durable key could not reach KV.
+ */
+export async function writeValue(env: ContentEnv, key: string, value: string, ttlSeconds?: number): Promise<boolean> {
+  memory.set(key, value);
+  let stored = true;
+  if (env.CONTENT && !isEphemeralKey(key)) {
+    if (await kvWritesBlocked()) {
+      stored = false;
+    } else {
+      let same = false;
+      try {
+        same = (await env.CONTENT.get(key)) === value;
+      } catch {
+        same = false;
+      }
+      if (!same) {
+        try {
+          await env.CONTENT.put(key, value, ttlSeconds ? { expirationTtl: ttlSeconds } : undefined);
+        } catch (error) {
+          stored = false;
+          if (isKvLimitError(error)) await markKvWriteLimited();
+          else console.warn(`KV put failed for ${key.split(':')[0]}`);
+        }
+      }
     }
   }
   const cache = edgeCache();
-  if (!cache) return;
+  if (!cache) return stored;
   const maxAge = ttlSeconds && ttlSeconds > 0 ? ttlSeconds : 604800;
   try {
     await cache.put(cacheKey(key), new Response(value, {
@@ -71,6 +164,7 @@ export async function writeValue(env: ContentEnv, key: string, value: string, tt
   } catch {
     /* best effort */
   }
+  return stored;
 }
 
 export async function readDoc(env: ContentEnv, key: string): Promise<SavedDoc | null> {

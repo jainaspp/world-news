@@ -1,6 +1,7 @@
 import { emptyUsage, hktMonth, parseUsage, usageKey, xaiCostUsd, roundUsd, type MonthUsage } from '../../shared/grok.js';
 import type { ContentEnv } from './store.js';
-import { readValue } from './store.js';
+import { isKvLimitError, kvWritesBlocked, markKvWriteLimited, readValue } from './store.js';
+import { edgeCache } from '../env.js';
 
 /**
  * Month spend as a ledger. Every save appends one record under a unique key (never a
@@ -91,19 +92,111 @@ export async function monthUsage(env: ContentEnv, now = new Date()): Promise<Mon
   } catch {
     /* a failed list still returns the snapshot */
   }
+  // Spend not yet in KV (batched, or held back by the KV put limit) still counts toward the cap.
+  const unsaved = await pendingDelta(month);
+  if (Object.keys(unsaved).length) usage = addDelta(usage, unsaved);
   const tracked = usage as Tracked;
   tracked[BASE] = { ...usage };
   return tracked;
 }
 
-/** Appends what this caller added since it read `usage` (or since its last save) as one record. */
+/**
+ * Usage is batched: inside {@link withUsageBatch} a save only adds to an in-memory total and the
+ * batch writes one ledger record when the request ends (one KV put per generate call instead of
+ * one per model call). Outside a batch a save writes its record at once.
+ */
+let batchDepth = 0;
+const pending = new Map<string, UsageDelta>();
+
+function mergeDelta(a: UsageDelta, b: UsageDelta): UsageDelta {
+  const out: UsageDelta = { ...a };
+  for (const field of USAGE_FIELDS) {
+    const value = (a[field] ?? 0) + (b[field] ?? 0);
+    if (value > 0) out[field] = value;
+  }
+  return out;
+}
+
+/** Edge-cache backup of spend that could not reach KV, so a recycled isolate does not lose it. */
+function backupKey(month: string): Request {
+  return new Request(`https://world-news.xyz/content-store/__usage-unsaved-${month}`);
+}
+
+async function readBackup(month: string): Promise<UsageDelta> {
+  const cache = edgeCache();
+  if (!cache) return {};
+  try {
+    const hit = await cache.match(backupKey(month));
+    return hit ? cleanDelta(JSON.parse(await hit.text())) : {};
+  } catch {
+    return {};
+  }
+}
+
+async function writeBackup(month: string, delta: UsageDelta): Promise<void> {
+  const cache = edgeCache();
+  if (!cache) return;
+  try {
+    if (!Object.keys(delta).length) await cache.delete(backupKey(month));
+    else await cache.put(backupKey(month), new Response(JSON.stringify(delta), { headers: { 'cache-control': 'public, max-age=2592000' } }));
+  } catch {
+    /* best effort */
+  }
+}
+
+async function pendingDelta(month: string): Promise<UsageDelta> {
+  return mergeDelta(pending.get(month) ?? {}, await readBackup(month));
+}
+
+/** Appends what this caller added since it read `usage` (or since its last save). */
 export async function saveUsage(env: ContentEnv, usage: MonthUsage): Promise<void> {
   const tracked = usage as Tracked;
   const base = tracked[BASE] ?? emptyUsage(usage.month);
   const delta = diffUsage(usage, base);
   if (!Object.keys(delta).length) return;
-  await recordUsage(env, usage.month, delta);
   tracked[BASE] = { ...usage };
+  pending.set(usage.month, mergeDelta(pending.get(usage.month) ?? {}, delta));
+  if (batchDepth === 0) await flushUsage(env);
+}
+
+/** Writes every pending month total (plus any edge-cache backup) as one ledger record. Never throws. */
+export async function flushUsage(env: ContentEnv): Promise<void> {
+  const months = new Set<string>(pending.keys());
+  for (const month of months) {
+    // Take this month's total synchronously so a parallel flush cannot write it a second time.
+    const taken = pending.get(month) ?? {};
+    pending.delete(month);
+    const delta = mergeDelta(taken, await readBackup(month));
+    if (!Object.keys(delta).length) continue;
+    try {
+      await recordUsage(env, month, delta);
+      await writeBackup(month, {});
+    } catch (error) {
+      if (isKvLimitError(error)) await markKvWriteLimited();
+      console.warn('usage record not stored; kept for the next save');
+      // delta already includes the old backup: keep it in exactly one place so it is not counted twice.
+      if (edgeCache()) await writeBackup(month, delta);
+      else pending.set(month, mergeDelta(pending.get(month) ?? {}, delta));
+    }
+  }
+}
+
+/** Runs fn with batched usage, then writes one record per month. */
+export async function withUsageBatch<T>(env: ContentEnv, fn: () => Promise<T>): Promise<T> {
+  batchDepth += 1;
+  try {
+    return await fn();
+  } finally {
+    batchDepth -= 1;
+    await flushUsage(env);
+  }
+}
+
+/** Test hook. */
+export function resetUsageState(): void {
+  pending.clear();
+  memoryLedger.clear();
+  batchDepth = 0;
 }
 
 export async function recordUsage(env: ContentEnv, month: string, delta: UsageDelta): Promise<void> {
@@ -113,5 +206,6 @@ export async function recordUsage(env: ContentEnv, month: string, delta: UsageDe
     memoryLedger.set(key, delta);
     return;
   }
+  if (await kvWritesBlocked()) throw new Error('KV put limit (429)');
   await kv.put(key, JSON.stringify(delta), { expirationTtl: LEDGER_TTL_SECONDS, metadata: delta });
 }
