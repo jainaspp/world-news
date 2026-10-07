@@ -168,3 +168,66 @@ export async function writeMiniMax(
     model: result.model,
   };
 }
+
+const VERIFY_SYSTEM = '你是新聞事實核查編輯，只根據提供的來源標題和摘錄判斷，不可以用自己的知識補充。回覆必須是 JSON。';
+
+/** Indexes from {"drop":[...]} within 0..max-1, or null when the reply is not usable. */
+export function parseDrop(text: string, max: number): number[] | null {
+  const match = text.match(/\{[\s\S]*\}/);
+  if (!match) return null;
+  try {
+    const parsed = JSON.parse(match[0]) as { drop?: unknown };
+    if (!Array.isArray(parsed.drop)) return null;
+    return [...new Set(parsed.drop.map(Number).filter((n) => Number.isInteger(n) && n >= 0 && n < max))];
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Second MiniMax pass (flat fee): flags sentences and key points that add facts the sources do not
+ * carry, or that are commentary, speculation, or preaching, and removes them. A thinner result is
+ * held by the normal publish floor instead of going out with invented background.
+ */
+export async function verifyMiniMax(apiKey: string, draft: ContentDoc, doc: ContentDoc): Promise<{ doc: ContentDoc; dropped: number; error?: string }> {
+  const seen = new Set<string>();
+  const sources: { source: string; title: string; excerpt: string }[] = [];
+  for (const block of draft.blocks) {
+    for (const ref of block.sources) {
+      if (seen.has(ref.url)) continue;
+      seen.add(ref.url);
+      sources.push({ source: ref.source, title: ref.title, excerpt: (ref.excerpt || '').slice(0, 1800) });
+    }
+  }
+  const rows: { block: number; index: number; text: string }[] = [];
+  doc.blocks.forEach((block, b) => {
+    if (block.title === '事件時間線') return;
+    block.sentences.forEach((text, index) => rows.push({ block: b, index, text }));
+  });
+  (doc.points ?? []).forEach((text, index) => rows.push({ block: -1, index, text }));
+  if (!sources.length || rows.length < 3) return { doc, dropped: 0 };
+  const user = [
+    `來源：${JSON.stringify(sources)}`,
+    `句子：${JSON.stringify(rows.map((row, n) => ({ n, text: row.text })))}`,
+    '逐句對照來源，列出以下兩類句子的編號：',
+    '1. 含有來源標題和摘錄都沒有的事實、數字、人名、地點、日期、引述、機構關係或因果，或把來源說的「調查是否」寫成已確定的結論；',
+    '2. 評論、推測、預測、輿論概括或說教，例如「反映」「揭示」「顯示…態度」「可以預期」「值得關注」「輿論普遍」「建議」。',
+    '來源有寫的事實，即使措辭不同也不要列入。回傳 {"drop":[編號]}，沒有就回傳 {"drop":[]}。',
+  ].join('\n');
+  const result = await completeMiniMax(apiKey, VERIFY_SYSTEM, user);
+  const drop = result.text ? parseDrop(result.text, rows.length) : null;
+  if (!drop) return { doc, dropped: 0, ...(result.error ? { error: result.error } : {}) };
+  if (!drop.length) return { doc, dropped: 0 };
+  const removed = new Set(drop.map((n) => rows[n]).filter(Boolean).map((row) => `${row!.block}:${row!.index}`));
+  const blocks = doc.blocks.map((block, b) => (block.title === '事件時間線'
+    ? block
+    : { ...block, sentences: block.sentences.filter((_text, index) => !removed.has(`${b}:${index}`)) }))
+    .filter((block) => block.title === '事件時間線' || block.sentences.length > 0);
+  const points = (doc.points ?? []).filter((_text, index) => !removed.has(`-1:${index}`));
+  const description = blocks.find((block) => block.title !== '事件時間線')?.sentences[0];
+  const removedLead = doc.description && !blocks.some((block) => block.sentences.includes(doc.description)) && rows.some((row) => row.text === doc.description);
+  return {
+    doc: { ...doc, blocks, points, ...(removedLead && description ? { description } : {}) },
+    dropped: removed.size,
+  };
+}
