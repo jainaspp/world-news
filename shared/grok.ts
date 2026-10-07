@@ -237,6 +237,10 @@ export function usageTokens(payload: unknown): { input: number; output: number }
   if (!payload || typeof payload !== 'object') return { input: 0, output: 0 };
   const usage = (payload as { usage?: Record<string, unknown> }).usage;
   if (!usage) return { input: 0, output: 0 };
+  // Responses API output_tokens already includes reasoning; chat completion_tokens does not.
+  if (usage.completion_tokens == null && usage.output_tokens != null) {
+    return { input: num(usage.input_tokens ?? usage.prompt_tokens), output: num(usage.output_tokens) };
+  }
   return {
     input: num(usage.prompt_tokens ?? usage.input_tokens),
     // xAI bills reasoning tokens as output but reports them outside completion_tokens.

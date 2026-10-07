@@ -117,7 +117,7 @@ describe('search billing and citations', () => {
       }],
     };
     expect(webSearchCalls(payload)).toBe(2);
-    expect(usageTokens(payload)).toEqual({ input: 100, output: 60 });
+    expect(usageTokens(payload)).toEqual({ input: 100, output: 50 });
     expect(citationUrls(payload)).toEqual([
       'https://www.reuters.com/world/story',
       'https://x.com/someone/status/1',
@@ -232,7 +232,14 @@ describe('publish floor and conversion', () => {
       mode: 'sources',
       blocks: [{ title: '事件經過', sentences: ['草稿。'], sources: [{ title: '標題', url: 'https://example.com/a', source: '香港電台' }] }],
     };
-    expect(promptFor(draft, false, true).system).toContain('搜尋最多 5 次');
+    expect(promptFor(draft, false, true).system).toContain('網頁搜尋 2 至 3 次');
     expect(promptFor(draft).system).toContain('只可使用提供的標題');
+  });
+
+  it('keeps dates and holiday names readable after numeral conversion', async () => {
+    const { arabicDigits } = await import('../shared/prose');
+    expect(arabicDigits('提名期至十月二十日結束')).toBe('提名期至10月20日結束');
+    expect(arabicDigits('十一黃金周累計')).toBe('十一黃金周累計');
+    expect(usageTokens({ usage: { input_tokens: 10, output_tokens: 30, output_tokens_details: { reasoning_tokens: 20 } } })).toEqual({ input: 10, output: 30 });
   });
 });

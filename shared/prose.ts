@@ -73,7 +73,11 @@ export function arabicDigits(text: string): string {
     return value == null ? full : `${value}%`;
   });
   const placed = percent.replace(NUMBER_BODY, (full) => cnNumber(full) ?? full);
-  return placed.replace(/[零〇一二三四五六七八九]{2,}/g, (run) => [...run].map((ch) => String(CN_DIGIT[ch] ?? ch)).join(''));
+  return placed
+    .replace(/[零〇一二三四五六七八九]{2,}/g, (run) => [...run].map((ch) => String(CN_DIGIT[ch] ?? ch)).join(''))
+    // 十月20日 → 10月20日 when the day is already Arabic; 十一黃金周 is a holiday name.
+    .replace(/(^|[^\d零〇一二兩三四五六七八九十])十月(?=\d)/g, '$110月')
+    .replace(/11(黃金周|黃金週|國慶)/g, '十一$1');
 }
 
 /** Colloquial particles, full-width punctuation, and Arabic digits. Source titles are not passed here. */

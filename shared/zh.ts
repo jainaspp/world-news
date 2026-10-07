@@ -43,7 +43,7 @@ export function toHK(text: string): string {
     result += KEEP_CHAR.has(char) ? char : (map.get(char) ?? char);
     index += 1;
   }
-  return result.replaceAll('長徵', '長征').replaceAll('核光鍾', '核光鐘');
+  return result.replaceAll('長徵', '長征').replaceAll('核光鍾', '核光鐘').replaceAll('研制', '研製');
 }
 
 /** Deterministic Traditional → Simplified. Uses the reverse of the OpenCC-derived map (no AI). */

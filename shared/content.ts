@@ -392,18 +392,18 @@ export function weeklyFromHeadlines(tech: SourceRef[], business: SourceRef[], ke
 
 function columnPrompt(doc: ContentDoc, strict: boolean, research = false): { system: string; user: string; maxTokens: number } {
   const bounds = research
-    ? '寫之前先用網頁搜尋核對這一件事的其他報道、背景和較早發展。只採用通訊社、報章和廣播等新聞來源，不要採用社交媒體、論壇或百科。搜尋最多 5 次，正文採用的來源最多 8 個。事實必須來自搜尋結果或下面的標題，禁止添加兩邊都沒有的事實、數字、引言、人名、地點或因果。'
+    ? '下面的標題和摘錄很短，不足以成文。動筆之前必須先用網頁搜尋 2 至 3 次，找這一件事的完整報道、背景、數字和較早發展，搜尋完才寫。只採用通訊社、報章和廣播等新聞來源，不要採用社交媒體、論壇或百科。正文採用的來源最多 8 個。事實必須來自搜尋結果或下面的標題，禁止添加兩邊都沒有的事實、數字、引言、人名、地點或因果。'
     : '只可使用提供的標題和摘錄。同一事實只寫一次：各家說法相同就合併成一句，只有數字或措辭不同時才點名是哪一家。禁止添加來源沒有寫的事實、數字、引言、人名、地點、因果或形容，例如「迅速」「安全救下」。';
   const system = [
     '你是世界頭條的編輯，寫原創整合，不是改寫任何一篇報道。一律用繁體中文正式新聞書面語，不要用簡體字，不要用粵語口語。',
-    '判斷用「是」。使用全形標點，一句只說一件事，中文之間不要用空格分隔。數字和年份一律用阿拉伯數字，例如 2026、3.2%、21.44億。',
+    '判斷用「是」。使用全形標點，一句只說一件事，中文之間不要用空格分隔。數字和年份一律用阿拉伯數字，例如 2026、3.2%、21.44億、13歲、305份，不要寫成「十三歲」「三百零五份」。',
     bounds,
     '不要寫「未有回應」「未有評論」「政府未有表態」這類否定句，除非摘錄原文這樣寫。沒有回應、沒有數字、沒有下一步，就整段省略，不要用空話填篇幅。',
     '用新聞書面語寫成自然段落，句子長短要有變化，每段二至四句，使用全形逗號。不要把一句話拆成許多短句，也不要寫「事件造成…結果」這類空話。引文每次不超過二十字，不要大段照抄摘錄。',
     '不要稱呼資料欄位，也不要談論材料的格式。不要把標題原句串成內文。',
     '提到媒體時照用資料中 source 的名稱，不要自行翻譯或改名，也不要在名稱後面再加一次分類。',
     'title 必須是你為這一件事撰寫的中文標題，不要拼接來源標題，也不要改用其中一條標題。英文來源同樣要寫中文標題。不要用 Markdown。回覆必須是 JSON。',
-    '正文至少 500 個中文字。材料不夠就如實寫短，不要為了湊字重複同一事實。',
+    research ? '正文寫 700 至 1000 個中文字，用搜尋到的背景、數字和經過把內容寫充實，不要為了湊字重複同一事實。' : '正文至少 500 個中文字。材料不夠就如實寫短，不要為了湊字重複同一事實。',
     strict ? '上一次太短、太多英文，或夾有粵語口語。今次每一句都用正式新聞書面語，正文至少 500 個中文字，同一事實只寫一次。' : '',
   ].join('');
   const clip = (source: SourceRef, index: number) => ({
@@ -417,13 +417,13 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research = false): { sys
       .filter((block) => block.title === '香港' || block.title === '內地')
       .map((block) => ({ heading: block.title, sources: block.sources.map(clip) }));
     const shape = [
-      '回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"兩至四句一段，可寫兩段"}],"points":["重點","重點","重點"]}。',
+      '回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":"香港"|"內地"|"今日值得留意","text":"五至八句"}],"points":["重點","重點","重點"]}。每個 heading 只出現一次；香港和內地兩段各寫五至八句，涵蓋兩至三件事，並用搜尋到的背景說明為何重要。',
       '這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫為何重要。同一事實只寫一次。句子長短要有變化。',
       '香港段只根據香港來源，內地段只根據內地來源。沒有來源的一邊就整段省略。',
       '今日值得留意綜合兩邊，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。',
       'points 三至四項，每項 30 字以內。數字必須在來源出現過。',
     ].join('');
-    return { system, user: `${shape}\n資料：${JSON.stringify(data)} /no_think`, maxTokens: 2400 };
+    return { system, user: `${shape}\n資料：${JSON.stringify(data)} /no_think`, maxTokens: research ? 7000 : 2400 };
   }
   const timeline = doc.blocks.find((block) => block.title === TIMELINE_HEADING);
   const sources = (timeline?.sources.length ? timeline.sources : doc.blocks[0]?.sources) ?? [];
@@ -437,7 +437,7 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research = false): { sys
   return {
     system,
     user: `${shape}\n資料：${JSON.stringify(sources.map(clip))} /no_think`,
-    maxTokens: 2000,
+    maxTokens: research ? 6000 : 2000,
   };
 }
 
@@ -786,7 +786,7 @@ function applyColumnModel(
   for (const section of record.sections) {
     const heading = toHK(String(section?.heading || '').trim());
     if (!allowed.has(heading) || byHeading.has(heading)) continue;
-    const sentences = sentencesOf(String(section?.text || ''), 8);
+    const sentences = sentencesOf(String(section?.text || ''), 16);
     if (sentences.length) byHeading.set(heading, sentences);
   }
   const draftByHeading = new Map(doc.blocks.map((block) => [block.title, block]));
@@ -886,7 +886,7 @@ function applyModelBody(doc: ContentDoc, raw: string, model: string): { doc: Con
   if (doc.kind === 'weekly' && Array.isArray(record.sections)) {
     const blocks = doc.blocks.map((block) => {
       const section = record.sections?.find((item) => item.heading === block.title);
-      const sentences = sentencesOf(String(section?.text || ''), 8);
+      const sentences = sentencesOf(String(section?.text || ''), 16);
       return sentences.length ? { ...block, sentences } : block;
     });
     if (blocks.every((block, index) => block === doc.blocks[index])) return null;
