@@ -111,9 +111,11 @@ export function briefingPublic(stored: ContentDoc): boolean {
   if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;
   const titles = new Set(doc.blocks.map((block) => block.title));
-  const headings = briefingHeadings(briefingScopeOf(doc.key));
+  const scope = briefingScopeOf(doc.key);
+  const headings = briefingHeadings(scope);
   const body = headings.filter((heading) => heading !== '今日值得留意');
-  if (!titles.has('今日值得留意') || !body.some((heading) => titles.has(heading))) return false;
+  // The world and tech/finance briefs may stand without the watch-list section.
+  if ((scope === 'hk' && !titles.has('今日值得留意')) || !body.some((heading) => titles.has(heading))) return false;
   if (narrativeChars(doc) < BRIEFING_PUBLIC_FLOOR) return false;
   if (!narrativeSane(doc)) return false;
   const prose = [doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => block.sentences)].join('\n');
