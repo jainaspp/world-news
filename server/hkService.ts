@@ -1,4 +1,16 @@
-import { EPD_AQHI, HKO_NOW, HKO_WARN, parseAqhi, parseHkoNow, parseHkoWarnings, type HkNow } from '../shared/hk.js';
+import {
+  assembleHkNow,
+  EPD_AQHI,
+  HKO_FLW,
+  HKO_FND,
+  HKO_HOME,
+  HKO_NOW,
+  HKO_WARN,
+  parseAqhi,
+  parseHkoNow,
+  parseHkoWarnings,
+  type HkNow,
+} from '../shared/hk.js';
 
 async function fetchWithTimeout(url: string, ms = 4000): Promise<Response> {
   const controller = new AbortController();
@@ -8,6 +20,23 @@ async function fetchWithTimeout(url: string, ms = 4000): Promise<Response> {
   } finally {
     clearTimeout(timer);
   }
+}
+
+/** Reject oversized bodies so a surprise payload cannot burn Worker CPU. */
+async function fetchJson(url: string, max = 200_000, ms = 4000): Promise<unknown> {
+  const response = await fetchWithTimeout(url, ms);
+  if (!response.ok) throw new Error(String(response.status));
+  const text = await response.text();
+  if (text.length > max) throw new Error('large');
+  return JSON.parse(text) as unknown;
+}
+
+async function fetchText(url: string, max = 200_000): Promise<string> {
+  const response = await fetchWithTimeout(url);
+  if (!response.ok) throw new Error(String(response.status));
+  const text = await response.text();
+  if (text.length > max) throw new Error('large');
+  return text;
 }
 
 /**
@@ -28,4 +57,27 @@ export async function loadHkNow(): Promise<HkNow | null> {
   };
   if (body.temperature == null && !body.aqhi) return null;
   return body;
+}
+
+/**
+ * Headline weather plus forecast detail for `/api/hk`.
+ * Parallel fetches, small JSON only. The homepage SSR path stays on `loadHkNow`.
+ */
+export async function loadHkBundle(): Promise<HkNow | null> {
+  const [now, warn, aqhi, flw, fnd, home] = await Promise.allSettled([
+    fetchJson(HKO_NOW),
+    fetchJson(HKO_WARN),
+    fetchText(EPD_AQHI),
+    fetchJson(HKO_FLW),
+    fetchJson(HKO_FND),
+    fetchJson(HKO_HOME, 200_000, 6000),
+  ]);
+  return assembleHkNow({
+    now: now.status === 'fulfilled' ? now.value : null,
+    warn: warn.status === 'fulfilled' ? warn.value : null,
+    aqhiXml: aqhi.status === 'fulfilled' ? aqhi.value : null,
+    flw: flw.status === 'fulfilled' ? flw.value : null,
+    fnd: fnd.status === 'fulfilled' ? fnd.value : null,
+    home: home.status === 'fulfilled' ? home.value : null,
+  });
 }
