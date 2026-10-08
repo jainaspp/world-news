@@ -144,6 +144,19 @@ describe('topic pack config and matching', () => {
     expect(groundedShare('行政長官發表施政報告', corpus)).toBe(1);
   });
 
+  it('drops broken characters, joins spaced title clauses, and ends lines with a full stop', () => {
+    const corpus = `${EXCERPT}\n2026-10-07`;
+    const draft = parseTopicDraft(JSON.stringify({
+      ...MODEL,
+      title: '施政報告提出公屋供應目標 民主黨表示會審視',
+      description: '行政長官發表施政報告，提出公屋供應目\uFFFD\uFFFD',
+      timeline: [{ date: '2026-10-07', text: '行政長官發表施政報告' }],
+    }), corpus, topicBySlug('policy-address')!.areas, true);
+    expect(draft?.title).toBe('施政報告提出公屋供應目標，民主黨表示會審視');
+    expect(draft?.description).toBe('');
+    expect(draft?.timeline[0].text).toBe('行政長官發表施政報告。');
+  });
+
   it('accepts a public pack whose short lines have no commas', () => {
     const pack = samplePack();
     pack.points = ['立法會一連三日合併辯論五年規劃及施政報告。', '陳曼琪表明支持兩份報告。', '運輸及物流局局長陳美寶在立法會會議上致辭。'];

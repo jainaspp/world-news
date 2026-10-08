@@ -1281,7 +1281,8 @@ export async function warmColumns(context: PagesContext): Promise<Response> {
     }
     if (kind === 'topic') {
       const skip = (url.searchParams.get('skip') || '').split(',').map((item) => item.trim()).filter(Boolean);
-      const result = await generateTopics(env, { force, skip, now: new Date() });
+      const refresh = (url.searchParams.get('refresh') || '').split(',').map((item) => item.trim()).filter(Boolean);
+      const result = await generateTopics(env, { force, skip, refresh, now: new Date() });
       return Response.json(result, { headers: { 'cache-control': 'no-store' } });
     }
     if (kind === 'focus') {

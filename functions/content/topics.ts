@@ -75,6 +75,8 @@ export interface TopicCompletion {
 export interface TopicGenerateOptions {
   force?: boolean;
   skip?: string[];
+  /** With force: rewrite these topics from their current headlines even if none are new. */
+  refresh?: string[];
   /** Stop after this many model calls and report more: true. Tests and the deadline both use it. */
   maxModels?: number;
   now?: Date;
@@ -254,7 +256,8 @@ export async function generateTopics(
     if (skip.has(topic.slug)) continue;
     const matched = matchTopicItems(material.items, topic);
     const stored = await readPack(env, topic.slug);
-    const fresh = newTopicLinks(matched, stored?.seenLinks ?? []);
+    const rewrite = Boolean(options.force && options.refresh?.includes(topic.slug));
+    const fresh = rewrite ? matched.map((item) => item.link).filter(Boolean) : newTopicLinks(matched, stored?.seenLinks ?? []);
     if (!fresh.length) {
       rows.push({ slug: topic.slug, action: stored ? 'unchanged' : 'none' });
       continue;
