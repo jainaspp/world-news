@@ -35,7 +35,7 @@ export function LanguageSelector({ value, onChange }: Props) {
   }, [open]);
 
   return (
-    <div className="lang-wrap" ref={wrapRef}>
+    <div className="lang-wrap" ref={wrapRef} translate="no" data-no-translate="">
       <button
         type="button"
         className="icon-btn"

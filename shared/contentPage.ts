@@ -253,12 +253,13 @@ export function head(title: string, description: string, canonical: string, imag
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.json" />
-  <script>try{var s=localStorage.getItem('darkMode');if(s==='true'||(s!=='false'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
+  <script>try{var s=localStorage.getItem('darkMode');if(s==='true'||(s!=='false'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');var l=localStorage.getItem('wn_lang');if(l==='en'||l==='zh-CN'||l==='zh-HK')document.documentElement.lang=l}catch(e){}</script>
   <link rel="stylesheet" href="/site.css" />
   <link rel="stylesheet" href="/columns.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="${FONTS}" media="print" onload="this.media='all'" />
   ${loadAds && client ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(client)}" crossorigin="anonymous"></script>` : ''}
+  <script defer src="/live-translate.js"></script>
   <script defer src="/columns.js"></script>
   ${extra}
 </head>`;
