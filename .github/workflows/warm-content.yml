@@ -115,12 +115,12 @@ jobs:
             cat "$topic_body"
             echo
             topic_parsed=$(python3 -c 'import json,sys
-try:
-    data=json.load(open(sys.argv[1], encoding="utf-8"))
-except Exception:
-    data={}
-attempted=",".join(str(item) for item in (data.get("attempted") or []))
-print(("1" if data.get("more") else "0") + "\t" + attempted)' "$topic_body")
+          try:
+              data=json.load(open(sys.argv[1], encoding="utf-8"))
+          except Exception:
+              data={}
+          attempted=",".join(str(item) for item in (data.get("attempted") or []))
+          print(("1" if data.get("more") else "0") + "\t" + attempted)' "$topic_body")
             rm -f "$topic_body"
             if [ "$topic_code" -lt 200 ] || [ "$topic_code" -ge 300 ]; then
               fail=1
