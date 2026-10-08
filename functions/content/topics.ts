@@ -411,6 +411,7 @@ export async function generateTopics(
     const figureCap = anchors.length ? ANCHORED_FIGURE_CAP : undefined;
     const draft = parseTopicDraft(completion.text, corpus, topic.areas, strictNumbers, figureCap);
     if (!draft) {
+      console.error(JSON.stringify({ topic: topic.slug, action: 'failed', reason: 'draft', provider: completion.provider }));
       rows.push({ slug: topic.slug, action: 'failed', provider: completion.provider });
       continue;
     }
@@ -433,6 +434,15 @@ export async function generateTopics(
     const links = [...keptAnchors, ...matched.map((item) => item.link)];
     const chosen = stored && keepStoredTopic(stored, merged) ? stored : merged;
     if (!topicPublic(chosen) && !stored) {
+      console.error(JSON.stringify({
+        topic: topic.slug,
+        action: 'failed',
+        reason: 'public',
+        provider: completion.provider,
+        points: chosen.points.length,
+        timeline: chosen.timeline.length,
+        figures: chosen.figures.length,
+      }));
       rows.push({ slug: topic.slug, action: 'failed', provider: completion.provider });
       continue;
     }

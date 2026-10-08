@@ -163,7 +163,7 @@ export const TOPIC_PACKS: readonly TopicConfig[] = [
       { url: 'https://news.rthk.hk/rthk/ch/component/k2/1870390-20260917.htm', source: '香港電台', title: '余偉文：美國息率變化仍不確定　影響香港利率環境', date: '2026-09-17' },
     ],
     anchorAsk: [
-      'points 寫三句完整的新聞句子，每句 30 至 50 字。第一句只可照資料寫聯邦公開市場委員會的最新利率決定：資料寫減息、維持利率或加息，就照資料寫。第二句寫聲明對經濟和通脹的判斷。第三句寫資料明確寫出的影響。',
+      'points 寫三句。每句沿用資料中文裡已有的詞組，可以調整次序和加上標點，不要另寫一套新句子，也不要為了湊字數而改寫。第一句只可照資料寫最新的利率決定：資料寫減息、維持利率或加息，就照資料寫，並寫上資料裡的利率數字。第二句寫資料中文裡已有的經濟和通脹判斷。第三句寫資料中文裡已有的影響。英文聲明只用來核對決定是減息、維持還是加息，不要把英文譯成資料中文裡沒有的說法。',
       'timeline 只列資料 date 欄或正文寫明的日期，按日期由舊到新排列。date 是 YYYY-MM-DD，必須是該欄或正文寫明的日期。text 一句，寫那一日公布或發生的事。同一件事只列一次。',
       'figures 只列資料原文出現過的數字，不要為了填滿而湊項。area 只可以是：利率決定、美國經濟、全球影響。label 寫這個數字指甚麼，25 字以內。value 用資料原文的阿拉伯數字和單位，原文有「約」「超過」等字眼必須保留。沒有數字的項目不要列。',
       'impact 只寫資料明確寫出的影響，可以包括匯率、其他經濟體或市場。資料沒有寫的影響不要推測，回傳空陣列。',
@@ -371,6 +371,35 @@ export function groundedShare(line: string, corpus: string): number {
 /** Below this share a line is mostly words the sources never used: an invented detail or a guess. */
 export const GROUNDED_MIN = 0.5;
 
+/**
+ * Wording that restates the same fact. A 30-to-50-character paraphrase of an anchored page often
+ * sits around 0.4, under GROUNDED_MIN, even though the rate and the institution are the source's.
+ * These folds are applied only for that check. They do not include 加息, 減息 or 維持: a cut
+ * written with the source's other words stays under the same 0.5 line.
+ */
+const SAME_FACT: readonly (readonly [RegExp, string])[] = [
+  [/聯邦公開市場委員會/g, '聯儲局'],
+  [/美國聯邦儲備局/g, '聯儲局'],
+  [/聯邦儲備局/g, '聯儲局'],
+  [/升至/g, '上調至'],
+  [/調高至/g, '上調至'],
+  [/提高到/g, '上調至'],
+  [/上調到/g, '上調至'],
+];
+
+function sameFactWording(text: string): string {
+  let out = text;
+  for (const [pattern, replacement] of SAME_FACT) out = out.replace(pattern, replacement);
+  return out;
+}
+
+function wordingGrounded(line: string, corpus: string): boolean {
+  if (groundedShare(line, corpus) >= GROUNDED_MIN) return true;
+  const folded = sameFactWording(line);
+  if (folded === line) return false;
+  return groundedShare(folded, sameFactWording(corpus)) >= GROUNDED_MIN;
+}
+
 function quotesGrounded(line: string, corpus: string): boolean {
   const quoted = [...line.matchAll(/[「“"]([^」”"]{2,})[」”"]/g)].map((match) => match[1]);
   return quoted.every((text) => corpus.includes(text) || corpus.includes(toHK(text)));
@@ -403,7 +432,7 @@ function cleanLine(raw: unknown, corpus: string, strictNumbers: boolean): string
   if (!line || !hasChinese(line) || isMostlyEnglish(line)) return '';
   if (cantoneseLeft(line) || preachySentence(line) || DISCLAIMER.test(line)) return '';
   if (strictNumbers && !numbersGrounded(line, corpus)) return '';
-  if (groundedShare(line, corpus) < GROUNDED_MIN || !quotesGrounded(line, corpus)) return '';
+  if (!wordingGrounded(line, corpus) || !quotesGrounded(line, corpus)) return '';
   return restorePunctuation(line, corpus);
 }
 
