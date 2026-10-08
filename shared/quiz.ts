@@ -62,6 +62,20 @@ export function answerSupported(answer: string, source: string): boolean {
   return parts.every((part) => hay.includes(compact(part)));
 }
 
+/**
+ * Choices must be distinct answers, not fragments of one headline: no choice may contain another,
+ * and no wrong choice may also be true of the cited source (copied from the same headline).
+ */
+export function choicesSound(choices: string[], answer: string, source: string): boolean {
+  const packed = choices.map(compact);
+  for (let i = 0; i < packed.length; i += 1) {
+    for (let j = 0; j < packed.length; j += 1) {
+      if (i !== j && packed[i] && packed[j] && packed[i]!.includes(packed[j]!)) return false;
+    }
+  }
+  return choices.every((choice) => choice === answer || !answerSupported(choice, source));
+}
+
 function clean(value: unknown): string {
   return typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : '';
 }
@@ -94,7 +108,9 @@ export function quizPrompt(sources: QuizSource[]): { system: string; user: strin
     user: `根據下列標題與短述，出 ${QUIZ_MAX} 題單選題。只輸出 JSON，不要解釋。
 格式：{"questions":[{"prompt":"問題","choices":["選項一","選項二","選項三","選項四"],"answer":"與其中一個選項完全相同","sourceTitle":"與某一則標題完全相同"}]}
 規則：
-- 每題四個互不相同的選項。
+- 問題要問該則新聞裡具體的人物、地點、機構、數字或事件，用「甚麼」「哪」「多少」等問法。
+- 每題四個互不相同的選項，選項之間不可互相包含。
+- 三個錯誤選項取自其他標題裡同一類的字詞（例如其他新聞的人物、地點或機構），不可取自同一則標題或短述。
 - answer 必須是該則標題或短述裡連續出現的字句，不要改寫。
 - 問題必須能只靠該則標題或短述答對。
 - sourceTitle 必須與某一則標題完全相同。
@@ -143,6 +159,7 @@ export function acceptQuiz(payload: unknown, sources: QuizSource[]): QuizQuestio
     if (!formal(prompt) || choices.some((choice) => !formal(choice))) continue;
     if (compact(prompt).includes(compact(answer))) continue;
     if (!answerSupported(answer, sourceBlob(source))) continue;
+    if (!choicesSound(choices, answer, sourceBlob(source))) continue;
     if (seen.has(prompt)) continue;
     seen.add(prompt);
     kept.push({ prompt, choices, answer, sourceTitle: source.title, sourceUrl: source.url });
