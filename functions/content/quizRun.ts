@@ -53,7 +53,8 @@ export async function generateQuiz(context: PagesContext): Promise<Response> {
   const edition = quizEdition(now);
   const key = quizKey(edition);
   try {
-    const existing = await readValue(env, key);
+    const force = new URL(context.request.url).searchParams.get('force') === '1';
+    const existing = force ? null : await readValue(env, key);
     if (existing) {
       return Response.json({ ok: true, kind: 'quiz', edition, skipped: 'exists' }, { headers: { 'cache-control': 'no-store' } });
     }

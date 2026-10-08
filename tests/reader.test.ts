@@ -288,3 +288,13 @@ describe('putLimited', () => {
     expect(result).toBe('failed');
   });
 });
+
+describe('quiz choices', () => {
+  it('rejects choices cut from the same headline or nested in each other', async () => {
+    const { choicesSound } = await import('../shared/quiz');
+    const title = '沙特與胡塞武裝繼續互相攻擊 沙特兩機場遇襲3人死亡';
+    expect(choicesSound(['沙特與胡塞武裝繼續互相攻擊', '沙特兩機場遇襲3人死亡', '繼續互相攻擊', '兩機場遇襲3人死亡'], '沙特與胡塞武裝繼續互相攻擊', title)).toBe(false);
+    expect(choicesSound(['吳奇隆', '吳奇隆天安門賀國慶', '天安門', '台灣棒球會'], '吳奇隆', '吳奇隆天安門賀國慶 遭台灣棒球會取消活動')).toBe(false);
+    expect(choicesSound(['胡塞武裝', '烏克蘭', '選舉委員會', '世衛'], '胡塞武裝', title)).toBe(true);
+  });
+});
