@@ -106,10 +106,13 @@ html.dark .logo-link .logo-full.logo-dark { display: block; }
 .header-actions { display: flex; align-items: center; gap: 4px; flex: none; }
 a.chip { color: inherit; text-decoration: none; }
 .digest-strip {
-  display: flex; gap: 10px; align-items: center; overflow: auto; margin-top: 8px;
+  display: flex; flex-wrap: nowrap; gap: 10px; align-items: center; min-width: 0; max-width: 100%;
+  overflow-x: auto; overflow-y: hidden; margin-top: 8px;
   padding: 8px 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  scrollbar-width: thin;
 }
 .digest-strip a, .analysis-link { font-weight: 700; text-decoration: none; }
+.digest-strip a { flex: 0 0 auto; white-space: nowrap; }
 .analysis-box {
   display: flex; gap: 8px; align-items: center; margin-top: 8px; padding: 8px 10px;
   border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--chip);
@@ -312,11 +315,13 @@ a.chip { color: inherit; text-decoration: none; }
   .hk-info-wrap { margin-top: 4px; }
   .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 8px; font-size: 13px; overflow: visible; flex-wrap: wrap; white-space: normal; }
   .digest-strip {
-    display: flex; width: fit-content; max-width: 100%; margin-top: 4px; padding: 0; background: transparent;
-    border: 0; border-radius: 0; box-shadow: none; overflow: auto;
+    width: 100%; margin-top: 4px; padding: 0; background: transparent;
+    border: 0; border-radius: 0; box-shadow: none;
   }
   .digest-strip .badge, .digest-strip a:not(.digest-primary):not(.digest-keep) { display: none; }
-  .digest-strip a.digest-primary, .digest-strip a.digest-keep { padding: 4px 10px; font-size: 14px; line-height: 1.35; font-weight: 700; }
+  .digest-strip a.digest-primary, .digest-strip a.digest-keep {
+    flex: 0 0 auto; white-space: nowrap; padding: 4px 10px; font-size: 14px; line-height: 1.35; font-weight: 700;
+  }
   .home-intro.home-intro-top { margin-top: 4px; padding: 6px 10px; }
   .home-intro-line { font-size: 14px; }
   .home-more summary { min-height: 28px; font-size: 14px; }

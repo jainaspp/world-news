@@ -145,6 +145,7 @@ describe('shared homepage shell', () => {
     const css = readFileSync('src/App.css', 'utf8');
     expect(css).toContain('.rank-row-top');
     expect(css).toContain('.digest-strip');
+    expect(css).toContain('.digest-strip a { flex: 0 0 auto; white-space: nowrap; }');
     expect(css).toContain('min-height: 44px');
     expect(css).toContain('.template-switch');
     expect(css).toContain('#1d4f91');
