@@ -306,3 +306,19 @@ describe('quiz vague choices', () => {
     expect(choicesSound(['3人死亡', '5人死亡', '兩人死亡', '7人死亡'], '3人死亡', '沙特兩機場遇襲3人死亡')).toBe(true);
   });
 });
+
+describe('quiz name choices', () => {
+  it('accepts brand names without Chinese as choices', () => {
+    const sources = [
+      { title: 'Google 公布推出 Nano Banana 2.1 多次生成人物圖像可保原貌', summary: '', url: 'https://e.com/1' },
+      { title: '工信部專家駐邊境 與電騙打網絡戰', summary: '', url: 'https://e.com/2' },
+      { title: '師生齊齊拯救生命 貓貓獲救後被老師領養', summary: '', url: 'https://e.com/3' },
+    ];
+    const kept = acceptQuiz({ questions: [
+      { prompt: '哪間公司推出Nano Banana 2.1？', choices: ['Google', '工信部', '老師', '天安門'], answer: 'Google', sourceTitle: sources[0]!.title },
+      { prompt: '工信部專家駐守哪裡？', choices: ['邊境', '天安門', '機場', '學校'], answer: '邊境', sourceTitle: sources[1]!.title },
+      { prompt: '貓貓獲救後被誰領養？', choices: ['老師', 'Google', '工信部專家', '女童'], answer: '老師', sourceTitle: sources[2]!.title },
+    ] }, sources);
+    expect(kept).toHaveLength(3);
+  });
+});

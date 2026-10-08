@@ -147,6 +147,12 @@ function formal(text: string): boolean {
   return /[\u3400-\u9fff]/.test(text) && !cantoneseLeft(text);
 }
 
+/** A choice may be a name with no Chinese (Google, Nano Banana 2.1), but not an English sentence. */
+function formalChoice(text: string): boolean {
+  if (/[\u3400-\u9fff]/.test(text)) return !cantoneseLeft(text);
+  return text.length <= 24 && text.split(/\s+/).length <= 4;
+}
+
 /** Drop any question whose answer is not in the cited headline or summary. */
 export function acceptQuiz(payload: unknown, sources: QuizSource[]): QuizQuestion[] {
   if (!payload || typeof payload !== 'object') return [];
@@ -165,7 +171,7 @@ export function acceptQuiz(payload: unknown, sources: QuizSource[]): QuizQuestio
     const answer = clean(record.answer);
     if (!source || !prompt || choices.length !== 4) continue;
     if (new Set(choices).size !== 4 || !choices.includes(answer)) continue;
-    if (!formal(prompt) || choices.some((choice) => !formal(choice))) continue;
+    if (!formal(prompt) || choices.some((choice) => !formalChoice(choice))) continue;
     if (compact(prompt).includes(compact(answer))) continue;
     if (!answerSupported(answer, sourceBlob(source))) continue;
     if (!choicesSound(choices, answer, sourceBlob(source))) continue;
