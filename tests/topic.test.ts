@@ -21,6 +21,7 @@ import {
   topicStorageKey,
   topicWarmWindow,
   type TopicPack,
+  groundedShare,
 } from '../shared/topicPack';
 import { renderTopicIndex, renderTopicPage, topicIndexCards } from '../shared/topicPage';
 import type { NewsItem } from '../shared/types';
@@ -123,12 +124,32 @@ describe('topic pack config and matching', () => {
   });
 
   it('drops numbers the sources do not contain and rewrites Taiwan wording', () => {
-    const draft = parseTopicDraft(JSON.stringify(MODEL), `${EXCERPT}\n2026-10-07`, topicBySlug('policy-address')!.areas, true);
+    const draft = parseTopicDraft(JSON.stringify(MODEL), `${EXCERPT}\n特朗普提及的目標\n2026-10-07`, topicBySlug('policy-address')!.areas, true);
     expect(draft?.figures.map((row) => row.value)).toEqual(['30000個單位', '10000元', '30000個單位']);
     expect(draft?.figures.some((row) => row.value.includes('90000'))).toBe(false);
     expect(draft?.figures.some((row) => row.label.includes('川普'))).toBe(false);
     expect(draft?.figures.some((row) => row.label.includes('特朗普'))).toBe(true);
     expect(draft?.points).toHaveLength(3);
+  });
+
+  it('drops invented reactions, guessed impacts, and quotes the sources never had', () => {
+    const corpus = `${EXCERPT}\n2026-10-07`;
+    const draft = parseTopicDraft(JSON.stringify({
+      ...MODEL,
+      impact: ['施政報告措施可能導致全港租金大幅波動，影響市民日常開支。'],
+      reactions: ['民主黨表示會審視房屋措施是否足夠。', '工聯會批評「完全脫離現實」，要求政府即時回應訴求。'],
+    }), corpus, topicBySlug('policy-address')!.areas, true);
+    expect(draft?.impact).toEqual([]);
+    expect(draft?.reactions).toEqual(['民主黨表示會審視房屋措施是否足夠。']);
+    expect(groundedShare('行政長官發表施政報告', corpus)).toBe(1);
+  });
+
+  it('accepts a public pack whose short lines have no commas', () => {
+    const pack = samplePack();
+    pack.points = ['立法會一連三日合併辯論五年規劃及施政報告。', '陳曼琪表明支持兩份報告。', '運輸及物流局局長陳美寶在立法會會議上致辭。'];
+    pack.timeline = [{ date: '2026-10-07', text: '立法會展開五年規劃及施政報告合併辯論。' }, { date: '2026-10-08', text: '立法會繼續第二日合併辯論五年規劃及施政報告。' }];
+    pack.reactions = ['陳國基希望各界同心協力落實五年規劃。', '陳茂波說經濟勢頭良好來之不易。'];
+    expect(topicPublic(pack)).toBe(true);
   });
 
   it('keeps a richer public pack over a thinner rewrite', () => {
@@ -304,7 +325,7 @@ describe('topic generation writes', () => {
         text: JSON.stringify({
           title: '財政預算案提出薪俸稅寬免',
           description: '財政司司長發表財政預算案，提出薪俸稅寬免。',
-          points: ['財政司司長發表財政預算案。', '薪俸稅寬免為3000元，適用於課稅年度。'],
+          points: ['財政司司長發表財政預算案。', '財政預算案提出薪俸稅寬免為3000元。'],
           timeline: [{ date: '2026-10-07', text: '財政司司長發表財政預算案，提出薪俸稅寬免3000元。' }],
           figures: [{ area: '稅務', label: '薪俸稅寬免', value: '3000元' }],
           impact: [],
