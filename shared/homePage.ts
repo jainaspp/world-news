@@ -101,7 +101,7 @@ export function renderHomeFeed(
       ${major}
       ${homeIntroTop()}
       ${info}
-      <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a>${briefingLinks.map((link) => `<a class="digest-keep" href="${esc(link.href)}">${esc(link.label)}</a>`).join('')}<a class="digest-keep" href="/explainer/">新聞懶人包</a><a href="/today/">今日時間線</a><a href="/data/">數據</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
+      <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a>${briefingLinks.map((link) => `<a class="digest-keep" href="${esc(link.href)}">${esc(link.label)}</a>`).join('')}<a class="digest-keep" href="/explainer/">新聞懶人包</a><a class="digest-keep" href="/topic/">專題懶人包</a><a href="/today/">今日時間線</a><a href="/data/">數據</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
       ${focusHtml.trim()}
       ${top}
       <div class="news-grid">${grid}</div>

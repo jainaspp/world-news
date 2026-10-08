@@ -79,6 +79,7 @@ import { cleanMiniMax, expandMiniMax, pipelineMiniMax } from './minimax.js';
 import { applyVerify, parseVerify, verifyPrompt, VERIFY_MAX_TOKENS, VERIFY_MODEL } from './grokVerify.js';
 import { completeWith } from './xai.js';
 import { monthUsage, saveUsage } from './usage.js';
+import { generateTopics } from './topics.js';
 import {
   briefingDraft,
   clusterWriter,
@@ -1277,6 +1278,11 @@ export async function warmColumns(context: PagesContext): Promise<Response> {
       const result = await generateCompare(env, limit, new Date(), { force, ...(key ? { key } : {}), ...(minimaxOnly ? { minimaxOnly } : {}) });
       const status = typeof result.status === 'number' ? result.status : 200;
       return Response.json(result, { status, headers: { 'cache-control': 'no-store' } });
+    }
+    if (kind === 'topic') {
+      const skip = (url.searchParams.get('skip') || '').split(',').map((item) => item.trim()).filter(Boolean);
+      const result = await generateTopics(env, { force, skip, now: new Date() });
+      return Response.json(result, { headers: { 'cache-control': 'no-store' } });
     }
     if (kind === 'focus') {
       const requested = Number(url.searchParams.get('limit') || '');

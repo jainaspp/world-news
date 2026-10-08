@@ -6,6 +6,7 @@ import { materialFromBoard } from '../shared/grok.js';
 import { buildToday, indexableTodayPaths, onHktDate, TODAY_INDEX_FLOOR } from '../shared/todayPage.js';
 import { readBoard } from './board/store.js';
 import { docKey, readDoc, readIndex, type ContentEnv } from './content/store.js';
+import { publicTopicPaths } from './content/topics.js';
 import type { PagesContext } from './env.js';
 
 function entry(loc: string, lastmod: string, freq: string, priority: string): string {
@@ -58,13 +59,20 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     .filter(([loc]) => !base.includes(loc))
     .map(([loc, freq, priority]) => entry(loc, '2026-10-07', freq, priority))
     .join('');
+  const topics = (await publicTopicPaths(env).catch(() => []))
+    .filter((row) => !base.includes(`https://world-news.xyz/topic/${row.slug}/`))
+    .map((row) => entry(`https://world-news.xyz/topic/${row.slug}/`, row.updatedAt, 'daily', '0.7'))
+    .join('');
+  const topicIndex = base.includes('https://world-news.xyz/topic/')
+    ? ''
+    : entry('https://world-news.xyz/topic/', new Date().toISOString(), 'daily', '0.7');
   const today = (await todayLocs(env))
     .filter((path) => !base.includes(`https://world-news.xyz${path}`))
     .map((path) => entry(`https://world-news.xyz${path}`, new Date().toISOString(), 'daily', path === '/today/' ? '0.7' : '0.5'))
     .join('');
   const xml = base.includes('</urlset>')
-    ? base.replace('</urlset>', `${major}${legal}${data}${today}${extra}</urlset>`)
-    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${today}${extra}</urlset>\n`;
+    ? base.replace('</urlset>', `${major}${legal}${data}${today}${topicIndex}${topics}${extra}</urlset>`)
+    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${today}${topicIndex}${topics}${extra}</urlset>\n`;
   return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=600' } });
 }
 

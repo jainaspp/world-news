@@ -108,6 +108,9 @@ describe('Grok spend cap', () => {
       minimaxBriefing: 0,
       minimaxCompare: 0,
       minimaxFocus: 0,
+      grokTopic: 0,
+      workersTopic: 0,
+      minimaxTopic: 0,
       total: 2,
     });
     expect(statusFrom(withTokens(emptyUsage('2026-10'), 8_000_000, 0)).capped).toBe(true);

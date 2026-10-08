@@ -99,6 +99,42 @@ print(keys + "\t" + str(data.get("skipped") or ""))' "$body")
           if [ "$explainer_ok" -eq 0 ]; then
             fail=1
           fi
+          # Topic packs: at most two calls per warm run, no retry on fallback.
+          # The handler writes one KV key per topic only when the text changed,
+          # and only during the 07:30 and 18:30 HKT windows.
+          topic_skip=""
+          topic_round=0
+          while [ "$topic_round" -lt 2 ]; do
+            topic_round=$((topic_round + 1))
+            topic_body=$(mktemp)
+            topic_url="$base/api/generate?kind=topic"
+            if [ -n "$topic_skip" ]; then
+              topic_url="${topic_url}&skip=${topic_skip}"
+            fi
+            topic_code=$(curl -sS -o "$topic_body" -w '%{http_code}' --max-time 90 -X POST "${auth[@]}" "$topic_url" || true)
+            cat "$topic_body"
+            echo
+            topic_parsed=$(python3 -c 'import json,sys
+try:
+    data=json.load(open(sys.argv[1], encoding="utf-8"))
+except Exception:
+    data={}
+attempted=",".join(str(item) for item in (data.get("attempted") or []))
+print(("1" if data.get("more") else "0") + "\t" + attempted)' "$topic_body")
+            rm -f "$topic_body"
+            if [ "$topic_code" -lt 200 ] || [ "$topic_code" -ge 300 ]; then
+              fail=1
+              break
+            fi
+            topic_more="${topic_parsed%%$'\t'*}"
+            topic_attempted="${topic_parsed#*$'\t'}"
+            if [ -n "$topic_attempted" ]; then
+              topic_skip="${topic_skip:+$topic_skip,}${topic_attempted}"
+            fi
+            if [ "$topic_more" != "1" ]; then
+              break
+            fi
+          done
           for _ in 1 2 3 4 5 6 7; do
             post "$base/api/generate?kind=focus&limit=3" 2 || fail=1
           done
