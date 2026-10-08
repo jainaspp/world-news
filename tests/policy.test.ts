@@ -158,7 +158,7 @@ describe('thin pages and original columns', () => {
     expect(analysisPrompt.maxTokens).toBe(1500);
   });
 
-  it('places at most one homepage ad per eight headlines and only on the unfiltered home', () => {
+  it('places one homepage ad per eight headlines on each layout, and only on the unfiltered home', () => {
     expect(FEED_AD_EVERY).toBeGreaterThanOrEqual(6);
     expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '', time: 'all' })).toBe(true);
     expect(homeAllowsAds({ region: 'HKG', category: 'all', source: '', q: '', time: 'all' })).toBe(false);
@@ -173,7 +173,7 @@ describe('thin pages and original columns', () => {
     expect(html).toContain('home-intro');
     expect(html).toContain('href="/privacy/"');
     const ads = html.match(/class="ad-slot/g) || [];
-    expect(ads).toHaveLength(1);
+    expect(ads).toHaveLength(2);
     const adAt = html.indexOf('ad-slot');
     expect(html.slice(0, adAt).match(/class="story/g)?.length).toBeGreaterThanOrEqual(6);
 

@@ -12,7 +12,6 @@ import type { NewsItem, TimeRange } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
 import { focusTarget } from '../shared/focusView';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
-import { readHomeTemplate, writeHomeTemplate, type HomeTemplate } from '../shared/homeTemplate';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
 import { DarkModeToggle } from './components/DarkModeToggle';
@@ -166,16 +165,32 @@ function SubscribeMenu() {
 
 const clearSpecial = { bookmarks: false, following: false };
 
-function TemplateSwitch({ rankMode, lang, onToggle }: { rankMode: boolean; lang: UiLang; onToggle: () => void }) {
+function TemplateSwitch({ listMode, lang, onPick }: { listMode: boolean; lang: UiLang; onPick: (list: boolean) => void }) {
   return (
-    <button
-      type="button"
-      className={rankMode ? 'template-switch is-rank' : 'template-switch'}
-      aria-pressed={rankMode}
-      onClick={onToggle}
-    >
-      {rankMode ? t('templateUseClassic', lang) : t('templateUseRank', lang)}
-    </button>
+    <div className="template-switch" role="group" aria-label={t('layout', lang)}>
+      <button type="button" aria-pressed={!listMode} onClick={() => onPick(false)}>
+        {t('layoutCards', lang)}
+      </button>
+      <button type="button" aria-pressed={listMode} onClick={() => onPick(true)}>
+        {t('layoutList', lang)}
+      </button>
+    </div>
+  );
+}
+
+function DigestStrip({ lang }: { lang: UiLang }) {
+  return (
+    <aside className="digest-strip">
+      <span className="badge">AI</span>
+      <a className="digest-primary" href="/digest/">{t('todayPicks', lang)}</a>
+      <a className="digest-keep" href="/briefing/">{t('hkBriefing', lang)}</a>
+      <a className="digest-keep" href="/explainer/">{t('multiCompare', lang)}</a>
+      <a className="digest-keep" href="/topic/">{t('topicPack', lang)}</a>
+      <a className="digest-keep" href="/weekly/">{t('weekly', lang)}</a>
+      <a className="digest-keep" href="/analysis/">{t('hotAnalysis', lang)}</a>
+      <a href="/data/">{t('dataHub', lang)}</a>
+      <a href="/quiz/">{t('dailyQuiz', lang)}</a>
+    </aside>
   );
 }
 
@@ -188,7 +203,6 @@ export default function App() {
   const [view, setView] = useState<ViewState>(readView);
   const [lang, setLang] = useState<UiLang>(() => normalizeLang(localStorage.getItem('wn_lang')));
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'));
-  const [template, setTemplate] = useState<HomeTemplate>(() => readHomeTemplate(localStorage));
   const [searchHits, setSearchHits] = useState<Set<string> | null>(null);
   const [shownState, setShownState] = useState({ key: '', count: PAGE_SIZE });
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -226,26 +240,6 @@ export default function App() {
     localStorage.setItem('wn_lang', lang);
     document.documentElement.lang = lang === 'en' ? 'en' : lang === 'zh-CN' ? 'zh-CN' : 'zh-HK';
   }, [lang]);
-
-  useEffect(() => {
-    setTemplate((current) => {
-      const stored = readHomeTemplate(localStorage);
-      return current === stored ? current : stored;
-    });
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('wn-rank', template === 'rank');
-  }, [template]);
-
-  const toggleTemplate = useCallback(() => {
-    setTemplate((current) => {
-      const next: HomeTemplate = current === 'rank' ? 'classic' : 'rank';
-      writeHomeTemplate(next, localStorage);
-      document.documentElement.classList.toggle('wn-rank', next === 'rank');
-      return next;
-    });
-  }, []);
 
   useEffect(() => {
     const onPop = () => setView(readView());
@@ -326,7 +320,7 @@ export default function App() {
   const filtersActive = view.source !== '' || view.region !== 'ALL' || (view.category !== 'all' && !special);
   const breaking = useMemo(() => breakingIds(hero ? [hero, ...gridItems] : gridItems), [hero, gridItems]);
   const rankBreaking = useMemo(() => breakingIds(listed), [listed]);
-  const rankMode = template === 'rank';
+  const listMode = view.list;
   const followFresh = useMemo(() => {
     if (!pending || !follows.count) return 0;
     return pending.filter((item) => follows.matches(item) && !items.some((row) => row.id === item.id)).length;
@@ -366,29 +360,16 @@ export default function App() {
     return displayTitle(item.title, lang);
   }
 
+  function pickLayout(list: boolean) {
+    if (list === view.list) return;
+    go({ ...view, list }, 'replace');
+  }
+
   return (
     <ErrorBoundary>
-      <div className={rankMode ? 'page page-rank' : 'page'}>
-        <div className={rankMode ? 'chrome chrome-rank' : 'chrome'}>
-          <header className={rankMode ? 'rank-band' : 'masthead'}>
-            {rankMode ? (
-              <div className="rank-brand">
-                <h1 className="rank-name">
-                  <a
-                    className="rank-home"
-                    href="/"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      go({ region: 'ALL', category: 'all', source: '', q: '', time: 'all', ...clearSpecial });
-                    }}
-                  >
-                    <span className="rank-dot" aria-hidden="true" />
-                    {SITE_NAME}
-                  </a>
-                </h1>
-                <p className="rank-tagline">{t('rankTagline', lang)}</p>
-              </div>
-            ) : (
+      <div className="page">
+        <div className="chrome">
+          <header className="masthead">
             <h1 className="masthead-title">
               <a
                 className="logo-link"
@@ -396,13 +377,12 @@ export default function App() {
                 aria-label={SITE_NAME}
                 onClick={(event) => {
                   event.preventDefault();
-                  go({ region: 'ALL', category: 'all', source: '', q: '', time: 'all', ...clearSpecial });
+                  go({ region: 'ALL', category: 'all', source: '', q: '', time: 'all', ...clearSpecial, list: view.list });
                 }}
               >
                 <Logo />
               </a>
             </h1>
-            )}
             <form
               className={searchOpen ? 'search-bar open' : 'search-bar'}
               role="search"
@@ -430,7 +410,6 @@ export default function App() {
               <input id="news-search" value={view.q} placeholder={t('search', lang)} onChange={(event) => go({ ...view, q: event.target.value }, 'replace')} />
             </form>
             <div className="header-actions">
-              {rankMode && <TemplateSwitch rankMode={rankMode} lang={lang} onToggle={toggleTemplate} />}
               <button type="button" className={refreshing ? 'icon-btn refresh-btn is-refreshing' : 'icon-btn refresh-btn'} aria-label={t('refresh', lang)} onClick={() => { spinRefresh(); void refresh(); }} disabled={loading}>
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                   <path d="M20 12a8 8 0 1 1-2.2-5.5" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
@@ -466,26 +445,8 @@ export default function App() {
             </div>
           </header>
 
-          {rankMode ? (
-            <nav className="rank-tabs" aria-label={t('categories', lang)}>
-              {CATEGORIES.map((category) => {
-                const active = !special && view.category === category.id;
-                return (
-                  <button
-                    type="button"
-                    key={category.id}
-                    className={active ? 'rank-tab active' : 'rank-tab'}
-                    aria-current={active ? 'page' : undefined}
-                    onClick={() => go({ ...view, category: category.id, source: '', ...clearSpecial })}
-                  >
-                    {categoryLabelI18n(category.id, lang)}
-                  </button>
-                );
-              })}
-            </nav>
-          ) : (
           <div className="tab-bar">
-            <TemplateSwitch rankMode={rankMode} lang={lang} onToggle={toggleTemplate} />
+            <TemplateSwitch listMode={listMode} lang={lang} onPick={pickLayout} />
             <button
               type="button"
               className={filtersOpen || filtersActive ? 'chip active' : 'chip'}
@@ -542,15 +503,14 @@ export default function App() {
             </nav>
             <SubscribeMenu />
           </div>
-          )}
 
-          {!rankMode && layoutOpen && (
+          {layoutOpen && (
             <div className="layout-panel" id="layout-panel">
               <BoardToggles prefs={board.prefs} onToggle={board.toggle} lang={lang} />
             </div>
           )}
 
-          {!rankMode && filtersOpen && !view.bookmarks && (
+          {filtersOpen && !view.bookmarks && (
             <div className="filter-panel" id="filter-panel">
               <p className="filter-label">{t('categories', lang)}</p>
               <nav className="filters" aria-label="categories">
@@ -639,19 +599,13 @@ export default function App() {
 
         <div className="layout">
           <main id="news">
-            {!rankMode && allowAds && <HomeIntroTop />}
+            {allowAds && <HomeIntroTop />}
             {loading && !special && items.length === 0 ? (
-              rankMode ? (
-                <div className="status-panel" aria-busy="true" aria-live="polite">
-                  <h2>{lang === 'en' ? 'Loading headlines' : '載入頭條中…'}</h2>
-                </div>
-              ) : (
               <div className="news-grid" aria-busy="true" aria-live="polite">
                 {Array.from({ length: 6 }, (_, index) => (
                   <SkeletonCard key={index} />
                 ))}
               </div>
-              )
             ) : error && !special && items.length === 0 ? (
               <div className="status-panel" role="alert">
                 <h2>{lang === 'en' ? 'No headlines' : '暫時沒有頭條'}</h2>
@@ -672,25 +626,26 @@ export default function App() {
                     {stale ? (lang === 'en' ? 'Some sources are down; showing a recent cache.' : '部分來源暫時連不上，以下是較早儲存的標題。') : lang === 'en' ? 'Some sources did not reply; other headlines are still available.' : '部分來源暫時沒有回應，其餘頭條仍可閱讀。'}
                   </p>
                 )}
-                {rankMode ? (
-                  <RankedList items={listed} counts={counts} breaking={rankBreaking} titleOf={titleOf} lang={lang} />
+                {!special && !wide && <HkInfoStrip />}
+                {!special && <DigestStrip lang={lang} />}
+                {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
+                {listMode ? (
+                  <>
+                    {Array.from({ length: Math.ceil(listed.length / FEED_AD_EVERY) }, (_, chunk) => {
+                      const start = chunk * FEED_AD_EVERY;
+                      const slice = listed.slice(start, start + FEED_AD_EVERY);
+                      const tail = slice[slice.length - 1];
+                      return (
+                        <div key={slice[0]?.id ?? chunk} className="rank-chunk">
+                          <RankedList start={start} items={slice} counts={counts} breaking={rankBreaking} explainers={analysisHrefs} titleOf={titleOf} lang={lang} />
+                          {allowAds && slice.length === FEED_AD_EVERY && tail ? <AdSlot slot={AD_SLOT_FEED} variant="feed" /> : null}
+                        </div>
+                      );
+                    })}
+                    {!special && board.prefs.mostRead && <MostRead rows={popular} variant="feed" lang={lang} />}
+                  </>
                 ) : (
                 <>
-                {!special && !wide && <HkInfoStrip />}
-                {!special && (
-                  <aside className="digest-strip">
-                    <span className="badge">AI</span>
-                    <a className="digest-primary" href="/digest/">{t('todayPicks', lang)}</a>
-                    <a className="digest-keep" href="/briefing/">{t('hkBriefing', lang)}</a>
-                    <a className="digest-keep" href="/explainer/">{t('multiCompare', lang)}</a>
-                    <a className="digest-keep" href="/topic/">{t('topicPack', lang)}</a>
-                    <a href="/data/">{t('dataHub', lang)}</a>
-                    <a href="/weekly/">{t('weekly', lang)}</a>
-                    <a href="/analysis/">{t('hotAnalysis', lang)}</a>
-                    <a href="/quiz/">每日小測</a>
-                  </aside>
-                )}
-                {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
                 {(hero || secondary.length > 0) && (
                   <div className="top-stories">
                     {hero && (
@@ -767,7 +722,7 @@ export default function App() {
               </>
             )}
           </main>
-          {!rankMode && <aside className="sidebar" aria-label="sidebar">
+          <aside className="sidebar" aria-label="sidebar">
             <div className="board-prefs">
               <p className="filter-label">{t('layout', lang)}</p>
               <BoardToggles prefs={board.prefs} onToggle={board.toggle} lang={lang} />
@@ -829,10 +784,10 @@ export default function App() {
               )}
               <p className="card-credit">{lang === 'en' ? 'Headlines and source links only — no full articles.' : '只列標題、來源同原文連結，不轉載內文。'}</p>
             </div>
-          </aside>}
+          </aside>
         </div>
 
-        {!rankMode && allowAds && <HomeIntroFoot />}
+        {allowAds && <HomeIntroFoot />}
         <footer className="app-footer">
           <p>
             {SITE_NAME} {lang === 'en' ? 'lists headlines and source links only.' : '只列出標題同出處連結，不轉載內文。'}

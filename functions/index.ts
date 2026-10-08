@@ -8,7 +8,7 @@ import { readBoard, scheduleBoard } from './board/store.js';
 import { readIndex, type ContentEnv } from './content/store.js';
 import { edgeCache, type PagesContext } from './env.js';
 
-const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v5');
+const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v6');
 const FRESH_S = 120;
 
 function envSlot(env: Record<string, unknown>): string {

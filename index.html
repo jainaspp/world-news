@@ -40,18 +40,26 @@
       var saved = localStorage.getItem('darkMode');
       var dark = saved === 'true' || (saved !== 'false' && matchMedia('(prefers-color-scheme: dark)').matches);
       if (dark) document.documentElement.classList.add('dark');
-      if (localStorage.getItem('wn-home-template') === 'rank') document.documentElement.classList.add('wn-rank');
+      if (new URLSearchParams(location.search).get('view') === 'list') document.documentElement.classList.add('wn-list');
     } catch (e) {}
     document.addEventListener('click', function (event) {
       var node = event.target;
       if (!node || !node.closest) return;
       var button = node.closest('[data-wn-template-switch]');
       if (!button) return;
-      var rank = !document.documentElement.classList.contains('wn-rank');
-      document.documentElement.classList.toggle('wn-rank', rank);
-      try { localStorage.setItem('wn-home-template', rank ? 'rank' : 'classic'); } catch (err) {}
+      var list = button.getAttribute('data-layout') === 'list';
+      document.documentElement.classList.toggle('wn-list', list);
+      try {
+        var url = new URL(location.href);
+        if (list) url.searchParams.set('view', 'list');
+        else if (url.searchParams.get('view') === 'list') url.searchParams.delete('view');
+        history.replaceState({}, '', url.pathname + url.search + url.hash);
+      } catch (err) {}
       var buttons = document.querySelectorAll('[data-wn-template-switch]');
-      for (var i = 0; i < buttons.length; i++) buttons[i].setAttribute('aria-pressed', rank ? 'true' : 'false');
+      for (var i = 0; i < buttons.length; i++) {
+        var on = (buttons[i].getAttribute('data-layout') === 'list') === list;
+        buttons[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+      }
     });
   </script>
   <script type="application/ld+json">

@@ -1,32 +1,7 @@
-/** Homepage template choice, stored on the device. The standard feed stays the default. */
+/** Ranked-list helpers. The layout choice itself lives in `?view=list`. */
 
-export const HOME_TEMPLATE_KEY = 'wn-home-template';
-
-export type HomeTemplate = 'classic' | 'rank';
-
-/** Traditional Chinese copy for the server-rendered shell. The client translates the same lines. */
-export const TEMPLATE_TO_RANK_HK = '改用標題榜';
-export const TEMPLATE_TO_CLASSIC_HK = '返回標準版';
-export const RANK_TAGLINE_HK = '公開標題依序排列，方便快速瀏覽。';
-
-export function readHomeTemplate(storage: Pick<Storage, 'getItem'> | null | undefined): HomeTemplate {
-  try {
-    return storage?.getItem(HOME_TEMPLATE_KEY) === 'rank' ? 'rank' : 'classic';
-  } catch {
-    return 'classic';
-  }
-}
-
-export function writeHomeTemplate(
-  template: HomeTemplate,
-  storage: Pick<Storage, 'setItem'> | null | undefined,
-): void {
-  try {
-    storage?.setItem(HOME_TEMPLATE_KEY, template);
-  } catch {
-    /* private mode or a full store */
-  }
-}
+export const LAYOUT_CARDS_HK = '卡片';
+export const LAYOUT_LIST_HK = '列表';
 
 /**
  * Outlet count already computed for the classic cards.

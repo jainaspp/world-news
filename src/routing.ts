@@ -10,6 +10,8 @@ export interface ViewState {
   time: TimeRange;
   bookmarks: boolean;
   following: boolean;
+  /** Numbered headline list. Cards stay the default. */
+  list: boolean;
 }
 
 const TIMES = new Set<TimeRange>(['all', 'hour', 'today', 'week']);
@@ -44,6 +46,7 @@ export function readView(location: Location = window.location): ViewState {
     time,
     bookmarks: view === 'bookmarks',
     following: view === 'following' || view === 'mine',
+    list: view === 'list',
   };
 }
 
@@ -65,9 +68,16 @@ export function viewHref(state: ViewState): string {
   const source = state.source.trim();
   const q = state.q.trim();
   const time = state.time === 'all' ? '' : state.time;
-  if (!q && !time && !source && region && !category) return `/region/${region.toLowerCase()}`;
-  if (!q && !time && !source && category && !region) return `/category/${category}`;
+  if (!q && !time && !source && region && !category) {
+    const path = `/region/${region.toLowerCase()}`;
+    return state.list ? `${path}?view=list` : path;
+  }
+  if (!q && !time && !source && category && !region) {
+    const path = `/category/${category}`;
+    return state.list ? `${path}?view=list` : path;
+  }
   const params = new URLSearchParams();
+  if (state.list) params.set('view', 'list');
   if (region) params.set('region', region);
   if (category) params.set('category', category);
   if (source) params.set('source', source);
