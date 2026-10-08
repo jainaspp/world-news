@@ -209,3 +209,20 @@ export function extractTitle(html: string): string {
   const title = parts.length > 1 && (parts[parts.length - 1] || '').length <= 30 ? parts.slice(0, -1).join(' - ') : raw;
   return title.trim().slice(0, 160);
 }
+
+/** Whole page body as text (code and chrome dropped), for official pages with no article container. */
+export function pageText(html: string, cap: number): string {
+  const start = html.search(/<body\b/i);
+  const body = start >= 0 ? html.slice(start) : html;
+  return decode(stripChrome(body.slice(0, RAW_HTML_CAP))).slice(0, cap);
+}
+
+/**
+ * Text of a pinned topic source: the article body when it covers most of the page, else the
+ * whole page text (policy summaries and budget theme pages are lists, not paragraphs).
+ */
+export function anchorText(html: string, cap: number): string {
+  const article = extractArticle(html, cap);
+  const page = pageText(html, cap);
+  return article.length >= Math.min(cap, page.length) * 0.6 ? article : page;
+}

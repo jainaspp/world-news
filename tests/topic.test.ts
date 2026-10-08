@@ -49,7 +49,7 @@ const MODEL = {
   timeline: [{ date: '2026-10-07', text: '行政長官發表施政報告，提出公屋供應目標30000個單位。' }],
   figures: [
     { area: '房屋', label: '未來五年公屋供應目標', value: '30000個單位' },
-    { area: '稅務/津貼', label: '差餉寬免額', value: '10000元' },
+    { area: '稅務與津貼', label: '差餉寬免額', value: '10000元' },
     { area: '房屋', label: '沒有出現的供應', value: '90000個單位' },
     { area: '房屋', label: '川普提及的目標', value: '30000個單位' },
   ],
@@ -197,6 +197,7 @@ describe('topic generation writes', () => {
     const searches: boolean[] = [];
     const run = () => generateTopics(store.env, {
       now: MORNING,
+      anchorText: async () => '',
       articleText: async () => EXCERPT,
       complete: async (_topic, _system, _user, search) => {
         searches.push(search);
@@ -224,6 +225,7 @@ describe('topic generation writes', () => {
     seed(store.rows, items);
     await generateTopics(store.env, {
       now: MORNING,
+      anchorText: async () => '',
       articleText: async () => EXCERPT,
       complete: async () => completion(false),
     });
@@ -242,6 +244,7 @@ describe('topic generation writes', () => {
     };
     await generateTopics(store.env, {
       now: MORNING,
+      anchorText: async () => '',
       articleText: async (url) => (url.endsWith('/b') ? '2026年10月8日，施政報告補充，居屋供應為5000個單位。' : EXCERPT),
       complete: async () => ({ text: JSON.stringify(follow), input: 40, output: 30, searchCalls: 0, provider: 'grok', model: 'grok-4.3' }),
     });
@@ -258,6 +261,7 @@ describe('topic generation writes', () => {
     let calls = 0;
     const skipped = await generateTopics(quiet.env, {
       now: EVENING_OFF,
+      anchorText: async () => '',
       complete: async () => {
         calls += 1;
         return completion(false);
@@ -275,6 +279,7 @@ describe('topic generation writes', () => {
     let modelCalls = 0;
     const limited = await generateTopics(blocked.env, {
       now: MORNING,
+      anchorText: async () => '',
       articleText: async () => EXCERPT,
       complete: async () => {
         modelCalls += 1;
@@ -295,6 +300,7 @@ describe('topic generation writes', () => {
     let searched = false;
     await generateTopics(thin.env, {
       now: MORNING,
+      anchorText: async () => '',
       articleText: async () => '',
       complete: async (_topic, _system, _user, search) => {
         searched = search;
@@ -309,6 +315,7 @@ describe('topic generation writes', () => {
     seed(workers.rows, [item({ id: 'a', title: '行政長官發表施政報告', link: 'https://example.com/a' })]);
     const result = await generateTopics(workers.env, {
       now: MORNING,
+      anchorText: async () => '',
       articleText: async () => EXCERPT,
     });
     expect(result.puts).toBe(0);
@@ -324,6 +331,7 @@ describe('topic generation writes', () => {
     ]);
     const first = await generateTopics(store.env, {
       now: MORNING,
+      anchorText: async () => '',
       maxModels: 1,
       articleText: async () => EXCERPT,
       complete: async () => completion(false),
@@ -332,6 +340,7 @@ describe('topic generation writes', () => {
     expect(first.attempted).toEqual(['policy-address']);
     const second = await generateTopics(store.env, {
       now: MORNING,
+      anchorText: async () => '',
       skip: first.attempted as string[],
       articleText: async () => '財政司司長發表財政預算案，薪俸稅寬免為3000元。',
       complete: async () => ({
@@ -383,7 +392,7 @@ describe('topic pages', () => {
     expect(page).toContain('class="topic-figure"');
     expect(page).toContain('房屋');
     expect(page).toContain('<details class="topic-fold"');
-    expect(page).toContain('對市民的影響');
+    expect(page).toContain('對市民有什麼影響');
     expect(page).toContain('各方反應');
     expect(page).toContain('相關頭條');
     expect(page).toContain('來源（1）');
@@ -441,7 +450,7 @@ function samplePack(): TopicPack {
       { area: '房屋', label: '未來五年公屋供應目標', value: '30000個單位' },
       { area: '經濟', label: '企業研發開支', value: '12億' },
       { area: '民生', label: '公共交通補貼上限', value: '500元' },
-      { area: '稅務/津貼', label: '差餉寬免額', value: '10000元' },
+      { area: '稅務與津貼', label: '差餉寬免額', value: '10000元' },
     ],
     impact: ['合資格住宅的差餉寬免額為10000元，差額會在徵收差餉時扣減。'],
     reactions: ['民主黨表示會審視房屋措施是否足夠，並要求交代落成時間表。'],

@@ -17,6 +17,21 @@ export interface TopicConfig {
   category: string;
   keywords: readonly string[];
   areas: readonly string[];
+  /**
+   * Pinned sources (official pages and that day's coverage), fetched on every full build in
+   * addition to matched headlines. Text is cached in the Cache API only, never in KV.
+   */
+  anchors?: readonly TopicAnchor[];
+  /** Extra section for anchored packs, e.g. the five-year plan in brief. */
+  background?: { label: string; ask: string };
+}
+
+export interface TopicAnchor {
+  url: string;
+  source: string;
+  title: string;
+  /** Publication date (YYYY-MM-DD, HKT), used as the item date and for timeline grounding. */
+  date: string;
 }
 
 export const TOPIC_PACKS: readonly TopicConfig[] = [
@@ -27,7 +42,23 @@ export const TOPIC_PACKS: readonly TopicConfig[] = [
     desk: 'hk',
     category: 'hk',
     keywords: ['施政報告', '行政長官', '李家超 施政', 'policy address'],
-    areas: ['房屋', '經濟', '民生', '稅務/津貼'],
+    areas: ['房屋', '經濟與產業', '民生與福利', '稅務與津貼', '教育與人才', '醫療', '交通與基建'],
+    anchors: [
+      { url: 'https://www.info.gov.hk/gia/general/202609/16/P2026091600337p.htm', source: '政府新聞公報', title: '《施政報告》：以長遠謀全局 以改革開新篇 促發展創機遇 惠民生向未來', date: '2026-09-16' },
+      { url: 'https://www.policyaddress.gov.hk/2026/tc/highlight.html', source: '施政報告網站', title: '行政長官2026年施政報告：摘要', date: '2026-09-16' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1870296-20260916.htm', source: '香港電台', title: '施政報告2026｜一文看清民生福祉重點措施', date: '2026-09-16' },
+      { url: 'https://www.news.gov.hk/chi/2026/09/20260916/20260916_100303_151.html', source: '香港政府新聞網', title: '完善安居體系 十措施支援中小企', date: '2026-09-16' },
+      { url: 'https://www.info.gov.hk/gia/general/202609/16/P2026091600306.htm', source: '政府新聞公報', title: '政府公布《香港特別行政區經濟和社會發展第一個五年規劃（2026—2030年）》', date: '2026-09-16' },
+      { url: 'https://app2.rthk.hk/special/cepolicy2026/', source: '香港電台', title: '香港第一個五年規劃及2026年施政報告 - 剖析最新政策及重點措施', date: '2026-09-16' },
+      { url: 'https://www.info.gov.hk/gia/general/202606/25/P2026062500689.htm', source: '政府新聞公報', title: '政府展開二○二六年《施政報告》公眾諮詢', date: '2026-06-25' },
+      { url: 'https://www.news.gov.hk/chi/2026/09/20260917/20260917_120804_911.html', source: '香港政府新聞網', title: '特首：五年規劃讓香港進步更快', date: '2026-09-17' },
+      { url: 'https://www.tkww.hk/epaper/view/newsDetail/2100300239675199488.html', source: '大公報', title: '政黨：宏觀與微觀部署兩兼顧', date: '2026-09-17' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1873049-20261007.htm', source: '香港電台', title: '立法會一連三日合併辯論五年規劃及施政報告', date: '2026-10-07' },
+    ],
+    background: {
+      label: '《香港第一個五年規劃》重點',
+      ask: 'background 寫三至五句，概括同日公布的《香港第一個五年規劃》的目標和主要指標，只用資料裡的內容。',
+    },
   },
   {
     slug: 'budget',
@@ -36,7 +67,27 @@ export const TOPIC_PACKS: readonly TopicConfig[] = [
     desk: 'hk',
     category: 'hk',
     keywords: ['財政預算案', '預算案', '財政司司長', '差餉寬免', '稅務寬免', '薪俸稅'],
-    areas: ['稅務', '津貼', '開支'],
+    areas: ['稅務與差餉', '民生與福利', '經濟與產業', '房屋與土地', '公共財政'],
+    anchors: [
+      { url: 'https://www.budget.gov.hk/2026/chi/ui.html', source: '財政預算案網站', title: '2026-27年度財政預算案：創科驅動 金融賦能', date: '2026-02-25' },
+      { url: 'https://www.budget.gov.hk/2026/chi/ti.html', source: '財政預算案網站', title: '2026-27年度財政預算案：多元發展', date: '2026-02-25' },
+      { url: 'https://www.budget.gov.hk/2026/chi/sm.html', source: '財政預算案網站', title: '2026-27年度財政預算案：關愛惠民', date: '2026-02-25' },
+      { url: 'https://www.budget.gov.hk/2026/chi/lh.html', source: '財政預算案網站', title: '2026-27年度財政預算案：土地房屋', date: '2026-02-25' },
+      { url: 'https://www.budget.gov.hk/2026/chi/pf.html', source: '財政預算案網站', title: '2026-27年度財政預算案：公共財政', date: '2026-02-25' },
+      { url: 'https://www.info.gov.hk/gia/general/202602/25/P2026022500779.htm', source: '政府新聞公報', title: '二零二六至二七年度《財政預算案》稅務措施建議', date: '2026-02-25' },
+      { url: 'https://www.news.gov.hk/chi/2026/02/20260225/20260225_094241_053.html', source: '香港政府新聞網', title: '寬減稅項 免稅額增', date: '2026-02-25' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1845007-20260225.htm', source: '香港電台', title: '財政預算案｜本年度綜合帳目料由670億赤字轉為29億元盈餘', date: '2026-02-25' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1844999-20260225.htm', source: '香港電台', title: '財政預算案｜寬減薪俸稅上限3千元 寬減首兩季差餉上限5百元', date: '2026-02-25' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1845019-20260225.htm', source: '香港電台', title: '財政預算案｜消息形容一次性紓緩措施增至158億元', date: '2026-02-25' },
+      { url: 'https://hkcd.com/hkcdweb/content/2026/02/25/content_8741605.html', source: '香港商報', title: '財政預算案 - 經民聯：對接「十五五」發揮優勢 破局立新投資未來', date: '2026-02-25' },
+      { url: 'https://www.info.gov.hk/gia/general/202512/17/P2025121600744.htm', source: '政府新聞公報', title: '《財政預算案》公眾諮詢正式展開', date: '2025-12-17' },
+      { url: 'https://www.news.gov.hk/chi/2026/04/20260429/20260429_133231_663.html', source: '香港政府新聞網', title: '立法會三讀通過撥款條例草案', date: '2026-04-29' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1852857-20260429.htm', source: '香港電台', title: '立法會三讀通過本年度撥款條例草案', date: '2026-04-29' },
+    ],
+    background: {
+      label: '財政狀況',
+      ask: 'background 寫三至五句，概括政府帳目、赤字或盈餘、儲備和開支控制，只用資料裡的數字。',
+    },
   },
   {
     slug: 'property',
@@ -105,6 +156,8 @@ export interface TopicPack {
   figures: TopicFigure[];
   impact: string[];
   reactions: string[];
+  /** Anchored packs only: the extra section named by TopicConfig.background. */
+  background?: string[];
   sources: SourceRef[];
   /** Feed links already folded into this pack. New links are the only reason to call a model. */
   seenLinks: string[];
@@ -123,11 +176,14 @@ export interface TopicDraft {
   figures: TopicFigure[];
   impact: string[];
   reactions: string[];
+  background: string[];
 }
 
 const DISCLAIMER = /免責|僅供參考|只供參考|編者按|編者的話|AI 生成|人工智能生成|模型整理|本文由/;
 const TIMELINE_CAP = 20;
 const FIGURE_CAP = 12;
+/** Anchored packs (施政報告, 財政預算案) list measures by area, so they keep more figures. */
+export const ANCHORED_FIGURE_CAP = 28;
 const LIST_CAP = 6;
 
 export function topicBySlug(slug: string): TopicConfig | undefined {
@@ -188,6 +244,7 @@ export function topicRichness(pack: TopicPack): number {
     ...pack.figures.flatMap((row) => [row.label, row.value]),
     ...pack.impact,
     ...pack.reactions,
+    ...(pack.background ?? []),
   ].join('');
   return han(text);
 }
@@ -271,6 +328,25 @@ function quotesGrounded(line: string, corpus: string): boolean {
   return quoted.every((text) => corpus.includes(text) || corpus.includes(toHK(text)));
 }
 
+/**
+ * A quote the model copied without its commas (e.g. 「經濟勢頭良好來之不易要為……」) gets the source's
+ * punctuation back: each run of 10+ Chinese characters is looked up in the corpus allowing 「，、」
+ * between characters, and replaced by the source wording when found.
+ */
+export function restorePunctuation(line: string, corpus: string): string {
+  return line.replace(/[\u3400-\u9fff]{10,}/g, (run) => {
+    if (corpus.includes(run)) return run;
+    // 「陳茂波說經濟勢頭良好來之不易……」: the speaker is not part of the source run, so try each tail.
+    for (let start = 0; start + 10 <= run.length; start += 1) {
+      const tail = run.slice(start);
+      if (!corpus.includes(tail.slice(0, 4))) continue;
+      const match = new RegExp([...tail].join('[，、]?')).exec(corpus);
+      if (match) return /[，、]/.test(match[0]) ? run.slice(0, start) + match[0] : run;
+    }
+    return run;
+  });
+}
+
 function cleanLine(raw: unknown, corpus: string, strictNumbers: boolean): string {
   const source = String(raw ?? '');
   // A broken character (U+FFFD) means the model reply was cut mid-character: drop the line.
@@ -280,7 +356,7 @@ function cleanLine(raw: unknown, corpus: string, strictNumbers: boolean): string
   if (cantoneseLeft(line) || preachySentence(line) || DISCLAIMER.test(line)) return '';
   if (strictNumbers && !numbersGrounded(line, corpus)) return '';
   if (groundedShare(line, corpus) < GROUNDED_MIN || !quotesGrounded(line, corpus)) return '';
-  return line;
+  return restorePunctuation(line, corpus);
 }
 
 /** Narrative lines end with a full stop, like the rest of the site's copy. */
@@ -302,10 +378,29 @@ function cleanDate(raw: unknown, corpus: string): string {
   const day = String(Number(match[3]));
   if (!/^\d{4}-\d{2}-\d{2}$/.test(iso) || Number(month) < 1 || Number(month) > 12 || Number(day) < 1 || Number(day) > 31) return '';
   if (corpus.includes(iso)) return iso;
-  const yearOk = new RegExp(`(?<!\\d)${match[1]}(?!\\d)`).test(corpus);
-  const monthOk = new RegExp(`(?<!\\d)${month}(?!\\d)`).test(corpus);
-  const dayOk = new RegExp(`(?<!\\d)${day}(?!\\d)`).test(corpus);
-  return yearOk && monthOk && dayOk ? iso : '';
+  // The day must be written as a date (9月16日, 九月十六日, 16/9) in a corpus that names the year;
+  // loose numbers scattered through a long official text do not ground a date.
+  const yearOk = new RegExp(`(?<!\\d)${match[1]}(?!\\d)|${chineseYear(match[1])}`).test(corpus);
+  const written = [
+    `(?<!\\d)${month}月${day}日`,
+    `(?<![一二三四五六七八九十])${chineseNumber(Number(month))}月${chineseNumber(Number(day))}日`,
+    `(?<!\\d)${day}/${month}(?!\\d)`,
+  ];
+  return yearOk && written.some((pattern) => new RegExp(pattern).test(corpus)) ? iso : '';
+}
+
+function chineseNumber(value: number): string {
+  const digits = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+  if (value < 10) return digits[value];
+  const tens = Math.floor(value / 10);
+  const ones = value % 10;
+  return `${tens > 1 ? digits[tens] : ''}十${ones ? digits[ones] : ''}`;
+}
+
+function chineseYear(year: string): string {
+  const digits = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+  const forms = [[...year].map((d) => digits[Number(d)]).join(''), [...year].map((d) => (d === '0' ? '零' : digits[Number(d)])).join('')];
+  return forms.join('|');
 }
 
 function asList(value: unknown): unknown[] {
@@ -313,7 +408,7 @@ function asList(value: unknown): unknown[] {
 }
 
 /** Model JSON, restricted to lines whose numbers appear in the source text. */
-export function parseTopicDraft(raw: string, corpus: string, areas: readonly string[], strictNumbers = true): TopicDraft | null {
+export function parseTopicDraft(raw: string, corpus: string, areas: readonly string[], strictNumbers = true, figureCap = FIGURE_CAP): TopicDraft | null {
   const text = raw.replace(/```json|```/gi, '').trim();
   const start = text.indexOf('{');
   const end = text.lastIndexOf('}');
@@ -353,9 +448,10 @@ export function parseTopicDraft(raw: string, corpus: string, areas: readonly str
     description: sentence(cleanLine(parsed.description, corpus, strictNumbers)),
     points,
     timeline: timeline.slice(0, TIMELINE_CAP),
-    figures: figures.slice(0, FIGURE_CAP),
+    figures: figures.slice(0, figureCap),
     impact: asList(parsed.impact).map((row) => sentence(cleanLine(row, corpus, strictNumbers))).filter(Boolean).slice(0, LIST_CAP),
     reactions: asList(parsed.reactions).map((row) => sentence(cleanLine(row, corpus, strictNumbers))).filter(Boolean).slice(0, LIST_CAP),
+    background: asList(parsed.background).map((row) => sentence(cleanLine(row, corpus, strictNumbers))).filter(Boolean).slice(0, LIST_CAP),
   };
   if (!draft.title && !draft.points.length && !draft.timeline.length && !draft.figures.length) return null;
   return draft;
@@ -373,7 +469,7 @@ function sameEvent(a: TopicEvent, b: TopicEvent): boolean {
 export function applyTopicUpdate(
   previous: TopicPack | null,
   draft: TopicDraft,
-  meta: { slug: string; now: string; provider: TopicPack['provider']; model?: string },
+  meta: { slug: string; now: string; provider: TopicPack['provider']; model?: string; figureCap?: number },
 ): TopicPack {
   const points = draft.points.length >= 2 && han(draft.points.join('')) >= han((previous?.points ?? []).join('')) * 0.85
     ? draft.points
@@ -398,9 +494,12 @@ export function applyTopicUpdate(
     description: draft.description || previous?.description || points[0] || '',
     points,
     timeline: timeline.slice(-TIMELINE_CAP),
-    figures: figures.slice(-FIGURE_CAP),
+    figures: figures.slice(-(meta.figureCap ?? FIGURE_CAP)),
     impact: append(previous?.impact, draft.impact),
     reactions: append(previous?.reactions, draft.reactions),
+    ...(draft.background.length || previous?.background?.length
+      ? { background: draft.background.length ? draft.background : previous?.background ?? [] }
+      : {}),
     sources: previous?.sources ?? [],
     seenLinks: previous?.seenLinks ?? [],
     publishedAt: previous?.publishedAt || meta.now,
@@ -412,11 +511,11 @@ export function applyTopicUpdate(
   return pack;
 }
 
-export function sourcesFromItems(items: NewsItem[], previous: SourceRef[] = []): SourceRef[] {
+export function sourcesFromItems(items: NewsItem[], previous: SourceRef[] = [], cap = SOURCE_LIST_CAP): SourceRef[] {
   const out: SourceRef[] = [];
   const seen = new Set<string>();
   const push = (source: SourceRef) => {
-    if (!source.url || seen.has(source.url) || out.length >= SOURCE_LIST_CAP) return;
+    if (!source.url || seen.has(source.url) || out.length >= cap) return;
     seen.add(source.url);
     out.push(source);
   };
@@ -433,6 +532,43 @@ export function sourcesFromItems(items: NewsItem[], previous: SourceRef[] = []):
   }
   for (const source of previous) push(source);
   return out;
+}
+
+/** Characters of each pinned source passed to the model on a full build. */
+export const ANCHOR_PROMPT_CHARS = 6_000;
+
+/**
+ * Full build for an anchored topic (施政報告, 財政預算案): pinned official pages and that day's
+ * coverage plus matched headlines. Every number, date and quote must come from this material.
+ */
+export function anchoredPrompt(topic: TopicConfig, items: NewsItem[]): { system: string; user: string; maxTokens: number } {
+  const areas = topic.areas.join('、');
+  const system = [
+    `你是世界頭條的編輯，為「${topic.title}」寫一份完整的專題懶人包。一律用繁體中文正式新聞書面語，不要用簡體字，不要用粵語口語，不要用台灣用語。`,
+    '判斷用「是」。使用全形標點。數字和年份一律用阿拉伯數字。中文之間不要用空格。',
+    '只可使用下面資料裡已經寫明的事實。禁止添加資料沒有的事實、數字、引言、人名、日期、地點或因果。每個數字必須在資料原文出現。',
+    '沒有資料的欄位回傳空陣列。不要寫任何免責聲明、編者按，不要寫「AI」。回覆必須是 JSON，不要用 Markdown。',
+  ].join('');
+  const material = items.map((item, index) => ({
+    n: index + 1,
+    source: item.source,
+    title: item.title,
+    date: (item.pubDate || '').slice(0, 10),
+    text: (item.excerpt || '').slice(0, ANCHOR_PROMPT_CHARS),
+  }));
+  const user = [
+    `專題：${topic.title}`,
+    'title 寫一句 12 至 22 字，必須包含專題名稱，不要用空格。description 一句，60 字以內。',
+    'points 寫三句，每句 45 字以內：發表日期和主題、最重要的措施、與市民最相關的改變。',
+    'timeline 按日期排列，每項 date 是 YYYY-MM-DD，而且該日期必須在資料裡寫明（例如公眾諮詢展開、發表、答問會、立法會辯論）。text 一句。不要寫資料沒有日期的事。',
+    `figures 列出 12 至 24 項具體措施，每項 area 只可以是：${areas}；資料沒有涉及的範疇不要寫。label 寫措施內容（20 字以內），value 寫資料原文裡的數字和單位（例如「3萬元」「4.5年」「每宗3,000元」）。`,
+    'impact 寫四至六句「對市民有什麼影響」，只寫資料明確寫出、對市民直接相關的金額、資格、日期或服務，不要推測。',
+    'reactions 寫政黨或團體的回應，每句先寫名稱，引言必須逐字來自資料並保留原文標點；資料沒有就回傳空陣列。',
+    topic.background?.ask ?? '',
+    `回傳 {"title":"","description":"","points":[],"timeline":[{"date":"YYYY-MM-DD","text":""}],"figures":[{"area":"","label":"","value":""}],"impact":[],"reactions":[],"background":[]}`,
+    `資料：${JSON.stringify(material)}`,
+  ].filter(Boolean).join('\n');
+  return { system, user, maxTokens: 4_000 };
 }
 
 export function topicPrompt(topic: TopicConfig, items: NewsItem[], previous: TopicPack | null): { system: string; user: string; maxTokens: number } {
