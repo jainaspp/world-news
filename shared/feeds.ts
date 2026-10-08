@@ -18,8 +18,10 @@ export interface Feed {
   category?: CategoryId;
   /** Keep an item only when its link contains one of these path fragments. */
   includePaths?: string[];
-  /** `now` is the Now 新聞 JSON list. Omitted feeds are RSS or Atom. */
-  format?: 'now';
+  /** Keep an item only when one of its RSS category labels is in this list. */
+  includeCategories?: string[];
+  /** `now` is the Now 新聞 JSON list. `hk01` is the 香港01 zone JSON. Omitted feeds are RSS or Atom. */
+  format?: 'now' | 'hk01';
 }
 
 export interface Region {
@@ -52,7 +54,7 @@ const bbc = 'https://feeds.bbci.co.uk';
  * keep the shard count under 40 so that stays inside the 50-subrequest cap,
  * with room for a cache read. A redirect is followed inside the shard.
  */
-export const SHARD_COUNT = 25;
+export const SHARD_COUNT = 30;
 export const FEEDS_PER_SHARD = 2;
 
 export function shardIndex(part: string | null | undefined): number | null {
@@ -78,6 +80,9 @@ export const FEEDS: Feed[] = [
   { id: 'stheadline-hk', label: '星島頭條', homepage: 'https://www.stheadline.com', url: 'https://www.stheadline.com/rss', regions: ['HKG'], terms: 'uncertain', category: 'hk', includePaths: ['/society/', '/breaking-news/', '/politics/'] },
   { id: 'news-gov-hk', label: '政府新聞網', homepage: 'https://www.news.gov.hk', url: 'https://www.news.gov.hk/tc/common/html/topstories.rss.xml', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
   { id: 'gia-hk', label: '新聞公報', homepage: 'https://www.info.gov.hk/gia/', url: 'https://www.info.gov.hk/gia/rss/general_zh.xml', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
+  { id: 'hk01-hk', label: '香港01', homepage: 'https://www.hk01.com/zone/1', url: 'https://web-data.api.hk01.com/v2/feed/zone/1', regions: ['HKG'], terms: 'uncertain', category: 'hk', format: 'hk01' },
+  { id: 'bastille-hk', label: '巴士的報', homepage: 'https://www.bastillepost.com/hongkong', url: 'https://www.bastillepost.com/hongkong/feed', regions: ['HKG'], terms: 'uncertain', category: 'hk', includeCategories: ['社會事'] },
+  { id: 'skbuzz', label: 'SAI KUNG BUZZ', homepage: 'https://hongkongbuzz.hk', url: 'https://hongkongbuzz.hk/feed', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
   { id: 'rthk-china', label: '港台大中華', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_greaterchina.xml`, regions: ['HKG'], terms: 'uncertain', category: 'china' },
   { id: 'rthk-en-china', label: '港台英文大中華', homepage: 'https://news.rthk.hk', url: `${rthk}/e_expressnews_egreaterchina.xml`, regions: ['HKG'], terms: 'uncertain', category: 'china' },
   { id: 'bbc-zh', label: 'BBC 中文', homepage: 'https://www.bbc.com/zhongwen/trad', url: `${bbc}/zhongwen/trad/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'china' },
@@ -87,6 +92,13 @@ export const FEEDS: Feed[] = [
   { id: 'chinanews', label: '中新網', homepage: 'https://www.chinanews.com.cn', url: 'https://www.chinanews.com.cn/rss/china.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
   { id: 'rfa-zh', label: '自由亞洲', homepage: 'https://www.rfa.org/mandarin', url: 'https://www.rfa.org/arc/outboundfeeds/mandarin/rss/', regions: ['INT'], terms: 'uncertain', category: 'china' },
   { id: 'sixthtone', label: 'Sixth Tone', homepage: 'https://www.sixthtone.com', url: 'https://api.sixthtone.com/cont/output/rssApi', regions: ['ASI'], terms: 'uncertain', category: 'china' },
+  { id: 'hk01-china', label: '香港01中國', homepage: 'https://www.hk01.com/zone/5', url: 'https://web-data.api.hk01.com/v2/feed/zone/5', regions: ['HKG'], terms: 'uncertain', category: 'china', format: 'hk01' },
+  { id: 'now-china', label: 'Now 兩岸', homepage: 'https://news.now.com', url: 'https://newsapi1.now.com/pccw-news-api/api/getNewsList?category=120&pageNo=1&pageSize=30', regions: ['HKG'], terms: 'uncertain', category: 'china', format: 'now' },
+  { id: 'ft-zh', label: 'FT中文', homepage: 'https://www.ftchinese.com', url: 'https://www.ftchinese.com/rss/news', regions: ['ASI'], terms: 'uncertain', category: 'china' },
+  { id: 'cgtn-china', label: 'CGTN中國', homepage: 'https://www.cgtn.com', url: 'https://www.cgtn.com/subscribe/rss/section/china.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
+  { id: 'nyt-zh', label: '紐約時報中文', homepage: 'https://cn.nytimes.com', url: 'https://cn.nytimes.com/rss/zh-hant/', regions: ['INT'], terms: 'uncertain', category: 'china' },
+  { id: 'voa-zh', label: '美國之音', homepage: 'https://www.voachinese.com', url: 'https://www.voachinese.com/api/', regions: ['INT'], terms: 'uncertain', category: 'china' },
+  { id: 'jiemian', label: '界面新聞', homepage: 'https://www.jiemian.com', url: 'https://a.jiemian.com/index.php?m=article&a=rss', regions: ['ASI'], terms: 'uncertain', category: 'china' },
   { id: 'nhk', label: 'NHK', homepage: 'https://www3.nhk.or.jp/nhkworld/', url: 'https://news.web.nhk/n-data/conf/na/rss/cat0.xml', regions: ['JPN'], terms: 'uncertain', category: 'asia' },
   { id: 'yonhap', label: 'Yonhap', homepage: 'https://en.yna.co.kr', url: 'https://en.yna.co.kr/RSS/news.xml', regions: ['KOR'], terms: 'uncertain', category: 'asia' },
   { id: 'bbc-asia', label: 'BBC 亞洲', homepage: 'https://www.bbc.com/news', url: `${bbc}/news/world/asia/rss.xml`, regions: ['ASI'], terms: 'uncertain', category: 'asia' },

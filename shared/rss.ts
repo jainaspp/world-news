@@ -133,7 +133,22 @@ function hkText(text: string): string {
   return toHK(text);
 }
 
+function categoryNames(block: string): string[] {
+  const found: string[] = [];
+  const re = /<category\b[^>]*>([\s\S]*?)<\/category>/gi;
+  let match: RegExpExecArray | null;
+  while ((match = re.exec(block)) !== null) {
+    const name = decodeText(match[1]);
+    if (name) found.push(name);
+  }
+  return found;
+}
+
 function pushItem(items: NewsItem[], feed: Feed, block: string, title: string, link: string, pubDate: string) {
+  if (feed.includeCategories?.length) {
+    const names = categoryNames(block);
+    if (!feed.includeCategories.some((part) => names.includes(part))) return;
+  }
   addItem(items, feed, title, link, pubDate, excerptOf(block), extractImage(block));
 }
 
@@ -163,6 +178,39 @@ function epochIso(value: number): string {
   const ms = value > 0 && value < 1e12 ? value * 1000 : value;
   const date = new Date(ms);
   return Number.isNaN(date.getTime()) ? '' : date.toISOString();
+}
+
+/** 香港01 publishes a zone JSON list, not RSS. Titles are already Traditional. */
+export function parseHk01Feed(text: string, feed: Feed): NewsItem[] {
+  let payload: unknown;
+  try {
+    payload = JSON.parse(text);
+  } catch {
+    return [];
+  }
+  if (!payload || typeof payload !== 'object') return [];
+  const rows = (payload as { items?: unknown }).items;
+  if (!Array.isArray(rows)) return [];
+  const items: NewsItem[] = [];
+  for (const row of rows) {
+    if (!row || typeof row !== 'object') continue;
+    const data = (row as { data?: unknown }).data;
+    if (!data || typeof data !== 'object') continue;
+    const record = data as Record<string, unknown>;
+    if (record.isSponsored === 1 || record.isSponsored === true) continue;
+    const title = decodeText(String(record.title ?? ''));
+    const link = String(record.canonicalUrl || record.publishUrl || '').trim();
+    if (!title || !link) continue;
+    const published = typeof record.publishTime === 'number' ? epochIso(record.publishTime) : toIso(String(record.publishTime ?? ''));
+    const excerpt = decodeText(String(record.description ?? '')).slice(0, EXCERPT_LEN);
+    const imageRecord = record.mainImage;
+    const image = imageRecord && typeof imageRecord === 'object'
+      ? safeImage(String((imageRecord as { cdnUrl?: unknown }).cdnUrl ?? ''))
+      : '';
+    addItem(items, feed, title, link, published, excerpt, image);
+    if (items.length >= PER_FEED) break;
+  }
+  return items;
 }
 
 /** Now 新聞 publishes a JSON list, not RSS. Titles are already Traditional. */
