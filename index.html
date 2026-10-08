@@ -41,6 +41,8 @@
       var dark = saved === 'true' || (saved !== 'false' && matchMedia('(prefers-color-scheme: dark)').matches);
       if (dark) document.documentElement.classList.add('dark');
       if (new URLSearchParams(location.search).get('view') === 'list') document.documentElement.classList.add('wn-list');
+      var lang = localStorage.getItem('wn_lang');
+      if (lang === 'en' || lang === 'zh-CN' || lang === 'zh-HK') document.documentElement.lang = lang;
     } catch (e) {}
     document.addEventListener('click', function (event) {
       var node = event.target;
@@ -82,6 +84,7 @@
 </head>
 <body>
   <div id="root"></div>
+  <script defer src="/live-translate.js"></script>
   <script type="module" src="/src/main.tsx"></script>
   <script>
     window.addEventListener('load', function () {

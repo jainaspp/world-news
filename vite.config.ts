@@ -16,6 +16,7 @@ import { onRequest as quizPage } from './functions/quiz/index';
 import { onRequest as feedPage } from './functions/feed.xml';
 import { onRequest as searchIndexApi } from './functions/api/search-index';
 import { onRequest as subscribeApi } from './functions/api/subscribe';
+import { onRequest as translateApi } from './functions/api/translate';
 import { onRequest as briefingPage } from './functions/briefing/[slot]';
 import { onRequest as briefingIndex } from './functions/briefing/index';
 import { onRequest as topicPage } from './functions/topic/[slug]';
@@ -58,12 +59,22 @@ function memoryKv(seed: Record<string, string>) {
 
 const previewContent = memoryKv(previewSeed());
 
+/** Local preview only. Production uses Workers AI on the translate route. */
+function stubTranslate(_model: string, input: Record<string, unknown>): { translated_text: string } {
+  const text = String(input.text ?? '');
+  const numbers = (text.match(/\d+(?:[.,]\d+)*/g) ?? []).join(' ');
+  // Local stand-in for m2m100. The words must pass the same checks as a real translation.
+  if (input.target_lang === 'zh') return { translated_text: numbers ? `中文 ${numbers}` : '中文' };
+  return { translated_text: numbers ? `Translated line ${numbers}` : 'Translated line' };
+}
+
 function pagesContext(request: Request): PagesContext {
   return {
     request,
     env: {
       CONTENT: previewContent,
       TELEGRAM_CHANNEL_URL: 'https://t.me/world_news_channel_forever',
+      ...(process.env.WN_TRANSLATE_STUB === '1' ? { AI: { run: stubTranslate } } : {}),
     },
     waitUntil() {},
     next: async () => new Response(null, { status: 404 }),
@@ -87,7 +98,7 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
     const handled = url.startsWith('/api/news') || url.startsWith('/api/crawl') || url.startsWith('/api/hsi') || url.startsWith('/api/hk')
       || url.startsWith('/api/markets') || url.startsWith('/api/alerts') || url.startsWith('/api/board') || url.startsWith('/api/clusters')
       || url.startsWith('/api/major') || url.startsWith('/api/reads') || url.startsWith('/api/popular') || url.startsWith('/api/search-index')
-      || url.startsWith('/api/subscribe') || path === '/major' || path.startsWith('/major/')
+      || url.startsWith('/api/subscribe') || url.startsWith('/api/translate') || path === '/major' || path.startsWith('/major/')
       || path === '/data' || path.startsWith('/data/')
       || path === '/search' || path === '/saved' || path === '/quiz'
       || path === '/feed.xml' || path === '/briefing' || path.startsWith('/briefing/')
@@ -133,6 +144,7 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
         if (url.startsWith('/data')) { await forward(res, await dataPage(context)); return; }
         if (url.startsWith('/api/search-index')) { await forward(res, await searchIndexApi(context)); return; }
         if (url.startsWith('/api/subscribe')) { await forward(res, await subscribeApi(context)); return; }
+        if (url.startsWith('/api/translate')) { await forward(res, await translateApi(context)); return; }
         if (url.startsWith('/search')) { await forward(res, await searchPage(context)); return; }
         if (url.startsWith('/saved')) { await forward(res, await savedPage(context)); return; }
         if (url.startsWith('/quiz')) { await forward(res, await quizPage(context)); return; }

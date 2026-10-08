@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { breakingIds } from '../shared/breaking';
 import { analysisSlug } from '../shared/content';
 import { CATEGORIES } from '../shared/categories';
@@ -236,9 +236,28 @@ export default function App() {
     theme?.setAttribute('content', dark ? '#0E141C' : '#1D4F91');
   }, [dark]);
 
+  const chooseLang = useCallback((next: UiLang) => {
+    try {
+      localStorage.setItem('wn_lang', next);
+    } catch {
+      /* private mode */
+    }
+    document.documentElement.lang = next === 'en' ? 'en' : next;
+    setLang(next);
+  }, []);
+
   useEffect(() => {
-    localStorage.setItem('wn_lang', lang);
+    try {
+      localStorage.setItem('wn_lang', lang);
+    } catch {
+      /* private mode */
+    }
     document.documentElement.lang = lang === 'en' ? 'en' : lang === 'zh-CN' ? 'zh-CN' : 'zh-HK';
+  }, [lang]);
+
+  useLayoutEffect(() => {
+    document.documentElement.lang = lang === 'en' ? 'en' : lang === 'zh-CN' ? 'zh-CN' : 'zh-HK';
+    (window as Window & { __wnApplyLive?: () => void }).__wnApplyLive?.();
   }, [lang]);
 
   useEffect(() => {
@@ -441,7 +460,7 @@ export default function App() {
                 </svg>
                 {(follows.count > 0 || followFresh > 0) && <span className="count-badge">{followFresh > 0 ? followFresh : follows.count}</span>}
               </button>
-              <LanguageSelector value={lang} onChange={setLang} />
+              <LanguageSelector value={lang} onChange={chooseLang} />
             </div>
           </header>
 
