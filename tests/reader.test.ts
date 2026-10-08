@@ -13,7 +13,7 @@ import { renderQuizPage, renderSearchPage } from '../shared/readerPages';
 import { articleBookmark, followMatches, parseFollows } from '../shared/readerStore';
 import { buildCorpus } from '../shared/searchCorpus';
 import { highlight, searchReader } from '../shared/siteSearch';
-import { briefingPushable, channelUrl, formatTelegramPost, telegramTarget } from '../shared/telegramPost';
+import { briefingPushable, briefingReadyToPush, channelUrl, formatTelegramPost, pushRecordKey, telegramTarget } from '../shared/telegramPost';
 import type { NewsItem } from '../shared/types';
 
 const now = new Date('2026-10-08T00:30:00Z');
@@ -66,6 +66,43 @@ function briefing(scope = ''): ContentDoc {
     publishedAt: now.toISOString(),
     hkt: '2026年10月8日',
     mode: 'ai',
+  };
+}
+
+/** Long enough, and structured the way a listed Hong Kong briefing is. */
+function readyBriefing(key = '2026-10-08-am'): ContentDoc {
+  const sentence = '港鐵宣布下月公布票價檢討結果，運輸署會審視對乘客的影響。';
+  let body = '';
+  while ((body.match(/[\u3400-\u9fff]/g) || []).length < 520) body += sentence;
+  return {
+    kind: 'briefing',
+    key,
+    title: '港鐵公布票價檢討時間表',
+    description: '港鐵宣布下月公布結果。',
+    points: ['港鐵宣布下月公布票價檢討結果。', '運輸署表示會審視對乘客的影響。', '天文台提及低壓區會進入本港範圍。'],
+    blocks: [
+      { title: '香港', sentences: [body], sources: [] },
+      { title: '內地', sentences: ['內地部門公布新安排，詳情仍待官方說明。'], sources: [] },
+      { title: '今日值得留意', sentences: ['乘客可留意下月公布的檢討結果。'], sources: [] },
+    ],
+    publishedAt: now.toISOString(),
+    hkt: '2026年10月8日',
+    mode: 'ai',
+    provider: 'grok',
+  };
+}
+
+function telegramEnv(store: Map<string, string>, puts?: string[]) {
+  return {
+    TELEGRAM_BOT_TOKEN: '123456:abcdefghijklmnopqrstuvwxyz',
+    TELEGRAM_CHAT_ID: '-100123456',
+    CONTENT: {
+      async get(key: string) { return store.get(key) ?? null; },
+      async put(key: string, value: string) {
+        puts?.push(key);
+        store.set(key, value);
+      },
+    },
   };
 }
 
@@ -198,52 +235,93 @@ describe('feed and telegram', () => {
     expect(channelUrl('https://t.me/world_news_channel_forever')).toBe('https://t.me/world_news_channel_forever');
     expect(channelUrl('http://t.me/world_news_channel_forever')).toBe('');
     expect(briefingPushable(briefing('-world'))).toBe(false);
+    expect(briefingReadyToPush(briefing())).toBe(false);
+    expect(briefingReadyToPush({ ...briefing(), mode: 'sources' })).toBe(false);
+    expect(briefingReadyToPush(readyBriefing())).toBe(true);
+    expect(briefingReadyToPush(readyBriefing('2026-10-08-pm-world'))).toBe(false);
     const text = formatTelegramPost(briefing());
     expect(text).toContain('《港鐵公布票價檢討時間表》');
     expect(text).toContain('https://world-news.xyz/briefing/2026-10-08-am/');
     expect(text.split('\n').filter((line) => line && !line.startsWith('《') && !line.startsWith('http')).length).toBe(3);
 
     let puts = 0;
-    const skipped = await maybePushBriefing({ CONTENT: { async get() { return null; }, async put() { puts += 1; } } }, briefing());
+    const skipped = await maybePushBriefing({ CONTENT: { async get() { return null; }, async put() { puts += 1; } } }, readyBriefing());
     expect(skipped).toBe('skipped');
     expect(puts).toBe(0);
 
-    const fetched: string[] = [];
+    const order: string[] = [];
     const original = globalThis.fetch;
     globalThis.fetch = (async (url: RequestInfo | URL) => {
-      fetched.push(String(url));
+      order.push(`fetch:${String(url)}`);
       return new Response('ok', { status: 200 });
     }) as typeof fetch;
     const store = new Map<string, string>();
-    const sent = await maybePushBriefing({
-      TELEGRAM_BOT_TOKEN: '123456:abcdefghijklmnopqrstuvwxyz',
-      TELEGRAM_CHAT_ID: '-100123456',
-      CONTENT: {
-        async get(key: string) { return store.get(key) ?? null; },
-        async put(key: string, value: string) { store.set(key, value); },
-      },
-    }, briefing());
-    const again = await maybePushBriefing({
-      TELEGRAM_BOT_TOKEN: '123456:abcdefghijklmnopqrstuvwxyz',
-      TELEGRAM_CHAT_ID: '-100123456',
-      CONTENT: {
-        async get(key: string) { return store.get(key) ?? null; },
-        async put(key: string, value: string) { store.set(key, value); },
-      },
-    }, briefing());
+    const sent = await maybePushBriefing(telegramEnv(store, order), readyBriefing());
+    const again = await maybePushBriefing(telegramEnv(store, order), readyBriefing());
     globalThis.fetch = original;
     expect(sent).toBe('sent');
     expect(again).toBe('duplicate');
-    expect(fetched).toHaveLength(1);
+    expect(order.filter((step) => step.startsWith('fetch:'))).toHaveLength(1);
     expect(store.size).toBe(1);
+    const fetchAt = order.findIndex((step) => step.startsWith('fetch:'));
+    const putAt = order.findIndex((step) => step === pushRecordKey('2026-10-08-am'));
+    expect(fetchAt).toBeGreaterThanOrEqual(0);
+    expect(putAt).toBeGreaterThan(fetchAt);
   });
 
-  it('logs a KV limit and does not send', async () => {
+  it('does not record a thin or sources briefing, then posts the ready edition once', async () => {
     const fetched: string[] = [];
     const original = globalThis.fetch;
     globalThis.fetch = (async () => {
       fetched.push('called');
-      return new Response('ok');
+      return new Response('ok', { status: 200 });
+    }) as typeof fetch;
+    const store = new Map<string, string>();
+    const env = telegramEnv(store);
+    const thin = await maybePushBriefing(env, { ...readyBriefing('2026-10-08-pm'), blocks: [], points: ['只有一行。'] });
+    const sources = await maybePushBriefing(env, { ...readyBriefing('2026-10-08-pm'), mode: 'sources' });
+    const sent = await maybePushBriefing(env, readyBriefing('2026-10-08-pm'));
+    const again = await maybePushBriefing(env, readyBriefing('2026-10-08-pm'));
+    globalThis.fetch = original;
+    expect(thin).toBe('skipped');
+    expect(sources).toBe('skipped');
+    expect(sent).toBe('sent');
+    expect(again).toBe('duplicate');
+    expect(fetched).toHaveLength(1);
+    expect([...store.keys()]).toEqual([pushRecordKey('2026-10-08-pm')]);
+  });
+
+  it('does not keep a record when Telegram fails, so the next attempt can post', async () => {
+    let status = 429;
+    const fetched: string[] = [];
+    const original = globalThis.fetch;
+    globalThis.fetch = (async () => {
+      fetched.push('called');
+      if (status === 0) throw new Error('timeout');
+      return new Response('no', { status });
+    }) as typeof fetch;
+    const store = new Map<string, string>();
+    const env = telegramEnv(store);
+    const limited = await maybePushBriefing(env, readyBriefing('2026-10-08-pm'));
+    status = 0;
+    const timedOut = await maybePushBriefing(env, readyBriefing('2026-10-08-pm'));
+    status = 200;
+    const sent = await maybePushBriefing(env, readyBriefing('2026-10-08-pm'));
+    globalThis.fetch = original;
+    expect(limited).toBe('failed');
+    expect(timedOut).toBe('failed');
+    expect(sent).toBe('sent');
+    expect(fetched).toHaveLength(3);
+    expect(store.size).toBe(1);
+    expect(store.get(pushRecordKey('2026-10-08-pm'))).toContain('"sentAt"');
+  });
+
+  it('still posts when the success record cannot be stored', async () => {
+    const fetched: string[] = [];
+    const original = globalThis.fetch;
+    globalThis.fetch = (async () => {
+      fetched.push('called');
+      return new Response('ok', { status: 200 });
     }) as typeof fetch;
     const result = await maybePushBriefing({
       TELEGRAM_BOT_TOKEN: '123456:abcdefghijklmnopqrstuvwxyz',
@@ -252,10 +330,19 @@ describe('feed and telegram', () => {
         async get() { return null; },
         async put() { throw new Error('429'); },
       },
-    }, { ...briefing(), key: '2026-10-08-pm' });
+    }, readyBriefing('2026-10-08-pm'));
+    const again = await maybePushBriefing({
+      TELEGRAM_BOT_TOKEN: '123456:abcdefghijklmnopqrstuvwxyz',
+      TELEGRAM_CHAT_ID: '-100123456',
+      CONTENT: {
+        async get() { return null; },
+        async put() { throw new Error('429'); },
+      },
+    }, readyBriefing('2026-10-08-pm'));
     globalThis.fetch = original;
-    expect(result).toBe('failed');
-    expect(fetched).toHaveLength(0);
+    expect(result).toBe('sent');
+    expect(again).toBe('duplicate');
+    expect(fetched).toHaveLength(1);
   });
 });
 

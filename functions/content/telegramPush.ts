@@ -1,6 +1,6 @@
 import type { ContentDoc } from '../../shared/content.js';
 import {
-  briefingPushable,
+  briefingReadyToPush,
   formatTelegramPost,
   pushRecordKey,
   sendMessageUrl,
@@ -10,29 +10,30 @@ import { putLimited, readValue, type ContentEnv } from './store.js';
 
 const KEEP_S = 3 * 24 * 3600;
 
+/** Same-isolate guard so two overlapping calls do not both pass the KV read. Cleared when the call ends. */
+const sending = new Set<string>();
+
 function origin(env: ContentEnv): string {
   const configured = env.VITE_SITE_URL;
   return typeof configured === 'string' && configured.startsWith('https://') ? configured.replace(/\/$/, '') : 'https://world-news.xyz';
 }
 
 /**
- * After the Hong Kong morning or evening briefing. Missing env skips silently.
- * One KV put records the edition before the send, so a retry does not post twice.
- * A 429 is logged and not retried.
+ * After a finished Hong Kong morning or evening briefing. Missing env skips silently.
+ * Telegram is called only for the public AI edition. The KV record is written after HTTP
+ * success, so a thin draft or a failed send (non-OK, timeout, 429) does not block the retry.
+ * A 429 is logged and not retried in the same request.
  */
 export async function maybePushBriefing(env: ContentEnv, doc: ContentDoc): Promise<'sent' | 'skipped' | 'duplicate' | 'failed'> {
+  if (!briefingReadyToPush(doc)) return 'skipped';
+  const target = telegramTarget(env);
+  if (!target) return 'skipped';
+  const key = pushRecordKey(doc.key);
+  if (sending.has(key)) return 'duplicate';
+  sending.add(key);
   try {
-    if (!briefingPushable(doc)) return 'skipped';
-    const target = telegramTarget(env);
-    if (!target) return 'skipped';
-    const key = pushRecordKey(doc.key);
     const existing = await readValue(env, key);
     if (existing) return 'duplicate';
-    const stored = await putLimited(env, key, JSON.stringify({ edition: doc.key, sentAt: new Date().toISOString() }), KEEP_S);
-    if (stored !== 'ok') {
-      console.error(`telegram push skipped; record not stored (${stored})`);
-      return 'failed';
-    }
     const response = await fetch(sendMessageUrl(target.token), {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -47,10 +48,14 @@ export async function maybePushBriefing(env: ContentEnv, doc: ContentDoc): Promi
       console.error(`telegram push failed: HTTP ${response.status}`);
       return 'failed';
     }
+    const stored = await putLimited(env, key, JSON.stringify({ edition: doc.key, sentAt: new Date().toISOString() }), KEEP_S);
+    if (stored !== 'ok') console.error(`telegram push sent; record not stored (${stored})`);
     return 'sent';
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error(`telegram push skipped: ${message}`);
     return 'failed';
+  } finally {
+    sending.delete(key);
   }
 }

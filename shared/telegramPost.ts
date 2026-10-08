@@ -1,4 +1,5 @@
-import { briefingScopeOf, type ContentDoc } from './content.js';
+import { briefingPublic, briefingScopeOf, type ContentDoc } from './content.js';
+import { pieceReady } from './grok.js';
 
 export interface TelegramTarget {
   token: string;
@@ -46,6 +47,16 @@ export function briefingPushable(doc: ContentDoc): boolean {
   if (briefingScopeOf(doc.key) !== 'hk') return false;
   if (!doc.title.trim() || doc.title.includes('未有')) return false;
   return summaryLines(doc).length > 0;
+}
+
+/**
+ * The edition readers should see: an AI Hong Kong morning or evening briefing that is
+ * ready (`pieceReady`) and public (`briefingPublic`) the same way the site lists it.
+ * A sources list or a thin draft stays off the channel so a later finished write can post.
+ */
+export function briefingReadyToPush(doc: ContentDoc): boolean {
+  if (doc.mode !== 'ai' || !briefingPushable(doc)) return false;
+  return pieceReady(doc) && briefingPublic(doc);
 }
 
 /** Each summary line is a sentence: full-width stop at the end, no stray spaces. */
