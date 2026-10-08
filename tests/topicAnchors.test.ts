@@ -4,7 +4,7 @@ import { resetKvWriteState, type ContentEnv } from '../functions/content/store';
 import { resetUsageState } from '../functions/content/usage';
 import { generateTopics, type TopicCompletion } from '../functions/content/topics';
 import { anchorText } from '../shared/articleText';
-import { anchoredPrompt, parseTopicDraft, parseTopicPack, restorePunctuation, topicBySlug, topicStorageKey, TOPIC_PACKS } from '../shared/topicPack';
+import { anchoredPrompt, GROUNDED_MIN, groundedShare, parseTopicDraft, parseTopicPack, restorePunctuation, topicBySlug, topicCorpus, topicStorageKey, TOPIC_PACKS } from '../shared/topicPack';
 import { XAI_URL } from '../shared/grok';
 import { renderTopicPage } from '../shared/topicPage';
 import type { NewsItem } from '../shared/types';
@@ -271,16 +271,80 @@ describe('us-rates anchor', () => {
     expect(saved.points[0]).toContain('維持');
   });
 
+  it('keeps a supported paraphrase and still drops a sentence the sources do not support', async () => {
+    const source = [
+      '美國聯儲局逾3年以來首次加息0.25厘，聯邦基金利率目標區間上調至3.75厘至4厘，符合市場預期，加息決定獲得委員一致通過。',
+      '聯儲局主席沃什表示，通脹仍然過高，而且持續時間過長，加息將有助推動通脹更及時地回到2%的目標。',
+      '香港金管局總裁余偉文表示，美國加息後，港美息差會進一步擴闊，或會見到套息交易令港元走向較弱方向。',
+      'The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent.',
+    ].join('');
+    const paraphrase = '聯邦公開市場委員會宣布加息0.25厘，目標區間升至3.75%至4%。';
+    const cut = '聯儲局宣布減息1厘，聯邦基金利率降至1厘，以刺激樓市。';
+    const crash = '今次加息將令歐元區股市暴跌，並觸發全球經濟衰退。';
+    const translated = '經濟活動以穩健步伐擴張，國內支出保持韌性，生產率增長強勁。';
+    const topic = topicBySlug('us-rates')!;
+    const corpus = topicCorpus(topic.anchors!.map((anchor) => ({
+      id: anchor.url, title: anchor.title, link: anchor.url, source: anchor.source, sourceUrl: '', regions: ['hk'],
+      pubDate: `${anchor.date}T12:00:00+08:00`, excerpt: source,
+    })));
+    expect(groundedShare(paraphrase, corpus)).toBeLessThan(GROUNDED_MIN);
+    expect(groundedShare(cut, corpus)).toBeLessThan(GROUNDED_MIN);
+    expect(groundedShare(cut, corpus)).toBeGreaterThan(0.35);
+    const draft = parseTopicDraft(JSON.stringify({
+      title: '',
+      description: paraphrase,
+      points: [paraphrase, '余偉文表示，美國加息後，港美息差會進一步擴闊。', cut, translated],
+      timeline: [{ date: '2026-09-16', text: paraphrase }],
+      figures: [{ area: '利率決定', label: '聯邦基金利率目標區間', value: '3.75厘至4厘' }],
+      impact: [crash],
+      reactions: [],
+    }), corpus, topic.areas, true, 28);
+    expect(draft?.points).toEqual([
+      '聯邦公開市場委員會宣布加息0.25釐，目標區間升至3.75%至4%。',
+      '餘偉文表示，美國加息後，港美息差會進一步擴闊。',
+    ]);
+    expect(draft?.impact).toEqual([]);
+    expect(draft?.timeline.map((row) => row.text)).toEqual(['聯邦公開市場委員會宣布加息0.25釐，目標區間升至3.75%至4%。']);
+
+    const store = memory();
+    store.rows.set(BOARD_KV_KEY, JSON.stringify(computeBoard([HEADLINE])));
+    const result = await generateTopics(store.env, {
+      now: MORNING,
+      force: true,
+      refresh: ['us-rates'],
+      skip: OTHER_TOPICS,
+      anchorText: async () => source.repeat(2),
+      complete: async () => ({ text: JSON.stringify({
+        title: '',
+        description: paraphrase,
+        points: [paraphrase, '余偉文表示，美國加息後，港美息差會進一步擴闊。', cut],
+        timeline: [{ date: '2026-09-16', text: paraphrase }],
+        figures: [{ area: '利率決定', label: '聯邦基金利率目標區間', value: '3.75厘至4厘' }],
+        impact: [crash],
+        reactions: [],
+      }), input: 10, output: 10, searchCalls: 0, provider: 'grok', model: 'grok-4.3' }),
+    });
+    expect((result.topics as { slug: string; action: string }[])).toContainEqual({ slug: 'us-rates', action: 'updated', provider: 'grok' });
+    const saved = parseTopicPack(store.rows.get(topicStorageKey('us-rates')) ?? null)!;
+    expect(saved.points[0]).toContain('加息0.25');
+    expect(saved.points.join('')).not.toContain('減息');
+    expect(saved.impact).toEqual([]);
+    expect(saved.picture?.url).toBe('/topics/us-rates.jpg');
+  });
+
   it('leaves the policy and budget anchored instructions unchanged', () => {
     const policy = anchoredPrompt(topicBySlug('policy-address')!, []);
     const budget = anchoredPrompt(topicBySlug('budget')!, []);
     const rates = anchoredPrompt(topicBySlug('us-rates')!, []);
     expect(policy.user).toContain('figures 列出 16 至 24 項具體措施');
     expect(policy.user).toContain('行政長官在2026年9月16日發表《施政報告》');
-    expect(policy.user).not.toContain('聯邦公開市場委員會的最新利率決定');
+    expect(policy.user).toContain('每句 30 至 50 字');
+    expect(policy.user).not.toContain('不要另寫一套新句子');
     expect(budget.user).toContain('figures 列出 16 至 24 項具體措施');
-    expect(budget.user).not.toContain('聯邦公開市場委員會的最新利率決定');
-    expect(rates.user).toContain('聯邦公開市場委員會的最新利率決定');
+    expect(budget.user).toContain('每句 30 至 50 字');
+    expect(rates.user).toContain('不要另寫一套新句子');
+    expect(rates.user).toContain('不要把英文譯成資料中文裡沒有的說法');
+    expect(rates.user).not.toContain('每句 30 至 50 字');
     expect(rates.user).not.toContain('figures 列出 16 至 24 項具體措施');
     expect(topicBySlug('us-rates')!.anchors?.map((anchor) => anchor.url)).toEqual([
       'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm',
