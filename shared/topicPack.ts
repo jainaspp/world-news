@@ -29,6 +29,12 @@ export interface TopicConfig {
    * Use it when the column title must not be treated as the current fact.
    */
   note?: string;
+  /**
+   * Replaces the measure-by-measure instructions used for 施政報告 and 財政預算案.
+   * For an anchored pack whose pinned pages are a decision and its explainers, not a list of measures.
+   * Not shown on the page.
+   */
+  anchorAsk?: string;
 }
 
 export interface TopicAnchor {
@@ -151,6 +157,19 @@ export const TOPIC_PACKS: readonly TopicConfig[] = [
     keywords: ['聯儲局', '聯邦儲備局', '聯邦基金利率', '美國 加息', '美國 減息', '美國 議息', 'FOMC'],
     areas: ['利率決定', '美國經濟', '全球影響'],
     note: '欄目名稱是「美國加息以及全球經濟影響」，只是題目。正文只可照資料寫最新的利率決定：資料寫減息、維持利率或加息，就照資料寫，不要把欄目名稱當成現況。',
+    anchors: [
+      { url: 'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm', source: '美國聯邦儲備局', title: 'Federal Reserve issues FOMC statement', date: '2026-09-16' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1870362-20260917.htm', source: '香港電台', title: '聯儲局加息0.25厘　沃什：有助推動通脹更及時回到2%目標', date: '2026-09-17' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1870390-20260917.htm', source: '香港電台', title: '余偉文：美國息率變化仍不確定　影響香港利率環境', date: '2026-09-17' },
+    ],
+    anchorAsk: [
+      'points 寫三句完整的新聞句子，每句 30 至 50 字。第一句只可照資料寫聯邦公開市場委員會的最新利率決定：資料寫減息、維持利率或加息，就照資料寫。第二句寫聲明對經濟和通脹的判斷。第三句寫資料明確寫出的影響。',
+      'timeline 只列資料 date 欄或正文寫明的日期，按日期由舊到新排列。date 是 YYYY-MM-DD，必須是該欄或正文寫明的日期。text 一句，寫那一日公布或發生的事。同一件事只列一次。',
+      'figures 只列資料原文出現過的數字，不要為了填滿而湊項。area 只可以是：利率決定、美國經濟、全球影響。label 寫這個數字指甚麼，25 字以內。value 用資料原文的阿拉伯數字和單位，原文有「約」「超過」等字眼必須保留。沒有數字的項目不要列。',
+      'impact 只寫資料明確寫出的影響，可以包括匯率、其他經濟體或市場。資料沒有寫的影響不要推測，回傳空陣列。',
+      'reactions 只寫資料裡點名的官員或機構，先寫名稱，再概述其說法。引用原話用「」並逐字照錄。資料沒有就回傳空陣列。',
+      '中文句子沿用資料裡的中文表述。英文聲明用來核對決定本身：若與中文報道的決定不一致，以英文聲明為準，並且不要添加聲明和中文報道都沒有的事實。',
+    ].join(''),
   },
 ] as const;
 
@@ -577,8 +596,8 @@ export function sourcesFromItems(items: NewsItem[], previous: SourceRef[] = [], 
 export const ANCHOR_PROMPT_CHARS = 6_000;
 
 /**
- * Full build for an anchored topic (施政報告, 財政預算案): pinned official pages and that day's
- * coverage plus matched headlines. Every number, date and quote must come from this material.
+ * Full build for an anchored topic (施政報告, 財政預算案, or a decision pinned to an official page):
+ * pinned pages plus matched headlines. Every number, date and quote must come from this material.
  */
 export function anchoredPrompt(topic: TopicConfig, items: NewsItem[]): { system: string; user: string; maxTokens: number } {
   const areas = topic.areas.join('、');
@@ -598,10 +617,7 @@ export function anchoredPrompt(topic: TopicConfig, items: NewsItem[]): { system:
     date: (item.pubDate || '').slice(0, 10),
     text: (item.excerpt || '').slice(0, ANCHOR_PROMPT_CHARS),
   }));
-  const user = [
-    `專題：${topic.title}`,
-    topic.note ?? '',
-    `title 寫一句 12 至 22 字的新聞標題，必須包含「${topic.title}」，不要加「專題：」。description 一句完整的新聞句子，60 字以內。`,
+  const measureLines = [
     'points 寫三句完整的新聞句子，每句 30 至 50 字：第一句寫誰在哪一日發表、主題是甚麼；第二句寫最重要的措施；第三句寫與市民最相關的改變。',
     'timeline 逐篇檢查資料（已按日期由舊到新排列）：每一篇的 date 欄和正文寫明的日期都是一個階段，例如公眾諮詢展開、發表、答問會、立法會辯論、表決或通過。資料有多少個不同日期的階段就列多少項（通常四項以上），按日期排列；date 是 YYYY-MM-DD，必須是資料寫明的日期。資料的 date 欄是發稿日期；正文寫明事情在另一日發生（例如「將於下星期一（六月二十九日）展開」）時，用正文的日期。同一件事只列一次（例如公布諮詢安排和諮詢展開是同一件事，列在展開那一日）。text 一句，寫清楚那一日發生甚麼。',
     `figures 列出 16 至 24 項具體措施，盡量涵蓋資料提到的每個範疇。area 只可以是：${areas}；按措施性質歸類（例如水管、道路、鐵路歸交通與基建；學額、獎學金、人才計劃歸教育與人才）。label 寫措施內容（25 字以內），要寫清楚數字是「增加」「增至」「目標」還是「上限」。value 是資料原文裡含阿拉伯數字的數量和單位（例如「增至3萬元」「4.5年」「最多2萬元」），原文有「約」「超過」「最多」「逾」等字眼必須保留（原文「約400個」就寫「約400個」）；沒有數字的措施不要列。`,
@@ -609,6 +625,12 @@ export function anchoredPrompt(topic: TopicConfig, items: NewsItem[]): { system:
     'reactions 為資料裡點名的每個政黨或團體各寫一句，先寫名稱，再概述其看法；如引用原話，用「」並逐字照錄、保留原文標點。資料沒有回應就回傳空陣列。',
     topic.background?.ask ?? '',
     '範例句子（格式示範，不是事實）：「行政長官在2026年9月16日發表《施政報告》，提出房屋、經濟和民生措施。」',
+  ];
+  const user = [
+    `專題：${topic.title}`,
+    topic.note ?? '',
+    `title 寫一句 12 至 22 字的新聞標題，必須包含「${topic.title}」，不要加「專題：」。description 一句完整的新聞句子，60 字以內。`,
+    ...(topic.anchorAsk ? [topic.anchorAsk] : measureLines),
     `回傳 {"title":"","description":"","points":[],"timeline":[{"date":"YYYY-MM-DD","text":""}],"figures":[{"area":"","label":"","value":""}],"impact":[],"reactions":[],"background":[]}`,
     `資料：${JSON.stringify(material)}`,
   ].filter(Boolean).join('\n');
