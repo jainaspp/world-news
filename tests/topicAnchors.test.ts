@@ -332,6 +332,81 @@ describe('us-rates anchor', () => {
     expect(saved.picture?.url).toBe('/topics/us-rates.jpg');
   });
 
+  it('keeps a six-month timeline of paraphrases and still drops an unsupported cut', async () => {
+    const source = [
+      '委員會宣布維持利率不變，聯邦基金利率維持於3.5厘至3.75厘。4名委員投反對票。一名委員主張減息0.25厘。',
+      '聯邦公開市場委員會維持聯邦基金利率目標區間於3.50厘至3.75厘。香港市場運作有序。',
+      '聯儲局按兵不動，將聯邦基金利率區間維持於3.5至3.75厘。3名委員支持加息。',
+      '聯儲局加息0.25厘，聯邦基金利率目標區間上調至3.75厘至4厘。點陣圖中位數為4.1厘。',
+      '余偉文表示，美國加息後，港美息差會進一步擴闊，或會令港元走向較弱方向。',
+      '金管局把基本利率定於4.25厘。',
+      'The Committee decided to maintain the target range for the federal funds rate at 3-1/2 to 3-3/4 percent. The Committee decided to raise the target range by 1/4 percentage point to 3-3/4 to 4 percent.',
+    ].join('');
+    const april = '聯邦公開市場委員會宣布維持聯邦基金利率目標區間於3.5厘至3.75厘。';
+    const june = '聯儲局維持聯邦基金利率目標區間於3.50厘至3.75厘。';
+    const july = '聯儲局按兵不動，將聯邦基金利率區間維持於3.5至3.75厘。';
+    const september = '聯儲局加息0.25厘，聯邦基金利率目標區間上調至3.75厘至4厘。';
+    const cut = '聯儲局宣布減息1厘，聯邦基金利率降至1厘，以刺激樓市。';
+    const crash = '今次加息將令歐元區股市暴跌，並觸發全球經濟衰退。';
+    const topic = topicBySlug('us-rates')!;
+    const corpus = topicCorpus(topic.anchors!.map((anchor) => ({
+      id: anchor.url, title: anchor.title, link: anchor.url, source: anchor.source, sourceUrl: '', regions: ['hk'],
+      pubDate: `${anchor.date}T12:00:00+08:00`, excerpt: source,
+    })));
+    expect(groundedShare(cut, corpus)).toBeGreaterThanOrEqual(GROUNDED_MIN);
+    expect(groundedShare(crash, corpus)).toBeLessThan(GROUNDED_MIN);
+    const draft = parseTopicDraft(JSON.stringify({
+      title: '',
+      description: september,
+      points: [september, '聯儲局此前維持聯邦基金利率目標區間於3.5厘至3.75厘。', '余偉文表示，美國加息後，港美息差會進一步擴闊。', cut],
+      timeline: [
+        { date: '2026-04-29', text: april },
+        { date: '2026-06-17', text: june },
+        { date: '2026-07-29', text: july },
+        { date: '2026-09-16', text: september },
+      ],
+      figures: [{ area: '利率決定', label: '基本利率', value: '4.25厘' }],
+      impact: ['余偉文表示，美國加息後，港美息差會進一步擴闊。', crash],
+      reactions: [],
+    }), corpus, topic.areas, true, 28);
+    expect(draft?.timeline.map((row) => row.date)).toEqual(['2026-04-29', '2026-06-17', '2026-07-29', '2026-09-16']);
+    expect(draft?.timeline.map((row) => row.text).join('')).toContain('維持');
+    expect(draft?.timeline.map((row) => row.text).join('')).toContain('加息0.25');
+    expect(draft?.points.join('') + (draft?.impact.join('') ?? '')).not.toContain('減息');
+    expect(draft?.impact.join('')).not.toContain('衰退');
+
+    const store = memory();
+    store.rows.set(BOARD_KV_KEY, JSON.stringify(computeBoard([HEADLINE])));
+    const result = await generateTopics(store.env, {
+      now: MORNING,
+      force: true,
+      refresh: ['us-rates'],
+      skip: OTHER_TOPICS,
+      anchorText: async () => source.repeat(2),
+      complete: async () => ({ text: JSON.stringify({
+        title: '',
+        description: september,
+        points: [september, '聯儲局此前維持聯邦基金利率目標區間於3.5厘至3.75厘。', '余偉文表示，美國加息後，港美息差會進一步擴闊。', cut],
+        timeline: [
+          { date: '2026-04-29', text: april },
+          { date: '2026-06-17', text: june },
+          { date: '2026-07-29', text: july },
+          { date: '2026-09-16', text: september },
+        ],
+        figures: [{ area: '利率決定', label: '基本利率', value: '4.25厘' }],
+        impact: ['余偉文表示，美國加息後，港美息差會進一步擴闊。', crash],
+        reactions: [],
+      }), input: 10, output: 10, searchCalls: 0, provider: 'grok', model: 'grok-4.3' }),
+    });
+    expect((result.topics as { slug: string; action: string }[])).toContainEqual({ slug: 'us-rates', action: 'updated', provider: 'grok' });
+    const saved = parseTopicPack(store.rows.get(topicStorageKey('us-rates')) ?? null)!;
+    expect(saved.timeline.map((row) => row.date)).toEqual(['2026-04-29', '2026-06-17', '2026-07-29', '2026-09-16']);
+    expect(saved.points.join('') + saved.impact.join('') + saved.timeline.map((row) => row.text).join('')).not.toContain('減息');
+    expect(saved.impact.join('')).not.toContain('衰退');
+    expect(saved.picture?.url).toBe('/topics/us-rates.jpg');
+    expect(saved.picture?.credit).toBe('美國聯邦儲備局，公有領域');
+  });
+
   it('leaves the policy and budget anchored instructions unchanged', () => {
     const policy = anchoredPrompt(topicBySlug('policy-address')!, []);
     const budget = anchoredPrompt(topicBySlug('budget')!, []);
@@ -344,12 +419,23 @@ describe('us-rates anchor', () => {
     expect(budget.user).toContain('每句 30 至 50 字');
     expect(rates.user).toContain('不要另寫一套新句子');
     expect(rates.user).toContain('不要把英文譯成資料中文裡沒有的說法');
+    expect(rates.user).toContain('每一次議息');
+    expect(rates.user).toContain('不要只寫最後一次');
+    expect(rates.user).toContain('較早一次維持利率就不能寫成加息');
     expect(rates.user).not.toContain('每句 30 至 50 字');
     expect(rates.user).not.toContain('figures 列出 16 至 24 項具體措施');
     expect(topicBySlug('us-rates')!.anchors?.map((anchor) => anchor.url)).toEqual([
+      'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260429a.htm',
+      'https://news.rthk.hk/rthk/ch/component/k2/1852956-20260430.htm',
+      'https://www.hkma.gov.hk/chi/news-and-media/press-releases/2026/04/20260430-3/',
+      'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm',
+      'https://www.hkma.gov.hk/chi/news-and-media/press-releases/2026/06/20260618-3/',
+      'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm',
+      'https://news.rthk.hk/rthk/ch/component/k2/1864268-20260730.htm',
       'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm',
       'https://news.rthk.hk/rthk/ch/component/k2/1870362-20260917.htm',
       'https://news.rthk.hk/rthk/ch/component/k2/1870390-20260917.htm',
+      'https://www.hkma.gov.hk/chi/news-and-media/press-releases/2026/09/20260917-3/',
     ]);
   });
 });
