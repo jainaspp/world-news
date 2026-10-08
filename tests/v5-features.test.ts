@@ -66,6 +66,7 @@ describe('follow routing', () => {
       time: 'all',
       bookmarks: false,
       following: true,
+      list: false,
     });
     expect(href).toContain('view=following');
     const loc = { pathname: '/', search: '?view=following', hash: '' } as Location;

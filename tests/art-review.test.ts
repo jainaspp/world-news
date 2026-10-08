@@ -104,9 +104,12 @@ describe('manual ad rhythm', () => {
     const adAt = html.indexOf('ad-slot-feed');
     expect(heroAt).toBeGreaterThan(-1);
     expect(adAt).toBeGreaterThan(heroAt);
-    expect(html.match(/ad-slot-feed/g)).toHaveLength(1);
+    expect(html.match(/ad-slot-feed/g)).toHaveLength(2);
     const beforeAd = html.slice(0, adAt);
     expect(beforeAd.match(/<article/g)).toHaveLength(9);
+    const list = html.slice(html.indexOf('class="home-list"'));
+    const listAd = list.indexOf('ad-slot-feed');
+    expect(list.slice(0, listAd).match(/class="rank-row/g)).toHaveLength(8);
   });
 });
 

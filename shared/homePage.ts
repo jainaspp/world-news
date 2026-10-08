@@ -2,8 +2,9 @@ import { FEED_AD_EVERY } from './adPolicy.js';
 import { adSlotMarkup } from './adSlot.js';
 import type { MajorEntry } from './angles.js';
 import { breakingIds } from './breaking.js';
-import { CATEGORIES, categoryLabel } from './categories.js';
-import { RANK_TAGLINE_HK, TEMPLATE_TO_CLASSIC_HK, TEMPLATE_TO_RANK_HK, rankHeatCount } from './homeTemplate.js';
+import { categoryLabel } from './categories.js';
+import { analysisSlug } from './content.js';
+import { LAYOUT_CARDS_HK, LAYOUT_LIST_HK, rankHeatCount } from './homeTemplate.js';
 import { esc, favicon, footer, media, safeHttp } from './contentPage.js';
 import { homeIntroFoot, homeIntroTop } from './homeIntro.js';
 import { renderHkInfo } from './hkInfo.js';
@@ -51,19 +52,15 @@ function timeAgo(dateStr: string, now = Date.now()): string {
 }
 
 function templateSwitch(): string {
-  return `<button type="button" class="template-switch" data-wn-template-switch aria-pressed="false"><span class="template-label-rank">${TEMPLATE_TO_RANK_HK}</span><span class="template-label-classic">${TEMPLATE_TO_CLASSIC_HK}</span></button><script>try{var b=document.currentScript.previousElementSibling;if(b&&b.setAttribute)b.setAttribute("aria-pressed",document.documentElement.classList.contains("wn-rank")?"true":"false")}catch(e){}</script>`;
+  return `<div class="template-switch" role="group" aria-label="版面"><button type="button" data-wn-template-switch data-layout="cards" aria-pressed="true">${LAYOUT_CARDS_HK}</button><button type="button" data-wn-template-switch data-layout="list" aria-pressed="false">${LAYOUT_LIST_HK}</button></div><script>try{var on=document.documentElement.classList.contains("wn-list");var box=document.currentScript.previousElementSibling;if(box){var nodes=box.querySelectorAll("[data-wn-template-switch]");for(var i=0;i<nodes.length;i++){var list=nodes[i].getAttribute("data-layout")==="list";nodes[i].setAttribute("aria-pressed",list===on?"true":"false")}}}catch(e){}</script>`;
 }
 
-function rankTabs(): string {
-  const tabs = CATEGORIES.map((category) => {
-    const href = category.id === 'all' ? '/' : `/category/${category.id}`;
-    const current = category.id === 'all';
-    return `<a class="rank-tab${current ? ' active' : ''}" href="${href}"${current ? ' aria-current="page"' : ''}>${esc(category.label)}</a>`;
-  }).join('');
-  return `<nav class="rank-tabs" aria-label="分類">${tabs}</nav>`;
+function digestStrip(briefingLinks: { href: string; label: string }[]): string {
+  const briefs = briefingLinks.map((link) => `<a class="digest-keep" href="${esc(link.href)}">${esc(link.label)}</a>`).join('');
+  return `<aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a>${briefs}<a class="digest-keep" href="/explainer/">新聞懶人包</a><a class="digest-keep" href="/topic/">專題懶人包</a><a class="digest-keep" href="/weekly/">週報</a><a class="digest-keep" href="/analysis/">熱門分析</a><a href="/data/">數據</a><a href="/quiz/">每日小測</a></aside>`;
 }
 
-function rankBoard(items: NewsItem[], counts: Map<string, number>): string {
+function rankList(items: NewsItem[], counts: Map<string, number>, feedSlot: string): string {
   const fresh = breakingIds(items);
   const rows = items.map((item, index) => {
     const rank = index + 1;
@@ -74,29 +71,26 @@ function rankBoard(items: NewsItem[], counts: Map<string, number>): string {
     const titleHtml = articleUrl
       ? `<a class="rank-title" lang="${langAttr}" title="${title}" href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer">${title}</a>`
       : `<span class="rank-title" lang="${langAttr}" title="${title}">${title}</span>`;
-    const heat = rankHeatCount(counts.get(item.id) ?? 0);
+    const sources = counts.get(item.id) ?? 0;
+    const heat = rankHeatCount(sources);
     const when = timeAgo(item.pubDate);
-    const note = heat != null
-      ? `<a class="rank-note" href="/story/${esc(item.id)}/">${heat} 間媒體報道</a>`
-      : when
-        ? `<time class="rank-note" datetime="${esc(item.pubDate)}">${esc(when)}</time>`
-        : '';
+    const note = `<span class="rank-note"><span class="source-tag">${esc(item.source)}</span>${when ? `<time datetime="${esc(item.pubDate)}">${esc(when)}</time>` : ''}</span>`;
+    const pack = sources >= 3
+      ? `<a class="rank-pack" href="/analysis/${esc(analysisSlug(item.title))}/">懶人包</a>`
+      : '';
     const badge = fresh.has(item.id) ? '<span class="rank-badge">快訊</span>' : '';
-    return `<li class="rank-row${rank <= 3 ? ' rank-row-top' : ''}"><span class="rank-num" aria-hidden="true">${rank}</span><div class="rank-main">${titleHtml}${note}</div>${badge}</li>`;
-  }).join('');
-  return `<section class="home-rank" aria-label="標題榜">
-    <div class="rank-band">
-      <div class="rank-band-inner">
-        <div class="rank-brand">
-          <p class="rank-name">世界頭條</p>
-          <p class="rank-tagline">${RANK_TAGLINE_HK}</p>
-        </div>
-        ${templateSwitch()}
-      </div>
-    </div>
-    ${rankTabs()}
-    <div class="rank-list-wrap"><ol class="rank-list">${rows}</ol></div>
-  </section>`;
+    const heatHtml = heat != null
+      ? `<a class="rank-heat" href="/story/${esc(item.id)}/" aria-label="${heat} 間媒體報道">${heat}</a>`
+      : '';
+    return `<li class="rank-row${rank <= 3 ? ' rank-row-top' : ''}"><span class="rank-num" aria-hidden="true">${rank}</span><div class="rank-main">${titleHtml}${pack}${note}${badge}</div><div class="rank-side">${heatHtml}</div></li>`;
+  });
+  const parts: string[] = [];
+  for (let index = 0; index < rows.length; index += FEED_AD_EVERY) {
+    const slice = rows.slice(index, index + FEED_AD_EVERY);
+    parts.push(`<ol class="rank-list" aria-label="列表">${slice.join('')}</ol>`);
+    if (slice.length === FEED_AD_EVERY) parts.push(adSlotMarkup('feed', feedSlot));
+  }
+  return `<div class="home-list">${parts.join('')}</div>`;
 }
 
 function card(item: NewsItem, featured: boolean, sourceCount: number, showBreaking: boolean): string {
@@ -136,6 +130,7 @@ export function renderHomeFeed(
   if (!list.length) {
     return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
+    ${digestStrip(briefingLinks)}
     <div class="template-bar">${templateSwitch()}</div>
     <div class="status-panel" aria-busy="true"><h2>載入頭條中…</h2><p>正在取得最新標題。</p></div>
   </div>`;
@@ -151,20 +146,20 @@ export function renderHomeFeed(
   const major = banner ? `${renderMajorBanner(banner)}<script>try{var n=document.currentScript.previousElementSibling;if(n&&localStorage.getItem('wn-major-dismiss')===n.getAttribute('data-major-id'))n.remove()}catch(e){}</script>` : '';
   return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
-    <div class="home-classic">
-      <div class="template-bar">${templateSwitch()}</div>
-      <main id="news">
-        ${major}
-        ${homeIntroTop()}
-        ${info}
-        <aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a>${briefingLinks.map((link) => `<a class="digest-keep" href="${esc(link.href)}">${esc(link.label)}</a>`).join('')}<a class="digest-keep" href="/explainer/">新聞懶人包</a><a class="digest-keep" href="/topic/">專題懶人包</a><a href="/today/">今日時間線</a><a href="/data/">數據</a><a href="/weekly/">一週科技 · 一週財經</a><a href="/analysis/">熱門分析</a></aside>
-        ${focusHtml.trim()}
+    <div class="template-bar">${templateSwitch()}</div>
+    ${major}
+    <main id="news">
+      ${homeIntroTop()}
+      ${info}
+      ${digestStrip(briefingLinks)}
+      ${focusHtml.trim()}
+      <div class="home-cards">
         ${top}
         <div class="news-grid">${grid}</div>
-      </main>
-      ${homeIntroFoot()}
-    </div>
-    ${rankBoard(list, counts)}
+      </div>
+      ${rankList(list, counts, feedSlot)}
+    </main>
+    ${homeIntroFoot()}
     ${footer()}
   </div>`;
 }

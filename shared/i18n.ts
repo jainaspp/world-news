@@ -48,10 +48,11 @@ const LABELS = {
   mostRead: { 'zh-HK': '最多人看', 'zh-CN': '最多人看', en: 'Most read' },
   majorUpdate: { 'zh-HK': '重大更新', 'zh-CN': '重大更新', en: 'Major update' },
   dismiss: { 'zh-HK': '關閉', 'zh-CN': '关闭', en: 'Dismiss' },
-  templateUseRank: { 'zh-HK': '改用標題榜', 'zh-CN': '改用标题榜', en: 'Use ranked layout' },
-  templateUseClassic: { 'zh-HK': '返回標準版', 'zh-CN': '返回标准版', en: 'Back to standard layout' },
-  rankTagline: { 'zh-HK': '公開標題依序排列，方便快速瀏覽。', 'zh-CN': '公开标题依序排列，方便快速浏览。', en: 'Headlines in ranked order, for a quick scan.' },
-  rankListLabel: { 'zh-HK': '標題榜', 'zh-CN': '标题榜', en: 'Ranked headlines' },
+  layoutCards: { 'zh-HK': '卡片', 'zh-CN': '卡片', en: 'Cards' },
+  layoutList: { 'zh-HK': '列表', 'zh-CN': '列表', en: 'List' },
+  rankListLabel: { 'zh-HK': '列表', 'zh-CN': '列表', en: 'List' },
+  packLink: { 'zh-HK': '懶人包', 'zh-CN': '懒人包', en: 'Explainer' },
+  dailyQuiz: { 'zh-HK': '每日小測', 'zh-CN': '每日小测', en: 'Daily quiz' },
 } as const;
 
 export type LabelKey = keyof typeof LABELS;
