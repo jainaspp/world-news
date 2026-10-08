@@ -76,15 +76,22 @@ async function forward(res: ServerResponse, response: Response) {
   res.end(Buffer.from(await response.arrayBuffer()));
 }
 
+function pagePath(url: string): string {
+  return (url.split('?')[0] || '').replace(/\/+$/, '') || '/';
+}
+
 function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerResponse, next: () => void) => void) => void }) {
   middlewares.use((req, res, next) => {
     const url = req.url ?? '';
+    const path = pagePath(url);
     const handled = url.startsWith('/api/news') || url.startsWith('/api/crawl') || url.startsWith('/api/hsi') || url.startsWith('/api/hk')
       || url.startsWith('/api/markets') || url.startsWith('/api/alerts') || url.startsWith('/api/board') || url.startsWith('/api/clusters')
       || url.startsWith('/api/major') || url.startsWith('/api/reads') || url.startsWith('/api/popular') || url.startsWith('/api/search-index')
-      || url.startsWith('/api/subscribe') || url.startsWith('/major')
-      || url.startsWith('/data') || url.startsWith('/search') || url.startsWith('/saved') || url.startsWith('/quiz')
-      || url.startsWith('/feed.xml') || url.startsWith('/briefing') || url.startsWith('/topic');
+      || url.startsWith('/api/subscribe') || path === '/major' || path.startsWith('/major/')
+      || path === '/data' || path.startsWith('/data/')
+      || path === '/search' || path === '/saved' || path === '/quiz'
+      || path === '/feed.xml' || path === '/briefing' || path.startsWith('/briefing/')
+      || path === '/topic' || path.startsWith('/topic/');
     if (!handled) {
       next();
       return;
