@@ -271,12 +271,26 @@ function quotesGrounded(line: string, corpus: string): boolean {
 }
 
 function cleanLine(raw: unknown, corpus: string, strictNumbers: boolean): string {
-  const line = tidyDisplay(toHK(polishProse(String(raw ?? '')))).replace(/\s+/g, ' ').trim();
+  const source = String(raw ?? '');
+  // A broken character (U+FFFD) means the model reply was cut mid-character: drop the line.
+  if (source.includes('\uFFFD')) return '';
+  const line = tidyDisplay(toHK(polishProse(source))).replace(/\s+/g, ' ').trim();
   if (!line || !hasChinese(line) || isMostlyEnglish(line)) return '';
   if (cantoneseLeft(line) || preachySentence(line) || DISCLAIMER.test(line)) return '';
   if (strictNumbers && !numbersGrounded(line, corpus)) return '';
   if (groundedShare(line, corpus) < GROUNDED_MIN || !quotesGrounded(line, corpus)) return '';
   return line;
+}
+
+/** Narrative lines end with a full stop, like the rest of the site's copy. */
+function sentence(line: string): string {
+  if (!line) return '';
+  return /[。！？」』）)]$/.test(line) ? line : `${line}。`;
+}
+
+/** Headline clauses the model separated with spaces become one line joined by 「，」. */
+function titleLine(raw: unknown): string {
+  return String(raw ?? '').replace(/([\u3400-\u9fff」》])\s+(?=[\u3400-\u9fff「《])/g, '$1，').trim();
 }
 
 function cleanDate(raw: unknown, corpus: string): string {
@@ -310,13 +324,13 @@ export function parseTopicDraft(raw: string, corpus: string, areas: readonly str
     return null;
   }
   const allowed = new Set(areas);
-  const points = asList(parsed.points).map((row) => cleanLine(row, corpus, strictNumbers)).filter(Boolean).slice(0, 3);
+  const points = asList(parsed.points).map((row) => sentence(cleanLine(row, corpus, strictNumbers))).filter(Boolean).slice(0, 3);
   const timeline: TopicEvent[] = [];
   for (const row of asList(parsed.timeline)) {
     if (!row || typeof row !== 'object') continue;
     const record = row as Record<string, unknown>;
     const date = cleanDate(record.date, corpus);
-    const line = cleanLine(record.text, corpus, strictNumbers);
+    const line = sentence(cleanLine(record.text, corpus, strictNumbers));
     if (!date || !line) continue;
     if (timeline.some((item) => item.date === date && item.text === line)) continue;
     timeline.push({ date, text: line });
@@ -334,13 +348,13 @@ export function parseTopicDraft(raw: string, corpus: string, areas: readonly str
     figures.push({ area, label, value });
   }
   const draft: TopicDraft = {
-    title: cleanLine(parsed.title, corpus, strictNumbers) || cleanLine(parsed.title, corpus, false),
-    description: cleanLine(parsed.description, corpus, strictNumbers),
+    title: cleanLine(titleLine(parsed.title), corpus, strictNumbers) || cleanLine(titleLine(parsed.title), corpus, false),
+    description: sentence(cleanLine(parsed.description, corpus, strictNumbers)),
     points,
     timeline: timeline.slice(0, TIMELINE_CAP),
     figures: figures.slice(0, FIGURE_CAP),
-    impact: asList(parsed.impact).map((row) => cleanLine(row, corpus, strictNumbers)).filter(Boolean).slice(0, LIST_CAP),
-    reactions: asList(parsed.reactions).map((row) => cleanLine(row, corpus, strictNumbers)).filter(Boolean).slice(0, LIST_CAP),
+    impact: asList(parsed.impact).map((row) => sentence(cleanLine(row, corpus, strictNumbers))).filter(Boolean).slice(0, LIST_CAP),
+    reactions: asList(parsed.reactions).map((row) => sentence(cleanLine(row, corpus, strictNumbers))).filter(Boolean).slice(0, LIST_CAP),
   };
   if (!draft.title && !draft.points.length && !draft.timeline.length && !draft.figures.length) return null;
   return draft;
@@ -453,7 +467,8 @@ export function topicPrompt(topic: TopicConfig, items: NewsItem[], previous: Top
   const user = [
     `專題：${topic.title}`,
     `數字只可歸入這些欄：${areas}。沒有數字就不要輸出該欄。`,
-    'points 寫三句，每句 40 字以內，概括目前發生了甚麼。',
+    `title 寫一句 12 至 22 字，不要用空格分隔。points 寫三句，每句 40 字以內，概括目前發生了甚麼。points 和 timeline 只寫與「${topic.title}」直接相關的事；同一摘錄裡的其他新聞（例如採訪日誌列出的其他活動）一律略過。`,
+    '引述官員或議員的話時保留原文的逗號。',
     'timeline 每項 date 用摘錄或標題裡的 YYYY-MM-DD，text 一句。',
     'figures 的 value 必須是摘錄裡出現過的數字。label 是這個數字指甚麼。',
     'impact 只寫摘錄明確寫出的、對香港市民的直接影響，不要推測「可能」「或會」；摘錄沒有寫就回傳空陣列。reactions 只寫摘錄裡點名的政黨、官員或團體的說法，引言必須逐字來自摘錄。',

@@ -70,7 +70,9 @@ function fold(id: string, title: string, lines: string[]): string {
 }
 
 function headlineList(items: NewsItem[]): string {
-  if (!items.length) return '';
+  if (!items.length) {
+    return '<section class="story column-block" id="headlines" aria-label="相關頭條"><div class="story-body"><h2 class="column-h2">相關頭條</h2><p class="topic-empty">近日未有相關報道。</p></div></section>';
+  }
   const rows = items.slice(0, 12).map((item) => {
     const url = safeHttp(item.link);
     const title = esc(item.title);
@@ -85,6 +87,8 @@ function packBody(model: TopicPageModel): string {
   const { topic, pack } = model;
   if (!pack || pack.mode !== 'ai') return headlineList(model.headlines);
   const points = pack.points.slice(0, 3);
+  // Policy topics list measures; the others list key numbers (a death toll is not a measure).
+  const figuresHeading = topic.slug === 'policy-address' || topic.slug === 'budget' ? '主要措施' : '重要數字';
   const pointsBox = points.length > 1
     ? `<section class="key-points" id="summary" aria-label="重點"><h2>重點</h2><ol>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ol></section>`
     : '';
@@ -94,9 +98,9 @@ function packBody(model: TopicPageModel): string {
     : '';
   const groups = figureGroups(pack.figures, topic.areas);
   const figures = groups.length
-    ? `<section class="topic-measures" id="figures" aria-label="主要措施"><h2 class="column-h2">主要措施</h2><div class="topic-areas">${groups.map((group) => `<section class="topic-area"><h3>${esc(group.area)}</h3><ul>${group.rows.map((row) => `<li class="topic-figure"><strong>${esc(row.value)}</strong><span>${esc(row.label)}</span></li>`).join('')}</ul></section>`).join('')}</div></section>`
+    ? `<section class="topic-measures" id="figures" aria-label="${figuresHeading}"><h2 class="column-h2">${figuresHeading}</h2><div class="topic-areas">${groups.map((group) => `<section class="topic-area"><h3>${esc(group.area)}</h3><ul>${group.rows.map((row) => `<li class="topic-figure"><strong>${esc(row.value)}</strong><span>${esc(row.label)}</span></li>`).join('')}</ul></section>`).join('')}</div></section>`
     : '';
-  const nav = `<nav class="topic-jump" aria-label="本頁小節">${jump('#summary', '重點', points.length > 1)}${jump('#timeline', '時間線', events.length > 0)}${jump('#figures', '措施', groups.length > 0)}${jump('#impact', '影響', pack.impact.length > 0)}${jump('#reactions', '反應', pack.reactions.length > 0)}${jump('#headlines', '頭條', model.headlines.length > 0)}</nav>`;
+  const nav = `<nav class="topic-jump" aria-label="本頁小節">${jump('#summary', '重點', points.length > 1)}${jump('#timeline', '時間線', events.length > 0)}${jump('#figures', figuresHeading === '主要措施' ? '措施' : '數字', groups.length > 0)}${jump('#impact', '影響', pack.impact.length > 0)}${jump('#reactions', '反應', pack.reactions.length > 0)}${jump('#headlines', '頭條', model.headlines.length > 0)}</nav>`;
   const sources = pack.sources.length
     ? `<section class="story column-block" id="sources"><div class="story-body"><h2 class="column-h2">來源（${pack.sources.length}）</h2>${sourceList(pack.sources)}</div></section>`
     : '';
@@ -114,7 +118,8 @@ export function renderTopicPage(model: TopicPageModel, canonical: string, ads?: 
   const { topic, pack } = model;
   const shown = pack && pack.mode === 'ai' ? pack : null;
   const title = shown?.title || topic.title;
-  const description = (shown?.description || topic.blurb).slice(0, 180);
+  const shownDescription = shown?.description && !shown.description.includes('\uFFFD') ? shown.description : '';
+  const description = (shownDescription || topic.blurb).slice(0, 180);
   const image = safeHttp(shown?.sources.find((source) => source.image)?.image);
   const client = ads?.client || DEFAULT_CLIENT;
   const indexable = shown ? topicPublic(shown) : false;
