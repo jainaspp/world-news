@@ -138,4 +138,18 @@ describe('filterNews', () => {
     expect(filterNews(items, { time: 'today', now }).map((item) => item.id)).toEqual(['1', '2']);
     expect(filterNews(items, { time: 'week', now }).map((item) => item.id)).toEqual(['1', '2']);
   });
+
+  it('drops the removed Taiwan outlets from the Taiwan page and keeps other headlines', () => {
+    const rows: NewsItem[] = [
+      { id: 'cna', title: '中央社國際', link: 'https://www.cna.com.tw/news/a', source: 'CNA', sourceUrl: 'https://www.cna.com.tw', regions: ['TWN'], pubDate: '2026-10-06T11:00:00Z' },
+      { id: 'cna-cn', title: '中央社兩岸', link: 'https://www.cna.com.tw/news/b', source: 'CNA 兩岸', sourceUrl: 'https://www.cna.com.tw', regions: ['TWN'], pubDate: '2026-10-06T11:00:00Z' },
+      { id: 'cna-url', title: '中央社舊標', link: 'https://example.com/mirror', source: '中央社', sourceUrl: 'https://www.cna.com.tw', regions: ['TWN'], pubDate: '2026-10-06T11:00:00Z' },
+      { id: 'other', title: '其他標題', link: 'https://example.com/tw', source: '其他', sourceUrl: 'https://example.com', regions: ['TWN'], pubDate: '2026-10-06T11:00:00Z' },
+      { id: 'hk', title: '香港標題', link: 'https://news.rthk.hk/a', source: '香港電台', sourceUrl: 'https://news.rthk.hk', regions: ['HKG'], pubDate: '2026-10-06T11:00:00Z' },
+      { id: 'cn', title: '內地標題', link: 'https://www.chinanews.com.cn/a', source: '中新網', sourceUrl: 'https://www.chinanews.com.cn', regions: ['ASI'], pubDate: '2026-10-06T11:00:00Z' },
+    ];
+    expect(filterNews(rows, { region: 'TWN', now }).map((item) => item.id)).toEqual(['other']);
+    expect(filterNews(rows, { region: 'HKG', now }).map((item) => item.id)).toEqual(['hk']);
+    expect(filterNews(rows, { region: 'ASI', now }).map((item) => item.id)).toEqual(['cn']);
+  });
 });

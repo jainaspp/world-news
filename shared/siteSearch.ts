@@ -1,5 +1,5 @@
 import { isCategoryId } from './categories.js';
-import { FEEDS, REGIONS } from './feeds.js';
+import { FEEDS, REGIONS, removedFromTaiwanPage } from './feeds.js';
 
 function esc(value: string): string {
   return value.replace(/[&<>"']/g, (char) => (
@@ -152,6 +152,7 @@ export function searchReader(
   for (const item of corpus.headlines) {
     if (!withinDays(item.pubDate, now)) continue;
     if (!regionOk(item.regions, region)) continue;
+    if (region === 'TWN' && removedFromTaiwanPage(item)) continue;
     if (!categoryOk(item.category, category)) continue;
     const text = `${item.title} ${item.source}`;
     if (!matchesQuery(text, query)) continue;

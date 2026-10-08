@@ -75,7 +75,7 @@ Pages 專案設定：
 | `POST /api/reads` | 標題點擊，寫入 `CONTENT` KV（`reads:YYYY-MM-DD`，香港日期） | 不快取 |
 | `/api/popular` | 今日熱門；點擊不足就用 KV 裡最新的多媒體報道 | 約 1 分鐘 |
 
-`/api/news` 成功之後，同每日 crawl，會另起一次請求打 `POST /api/board`。聚類唔喺出頁面嗰次 CPU 入面做。KV 未有資料時，請求路徑最多只用最新 100 則標題做後備，唔會對成板做兩兩比較。`/api/news` 本身唔聚類。RSS 拆成 26 個小分片（每片最多 2 個來源），父請求只合併 JSON，避免一次解析多個 feed 超出 Workers CPU。分片數要留在 40 以下，先至唔會頂到 50 次 subrequest 上限。
+`/api/news` 成功之後，同每日 crawl，會另起一次請求打 `POST /api/board`。聚類唔喺出頁面嗰次 CPU 入面做。KV 未有資料時，請求路徑最多只用最新 100 則標題做後備，唔會對成板做兩兩比較。`/api/news` 本身唔聚類。RSS 拆成 25 個小分片（每片最多 2 個來源），父請求只合併 JSON，避免一次解析多個 feed 超出 Workers CPU。分片數要留在 40 以下，先至唔會頂到 50 次 subrequest 上限。
 
 分組用標題詞彙同實體對照，唔會為分組呼叫 Workers AI embedding。港鐵官方開放數據的 next-train 要指定路綫同車站，唔係全綫狀態；狀態用港鐵網站公開的紅黃綠 XML。XML 失敗就只顯示天文台警告。
 

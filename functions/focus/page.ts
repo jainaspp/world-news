@@ -1,6 +1,7 @@
 import { loadHkNow } from '../../server/hkService.js';
 import { loadHsiQuote } from '../../server/hsiService.js';
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
+import { removedFromTaiwanPage } from '../../shared/feeds.js';
 import { focusKey, focusPages, parseFocus, renderWeekFocus, type FocusPage } from '../../shared/focus.js';
 import { injectHomeShell, type HomeMarket } from '../../shared/homePage.js';
 import { loadList } from '../board/list.js';
@@ -39,7 +40,9 @@ export async function serveFocusHome(context: PagesContext, page: FocusPage): Pr
       readBoard(env),
       readValue(env, focusKey(page)).catch(() => null),
     ]);
-    items = list;
+    items = page.scope === 'region' && page.id.toLowerCase() === 'twn'
+      ? list.filter((item) => !removedFromTaiwanPage(item))
+      : list;
     market = { hk, hsi };
     if (snapshot) {
       counts = new Map(Object.entries(snapshot.counts));
