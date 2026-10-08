@@ -48,8 +48,15 @@ export function briefingPushable(doc: ContentDoc): boolean {
   return summaryLines(doc).length > 0;
 }
 
+/** Each summary line is a sentence: full-width stop at the end, no stray spaces. */
+export function sentenceLine(line: string): string {
+  const text = line.replace(/\s+/g, ' ').trim().replace(/[，、；：,;:]+$/, '');
+  if (!text) return '';
+  return /[。！？」』）]$/.test(text) ? text : `${text}。`;
+}
+
 export function formatTelegramPost(doc: ContentDoc, origin = 'https://world-news.xyz'): string {
-  const lines = summaryLines(doc).slice(0, 3);
+  const lines = summaryLines(doc).slice(0, 3).map(sentenceLine).filter(Boolean);
   const link = `${origin.replace(/\/$/, '')}/briefing/${encodeURIComponent(doc.key)}/`;
   return [`《${doc.title.trim()}》`, '', ...lines, '', link].join('\n');
 }

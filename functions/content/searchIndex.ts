@@ -2,6 +2,7 @@ import { buildCorpus, type RollupHeadline } from '../../shared/searchCorpus.js';
 import type { SearchCorpus } from '../../shared/siteSearch.js';
 import type { IndexEntry } from '../../shared/content.js';
 import { parseTopicPack, TOPIC_PACKS, topicStorageKey } from '../../shared/topicPack.js';
+import { displayTitle } from '../../shared/topicPage.js';
 import type { NewsItem } from '../../shared/types.js';
 import { edgeCache } from '../env.js';
 import { readIndex, readValue, type ContentEnv } from './store.js';
@@ -25,10 +26,10 @@ function parseRollup(raw: string | null): RollupHeadline[] {
 async function loadTopics(env: ContentEnv): Promise<IndexEntry[]> {
   const rows = await Promise.all(TOPIC_PACKS.map(async (topic) => {
     const pack = parseTopicPack(await readValue(env, topicStorageKey(topic.slug)).catch(() => null));
-    if (!pack || pack.mode !== 'ai' || !pack.title.trim()) return null;
+    if (!pack || pack.mode !== 'ai' || pack.provider === 'workers-ai' || !pack.title.trim()) return null;
     const entry: IndexEntry = {
       key: topic.slug,
-      title: pack.title,
+      title: displayTitle(pack.title, topic),
       description: pack.description || topic.blurb,
       publishedAt: pack.updatedAt || pack.publishedAt,
       category: topic.category,
