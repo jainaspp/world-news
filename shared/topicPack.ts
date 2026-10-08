@@ -50,10 +50,12 @@ export const TOPIC_PACKS: readonly TopicConfig[] = [
       { url: 'https://www.news.gov.hk/chi/2026/09/20260916/20260916_100303_151.html', source: '香港政府新聞網', title: '完善安居體系 十措施支援中小企', date: '2026-09-16' },
       { url: 'https://www.info.gov.hk/gia/general/202609/16/P2026091600306.htm', source: '政府新聞公報', title: '政府公布《香港特別行政區經濟和社會發展第一個五年規劃（2026—2030年）》', date: '2026-09-16' },
       { url: 'https://app2.rthk.hk/special/cepolicy2026/', source: '香港電台', title: '香港第一個五年規劃及2026年施政報告 - 剖析最新政策及重點措施', date: '2026-09-16' },
-      { url: 'https://www.info.gov.hk/gia/general/202606/25/P2026062500689.htm', source: '政府新聞公報', title: '政府展開二○二六年《施政報告》公眾諮詢', date: '2026-06-25' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1860309-20260629.htm', source: '香港電台', title: '施政報告2026｜行政長官新一份施政報告即日起展開公眾諮詢', date: '2026-06-29' },
       { url: 'https://www.info.gov.hk/gia/general/202609/17/P2026091700430.htm', source: '政府新聞公報', title: '《香港第一個五年規劃》和二○二六年《施政報告》立法會行政長官互動交流答問會開場發言', date: '2026-09-17' },
       { url: 'https://www.news.gov.hk/chi/2026/09/20260917/20260917_120804_911.html', source: '香港政府新聞網', title: '特首：五年規劃讓香港進步更快', date: '2026-09-17' },
       { url: 'https://www.tkww.hk/epaper/view/newsDetail/2100300239675199488.html', source: '大公報', title: '政黨：宏觀與微觀部署兩兼顧', date: '2026-09-17' },
+      { url: 'https://hkcd.com/hkcdweb/content/2026/09/16/content_8775412.html', source: '香港商報', title: '經民聯：高度肯定五年規劃與施政報告 能為港注入堅實動能', date: '2026-09-16' },
+      { url: 'https://www.ftu.org.hk/zh-HK/counselingDetail?columnId=2006215394359046145&id=2100381844380975105&type=2', source: '工聯會', title: '工聯會回應《香港第一個五年規劃》及《行政長官2026年施政報告》', date: '2026-09-16' },
       { url: 'https://news.rthk.hk/rthk/ch/component/k2/1873049-20261007.htm', source: '香港電台', title: '立法會一連三日合併辯論五年規劃及施政報告', date: '2026-10-07' },
     ],
     background: {

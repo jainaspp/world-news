@@ -68,7 +68,19 @@ function cnNumber(body: string): string | null {
 }
 
 /** 三百零七 → 307, 二十一點四四億 → 21.44億, 百分之五十七點七 → 57.7%. */
+/** National five-year plan names (十四五、十五五) stay in Chinese numerals. */
+const PLAN_NAME = /十[一二三四五六七八九]五(?=[」』]?(?:規劃|時期|期間|開局|」|』))/g;
+
 export function arabicDigits(text: string): string {
+  const plans: string[] = [];
+  const masked = text.replace(PLAN_NAME, (name) => {
+    plans.push(name);
+    return `\uE000${plans.length - 1}\uE001`;
+  });
+  return arabicDigitsRaw(masked).replace(/\uE000(\d+)\uE001/g, (_all, index: string) => plans[Number(index)] ?? '');
+}
+
+function arabicDigitsRaw(text: string): string {
   const percent = text.replace(/百分之([零〇一二兩三四五六七八九十百千點]+)/g, (full, body: string) => {
     const value = cnNumber(body);
     return value == null ? full : `${value}%`;
