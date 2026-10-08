@@ -1,3 +1,4 @@
+import { briefingOverview } from './headlineNumbers.js';
 import { arabicDigits, cantoneseLeft, polishProse, preachySentence, proseSane, rejoinQuotes, splitSentences, tidyDisplay } from './prose.js';
 import { researchSources, SOURCE_LIST_CAP } from './search.js';
 import { stableId } from './rss.js';
@@ -590,11 +591,13 @@ function columnPrompt(doc: ContentDoc, strict: boolean, research: ResearchMode =
       ? '今日值得留意綜合兩邊，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。'
       : '今日值得留意綜合上面各段，寫今日要追的具體事項，仍然只可以用上面出現過的事實。不要在這一段重複列出連結。';
     const shape = [
-      `回傳 {"title":"你撰寫的中文導讀標題","description":"40字以內的摘要","sections":[{"heading":${headingUnion},"text":"..."}],"points":["重點","重點","重點"]}。${lengthRule}`,
+      `回傳 {"title":"以一則主要新聞為主的新聞標題","description":"今日要聞：……","sections":[{"heading":${headingUnion},"text":"..."}],"points":["重點","重點","重點"]}。${lengthRule}`,
+      'title 是正式書面語的新聞標題，圍繞今日最重要的一則新聞，14 至 26 字；可以用「，」或「；」接一個簡短的次要分句，最多涉及兩件事。不可把三則新聞的標題串在一起，也不可省去標點。其他新聞寫進 points，points 第一項就是標題那則新聞。',
+      'description 以「今日要聞：」開頭，60 字以內，用一句概括兩至三則主要新聞，不要照抄任何一段的第一句。',
       `這是分析，不是標題清單，也不是逐家複述。每一段先寫發生了甚麼，再寫${usingSearch ? '搜尋結果或來源' : '來源'}提到的影響。不要寫「凸顯…重要性」「提醒市民…」「為…鋪路」這類評論或說教。同一事實只寫一次。句子長短要有變化。`,
       sectionRule,
       watch,
-      'points 三至四項，每項 30 字以內。數字必須在來源出現過。',
+      'points 三至四項，每項 30 字以內。標題、description 和 points 的數字必須與正文所寫完全一致。',
     ].join('');
     const maxTokens = usingSearch ? 4_500 : usingMaterial ? 3_200 : 2_400;
     return { system, user: `${shape}\n資料：${JSON.stringify(data)} /no_think`, maxTokens };
@@ -794,6 +797,26 @@ function fallbackTitle(doc: ContentDoc, sources: SourceRef[]): string {
  * Deterministic grounding pass over everything the model wrote: unsupported countries and
  * nationalities, model-written outlet names, and bracketed English names for transliterations.
  */
+/**
+ * A briefing's lead is an overview of the edition: the model's 「今日要聞：…」 line when it is grounded
+ * and not a copy of the first section, otherwise 「今日要聞：」 plus the first summary points.
+ */
+function briefingLead(
+  written: string,
+  firstSentence: string,
+  points: readonly string[],
+  allText: string,
+  clean: (text: string, haystack: string) => string | null,
+): string {
+  const model = written.trim();
+  const copied = !model || model === firstSentence || firstSentence.startsWith(model.replace(/[。！？]$/u, '').slice(0, 16));
+  if (!copied && model.startsWith('今日要聞') && numbersSupported(model, allText)) {
+    const cleaned = clean(model, allText);
+    if (cleaned && hasChinese(cleaned)) return cleaned;
+  }
+  return briefingOverview(points) ?? (firstSentence || model);
+}
+
 export function guardDoc(doc: ContentDoc, options?: { researched?: boolean }): ContentDoc {
   const log: string[] = [];
   // Researched pieces carry facts from web search, so headline-only place and number checks would cut them.
@@ -880,14 +903,15 @@ export function guardDoc(doc: ContentDoc, options?: { researched?: boolean }): C
     // The timeline lists raw source headlines, so the dek comes from the first written section.
     description: doc.mode === 'ai' ? (namedBlocks.find((block) => block.title !== TIMELINE_HEADING) ?? namedBlocks[0])?.sentences[0] || doc.description : doc.description,
   };
-  if (originalTitle) next.originalTitle = originalTitle;
-  else delete next.originalTitle;
-  if (highlight) next.highlight = highlight;
-  else delete next.highlight;
   const points = (doc.points ?? [])
     .map((item) => ((researched || numbersSupported(item, allText)) ? clean(item, allText) : null))
     .filter((item): item is string => Boolean(item))
     .slice(0, 4);
+  if (doc.kind === 'briefing' && doc.mode === 'ai') next.description = briefingLead(doc.description, next.description, points, allText, clean);
+  if (originalTitle) next.originalTitle = originalTitle;
+  else delete next.originalTitle;
+  if (highlight) next.highlight = highlight;
+  else delete next.highlight;
   if (points.length) next.points = points;
   else delete next.points;
   if (log.length) next.guard = log;
