@@ -17,6 +17,9 @@ export interface ContentEnv {
   VITE_AD_SLOT_FEED?: string;
   VITE_GOOGLE_AD_CLIENT?: string;
   VITE_SITE_URL?: string;
+  TELEGRAM_BOT_TOKEN?: string;
+  TELEGRAM_CHAT_ID?: string;
+  TELEGRAM_CHANNEL_URL?: string;
   [key: string]: unknown;
 }
 

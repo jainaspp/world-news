@@ -18,6 +18,8 @@ import { onRequest as searchIndexApi } from './functions/api/search-index';
 import { onRequest as subscribeApi } from './functions/api/subscribe';
 import { onRequest as briefingPage } from './functions/briefing/[slot]';
 import { onRequest as briefingIndex } from './functions/briefing/index';
+import { onRequest as topicPage } from './functions/topic/[slug]';
+import { onRequest as topicIndex } from './functions/topic/index';
 import type { PagesContext } from './functions/env';
 import { previewSeed } from './shared/readerSample';
 import { loadHkBundle } from './server/hkService';
@@ -82,7 +84,7 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
       || url.startsWith('/api/major') || url.startsWith('/api/reads') || url.startsWith('/api/popular') || url.startsWith('/api/search-index')
       || url.startsWith('/api/subscribe') || url.startsWith('/major')
       || url.startsWith('/data') || url.startsWith('/search') || url.startsWith('/saved') || url.startsWith('/quiz')
-      || url.startsWith('/feed.xml') || url.startsWith('/briefing');
+      || url.startsWith('/feed.xml') || url.startsWith('/briefing') || url.startsWith('/topic');
     if (!handled) {
       next();
       return;
@@ -128,6 +130,12 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
         if (url.startsWith('/saved')) { await forward(res, await savedPage(context)); return; }
         if (url.startsWith('/quiz')) { await forward(res, await quizPage(context)); return; }
         if (url.startsWith('/feed.xml')) { await forward(res, await feedPage(context)); return; }
+        if (url.startsWith('/topic')) {
+          const path = url.split('?')[0] || '';
+          const leaf = path.replace(/\/+$/, '').split('/').filter(Boolean);
+          await forward(res, leaf.length > 1 ? await topicPage(context) : await topicIndex(context));
+          return;
+        }
         if (url.startsWith('/briefing')) {
           const path = url.split('?')[0] || '';
           const leaf = path.replace(/\/+$/, '').split('/').filter(Boolean);

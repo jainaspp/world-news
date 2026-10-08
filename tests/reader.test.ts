@@ -164,7 +164,7 @@ describe('quiz validation', () => {
         async get(key: string) { return store.get(key) ?? null; },
         async put(key: string) {
           puts += 1;
-          throw new Error('KV put failed: 429 limit exceeded');
+          throw new Error(`KV put failed: 429 limit exceeded (${key})`);
         },
       },
       AI: {
