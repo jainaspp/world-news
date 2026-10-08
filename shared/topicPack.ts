@@ -156,19 +156,28 @@ export const TOPIC_PACKS: readonly TopicConfig[] = [
     category: 'business',
     keywords: ['聯儲局', '聯邦儲備局', '聯邦基金利率', '美國 加息', '美國 減息', '美國 議息', 'FOMC'],
     areas: ['利率決定', '美國經濟', '全球影響'],
-    note: '欄目名稱是「美國加息以及全球經濟影響」，只是題目。正文只可照資料寫最新的利率決定：資料寫減息、維持利率或加息，就照資料寫，不要把欄目名稱當成現況。',
+    note: '欄目名稱是「美國加息以及全球經濟影響」，只是題目。正文按資料裡每一次議息照資料寫：資料寫減息、維持利率或加息，就照資料寫，不要把欄目名稱當成現況。',
     anchors: [
-      { url: 'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm', source: '美國聯邦儲備局', title: 'Federal Reserve issues FOMC statement', date: '2026-09-16' },
+      { url: 'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260429a.htm', source: '美國聯邦儲備局', title: 'Federal Reserve issues FOMC statement（2026年4月29日）', date: '2026-04-29' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1852956-20260430.htm', source: '香港電台', title: '聯儲局維持利率不變　符合市場預期　4名委員投反對票', date: '2026-04-30' },
+      { url: 'https://www.hkma.gov.hk/chi/news-and-media/press-releases/2026/04/20260430-3/', source: '香港金融管理局', title: '金管局回應美聯儲議息決定（2026年4月30日）', date: '2026-04-30' },
+      { url: 'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm', source: '美國聯邦儲備局', title: 'Federal Reserve issues FOMC statement（2026年6月17日）', date: '2026-06-17' },
+      { url: 'https://www.hkma.gov.hk/chi/news-and-media/press-releases/2026/06/20260618-3/', source: '香港金融管理局', title: '金管局回應美聯儲議息決定（2026年6月18日）', date: '2026-06-18' },
+      { url: 'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm', source: '美國聯邦儲備局', title: 'Federal Reserve issues FOMC statement（2026年7月29日）', date: '2026-07-29' },
+      { url: 'https://news.rthk.hk/rthk/ch/component/k2/1864268-20260730.htm', source: '香港電台', title: '聯儲局按兵不動　3名委員支持加息　沃什重申通脹不存在軟性目標', date: '2026-07-30' },
+      { url: 'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm', source: '美國聯邦儲備局', title: 'Federal Reserve issues FOMC statement（2026年9月16日）', date: '2026-09-16' },
       { url: 'https://news.rthk.hk/rthk/ch/component/k2/1870362-20260917.htm', source: '香港電台', title: '聯儲局加息0.25厘　沃什：有助推動通脹更及時回到2%目標', date: '2026-09-17' },
       { url: 'https://news.rthk.hk/rthk/ch/component/k2/1870390-20260917.htm', source: '香港電台', title: '余偉文：美國息率變化仍不確定　影響香港利率環境', date: '2026-09-17' },
+      { url: 'https://www.hkma.gov.hk/chi/news-and-media/press-releases/2026/09/20260917-3/', source: '香港金融管理局', title: '調整基本利率（2026年9月17日）', date: '2026-09-17' },
     ],
     anchorAsk: [
-      'points 寫三句。每句沿用資料中文裡已有的詞組，可以調整次序和加上標點，不要另寫一套新句子，也不要為了湊字數而改寫。第一句只可照資料寫最新的利率決定：資料寫減息、維持利率或加息，就照資料寫，並寫上資料裡的利率數字。第二句寫資料中文裡已有的經濟和通脹判斷。第三句寫資料中文裡已有的影響。英文聲明只用來核對決定是減息、維持還是加息，不要把英文譯成資料中文裡沒有的說法。',
-      'timeline 只列資料 date 欄或正文寫明的日期，按日期由舊到新排列。date 是 YYYY-MM-DD，必須是該欄或正文寫明的日期。text 一句，寫那一日公布或發生的事。同一件事只列一次。',
+      '時間範圍是資料裡的每一次議息，由較早的一次寫到最新一次，不要只寫最後一次。',
+      'timeline 為每一次議息各列一項，按日期由舊到新。date 用該次聲明或報道的 YYYY-MM-DD，必須是資料 date 欄或正文寫明的日期。text 一句，只可照該次資料寫減息、維持利率或加息，並寫上該次資料裡的利率數字。資料寫減息、維持利率或加息，就照資料寫。欄目名稱不是加息的證據，較早一次維持利率就不能寫成加息。',
+      'points 寫三句，沿用資料中文裡已有的詞組，不要另寫一套新句子。第一句寫最新一次決定。第二句寫此前各次是減息、維持還是加息。第三句寫資料明確寫出的影響。',
+      'impact 只寫資料明確寫出的全球或香港影響，包括匯率、拆息、基本利率和利率環境。資料沒有寫的影響不要推測，回傳空陣列。',
       'figures 只列資料原文出現過的數字，不要為了填滿而湊項。area 只可以是：利率決定、美國經濟、全球影響。label 寫這個數字指甚麼，25 字以內。value 用資料原文的阿拉伯數字和單位，原文有「約」「超過」等字眼必須保留。沒有數字的項目不要列。',
-      'impact 只寫資料明確寫出的影響，可以包括匯率、其他經濟體或市場。資料沒有寫的影響不要推測，回傳空陣列。',
       'reactions 只寫資料裡點名的官員或機構，先寫名稱，再概述其說法。引用原話用「」並逐字照錄。資料沒有就回傳空陣列。',
-      '中文句子沿用資料裡的中文表述。英文聲明用來核對決定本身：若與中文報道的決定不一致，以英文聲明為準，並且不要添加聲明和中文報道都沒有的事實。',
+      '英文聲明只用來核對每一次是減息、維持還是加息，不要把英文譯成資料中文裡沒有的說法。機構名稱寫「聯儲局」，不要寫「美聯儲」。若英文聲明與中文報道的決定不一致，以該次英文聲明為準，並且不要添加聲明和中文報道都沒有的事實。',
     ].join(''),
   },
 ] as const;
@@ -372,15 +381,15 @@ export function groundedShare(line: string, corpus: string): number {
 export const GROUNDED_MIN = 0.5;
 
 /**
- * Wording that restates the same fact. A 30-to-50-character paraphrase of an anchored page often
- * sits around 0.4, under GROUNDED_MIN, even though the rate and the institution are the source's.
- * These folds are applied only for that check. They do not include 加息, 減息 or 維持: a cut
- * written with the source's other words stays under the same 0.5 line.
+ * Wording that restates the same fact. A paraphrase of an anchored page often sits around 0.4,
+ * under GROUNDED_MIN, even though the rate and the institution are the source's. These folds are
+ * applied only for that check. They do not include 加息, 減息 or 維持.
  */
 const SAME_FACT: readonly (readonly [RegExp, string])[] = [
   [/聯邦公開市場委員會/g, '聯儲局'],
   [/美國聯邦儲備局/g, '聯儲局'],
   [/聯邦儲備局/g, '聯儲局'],
+  [/美聯儲/g, '聯儲局'],
   [/升至/g, '上調至'],
   [/調高至/g, '上調至'],
   [/提高到/g, '上調至'],
@@ -393,11 +402,37 @@ function sameFactWording(text: string): string {
   return out;
 }
 
+/**
+ * Longest run of Chinese characters that no adjacent pair in the corpus covers.
+ * A supported paraphrase leaves a gap of one or two characters. Four or more is a phrase the sources never used.
+ */
+function uncoveredGap(line: string, corpus: string): number {
+  let longest = 0;
+  for (const run of line.match(/[\u3400-\u9fff]+/g) ?? []) {
+    const covered = Array<boolean>(run.length).fill(false);
+    for (let i = 0; i + 1 < run.length; i += 1) {
+      if (!corpus.includes(run.slice(i, i + 2))) continue;
+      covered[i] = true;
+      covered[i + 1] = true;
+    }
+    let gap = 0;
+    for (const flag of covered) {
+      gap = flag ? 0 : gap + 1;
+      longest = Math.max(longest, gap);
+    }
+  }
+  return longest;
+}
+
+const UNCOVERED_GAP_MAX = 3;
+
 function wordingGrounded(line: string, corpus: string): boolean {
-  if (groundedShare(line, corpus) >= GROUNDED_MIN) return true;
   const folded = sameFactWording(line);
-  if (folded === line) return false;
-  return groundedShare(folded, sameFactWording(corpus)) >= GROUNDED_MIN;
+  const foldedCorpus = sameFactWording(corpus);
+  const changed = folded !== line || foldedCorpus !== corpus;
+  const share = Math.max(groundedShare(line, corpus), changed ? groundedShare(folded, foldedCorpus) : 0);
+  if (share < GROUNDED_MIN) return false;
+  return uncoveredGap(folded, changed ? foldedCorpus : corpus) <= UNCOVERED_GAP_MAX;
 }
 
 function quotesGrounded(line: string, corpus: string): boolean {
