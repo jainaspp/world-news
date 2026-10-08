@@ -1,5 +1,6 @@
 import type { AdConfig } from './contentPage.js';
 import {
+  bookmarkButton,
   catChip,
   chrome,
   esc,
@@ -7,6 +8,7 @@ import {
   footer,
   hkt,
   head,
+  listenControls,
   media,
   safeHttp,
   share,
@@ -173,6 +175,14 @@ ${head(`${title}專題`, description, canonical, image || '', 'article', `${robo
           <p class="dek">${esc(description)}</p>
           ${when}
           ${share(title, canonical)}
+          ${listenControls()}${bookmarkButton({
+            page: 'topic',
+            key: topic.slug,
+            title,
+            link: `/topic/${topic.slug}/`,
+            publishedAt: shown?.updatedAt || shown?.publishedAt || '',
+            category: topic.category,
+          })}
         </div>
       </article>
       ${packBody(model)}

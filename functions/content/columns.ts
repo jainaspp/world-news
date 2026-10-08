@@ -74,6 +74,7 @@ import { generateFocus } from './focus.js';
 import { adConfig, polish } from './publish.js';
 import { fetchArticleTexts, fetchTitles, readBundles, readEvents, stampExcerpts, writeBundle, writeEvents } from './material.js';
 import { docKey, readDoc, readIndex, readValue, rememberIndexMany, writeDoc, writeValue, type ContentEnv } from './store.js';
+import { maybePushBriefing } from './telegramPush.js';
 import { completeGrok, completeText, XAI_TIMEOUT_MS } from './xai.js';
 import { cleanMiniMax, expandMiniMax, pipelineMiniMax } from './minimax.js';
 import { applyVerify, parseVerify, verifyPrompt, VERIFY_MAX_TOKENS, VERIFY_MODEL } from './grokVerify.js';
@@ -549,6 +550,7 @@ export async function generateBriefing(env: ContentEnv, now = new Date(), option
   const key = briefingKey(now);
   const existing = await readDoc(env, docKey('briefing', key));
   if (!options.force && settledPiece(existing?.doc)) {
+    if (existing?.doc) await maybePushBriefing(env, existing.doc);
     return delivered(columnDelivery({ skipped: 'exists' }), { kind: 'briefing', scope: 'hk', key, mode: 'ai', provider: existing?.doc.provider ?? 'grok', skipped: 'exists' });
   }
   const spent = await monthUsage(env, now);
@@ -594,6 +596,7 @@ export async function generateBriefing(env: ContentEnv, now = new Date(), option
     }
   }
   await writeDoc(env, doc);
+  await maybePushBriefing(env, doc);
   const chars = bodyChars(doc);
   const ready = doc.mode === 'ai' && pieceReady(doc);
   const cost = summedCost(costs, doc.key);

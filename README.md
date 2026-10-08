@@ -136,3 +136,13 @@ xAI 定價（`grok-4.3`，提示少於 20 萬 token）：輸入每百萬 token 1
 
 KV 綁定 `CONTENT` 沿用現有 namespace，唔使再開一個。Workflow 唔使新 secret：key 只放在 Pages。
 
+## 讀者功能
+
+語音朗讀、我的關注、收藏同站內搜尋都唔寫 KV。`/feed.xml` 只讀導讀同懶人包索引，並用 Cache API。每日小測（`POST /api/generate?kind=quiz`）同 Telegram 推送各在 07:30、18:30（香港時間）最多寫入一次，合計約 4 次 KV put。寫入若遇到 429 會記低並跳過，不會重試。
+
+| 名稱 | 放哪裡 | 填什麼 |
+| --- | --- | --- |
+| `TELEGRAM_BOT_TOKEN` | Pages secret | Bot API token。留空就唔發推送 |
+| `TELEGRAM_CHAT_ID` | Pages secret | 頻道 chat id，例如 `@world_news_channel_forever`。留空就唔發推送 |
+| `TELEGRAM_CHANNEL_URL` | Pages 變數 | 公開頻道網址 `https://t.me/world_news_channel_forever`。留空就唔顯示 Telegram 連結。RSS 仍然會顯示 |
+

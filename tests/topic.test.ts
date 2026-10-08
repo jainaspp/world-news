@@ -393,6 +393,8 @@ describe('topic pages', () => {
     expect(page).not.toContain('編者');
     expect(page).toContain('rel="canonical" href="https://world-news.xyz/topic/policy-address/"');
     expect(page).toContain('href="/topic/"');
+    expect(page).toContain('data-listen');
+    expect(page).toContain('bookmark-article');
     expect(page).toContain('https://example.com/a');
     mkdirSync('/tmp/topic-preview', { recursive: true });
     writeFileSync('/tmp/topic-preview/index.html', index);

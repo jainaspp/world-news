@@ -1,5 +1,6 @@
 import type { PagesContext } from '../env.js';
 import { warmColumns } from '../content/columns.js';
+import { generateQuiz } from '../content/quizRun.js';
 import { warm } from '../content/publish.js';
 import { kvWritesBlocked, writeValue, type ContentEnv } from '../content/store.js';
 import { withUsageBatch } from '../content/usage.js';
@@ -33,6 +34,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     );
   }
   return withUsageBatch(env, () => {
+    if (kind === 'quiz') return generateQuiz(context);
     if (kind === 'briefing' || kind === 'compare' || kind === 'explainer' || kind === 'status' || kind === 'focus' || kind === 'topic') return warmColumns(context);
     return warm(context);
   });
