@@ -30,6 +30,21 @@ export interface TodayModel {
   categories: { id: string; label: string; count: number }[];
   index: boolean;
   filtered: boolean;
+  /** Link to the other day when /today/ shows a thin day or the previous day. */
+  notice?: { text: string; href: string; label: string };
+}
+
+/**
+ * Plain /today/ falls back to the previous day only overnight (00:00–06:59 HKT) while the new day
+ * has fewer than TODAY_INDEX_FLOOR multi-outlet stories. From 07:00 it always shows today.
+ */
+export const TODAY_FALLBACK_UNTIL_HOUR = 7;
+
+export function todayNotice(kind: 'previous' | 'thin', other: string, count: number): NonNullable<TodayModel['notice']> {
+  const [, month, day] = other.split('-').map(Number);
+  return kind === 'previous'
+    ? { text: `今日的多方報道仍少（${count} 則），先顯示${month}月${day}日的時間線。`, href: `/today/${other}/`, label: '看今日已收錄的報道' }
+    : { text: `今日的多方報道仍少（${count} 則），稍後會再排列。`, href: `/today/${other}/`, label: `看${month}月${day}日的時間線` };
 }
 
 const REGION_CODES = REGIONS.filter((region) => region.code !== 'ALL');
@@ -226,6 +241,7 @@ export function renderToday(model: TodayModel, canonical: string): string {
         <h1 class="column-title">${esc(model.title)}</h1>
         <p class="dek">${esc(model.description)} 本頁只列標題、時間與出處，不轉載內文，亦不經模型生成。</p>
       </header>
+      ${model.notice ? `<p class="notice">${esc(model.notice.text)} <a href="${esc(model.notice.href)}">${esc(model.notice.label)} →</a></p>` : ''}
       ${featured}
       ${timeline(model)}
       ${empty}

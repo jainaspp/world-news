@@ -2,7 +2,16 @@ import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
 import { angleClusters } from '../../shared/angles.js';
 import { hktParts } from '../../shared/content.js';
 import { materialFromBoard } from '../../shared/grok.js';
-import { buildToday, onHktDate, parseTodayPath, renderToday, renderTodayMissing, TODAY_INDEX_FLOOR } from '../../shared/todayPage.js';
+import {
+  buildToday,
+  onHktDate,
+  parseTodayPath,
+  renderToday,
+  renderTodayMissing,
+  TODAY_FALLBACK_UNTIL_HOUR,
+  TODAY_INDEX_FLOOR,
+  todayNotice,
+} from '../../shared/todayPage.js';
 import { readBoard } from '../board/store.js';
 import { readIndex, type ContentEnv } from '../content/store.js';
 import type { PagesContext } from '../env.js';
@@ -26,7 +35,8 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   if (!parsed.ok) {
     return new Response(renderTodayMissing(), { status: 404, headers: { ...HTML, 'cache-control': 'no-store' } });
   }
-  const today = hktParts(new Date()).date;
+  const now = new Date();
+  const { date: today, hour } = hktParts(now);
   const board = await readBoard(env).catch(() => null);
   const material = materialFromBoard(board);
   const index = await readIndex(env, 'compare').catch(() => []);
@@ -42,13 +52,19 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   });
   let date = parsed.date || today;
   let model = build(date);
-  // Just after midnight the new day has only a few stories. Plain /today/ shows the previous day until it fills up.
+  // Overnight the new day has only a few multi-outlet stories: plain /today/ shows the previous day
+  // until 07:00 HKT, with a link to today's page. After that it shows today, linking yesterday.
   if (!parsed.date && model.stories.length < TODAY_INDEX_FLOOR) {
-    const yesterday = hktParts(new Date(Date.now() - 24 * 60 * 60 * 1000)).date;
+    const yesterday = hktParts(new Date(now.getTime() - 24 * 60 * 60 * 1000)).date;
     const previous = build(yesterday);
     if (previous.stories.length > model.stories.length) {
-      date = yesterday;
-      model = previous;
+      if (hour < TODAY_FALLBACK_UNTIL_HOUR) {
+        previous.notice = todayNotice('previous', today, model.stories.length);
+        date = yesterday;
+        model = previous;
+      } else {
+        model.notice = todayNotice('thin', yesterday, model.stories.length);
+      }
     }
   }
   const canonical = `${siteUrl(env)}/today/${date}/`;

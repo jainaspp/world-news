@@ -45,7 +45,7 @@ export function sourceBlob(source: QuizSource): string {
 }
 
 function compact(value: string): string {
-  return value.replace(/\s+/g, '').replace(/[，。、；：！？「」『』（）()［］\[\]\-—–·,.'"]/g, '').toLowerCase();
+  return value.replace(/\s+/g, '').replace(/[，。、；：！？「」『』（）()［］[\]\-—–·,.'"]/g, '').toLowerCase();
 }
 
 /**
