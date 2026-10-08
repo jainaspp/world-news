@@ -69,8 +69,9 @@ const MODELS_PER_CALL = 2;
 const ARTICLES_PER_TOPIC = 4;
 const TOPIC_TIMEOUT_MS = 22_000;
 /**
- * Anchored topics (施政報告, 財政預算案) rebuild from about ten pinned pages plus matched headlines:
- * one invocation, up to ~16 fetches, one Grok call with a longer answer. Runs alone in its call.
+ * Anchored topics (施政報告, 財政預算案, and a decision pinned to an official page) rebuild from
+ * their pinned pages plus matched headlines: one invocation, one Grok call with a longer answer.
+ * Runs alone in its call.
  */
 const ANCHOR_TIMEOUT_MS = 90_000;
 const ANCHOR_MAX_TOKENS = 4_000;
@@ -393,7 +394,7 @@ export async function generateTopics(
       : { maxTokens: 1_800, timeoutMs: TOPIC_TIMEOUT_MS };
     const completion = options.complete
       ? await options.complete(topic, prompt.system, prompt.user, search)
-      : await completeLive(env, topic, prompt.system, prompt.user, search, grokOk, mini, key, limits);
+      : await completeLive(env, topic, prompt.system, prompt.user, search, grokOk, mini, key, limits, anchored);
     if (!completion?.text) {
       rows.push({ slug: topic.slug, action: 'failed' });
       continue;
@@ -422,6 +423,9 @@ export async function generateTopics(
       ...(figureCap ? { figureCap } : {}),
     });
     if (anchored && stored?.publishedAt) merged.publishedAt = stored.publishedAt;
+    // The column name is a label. A grounded body is still published when the model's own title
+    // does not share enough wording with an English official page to pass the source check.
+    if (anchored && topic.anchorAsk && !merged.title) merged.title = topic.title;
     merged.sources = anchored
       ? sourcesFromItems(withText, [], ANCHOR_SOURCE_CAP)
       : sourcesFromItems(withText, stored?.sources ?? [], anchors.length ? ANCHOR_SOURCE_CAP : undefined);
@@ -501,8 +505,11 @@ async function completeLive(
   mini: string,
   key: string,
   limits: { maxTokens: number; timeoutMs: number } = { maxTokens: 1_800, timeoutMs: TOPIC_TIMEOUT_MS },
+  anchored = false,
 ): Promise<TopicCompletion | null> {
-  if (topic.desk === 'other' && mini) {
+  // A full anchored rebuild uses the long Grok draft, including desks that otherwise start on MiniMax.
+  // MiniMax's short topic path ignores that budget. Later headline updates stay on the desk's usual writer.
+  if (!anchored && topic.desk === 'other' && mini) {
     const written = await completeMiniMax(mini, system, user, TOPIC_TIMEOUT_MS);
     if (written.text && !written.quota) {
       if (grokOk && key) {
@@ -527,6 +534,12 @@ async function completeLive(
       : await completeText(key, system, user, limits.maxTokens, limits.timeoutMs);
     if (result.text) {
       return { text: result.text, input: result.input, output: result.output, searchCalls: result.searchCalls, provider: 'grok', model: GROK_MODEL };
+    }
+  }
+  if (anchored && mini) {
+    const written = await completeMiniMax(mini, system, user, limits.timeoutMs);
+    if (written.text && !written.quota) {
+      return { text: written.text, input: 0, output: 0, searchCalls: 0, provider: 'minimax', model: written.model };
     }
   }
   // No Workers AI stand-in for topic packs: its drafts used Cantonese and unsourced claims.

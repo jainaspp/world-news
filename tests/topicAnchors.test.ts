@@ -1,10 +1,11 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { BOARD_KV_KEY, computeBoard } from '../shared/board';
 import { resetKvWriteState, type ContentEnv } from '../functions/content/store';
 import { resetUsageState } from '../functions/content/usage';
 import { generateTopics, type TopicCompletion } from '../functions/content/topics';
 import { anchorText } from '../shared/articleText';
-import { parseTopicDraft, parseTopicPack, restorePunctuation, topicBySlug, topicStorageKey } from '../shared/topicPack';
+import { anchoredPrompt, parseTopicDraft, parseTopicPack, restorePunctuation, topicBySlug, topicStorageKey, TOPIC_PACKS } from '../shared/topicPack';
+import { XAI_URL } from '../shared/grok';
 import { renderTopicPage } from '../shared/topicPage';
 import type { NewsItem } from '../shared/types';
 
@@ -160,6 +161,132 @@ describe('grounding helpers', () => {
     const text = anchorText(html, 9000);
     expect(text).toContain('長者生活津貼');
     expect(text).not.toContain('選單');
+  });
+});
+
+const HOLD = '聯邦公開市場委員會在聲明中決定維持聯邦基金利率目標區間在3.75厘至4厘。經濟活動以穩健步伐擴張，通脹仍然偏高。委員會將繼續維持銀行體系準備金充裕。';
+const HOLD_TEXT = HOLD.repeat(3);
+const HOLD_DRAFT = {
+  title: '',
+  description: '聯邦公開市場委員會在聲明中決定維持聯邦基金利率目標區間在3.75厘至4厘。',
+  points: [
+    '聯邦公開市場委員會在聲明中決定維持聯邦基金利率目標區間在3.75厘至4厘。',
+    '經濟活動以穩健步伐擴張，通脹仍然偏高。',
+    '委員會將繼續維持銀行體系準備金充裕。',
+  ],
+  timeline: [{ date: '2026-09-16', text: '聯邦公開市場委員會在聲明中決定維持聯邦基金利率目標區間。' }],
+  figures: [{ area: '利率決定', label: '聯邦基金利率目標區間', value: '3.75厘至4厘' }],
+  impact: [],
+  reactions: [],
+  background: [],
+};
+const OTHER_TOPICS = TOPIC_PACKS.map((topic) => topic.slug).filter((slug) => slug !== 'us-rates');
+
+describe('us-rates anchor', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('writes the pack from pinned pages when no headline matches, and keeps the standing picture', async () => {
+    const store = memory();
+    store.rows.set(BOARD_KV_KEY, JSON.stringify(computeBoard([HEADLINE])));
+    let prompt = '';
+    const result = await generateTopics(store.env, {
+      now: MORNING,
+      force: true,
+      refresh: ['us-rates'],
+      skip: OTHER_TOPICS,
+      anchorText: async () => HOLD_TEXT,
+      complete: async (_topic, _system, user) => {
+        prompt = user;
+        return { text: JSON.stringify(HOLD_DRAFT), input: 10, output: 10, searchCalls: 0, provider: 'grok', model: 'grok-4.3' };
+      },
+    });
+    expect(result.attempted).toEqual(['us-rates']);
+    expect((result.topics as { slug: string; action: string }[])).toContainEqual({ slug: 'us-rates', action: 'updated', provider: 'grok' });
+    expect(prompt).toContain('不要把欄目名稱當成現況');
+    expect(prompt).toContain('資料寫減息、維持利率或加息，就照資料寫');
+    expect(prompt).not.toContain('16 至 24');
+    expect(prompt).not.toContain('必須寫成加息');
+    expect(prompt).toContain('Federal Reserve issues FOMC statement');
+    const saved = parseTopicPack(store.rows.get(topicStorageKey('us-rates')) ?? null)!;
+    expect(saved.title).toBe('美國加息以及全球經濟影響');
+    expect(saved.points.join('')).toContain('維持聯邦基金利率');
+    expect(saved.points.join('')).not.toContain('加息');
+    expect(saved.picture).toMatchObject({
+      url: '/topics/us-rates.jpg',
+      alt: '美國聯邦儲備局總部大樓',
+      credit: '美國聯邦儲備局，公有領域',
+    });
+    expect(saved.seenLinks).toContain('https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm');
+    const page = renderTopicPage({ topic: topicBySlug('us-rates')!, pack: saved, headlines: [], others: [] }, 'https://world-news.xyz/topic/us-rates/');
+    expect(page).toContain('src="/topics/us-rates.jpg"');
+    expect(page).toContain('維持聯邦基金利率');
+    expect(page).toContain('AI 整合');
+  });
+
+  it('does not invent an article when the pinned pages are unreachable', async () => {
+    const store = memory();
+    store.rows.set(BOARD_KV_KEY, JSON.stringify(computeBoard([HEADLINE])));
+    let calls = 0;
+    const result = await generateTopics(store.env, {
+      now: MORNING,
+      force: true,
+      refresh: ['us-rates'],
+      skip: OTHER_TOPICS,
+      anchorText: async () => '',
+      complete: async () => { calls += 1; return null; },
+    });
+    expect(calls).toBe(0);
+    expect(result.attempted).toEqual([]);
+    expect((result.topics as { slug: string; action: string }[])).toContainEqual({ slug: 'us-rates', action: 'none' });
+    expect(store.rows.has(topicStorageKey('us-rates'))).toBe(false);
+  });
+
+  it('asks Grok for the long draft instead of the short MiniMax topic path', async () => {
+    const store = memory();
+    store.env.MINIMAX_API_KEY = 'mini-key';
+    store.rows.set(BOARD_KV_KEY, JSON.stringify(computeBoard([HEADLINE])));
+    const calls: { url: string; maxTokens?: number }[] = [];
+    vi.stubGlobal('fetch', async (url: string, init?: RequestInit) => {
+      const body = JSON.parse(String(init?.body || '{}')) as { max_tokens?: number };
+      calls.push({ url: String(url), maxTokens: body.max_tokens });
+      return new Response(JSON.stringify({
+        choices: [{ message: { content: JSON.stringify(HOLD_DRAFT) } }],
+        usage: { prompt_tokens: 20, completion_tokens: 40 },
+      }), { status: 200, headers: { 'content-type': 'application/json' } });
+    });
+    const result = await generateTopics(store.env, {
+      now: MORNING,
+      force: true,
+      refresh: ['us-rates'],
+      skip: OTHER_TOPICS,
+      anchorText: async () => HOLD_TEXT,
+    });
+    expect(result.attempted).toEqual(['us-rates']);
+    expect(calls.map((call) => call.url)).toEqual([XAI_URL]);
+    expect(calls[0]?.maxTokens).toBe(4000);
+    const saved = parseTopicPack(store.rows.get(topicStorageKey('us-rates')) ?? null)!;
+    expect(saved.provider).toBe('grok');
+    expect(saved.points[0]).toContain('維持');
+  });
+
+  it('leaves the policy and budget anchored instructions unchanged', () => {
+    const policy = anchoredPrompt(topicBySlug('policy-address')!, []);
+    const budget = anchoredPrompt(topicBySlug('budget')!, []);
+    const rates = anchoredPrompt(topicBySlug('us-rates')!, []);
+    expect(policy.user).toContain('figures 列出 16 至 24 項具體措施');
+    expect(policy.user).toContain('行政長官在2026年9月16日發表《施政報告》');
+    expect(policy.user).not.toContain('聯邦公開市場委員會的最新利率決定');
+    expect(budget.user).toContain('figures 列出 16 至 24 項具體措施');
+    expect(budget.user).not.toContain('聯邦公開市場委員會的最新利率決定');
+    expect(rates.user).toContain('聯邦公開市場委員會的最新利率決定');
+    expect(rates.user).not.toContain('figures 列出 16 至 24 項具體措施');
+    expect(topicBySlug('us-rates')!.anchors?.map((anchor) => anchor.url)).toEqual([
+      'https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm',
+      'https://news.rthk.hk/rthk/ch/component/k2/1870362-20260917.htm',
+      'https://news.rthk.hk/rthk/ch/component/k2/1870390-20260917.htm',
+    ]);
   });
 });
 
