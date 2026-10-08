@@ -121,6 +121,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://world-news.xyz/topic/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://world-news.xyz/today/</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>

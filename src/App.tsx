@@ -534,6 +534,7 @@ export default function App() {
                     <a className="digest-primary" href="/digest/">{t('todayPicks', lang)}</a>
                     <a className="digest-keep" href="/briefing/">{t('hkBriefing', lang)}</a>
                     <a className="digest-keep" href="/explainer/">{t('multiCompare', lang)}</a>
+                    <a className="digest-keep" href="/topic/">{t('topicPack', lang)}</a>
                     <a href="/data/">{t('dataHub', lang)}</a>
                     <a href="/weekly/">{t('weekly', lang)}</a>
                     <a href="/analysis/">{t('hotAnalysis', lang)}</a>

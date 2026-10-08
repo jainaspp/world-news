@@ -209,3 +209,34 @@ html.dark .data-down strong, html.dark .data-down .data-delta { color: #7fd6b4; 
 @media (min-width: 700px) {
   .data-hub-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* Topic packs (/topic/). */
+.topic-jump, .topic-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.topic-jump .chip, .topic-links .chip { text-decoration: none; }
+.topic-measures { display: grid; gap: var(--space-3); }
+.topic-areas { display: grid; gap: var(--space-3); }
+.topic-area {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: var(--space-4); box-shadow: var(--shadow); border-top: 3px solid var(--accent); display: grid; gap: 8px;
+}
+.topic-area h3 { margin: 0; font-family: var(--font-serif); font-size: 1.05rem; }
+.topic-area ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.topic-figure { display: grid; gap: 2px; }
+.topic-figure strong { font-family: var(--font-serif); font-size: 1.35rem; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.topic-figure span { color: var(--muted); font-size: 0.88rem; line-height: 1.45; }
+.topic-fold {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4); box-shadow: var(--shadow);
+}
+.topic-fold summary { cursor: pointer; font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700; }
+.topic-fold .points { margin-top: 10px; }
+.topic-wires { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.topic-wires li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 8px; align-items: start; }
+.topic-wires time { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.topic-wires a { color: inherit; font-weight: 700; text-decoration: none; }
+.topic-wires a:hover { text-decoration: underline; }
+.topic-wires .source-name { display: block; color: var(--muted); font-weight: 400; font-size: 0.82rem; }
+.key-points ol { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; line-height: 1.55; }
+@media (min-width: 700px) {
+  .topic-areas { grid-template-columns: 1fr 1fr; }
+}

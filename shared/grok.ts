@@ -67,6 +67,9 @@ export interface MonthUsage {
   minimaxBriefing: number;
   minimaxCompare: number;
   minimaxFocus: number;
+  grokTopic: number;
+  workersTopic: number;
+  minimaxTopic: number;
 }
 
 export interface WrittenStory {
@@ -106,6 +109,9 @@ export interface ColumnStatus {
     minimaxBriefing: number;
     minimaxCompare: number;
     minimaxFocus: number;
+    grokTopic: number;
+    workersTopic: number;
+    minimaxTopic: number;
     total: number;
   };
 }
@@ -155,6 +161,9 @@ export function emptyUsage(month: string): MonthUsage {
     minimaxBriefing: 0,
     minimaxCompare: 0,
     minimaxFocus: 0,
+    grokTopic: 0,
+    workersTopic: 0,
+    minimaxTopic: 0,
   };
 }
 
@@ -179,6 +188,9 @@ export function parseUsage(raw: string | null, month: string): MonthUsage {
       minimaxBriefing: num(parsed.minimaxBriefing),
       minimaxCompare: num(parsed.minimaxCompare),
       minimaxFocus: num(parsed.minimaxFocus),
+      grokTopic: num(parsed.grokTopic),
+      workersTopic: num(parsed.workersTopic),
+      minimaxTopic: num(parsed.minimaxTopic),
       costUsd: roundUsd(xaiCostUsd(num(parsed.inputTokens), num(parsed.outputTokens), num(parsed.searchCalls))),
     };
   } catch {
@@ -209,12 +221,13 @@ export function withTokens(usage: MonthUsage, input: number, output: number, req
   };
 }
 
-export function withArticle(usage: MonthUsage, route: 'grok' | 'workers' | 'minimax', kind: 'briefing' | 'compare' | 'focus'): MonthUsage {
-  const key = route === 'minimax'
-    ? (kind === 'briefing' ? 'minimaxBriefing' : kind === 'compare' ? 'minimaxCompare' : 'minimaxFocus')
-    : route === 'grok'
-      ? (kind === 'briefing' ? 'grokBriefing' : kind === 'compare' ? 'grokCompare' : 'grokFocus')
-      : (kind === 'briefing' ? 'workersBriefing' : kind === 'compare' ? 'workersCompare' : 'workersFocus');
+export function withArticle(usage: MonthUsage, route: 'grok' | 'workers' | 'minimax', kind: 'briefing' | 'compare' | 'focus' | 'topic'): MonthUsage {
+  const table = {
+    grok: { briefing: 'grokBriefing', compare: 'grokCompare', focus: 'grokFocus', topic: 'grokTopic' },
+    workers: { briefing: 'workersBriefing', compare: 'workersCompare', focus: 'workersFocus', topic: 'workersTopic' },
+    minimax: { briefing: 'minimaxBriefing', compare: 'minimaxCompare', focus: 'minimaxFocus', topic: 'minimaxTopic' },
+  } as const;
+  const key = table[route][kind];
   return { ...usage, [key]: usage[key] + 1 };
 }
 
@@ -230,7 +243,8 @@ export function writerFor(input: { route?: 'grok' | 'workers'; costUsd: number; 
 
 export function statusFrom(usage: MonthUsage): ColumnStatus {
   const articles = usage.grokBriefing + usage.grokCompare + usage.workersBriefing + usage.workersCompare + usage.grokFocus + usage.workersFocus
-    + usage.minimaxBriefing + usage.minimaxCompare + usage.minimaxFocus;
+    + usage.minimaxBriefing + usage.minimaxCompare + usage.minimaxFocus
+    + usage.grokTopic + usage.workersTopic + usage.minimaxTopic;
   return {
     ok: true,
     month: usage.month,
@@ -252,6 +266,9 @@ export function statusFrom(usage: MonthUsage): ColumnStatus {
       minimaxBriefing: usage.minimaxBriefing,
       minimaxCompare: usage.minimaxCompare,
       minimaxFocus: usage.minimaxFocus,
+      grokTopic: usage.grokTopic,
+      workersTopic: usage.workersTopic,
+      minimaxTopic: usage.minimaxTopic,
       total: articles,
     },
   };

@@ -13,6 +13,7 @@ export const USAGE_FIELDS = [
   'inputTokens', 'outputTokens', 'searchCalls', 'requests',
   'grokBriefing', 'grokCompare', 'workersBriefing', 'workersCompare', 'grokFocus', 'workersFocus',
   'minimaxBriefing', 'minimaxCompare', 'minimaxFocus',
+  'grokTopic', 'workersTopic', 'minimaxTopic',
 ] as const;
 
 type Field = typeof USAGE_FIELDS[number];

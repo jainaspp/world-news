@@ -33,7 +33,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     );
   }
   return withUsageBatch(env, () => {
-    if (kind === 'briefing' || kind === 'compare' || kind === 'explainer' || kind === 'status' || kind === 'focus') return warmColumns(context);
+    if (kind === 'briefing' || kind === 'compare' || kind === 'explainer' || kind === 'status' || kind === 'focus' || kind === 'topic') return warmColumns(context);
     return warm(context);
   });
 }

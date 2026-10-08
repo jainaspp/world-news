@@ -3,6 +3,7 @@ import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import { briefingPublic, briefingScopeOf, explainerCurrent, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
 import { bestImage } from './media.js';
 import { FOOTER_LINKS } from './siteNav.js';
+import { relatedTopics } from './topicPack.js';
 
 /**
  * Server-rendered pages for the AI columns (/digest/, /weekly/, /analysis/).
@@ -255,7 +256,7 @@ export function head(title: string, description: string, canonical: string, imag
 </head>`;
 }
 
-export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today'): string {
+export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic'): string {
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
@@ -288,7 +289,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today'): 
     <div class="tab-bar">
       <nav class="filters" aria-label="欄目">
         <a class="chip" href="/">頭條</a>
-        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'today' ? ' active' : ''}" href="/today/"${active === 'today' ? ' aria-current="page"' : ''}>時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a>
+        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/"${active === 'today' ? ' aria-current="page"' : ''}>時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a>
       </nav>
     </div>
     <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"></div>
@@ -297,12 +298,15 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today'): 
   <div id="alert-slot"></div>`;
 }
 
-export function footer(): string {
+export function footer(note = true): string {
   const links = FOOTER_LINKS.map((link) => `<a href="${link.href}">${link.label}</a>`).join('');
+  const footnote = note
+    ? '<p class="ai-footnote"><span class="badge">AI 整合</span> 日報、週報、分析、導讀及懶人包由 AI 根據公開標題整理，只供參考。</p>'
+    : '';
   return `<footer class="app-footer">
       <p>世界頭條只列出標題與出處連結，不轉載內文。<a href="https://world-news.xyz">world-news.xyz</a> · <a href="/major/">重大更新</a></p>
       <nav class="footer-nav" aria-label="網站資料">${links}</nav>
-      <p class="ai-footnote"><span class="badge">AI 整合</span> 日報、週報、分析、導讀及懶人包由 AI 根據公開標題整理，只供參考。</p>
+      ${footnote}
     </footer>`;
 }
 
@@ -407,6 +411,12 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const sourceSection = listed.length
     ? `<section class="story column-block"><div class="story-body"><h2 class="column-h2">來源（${listed.length}）</h2>${sourceList(listed)}</div></section>`
     : '';
+  const topicHits = doc.kind === 'compare'
+    ? relatedTopics([doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => [block.title, ...block.sentences, ...block.sources.map((source) => source.title)])].join('\n')).slice(0, 2)
+    : [];
+  const topicLinks = topicHits.length
+    ? `<nav class="topic-links" aria-label="相關專題">${topicHits.map((topic) => `<a class="chip" href="/topic/${topic.slug}/">${esc(topic.title)}</a>`).join('')}</nav>`
+    : '';
   const explainerLinks = doc.kind === 'briefing' && options.explainers?.length
     ? `<section class="story column-block" aria-label="今日新聞懶人包"><div class="story-body"><h2 class="column-h2">今日新聞懶人包</h2><ul class="points">${options.explainers.slice(0, 8).map((entry) => `<li><a href="/explainer/${encodeURIComponent(entry.key)}/">${esc(entry.title)}</a></li>`).join('')}</ul></div></section>`
     : '';
@@ -439,6 +449,7 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
       ${note}
       ${empty}
       ${pointsBox || highlight ? `<div class="column-boxes">${pointsBox}${highlight}</div>` : ''}
+      ${topicLinks}
       ${explainerTimeline}
       ${angles}
       ${blocks}

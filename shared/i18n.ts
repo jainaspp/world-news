@@ -34,6 +34,7 @@ const LABELS = {
   hkBriefing: { 'zh-HK': '每日香港導讀', 'zh-CN': '每日香港导读', en: 'HK briefing' },
   dataHub: { 'zh-HK': '數據', 'zh-CN': '数据', en: 'Data' },
   multiCompare: { 'zh-HK': '新聞懶人包', 'zh-CN': '新闻懒人包', en: 'Explainers' },
+  topicPack: { 'zh-HK': '專題懶人包', 'zh-CN': '专题懒人包', en: 'Topics' },
   keywords: { 'zh-HK': '標題熱詞', 'zh-CN': '标题热词', en: 'Keywords' },
   multiCoverage: { 'zh-HK': '多方報道', 'zh-CN': '多方报道', en: 'Coverage' },
   layout: { 'zh-HK': '版面', 'zh-CN': '版面', en: 'Layout' },
