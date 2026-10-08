@@ -52,7 +52,7 @@ const bbc = 'https://feeds.bbci.co.uk';
  * keep the shard count under 40 so that stays inside the 50-subrequest cap,
  * with room for a cache read. A redirect is followed inside the shard.
  */
-export const SHARD_COUNT = 26;
+export const SHARD_COUNT = 25;
 export const FEEDS_PER_SHARD = 2;
 
 export function shardIndex(part: string | null | undefined): number | null {
@@ -81,14 +81,12 @@ export const FEEDS: Feed[] = [
   { id: 'rthk-china', label: '港台大中華', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_greaterchina.xml`, regions: ['HKG'], terms: 'uncertain', category: 'china' },
   { id: 'rthk-en-china', label: '港台英文大中華', homepage: 'https://news.rthk.hk', url: `${rthk}/e_expressnews_egreaterchina.xml`, regions: ['HKG'], terms: 'uncertain', category: 'china' },
   { id: 'bbc-zh', label: 'BBC 中文', homepage: 'https://www.bbc.com/zhongwen/trad', url: `${bbc}/zhongwen/trad/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'china' },
-  { id: 'cna-china', label: 'CNA 兩岸', homepage: 'https://www.cna.com.tw', url: 'https://feeds.feedburner.com/rsscna/mainland', regions: ['TWN'], terms: 'uncertain', category: 'china' },
   { id: 'guardian-china', label: 'Guardian 中國', homepage: 'https://www.theguardian.com/world/china', url: 'https://www.theguardian.com/world/china/rss', regions: ['ASI'], terms: 'uncertain', category: 'china' },
   { id: 'icable-china', label: '有線中國', homepage: 'https://www.i-cable.com', url: 'https://www.i-cable.com/category/%E6%96%B0%E8%81%9E%E8%B3%87%E8%A8%8A/%E4%B8%AD%E5%9C%8B%E5%9C%A8%E7%B7%9A/feed/', regions: ['HKG'], terms: 'uncertain', category: 'china' },
   { id: 'stheadline-china', label: '星島中國', homepage: 'https://www.stheadline.com/realtime-china', url: 'https://www.stheadline.com/rss', regions: ['HKG'], terms: 'uncertain', category: 'china', includePaths: ['/realtime-china/', '/china-topics/', '/china-politics/', '/china-taiwan/', '/china/'] },
   { id: 'chinanews', label: '中新網', homepage: 'https://www.chinanews.com.cn', url: 'https://www.chinanews.com.cn/rss/china.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
   { id: 'rfa-zh', label: '自由亞洲', homepage: 'https://www.rfa.org/mandarin', url: 'https://www.rfa.org/arc/outboundfeeds/mandarin/rss/', regions: ['INT'], terms: 'uncertain', category: 'china' },
   { id: 'sixthtone', label: 'Sixth Tone', homepage: 'https://www.sixthtone.com', url: 'https://api.sixthtone.com/cont/output/rssApi', regions: ['ASI'], terms: 'uncertain', category: 'china' },
-  { id: 'cna', label: 'CNA', homepage: 'https://www.cna.com.tw', url: 'https://feeds.feedburner.com/rsscna/intworld', regions: ['TWN'], terms: 'uncertain', category: 'asia' },
   { id: 'nhk', label: 'NHK', homepage: 'https://www3.nhk.or.jp/nhkworld/', url: 'https://news.web.nhk/n-data/conf/na/rss/cat0.xml', regions: ['JPN'], terms: 'uncertain', category: 'asia' },
   { id: 'yonhap', label: 'Yonhap', homepage: 'https://en.yna.co.kr', url: 'https://en.yna.co.kr/RSS/news.xml', regions: ['KOR'], terms: 'uncertain', category: 'asia' },
   { id: 'bbc-asia', label: 'BBC 亞洲', homepage: 'https://www.bbc.com/news', url: `${bbc}/news/world/asia/rss.xml`, regions: ['ASI'], terms: 'uncertain', category: 'asia' },
@@ -132,4 +130,17 @@ export function sourcesForRegion(region: string): string[] {
     (feed) => feed.label,
   );
   return [...new Set(labels)];
+}
+
+/**
+ * Outlets taken off the Taiwan page. They are no longer fetched.
+ * A cached headline from one of them stays off that page. Other headlines stay.
+ * Hong Kong and mainland outlets are not in this set.
+ */
+const REMOVED_TAIWAN_SOURCES = new Set(['CNA', 'CNA 兩岸']);
+
+export function removedFromTaiwanPage(item: { source: string; sourceUrl?: string; link?: string }): boolean {
+  if (REMOVED_TAIWAN_SOURCES.has(item.source.trim())) return true;
+  const href = `${item.sourceUrl ?? ''} ${item.link ?? ''}`;
+  return /(?:^|\/\/)(?:www\.)?cna\.com\.tw(?=$|[/?#\s])/i.test(href);
 }
