@@ -213,10 +213,40 @@ describe('topic generation writes', () => {
     expect(saved?.figures.some((row) => row.value.includes('90000'))).toBe(false);
     expect(saved?.timeline.map((row) => row.date)).toEqual(['2026-10-07']);
     expect(saved?.seenLinks).toContain('https://example.com/a');
+    expect(saved?.picture?.url).toBe('/topics/policy-address.jpg');
+    expect(saved?.picture?.credit).toContain('Tksteven');
     const second = await run();
     expect(second.puts).toBe(0);
     expect(searches).toEqual([false]);
     expect(store.puts.filter((key) => key.startsWith('topic:'))).toHaveLength(1);
+  });
+
+  it('uses a free source image and does not publish a pack that still has no picture', async () => {
+    const store = memory();
+    const sourceImage = 'https://upload.wikimedia.org/wikipedia/commons/1/11/Example.jpg';
+    seed(store.rows, [
+      item({ id: 'a', title: '行政長官發表施政報告', link: 'https://example.com/a', image: sourceImage }),
+      item({ id: 'p', title: '樓市成交回升', link: 'https://example.com/p' }),
+    ]);
+    const called: string[] = [];
+    let lookups = 0;
+    await generateTopics(store.env, {
+      now: MORNING,
+      anchorText: async () => '',
+      articleText: async () => EXCERPT,
+      pictureLookup: async () => {
+        lookups += 1;
+        return null;
+      },
+      complete: async (topic) => {
+        called.push(topic.slug);
+        return completion(false);
+      },
+    });
+    expect(called).toEqual(['policy-address']);
+    expect(lookups).toBe(1);
+    expect(parseTopicPack(store.rows.get(topicStorageKey('policy-address')) ?? null)?.picture?.url).toBe(sourceImage);
+    expect(store.rows.has(topicStorageKey('property'))).toBe(false);
   });
 
   it('appends a later date instead of replacing the timeline', async () => {
@@ -388,6 +418,13 @@ describe('topic pages', () => {
       others: cards.map((card) => ({ slug: card.topic.slug, title: card.topic.title, description: card.description })),
     }, 'https://world-news.xyz/topic/policy-address/');
     expect(page).toContain('AI 整合');
+    expect(page).toContain('src="/topics/policy-address.jpg"');
+    expect(page).toContain('alt="香港立法會綜合大樓會議廳"');
+    expect(page).toContain('圖片：Tksteven，維基共享資源（CC BY-SA 3.0）');
+    expect(page).not.toContain('編者按');
+    expect(index).toContain('src="/topics/policy-address.jpg"');
+    expect(index).toContain('src="/topics/us-rates.jpg"');
+    expect(index).not.toContain('/topics/property.jpg');
     expect(page).toContain('class="timeline"');
     expect(page).toContain('class="topic-figure"');
     expect(page).toContain('房屋');

@@ -7,6 +7,7 @@ import {
   type MajorEntry,
   type StoryCluster,
 } from './angles.js';
+import { imageAllowed } from './topicImage.js';
 import type { NewsItem } from './types.js';
 
 /** Newest headlines a request may cluster if the precomputed board is missing. */
@@ -24,6 +25,8 @@ export interface BoardHeadline {
   source: string;
   pubDate: string;
   category?: NewsItem['category'];
+  /** Kept only when the URL is one we may show (our file, Wikimedia, or another free host). */
+  image?: string;
 }
 
 /** Precomputed clusters, major timeline, and slim headlines. Written by `/api/board`. */
@@ -70,6 +73,7 @@ export function computeBoard(items: NewsItem[], now = Date.now()): BoardSnapshot
       source: item.source,
       pubDate: item.pubDate,
       ...(item.category ? { category: item.category } : {}),
+      ...(item.image && imageAllowed(item.image) ? { image: item.image } : {}),
     })),
   };
 }
@@ -102,6 +106,7 @@ function headlineItem(row: BoardHeadline): NewsItem {
     regions: [],
     pubDate: row.pubDate,
     category: row.category,
+    ...(row.image ? { image: row.image } : {}),
   };
 }
 

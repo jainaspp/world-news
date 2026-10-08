@@ -30,7 +30,9 @@ import {
   type TopicAnchor,
   type TopicConfig,
   type TopicPack,
+  type TopicPicture,
 } from '../../shared/topicPack.js';
+import { findFreeTopicPicture, resolveTopicPicture, validPicture } from '../../shared/topicImage.js';
 import {
   callCostUsd,
   GROK_MODEL,
@@ -98,6 +100,8 @@ export interface TopicGenerateOptions {
   articleText?: (url: string) => Promise<string>;
   /** Tests: text of a pinned source instead of fetching it. */
   anchorText?: (url: string) => Promise<string>;
+  /** Tests: stand in for the Commons lookup used when a topic has no free source photo and no standing slot. */
+  pictureLookup?: (topic: TopicConfig) => Promise<TopicPicture | null>;
 }
 
 interface TopicRow {
@@ -277,6 +281,23 @@ async function readPack(env: ContentEnv, slug: string): Promise<TopicPack | null
   return parseTopicPack(await readValue(env, topicStorageKey(slug)).catch(() => null));
 }
 
+/** Source photo, then the stored picture, then the standing slot, then a Commons lookup. */
+async function ensureTopicPicture(
+  topic: TopicConfig,
+  items: NewsItem[],
+  stored: TopicPicture | undefined,
+  lookup?: (topic: TopicConfig) => Promise<TopicPicture | null>,
+): Promise<TopicPicture | null> {
+  const resolved = resolveTopicPicture(topic, items, stored);
+  if (resolved) return resolved;
+  try {
+    const found = lookup ? await lookup(topic) : await findFreeTopicPicture(topic.title);
+    return found && validPicture(found) ? found : null;
+  } catch {
+    return null;
+  }
+}
+
 function stampLinks(pack: TopicPack, links: string[]): TopicPack {
   const seenLinks = [...new Set(links.filter(Boolean))].slice(0, 200);
   return { ...pack, seenLinks };
@@ -355,6 +376,11 @@ export async function generateTopics(
       continue;
     }
     const withText = [...pinned, ...headlines];
+    const picture = await ensureTopicPicture(topic, withText, stored?.picture, options.pictureLookup);
+    if (!picture) {
+      rows.push({ slug: topic.slug, action: 'failed' });
+      continue;
+    }
     const corpus = topicCorpus(withText);
     const thin = corpus.replace(/\s/g, '').length < 200;
     const grokOk = Boolean(key) && spent < XAI_MONTHLY_CAP_USD;
@@ -406,7 +432,7 @@ export async function generateTopics(
       rows.push({ slug: topic.slug, action: 'failed', provider: completion.provider });
       continue;
     }
-    const next = stampLinks(chosen, links);
+    const next = stampLinks({ ...chosen, picture }, links);
     if (stored && chosen === stored) next.updatedAt = stored.updatedAt;
     const wrote = await putTopic(env, next);
     if (wrote === 'limited') {

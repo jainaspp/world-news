@@ -24,6 +24,11 @@ export interface TopicConfig {
   anchors?: readonly TopicAnchor[];
   /** Extra section for anchored packs, e.g. the five-year plan in brief. */
   background?: { label: string; ask: string };
+  /**
+   * Standing instruction for the model. Not shown on the page.
+   * Use it when the column title must not be treated as the current fact.
+   */
+  note?: string;
 }
 
 export interface TopicAnchor {
@@ -137,6 +142,16 @@ export const TOPIC_PACKS: readonly TopicConfig[] = [
     keywords: ['加沙', '以色列', '伊朗', '中東'],
     areas: ['事態', '外交'],
   },
+  {
+    slug: 'us-rates',
+    title: '美國加息以及全球經濟影響',
+    blurb: '美國聯邦儲備局的利率決定，以及對各地經濟的影響。',
+    desk: 'other',
+    category: 'business',
+    keywords: ['聯儲局', '聯邦儲備局', '聯邦基金利率', '美國 加息', '美國 減息', '美國 議息', 'FOMC'],
+    areas: ['利率決定', '美國經濟', '全球影響'],
+    note: '欄目名稱是「美國加息以及全球經濟影響」，只是題目。正文只可照資料寫最新的利率決定：資料寫減息、維持利率或加息，就照資料寫，不要把欄目名稱當成現況。',
+  },
 ] as const;
 
 export interface TopicFigure {
@@ -148,6 +163,15 @@ export interface TopicFigure {
 export interface TopicEvent {
   date: string;
   text: string;
+}
+
+/** One picture for the explainer. url is a self-hosted path or an https URL we are allowed to show. */
+export interface TopicPicture {
+  url: string;
+  alt: string;
+  /** Who the picture is from, without the 「圖片：」 prefix. */
+  credit: string;
+  sourceUrl: string;
 }
 
 export interface TopicPack {
@@ -162,6 +186,8 @@ export interface TopicPack {
   /** Anchored packs only: the extra section named by TopicConfig.background. */
   background?: string[];
   sources: SourceRef[];
+  /** Hero picture. Missing on packs saved before pictures were required; the page then uses the standing slot. */
+  picture?: TopicPicture;
   /** Feed links already folded into this pack. New links are the only reason to call a model. */
   seenLinks: string[];
   publishedAt: string;
@@ -574,6 +600,7 @@ export function anchoredPrompt(topic: TopicConfig, items: NewsItem[]): { system:
   }));
   const user = [
     `專題：${topic.title}`,
+    topic.note ?? '',
     `title 寫一句 12 至 22 字的新聞標題，必須包含「${topic.title}」，不要加「專題：」。description 一句完整的新聞句子，60 字以內。`,
     'points 寫三句完整的新聞句子，每句 30 至 50 字：第一句寫誰在哪一日發表、主題是甚麼；第二句寫最重要的措施；第三句寫與市民最相關的改變。',
     'timeline 逐篇檢查資料（已按日期由舊到新排列）：每一篇的 date 欄和正文寫明的日期都是一個階段，例如公眾諮詢展開、發表、答問會、立法會辯論、表決或通過。資料有多少個不同日期的階段就列多少項（通常四項以上），按日期排列；date 是 YYYY-MM-DD，必須是資料寫明的日期。資料的 date 欄是發稿日期；正文寫明事情在另一日發生（例如「將於下星期一（六月二十九日）展開」）時，用正文的日期。同一件事只列一次（例如公布諮詢安排和諮詢展開是同一件事，列在展開那一日）。text 一句，寫清楚那一日發生甚麼。',
@@ -620,6 +647,7 @@ export function topicPrompt(topic: TopicConfig, items: NewsItem[], previous: Top
     : null;
   const user = [
     `專題：${topic.title}`,
+    topic.note ?? '',
     `數字只可歸入這些欄：${areas}。沒有數字就不要輸出該欄。`,
     `title 寫一句 12 至 22 字，不要用空格分隔。points 寫三句，每句 40 字以內，概括目前發生了甚麼。points 和 timeline 只寫與「${topic.title}」直接相關的事；同一摘錄裡的其他新聞（例如採訪日誌列出的其他活動）一律略過。`,
     '引述官員或議員的話時保留原文的逗號。',

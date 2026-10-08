@@ -694,6 +694,7 @@ export function materialFromBoard(snapshot: BoardSnapshot | null): { items: News
     regions: [],
     pubDate: row.pubDate,
     ...(row.category ? { category: row.category } : {}),
+    ...(row.image ? { image: row.image } : {}),
   }));
   const byId = new Map(items.map((item) => [item.id, item]));
   const clusters = clustersFromSnapshot(snapshot).map((cluster) => {
