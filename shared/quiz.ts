@@ -116,7 +116,7 @@ export function quizPrompt(sources: QuizSource[]): { system: string; user: strin
     user: `根據下列標題與短述，出 ${QUIZ_MAX} 題單選題。只輸出 JSON，不要解釋。
 格式：{"questions":[{"prompt":"問題","choices":["選項一","選項二","選項三","選項四"],"answer":"與其中一個選項完全相同","sourceTitle":"與某一則標題完全相同"}]}
 規則：
-- 問題要問該則新聞裡具體的人物、地點、機構、數字或事件，用「甚麼」「哪」「多少」等問法。
+- 問題要問該則新聞裡具體的人物、地點、機構、數字或事件，用「甚麼」「哪」「多少」等問法，寫成通順的完整問句，以「？」結尾，不要加入標題沒有的因果。
 - 每題四個互不相同的選項，選項之間不可互相包含。
 - 三個錯誤選項取自其他標題裡同一類的字詞（例如其他新聞的人物、地點或機構），不可取自同一則標題或短述。
 - 數字題的錯誤選項必須是其他具體數字，不可用「多人」「數人」「若干」等模糊說法。
@@ -164,7 +164,8 @@ export function acceptQuiz(payload: unknown, sources: QuizSource[]): QuizQuestio
   for (const row of rows) {
     if (!row || typeof row !== 'object') continue;
     const record = row as Record<string, unknown>;
-    const prompt = clean(record.prompt);
+    const asked = clean(record.prompt);
+    const prompt = asked && !/[？?。！]$/.test(asked) ? `${asked}？` : asked.replace(/\?$/, '？');
     const sourceTitle = clean(record.sourceTitle);
     const source = byTitle.get(sourceTitle);
     const choices = Array.isArray(record.choices) ? record.choices.map(clean).filter(Boolean) : [];

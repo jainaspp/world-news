@@ -13,7 +13,8 @@ function parseQuizDoc(raw: string | null): QuizDoc | null {
     const questions = parsed.questions.filter((row) => Array.isArray(row?.choices)
       && typeof row.answer === 'string'
       && choicesSound(row.choices, row.answer, String(row.sourceTitle ?? '')));
-    return questions.length >= 3 ? { ...parsed, questions } : null;
+    const asked = questions.map((row) => ({ ...row, prompt: /[？?。！]$/.test(row.prompt) ? row.prompt : `${row.prompt}？` }));
+    return asked.length >= 3 ? { ...parsed, questions: asked } : null;
   } catch {
     return null;
   }
