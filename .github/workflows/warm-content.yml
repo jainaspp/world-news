@@ -78,12 +78,12 @@ jobs:
             cat "$body"
             echo
             parsed=$(python3 -c 'import json,sys
-try:
-    data=json.load(open(sys.argv[1], encoding="utf-8"))
-except Exception:
-    data={}
-keys=",".join(str(key) for key in (data.get("keys") or []))
-print(keys + "\t" + str(data.get("skipped") or ""))' "$body")
+          try:
+              data=json.load(open(sys.argv[1], encoding="utf-8"))
+          except Exception:
+              data={}
+          keys=",".join(str(key) for key in (data.get("keys") or []))
+          print(keys + "\t" + str(data.get("skipped") or ""))' "$body")
             keys="${parsed%%$'\t'*}"
             skipped="${parsed#*$'\t'}"
             if [ "$code" -ge 200 ] && [ "$code" -lt 300 ] && ! grep -q '"fallback":true' "$body"; then
