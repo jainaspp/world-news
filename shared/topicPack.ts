@@ -214,7 +214,8 @@ function narrativeOf(pack: Pick<TopicPack, 'points' | 'timeline' | 'impact' | 'r
 
 /** A pack worth indexing. Thin or still-Cantonese text stays off the sitemap. */
 export function topicPublic(pack: TopicPack): boolean {
-  if (pack.mode !== 'ai') return false;
+  // Workers AI drafts are not shown (Cantonese wording and unsourced claims in testing).
+  if (pack.mode !== 'ai' || pack.provider === 'workers-ai') return false;
   if (!hasChinese(pack.title) || pack.points.length < 2) return false;
   if (!pack.timeline.length && !pack.figures.length) return false;
   const prose = narrativeOf(pack);

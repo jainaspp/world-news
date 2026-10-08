@@ -408,9 +408,11 @@ async function completeLive(
       return { text: result.text, input: result.input, output: result.output, searchCalls: result.searchCalls, provider: 'grok', model: GROK_MODEL };
     }
   }
-  const fallback = await workersText(env, system, user);
-  if (!fallback) return null;
-  return { text: fallback, input: 0, output: 0, searchCalls: 0, provider: 'workers-ai', model: AI_MODEL };
+  // No Workers AI stand-in for topic packs: its drafts used Cantonese and unsourced claims.
+  // A topic without a Grok or MiniMax draft keeps its last version or shows headlines only.
+  void workersText;
+  void env;
+  return null;
 }
 
 function verifySystem(): string {

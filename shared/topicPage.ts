@@ -85,16 +85,16 @@ function headlineList(items: NewsItem[]): string {
 
 function packBody(model: TopicPageModel): string {
   const { topic, pack } = model;
-  if (!pack || pack.mode !== 'ai') return headlineList(model.headlines);
+  if (!pack || pack.mode !== 'ai' || pack.provider === 'workers-ai') return headlineList(model.headlines);
   const points = pack.points.slice(0, 3);
   // Policy topics list measures; the others list key numbers (a death toll is not a measure).
   const figuresHeading = topic.slug === 'policy-address' || topic.slug === 'budget' ? '主要措施' : '重要數字';
   const pointsBox = points.length > 1
-    ? `<section class="key-points" id="summary" aria-label="重點"><h2>重點</h2><ol>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ol></section>`
+    ? `<section class="key-points" id="summary" aria-label="重點"><h2>重點</h2><ol>${points.map((point) => `<li>${esc(endLine(point))}</li>`).join('')}</ol></section>`
     : '';
   const events = pack.timeline;
   const timeline = events.length
-    ? `<section class="story column-block timeline-card" id="timeline" aria-label="時間線"><div class="story-body"><h2 class="column-h2">時間線</h2><ol class="timeline">${events.map((row) => `<li><time datetime="${esc(row.date)}">${esc(zhDate(row.date))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body">${esc(row.text)}</span></li>`).join('')}</ol></div></section>`
+    ? `<section class="story column-block timeline-card" id="timeline" aria-label="時間線"><div class="story-body"><h2 class="column-h2">時間線</h2><ol class="timeline">${events.map((row) => `<li><time datetime="${esc(row.date)}">${esc(zhDate(row.date))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body">${esc(endLine(row.text))}</span></li>`).join('')}</ol></div></section>`
     : '';
   const groups = figureGroups(pack.figures, topic.areas);
   const figures = groups.length
@@ -104,7 +104,7 @@ function packBody(model: TopicPageModel): string {
   const sources = pack.sources.length
     ? `<section class="story column-block" id="sources"><div class="story-body"><h2 class="column-h2">來源（${pack.sources.length}）</h2>${sourceList(pack.sources)}</div></section>`
     : '';
-  return `${pointsBox}${nav}${timeline}${figures}${fold('impact', '對市民的影響', pack.impact)}${fold('reactions', '各方反應', pack.reactions)}${headlineList(model.headlines)}${sources}`;
+  return `${pointsBox}${nav}${timeline}${figures}${fold('impact', '對市民的影響', pack.impact.map(endLine))}${fold('reactions', '各方反應', pack.reactions.map(endLine))}${headlineList(model.headlines)}${sources}`;
 }
 
 function sideList(model: TopicPageModel): string {
@@ -113,11 +113,27 @@ function sideList(model: TopicPageModel): string {
   return `<section class="side-card archive" aria-label="其他專題"><h2>其他專題</h2><ol>${rows.map((row) => `<li><a href="/topic/${esc(row.slug)}/">${esc(row.title)}</a><span>${esc(row.description)}</span></li>`).join('')}</ol><a class="read-original" href="/topic/">全部專題 →</a></section>`;
 }
 
+/**
+ * The model title is shown only when it names the topic (its title or a keyword). Otherwise it is
+ * usually two stories run together (e.g. 「陳曼琪倡修例規管AI風險江蘇AI課程」) and the topic name reads better.
+ */
+export function displayTitle(model: string | undefined, topic: { title: string; keywords: readonly string[] }): string {
+  const title = (model || '').trim();
+  if (!title) return topic.title;
+  const names = [topic.title, ...topic.keywords.filter((keyword) => !/\s/.test(keyword))];
+  return names.some((name) => title.toLowerCase().includes(name.toLowerCase())) ? title : topic.title;
+}
+
+/** Stored lines from before the full-stop rule get one at render time. */
+function endLine(line: string): string {
+  return /[。！？」』）)]$/.test(line) ? line : `${line}。`;
+}
+
 /** One evergreen topic. Live headlines come from the feed; the pack is the last saved version. */
 export function renderTopicPage(model: TopicPageModel, canonical: string, ads?: AdConfig): string {
   const { topic, pack } = model;
-  const shown = pack && pack.mode === 'ai' ? pack : null;
-  const title = shown?.title || topic.title;
+  const shown = pack && pack.mode === 'ai' && pack.provider !== 'workers-ai' ? pack : null;
+  const title = displayTitle(shown?.title, topic);
   const shownDescription = shown?.description && !shown.description.includes('\uFFFD') ? shown.description : '';
   const description = (shownDescription || topic.blurb).slice(0, 180);
   const image = safeHttp(shown?.sources.find((source) => source.image)?.image);

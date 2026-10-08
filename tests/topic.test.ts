@@ -289,7 +289,7 @@ describe('topic generation writes', () => {
     expect(topics.find((row) => row.slug === 'budget')?.action).toBe('deferred');
   });
 
-  it('searches only when the fetched text is thin, and uses Workers AI without a Grok key', async () => {
+  it('searches only when the fetched text is thin, and never falls back to Workers AI', async () => {
     const thin = memory();
     seed(thin.rows, [item({ id: 'a', title: '行政長官發表施政報告', link: 'https://example.com/a' })]);
     let searched = false;
@@ -311,8 +311,8 @@ describe('topic generation writes', () => {
       now: MORNING,
       articleText: async () => EXCERPT,
     });
-    expect(result.puts).toBe(1);
-    expect(parseTopicPack(workers.rows.get(topicStorageKey('policy-address')) ?? null)?.provider).toBe('workers-ai');
+    expect(result.puts).toBe(0);
+    expect(workers.rows.get(topicStorageKey('policy-address'))).toBeUndefined();
     expect(workers.puts.some((key) => key.startsWith('article'))).toBe(false);
   });
 
@@ -454,3 +454,13 @@ function samplePack(): TopicPack {
     model: 'grok-4.3',
   };
 }
+
+describe('topic display rules', () => {
+  it('falls back to the topic name for a long unpunctuated model title', async () => {
+    const { displayTitle } = await import('../shared/topicPage');
+    expect(displayTitle('陳曼琪倡修例規管AI風險江蘇AI課程', topicBySlug('ai')!)).toBe('人工智能');
+    expect(displayTitle('立法會續合併辯論五年規劃及施政報告', topicBySlug('policy-address')!)).toBe('立法會續合併辯論五年規劃及施政報告');
+    expect(displayTitle('國慶期間內地樓市表現良好', topicBySlug('property')!)).toBe('國慶期間內地樓市表現良好');
+    expect(displayTitle('', topicBySlug('property')!)).toBe('樓市');
+  });
+});
