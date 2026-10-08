@@ -1,6 +1,6 @@
 import { CATEGORY_IDS, type CategoryId } from '../shared/categories.js';
 import { FEEDS, type Feed } from '../shared/feeds.js';
-import { dedupeNews, parseFeed, parseNowFeed } from '../shared/rss.js';
+import { dedupeNews, parseFeed, parseHk01Feed, parseNowFeed } from '../shared/rss.js';
 import type { FeedErrorSource, NewsItem } from '../shared/types';
 
 const BROWSER_HEADERS = {
@@ -124,6 +124,11 @@ async function fetchOne(
     const text = await response.text();
     if (feed.format === 'now') {
       const items = parseNowFeed(text, feed);
+      if (!items.length) return fail('empty');
+      return { items };
+    }
+    if (feed.format === 'hk01') {
+      const items = parseHk01Feed(text, feed);
       if (!items.length) return fail('empty');
       return { items };
     }

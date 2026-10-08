@@ -63,6 +63,17 @@ describe('loadFeeds', () => {
     expect(errorSources).toEqual([{ source: 'B', reason: 'subrequests' }]);
   });
 
+  it('reads a 香港01 JSON feed', async () => {
+    const hk01: Feed = { ...feeds[0]!, format: 'hk01' };
+    const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
+      items: [{ data: { title: '港聞一則', canonicalUrl: 'https://www.hk01.com/a', publishTime: Date.parse('2026-10-06T02:00:00Z') / 1000, description: '摘要' } }],
+    })));
+    const { items, errors } = await loadFeeds([hk01], fetchImpl as unknown as typeof fetch, Date.parse('2026-10-06T12:00:00Z'));
+    expect(errors).toBe(0);
+    expect(items[0]?.link).toBe('https://www.hk01.com/a');
+    expect(items[0]?.title).toBe('港聞一則');
+  });
+
   it('reads a Now 新聞 JSON feed', async () => {
     const nowFeed: Feed = { ...feeds[0]!, format: 'now' };
     const fetchImpl = vi.fn(async () => new Response(JSON.stringify([{

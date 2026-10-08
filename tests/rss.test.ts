@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Feed } from '../shared/feeds';
-import { dedupeNews, normalizeLink, parseFeed, parseNowFeed } from '../shared/rss';
+import { dedupeNews, normalizeLink, parseFeed, parseHk01Feed, parseNowFeed } from '../shared/rss';
 import { filterNews } from '../shared/filter';
 import type { NewsItem } from '../shared/types';
 
@@ -95,6 +95,16 @@ describe('rss parse and dedupe', () => {
     });
   });
 
+  it('keeps only the named RSS categories', () => {
+    const section: Feed = { ...feed, includeCategories: ['社會事'] };
+    const xml = `<rss><channel>
+      <item><title>法庭覆核</title><category><![CDATA[社會事]]></category><link>https://example.com/local</link><pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate></item>
+      <item><title>太空人返回</title><category>大視野</category><link>https://example.com/world</link><pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate></item>
+    </channel></rss>`;
+    const items = parseFeed(xml, section);
+    expect(items.map((row) => row.title)).toEqual(['法庭覆核']);
+  });
+
   it('reads the Now 新聞 JSON list', () => {
     const items = parseNowFeed(JSON.stringify([{
       newsId: '664987',
@@ -109,6 +119,23 @@ describe('rss parse and dedupe', () => {
       image: 'https://cdn.example.com/now.jpg',
       excerpt: '情況嚴重',
       pubDate: '2026-10-06T02:00:00.000Z',
+    });
+  });
+
+  it('reads the 香港01 zone JSON list', () => {
+    const items = parseHk01Feed(JSON.stringify({
+      items: [
+        { data: { title: '屯門女童', canonicalUrl: 'https://www.hk01.com/突發/1/屯門', publishTime: 1791465205, description: '<p>情況嚴重</p>', mainImage: { cdnUrl: 'https://cdn.hk01.com/a.jpg' }, isSponsored: 0 } },
+        { data: { title: '贊助', canonicalUrl: 'https://www.hk01.com/ad', publishTime: 1791465205, isSponsored: 1 } },
+      ],
+    }), feed);
+    expect(items).toHaveLength(1);
+    expect(items[0]).toMatchObject({
+      title: '屯門女童',
+      link: 'https://www.hk01.com/%E7%AA%81%E7%99%BC/1/%E5%B1%AF%E9%96%80',
+      image: 'https://cdn.hk01.com/a.jpg',
+      excerpt: '情況嚴重',
+      pubDate: '2026-10-08T13:13:25.000Z',
     });
   });
 
