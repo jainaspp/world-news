@@ -1,5 +1,6 @@
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
 import {
+  anchorText,
   ARTICLE_CHARS,
   ARTICLE_CHARS_LONG,
   blockedOutlet,
@@ -10,6 +11,8 @@ import {
 import { AI_MODEL, textFromAi } from '../../shared/content.js';
 import { renderTopicIndex, renderTopicPage, topicIndexCards, type TopicIndexCard } from '../../shared/topicPage.js';
 import {
+  anchoredPrompt,
+  ANCHORED_FIGURE_CAP,
   applyTopicUpdate,
   keepStoredTopic,
   matchTopicItems,
@@ -24,6 +27,7 @@ import {
   TOPIC_PACKS,
   topicStorageKey,
   topicWarmWindow,
+  type TopicAnchor,
   type TopicConfig,
   type TopicPack,
 } from '../../shared/topicPack.js';
@@ -62,6 +66,16 @@ const DEADLINE_MS = 70_000;
 const MODELS_PER_CALL = 2;
 const ARTICLES_PER_TOPIC = 4;
 const TOPIC_TIMEOUT_MS = 22_000;
+/**
+ * Anchored topics (施政報告, 財政預算案) rebuild from about ten pinned pages plus matched headlines:
+ * one invocation, up to ~16 fetches, one Grok call with a longer answer. Runs alone in its call.
+ */
+const ANCHOR_TIMEOUT_MS = 90_000;
+const ANCHOR_MAX_TOKENS = 4_000;
+const ANCHOR_CHARS = 9_000;
+const ANCHOR_TTL_SECONDS = 7 * 24 * 60 * 60;
+const ANCHOR_FETCH_MS = 8_000;
+const ANCHOR_SOURCE_CAP = 16;
 
 export interface TopicCompletion {
   text: string;
@@ -82,6 +96,8 @@ export interface TopicGenerateOptions {
   now?: Date;
   complete?: (topic: TopicConfig, system: string, user: string, search: boolean) => Promise<TopicCompletion | null>;
   articleText?: (url: string) => Promise<string>;
+  /** Tests: text of a pinned source instead of fetching it. */
+  anchorText?: (url: string) => Promise<string>;
 }
 
 interface TopicRow {
@@ -163,6 +179,58 @@ async function loadArticle(env: ContentEnv, url: string, fetchImpl: typeof fetch
   } catch {
     return '';
   }
+}
+
+function anchorRequest(url: string): Request {
+  return new Request(`https://world-news.xyz/topic-anchor/v1/${stableId(url)}`);
+}
+
+/** Text of a pinned source: Cache API first (7 days), else fetched once. Never written to KV. */
+async function loadAnchor(url: string): Promise<string> {
+  const cache = edgeCache();
+  try {
+    const hit = cache ? await cache.match(anchorRequest(url)) : undefined;
+    if (hit) return await hit.text();
+  } catch {
+    /* miss */
+  }
+  try {
+    const response = await fetch(url, {
+      redirect: 'follow',
+      signal: AbortSignal.timeout(ANCHOR_FETCH_MS),
+      headers: { 'user-agent': 'world-news.xyz article fetch', accept: 'text/html' },
+    });
+    if (!response.ok) return '';
+    const text = anchorText((await response.text()).slice(0, RAW_HTML_CAP), ANCHOR_CHARS);
+    if (text && cache) {
+      await cache.put(
+        anchorRequest(url),
+        new Response(text, { headers: { 'content-type': 'text/plain; charset=utf-8', 'cache-control': `public, max-age=${ANCHOR_TTL_SECONDS}` } }),
+      ).catch(() => undefined);
+    }
+    return text;
+  } catch {
+    return '';
+  }
+}
+
+async function anchorItems(anchors: readonly TopicAnchor[], load: (url: string) => Promise<string>): Promise<NewsItem[]> {
+  const texts = await Promise.all(anchors.map((anchor) => load(anchor.url).catch(() => '')));
+  return anchors.flatMap((anchor, index) => {
+    const text = texts[index] || '';
+    if (text.replace(/\s/g, '').length < 200) return [];
+    return [{
+      id: stableId(anchor.url),
+      title: anchor.title,
+      link: anchor.url,
+      source: anchor.source,
+      sourceUrl: new URL(anchor.url).origin,
+      regions: ['hk'],
+      pubDate: `${anchor.date}T12:00:00+08:00`,
+      category: 'hk',
+      excerpt: text,
+    }];
+  });
 }
 
 async function workersText(env: ContentEnv, system: string, user: string): Promise<string> {
@@ -254,33 +322,52 @@ export async function generateTopics(
       continue;
     }
     if (skip.has(topic.slug)) continue;
-    const matched = matchTopicItems(material.items, topic);
+    const anchors = topic.anchors ?? [];
+    const anchorLinks = anchors.map((anchor) => anchor.url);
+    const matched = matchTopicItems(material.items, topic).filter((item) => !anchorLinks.includes(item.link));
     const stored = await readPack(env, topic.slug);
     const rewrite = Boolean(options.force && options.refresh?.includes(topic.slug));
-    const fresh = rewrite ? matched.map((item) => item.link).filter(Boolean) : newTopicLinks(matched, stored?.seenLinks ?? []);
-    if (!fresh.length) {
+    // An anchored topic is rebuilt in full from its pinned sources on first build, when a new
+    // anchor is configured, or on refresh. Later headlines are merged as ordinary updates.
+    const unseenAnchor = anchorLinks.some((url) => !(stored?.seenLinks ?? []).includes(url));
+    const rebuild = anchors.length > 0 && (rewrite || unseenAnchor);
+    const fresh = rewrite || rebuild ? matched.map((item) => item.link).filter(Boolean) : newTopicLinks(matched, stored?.seenLinks ?? []);
+    if (!fresh.length && !rebuild) {
       rows.push({ slug: topic.slug, action: stored ? 'unchanged' : 'none' });
       continue;
     }
     const outOfTime = Date.now() - started > DEADLINE_MS;
-    const outOfBudget = models >= (options.maxModels ?? MODELS_PER_CALL);
+    const budget = options.maxModels ?? MODELS_PER_CALL;
+    const outOfBudget = rebuild ? models > 0 : models >= budget;
     if (outOfTime || outOfBudget) {
       rows.push({ slug: topic.slug, action: 'deferred' });
       more = true;
       continue;
     }
-    const freshItems = matched.filter((item) => fresh.includes(item.link));
-    const withText = await attachText(env, freshItems.slice(0, ARTICLES_PER_TOPIC), options.articleText);
+    const pinned = rebuild ? await anchorItems(anchors, options.anchorText ?? loadAnchor) : [];
+    const anchored = pinned.length > 0;
+    // Pinned pages unreachable this run: fall back to an ordinary update with new headlines only.
+    const useLinks = anchored || rewrite ? fresh : newTopicLinks(matched, stored?.seenLinks ?? []);
+    const freshItems = matched.filter((item) => useLinks.includes(item.link));
+    const headlines = await attachText(env, freshItems.slice(0, ARTICLES_PER_TOPIC), options.articleText);
+    if (!anchored && !headlines.length) {
+      rows.push({ slug: topic.slug, action: stored ? 'unchanged' : 'none' });
+      continue;
+    }
+    const withText = [...pinned, ...headlines];
     const corpus = topicCorpus(withText);
     const thin = corpus.replace(/\s/g, '').length < 200;
     const grokOk = Boolean(key) && spent < XAI_MONTHLY_CAP_USD;
     const search = thin && topic.desk !== 'other' && grokOk;
-    const prompt = topicPrompt(topic, withText, stored);
+    const prompt = anchored ? anchoredPrompt(topic, withText) : topicPrompt(topic, withText, stored);
     attempted.push(topic.slug);
-    models += 1;
+    models += anchored ? budget : 1;
+    const limits = anchored
+      ? { maxTokens: ANCHOR_MAX_TOKENS, timeoutMs: ANCHOR_TIMEOUT_MS }
+      : { maxTokens: 1_800, timeoutMs: TOPIC_TIMEOUT_MS };
     const completion = options.complete
       ? await options.complete(topic, prompt.system, prompt.user, search)
-      : await completeLive(env, topic, prompt.system, prompt.user, search, grokOk, mini, key);
+      : await completeLive(env, topic, prompt.system, prompt.user, search, grokOk, mini, key, limits);
     if (!completion?.text) {
       rows.push({ slug: topic.slug, action: 'failed' });
       continue;
@@ -294,19 +381,26 @@ export async function generateTopics(
     else bill.workers += 1;
     spent += callCostUsd(completion.input, completion.output, completion.searchCalls);
     const strictNumbers = completion.searchCalls === 0;
-    const draft = parseTopicDraft(completion.text, corpus, topic.areas, strictNumbers);
+    const figureCap = anchors.length ? ANCHORED_FIGURE_CAP : undefined;
+    const draft = parseTopicDraft(completion.text, corpus, topic.areas, strictNumbers, figureCap);
     if (!draft) {
       rows.push({ slug: topic.slug, action: 'failed', provider: completion.provider });
       continue;
     }
-    const merged = applyTopicUpdate(stored, draft, {
+    // A full rebuild replaces the pack (keep-better below still guards against a thinner draft).
+    const merged = applyTopicUpdate(anchored ? null : stored, draft, {
       slug: topic.slug,
       now: now.toISOString(),
       provider: completion.provider,
       model: completion.model,
+      ...(figureCap ? { figureCap } : {}),
     });
-    merged.sources = sourcesFromItems(withText, stored?.sources ?? []);
-    const links = matched.map((item) => item.link);
+    if (anchored && stored?.publishedAt) merged.publishedAt = stored.publishedAt;
+    merged.sources = anchored
+      ? sourcesFromItems(withText, [], ANCHOR_SOURCE_CAP)
+      : sourcesFromItems(withText, stored?.sources ?? [], anchors.length ? ANCHOR_SOURCE_CAP : undefined);
+    const keptAnchors = anchored ? anchorLinks : anchorLinks.filter((url) => stored?.seenLinks?.includes(url));
+    const links = [...keptAnchors, ...matched.map((item) => item.link)];
     const chosen = stored && keepStoredTopic(stored, merged) ? stored : merged;
     if (!topicPublic(chosen) && !stored) {
       rows.push({ slug: topic.slug, action: 'failed', provider: completion.provider });
@@ -380,6 +474,7 @@ async function completeLive(
   grokOk: boolean,
   mini: string,
   key: string,
+  limits: { maxTokens: number; timeoutMs: number } = { maxTokens: 1_800, timeoutMs: TOPIC_TIMEOUT_MS },
 ): Promise<TopicCompletion | null> {
   if (topic.desk === 'other' && mini) {
     const written = await completeMiniMax(mini, system, user, TOPIC_TIMEOUT_MS);
@@ -402,8 +497,8 @@ async function completeLive(
   }
   if (grokOk && key) {
     const result = search
-      ? await completeResearch(key, system, user, 1_800, TOPIC_TIMEOUT_MS)
-      : await completeText(key, system, user, 1_800, TOPIC_TIMEOUT_MS);
+      ? await completeResearch(key, system, user, limits.maxTokens, limits.timeoutMs)
+      : await completeText(key, system, user, limits.maxTokens, limits.timeoutMs);
     if (result.text) {
       return { text: result.text, input: result.input, output: result.output, searchCalls: result.searchCalls, provider: 'grok', model: GROK_MODEL };
     }

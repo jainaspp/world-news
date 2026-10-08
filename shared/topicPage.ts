@@ -102,11 +102,11 @@ function packBody(model: TopicPageModel): string {
   const figures = groups.length
     ? `<section class="topic-measures" id="figures" aria-label="${figuresHeading}"><h2 class="column-h2">${figuresHeading}</h2><div class="topic-areas">${groups.map((group) => `<section class="topic-area"><h3>${esc(group.area)}</h3><ul>${group.rows.map((row) => `<li class="topic-figure"><strong>${esc(row.value)}</strong><span>${esc(row.label)}</span></li>`).join('')}</ul></section>`).join('')}</div></section>`
     : '';
-  const nav = `<nav class="topic-jump" aria-label="本頁小節">${jump('#summary', '重點', points.length > 1)}${jump('#timeline', '時間線', events.length > 0)}${jump('#figures', figuresHeading === '主要措施' ? '措施' : '數字', groups.length > 0)}${jump('#impact', '影響', pack.impact.length > 0)}${jump('#reactions', '反應', pack.reactions.length > 0)}${jump('#headlines', '頭條', model.headlines.length > 0)}</nav>`;
+  const nav = `<nav class="topic-jump" aria-label="本頁小節">${jump('#summary', '重點', points.length > 1)}${jump('#timeline', '時間線', events.length > 0)}${jump('#figures', figuresHeading === '主要措施' ? '措施' : '數字', groups.length > 0)}${jump('#impact', '影響', pack.impact.length > 0)}${jump('#reactions', '反應', pack.reactions.length > 0)}${jump('#background', topic.slug === 'policy-address' ? '五年規劃' : '背景', Boolean(topic.background && pack.background?.length))}${jump('#headlines', '頭條', model.headlines.length > 0)}</nav>`;
   const sources = pack.sources.length
     ? `<section class="story column-block" id="sources"><div class="story-body"><h2 class="column-h2">來源（${pack.sources.length}）</h2>${sourceList(pack.sources)}</div></section>`
     : '';
-  return `${pointsBox}${nav}${timeline}${figures}${fold('impact', '對市民的影響', pack.impact.map(endLine))}${fold('reactions', '各方反應', pack.reactions.map(endLine))}${headlineList(model.headlines)}${sources}`;
+  return `${pointsBox}${nav}${timeline}${figures}${fold('impact', '對市民有什麼影響', pack.impact.map(endLine))}${fold('reactions', '各方反應', pack.reactions.map(endLine))}${topic.background ? fold('background', topic.background.label, (pack.background ?? []).map(endLine)) : ''}${headlineList(model.headlines)}${sources}`;
 }
 
 function sideList(model: TopicPageModel): string {
