@@ -1,5 +1,5 @@
 import { AI_MODEL, textFromAi } from '../../shared/content.js';
-import { materialFromBoard } from '../../shared/grok.js';
+import { materialFromBoard, roundUsd, xaiCostUsd, XAI_MONTHLY_CAP_USD } from '../../shared/grok.js';
 import {
   parseQuiz,
   pickQuizSources,
@@ -12,6 +12,8 @@ import type { NewsItem } from '../../shared/types.js';
 import type { PagesContext } from '../env.js';
 import { readBoard } from '../board/store.js';
 import { putLimited, readValue, type ContentEnv } from './store.js';
+import { monthUsage, saveUsage } from './usage.js';
+import { completeText } from './xai.js';
 
 const KEEP_S = 3 * 24 * 3600;
 
@@ -26,6 +28,28 @@ async function headlines(env: ContentEnv, requestUrl: string): Promise<NewsItem[
   } catch {
     return material?.items ?? [];
   }
+}
+
+/**
+ * Grok writes the quiz when the key is set and the month is under the cap (about 3k tokens,
+ * well under US$0.01 a call); Workers AI is the fallback. Workers AI drafts mostly cut all four
+ * choices from one headline and fail choicesSound.
+ */
+async function askGrok(env: ContentEnv, sources: ReturnType<typeof pickQuizSources>): Promise<string> {
+  const key = typeof env.XAI_API_KEY === 'string' ? env.XAI_API_KEY.trim() : '';
+  if (!key) return '';
+  const usage = await monthUsage(env).catch(() => null);
+  if (!usage || usage.costUsd >= XAI_MONTHLY_CAP_USD) return '';
+  const prompt = quizPrompt(sources);
+  const result = await completeText(key, prompt.system, prompt.user, 1_400, 30_000);
+  if (result.input || result.output) {
+    usage.inputTokens += result.input;
+    usage.outputTokens += result.output;
+    usage.requests += 1;
+    usage.costUsd = roundUsd(xaiCostUsd(usage.inputTokens, usage.outputTokens, usage.searchCalls));
+    await saveUsage(env, usage).catch(() => undefined);
+  }
+  return result.text;
 }
 
 async function ask(env: ContentEnv, sources: ReturnType<typeof pickQuizSources>): Promise<string> {
@@ -62,10 +86,10 @@ export async function generateQuiz(context: PagesContext): Promise<Response> {
     if (sources.length < 3) {
       return Response.json({ ok: false, kind: 'quiz', edition, skipped: 'none' }, { headers: { 'cache-control': 'no-store' } });
     }
-    if (!env.AI?.run) {
+    let questions = parseQuiz(await askGrok(env, sources).catch(() => ''), sources);
+    if (!questions.length && !env.AI?.run) {
       return Response.json({ ok: false, kind: 'quiz', edition, skipped: 'no-ai' }, { headers: { 'cache-control': 'no-store' } });
     }
-    let questions = parseQuiz(await ask(env, sources), sources);
     if (!questions.length) questions = parseQuiz(await ask(env, sources), sources);
     if (!questions.length) {
       return Response.json({ ok: false, kind: 'quiz', edition, skipped: 'invalid' }, { headers: { 'cache-control': 'no-store' } });

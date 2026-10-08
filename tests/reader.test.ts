@@ -298,3 +298,11 @@ describe('quiz choices', () => {
     expect(choicesSound(['胡塞武裝', '烏克蘭', '選舉委員會', '世衛'], '胡塞武裝', title)).toBe(true);
   });
 });
+
+describe('quiz vague choices', () => {
+  it('rejects vague number choices that are also true', async () => {
+    const { choicesSound } = await import('../shared/quiz');
+    expect(choicesSound(['3人死亡', '多人死亡', '兩人死亡', '數人死亡'], '3人死亡', '沙特兩機場遇襲3人死亡')).toBe(false);
+    expect(choicesSound(['3人死亡', '5人死亡', '兩人死亡', '7人死亡'], '3人死亡', '沙特兩機場遇襲3人死亡')).toBe(true);
+  });
+});

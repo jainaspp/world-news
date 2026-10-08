@@ -73,7 +73,15 @@ export function choicesSound(choices: string[], answer: string, source: string):
       if (i !== j && packed[i] && packed[j] && packed[i]!.includes(packed[j]!)) return false;
     }
   }
-  return choices.every((choice) => choice === answer || !answerSupported(choice, source));
+  // 「多人死亡」 is also true when the answer is 「3人死亡」.
+  if (choices.some((choice) => /^(?:多|數|若干|一些|大量|少量)/.test(choice.trim()))) return false;
+  const hay = compact(source);
+  return choices.every((choice) => {
+    if (choice === answer) return true;
+    if (hay.includes(compact(choice))) return false;
+    // A different number with the same words (5人死亡 vs 3人死亡) is a fair wrong choice.
+    return /\d/.test(choice) || !answerSupported(choice, source);
+  });
 }
 
 function clean(value: unknown): string {
@@ -111,6 +119,7 @@ export function quizPrompt(sources: QuizSource[]): { system: string; user: strin
 - 問題要問該則新聞裡具體的人物、地點、機構、數字或事件，用「甚麼」「哪」「多少」等問法。
 - 每題四個互不相同的選項，選項之間不可互相包含。
 - 三個錯誤選項取自其他標題裡同一類的字詞（例如其他新聞的人物、地點或機構），不可取自同一則標題或短述。
+- 數字題的錯誤選項必須是其他具體數字，不可用「多人」「數人」「若干」等模糊說法。
 - answer 必須是該則標題或短述裡連續出現的字句，不要改寫。
 - 問題必須能只靠該則標題或短述答對。
 - sourceTitle 必須與某一則標題完全相同。
