@@ -162,3 +162,19 @@ describe('grounding helpers', () => {
     expect(text).not.toContain('選單');
   });
 });
+
+describe('anchored prompt and number format', () => {
+  it('formats spaced thousands, strips a 專題 label, and orders material oldest first', async () => {
+    const { thousands, anchoredPrompt } = await import('../shared/topicPack');
+    expect(thousands('每年1 900個，超過35 000個單位，2026 年')).toBe('每年1,900個，超過35,000個單位，2026 年');
+    const topic = topicBySlug('policy-address')!;
+    const prompt = anchoredPrompt(topic, [
+      { id: 'b', title: '發表', link: 'https://e.com/b', source: 'B', sourceUrl: '', regions: [], pubDate: '2026-09-16T12:00:00+08:00', excerpt: '乙' },
+      { id: 'a', title: '諮詢', link: 'https://e.com/a', source: 'A', sourceUrl: '', regions: [], pubDate: '2026-06-25T12:00:00+08:00', excerpt: '甲' },
+    ]);
+    expect(prompt.user.indexOf('"諮詢"')).toBeLessThan(prompt.user.indexOf('"發表"'));
+    const draft = parseTopicDraft(JSON.stringify({ title: '專題：施政報告懶人包', points: [], timeline: [], figures: [{ area: '醫療', label: '體外受精服務名額', value: '每年1 900個' }] }), '施政報告懶人包 體外受精服務名額每年1 900個', topic.areas)!;
+    expect(draft.title).toBe('施政報告懶人包');
+    expect(draft.figures[0]?.value).toBe('每年1,900個');
+  });
+});

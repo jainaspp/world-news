@@ -51,6 +51,7 @@ export const TOPIC_PACKS: readonly TopicConfig[] = [
       { url: 'https://www.info.gov.hk/gia/general/202609/16/P2026091600306.htm', source: '政府新聞公報', title: '政府公布《香港特別行政區經濟和社會發展第一個五年規劃（2026—2030年）》', date: '2026-09-16' },
       { url: 'https://app2.rthk.hk/special/cepolicy2026/', source: '香港電台', title: '香港第一個五年規劃及2026年施政報告 - 剖析最新政策及重點措施', date: '2026-09-16' },
       { url: 'https://www.info.gov.hk/gia/general/202606/25/P2026062500689.htm', source: '政府新聞公報', title: '政府展開二○二六年《施政報告》公眾諮詢', date: '2026-06-25' },
+      { url: 'https://www.info.gov.hk/gia/general/202609/17/P2026091700430.htm', source: '政府新聞公報', title: '《香港第一個五年規劃》和二○二六年《施政報告》立法會行政長官互動交流答問會開場發言', date: '2026-09-17' },
       { url: 'https://www.news.gov.hk/chi/2026/09/20260917/20260917_120804_911.html', source: '香港政府新聞網', title: '特首：五年規劃讓香港進步更快', date: '2026-09-17' },
       { url: 'https://www.tkww.hk/epaper/view/newsDetail/2100300239675199488.html', source: '大公報', title: '政黨：宏觀與微觀部署兩兼顧', date: '2026-09-17' },
       { url: 'https://news.rthk.hk/rthk/ch/component/k2/1873049-20261007.htm', source: '香港電台', title: '立法會一連三日合併辯論五年規劃及施政報告', date: '2026-10-07' },
@@ -351,12 +352,22 @@ function cleanLine(raw: unknown, corpus: string, strictNumbers: boolean): string
   const source = String(raw ?? '');
   // A broken character (U+FFFD) means the model reply was cut mid-character: drop the line.
   if (source.includes('\uFFFD')) return '';
-  const line = tidyDisplay(toHK(polishProse(source))).replace(/\s+/g, ' ').trim();
+  const line = thousands(tidyDisplay(toHK(polishProse(source))).replace(/\s+/g, ' ').trim());
   if (!line || !hasChinese(line) || isMostlyEnglish(line)) return '';
   if (cantoneseLeft(line) || preachySentence(line) || DISCLAIMER.test(line)) return '';
   if (strictNumbers && !numbersGrounded(line, corpus)) return '';
   if (groundedShare(line, corpus) < GROUNDED_MIN || !quotesGrounded(line, corpus)) return '';
   return restorePunctuation(line, corpus);
+}
+
+/** Official pages write 1 900 or 35 000: show 1,900 and 35,000. */
+export function thousands(text: string): string {
+  return text.replace(/(?<![\d.,])(\d{1,3})(?:[ \u00a0\u2009\u202f](\d{3}))+(?![\d])/g, (all) => all.replace(/[ \u00a0\u2009\u202f]/g, ','));
+}
+
+/** Leading 「專題：」 or 「懶人包：」 copied from the prompt. */
+function stripLabel(text: string): string {
+  return text.replace(/^(?:專題|懶人包)[：:]\s*/, '');
 }
 
 /** Narrative lines end with a full stop, like the rest of the site's copy. */
@@ -444,7 +455,7 @@ export function parseTopicDraft(raw: string, corpus: string, areas: readonly str
     figures.push({ area, label, value });
   }
   const draft: TopicDraft = {
-    title: cleanLine(titleLine(parsed.title), corpus, strictNumbers) || cleanLine(titleLine(parsed.title), corpus, false),
+    title: stripLabel(cleanLine(titleLine(parsed.title), corpus, strictNumbers) || cleanLine(titleLine(parsed.title), corpus, false)),
     description: sentence(cleanLine(parsed.description, corpus, strictNumbers)),
     points,
     timeline: timeline.slice(0, TIMELINE_CAP),
@@ -545,11 +556,14 @@ export function anchoredPrompt(topic: TopicConfig, items: NewsItem[]): { system:
   const areas = topic.areas.join('、');
   const system = [
     `你是世界頭條的編輯，為「${topic.title}」寫一份完整的專題懶人包。一律用繁體中文正式新聞書面語，不要用簡體字，不要用粵語口語，不要用台灣用語。`,
-    '判斷用「是」。使用全形標點。數字和年份一律用阿拉伯數字。中文之間不要用空格。',
+    '每一句都要有正常的中文標點：分句之間用「，」，並列用「、」，文件名稱用《》，句末用「。」。資料原文有些段落沒有標點，你寫的句子仍然必須加上標點。',
+    '數字和年份一律用阿拉伯數字，千位用逗號（例如1,900、35,000）。句子裡的日期寫成「2026年9月16日」，不要寫「今日」「昨日」「明年」，改寫成資料所指的年份或日期。中文之間不要用空格。',
     '只可使用下面資料裡已經寫明的事實。禁止添加資料沒有的事實、數字、引言、人名、日期、地點或因果。每個數字必須在資料原文出現。',
-    '沒有資料的欄位回傳空陣列。不要寫任何免責聲明、編者按，不要寫「AI」。回覆必須是 JSON，不要用 Markdown。',
+    '沒有資料的欄位回傳空陣列。不要寫任何免責聲明、編者按，不要寫「AI」「專題」「資料」。回覆必須是 JSON，不要用 Markdown。',
   ].join('');
-  const material = items.map((item, index) => ({
+  // Oldest first, so the material reads as the chronology the timeline should follow.
+  const ordered = [...items].sort((a, b) => (a.pubDate || '').localeCompare(b.pubDate || ''));
+  const material = ordered.map((item, index) => ({
     n: index + 1,
     source: item.source,
     title: item.title,
@@ -558,13 +572,14 @@ export function anchoredPrompt(topic: TopicConfig, items: NewsItem[]): { system:
   }));
   const user = [
     `專題：${topic.title}`,
-    'title 寫一句 12 至 22 字，必須包含專題名稱，不要用空格。description 一句，60 字以內。',
-    'points 寫三句，每句 45 字以內：發表日期和主題、最重要的措施、與市民最相關的改變。',
-    'timeline 按日期排列，每項 date 是 YYYY-MM-DD，而且該日期必須在資料裡寫明（例如公眾諮詢展開、發表、答問會、立法會辯論）。text 一句。不要寫資料沒有日期的事。',
-    `figures 列出 12 至 24 項具體措施，每項 area 只可以是：${areas}；資料沒有涉及的範疇不要寫。label 寫措施內容（20 字以內），value 寫資料原文裡的數字和單位（例如「3萬元」「4.5年」「每宗3,000元」）。`,
-    'impact 寫四至六句「對市民有什麼影響」，只寫資料明確寫出、對市民直接相關的金額、資格、日期或服務，不要推測。',
-    'reactions 寫政黨或團體的回應，每句先寫名稱，引言必須逐字來自資料並保留原文標點；資料沒有就回傳空陣列。',
+    `title 寫一句 12 至 22 字的新聞標題，必須包含「${topic.title}」，不要加「專題：」。description 一句完整的新聞句子，60 字以內。`,
+    'points 寫三句完整的新聞句子，每句 30 至 50 字：第一句寫誰在哪一日發表、主題是甚麼；第二句寫最重要的措施；第三句寫與市民最相關的改變。',
+    'timeline 逐篇檢查資料（已按日期由舊到新排列）：每一篇的 date 欄和正文寫明的日期都是一個階段，例如公眾諮詢展開、發表、答問會、立法會辯論、表決或通過。資料有多少個不同日期的階段就列多少項（通常四項以上），按日期排列；date 是 YYYY-MM-DD，必須是資料寫明的日期。資料的 date 欄是發稿日期；正文寫明事情在另一日發生（例如「將於下星期一（六月二十九日）展開」）時，用正文的日期。同一件事只列一次（例如公布諮詢安排和諮詢展開是同一件事，列在展開那一日）。text 一句，寫清楚那一日發生甚麼。',
+    `figures 列出 16 至 24 項具體措施，盡量涵蓋資料提到的每個範疇。area 只可以是：${areas}；按措施性質歸類（例如水管、道路、鐵路歸交通與基建）。label 寫措施內容（25 字以內），要寫清楚數字是「增加」「增至」「目標」還是「上限」。value 是資料原文裡含阿拉伯數字的數量和單位（例如「增至3萬元」「4.5年」「最多2萬元」）；沒有數字的措施不要列。`,
+    'impact 寫四至六句「對市民有什麼影響」，每句寫明哪些人受惠、金額或資格、何時生效，只寫資料明確寫出的內容，不要推測。',
+    'reactions 為資料裡點名的每個政黨或團體各寫一句，先寫名稱，再概述其看法；如引用原話，用「」並逐字照錄、保留原文標點。資料沒有回應就回傳空陣列。',
     topic.background?.ask ?? '',
+    '範例句子（格式示範，不是事實）：「行政長官在2026年9月16日發表《施政報告》，提出房屋、經濟和民生措施。」',
     `回傳 {"title":"","description":"","points":[],"timeline":[{"date":"YYYY-MM-DD","text":""}],"figures":[{"area":"","label":"","value":""}],"impact":[],"reactions":[],"background":[]}`,
     `資料：${JSON.stringify(material)}`,
   ].filter(Boolean).join('\n');
