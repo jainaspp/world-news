@@ -696,3 +696,138 @@ a.cluster-link:hover { border-color: var(--accent); }
 .subscribe-panel a:hover { background: var(--chip); }
 mark { background: color-mix(in srgb, var(--accent) 24%, #fff); color: inherit; padding: 0 0.1em; border-radius: 2px; }
 html.dark mark { background: color-mix(in srgb, var(--accent) 50%, #0e141c); }
+
+/* Homepage template switch. The ranked list is a reading layout; the standard feed stays the default. */
+.template-switch {
+  border: 0; background: var(--color-primary); color: #fff; font-weight: 700;
+  border-radius: var(--radius-pill); min-height: 40px; padding: 6px 14px; cursor: pointer; white-space: nowrap;
+}
+html.dark .template-switch { color: #0e141c; }
+.template-label-classic { display: none; }
+html.wn-rank .template-label-rank { display: none; }
+html.wn-rank .template-label-classic { display: inline; }
+.template-bar { display: flex; margin: 0 0 10px; }
+.ssr-home .home-rank { display: none; }
+html.wn-rank .ssr-home .home-classic { display: none; }
+html.wn-rank .ssr-home .home-rank { display: block; }
+html.wn-rank .page.ssr-home { width: 100%; padding-top: 0; }
+
+.page-rank { width: 100%; max-width: none; }
+.chrome-rank {
+  background: transparent; border-bottom: 0; backdrop-filter: none; margin: 0; padding: 0;
+}
+.rank-band {
+  background: linear-gradient(165deg, #12325f 0%, #1d4f91 48%, #2a6cb3 100%);
+  color: #fff;
+  padding: 16px max(16px, calc((100% - 840px) / 2)) 12px;
+}
+html.dark .rank-band {
+  background: linear-gradient(165deg, #0c2344 0%, #163e73 52%, #1d4f91 100%);
+}
+.rank-band-inner, .chrome-rank .rank-band {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px;
+}
+.rank-brand { flex: 1 1 200px; min-width: 0; }
+.rank-name { margin: 0; font-size: inherit; font-weight: inherit; line-height: 1.1; }
+.rank-home, .rank-name {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0;
+  color: #fff; text-decoration: none; font-family: var(--font-serif); font-weight: 700;
+  font-size: 1.7rem; letter-spacing: 0.04em; line-height: 1.15;
+}
+.rank-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--logo-dot); flex: none;
+}
+.rank-tagline { margin: 4px 0 0; color: rgba(255,255,255,0.88); font-size: 0.92rem; line-height: 1.45; }
+.rank-band .search-bar { flex: 1 1 180px; max-width: 320px; min-width: 0; }
+.rank-band .search-bar input {
+  background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.55); color: #fff;
+}
+.rank-band .search-bar input::placeholder { color: rgba(255,255,255,0.92); }
+.rank-band .header-actions { margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
+.rank-band .icon-btn {
+  background: transparent; color: #fff; border-color: rgba(255,255,255,0.45);
+}
+.rank-band .icon-btn.active { background: #fff; color: #1d4f91; border-color: transparent; }
+.rank-band .template-switch, html.dark .rank-band .template-switch {
+  background: #fff; color: #1d4f91;
+}
+.rank-band .template-switch:focus-visible,
+.rank-band .icon-btn:focus-visible,
+.rank-tab:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+.rank-tabs {
+  display: flex; gap: 2px; overflow-x: auto; background: #142033; color: #fff;
+  padding: 0 max(16px, calc((100% - 840px) / 2)); scrollbar-width: thin;
+}
+html.dark .rank-tabs { background: #0a1522; }
+.rank-tab {
+  appearance: none; flex: none; font: inherit; font-weight: 700; color: rgba(255,255,255,0.78);
+  background: transparent; border: 0; border-bottom: 3px solid transparent; text-decoration: none;
+  min-height: 44px; padding: 10px 14px; cursor: pointer; white-space: nowrap;
+}
+a.rank-tab { color: rgba(255,255,255,0.78); }
+.rank-tab.active, a.rank-tab.active { color: #fff; border-bottom-color: #fff; }
+
+.page-rank .layout, .rank-list-wrap, .page-rank .app-footer, .page-rank .major-banner, .page-rank .alert-row,
+html.wn-rank .ssr-home .app-footer {
+  width: min(100% - 32px, 840px); margin-left: auto; margin-right: auto;
+}
+.page-rank .layout { display: block; margin-top: 12px; }
+.rank-list-wrap { margin-top: 12px; }
+.rank-list {
+  list-style: none; margin: 0; padding: 4px 12px;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+}
+.rank-row {
+  display: grid; grid-template-columns: 2rem minmax(0, 1fr); column-gap: 8px; align-items: start;
+  padding: 10px 4px; border-bottom: 1px solid var(--line);
+}
+.rank-row:last-child { border-bottom: 0; }
+.rank-row:has(.rank-badge) { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+.rank-row-top { padding-top: 12px; padding-bottom: 12px; }
+.rank-num {
+  font-variant-numeric: tabular-nums; font-weight: 700; text-align: center; color: var(--muted);
+  font-size: 0.95rem; line-height: 1.45;
+}
+.rank-row-top .rank-num { color: var(--color-breaking); font-size: 1.3rem; line-height: 1.2; }
+html.dark .rank-row-top .rank-num { color: #ff8a9b; }
+.rank-main { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; min-width: 0; }
+.rank-title {
+  flex: 1 1 12rem; min-width: 0; font-family: var(--font-serif); font-weight: 700; font-size: 16px;
+  color: inherit; text-decoration: none; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.rank-title:lang(en), .rank-title:lang(ja) { font-family: var(--font-sans); }
+.rank-row-top .rank-title { font-size: 18px; }
+.rank-title:hover { text-decoration: underline; }
+.rank-note {
+  color: var(--muted); font-size: 12px; font-weight: 500; text-decoration: none;
+}
+a.rank-note { color: var(--muted); }
+a.rank-note:hover { color: var(--text); }
+.rank-badge {
+  align-self: center; background: var(--color-breaking); color: #fff; font-size: 12px; font-weight: 700;
+  line-height: 1.2; border-radius: 4px; padding: 3px 5px;
+}
+
+@media (min-width: 1200px) {
+  .page.page-rank { width: 100%; }
+  .page-rank .layout { display: block; grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .tab-bar .template-switch { min-height: 36px; padding: 4px 12px; font-size: 14px; }
+  .rank-band { position: relative; padding-top: 12px; padding-bottom: 8px; }
+  .rank-home, .rank-name { font-size: 1.35rem; }
+  .rank-tagline { font-size: 0.85rem; margin-top: 2px; }
+  .chrome-rank .search-bar.open {
+    top: 100%; left: 0; right: 0; width: auto; max-width: none; background: #12325f; padding: 8px 16px 10px; z-index: 6;
+  }
+  html.dark .chrome-rank .search-bar.open { background: #0c2344; }
+  .chrome-rank .rank-brand { flex: 1 1 100%; }
+  .chrome-rank .search-bar { flex: 0 0 auto; width: auto; max-width: none; }
+  .chrome-rank .header-actions { flex: 1 1 auto; justify-content: flex-end; }
+  .chrome-rank .header-actions .icon-btn,
+  .chrome-rank .search-toggle { min-width: 34px; min-height: 34px; padding: 4px; }
+  .chrome-rank .template-switch { min-height: 34px; padding: 4px 10px; }
+  .rank-row-top .rank-title { font-size: 17px; }
+}

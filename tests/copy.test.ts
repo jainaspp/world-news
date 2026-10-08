@@ -10,6 +10,7 @@ const FILES = [
   'shared/homeCopy.ts',
   'shared/homeIntro.ts',
   'shared/homePage.ts',
+  'shared/homeTemplate.ts',
   'shared/i18n.ts',
   'shared/majorPage.ts',
   'shared/contact.ts',

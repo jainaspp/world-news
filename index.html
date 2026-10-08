@@ -40,7 +40,19 @@
       var saved = localStorage.getItem('darkMode');
       var dark = saved === 'true' || (saved !== 'false' && matchMedia('(prefers-color-scheme: dark)').matches);
       if (dark) document.documentElement.classList.add('dark');
+      if (localStorage.getItem('wn-home-template') === 'rank') document.documentElement.classList.add('wn-rank');
     } catch (e) {}
+    document.addEventListener('click', function (event) {
+      var node = event.target;
+      if (!node || !node.closest) return;
+      var button = node.closest('[data-wn-template-switch]');
+      if (!button) return;
+      var rank = !document.documentElement.classList.contains('wn-rank');
+      document.documentElement.classList.toggle('wn-rank', rank);
+      try { localStorage.setItem('wn-home-template', rank ? 'rank' : 'classic'); } catch (err) {}
+      var buttons = document.querySelectorAll('[data-wn-template-switch]');
+      for (var i = 0; i < buttons.length; i++) buttons[i].setAttribute('aria-pressed', rank ? 'true' : 'false');
+    });
   </script>
   <script type="application/ld+json">
   {
