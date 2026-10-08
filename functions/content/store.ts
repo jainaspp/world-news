@@ -1,6 +1,6 @@
 import { edgeCache } from '../env.js';
 import { mergeIndex, type ContentDoc, type IndexEntry } from '../../shared/content.js';
-import { alignHeadlineNumbers } from '../../shared/headlineNumbers.js';
+import { settleBriefingHeadline } from '../../shared/headlineNumbers.js';
 
 export interface ContentEnv {
   CONTENT?: {
@@ -198,7 +198,7 @@ export async function readDoc(env: ContentEnv, key: string): Promise<SavedDoc | 
 }
 
 export async function writeDoc(env: ContentEnv, written: ContentDoc, index = true): Promise<void> {
-  const doc = alignHeadlineNumbers(written);
+  const doc = settleBriefingHeadline(written);
   const saved: SavedDoc = { doc, savedAt: Date.now() };
   await writeValue(env, `doc:${doc.kind}:${doc.key}`, JSON.stringify(saved));
   if (index) await rememberIndex(env, doc);

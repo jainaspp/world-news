@@ -93,7 +93,7 @@ import {
 
 const HTML_HEADERS = {
   'content-type': 'text/html; charset=utf-8',
-  'cache-control': 'public, max-age=120, s-maxage=600, stale-while-revalidate=86400',
+  'cache-control': 'public, max-age=60, s-maxage=300, stale-while-revalidate=300',
 };
 
 const WALL_MS = 60_000;
