@@ -44,7 +44,7 @@ export const TOPIC_PACKS: readonly TopicConfig[] = [
     blurb: '樓價、供應、居屋公屋和按揭的最新變化。',
     desk: 'hk',
     category: 'hk',
-    keywords: ['樓市', '樓價', '居屋', '公屋', '一手樓', '按揭'],
+    keywords: ['樓市', '樓價', '居屋', '公屋輪候', '公屋供應', '簡約公屋', '一手樓', '按揭', '差估署'],
     areas: ['樓價', '供應', '按揭'],
   },
   {
@@ -192,6 +192,16 @@ export function topicRichness(pack: TopicPack): number {
   return han(text);
 }
 
+function narrativeLines(pack: Pick<TopicPack, 'points' | 'timeline' | 'impact' | 'reactions' | 'figures'>): string[] {
+  return [
+    ...pack.points,
+    ...pack.timeline.map((row) => row.text),
+    ...pack.figures.map((row) => `${row.label}${row.value}`),
+    ...pack.impact,
+    ...pack.reactions,
+  ];
+}
+
 function narrativeOf(pack: Pick<TopicPack, 'points' | 'timeline' | 'impact' | 'reactions' | 'figures'>): string {
   return [
     ...pack.points,
@@ -208,7 +218,10 @@ export function topicPublic(pack: TopicPack): boolean {
   if (!hasChinese(pack.title) || pack.points.length < 2) return false;
   if (!pack.timeline.length && !pack.figures.length) return false;
   const prose = narrativeOf(pack);
-  if (!proseSane(prose) || cantoneseLeft(prose) || isMostlyEnglish(pack.title)) return false;
+  // Topic lines are short single sentences, so the comma guard is applied line by line;
+  // joined together they would fail it for having no 「，」 between sentences.
+  const lines = narrativeLines(pack);
+  if (!lines.every((line) => proseSane(line)) || cantoneseLeft(prose) || isMostlyEnglish(pack.title)) return false;
   return pack.points.every((point) => hasChinese(point));
 }
 
@@ -239,11 +252,30 @@ function numbersGrounded(text: string, corpus: string): boolean {
   return nums.every((n) => new RegExp(`(?<!\\d)${n.replace('.', '\\.')}(?!\\d)`).test(corpus));
 }
 
+/** Share of the line's Chinese character pairs that appear in the source text. */
+export function groundedShare(line: string, corpus: string): number {
+  const pairs: string[] = [];
+  for (const run of line.match(/[\u3400-\u9fff]+/g) ?? []) {
+    for (let i = 0; i + 1 < run.length; i += 1) pairs.push(run.slice(i, i + 2));
+  }
+  if (pairs.length < 6) return 1;
+  return pairs.filter((pair) => corpus.includes(pair)).length / pairs.length;
+}
+
+/** Below this share a line is mostly words the sources never used: an invented detail or a guess. */
+export const GROUNDED_MIN = 0.5;
+
+function quotesGrounded(line: string, corpus: string): boolean {
+  const quoted = [...line.matchAll(/[「“"]([^」”"]{2,})[」”"]/g)].map((match) => match[1]);
+  return quoted.every((text) => corpus.includes(text) || corpus.includes(toHK(text)));
+}
+
 function cleanLine(raw: unknown, corpus: string, strictNumbers: boolean): string {
   const line = tidyDisplay(toHK(polishProse(String(raw ?? '')))).replace(/\s+/g, ' ').trim();
   if (!line || !hasChinese(line) || isMostlyEnglish(line)) return '';
   if (cantoneseLeft(line) || preachySentence(line) || DISCLAIMER.test(line)) return '';
   if (strictNumbers && !numbersGrounded(line, corpus)) return '';
+  if (groundedShare(line, corpus) < GROUNDED_MIN || !quotesGrounded(line, corpus)) return '';
   return line;
 }
 
@@ -424,7 +456,7 @@ export function topicPrompt(topic: TopicConfig, items: NewsItem[], previous: Top
     'points 寫三句，每句 40 字以內，概括目前發生了甚麼。',
     'timeline 每項 date 用摘錄或標題裡的 YYYY-MM-DD，text 一句。',
     'figures 的 value 必須是摘錄裡出現過的數字。label 是這個數字指甚麼。',
-    'impact 寫對香港普通市民的直接影響，reactions 只寫摘錄裡點名的政黨、官員或團體的說法。',
+    'impact 只寫摘錄明確寫出的、對香港市民的直接影響，不要推測「可能」「或會」；摘錄沒有寫就回傳空陣列。reactions 只寫摘錄裡點名的政黨、官員或團體的說法，引言必須逐字來自摘錄。',
     `回傳 {"title":"","description":"","points":[],"timeline":[{"date":"YYYY-MM-DD","text":""}],"figures":[{"area":"","label":"","value":""}],"impact":[],"reactions":[]}`,
     prior ? `上一版：${JSON.stringify(prior)}` : '',
     `資料：${JSON.stringify(material)}`,

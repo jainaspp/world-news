@@ -54,6 +54,13 @@ const HTML_HEADERS = {
 
 /** Wall clock for one warm call. A second call (skip=) finishes whatever this one deferred. */
 const DEADLINE_MS = 70_000;
+/**
+ * Pages Functions on the free plan allow 50 subrequests per invocation (each redirect counts).
+ * Two topics with up to four article fetches each stay well inside it; the warm run calls again
+ * with skip= for the rest (more: true).
+ */
+const MODELS_PER_CALL = 2;
+const ARTICLES_PER_TOPIC = 4;
 const TOPIC_TIMEOUT_MS = 22_000;
 
 export interface TopicCompletion {
@@ -253,14 +260,14 @@ export async function generateTopics(
       continue;
     }
     const outOfTime = Date.now() - started > DEADLINE_MS;
-    const outOfBudget = options.maxModels != null && models >= options.maxModels;
+    const outOfBudget = models >= (options.maxModels ?? MODELS_PER_CALL);
     if (outOfTime || outOfBudget) {
       rows.push({ slug: topic.slug, action: 'deferred' });
       more = true;
       continue;
     }
     const freshItems = matched.filter((item) => fresh.includes(item.link));
-    const withText = await attachText(env, freshItems.slice(0, 6), options.articleText);
+    const withText = await attachText(env, freshItems.slice(0, ARTICLES_PER_TOPIC), options.articleText);
     const corpus = topicCorpus(withText);
     const thin = corpus.replace(/\s/g, '').length < 200;
     const grokOk = Boolean(key) && spent < XAI_MONTHLY_CAP_USD;
