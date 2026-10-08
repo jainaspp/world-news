@@ -147,6 +147,9 @@ describe('shared homepage shell', () => {
     expect(css).toContain('.digest-strip');
     expect(css).toContain('.digest-strip a { flex: 0 0 auto; white-space: nowrap; }');
     expect(css).toContain('min-height: 44px');
+    expect(css).toContain('-webkit-line-clamp: 2');
+    expect(css).not.toMatch(/\.rank-title\s*\{[^}]*white-space:\s*nowrap/);
+    expect(css).not.toContain('max-width: 46%');
     expect(css).toContain('.template-switch');
     expect(css).toContain('#1d4f91');
     expect(css).toContain('--color-primary');
