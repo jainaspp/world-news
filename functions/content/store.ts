@@ -167,6 +167,20 @@ export async function writeValue(env: ContentEnv, key: string, value: string, tt
   return stored;
 }
 
+/**
+ * One durable KV put through writeValue. A 429, the daily block, or any other miss returns `failed`
+ * and is not retried. `unbound` when CONTENT is missing.
+ */
+export async function putLimited(env: ContentEnv, key: string, value: string, ttlSeconds?: number): Promise<'ok' | 'failed' | 'unbound'> {
+  if (!env.CONTENT) return 'unbound';
+  const stored = await writeValue(env, key, value, ttlSeconds);
+  if (!stored) {
+    console.error(`CONTENT put skipped for ${key}`);
+    return 'failed';
+  }
+  return 'ok';
+}
+
 export async function readDoc(env: ContentEnv, key: string): Promise<SavedDoc | null> {
   const raw = await readValue(env, `doc:${key}`);
   if (!raw) return null;

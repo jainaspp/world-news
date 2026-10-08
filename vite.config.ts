@@ -10,7 +10,16 @@ import { onRequest as popularApi } from './functions/api/popular';
 import { onRequest as readsApi } from './functions/api/reads';
 import { onRequest as dataPage } from './functions/data/[[path]]';
 import { onRequest as majorPage } from './functions/major/index';
+import { onRequest as searchPage } from './functions/search/index';
+import { onRequest as savedPage } from './functions/saved/index';
+import { onRequest as quizPage } from './functions/quiz/index';
+import { onRequest as feedPage } from './functions/feed.xml';
+import { onRequest as searchIndexApi } from './functions/api/search-index';
+import { onRequest as subscribeApi } from './functions/api/subscribe';
+import { onRequest as briefingPage } from './functions/briefing/[slot]';
+import { onRequest as briefingIndex } from './functions/briefing/index';
 import type { PagesContext } from './functions/env';
+import { previewSeed } from './shared/readerSample';
 import { loadHkBundle } from './server/hkService';
 import { emptyHkNow } from './shared/hk';
 import { loadHsiQuote } from './server/hsiService';
@@ -37,8 +46,26 @@ async function toWebRequest(req: IncomingMessage): Promise<Request> {
   return new Request(`http://${host}${req.url || '/'}`, { method, headers, body });
 }
 
+function memoryKv(seed: Record<string, string>) {
+  const map = new Map(Object.entries(seed));
+  return {
+    async get(key: string) { return map.get(key) ?? null; },
+    async put(key: string, value: string) { map.set(key, value); },
+  };
+}
+
+const previewContent = memoryKv(previewSeed());
+
 function pagesContext(request: Request): PagesContext {
-  return { request, env: {}, waitUntil() {}, next: async () => new Response(null, { status: 404 }) };
+  return {
+    request,
+    env: {
+      CONTENT: previewContent,
+      TELEGRAM_CHANNEL_URL: 'https://t.me/world_news_channel_forever',
+    },
+    waitUntil() {},
+    next: async () => new Response(null, { status: 404 }),
+  };
 }
 
 async function forward(res: ServerResponse, response: Response) {
@@ -52,8 +79,10 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
     const url = req.url ?? '';
     const handled = url.startsWith('/api/news') || url.startsWith('/api/crawl') || url.startsWith('/api/hsi') || url.startsWith('/api/hk')
       || url.startsWith('/api/markets') || url.startsWith('/api/alerts') || url.startsWith('/api/board') || url.startsWith('/api/clusters')
-      || url.startsWith('/api/major') || url.startsWith('/api/reads') || url.startsWith('/api/popular') || url.startsWith('/major')
-      || url.startsWith('/data');
+      || url.startsWith('/api/major') || url.startsWith('/api/reads') || url.startsWith('/api/popular') || url.startsWith('/api/search-index')
+      || url.startsWith('/api/subscribe') || url.startsWith('/major')
+      || url.startsWith('/data') || url.startsWith('/search') || url.startsWith('/saved') || url.startsWith('/quiz')
+      || url.startsWith('/feed.xml') || url.startsWith('/briefing');
     if (!handled) {
       next();
       return;
@@ -93,6 +122,18 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
         if (url.startsWith('/api/popular')) { await forward(res, await popularApi(context)); return; }
         if (url.startsWith('/major')) { await forward(res, await majorPage(context)); return; }
         if (url.startsWith('/data')) { await forward(res, await dataPage(context)); return; }
+        if (url.startsWith('/api/search-index')) { await forward(res, await searchIndexApi(context)); return; }
+        if (url.startsWith('/api/subscribe')) { await forward(res, await subscribeApi(context)); return; }
+        if (url.startsWith('/search')) { await forward(res, await searchPage(context)); return; }
+        if (url.startsWith('/saved')) { await forward(res, await savedPage(context)); return; }
+        if (url.startsWith('/quiz')) { await forward(res, await quizPage(context)); return; }
+        if (url.startsWith('/feed.xml')) { await forward(res, await feedPage(context)); return; }
+        if (url.startsWith('/briefing')) {
+          const path = url.split('?')[0] || '';
+          const leaf = path.replace(/\/+$/, '').split('/').filter(Boolean);
+          await forward(res, leaf.length > 1 ? await briefingPage(context) : await briefingIndex(context));
+          return;
+        }
         const header = req.headers.authorization;
         send(res, await buildCrawlResponse(req.method, typeof header === 'string' ? header : undefined));
       } catch {

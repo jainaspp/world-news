@@ -136,6 +136,32 @@ function useSpinOnce() {
   return [on, start] as const;
 }
 
+function SubscribeMenu() {
+  const [telegram, setTelegram] = useState('');
+  useEffect(() => {
+    let cancel = false;
+    void fetch('/api/subscribe')
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { telegram?: string | null } | null) => {
+        const href = data?.telegram || '';
+        if (!cancel && /^https:\/\/(t\.me|telegram\.me|telegram\.dog)\//.test(href)) setTelegram(href);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancel = true;
+    };
+  }, []);
+  return (
+    <details className="subscribe-menu">
+      <summary className="chip">訂閱</summary>
+      <div className="subscribe-panel" role="group" aria-label="訂閱">
+        <a href="/feed.xml">RSS</a>
+        {telegram ? <a className="subscribe-telegram" href={telegram} rel="noopener noreferrer">Telegram</a> : null}
+      </div>
+    </details>
+  );
+}
+
 const clearSpecial = { bookmarks: false, following: false };
 
 export default function App() {
@@ -320,7 +346,21 @@ export default function App() {
                 <Logo />
               </a>
             </h1>
-            <form className={searchOpen ? 'search-bar open' : 'search-bar'} role="search" onSubmit={(event) => event.preventDefault()}>
+            <form
+              className={searchOpen ? 'search-bar open' : 'search-bar'}
+              role="search"
+              action="/search/"
+              method="get"
+              onSubmit={(event) => {
+                event.preventDefault();
+                const q = view.q.trim();
+                if (!q) {
+                  setSearchOpen(true);
+                  return;
+                }
+                window.location.assign(`/search/?q=${encodeURIComponent(q)}`);
+              }}
+            >
               <label className="sr-only" htmlFor="news-search">
                 {t('search', lang)}
               </label>
@@ -405,9 +445,13 @@ export default function App() {
                   {TIME_LABEL[item.id][lang]}
                 </button>
               ))}
+              <button type="button" className={view.following ? 'chip active' : 'chip'} aria-pressed={view.following} onClick={() => go({ ...view, following: !view.following, bookmarks: false })}>
+                {t('following', lang)}
+              </button>
               <button type="button" className={view.bookmarks ? 'chip active' : 'chip'} aria-pressed={view.bookmarks} onClick={() => go({ ...view, bookmarks: !view.bookmarks, following: false })}>
                 {t('bookmarks', lang)}
               </button>
+              <a className="chip" href="/saved/">收藏頁</a>
               <a className="chip" href="/data/">{t('dataHub', lang)}</a>
               {board.prefs.keywords && (
                 <button
@@ -419,6 +463,7 @@ export default function App() {
                 </button>
               )}
             </nav>
+            <SubscribeMenu />
           </div>
 
           {layoutOpen && (
@@ -427,7 +472,7 @@ export default function App() {
             </div>
           )}
 
-          {filtersOpen && !special && (
+          {filtersOpen && !view.bookmarks && (
             <div className="filter-panel" id="filter-panel">
               <p className="filter-label">{t('categories', lang)}</p>
               <nav className="filters" aria-label="categories">
@@ -460,12 +505,28 @@ export default function App() {
               </nav>
               <p className="filter-label">{t('regions', lang)}</p>
               <nav className="filters" aria-label="regions">
-                {REGIONS.map((region) => (
-                  <button type="button" key={region.code} className={view.region === region.code ? 'chip active' : 'chip'} aria-pressed={view.region === region.code} onClick={() => go({ ...view, region: region.code, source: '', ...clearSpecial })}>
-                    <RegionIcon code={region.code} />
-                    {lang === 'en' ? region.code : region.label}
-                  </button>
-                ))}
+                {REGIONS.map((region) => {
+                  const followed = region.code !== 'ALL' && follows.regionSet.has(region.code);
+                  return (
+                    <span key={region.code} className="chip-wrap">
+                      <button type="button" className={view.region === region.code ? 'chip active' : 'chip'} aria-pressed={view.region === region.code} onClick={() => go({ ...view, region: region.code, source: '', ...clearSpecial })}>
+                        <RegionIcon code={region.code} />
+                        {lang === 'en' ? region.code : region.label}
+                      </button>
+                      {region.code !== 'ALL' && (
+                        <button
+                          type="button"
+                          className={followed ? 'follow-mini on' : 'follow-mini'}
+                          aria-pressed={followed}
+                          aria-label={followed ? `${t('unfollow', lang)} ${region.label}` : `${t('follow', lang)} ${region.label}`}
+                          onClick={() => follows.toggleRegion(region.code)}
+                        >
+                          {followed ? '★' : '☆'}
+                        </button>
+                      )}
+                    </span>
+                  );
+                })}
               </nav>
               <p className="filter-label">{t('sources', lang)}</p>
               <nav className="filters" aria-label="sources">
@@ -538,6 +599,7 @@ export default function App() {
                     <a href="/data/">{t('dataHub', lang)}</a>
                     <a href="/weekly/">{t('weekly', lang)}</a>
                     <a href="/analysis/">{t('hotAnalysis', lang)}</a>
+                    <a href="/quiz/">每日小測</a>
                   </aside>
                 )}
                 {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
@@ -658,6 +720,11 @@ export default function App() {
               </p>
               {view.following && follows.count > 0 && (
                 <div className="follow-list">
+                  {follows.regions.map((code) => (
+                    <button key={code} type="button" className="chip follow-chip on" onClick={() => follows.toggleRegion(code)}>
+                      {REGIONS.find((region) => region.code === code)?.label || code} ×
+                    </button>
+                  ))}
                   {follows.categories.map((id) => (
                     <button key={id} type="button" className="chip follow-chip on" onClick={() => follows.toggleCategory(id)}>
                       {categoryLabelI18n(id, lang)} ×

@@ -264,3 +264,134 @@
       }).catch(function () {});
     }
   })();
+
+  (function () {
+    fetch('/api/subscribe').then(function (response) { return response.ok ? response.json() : null; }).then(function (data) {
+      var href = data && typeof data.telegram === 'string' ? data.telegram : '';
+      if (!/^https:\/\/(t\.me|telegram\.me|telegram\.dog)\//.test(href)) return;
+      document.querySelectorAll('.subscribe-telegram').forEach(function (node) {
+        node.setAttribute('href', href);
+        node.hidden = false;
+        if (!node.textContent.trim()) node.textContent = 'Telegram';
+      });
+    }).catch(function () {});
+  })();
+
+  (function () {
+    var KEY = 'wn_bookmarks_v2';
+    function read() {
+      try {
+        var parsed = JSON.parse(localStorage.getItem(KEY) || '[]');
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) { return []; }
+    }
+    function write(items) {
+      try { localStorage.setItem(KEY, JSON.stringify(items.slice(0, 50))); } catch (e) {}
+    }
+    document.querySelectorAll('.bookmark-article').forEach(function (button) {
+      var id = 'article:' + (button.getAttribute('data-page') || 'article') + ':' + (button.getAttribute('data-key') || '');
+      function paint(items) {
+        var on = items.some(function (row) { return row && row.id === id; });
+        button.setAttribute('aria-pressed', String(on));
+        button.textContent = on ? '已收藏' : '收藏';
+      }
+      paint(read());
+      button.addEventListener('click', function () {
+        var items = read();
+        var next = items.some(function (row) { return row && row.id === id; })
+          ? items.filter(function (row) { return !row || row.id !== id; })
+          : [{
+            id: id,
+            title: button.getAttribute('data-title') || '',
+            link: button.getAttribute('data-link') || location.pathname,
+            source: '世界頭條',
+            sourceUrl: 'https://world-news.xyz',
+            regions: [],
+            pubDate: button.getAttribute('data-published') || new Date().toISOString(),
+            category: button.getAttribute('data-category') || undefined,
+            page: button.getAttribute('data-page') || 'briefing',
+          }].concat(items);
+        write(next);
+        paint(next);
+      });
+    });
+  })();
+
+  (function () {
+    var box = document.querySelector('[data-listen]');
+    if (!box || !window.speechSynthesis || typeof window.SpeechSynthesisUtterance !== 'function') return;
+    box.hidden = false;
+    var play = box.querySelector('.listen-play');
+    var stop = box.querySelector('.listen-stop');
+    var rate = box.querySelector('.listen-rate-select');
+    if (!play || !stop) return;
+    function articleText() {
+      var main = document.querySelector('main');
+      if (!main) return '';
+      var bits = [];
+      main.querySelectorAll('h1, .dek, .key-points li, .column-block h2, .column-block .points li, .timeline .tl-body').forEach(function (node) {
+        var text = (node.textContent || '').replace(/\s+/g, ' ').trim();
+        if (text) bits.push(text);
+      });
+      return bits.join('。');
+    }
+    function chooseVoice() {
+      var voices = window.speechSynthesis.getVoices() || [];
+      var chinese = voices.filter(function (voice) { return /^zh/i.test(voice.lang || ''); });
+      var order = ['zh-HK', 'zh-TW', 'zh-CN'];
+      for (var i = 0; i < order.length; i += 1) {
+        var hit = chinese.find(function (voice) { return (voice.lang || '').toLowerCase().indexOf(order[i].toLowerCase()) === 0; });
+        if (hit) return hit;
+      }
+      return chinese[0] || null;
+    }
+    function setState(state) {
+      if (state === 'playing') {
+        play.textContent = '暫停';
+        play.setAttribute('aria-pressed', 'true');
+        stop.hidden = false;
+      } else if (state === 'paused') {
+        play.textContent = '繼續';
+        play.setAttribute('aria-pressed', 'true');
+        stop.hidden = false;
+      } else {
+        play.textContent = '收聽';
+        play.setAttribute('aria-pressed', 'false');
+        stop.hidden = true;
+      }
+    }
+    function speak() {
+      window.speechSynthesis.cancel();
+      var text = articleText();
+      if (!text) return;
+      var utter = new window.SpeechSynthesisUtterance(text);
+      var voice = chooseVoice();
+      utter.lang = voice ? voice.lang : 'zh-HK';
+      if (voice) utter.voice = voice;
+      utter.rate = rate ? Number(rate.value) || 1 : 1;
+      utter.onend = function () { setState('idle'); };
+      window.speechSynthesis.speak(utter);
+      setState('playing');
+    }
+    play.addEventListener('click', function () {
+      var synth = window.speechSynthesis;
+      if (synth.speaking && !synth.paused) {
+        synth.pause();
+        setState('paused');
+        return;
+      }
+      if (synth.paused) {
+        synth.resume();
+        setState('playing');
+        return;
+      }
+      speak();
+    });
+    stop.addEventListener('click', function () {
+      window.speechSynthesis.cancel();
+      setState('idle');
+    });
+    if (rate) rate.addEventListener('change', function () {
+      if (window.speechSynthesis.speaking || window.speechSynthesis.paused) speak();
+    });
+  })();

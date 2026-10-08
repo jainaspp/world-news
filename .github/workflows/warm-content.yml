@@ -70,6 +70,8 @@ jobs:
           post "$base/api/generate?kind=briefing" 3 || fail=1
           post "$base/api/generate?kind=briefing&scope=world" 2 || fail=1
           post "$base/api/generate?kind=briefing&scope=techfin" 2 || fail=1
+          # Daily quiz: one Workers AI call, at most one KV put. Do not fail the edition.
+          post "$base/api/generate?kind=quiz" 2 || true
           prev_keys=""
           explainer_ok=0
           for _ in 1 2 3; do
