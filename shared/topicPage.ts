@@ -15,12 +15,14 @@ import {
 } from './contentPage.js';
 import { readableSourceTitle } from './search.js';
 import type { NewsItem } from './types.js';
+import { pictureForTopic } from './topicImage.js';
 import {
   TOPIC_PACKS,
   topicPublic,
   type TopicConfig,
   type TopicFigure,
   type TopicPack,
+  type TopicPicture,
 } from './topicPack.js';
 
 const DEFAULT_CLIENT = 'ca-pub-8392975944327076';
@@ -109,6 +111,29 @@ function packBody(model: TopicPageModel): string {
   return `${pointsBox}${nav}${timeline}${figures}${fold('impact', '對市民有什麼影響', pack.impact.map(endLine))}${fold('reactions', '各方反應', pack.reactions.map(endLine))}${topic.background ? fold('background', topic.background.label, (pack.background ?? []).map(endLine)) : ''}${headlineList(model.headlines)}${sources}`;
 }
 
+function absoluteSrc(src: string, canonical: string): string {
+  if (!src.startsWith('/')) return src;
+  try {
+    return new URL(src, canonical).toString();
+  } catch {
+    return src;
+  }
+}
+
+function photoCredit(picture: TopicPicture): string {
+  const href = safeHttp(picture.sourceUrl);
+  const text = `圖片：${esc(picture.credit)}`;
+  const inner = href
+    ? `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${text}</a>`
+    : text;
+  return `<p class="photo-credit">${inner}</p>`;
+}
+
+function heroPhoto(picture: TopicPicture | null, category: string, label: string): string {
+  if (!picture) return `<div class="story-media">${media(undefined, category, label, true)}</div>`;
+  return `<div class="topic-photo"><div class="story-media">${media(picture.url, category, label, true, picture.alt)}</div>${photoCredit(picture)}</div>`;
+}
+
 function sideList(model: TopicPageModel): string {
   const rows = model.others.filter((row) => row.slug !== model.topic.slug);
   if (!rows.length) return '';
@@ -138,7 +163,8 @@ export function renderTopicPage(model: TopicPageModel, canonical: string, ads?: 
   const title = displayTitle(shown?.title, topic);
   const shownDescription = shown?.description && !shown.description.includes('\uFFFD') ? shown.description : '';
   const description = (shownDescription || topic.blurb).slice(0, 180);
-  const image = safeHttp(shown?.sources.find((source) => source.image)?.image);
+  const picture = pictureForTopic(topic.slug, pack);
+  const image = picture ? absoluteSrc(picture.url, canonical) : '';
   const client = ads?.client || DEFAULT_CLIENT;
   const indexable = shown ? topicPublic(shown) : false;
   const robots = `<meta name="robots" content="${indexable ? 'index,follow' : 'noindex,follow'}" />`;
@@ -153,6 +179,7 @@ export function renderTopicPage(model: TopicPageModel, canonical: string, ads?: 
       mainEntityOfPage: canonical,
       description,
       author: { '@type': 'Organization', name: '世界頭條' },
+      ...(image ? { image: [image] } : {}),
       isBasedOn: shown.sources.map((source) => ({ '@type': 'NewsArticle', headline: source.title, url: source.url })),
     }).replace(/</g, '\\u003c')}</script>`
     : '';
@@ -168,7 +195,7 @@ ${head(`${title}專題`, description, canonical, image || '', 'article', `${robo
   <div class="layout">
     <main id="content" class="column-main">
       <article class="story story-hero column-hero">
-        <div class="story-media">${media(image, topic.category, topic.title, true)}</div>
+        ${heroPhoto(picture, topic.category, topic.title)}
         <div class="story-body">
           <div class="story-kicker">${shown ? '<span class="badge ai-badge">AI 整合</span>' : ''}<span class="kicker-region">專題懶人包</span>${catChip(topic.category)}</div>
           <h1 class="story-title column-title">${esc(title)}</h1>
@@ -202,17 +229,20 @@ export interface TopicIndexCard {
   description: string;
   updatedAt?: string;
   ready: boolean;
+  picture?: TopicPicture;
 }
 
 export function topicIndexCards(packs: Map<string, TopicPack | null>): TopicIndexCard[] {
   return TOPIC_PACKS.map((topic) => {
     const pack = packs.get(topic.slug) ?? null;
     const ready = Boolean(pack && topicPublic(pack));
+    const picture = pictureForTopic(topic.slug, pack);
     return {
       topic,
       description: ready && pack ? pack.description : topic.blurb,
       ...(ready && pack ? { updatedAt: pack.updatedAt } : {}),
       ready,
+      ...(picture ? { picture } : {}),
     };
   });
 }
@@ -221,13 +251,14 @@ export function topicIndexCards(packs: Map<string, TopicPack | null>): TopicInde
 export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads?: AdConfig): string {
   const client = ads?.client || DEFAULT_CLIENT;
   const title = '專題懶人包';
-  const description = '施政報告、財政預算案、樓市、天氣警告、中美關係等持續題目。有新報道才更新。';
+  const description = '施政報告、財政預算案、樓市、天氣警告、中美關係、美國利率等持續題目。有新報道才更新。';
   const articles = cards.map((card, index) => {
-    const image = '';
     const when = card.updatedAt ? `<div class="story-meta"><time datetime="${esc(card.updatedAt)}">${esc(hkt(card.updatedAt, false))}</time></div>` : '';
+    const credit = card.picture ? photoCredit(card.picture) : '';
     return `<article class="story">
-      <a class="story-media" href="/topic/${esc(card.topic.slug)}/" tabindex="-1" aria-hidden="true">${media(image, card.topic.category, card.topic.title, index < 2)}</a>
+      <a class="story-media" href="/topic/${esc(card.topic.slug)}/" tabindex="-1" aria-hidden="true">${media(card.picture?.url, card.topic.category, card.topic.title, index < 2, card.picture?.alt ?? '')}</a>
       <div class="story-body">
+        ${credit}
         <div class="story-kicker">${card.ready ? '<span class="badge ai-badge">AI 整合</span>' : ''}${catChip(card.topic.category)}</div>
         <h2 class="story-title"><a href="/topic/${esc(card.topic.slug)}/">${esc(card.topic.title)}</a></h2>
         <p class="dek">${esc(card.description)}</p>
@@ -253,7 +284,7 @@ export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads
   }).replace(/</g, '\\u003c')}</script>`;
   return `<!doctype html>
 <html lang="zh-HK">
-${head(title, description, canonical, '', 'website', `<meta name="robots" content="index,follow" />${ld}`, client)}
+${head(title, description, canonical, absoluteSrc(cards.find((card) => card.picture)?.picture?.url || '', canonical), 'website', `<meta name="robots" content="index,follow" />${ld}`, client)}
 <body>
   <div class="page column-page" data-kind="topic-index">
   ${chrome('topic')}

@@ -83,6 +83,12 @@ html.dark .highlight-box h2 { color: #ff8a9b; }
   .column-hero .thumb, .column-hero .thumb-fallback { max-height: 380px; }
 }
 .column-page a.story-media { text-decoration: none; }
+.topic-photo { display: grid; }
+.photo-credit { margin: 0; padding: 6px 16px 0; color: var(--muted); font-size: 0.78rem; line-height: 1.45; }
+.photo-credit a { color: inherit; text-decoration: none; }
+.photo-credit a:hover { text-decoration: underline; }
+.story-body .photo-credit { padding: 0; }
+.analysis-grid .photo-credit { padding: 6px 12px 0; }
 .related-grid { grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: 0; }
 .related-grid .story-body { padding: 8px 10px 10px; gap: 4px; }
 .related-grid .story-title { font-size: 0.95rem; -webkit-line-clamp: 3; }

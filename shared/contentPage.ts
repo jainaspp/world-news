@@ -91,11 +91,17 @@ function fallbackTile(category: string | undefined, label: string, hidden = fals
   return `<div class="thumb thumb-fallback" style="--ph:${tile.color}" aria-hidden="true"${hidden ? ' hidden' : ''}><span class="region-icon region-icon-lg" style="mask-image:url('${icon}');-webkit-mask-image:url('${icon}')"></span><span class="thumb-source">${esc(label)}</span></div>`;
 }
 
+/** Self-hosted topic pictures are root-relative. Everything else must be an http(s) URL. */
+export function safeMediaSrc(url: string | undefined): string {
+  if (url && /^\/topics\/[a-z0-9-]+\.jpg$/.test(url)) return url;
+  return safeHttp(url);
+}
+
 /** Feed photo with the same category-colour tile as the homepage when there is none or it fails. */
-export function media(image: string | undefined, category: string | undefined, label: string, eager = false): string {
-  const src = safeHttp(image);
+export function media(image: string | undefined, category: string | undefined, label: string, eager = false, alt = ''): string {
+  const src = safeMediaSrc(image);
   if (!src) return fallbackTile(category, label);
-  return `<img class="thumb" src="${esc(src)}" alt="" width="640" height="360" loading="${eager ? 'eager' : 'lazy'}"${eager ? ' fetchpriority="high"' : ''} decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />${fallbackTile(category, label, true)}`;
+  return `<img class="thumb" src="${esc(src)}" alt="${esc(alt)}" width="640" height="360" loading="${eager ? 'eager' : 'lazy'}"${eager ? ' fetchpriority="high"' : ''} decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />${fallbackTile(category, label, true)}`;
 }
 
 export function favicon(url: string): string {
