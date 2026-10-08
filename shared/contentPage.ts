@@ -2,6 +2,7 @@ import { readableSourceTitle } from './search.js';
 import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import { briefingPublic, briefingScopeOf, explainerCurrent, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
 import { bestImage } from './media.js';
+import { listens } from './listen.js';
 import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
 
@@ -230,6 +231,7 @@ export function head(title: string, description: string, canonical: string, imag
   <link rel="canonical" href="${esc(canonical)}" />
   <link rel="alternate" hreflang="zh-HK" href="${esc(canonical)}" />
   <link rel="alternate" hreflang="x-default" href="${esc(canonical)}" />
+  <link rel="alternate" type="application/rss+xml" title="世界頭條" href="/feed.xml" />
   <meta name="theme-color" content="#1D4F91" />
   <meta property="og:site_name" content="世界頭條" />
   <meta property="og:locale" content="zh_HK" />
@@ -256,7 +258,7 @@ export function head(title: string, description: string, canonical: string, imag
 </head>`;
 }
 
-export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic'): string {
+export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved'): string {
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
@@ -272,7 +274,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
           </span>
         </a>
       </div>
-      <form class="search-bar" role="search" action="/" method="get">
+      <form class="search-bar" role="search" action="/search/" method="get">
         <label class="sr-only" for="news-search">搜尋</label>
         <button type="button" class="icon-btn search-toggle" aria-label="搜尋" aria-expanded="false">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.75" /><path d="M16 16.5 20 20.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" /></svg>
@@ -289,8 +291,9 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
     <div class="tab-bar">
       <nav class="filters" aria-label="欄目">
         <a class="chip" href="/">頭條</a>
-        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/"${active === 'today' ? ' aria-current="page"' : ''}>時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a>
+        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/"${active === 'today' ? ' aria-current="page"' : ''}>時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a><a class="chip${active === 'quiz' ? ' active' : ''}" href="/quiz/"${active === 'quiz' ? ' aria-current="page"' : ''}>小測</a>
       </nav>
+      ${subscribeMenu()}
     </div>
     <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"></div>
   </div>
@@ -305,9 +308,40 @@ export function footer(note = true): string {
     : '';
   return `<footer class="app-footer">
       <p>世界頭條只列出標題與出處連結，不轉載內文。<a href="https://world-news.xyz">world-news.xyz</a> · <a href="/major/">重大更新</a></p>
-      <nav class="footer-nav" aria-label="網站資料">${links}</nav>
+      <nav class="footer-nav" aria-label="網站資料">${links}<a href="/feed.xml">RSS</a><a class="subscribe-telegram" hidden>Telegram</a></nav>
       ${footnote}
     </footer>`;
+}
+
+/** Hidden until columns.js confirms speechSynthesis. */
+export function listenControls(): string {
+  return `<div class="listen" data-listen hidden>
+        <button type="button" class="chip listen-play" aria-pressed="false">收聽</button>
+        <button type="button" class="chip listen-stop" hidden>停止</button>
+        <label class="listen-rate">語速
+          <select class="listen-rate-select" aria-label="語速">
+            <option value="0.75">較慢</option>
+            <option value="1" selected>正常</option>
+            <option value="1.25">較快</option>
+            <option value="1.5">快速</option>
+          </select>
+        </label>
+      </div>`;
+}
+
+export function bookmarkButton(input: { page: string; key: string; title: string; link: string; publishedAt: string; category?: string }): string {
+  return `<button type="button" class="chip bookmark-article" data-page="${esc(input.page)}" data-key="${esc(input.key)}" data-title="${esc(input.title)}" data-link="${esc(input.link)}" data-published="${esc(input.publishedAt)}" data-category="${esc(input.category || '')}" aria-pressed="false">收藏</button>`;
+}
+
+/** Telegram link stays hidden until /api/subscribe returns a channel URL. RSS is always listed. */
+export function subscribeMenu(): string {
+  return `<details class="subscribe-menu">
+        <summary class="chip">訂閱</summary>
+        <div class="subscribe-panel" role="group" aria-label="訂閱">
+          <a href="/feed.xml">RSS</a>
+          <a class="subscribe-telegram" hidden rel="noopener noreferrer">Telegram</a>
+        </div>
+      </details>`;
 }
 
 export function share(title: string, canonical: string): string {
@@ -443,6 +477,14 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
           ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}
           <div class="story-meta"><time datetime="${esc(doc.publishedAt)}">${esc(doc.hkt || hkt(doc.publishedAt))} 香港時間</time><span>· 閱讀約 ${minutes} 分鐘</span>${sources.length ? `<span>· ${outlets} 間媒體 · ${sources.length} 篇報道</span>` : ''}${doc.updatedAt ? `<span>· 最後更新 ${esc(hkt(doc.updatedAt))}</span>` : ''}</div>
           ${share(doc.title, canonical)}
+          ${listens(doc.kind) ? `${listenControls()}${bookmarkButton({
+            page: doc.kind === 'compare' ? 'explainer' : doc.kind,
+            key: doc.key,
+            title: doc.title,
+            link: (() => { try { return new URL(canonical).pathname; } catch { return canonical; } })(),
+            publishedAt: doc.publishedAt,
+            category: leadCategory,
+          })}` : ''}
         </div>
       </article>
       ${adUnit(ads, ads?.top, 'top')}

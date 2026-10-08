@@ -17,6 +17,9 @@ export interface ContentEnv {
   VITE_AD_SLOT_FEED?: string;
   VITE_GOOGLE_AD_CLIENT?: string;
   VITE_SITE_URL?: string;
+  TELEGRAM_BOT_TOKEN?: string;
+  TELEGRAM_CHAT_ID?: string;
+  TELEGRAM_CHANNEL_URL?: string;
   [key: string]: unknown;
 }
 
@@ -165,6 +168,20 @@ export async function writeValue(env: ContentEnv, key: string, value: string, tt
     /* best effort */
   }
   return stored;
+}
+
+/**
+ * One durable KV put through writeValue. A 429, the daily block, or any other miss returns `failed`
+ * and is not retried. `unbound` when CONTENT is missing.
+ */
+export async function putLimited(env: ContentEnv, key: string, value: string, ttlSeconds?: number): Promise<'ok' | 'failed' | 'unbound'> {
+  if (!env.CONTENT) return 'unbound';
+  const stored = await writeValue(env, key, value, ttlSeconds);
+  if (!stored) {
+    console.error(`CONTENT put skipped for ${key}`);
+    return 'failed';
+  }
+  return 'ok';
 }
 
 export async function readDoc(env: ContentEnv, key: string): Promise<SavedDoc | null> {

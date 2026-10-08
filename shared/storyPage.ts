@@ -1,5 +1,5 @@
 import { analysisEligible, analysisSlug } from './content.js';
-import { catChip, chrome, esc, favicon, footer, head, heatBadge, hkt, media, safeHttp, share } from './contentPage.js';
+import { bookmarkButton, catChip, chrome, esc, favicon, footer, head, heatBadge, hkt, listenControls, media, safeHttp, share } from './contentPage.js';
 import { bestImage } from './media.js';
 import type { StoryCluster } from './trending';
 import type { NewsItem } from './types';
@@ -47,6 +47,8 @@ ${head(item.title, description, canonical, image, 'article', ld, '', false)}
             ${analysis ? `<a class="chip analysis-chip" href="${analysis}"><span class="badge ai-badge">AI 整合</span> 背景與各方說法</a>` : ''}
           </div>
           ${share(item.title, canonical)}
+          ${listenControls()}
+          ${bookmarkButton({ page: 'story', key: item.id, title: item.title, link: `/story/${item.id}/`, publishedAt: item.pubDate, category: item.category })}
         </div>
       </article>
       ${timeline}
