@@ -74,6 +74,7 @@ describe('當年今日 pages', () => {
     const now = new Date('2026-10-09T04:00:00Z');
     const section = renderOnThisDaySection(now);
     expect(section).toContain('當年今日');
+    expect(section).toContain('/static/heritage/ink-divider.png');
     expect(section).toContain('廣華醫院');
     expect(section).toContain('href="/on-this-day/10-09/"');
     expect(section).not.toContain('文娛');
@@ -114,6 +115,8 @@ describe('當年今日 pages', () => {
     expect(hub.status).toBe(200);
     expect(hub.html).toContain('香港地標');
     expect(hub.html).toContain('href="/hk/landmarks/city-hall/"');
+    expect(hub.html).toContain('/static/heritage/otd-city-hall.jpg');
+    expect(hub.html).toContain('/static/heritage/lm-star-ferry.jpg');
     expect(hub.html).toContain('自然／觀景');
     const place = landmarkBySlug('city-hall');
     expect(place).toBeTruthy();

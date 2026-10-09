@@ -768,15 +768,21 @@ body:has(.heritage),
 body:has(.heritage-page) {
   background-color: #e8dfd0;
   background-image:
-    radial-gradient(ellipse at 12% 0%, rgba(255, 248, 236, 0.7), transparent 46%),
-    radial-gradient(ellipse at 90% 8%, rgba(196, 165, 114, 0.18), transparent 40%),
-    repeating-linear-gradient(90deg, rgba(120, 90, 50, 0.045) 0 2px, transparent 2px 8px),
-    repeating-linear-gradient(0deg, rgba(90, 70, 40, 0.035) 0 1px, transparent 1px 11px);
+    linear-gradient(180deg, rgba(245, 236, 220, 0.55), rgba(240, 228, 208, 0.5)),
+    url("/static/heritage/aged-paper.jpg"),
+    url("/static/heritage/pale-wood.jpg");
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-position: center, center, center;
+  background-size: auto, cover, 900px;
 }
 html.dark body:has(.heritage),
 html.dark body:has(.heritage-page) {
   background-color: #0e141c;
   background-image: none;
+}
+html.dark body:has(.heritage) .digest-strip {
+  background: var(--card);
+  border-color: var(--line);
 }
 .heritage,
 .heritage-page {
@@ -798,11 +804,17 @@ html.dark .heritage-page {
   border-radius: 18px;
   border: 1px solid #d9cdb8;
   background:
-    linear-gradient(180deg, rgba(247, 238, 220, 0.94), rgba(242, 230, 208, 0.92));
+    linear-gradient(180deg, rgba(247, 238, 220, 0.9), rgba(242, 230, 208, 0.88)),
+    url("/static/heritage/paper-texture.jpg") center / cover,
+    url("/static/heritage/aged-paper.jpg") center / cover;
   box-shadow: 0 10px 28px rgba(17, 26, 43, 0.08);
   position: relative;
   overflow: hidden;
   color: var(--paper-ink);
+}
+body:has(.heritage) .digest-strip {
+  background: rgba(245, 236, 220, 0.95);
+  border-color: #e2d6c2;
 }
 .heritage::before {
   content: "";
@@ -863,7 +875,15 @@ html.dark .section-kicker { color: #9ec0ef; }
   font-weight: 700;
   margin: 0 0 6px;
 }
-.ink-rule { display: block; width: min(420px, 70%); height: 36px; margin: 4px 0 14px; }
+.ink-rule {
+  display: block;
+  width: min(420px, 72%);
+  height: auto;
+  max-height: 48px;
+  margin: 2px 0 12px;
+  object-fit: contain;
+  object-position: left center;
+}
 .heritage .section-lede,
 .heritage-main .section-lede {
   margin: 0 0 16px;
@@ -876,7 +896,9 @@ html.dark .section-kicker { color: #9ec0ef; }
 }
 .otd-grid { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .otd-card, .otd-row, .lm-card {
-  background: rgba(245, 236, 220, 0.96);
+  background:
+    linear-gradient(180deg, rgba(245, 236, 220, 0.94), rgba(247, 241, 230, 0.92)),
+    url("/static/heritage/paper-texture.jpg") center / cover;
   border: 1px solid #e2d6c2;
   box-shadow: 0 6px 16px rgba(40, 24, 10, 0.06);
   color: var(--paper-ink);
@@ -896,12 +918,25 @@ html.dark .heritage {
   flex-direction: column;
   min-height: 100%;
 }
-.otd-visual { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #ede4d4; }
+.otd-visual, .lm-card .cover, .detail-hero .cover { position: relative; }
+.otd-visual { aspect-ratio: 16 / 9; overflow: hidden; background: #ede4d4; }
+.plate-name {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 32%;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  color: #5c4030;
+}
 .otd-visual img, .lm-card .cover img, .detail-hero .cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.9) sepia(0.12);
+  filter: saturate(0.88) sepia(0.12) contrast(1.02);
 }
 .year-seal {
   position: absolute;
@@ -981,7 +1016,12 @@ html.dark .day-nav a { background: #2a241c; color: #f4efe6; }
 .lm-card p { margin: 0 0 10px; font-size: 13px; color: var(--paper-muted); line-height: 1.45; }
 .detail-hero { border-radius: 18px; overflow: hidden; border: 1px solid #e2d6c2; box-shadow: 0 10px 28px rgba(17, 26, 43, 0.08); background: #f3eadf; }
 .detail-hero .cover { aspect-ratio: 21 / 9; min-height: 220px; overflow: hidden; }
-.detail-hero .intro { padding: 18px 20px 20px; background: rgba(245, 236, 220, 0.96); }
+.detail-hero .intro {
+  padding: 18px 20px 20px;
+  background:
+    linear-gradient(180deg, rgba(245, 236, 220, 0.94), rgba(247, 241, 230, 0.92)),
+    url("/static/heritage/paper-texture.jpg") center / cover;
+}
 .detail-hero h1 { margin: 0 0 8px; font-size: 28px; font-weight: 900; }
 .detail-hero .lede { margin: 0 0 14px; color: var(--paper-muted); font-size: 15px; max-width: 42em; }
 .map-btn {

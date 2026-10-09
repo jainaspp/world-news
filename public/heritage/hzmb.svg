@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="大橋">
-  <rect width="640" height="400" fill="#f3e6cf"/>
-  <ellipse cx="120" cy="70" rx="180" ry="70" fill="#d5e3ea" opacity="0.85"/>
-  <ellipse cx="480" cy="50" rx="200" ry="80" fill="#f7f1e6" opacity="0.7"/>
-  <rect x="0" y="280" width="640" height="120" fill="#b7c9c4" opacity="0.8"/>
-  <path d="M20 250 Q160 120 320 200 T620 160" fill="none" stroke="#1d4f91" stroke-width="8"/><path d="M20 262 Q160 140 320 214 T620 174" fill="none" stroke="#1d4f91" stroke-width="3" opacity=".45"/><rect x="150" y="168" width="16" height="90" fill="#1d4f91"/><rect x="470" y="150" width="16" height="100" fill="#1d4f91"/><ellipse cx="320" cy="250" rx="70" ry="16" fill="#d9c7a4"/>
-</svg>

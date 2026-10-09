@@ -44,8 +44,15 @@ function proseChars(parts: string[]): number {
   return cjkChars(parts.join(''));
 }
 
+const PAPER_PLATE = '/static/heritage/paper-texture.jpg';
+
 function inkRule(): string {
-  return `<svg class="ink-rule" viewBox="0 0 420 36" aria-hidden="true" focusable="false"><path d="M4 20c36-10 74 8 112-2s68-12 104 2 78 10 118-4 60 2 78 0" fill="none" stroke="#3a2a1c" stroke-width="1.6" stroke-linecap="round"/><path d="M10 27c48 5 92-7 142 1s88 7 150-3 62 1 104 2" fill="none" stroke="#7a5a3a" stroke-width="0.9" opacity="0.75"/></svg>`;
+  return `<img class="ink-rule" src="/static/heritage/ink-divider.png" alt="" width="420" height="70" />`;
+}
+
+function plateMark(src: string, name: string): string {
+  if (src !== PAPER_PLATE) return '';
+  return `<span class="plate-name">${esc(name)}</span>`;
 }
 
 function yearSeal(year: string): string {
@@ -60,9 +67,10 @@ function chip(fact: HeritageFact): string {
 
 function visual(fact: HeritageFact, eager = false): string {
   const place = fact.landmark ? landmarkBySlug(fact.landmark) : undefined;
-  const src = place?.image || '/heritage/chronicle.svg';
+  const src = place?.image || PAPER_PLATE;
   const alt = place?.imageAlt || '當年今日紀事插畫';
-  return `<div class="otd-visual"><img src="${esc(src)}" alt="${esc(alt)}" width="640" height="360" loading="${eager ? 'eager' : 'lazy'}" decoding="async" />${yearSeal(fact.year)}</div>`;
+  const paper = src === PAPER_PLATE ? ' plate-paper' : '';
+  return `<div class="otd-visual${paper}"><img src="${esc(src)}" alt="${esc(alt)}" width="640" height="360" loading="${eager ? 'eager' : 'lazy'}" decoding="async" />${plateMark(src, place?.name || alt)}${yearSeal(fact.year)}</div>`;
 }
 
 function factCard(fact: HeritageFact, eager = false): string {
@@ -258,7 +266,7 @@ export function renderLandmarkHub(kind: string, ads: HeritageAds = DEFAULT_ADS):
     return `<a class="chip${active ? ' active' : ''}" href="${href}"${active ? ' aria-current="page"' : ''}>${item.label}</a>`;
   }).join('');
   const cards = rows.map((place) => `<a class="lm-card" href="/hk/landmarks/${esc(place.slug)}/">
-      <div class="cover"><img src="${esc(place.image)}" alt="${esc(place.imageAlt)}" width="640" height="480" loading="lazy" decoding="async" /></div>
+      <div class="cover${place.image === PAPER_PLATE ? ' plate-paper' : ''}"><img src="${esc(place.image)}" alt="${esc(place.imageAlt)}" width="640" height="480" loading="lazy" decoding="async" />${plateMark(place.image, place.name)}</div>
       <div class="body"><h3>${esc(place.name)}</h3><p>${esc(place.summary)}</p><span class="tag-cat">${esc(place.kindLabel)}</span></div>
     </a>`).join('');
   const prose = allLandmarks().flatMap((place) => [place.name, place.summary, place.lede]);
@@ -303,11 +311,11 @@ export function renderLandmarkPage(slug: string, ads: HeritageAds = DEFAULT_ADS)
   const steps = place.timeline.map((item) => `<li><div class="ty">${esc(item.year)}</div><p class="tt">${esc(item.title)}</p><p class="td">${esc(item.text)}</p></li>`).join('');
   const related = allLandmarks().filter((item) => item.slug !== place.slug && item.kind === place.kind).slice(0, 3);
   const more = related.length
-    ? `<h2 class="section-title">相關地標</h2><div class="lm-grid">${related.map((item) => `<a class="lm-card" href="/hk/landmarks/${esc(item.slug)}/"><div class="cover"><img src="${esc(item.image)}" alt="" width="640" height="480" loading="lazy" decoding="async" /></div><div class="body"><h3>${esc(item.name)}</h3><p>${esc(item.summary)}</p></div></a>`).join('')}</div>`
+    ? `<h2 class="section-title">相關地標</h2><div class="lm-grid">${related.map((item) => `<a class="lm-card" href="/hk/landmarks/${esc(item.slug)}/"><div class="cover${item.image === PAPER_PLATE ? ' plate-paper' : ''}"><img src="${esc(item.image)}" alt="" width="640" height="480" loading="lazy" decoding="async" />${plateMark(item.image, item.name)}</div><div class="body"><h3>${esc(item.name)}</h3><p>${esc(item.summary)}</p></div></a>`).join('')}</div>`
     : '';
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/hk/landmarks/">香港地標</a> · ${esc(place.name)}</nav>
     <article class="detail-hero">
-      <div class="cover"><img src="${esc(place.image)}" alt="${esc(place.imageAlt)}" width="1200" height="514" loading="eager" decoding="async" /></div>
+      <div class="cover${place.image === PAPER_PLATE ? ' plate-paper' : ''}"><img src="${esc(place.image)}" alt="${esc(place.imageAlt)}" width="1200" height="514" loading="eager" decoding="async" />${plateMark(place.image, place.name)}</div>
       <div class="intro">
         <span class="section-kicker">${esc(place.kindLabel)} · ${esc(place.district)}</span>
         <p class="archive-label">地標檔案</p>

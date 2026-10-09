@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="醫院">
-  <rect width="640" height="400" fill="#f3e6cf"/>
-  <ellipse cx="120" cy="70" rx="180" ry="70" fill="#e7eef3" opacity="0.85"/>
-  <ellipse cx="480" cy="50" rx="200" ry="80" fill="#f7f1e6" opacity="0.7"/>
-  <rect x="0" y="280" width="640" height="120" fill="#d5d8cc" opacity="0.8"/>
-  <rect x="150" y="120" width="340" height="180" fill="#f7f5f0" stroke="#1d4f91" stroke-width="3"/><rect x="250" y="70" width="140" height="50" fill="#f7f1e6" stroke="#1d4f91"/><path d="M300 150 H340 M320 130 V170" stroke="#9a3030" stroke-width="8"/><rect x="190" y="170" width="50" height="40" fill="#c5d8ea" stroke="#1d4f91"/><rect x="400" y="170" width="50" height="40" fill="#c5d8ea" stroke="#1d4f91"/>
-</svg>

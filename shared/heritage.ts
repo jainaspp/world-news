@@ -5,7 +5,7 @@ import landmarksJson from './heritage/landmarks.js';
 /**
  * On-this-day facts and Hong Kong landmarks.
  *
- * Add a fact: append an object to shared/heritage/facts.json.
+ * Add a fact: append an object to shared/heritage/facts.ts.
  *   mmdd     "MM-DD"
  *   year     "1962" or "每年" for a recurring festival
  *   fact     one sentence
@@ -13,7 +13,7 @@ import landmarksJson from './heritage/landmarks.js';
  *   category short label such as 建築、交通、民生、節慶、體育
  *   landmark optional slug from landmarks.json
  *
- * Add a place: append an object to shared/heritage/landmarks.json, then
+ * Add a place: append an object to shared/heritage/landmarks.ts, then
  * point facts at its slug. Keep copy to geography, architecture, daily life,
  * festivals, transport openings, sport and entertainment.
  *
