@@ -38,29 +38,50 @@ const digest = () => digestFromClusters([
   cluster([story('c', '天文台發出熱帶氣旋警告', '香港電台'), story('d', '颱風逼近', 'SCMP')]),
 ], '2026-10-06-am', new Date('2026-10-06T00:00:00Z'));
 
+function finishedDigest() {
+  const line = `港鐵建議加價並交諮詢，兩間媒體都有報道。${'這次加價仍待諮詢結果。'.repeat(40)}`;
+  const doc = digest();
+  return { ...doc, mode: 'ai' as const, blocks: doc.blocks.map((block) => ({ ...block, sentences: [line] })) };
+}
+
 describe('column pages', () => {
-  it('uses the main site stylesheet, header, chips, footer and always loads AdSense', () => {
+  it('uses the main site stylesheet and does not load AdSense on a failed digest', () => {
     const html = renderContentPage(digest(), 'https://world-news.xyz/digest/2026-10-06-am');
     expect(html).toContain('href="/site.css"');
     expect(html).toContain('class="masthead"');
     expect(html).toContain('class="chip active" href="/digest/"');
     expect(html).toContain('href="/analysis/"');
     expect(html).toContain('class="app-footer"');
-    expect(html).toContain('adsbygoogle.js?client=ca-pub-8392975944327076');
-    expect(html).toContain('AI 整合');
+    expect(html).toContain('模型暫時未能完成');
+    expect(html).toContain('noindex,follow');
+    expect(html).not.toContain('adsbygoogle');
+    expect(html).not.toContain('ca-pub');
+    expect(html).not.toContain('詳情只以來源原文為準');
     expect(html).toContain('https://img.example.com/a.jpg');
     expect(html).toContain('thumb-fallback');
     expect(html).toContain('wa.me');
     expect(html).toContain('閱讀約');
-    expect(html).toContain('2 間媒體報道');
     expect(html).toContain('s2/favicons');
     expect(html).toContain('id="related"');
-    // No slot id configured: no empty manual units, Auto ads only.
+    expect(html).toContain('https://example.com/a');
+  });
+
+  it('loads AdSense on a finished AI digest and skips empty manual units', () => {
+    const html = renderContentPage(finishedDigest(), 'https://world-news.xyz/digest/2026-10-06-am');
+    expect(html).toContain('adsbygoogle.js?client=ca-pub-8392975944327076');
+    expect(html).toContain('name="robots" content="index,follow"');
+    expect(html).toContain('2 間媒體報道');
+    expect(html).not.toContain('模型暫時未能完成');
     expect(html).not.toContain('<ins class="adsbygoogle"');
   });
 
-  it('renders top, mid and bottom units only when slot ids are set', () => {
-    const html = renderContentPage(digest(), 'https://world-news.xyz/digest/x', {
+  it('renders top, mid and bottom units only when slot ids are set on a real body', () => {
+    const denied = renderContentPage(digest(), 'https://world-news.xyz/digest/x', {
+      ads: { client: 'ca-pub-8392975944327076', top: '1111111111', mid: '2222222222', bottom: '3333333333' },
+    });
+    expect(denied).not.toContain('adsbygoogle');
+    expect(denied).not.toContain('ca-pub');
+    const html = renderContentPage(finishedDigest(), 'https://world-news.xyz/digest/x', {
       ads: { client: 'ca-pub-8392975944327076', top: '1111111111', mid: '2222222222', bottom: '3333333333' },
     });
     expect(html).toContain('data-ad-position="top"');
