@@ -70,7 +70,9 @@ describe('AI content', () => {
     ]));
     expect(analysis.blocks.map((block) => block.title)).toEqual(['背景']);
     const page = renderContentPage(analysis, 'https://world-news.xyz/analysis/demo');
-    expect(page).toContain('背景');
+    expect(page).toContain('模型暫時未能完成');
+    expect(page).toContain('noindex,follow');
+    expect(page).not.toContain('adsbygoogle');
     expect(page).not.toContain('來源未有提及');
     expect(page).toContain('https://example.com/a');
   });
@@ -84,7 +86,9 @@ describe('AI content', () => {
     expect(doc.blocks[0]?.sentences).toHaveLength(3);
     expect(doc.blocks[0]?.sources).toHaveLength(2);
     const html = renderContentPage(doc, 'https://world-news.xyz/digest/2026-10-06-am');
-    expect(html).toContain('AI 整合');
+    expect(html).toContain('模型暫時未能完成');
+    expect(html).toContain('noindex,follow');
+    expect(html).not.toContain('adsbygoogle');
     expect(html).toContain('rel="canonical" href="https://world-news.xyz/digest/2026-10-06-am"');
     expect(html).toContain('"@type":"NewsArticle"');
     expect(html).toContain('"@type":"Article"');

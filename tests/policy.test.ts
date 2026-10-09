@@ -136,16 +136,23 @@ describe('thin pages and original columns', () => {
     const html = renderContentPage(weekly, 'https://world-news.xyz/weekly/2026-10-04');
     expect(html).not.toContain('編者按');
     expect(html).not.toContain('引用的公開標題');
-    expect(html).toContain('<h2 class="column-h2">一週科技</h2>');
-    expect(html).toContain('AI 整合');
     expect(html).toContain('https://example.com/t');
-    expect(html).toContain('adsbygoogle.js');
-    const slotted = renderContentPage(weekly, 'https://world-news.xyz/weekly/2026-10-04', {
+    expect(html).toContain('模型暫時未能完成');
+    expect(html).toContain('noindex,follow');
+    expect(html).not.toContain('adsbygoogle');
+    expect(html).not.toContain('ca-pub');
+    const body = `晶片出口新規與港股半日走勢只寫來源列出的事實。${'不補來源沒有的數字。'.repeat(40)}`;
+    const ready = { ...weekly, mode: 'ai' as const, blocks: weekly.blocks.map((block) => ({ ...block, sentences: [body] })) };
+    const slotted = renderContentPage(ready, 'https://world-news.xyz/weekly/2026-10-04', {
       ads: { client: 'ca-pub-8392975944327076', top: '1111111111' },
     });
+    expect(slotted).toContain('<h2 class="column-h2">一週科技</h2>');
+    expect(slotted).toContain('adsbygoogle.js');
     expect(slotted).toContain('<span class="ad-label">廣告</span>');
     expect(slotted.indexOf('column-hero')).toBeLessThan(slotted.indexOf('data-ad-position="top"'));
-    expect(renderAnalysisIndex([], 'https://world-news.xyz/analysis/')).not.toContain('編者按');
+    const emptyIndex = renderAnalysisIndex([], 'https://world-news.xyz/analysis/');
+    expect(emptyIndex).not.toContain('編者按');
+    expect(emptyIndex).not.toContain('adsbygoogle');
 
     const digestPrompt = promptFor({ ...weekly, kind: 'digest' });
     expect(digestPrompt.user).toContain('四十字');

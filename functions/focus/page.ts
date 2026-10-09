@@ -4,8 +4,10 @@ import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
 import { removedFromTaiwanPage } from '../../shared/feeds.js';
 import { focusKey, focusPages, parseFocus, renderWeekFocus, type FocusPage } from '../../shared/focus.js';
 import { injectHomeShell, type HomeMarket } from '../../shared/homePage.js';
+import { mustReadForSurface } from '../../shared/mustRead.js';
 import { loadList } from '../board/list.js';
 import { readBoard } from '../board/store.js';
+import { loadMustRead } from '../content/mustRead.js';
 import { readValue, type ContentEnv } from '../content/store.js';
 import type { PagesContext } from '../env.js';
 
@@ -32,13 +34,15 @@ export async function serveFocusHome(context: PagesContext, page: FocusPage): Pr
   let counts = new Map<string, number>();
   let major: Parameters<typeof injectHomeShell>[5] = null;
   let focusHtml = '';
+  let mustRead: Awaited<ReturnType<typeof loadMustRead>> = [];
   try {
-    const [list, hk, hsi, snapshot, saved] = await Promise.all([
+    const [list, hk, hsi, snapshot, saved, packs] = await Promise.all([
       loadList(context),
       loadHkNow().catch(() => null),
       loadHsiQuote().catch(() => null),
       readBoard(env),
       readValue(env, focusKey(page)).catch(() => null),
+      loadMustRead(env).catch(() => []),
     ]);
     items = page.scope === 'region' && page.id.toLowerCase() === 'twn'
       ? list.filter((item) => !removedFromTaiwanPage(item))
@@ -49,10 +53,11 @@ export async function serveFocusHome(context: PagesContext, page: FocusPage): Pr
       major = snapshot.banner;
     }
     focusHtml = renderWeekFocus(parseFocus(saved)?.text ?? '');
+    mustRead = packs;
   } catch {
     items = [];
   }
-  const html = injectHomeShell(shell, items, counts, market, envSlot(context.env), major, focusHtml);
+  const html = injectHomeShell(shell, items, counts, market, envSlot(context.env), major, focusHtml, undefined, mustReadForSurface(mustRead, page.scope === 'category' ? page.id : ''));
   return new Response(html, {
     status: 200,
     headers: {

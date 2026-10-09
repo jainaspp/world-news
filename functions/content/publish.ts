@@ -28,6 +28,7 @@ import {
 import { clusterRecent } from '../../shared/board.js';
 import type { NewsItem } from '../../shared/types';
 import type { PagesContext } from '../env.js';
+import { indexableEntries } from './mustRead.js';
 import { docKey, readDoc, readIndex, rememberIndex, rememberIndexMany, readValue, writeDoc, writeValue, type ContentEnv, type SavedDoc } from './store.js';
 
 const FRESH_MS: Record<ContentDoc['kind'], number> = {
@@ -56,9 +57,9 @@ function envString(env: ContentEnv, ...names: string[]): string {
 }
 
 /**
- * AdSense for the column pages. The loader script (with the client id) is always on the page,
- * so Auto ads work once enabled in AdSense. Manual units only render when a slot id is set as
- * a Pages environment variable; there is no slot id in the repo.
+ * AdSense config for column pages. The page renderer loads adsbygoogle.js only on a finished
+ * AI article. Manual units render when a slot id is set as a Pages environment variable;
+ * there is no slot id in the repo.
  */
 export function adConfig(env: ContentEnv): AdConfig {
   const top = envString(env, 'AD_SLOT_TOP', 'VITE_AD_SLOT_TOP');
@@ -301,7 +302,7 @@ export async function serveAnalysis(context: PagesContext): Promise<Response> {
 export async function serveAnalysisIndex(context: PagesContext): Promise<Response> {
   applyRuntimeEnv(context.env);
   const env = envOf(context);
-  const entries = await readIndex(env, 'analysis').catch(() => []);
+  const entries = await indexableEntries(env, 'analysis', await readIndex(env, 'analysis').catch(() => []));
   return new Response(renderAnalysisIndex(entries, `${siteUrl(env)}/analysis/`, { ads: adConfig(env) }), { headers: HTML_HEADERS });
 }
 

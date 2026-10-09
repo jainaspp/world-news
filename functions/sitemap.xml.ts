@@ -5,6 +5,7 @@ import { angleClusters } from '../shared/angles.js';
 import { materialFromBoard } from '../shared/grok.js';
 import { buildToday, indexableTodayPaths, onHktDate, TODAY_INDEX_FLOOR } from '../shared/todayPage.js';
 import { readBoard } from './board/store.js';
+import { indexableEntries } from './content/mustRead.js';
 import { docKey, readDoc, readIndex, type ContentEnv } from './content/store.js';
 import { publicTopicPaths } from './content/topics.js';
 import type { PagesContext } from './env.js';
@@ -39,14 +40,19 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   ]);
   const explainers = await currentExplainers(env, compare);
   const briefings = await currentBriefings(env, briefing);
+  const [analysisPub, digestPub, weeklyPub] = await Promise.all([
+    indexableEntries(env, 'analysis', analysis),
+    indexableEntries(env, 'digest', digest),
+    indexableEntries(env, 'weekly', weekly),
+  ]);
   const legal = LEGAL
     .filter(([loc]) => !base.includes(loc))
     .map(([loc, freq, priority]) => entry(loc, '2026-10-07', freq, priority))
     .join('');
   const extra = [
-    ...analysis.map((row) => entry(`https://world-news.xyz/analysis/${encodeURIComponent(row.key)}`, row.publishedAt, 'daily', '0.6')),
-    ...digest.map((row) => entry(`https://world-news.xyz/digest/${row.key}`, row.publishedAt, 'weekly', '0.5')),
-    ...weekly.map((row) => entry(`https://world-news.xyz/weekly/${row.key}`, row.publishedAt, 'monthly', '0.5')),
+    ...analysisPub.map((row) => entry(`https://world-news.xyz/analysis/${encodeURIComponent(row.key)}`, row.publishedAt, 'daily', '0.6')),
+    ...digestPub.map((row) => entry(`https://world-news.xyz/digest/${row.key}`, row.publishedAt, 'weekly', '0.5')),
+    ...weeklyPub.map((row) => entry(`https://world-news.xyz/weekly/${row.key}`, row.publishedAt, 'monthly', '0.5')),
     ...briefings.map((row) => entry(`https://world-news.xyz/briefing/${row.key}`, row.publishedAt, 'daily', '0.7')),
     ...explainers.map((row) => entry(`https://world-news.xyz/explainer/${encodeURIComponent(row.key)}`, row.publishedAt, 'daily', '0.6')),
   ].join('');

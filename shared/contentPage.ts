@@ -180,10 +180,16 @@ function timeline(sources: SourceRef[]): string {
 }
 
 /** Vertical timeline for a 新聞懶人包. Links stay in the single source list at the bottom. */
+function phaseName(index: number, total: number): string {
+  if (index === 0) return '開端';
+  if (index === total - 1) return '結尾';
+  return '經過';
+}
+
 function eventTimeline(sources: SourceRef[]): string {
   const rows = timelineRows(sources);
   if (rows.length < 2) return '';
-  const items = rows.map((source) => `<li><time datetime="${esc(source.pubDate || '')}">${esc(hkt(source.pubDate || '', false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body"><strong>${esc(source.source)}</strong> ${esc(source.title)}</span></li>`).join('');
+  const items = rows.map((source, index) => `<li><time datetime="${esc(source.pubDate || '')}">${esc(hkt(source.pubDate || '', false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body"><strong class="tl-phase">${phaseName(index, rows.length)}</strong> <strong>${esc(source.source)}</strong> ${esc(source.title)}</span></li>`).join('');
   return `<section class="story column-block timeline-card" aria-label="事件時間線"><div class="story-body"><h2 class="column-h2">事件時間線</h2><ol class="timeline">${items}</ol></div></section>`;
 }
 
@@ -226,6 +232,24 @@ export function cjkChars(text: string): number {
 export function pageBodyChars(doc: ContentDoc): number {
   const sentences = doc.blocks.flatMap((block) => realSentences(block.sentences));
   return cjkChars([doc.title, doc.description, ...(doc.points ?? []), ...sentences].join(''));
+}
+
+/**
+ * Ads need a finished AI article. This matches the 500-character publish floor.
+ * Title, description and points are included, so a real body clears it easily.
+ * A list of source titles does not.
+ */
+export const AD_BODY_CHARS = 500;
+
+const MODEL_FAILED_NOTICE = '模型暫時未能完成。這一版只列出來源標題，沒有加寫情節。';
+
+/** Pages worth indexing: a finished AI body, or a briefing/explainer that already clears its public floor. */
+export function columnIndexable(doc: ContentDoc): boolean {
+  if (doc.mode !== 'ai') return false;
+  if (doc.kind === 'briefing') return briefingPublic(doc);
+  if (doc.kind === 'compare') return explainerCurrent(doc);
+  if (doc.kind === 'digest' || doc.kind === 'weekly' || doc.kind === 'analysis') return pageBodyChars(doc) >= AD_BODY_CHARS;
+  return false;
 }
 
 export function head(title: string, description: string, canonical: string, image: string, type: string, extra: string, client: string, loadAds = true): string {
@@ -390,7 +414,10 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
     .filter((block) => block !== timelineBlock)
     .map((block) => ({ ...block, sentences: realSentences(block.sentences) }))
     .filter((block) => block.sentences.length > 0);
-  const substantial = shownBlocks.length > 0;
+  // A block of source titles is not a body. Failure pages (mode !== 'ai') show
+  // MODEL_FAILED_NOTICE and must not load AdSense even when a slot id is configured.
+  const modelFailed = doc.mode !== 'ai';
+  const substantial = !modelFailed && shownBlocks.length > 0 && pageBodyChars(doc) >= AD_BODY_CHARS;
   const ads = substantial ? (options.ads ?? { client: DEFAULT_CLIENT }) : undefined;
   const client = substantial ? (ads?.client || DEFAULT_CLIENT) : '';
   const categories = [...new Set(doc.blocks.flatMap((block) => [block.category, ...block.sources.map((source) => source.category)]).filter((id): id is string => Boolean(id)))].slice(0, 4);
@@ -416,21 +443,21 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   };
   const comparePublic = doc.kind === 'compare' && explainerCurrent(doc);
   const briefingOk = doc.kind === 'briefing' && briefingPublic(doc);
-  const robots = briefingOk || comparePublic
-    ? '<meta name="robots" content="index,follow" />'
-    : doc.kind === 'briefing' || doc.kind === 'compare'
-      ? '<meta name="robots" content="noindex,follow" />'
-      : '';
+  const thinColumn = (doc.kind === 'digest' || doc.kind === 'weekly' || doc.kind === 'analysis') && !substantial;
+  const robots = modelFailed || thinColumn || ((doc.kind === 'briefing' || doc.kind === 'compare') && !briefingOk && !comparePublic)
+    ? '<meta name="robots" content="noindex,follow" />'
+    : '<meta name="robots" content="index,follow" />';
   const ld = `${robots}<script type="application/ld+json">${JSON.stringify(json).replace(/</g, '\\u003c')}</script>`;
-  const note = doc.mode === 'ai' ? '' : '<p class="notice" role="status">模型暫時未能完成。這一版只列出來源標題，沒有加寫情節。</p>';
-  const points = keyPoints(doc);
+  const note = modelFailed ? `<p class="notice" role="status">${MODEL_FAILED_NOTICE}</p>` : '';
+  const points = modelFailed ? [] : keyPoints(doc);
   const pointsLabel = doc.kind === 'digest' ? '今期重點' : '重點';
   const pointsBox = points.length > 1 ? `<section class="key-points" aria-label="${pointsLabel}"><h2>${pointsLabel}</h2><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></section>` : '';
-  const highlight = doc.highlight?.items.length
+  const highlight = !modelFailed && doc.highlight?.items.length
     ? `<section class="highlight-box" aria-label="${esc(doc.highlight.label)}"><h2>${esc(doc.highlight.label)}</h2><ul>${doc.highlight.items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul></section>`
     : '';
-  const midAt = Math.max(1, Math.ceil(shownBlocks.length / 2));
-  const blocks = shownBlocks.map((block, index) => {
+  const bodyBlocks = modelFailed ? [] : shownBlocks;
+  const midAt = Math.max(1, Math.ceil(bodyBlocks.length / 2));
+  const blocks = bodyBlocks.map((block, index) => {
     const blockImage = doc.kind === 'analysis' ? '' : safeHttp(bestImage(block.sources));
     const blockCategory = block.category || block.sources[0]?.category;
     const showMedia = doc.kind === 'digest' && index > 0;
@@ -443,12 +470,13 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
           <ul class="points">${block.sentences.map((sentence) => `<li>${esc(sentence)}</li>`).join('')}</ul>
         </div>
       </section>`;
-    return section + (index + 1 === midAt && shownBlocks.length > 1 ? adUnit(ads, ads?.mid, 'mid', true) : '');
+    return section + (index + 1 === midAt && bodyBlocks.length > 1 ? adUnit(ads, ads?.mid, 'mid', true) : '');
   }).join('');
-  const analysisTimeline = doc.kind === 'analysis' ? timeline(sources) : '';
-  const angles = doc.kind === 'analysis' ? outletAngles(sources) : '';
+  const analysisTimeline = !modelFailed && doc.kind === 'analysis' ? timeline(sources) : '';
+  const angles = !modelFailed && doc.kind === 'analysis' ? outletAngles(sources) : '';
   const rich = doc.kind === 'briefing' || doc.kind === 'compare';
-  const explainerTimeline = timelineBlock ? eventTimeline(timelineBlock.sources) : '';
+  const timelineSources = timelineBlock && timelineRows(timelineBlock.sources).length >= 2 ? timelineBlock.sources : sources;
+  const explainerTimeline = !modelFailed && doc.kind === 'compare' ? eventTimeline(timelineSources) : '';
   const sourceSection = listed.length
     ? `<section class="story column-block"><div class="story-body"><h2 class="column-h2">來源（${listed.length}）</h2>${sourceList(listed)}</div></section>`
     : '';
@@ -465,7 +493,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const showDek = doc.kind === 'analysis' || rich;
   const relatedCats = categories.join(',');
   const exclude = sources.map((source) => source.url).slice(0, 30);
-  const empty = !shownBlocks.length ? '<p class="notice">這一期暫時沒有足夠的多方來源。</p>' : '';
+  const empty = !modelFailed && !shownBlocks.length ? '<p class="notice">這一期暫時沒有足夠的多方來源。</p>' : '';
 
   return `<!doctype html>
 <html lang="zh-HK">
@@ -478,7 +506,7 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
       <article class="story story-hero column-hero">
         <div class="story-media">${media(image, leadCategory, sources[0]?.source || '世界頭條', true)}</div>
         <div class="story-body">
-          <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">${columnName(doc)}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
+          <div class="story-kicker">${modelFailed ? '' : '<span class="badge ai-badge">AI 整合</span>'}<span class="kicker-region">${columnName(doc)}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
           <h1 class="story-title column-title">${esc(doc.title)}</h1>
           ${doc.kind === 'analysis' || doc.kind === 'compare' ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : ''}
           ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}
@@ -531,8 +559,9 @@ export function sortByHeat(entries: IndexEntry[]): IndexEntry[] {
 }
 
 export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, options: PageOptions = {}): string {
-  const ads = options.ads ?? { client: DEFAULT_CLIENT };
-  const client = ads.client || DEFAULT_CLIENT;
+  const showAds = entries.length > 0;
+  const ads = showAds ? (options.ads ?? { client: DEFAULT_CLIENT }) : undefined;
+  const client = showAds ? (ads?.client || DEFAULT_CLIENT) : '';
   const title = '熱門分析';
   const description = '多個來源同時報道的熱門新聞：背景、各方說法、與香港的關係。AI 根據公開標題整理。';
   const sorted = sortByHeat(entries);
@@ -545,7 +574,7 @@ export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, op
             <div class="story-meta"><time datetime="${esc(entry.publishedAt)}">${esc(hkt(entry.publishedAt, false))}</time></div>
           </div>
         </article>`);
-  const withAd = cards.flatMap((card, index) => (index === 3 ? [card, adUnit(ads, ads.mid, 'mid', true)] : [card])).join('');
+  const withAd = cards.flatMap((card, index) => (index === 3 ? [card, adUnit(ads, ads?.mid, 'mid', true)] : [card])).join('');
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -564,9 +593,9 @@ ${head(title, description, canonical, entries.find((entry) => entry.image)?.imag
       <h1 class="column-title">${title}</h1>
       <p class="dek">${esc(description)}</p>
     </header>
-    ${adUnit(ads, ads.top, 'top')}
+    ${adUnit(ads, ads?.top, 'top')}
     ${entries.length ? `<div class="news-grid analysis-grid">${withAd}</div>` : '<p class="notice">暫時未有分析。熱門新聞有三個或以上來源報道時，會自動整理一篇。</p>'}
-    ${adUnit(ads, ads.bottom, 'bottom')}
+    ${adUnit(ads, ads?.bottom, 'bottom')}
   </main>
   ${footer()}
   </div>
@@ -591,8 +620,9 @@ const LISTING: Record<'briefing' | 'compare', { title: string; description: stri
 
 /** Listing page for 每日香港導讀 or 新聞懶人包. */
 export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEntry[], canonical: string, options: PageOptions = {}): string {
-  const ads = options.ads ?? { client: DEFAULT_CLIENT };
-  const client = ads.client || DEFAULT_CLIENT;
+  const showAds = entries.length > 0;
+  const ads = showAds ? (options.ads ?? { client: DEFAULT_CLIENT }) : undefined;
+  const client = showAds ? (ads?.client || DEFAULT_CLIENT) : '';
   const meta = LISTING[kind];
   const path = kind === 'compare' ? 'explainer' : kind;
   const sorted = [...entries].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
@@ -605,7 +635,7 @@ export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEn
             <div class="story-meta"><time datetime="${esc(entry.publishedAt)}">${esc(hkt(entry.publishedAt, false))}</time></div>
           </div>
         </article>`);
-  const withAd = cards.flatMap((card, index) => (index === 3 ? [card, adUnit(ads, ads.mid, 'mid', true)] : [card])).join('');
+  const withAd = cards.flatMap((card, index) => (index === 3 ? [card, adUnit(ads, ads?.mid, 'mid', true)] : [card])).join('');
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -624,14 +654,14 @@ ${head(meta.title, meta.description, canonical, entries.find((entry) => entry.im
   <div class="page column-page" data-kind="${kind}-index">
   ${chrome(kind)}
   <main id="content" class="column-index">
-    ${adUnit(ads, ads.top, 'top')}
+    ${adUnit(ads, ads?.top, 'top')}
     <header class="index-head">
       <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">${meta.kicker}</span></div>
       <h1 class="column-title">${meta.title}</h1>
       <p class="dek">${esc(meta.description)}</p>
     </header>
     ${entries.length ? `<div class="news-grid analysis-grid">${withAd}</div>` : `<p class="notice">${esc(meta.empty)}</p>`}
-    ${adUnit(ads, ads.bottom, 'bottom')}
+    ${adUnit(ads, ads?.bottom, 'bottom')}
   </main>
   ${footer()}
   </div>

@@ -2,10 +2,11 @@ import { loadHkNow } from '../server/hkService.js';
 import { loadHsiQuote } from '../server/hsiService.js';
 import { applyRuntimeEnv } from '../server/runtimeEnv.js';
 import { injectHomeShell, type HomeMarket } from '../shared/homePage.js';
-import { latestBriefingLinks } from '../shared/writers.js';
+import { mustReadForSurface } from '../shared/mustRead.js';
 import { loadList } from './board/list.js';
 import { readBoard, scheduleBoard } from './board/store.js';
-import { readIndex, type ContentEnv } from './content/store.js';
+import { loadBriefingLinks, loadMustRead } from './content/mustRead.js';
+import type { ContentEnv } from './content/store.js';
 import { edgeCache, type PagesContext } from './env.js';
 
 const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v6');
@@ -68,12 +69,14 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     items = [];
   }
   let briefings: { href: string; label: string }[] | undefined;
+  let mustRead: Awaited<ReturnType<typeof loadMustRead>> = [];
   try {
-    briefings = latestBriefingLinks(await readIndex(context.env as ContentEnv, 'briefing'));
+    const env = context.env as ContentEnv;
+    [briefings, mustRead] = await Promise.all([loadBriefingLinks(env), loadMustRead(env)]);
   } catch {
     briefings = undefined;
   }
-  const html = injectHomeShell(shell, items, counts, market, envSlot(context.env), major, '', briefings);
+  const html = injectHomeShell(shell, items, counts, market, envSlot(context.env), major, '', briefings, mustReadForSurface(mustRead));
   const headers = new Headers({
     'content-type': 'text/html; charset=utf-8',
     'cache-control': 'public, max-age=60, s-maxage=120, stale-while-revalidate=600',

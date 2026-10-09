@@ -47,6 +47,30 @@ function sourceList(sources: TopicPack['sources']): string {
   return rows ? `<ul class="source-list">${rows}</ul>` : '';
 }
 
+function phaseName(index: number, total: number): string {
+  if (index === 0) return '開端';
+  if (index === total - 1) return '結尾';
+  return '經過';
+}
+
+/** Dated headlines already on the page, collapsed to 開端 / 經過 / 結尾. No new prose. */
+function wireTimeline(items: NewsItem[]): { date: string; text: string }[] {
+  const rows = items.flatMap((item) => {
+    const time = Date.parse(item.pubDate || '');
+    if (!Number.isFinite(time) || !item.title.trim()) return [];
+    const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Hong_Kong', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(time));
+    return [{ date, text: `${item.source}：${item.title}`, time }];
+  }).sort((a, b) => a.time - b.time);
+  const unique: { date: string; text: string }[] = [];
+  for (const row of rows) {
+    if (unique.some((item) => item.date === row.date)) continue;
+    unique.push({ date: row.date, text: row.text });
+  }
+  if (unique.length < 2) return [];
+  if (unique.length === 2) return unique;
+  return [unique[0]!, unique[Math.floor((unique.length - 1) / 2)]!, unique[unique.length - 1]!];
+}
+
 function zhDate(iso: string): string {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
   if (!match) return iso;
@@ -96,15 +120,15 @@ function packBody(model: TopicPageModel): string {
   const pointsBox = points.length > 1
     ? `<section class="key-points" id="summary" aria-label="重點"><h2>重點</h2><ol>${points.map((point) => `<li>${esc(endLine(point))}</li>`).join('')}</ol></section>`
     : '';
-  const events = pack.timeline;
-  const timeline = events.length
-    ? `<section class="story column-block timeline-card" id="timeline" aria-label="時間線"><div class="story-body"><h2 class="column-h2">時間線</h2><ol class="timeline">${events.map((row) => `<li><time datetime="${esc(row.date)}">${esc(zhDate(row.date))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body">${esc(endLine(row.text))}</span></li>`).join('')}</ol></div></section>`
+  const events = pack.timeline.length >= 2 ? pack.timeline : wireTimeline(model.headlines);
+  const timeline = events.length >= 2
+    ? `<section class="story column-block timeline-card" id="timeline" aria-label="時間線"><div class="story-body"><h2 class="column-h2">時間線</h2><ol class="timeline">${events.map((row, index) => `<li><time datetime="${esc(row.date)}">${esc(zhDate(row.date))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body"><strong class="tl-phase">${phaseName(index, events.length)}</strong> ${esc(endLine(row.text))}</span></li>`).join('')}</ol></div></section>`
     : '';
   const groups = figureGroups(pack.figures, topic.areas);
   const figures = groups.length
     ? `<section class="topic-measures" id="figures" aria-label="${figuresHeading}"><h2 class="column-h2">${figuresHeading}</h2><div class="topic-areas">${groups.map((group) => `<section class="topic-area"><h3>${esc(group.area)}</h3><ul>${group.rows.map((row) => `<li class="topic-figure"><strong>${esc(row.value)}</strong><span>${esc(row.label)}</span></li>`).join('')}</ul></section>`).join('')}</div></section>`
     : '';
-  const nav = `<nav class="topic-jump" aria-label="本頁小節">${jump('#summary', '重點', points.length > 1)}${jump('#timeline', '時間線', events.length > 0)}${jump('#figures', figuresHeading === '主要措施' ? '措施' : '數字', groups.length > 0)}${jump('#impact', '影響', pack.impact.length > 0)}${jump('#reactions', '反應', pack.reactions.length > 0)}${jump('#background', topic.slug === 'policy-address' ? '五年規劃' : '背景', Boolean(topic.background && pack.background?.length))}${jump('#headlines', '頭條', model.headlines.length > 0)}</nav>`;
+  const nav = `<nav class="topic-jump" aria-label="本頁小節">${jump('#summary', '重點', points.length > 1)}${jump('#timeline', '時間線', events.length >= 2)}${jump('#figures', figuresHeading === '主要措施' ? '措施' : '數字', groups.length > 0)}${jump('#impact', '影響', pack.impact.length > 0)}${jump('#reactions', '反應', pack.reactions.length > 0)}${jump('#background', topic.slug === 'policy-address' ? '五年規劃' : '背景', Boolean(topic.background && pack.background?.length))}${jump('#headlines', '頭條', model.headlines.length > 0)}</nav>`;
   const sources = pack.sources.length
     ? `<section class="story column-block" id="sources"><div class="story-body"><h2 class="column-h2">來源（${pack.sources.length}）</h2>${sourceList(pack.sources)}</div></section>`
     : '';

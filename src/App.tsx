@@ -10,6 +10,7 @@ import { clusterStories, sourceCounts } from '../shared/trending';
 import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem, TimeRange } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
+import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
@@ -28,6 +29,7 @@ import { MajorBanner } from './components/MajorBanner';
 import { BoardToggles } from './components/BoardToggles';
 import { MostRead } from './components/MostRead';
 import { WeekFocus } from './components/WeekFocus';
+import { MustRead } from './components/MustRead';
 import { TrendingTopics } from './components/TrendingTopics';
 import { trendingTopics } from '../shared/topics';
 import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_NAME, SITE_URL } from './config';
@@ -318,7 +320,8 @@ export default function App() {
 
   const filterKey = `${view.region}|${view.category}|${view.source}|${view.time}|${view.q}|${view.bookmarks}|${view.following}`;
   const shown = shownState.key === filterKey ? shownState.count : PAGE_SIZE;
-  const listed = useMemo(() => visible.slice(0, shown), [visible, shown]);
+  const ordered = useMemo(() => demoteGraphic(visible), [visible]);
+  const listed = useMemo(() => ordered.slice(0, shown), [ordered, shown]);
   const clusters = useMemo(() => (view.bookmarks || view.following ? [] : clusterStories(scoped)), [scoped, view.bookmarks, view.following]);
   const counts = useMemo(() => sourceCounts(clusters.length ? clusters : clusterStories(items)), [clusters, items]);
   const analysisHrefs = useMemo(() => {
@@ -647,6 +650,7 @@ export default function App() {
                 )}
                 {!special && !wide && <HkInfoStrip />}
                 {!special && <DigestStrip lang={lang} />}
+                {!special && <MustRead category={view.category} />}
                 {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
                 {listMode ? (
                   <>

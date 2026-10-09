@@ -1,4 +1,5 @@
 import { FEED_AD_EVERY } from './adPolicy.js';
+import { demoteGraphic, mustReadBootstrap, renderMustRead, type MustReadLink } from './mustRead.js';
 import { adSlotMarkup } from './adSlot.js';
 import type { MajorEntry } from './angles.js';
 import { breakingIds } from './breaking.js';
@@ -125,8 +126,9 @@ export function renderHomeFeed(
   banner: MajorEntry | null = null,
   focusHtml = '',
   briefingLinks: { href: string; label: string }[] = DEFAULT_BRIEFING_LINKS,
+  mustRead: MustReadLink[] = [],
 ): string {
-  const list = items.slice(0, SSR_COUNT);
+  const list = demoteGraphic(items).slice(0, SSR_COUNT);
   if (!list.length) {
     return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
@@ -152,6 +154,7 @@ export function renderHomeFeed(
       ${homeIntroTop()}
       ${info}
       ${digestStrip(briefingLinks)}
+      ${renderMustRead(mustRead)}
       ${focusHtml.trim()}
       <div class="home-cards">
         ${top}
@@ -206,10 +209,12 @@ export function injectHomeShell(
   banner: MajorEntry | null = null,
   focusHtml = '',
   briefingLinks: { href: string; label: string }[] = DEFAULT_BRIEFING_LINKS,
+  mustRead: MustReadLink[] = [],
 ): string {
-  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks);
-  const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner);
-  const heroImage = items[0]?.image && /^https?:\/\//.test(items[0].image) ? items[0].image : '';
+  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead);
+  const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner) + mustReadBootstrap(mustRead);
+  const lead = demoteGraphic(items)[0];
+  const heroImage = lead?.image && /^https?:\/\//.test(lead.image) ? lead.image : '';
   const preload = heroImage
     ? `<link rel="preload" as="image" href="${esc(heroImage)}" fetchpriority="high" />`
     : '';

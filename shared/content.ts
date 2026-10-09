@@ -105,7 +105,7 @@ export function heldMiniMax(doc: ContentDoc): boolean {
 
 /** A comparison that is thin, old-format, or still Cantonese stays out of the public list. */
 export function explainerCurrent(stored: ContentDoc): boolean {
-  if (stored.kind !== 'compare' || heldMiniMax(stored)) return false;
+  if (stored.kind !== 'compare' || stored.mode !== 'ai' || heldMiniMax(stored)) return false;
   const doc = tidyStored(stored);
   if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;
@@ -124,7 +124,7 @@ export function explainerCurrent(stored: ContentDoc): boolean {
 
 /** A briefing under the floor is noindex and omitted from the index and sitemap. */
 export function briefingPublic(stored: ContentDoc): boolean {
-  if (stored.kind !== 'briefing' || heldMiniMax(stored)) return false;
+  if (stored.kind !== 'briefing' || stored.mode !== 'ai' || heldMiniMax(stored)) return false;
   const doc = tidyStored(stored);
   if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;
