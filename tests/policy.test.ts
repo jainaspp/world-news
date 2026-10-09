@@ -196,7 +196,9 @@ describe('thin pages and original columns', () => {
     expect(xml).toContain('https://world-news.xyz/explainer/');
     const count = xml.match(/<loc>/g)?.length ?? 0;
     expect(xml).toContain('https://world-news.xyz/data/');
-    expect(count).toBe(38);
+    expect(xml).toContain('https://world-news.xyz/on-this-day/');
+    expect(xml).toContain('https://world-news.xyz/hk/landmarks/');
+    expect(count).toBe(40);
     expect(xml).toContain('https://world-news.xyz/today/');
   });
 });

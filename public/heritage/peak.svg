@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="山頂">
+  <rect width="640" height="400" fill="#f3e6cf"/>
+  <ellipse cx="120" cy="70" rx="180" ry="70" fill="#e4eef6" opacity="0.85"/>
+  <ellipse cx="480" cy="50" rx="200" ry="80" fill="#f7f1e6" opacity="0.7"/>
+  <rect x="0" y="280" width="640" height="120" fill="#8fa37a" opacity="0.8"/>
+  <path d="M40 300 L220 120 L300 190 L420 80 L620 300 Z" fill="#9aaf86" stroke="#3d5c3a" stroke-width="3"/><path d="M230 250 L360 150" stroke="#3d5c3a" stroke-width="6"/><rect x="330" y="140" width="46" height="28" rx="6" fill="#f6f1e6" stroke="#3d5c3a"/>
+</svg>

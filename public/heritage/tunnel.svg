@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="隧道">
+  <rect width="640" height="400" fill="#f3e6cf"/>
+  <ellipse cx="120" cy="70" rx="180" ry="70" fill="#e6e0d4" opacity="0.85"/>
+  <ellipse cx="480" cy="50" rx="200" ry="80" fill="#f7f1e6" opacity="0.7"/>
+  <rect x="0" y="280" width="640" height="120" fill="#6d7c88" opacity="0.8"/>
+  <rect x="70" y="150" width="500" height="140" rx="70" fill="#5e6c78"/><rect x="110" y="175" width="420" height="90" rx="40" fill="#dfe7ee"/><path d="M40 300 L600 300" stroke="#1d4f91" stroke-width="6"/>
+</svg>

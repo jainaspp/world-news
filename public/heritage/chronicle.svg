@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="紀事">
+  <rect width="640" height="400" fill="#f3e6cf"/>
+  <ellipse cx="120" cy="70" rx="180" ry="70" fill="#efe4d2" opacity="0.85"/>
+  <ellipse cx="480" cy="50" rx="200" ry="80" fill="#f7f1e6" opacity="0.7"/>
+  <rect x="0" y="280" width="640" height="120" fill="#e5d7c2" opacity="0.8"/>
+  <rect x="140" y="70" width="360" height="250" fill="#f7f1e6" stroke="#7a5a3a" stroke-width="2"/><path d="M180 130 H460 M180 170 H430 M180 210 H450 M180 250 H400" stroke="#7a5a3a" stroke-width="2"/>
+</svg>

@@ -3,6 +3,7 @@ import { briefingPublic, explainerCurrent, hktParts, type IndexEntry } from '../
 import { DATA_HUB, DATA_PAGES } from '../shared/dataSeries.js';
 import { angleClusters } from '../shared/angles.js';
 import { materialFromBoard } from '../shared/grok.js';
+import { heritagePublicPaths } from '../shared/heritagePage.js';
 import { buildToday, indexableTodayPaths, onHktDate, TODAY_INDEX_FLOOR } from '../shared/todayPage.js';
 import { readBoard } from './board/store.js';
 import { indexableEntries } from './content/mustRead.js';
@@ -72,13 +73,17 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   const topicIndex = base.includes('https://world-news.xyz/topic/')
     ? ''
     : entry('https://world-news.xyz/topic/', new Date().toISOString(), 'daily', '0.7');
+  const heritage = heritagePublicPaths()
+    .filter((path) => !base.includes(`https://world-news.xyz${path}`))
+    .map((path) => entry(`https://world-news.xyz${path}`, '2026-10-09', path.includes('/landmarks/') ? 'monthly' : 'daily', path === '/hk/landmarks/' || path === '/on-this-day/' ? '0.7' : '0.6'))
+    .join('');
   const today = (await todayLocs(env))
     .filter((path) => !base.includes(`https://world-news.xyz${path}`))
     .map((path) => entry(`https://world-news.xyz${path}`, new Date().toISOString(), 'daily', path === '/today/' ? '0.7' : '0.5'))
     .join('');
   const xml = base.includes('</urlset>')
-    ? base.replace('</urlset>', `${major}${legal}${data}${today}${topicIndex}${topics}${extra}</urlset>`)
-    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${today}${topicIndex}${topics}${extra}</urlset>\n`;
+    ? base.replace('</urlset>', `${major}${legal}${data}${heritage}${today}${topicIndex}${topics}${extra}</urlset>`)
+    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${heritage}${today}${topicIndex}${topics}${extra}</urlset>\n`;
   return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=600' } });
 }
 

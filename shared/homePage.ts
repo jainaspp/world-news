@@ -13,6 +13,7 @@ import { renderMajorBanner } from './majorPage.js';
 import type { HkNow } from './hk.js';
 import type { HsiQuote } from './hsi.js';
 import type { NewsItem } from './types.js';
+import { renderOnThisDaySection } from './heritagePage.js';
 import { titleLang } from './zh.js';
 
 export interface HomeMarket {
@@ -127,12 +128,14 @@ export function renderHomeFeed(
   focusHtml = '',
   briefingLinks: { href: string; label: string }[] = DEFAULT_BRIEFING_LINKS,
   mustRead: MustReadLink[] = [],
+  now = new Date(),
 ): string {
   const list = demoteGraphic(items).slice(0, SSR_COUNT);
   if (!list.length) {
     return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
     ${digestStrip(briefingLinks)}
+    ${renderOnThisDaySection(now)}
     <div class="template-bar">${templateSwitch()}</div>
     <div class="status-panel" aria-busy="true"><h2>載入頭條中…</h2><p>正在取得最新標題。</p></div>
   </div>`;
@@ -154,6 +157,7 @@ export function renderHomeFeed(
       ${homeIntroTop()}
       ${info}
       ${digestStrip(briefingLinks)}
+      ${renderOnThisDaySection(now)}
       ${renderMustRead(mustRead)}
       ${focusHtml.trim()}
       <div class="home-cards">

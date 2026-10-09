@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="太空館">
+  <rect width="640" height="400" fill="#f3e6cf"/>
+  <ellipse cx="120" cy="70" rx="180" ry="70" fill="#d9e4f0" opacity="0.85"/>
+  <ellipse cx="480" cy="50" rx="200" ry="80" fill="#f7f1e6" opacity="0.7"/>
+  <rect x="0" y="280" width="640" height="120" fill="#cfc6b4" opacity="0.8"/>
+  <ellipse cx="250" cy="200" rx="120" ry="90" fill="#f4efe6" stroke="#0e2a52" stroke-width="4"/><rect x="360" y="170" width="180" height="120" fill="#f4efe6" stroke="#0e2a52" stroke-width="3"/><circle cx="250" cy="200" r="28" fill="#d5e4ef" stroke="#0e2a52"/>
+</svg>

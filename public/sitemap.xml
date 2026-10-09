@@ -171,6 +171,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://world-news.xyz/on-this-day/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://world-news.xyz/hk/landmarks/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://world-news.xyz/about/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>yearly</changefreq>
