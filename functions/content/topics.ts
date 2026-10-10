@@ -593,11 +593,13 @@ export async function serveTopic(context: PagesContext): Promise<Response> {
   const board = await readBoard(env).catch(() => null);
   const items = materialFromBoard(board)?.items ?? [];
   const headlines = matchTopicItems(items, topic);
-  const others = topicIndexCards(cards).map((card) => ({
-    slug: card.topic.slug,
-    title: card.topic.title,
-    description: card.description,
-  }));
+  const others = topicIndexCards(cards)
+    .filter((card) => card.ready)
+    .map((card) => ({
+      slug: card.topic.slug,
+      title: card.topic.title,
+      description: card.description,
+    }));
   const html = renderTopicPage({
     topic,
     pack: cards.get(slug) ?? null,

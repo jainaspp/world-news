@@ -478,9 +478,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const timelineSources = timelineBlock && timelineRows(timelineBlock.sources).length >= 2 ? timelineBlock.sources : sources;
   const explainerTimeline = !modelFailed && doc.kind === 'compare' ? eventTimeline(timelineSources) : '';
   const sourceSection = listed.length
-    ? (doc.kind === 'compare'
-      ? `<details class="topic-fold pack-fold"><summary>來源（${listed.length}）</summary>${sourceList(listed)}</details>`
-      : `<section class="story column-block"><div class="story-body"><h2 class="column-h2">來源（${listed.length}）</h2>${sourceList(listed)}</div></section>`)
+    ? `<details class="topic-fold pack-fold"><summary>來源（${listed.length}）</summary>${sourceList(listed)}</details>`
     : '';
   const topicHits = doc.kind === 'compare'
     ? relatedTopics([doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => [block.title, ...block.sentences, ...block.sources.map((source) => source.title)])].join('\n')).slice(0, 2)

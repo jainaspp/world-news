@@ -103,10 +103,11 @@ describe('topic pictures', () => {
     expect(page).not.toContain('免責');
     const cards = topicIndexCards(new Map());
     const index = renderTopicIndex(cards, 'https://world-news.xyz/topic/');
-    expect(index).toContain('src="/topics/us-rates.jpg"');
-    expect(index).toContain('src="/topics/weather.jpg"');
-    const property = index.split(/<article class="story\b[^"]*">/).slice(1).find((chunk) => chunk.includes('/topic/property/')) ?? '';
-    expect(property).toContain('thumb-fallback');
-    expect(property).not.toContain('<img class="thumb"');
+    // Empty shells are off the grid; 樓市 is fully hidden until ready.
+    expect(index).not.toContain('src="/topics/us-rates.jpg"');
+    expect(index).not.toContain('href="/topic/property/"');
+        expect(index).toContain('暫時未有公開專題懶人包');
+    expect(index).toContain('籌備中');
+    expect(index).toContain('美國加息以及全球經濟影響');
   });
 });
