@@ -409,6 +409,8 @@ describe('topic pages', () => {
         expect(index).toContain('rel="canonical" href="https://world-news.xyz/topic/"');
     expect(index).toContain('name="description"');
     expect(index).toContain('AI 整合');
+    expect(index).toContain('支持世界頭條');
+    expect(index).toContain('data-ad-position="top"');
 
     const page = renderTopicPage({
       topic: topicBySlug('policy-address')!,
@@ -445,6 +447,10 @@ describe('topic pages', () => {
     expect(page).toContain('href="/topic/"');
     expect(page).toContain('data-listen');
     expect(page).toContain('bookmark-article');
+    expect(page).toContain('支持世界頭條');
+    expect(page).toContain('data-ad-position="top"');
+    expect(page).toContain('data-ad-position="bottom"');
+    expect(page).not.toContain('<ins class="adsbygoogle"');
     expect(page).toContain('https://example.com/a');
     mkdirSync('/tmp/topic-preview', { recursive: true });
     writeFileSync('/tmp/topic-preview/index.html', index);

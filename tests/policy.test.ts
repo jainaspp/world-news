@@ -72,6 +72,9 @@ describe('policy pages', () => {
     expect(privacy).toContain('https://policies.google.com/technologies/partner-sites');
     expect(privacy).toContain('https://adssettings.google.com');
     expect(privacy).toContain('ca-pub-8392975944327076');
+    expect(privacy).toContain('新聞懶人包');
+    expect(privacy).toContain('專題懶人包');
+    expect(privacy).toContain('當年今日');
     expect(privacy).toContain('Cloudflare Web Analytics');
     expect(privacy).toContain('wn_bookmarks_v2');
     expect(privacy).toContain('wn_board_v1');
@@ -80,7 +83,7 @@ describe('policy pages', () => {
     expect(privacy).toContain('用我位置');
     expect(privacy).toContain('不會出售個人資料');
     expect(privacy).toContain('十三歲以下');
-    expect(privacy).toContain('2026年10月7日');
+    expect(privacy).toContain('2026年10月11日');
     expect(terms).toContain('原來的出版者');
     expect(terms).toContain('只供參考');
     expect(terms).toContain('不保證');

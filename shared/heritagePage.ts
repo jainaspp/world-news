@@ -1,4 +1,5 @@
-import { AD_BODY_CHARS, cjkChars, chrome, esc, footer, head, type AdConfig } from './contentPage.js';
+import { adSlotMarkup } from './adSlot.js';
+import { AD_BODY_CHARS, cjkChars, chrome, esc, footer, head } from './contentPage.js';
 import {
   LANDMARK_FILTERS,
   allLandmarks,
@@ -198,10 +199,10 @@ ${head(options.title, options.description, canonical, '', 'website', extra, opti
   return { html, status: options.status ?? 200, indexable: options.indexable };
 }
 
+/** Indexable heritage pages always reserve a bottom unit; empty slot id → grey placeholder. */
 function adUnit(ads: HeritageAds, indexable: boolean): string {
-  if (!indexable || !/^\d{6,}$/.test(ads.slot)) return '';
-  const config: AdConfig = { client: ads.client, bottom: ads.slot };
-  return `<div class="ad-slot ad-slot-banner" data-ad-position="bottom" aria-label="廣告"><span class="ad-label">廣告</span><ins class="adsbygoogle" data-ad-client="${esc(config.client)}" data-ad-slot="${esc(config.bottom || '')}" data-ad-format="auto" data-full-width-responsive="true" style="display:block"></ins></div>`;
+  if (!indexable) return '';
+  return adSlotMarkup('banner', ads.slot, ads.client || DEFAULT_ADS.client, 'bottom');
 }
 
 function dayNav(mmdd: string): string {
