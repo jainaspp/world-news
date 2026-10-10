@@ -56,7 +56,8 @@ describe('當年今日 seed', () => {
     expect(factsOn('10-24').length).toBeGreaterThanOrEqual(1);
     expect(factsOn('10-01').map((row) => row.year)).toEqual(['1910', '1979']);
     const dates = new Set(factsSeed.map((row) => row.mmdd));
-    expect(dates.size).toBeGreaterThanOrEqual(24);
+    expect(dates.size).toBeGreaterThanOrEqual(70);
+    expect(factsOn('10-10').length).toBeGreaterThanOrEqual(2);
   });
 
   it('steps the calendar without inventing a 31 February', () => {
@@ -100,11 +101,11 @@ describe('當年今日 pages', () => {
     expect(page.html).toContain('href="/hk/landmarks/kwong-wah/"');
     expect(page.html).toContain('data-ad-slot="1234567890"');
     expect(dayIndexable('10-09')).toBe(true);
-    const thin = renderOnThisDayPage('10-10');
-    expect(thin.indexable).toBe(false);
-    expect(thin.html).toContain('noindex,follow');
-    expect(thin.html).not.toContain('adsbygoogle');
-    expect(thin.html).toContain('尚未收錄');
+    const filled = renderOnThisDayPage('10-10');
+    expect(filled.indexable).toBe(true);
+    expect(filled.html).toContain('index,follow');
+    expect(filled.html).toContain('郊野公園');
+    expect(filled.html).not.toContain('尚未收錄');
     const missing = renderOnThisDayPage('02-31');
     expect(missing.status).toBe(404);
     expect(missing.html).not.toContain('pagead2.googlesyndication.com');
@@ -135,7 +136,7 @@ describe('當年今日 pages', () => {
     expect(paths).toContain('/on-this-day/');
     expect(paths).toContain('/on-this-day/10-09/');
     expect(paths).toContain('/hk/landmarks/kwong-wah/');
-    expect(paths).not.toContain('/on-this-day/10-10/');
+    expect(paths).toContain('/on-this-day/10-10/');
   });
 });
 
