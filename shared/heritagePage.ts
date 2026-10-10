@@ -17,6 +17,9 @@ import {
 
 const ORIGIN = 'https://world-news.xyz';
 
+/** Days/landmarks with real seeds may list below the AdSense body floor; ads still need AD_BODY_CHARS. */
+const HERITAGE_INDEX_CHARS = 280;
+
 const GAZETTEER_NOTE = '世界頭條這欄以香港時間的月日編年，收入建築落成、交通通車、公共場館、節慶與體育場地。每條只寫年份、事情與地點，方便讀者對照地圖。頁面不設帳號，也不把紀事改寫成新聞報道。地圖連結通往公開地圖，只為標示位置。若同一日有多於三條，首頁先列最早的三條，其餘在當日編年頁看完。地標頁寫簡介、時間線與到訪方式，讓一頁足以獨立閱讀。種子檔可再加月日，條件是事情本身屬於地理、建築、民生、節慶、交通、體育或公共文化。';
 
 export interface HeritageAds {
@@ -74,7 +77,7 @@ function visual(fact: HeritageFact, eager = false): string {
 }
 
 function factCard(fact: HeritageFact, eager = false): string {
-  return `<div class="otd-card" role="article">
+  return `<div class="otd-card pack-shell pack-heritage" role="article">
     ${visual(fact, eager)}
     <div class="otd-body">
       <p class="otd-fact">${esc(fact.fact)}</p>
@@ -85,7 +88,7 @@ function factCard(fact: HeritageFact, eager = false): string {
 }
 
 function factRow(fact: HeritageFact): string {
-  return `<div class="otd-row" role="article">
+  return `<div class="otd-row pack-shell pack-heritage" role="article">
     ${visual(fact)}
     <div class="otd-body">
       <p class="otd-fact">${esc(fact.fact)}</p>
@@ -103,7 +106,7 @@ export function renderOnThisDaySection(now = new Date()): string {
   // Collapsed by default: defer images until open (no eager).
   const cards = rows.map((row) => factCard(row, false)).join('');
   const count = rows.length;
-  return `<details class="otd-pack heritage">
+  return `<details class="otd-pack heritage pack-shell pack-heritage">
   <summary class="otd-pack-summary">
     <span class="otd-pack-title" id="otd-title">當年今日</span>
     <span class="otd-pack-kicker">溫和史 · ${esc(labelMmdd(mmdd))}</span>
@@ -138,6 +141,10 @@ function dayProse(mmdd: string): string[] {
 }
 
 export function dayIndexable(mmdd: string): boolean {
+  return proseChars(dayProse(mmdd)) >= HERITAGE_INDEX_CHARS;
+}
+
+function dayShowAds(mmdd: string): boolean {
   return proseChars(dayProse(mmdd)) >= AD_BODY_CHARS;
 }
 
@@ -174,7 +181,7 @@ function shell(options: {
 <html lang="zh-HK">
 ${head(options.title, options.description, canonical, '', 'website', extra, options.ads.client, options.indexable)}
 <body>
-  <div class="page column-page heritage-page" data-kind="heritage">
+  <div class="page column-page heritage-page pack-heritage" data-kind="heritage">
   ${chrome('none')}
   <main id="content" class="column-index heritage-main">
     ${options.body}
@@ -246,7 +253,7 @@ export function renderOnThisDayPage(mmdd: string, ads: HeritageAds = DEFAULT_ADS
     ${inkRule()}
     <p class="section-lede">溫和史紀事：建築啟用、基建通車與公共生活節點。${esc(note)}可點地標進入簡介與時間線。</p>
     ${list}
-    ${adUnit(ads, indexable)}
+    ${adUnit(ads, dayShowAds(mmdd))}
     <p class="heritage-note">${esc(GAZETTEER_NOTE)}</p>
     <p class="footnote">本欄只收地理、建築、民生、節慶、交通開幕、體育與公共文化。新增事實時請在種子檔寫上月日與年份。</p>`;
   const description = rows[0]?.fact || `${labelMmdd(mmdd)}尚未收錄紀事。`;
@@ -268,7 +275,7 @@ export function renderLandmarkHub(kind: string, ads: HeritageAds = DEFAULT_ADS):
     const active = item.kind === selected;
     return `<a class="chip${active ? ' active' : ''}" href="${href}"${active ? ' aria-current="page"' : ''}>${item.label}</a>`;
   }).join('');
-  const cards = rows.map((place) => `<a class="lm-card" href="/hk/landmarks/${esc(place.slug)}/">
+  const cards = rows.map((place) => `<a class="lm-card pack-shell pack-heritage" href="/hk/landmarks/${esc(place.slug)}/">
       <div class="cover${place.image === PAPER_PLATE ? ' plate-paper' : ''}"><img src="${esc(place.image)}" alt="${esc(place.imageAlt)}" width="640" height="480" loading="lazy" decoding="async" />${plateMark(place.image, place.name)}</div>
       <div class="body"><h3>${esc(place.name)}</h3><p>${esc(place.summary)}</p><span class="tag-cat">${esc(place.kindLabel)}</span></div>
     </a>`).join('');
@@ -314,10 +321,10 @@ export function renderLandmarkPage(slug: string, ads: HeritageAds = DEFAULT_ADS)
   const steps = place.timeline.map((item) => `<li><div class="ty">${esc(item.year)}</div><p class="tt">${esc(item.title)}</p><p class="td">${esc(item.text)}</p></li>`).join('');
   const related = allLandmarks().filter((item) => item.slug !== place.slug && item.kind === place.kind).slice(0, 3);
   const more = related.length
-    ? `<h2 class="section-title">相關地標</h2><div class="lm-grid">${related.map((item) => `<a class="lm-card" href="/hk/landmarks/${esc(item.slug)}/"><div class="cover${item.image === PAPER_PLATE ? ' plate-paper' : ''}"><img src="${esc(item.image)}" alt="" width="640" height="480" loading="lazy" decoding="async" />${plateMark(item.image, item.name)}</div><div class="body"><h3>${esc(item.name)}</h3><p>${esc(item.summary)}</p></div></a>`).join('')}</div>`
+    ? `<h2 class="section-title">相關地標</h2><div class="lm-grid">${related.map((item) => `<a class="lm-card pack-shell pack-heritage" href="/hk/landmarks/${esc(item.slug)}/"><div class="cover${item.image === PAPER_PLATE ? ' plate-paper' : ''}"><img src="${esc(item.image)}" alt="" width="640" height="480" loading="lazy" decoding="async" />${plateMark(item.image, item.name)}</div><div class="body"><h3>${esc(item.name)}</h3><p>${esc(item.summary)}</p></div></a>`).join('')}</div>`
     : '';
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/hk/landmarks/">香港地標</a> · ${esc(place.name)}</nav>
-    <article class="detail-hero">
+    <article class="detail-hero pack-shell pack-heritage">
       <div class="cover${place.image === PAPER_PLATE ? ' plate-paper' : ''}"><img src="${esc(place.image)}" alt="${esc(place.imageAlt)}" width="1200" height="514" loading="eager" decoding="async" />${plateMark(place.image, place.name)}</div>
       <div class="intro">
         <span class="section-kicker">${esc(place.kindLabel)} · ${esc(place.district)}</span>

@@ -94,7 +94,7 @@ function jump(href: string, label: string, on: boolean): string {
 
 function fold(id: string, title: string, lines: string[]): string {
   if (!lines.length) return '';
-  return `<details class="topic-fold" id="${id}" open><summary>${esc(title)}</summary><ul class="points">${lines.map((line) => `<li>${esc(line)}</li>`).join('')}</ul></details>`;
+  return `<details class="topic-fold pack-fold" id="${id}"><summary>${esc(title)}</summary><ul class="points">${lines.map((line) => `<li>${esc(line)}</li>`).join('')}</ul></details>`;
 }
 
 function headlineList(items: NewsItem[]): string {
@@ -279,11 +279,11 @@ export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads
   const articles = cards.map((card, index) => {
     const when = card.updatedAt ? `<div class="story-meta"><time datetime="${esc(card.updatedAt)}">${esc(hkt(card.updatedAt, false))}</time></div>` : '';
     const credit = card.picture ? photoCredit(card.picture) : '';
-    return `<article class="story">
+    return `<article class="story pack-shell pack-topic">
       <a class="story-media" href="/topic/${esc(card.topic.slug)}/" tabindex="-1" aria-hidden="true">${media(card.picture?.url, card.topic.category, card.topic.title, index < 2, card.picture?.alt ?? '')}</a>
       <div class="story-body">
         ${credit}
-        <div class="story-kicker">${card.ready ? '<span class="badge ai-badge">AI 整合</span>' : ''}${catChip(card.topic.category)}</div>
+        <div class="story-kicker"><span class="pack-kicker">專題懶人包</span>${card.ready ? '<span class="badge ai-badge">AI 整合</span>' : ''}${catChip(card.topic.category)}</div>
         <h2 class="story-title"><a href="/topic/${esc(card.topic.slug)}/">${esc(card.topic.title)}</a></h2>
         <p class="dek">${esc(card.description)}</p>
         ${when}

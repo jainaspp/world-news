@@ -75,8 +75,8 @@ describe('當年今日 pages', () => {
     const now = new Date('2026-10-09T04:00:00Z');
     const section = renderOnThisDaySection(now);
     expect(section).toContain('當年今日');
-    expect(section).toContain('<details class="otd-pack heritage">');
-    expect(section).not.toContain('<details class="otd-pack heritage" open');
+    expect(section).toContain('<details class="otd-pack heritage pack-shell pack-heritage">');
+    expect(section).not.toContain('<details class="otd-pack heritage pack-shell pack-heritage" open');
     expect(section).toContain('點開睇');
     expect(section).toContain('/static/heritage/ink-divider.png');
     expect(section).toContain('廣華醫院');
