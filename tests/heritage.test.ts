@@ -71,7 +71,7 @@ describe('當年今日 seed', () => {
 });
 
 describe('當年今日 pages', () => {
-  it('places a collapsed 當年今日 pack below 今日必讀 and near the ranking', () => {
+  it('places a collapsed 當年今日 pack between digest and 今日必讀', () => {
     const now = new Date('2026-10-09T04:00:00Z');
     const section = renderOnThisDaySection(now);
     expect(section).toContain('當年今日');
@@ -92,11 +92,11 @@ describe('當年今日 pages', () => {
     const heritage = home.indexOf('otd-pack heritage');
     const must = home.indexOf('今日必讀');
     expect(digest).toBeGreaterThan(-1);
-    expect(must).toBeGreaterThan(digest);
-    expect(heritage).toBeGreaterThan(must);
+    expect(heritage).toBeGreaterThan(digest);
+    expect(must).toBeGreaterThan(heritage);
     const app = readFileSync('src/App.tsx', 'utf8');
-    expect(app.indexOf('<MustRead')).toBeGreaterThan(0);
-    expect(app.indexOf('<MustRead')).toBeLessThan(app.indexOf('<OnThisDay />'));
+    expect(app.indexOf('<OnThisDay')).toBeGreaterThan(0);
+    expect(app.indexOf('<OnThisDay')).toBeLessThan(app.indexOf('<MustRead'));
   });
 
   it('still shows a collapsed pack with 香港地標 when the day has no fact', () => {
