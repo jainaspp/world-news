@@ -3,6 +3,7 @@ import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import { briefingPublic, briefingScopeOf, explainerCurrent, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
 import { bestImage } from './media.js';
 import { listens } from './listen.js';
+import { adSlotMarkup } from './adSlot.js';
 import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
 
@@ -15,7 +16,7 @@ import { relatedTopics } from './topicPack.js';
 
 export interface AdConfig {
   client: string;
-  /** AdSense ad unit ids. Empty means no manual unit; Auto ads (if on in AdSense) still place ads. */
+  /** AdSense ad unit ids. Empty keeps the grey placeholder; Auto ads (if on in AdSense) still place ads. */
   top?: string;
   mid?: string;
   bottom?: string;
@@ -119,13 +120,10 @@ function sourceList(sources: SourceRef[]): string {
   return rows ? `<ul class="source-list">${rows}</ul>` : '';
 }
 
-function adUnit(ads: AdConfig | undefined, slot: string | undefined, position: string, inArticle = false): string {
-  const id = (slot || '').trim();
-  if (!ads || !/^\d{6,}$/.test(id)) return '';
-  const format = inArticle
-    ? 'data-ad-layout="in-article" data-ad-format="fluid" style="display:block;text-align:center"'
-    : 'data-ad-format="auto" data-full-width-responsive="true" style="display:block"';
-  return `<div class="ad-slot ${inArticle ? 'ad-slot-feed' : 'ad-slot-banner'}" data-ad-position="${position}" aria-label="廣告"><span class="ad-label">廣告</span><ins class="adsbygoogle" data-ad-client="${esc(ads.client)}" data-ad-slot="${esc(id)}" ${format}></ins></div>`;
+/** Empty slot ids still reserve the grey「支持世界頭條」box; only a missing ads config hides the unit. */
+export function adUnit(ads: AdConfig | undefined, slot: string | undefined, position: string, inArticle = false): string {
+  if (!ads) return '';
+  return adSlotMarkup(inArticle ? 'feed' : 'banner', slot || '', ads.client || DEFAULT_CLIENT, position);
 }
 
 const FILLER = /來源未有提及|未有足夠|沒有足夠資料|資料未有|未有提供/;

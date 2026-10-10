@@ -66,12 +66,15 @@ describe('column pages', () => {
     expect(html).toContain('https://example.com/a');
   });
 
-  it('loads AdSense on a finished AI digest and skips empty manual units', () => {
+  it('loads AdSense on a finished AI digest and keeps grey placeholders without slot ids', () => {
     const html = renderContentPage(finishedDigest(), 'https://world-news.xyz/digest/2026-10-06-am');
     expect(html).toContain('adsbygoogle.js?client=ca-pub-8392975944327076');
     expect(html).toContain('name="robots" content="index,follow"');
     expect(html).toContain('2 間媒體報道');
     expect(html).not.toContain('模型暫時未能完成');
+    expect(html).toContain('支持世界頭條');
+    expect(html).toContain('data-ad-position="top"');
+    expect(html).toContain('data-ad-position="bottom"');
     expect(html).not.toContain('<ins class="adsbygoogle"');
   });
 
