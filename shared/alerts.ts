@@ -74,3 +74,23 @@ export function mergeAlerts(weather: LiveAlert[], transport: LiveAlert[]): LiveA
   }
   return merged;
 }
+
+/** Collapse many MTR line pills into one count badge for the alert row. */
+export function displayAlerts(alerts: LiveAlert[]): LiveAlert[] {
+  const weather: LiveAlert[] = [];
+  const transport: LiveAlert[] = [];
+  for (const alert of alerts) {
+    if (alert.kind === 'transport') transport.push(alert);
+    else weather.push(alert);
+  }
+  if (transport.length <= 1) return [...weather, ...transport];
+  return [
+    ...weather,
+    {
+      id: 'mtr-bundle',
+      name: `港鐵 · ${transport.length} 條`,
+      href: MTR_PAGE,
+      kind: 'transport',
+    },
+  ];
+}

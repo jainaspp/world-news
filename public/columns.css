@@ -67,6 +67,14 @@ html.dark .highlight-box h2 { color: #ff8a9b; }
 .ai-footnote { display: flex; gap: 8px; align-items: baseline; font-size: 0.9rem; }
 .column-index { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
 .index-head { display: grid; gap: 8px; }
+.index-title-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px;
+}
+.index-title-row .column-title,
+.index-title-row .story-title { margin: 0; flex: 1 1 auto; min-width: min(100%, 12rem); }
+.index-title-row .story-kicker { margin: 0; flex: 0 1 auto; }
+.column-hero .index-title-row { align-items: flex-start; }
+.column-page #alert-slot:empty { display: none; margin: 0; padding: 0; }
 .analysis-grid { margin-top: 0; }
 @media (max-width: 520px) {
   .source-list a { grid-template-columns: 16px minmax(0, 1fr); }

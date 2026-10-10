@@ -98,26 +98,31 @@ function factRow(fact: HeritageFact): string {
   </div>`;
 }
 
-/** Homepage block (collapsed like 懶人包). Empty when today has no safe fact. */
+/** Homepage block (collapsed like 懶人包). Always shown so footer is not the only entry. */
 export function renderOnThisDaySection(now = new Date()): string {
   const mmdd = hktMmdd(now);
   const rows = homeFacts(now, 3);
-  if (!rows.length) return '';
   // Collapsed by default: defer images until open (no eager).
-  const cards = rows.map((row) => factCard(row, false)).join('');
+  const cards = rows.length
+    ? `<div class="otd-grid">${rows.map((row) => factCard(row, false)).join('')}</div>`
+    : '<p class="section-lede">今日暫無紀事，可改看香港地標圖錄。</p>';
   const count = rows.length;
+  const teaser = count ? `今日 ${count} 則 · 點開睇` : '香港地標 · 點開睇';
   return `<details class="otd-pack heritage pack-shell pack-heritage">
   <summary class="otd-pack-summary">
     <span class="otd-pack-title" id="otd-title">當年今日</span>
-    <span class="otd-pack-kicker">溫和史 · ${esc(labelMmdd(mmdd))}</span>
-    <span class="otd-pack-teaser">今日 ${count} 則 · 點開睇</span>
+    <span class="otd-pack-kicker">溫和史 · ${esc(labelMmdd(mmdd))} · 香港地標</span>
+    <span class="otd-pack-teaser">${teaser}</span>
   </summary>
   <div class="otd-pack-body">
     <p class="archive-label">地方誌 · 溫和編年</p>
     ${inkRule()}
     <p class="section-lede">舊紙年表式紀事：回望本地建築落成、基建通車與公共生活節點。只記地理與民生。</p>
-    <div class="otd-grid">${cards}</div>
-    <a class="section-more otd-pack-more" href="/on-this-day/${esc(mmdd)}/">睇晒 →</a>
+    ${cards}
+    <div class="otd-pack-links">
+      <a class="section-more otd-pack-more" href="/on-this-day/${esc(mmdd)}/">睇晒 →</a>
+      <a class="section-more otd-pack-more" href="/hk/landmarks/">香港地標 →</a>
+    </div>
   </div>
 </details>`;
 }

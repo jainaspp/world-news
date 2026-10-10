@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { angleClusters, headlineIsMajor, majorTimeline, titlesMatch } from '../shared/angles';
 import { REQUEST_CLUSTER_LIMIT, clusterRecent, newestItems } from '../shared/board';
-import { mergeAlerts, parseMtrStatus, weatherAlerts } from '../shared/alerts';
+import { displayAlerts, mergeAlerts, parseMtrStatus, weatherAlerts } from '../shared/alerts';
 import { parseHkoWarnings } from '../shared/hk';
 import { renderHkInfo } from '../shared/hkInfo';
 import { renderMajorBanner, renderMajorPage } from '../shared/majorPage';
@@ -123,6 +123,11 @@ describe('alerts', () => {
     expect(transport[0]?.name).toContain('服務受阻');
     expect(mergeAlerts(weather, transport)).toHaveLength(2);
     expect(parseMtrStatus('<ryg_status></ryg_status>')).toEqual([]);
+    const many = parseMtrStatus(`<ryg_status>${'<line><line_code>TWL</line_code><status>yellow</status><url_tc></url_tc></line><line><line_code>KTL</line_code><status>yellow</status><url_tc></url_tc></line><line><line_code>ISL</line_code><status>yellow</status><url_tc></url_tc></line><line><line_code>TCL</line_code><status>yellow</status><url_tc></url_tc></line>'}</ryg_status>`);
+    const compact = displayAlerts(mergeAlerts([], many));
+    expect(compact).toHaveLength(1);
+    expect(compact[0]?.name).toBe('港鐵 · 4 條');
+    expect(compact[0]?.id).toBe('mtr-bundle');
   });
 });
 

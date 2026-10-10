@@ -13,7 +13,7 @@ describe('otd densify', () => {
       if (dayIndexable(d)) idx += 1;
     }
     const otd = heritagePublicPaths().filter((p) => p.includes('/on-this-day/'));
-    expect(withF).toBe(85);
+    expect(withF).toBe(86);
     expect(idx).toBeGreaterThanOrEqual(80);
     expect(otd.length).toBe(idx + 1); // index + days
   });

@@ -506,8 +506,10 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
       <article class="story story-hero column-hero">
         <div class="story-media">${media(image, leadCategory, sources[0]?.source || '世界頭條', true)}</div>
         <div class="story-body">
-          <div class="story-kicker">${modelFailed ? '' : '<span class="badge ai-badge">AI 整合</span>'}<span class="kicker-region">${columnName(doc)}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
-          <h1 class="story-title column-title">${esc(doc.title)}</h1>
+          <div class="index-title-row">
+            <div class="story-kicker">${modelFailed ? '' : '<span class="badge ai-badge">AI 整合</span>'}<span class="kicker-region">${columnName(doc)}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
+            <h1 class="story-title column-title">${esc(doc.title)}</h1>
+          </div>
           ${doc.kind === 'analysis' || doc.kind === 'compare' ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : ''}
           ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}
           <div class="story-meta"><time datetime="${esc(doc.publishedAt)}">${esc(doc.hkt || hkt(doc.publishedAt))} 香港時間</time><span>· 閱讀約 ${minutes} 分鐘</span>${sources.length ? `<span>· ${outlets} 間媒體 · ${sources.length} 篇報道</span>` : ''}${doc.updatedAt ? `<span>· 最後更新 ${esc(hkt(doc.updatedAt))}</span>` : ''}</div>
@@ -589,8 +591,10 @@ ${head(title, description, canonical, entries.find((entry) => entry.image)?.imag
   ${chrome('analysis')}
   <main id="content" class="column-index">
     <header class="index-head">
-      <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">分析</span></div>
-      <h1 class="column-title">${title}</h1>
+      <div class="index-title-row">
+        <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">分析</span></div>
+        <h1 class="column-title">${title}</h1>
+      </div>
       <p class="dek">${esc(description)}</p>
     </header>
     ${adUnit(ads, ads?.top, 'top')}
@@ -654,12 +658,14 @@ ${head(meta.title, meta.description, canonical, entries.find((entry) => entry.im
   <div class="page column-page" data-kind="${kind}-index">
   ${chrome(kind)}
   <main id="content" class="column-index">
-    ${adUnit(ads, ads?.top, 'top')}
     <header class="index-head">
-      <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">${meta.kicker}</span></div>
-      <h1 class="column-title">${meta.title}</h1>
+      <div class="index-title-row">
+        <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">${meta.kicker}</span></div>
+        <h1 class="column-title">${meta.title}</h1>
+      </div>
       <p class="dek">${esc(meta.description)}</p>
     </header>
+    ${adUnit(ads, ads?.top, 'top')}
     ${entries.length ? `<div class="news-grid analysis-grid">${withAd}</div>` : `<p class="notice">${esc(meta.empty)}</p>`}
     ${adUnit(ads, ads?.bottom, 'bottom')}
   </main>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { LiveAlert } from '../../shared/alerts';
+import { displayAlerts, type LiveAlert } from '../../shared/alerts';
 
 /** Shown only while an HKO warning or an MTR disruption is active. */
 export function AlertRow() {
@@ -13,7 +13,7 @@ export function AlertRow() {
         .then((json: { alerts?: LiveAlert[] } | null) => {
           if (cancel) return;
           const rows = Array.isArray(json?.alerts) ? json.alerts.filter((row) => row && row.name && row.href) : [];
-          setAlerts(rows);
+          setAlerts(displayAlerts(rows));
         })
         .catch(() => {
           if (!cancel) setAlerts([]);
@@ -31,7 +31,13 @@ export function AlertRow() {
   return (
     <section className="alert-row" aria-label="天氣及交通警告">
       {alerts.map((alert) => (
-        <a key={alert.id} className="alert-pill" href={alert.href} target="_blank" rel="noopener noreferrer">
+        <a
+          key={alert.id}
+          className={alert.id === 'mtr-bundle' ? 'alert-pill alert-pill-mtr' : 'alert-pill'}
+          href={alert.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {alert.name}
         </a>
       ))}

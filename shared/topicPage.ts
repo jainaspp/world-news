@@ -221,8 +221,10 @@ ${head(`${title}專題`, description, canonical, image || '', 'article', `${robo
       <article class="story story-hero column-hero pack-shell pack-topic">
         ${heroPhoto(picture, topic.category, topic.title)}
         <div class="story-body">
-          <div class="story-kicker">${shown ? '<span class="badge ai-badge">AI 整合</span>' : ''}<span class="kicker-region">專題懶人包</span>${catChip(topic.category)}</div>
-          <h1 class="story-title column-title">${esc(title)}</h1>
+          <div class="index-title-row">
+            <div class="story-kicker">${shown ? '<span class="badge ai-badge">AI 整合</span>' : ''}<span class="kicker-region">專題懶人包</span>${catChip(topic.category)}</div>
+            <h1 class="story-title column-title">${esc(title)}</h1>
+          </div>
           <p class="dek">${esc(description)}</p>
           ${when}
           ${share(title, canonical)}
@@ -285,10 +287,10 @@ export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads
     return `<article class="story pack-shell pack-topic">
       <a class="story-media" href="/topic/${esc(card.topic.slug)}/" tabindex="-1" aria-hidden="true">${media(card.picture?.url, card.topic.category, card.topic.title, index < 2, card.picture?.alt ?? '')}</a>
       <div class="story-body">
-        ${credit}
         <div class="story-kicker"><span class="pack-kicker">專題懶人包</span><span class="badge ai-badge">AI 整合</span>${catChip(card.topic.category)}</div>
         <h2 class="story-title"><a href="/topic/${esc(card.topic.slug)}/">${esc(card.topic.title)}</a></h2>
         <p class="dek">${esc(card.description)}</p>
+        ${credit}
         ${when}
       </div>
     </article>`;
@@ -320,8 +322,10 @@ ${head(title, description, canonical, absoluteSrc(ready.find((card) => card.pict
   ${chrome('topic')}
   <main id="content" class="column-index">
     <header class="index-head">
-      <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">專題</span></div>
-      <h1 class="column-title">${title}</h1>
+      <div class="index-title-row">
+        <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">專題</span></div>
+        <h1 class="column-title">${title}</h1>
+      </div>
       <p class="dek">${esc(description)}</p>
     </header>
     ${ready.length ? `<div class="news-grid analysis-grid">${articles}</div>` : '<p class="notice">暫時未有公開專題懶人包。</p>'}
