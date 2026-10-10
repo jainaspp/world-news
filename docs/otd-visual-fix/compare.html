@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OTD 色板對比 — 修正草稿</title>
+<style>
+  body { margin: 0; font-family: "Noto Sans TC", system-ui, sans-serif; background: #e8ecf1; color: #1a2332; }
+  header { padding: 16px 20px; background: #1d4f91; color: #e8eef5; }
+  header p { margin: 6px 0 0; opacity: .85; font-size: 13px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  .panel { border-radius: 16px; overflow: hidden; border: 1px solid #cfd6e0; }
+  .panel h2 { margin: 0; padding: 12px 14px; font-size: 14px; background: #dfe5ee; }
+  .swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; }
+  .sw { border-radius: 10px; padding: 28px 8px 8px; font-size: 11px; border: 1px solid rgba(0,0,0,.08); }
+  .card-demo { margin: 0 12px 14px; border-radius: 16px; padding: 14px; border: 1px solid; }
+  .card-demo strong { display: block; font-family: "Noto Serif TC", serif; margin-bottom: 6px; }
+  .card-demo span { font-size: 12px; opacity: .8; }
+  .note { padding: 0 20px 24px; font-size: 13px; color: #5a6575; max-width: 70em; }
+</style>
+</head>
+<body>
+<header>
+  <strong>當年今日／地標 — 色板對比（Art 草稿）</strong>
+  <p>左＝問題感（極端黑／白打架）· 右＝建議（對齊主站、禁純黑純白大面積）</p>
+</header>
+<div class="grid">
+  <section class="panel">
+    <h2>現況問題感</h2>
+    <div class="swatches">
+      <div class="sw" style="background:#ffffff;color:#111">純白卡 #fff</div>
+      <div class="sw" style="background:#0e141c;color:#fff">近黑頁 #0e141c</div>
+      <div class="sw" style="background:#2a241c;color:#f4efe6">死褐卡</div>
+    </div>
+    <div class="card-demo" style="background:#fff;border-color:#ddd;color:#111">
+      <strong>新聞白卡 vs 史欄黃紙</strong>
+      <span>兩個系統並排會「怪」。</span>
+    </div>
+    <div class="card-demo" style="background:#0e141c;border-color:#222;color:#f3f6fa">
+      <strong>深色砍紋理</strong>
+      <span>只剩平塗黑底，地方誌感消失。</span>
+    </div>
+  </section>
+  <section class="panel">
+    <h2>建議（對齊主站）</h2>
+    <div class="swatches">
+      <div class="sw" style="background:#f7f5f1;color:#1a2332">卡 #f7f5f1</div>
+      <div class="sw" style="background:#f0ece4;color:#1a2332">頁 #f0ece4</div>
+      <div class="sw" style="background:#1d4f91;color:#e8eef5">品牌 #1d4f91</div>
+      <div class="sw" style="background:#1e2630;color:#e8eef5">深卡 #1e2630</div>
+      <div class="sw" style="background:#161c24;color:#e8eef5">深頁 #161c24</div>
+      <div class="sw" style="background:#9a7b4f;color:#f7f5f1">銅飾 #9a7b4f</div>
+    </div>
+    <div class="card-demo" style="background:#f7f5f1;border-color:#d5d0c6;color:#1a2332">
+      <strong>淺色史卡（建議）</strong>
+      <span style="color:#5a6575">字階／圓角跟新聞卡；微暖唔發黃打架。</span>
+    </div>
+    <div class="card-demo" style="background:#1e2630;border-color:#2e3b4c;color:#e8eef5">
+      <strong>深色史卡（建議）</strong>
+      <span style="color:#b7c2d0">保留淡紙紋；唔用純黑頁。</span>
+    </div>
+  </section>
+</div>
+<p class="note">詳見 <code>README.md</code>＋<code>tokens.css</code>。內容紅線：溫和、避政治。開畫／上線實作交 Bad Bot；本包僅視覺方向。</p>
+</body>
+</html>

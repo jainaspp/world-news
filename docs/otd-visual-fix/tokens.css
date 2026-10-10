@@ -1,0 +1,71 @@
+/* OTD visual fix — draft tokens (Art 2026-10-10)
+   Scope under .heritage / .heritage-page. Do not use #000 / #fff as large fills. */
+
+.heritage,
+.heritage-page {
+  --otd-page: #f0ece4;
+  --otd-card: #f7f5f1;
+  --otd-ink: #1a2332;
+  --otd-muted: #5a6575;
+  --otd-line: #d5d0c6;
+  --otd-brass: #9a7b4f;
+  --otd-brand: #1d4f91;
+  --otd-visual-bg: #e8e2d8;
+  color: var(--otd-ink);
+}
+
+html.dark .heritage,
+html.dark .heritage-page {
+  --otd-page: #161c24;
+  --otd-card: #1e2630;
+  --otd-ink: #e8eef5;
+  --otd-muted: #b7c2d0;
+  --otd-line: #2e3b4c;
+  --otd-brass: #c4a572;
+  --otd-brand: #9ec0ef;
+  --otd-visual-bg: #243040;
+}
+
+/* Page wash: soft site-aligned, texture kept but quiet */
+body:has(.heritage),
+body:has(.heritage-page) {
+  background-color: var(--otd-page, #f0ece4);
+  background-image:
+    linear-gradient(180deg, rgba(244, 246, 248, 0.72), rgba(240, 236, 228, 0.55)),
+    url("/static/heritage/aged-paper.jpg"),
+    url("/static/heritage/pale-wood.jpg");
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: auto, cover, 900px;
+  background-blend-mode: normal, soft-light, soft-light;
+}
+
+html.dark body:has(.heritage),
+html.dark body:has(.heritage-page) {
+  background-color: #161c24;
+  background-image:
+    linear-gradient(180deg, rgba(22, 28, 36, 0.88), rgba(22, 28, 36, 0.92)),
+    url("/static/heritage/aged-paper.jpg");
+  background-size: auto, cover;
+  background-blend-mode: normal, soft-light;
+  /* was: #0e141c + background-image:none — too black */
+}
+
+.otd-card, .otd-row, .lm-card {
+  background: var(--otd-card);
+  border: 1px solid var(--otd-line);
+  color: var(--otd-ink);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(20, 32, 51, 0.06);
+}
+
+html.dark .otd-card,
+html.dark .otd-row,
+html.dark .lm-card,
+html.dark .heritage {
+  background: var(--otd-card);
+  border-color: color-mix(in srgb, var(--otd-line) 75%, var(--otd-brass) 25%);
+  box-shadow: none;
+}
+
+.otd-visual, .lm-card .cover { background: var(--otd-visual-bg); }
+.otd-caption, .section-lede { color: var(--otd-muted); }
