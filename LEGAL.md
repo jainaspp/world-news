@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | NASA | `public-domain` | 美國聯邦政府作品，一般可公開使用。仍應保留 NASA 名稱同連結。 |
 | UN News | `un-reuse` | 聯合國新聞通常允許連出處轉載。保留 UN News 名稱同連結。 |
-| BBC、The Guardian、DW、Al Jazeera、NHK、RTHK、Yonhap、Yahoo 新聞、Now 新聞、有線新聞、星島頭條、政府新聞網、新聞公報、香港01、巴士的報、SAI KUNG BUZZ、中新網、人民網、新華社、環球時報、新浪、Sixth Tone、CGTN、界面新聞、CNBC、The Verge、Ars Technica、Variety、Deadline、Sky Sports、NPR | `uncertain` | 這些 RSS（Now 新聞同香港01是網站自己的公開 JSON 列表）可以在伺服器讀取，但各家條款對「公開網站再顯示標題」同「廣告」並不一致。BBC 的 RSS 條款傾向非商業用途。本站 `index.html` 仍載入現有 AdSense 發布商編號。若廣告條款不允許某個來源，應拿掉該來源。SCMP 的 RSS 在一般網絡可讀，但 Cloudflare 出口會回 HTTP 403，所以沒有列入。明報 RSS、財新官方列表同聯合早報都沒有返回可用標題，所以沒有列入。 |
+| BBC、The Guardian、Al Jazeera、NHK、RTHK、Yonhap、Yahoo 新聞、Now 新聞、有線新聞、星島頭條、政府新聞網、新聞公報、香港01、巴士的報、SAI KUNG BUZZ、中新網、人民網、新華社、環球時報、新浪、Sixth Tone、CGTN、界面新聞、CNBC、The Verge、Ars Technica、Variety、Deadline、Sky Sports、NPR | `uncertain` | 這些 RSS（Now 新聞同香港01是網站自己的公開 JSON 列表）可以在伺服器讀取，但各家條款對「公開網站再顯示標題」同「廣告」並不一致。BBC 的 RSS 條款傾向非商業用途。本站 `index.html` 仍載入現有 AdSense 發布商編號。若廣告條款不允許某個來源，應拿掉該來源。SCMP 的 RSS 在一般網絡可讀，但 Cloudflare 出口會回 HTTP 403，所以沒有列入。明報 RSS、財新官方列表同聯合早報都沒有返回可用標題，所以沒有列入。德國之聲中文已從抓取清單移除。 |
 
 標題本身仍可能受版權保護。本程式的做法是短標題加出處連結，不是取得轉載授權。
 
@@ -16,4 +16,4 @@
 
 ## 港／陸欄合規（維護備註，不是法律意見）
 
-香港與中國欄、港聞導讀、相關專題不採用法廣（RFI）、美國之音、自由亞洲、紐約時報中文、BBC 中文、德國之聲中文、FT中文、Guardian 中國、HKFP 等來源；並過濾台灣相關與若干敏感政治關鍵字標題。國際英文欄（如 BBC News、Guardian 英文）仍可獨立存在，刪除前需確認。
+香港與中國欄、港聞導讀、相關專題不採用法廣（RFI）、美國之音、自由亞洲、紐約時報中文、BBC 中文、德國之聲中文、FT中文、Guardian 中國、HKFP 等來源；並過濾台灣相關與若干敏感政治關鍵字標題。上述來源（包括德國之聲中文 `dw-zh`）已不在 `FEEDS`，不會再抓取。國際英文欄（如 BBC News、Guardian 英文）仍可獨立存在，刪除前需確認。

@@ -104,7 +104,6 @@ export const FEEDS: Feed[] = [
   { id: 'yonhap', label: 'Yonhap', homepage: 'https://en.yna.co.kr', url: 'https://en.yna.co.kr/RSS/news.xml', regions: ['KOR'], terms: 'uncertain', category: 'asia' },
   { id: 'bbc-asia', label: 'BBC 亞洲', homepage: 'https://www.bbc.com/news', url: `${bbc}/news/world/asia/rss.xml`, regions: ['ASI'], terms: 'uncertain', category: 'asia' },
   { id: 'rthk-world', label: '港台國際', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_cinternational.xml`, regions: ['HKG'], terms: 'uncertain', category: 'world' },
-  { id: 'dw-zh', label: '德國之聲', homepage: 'https://www.dw.com/zh', url: 'https://rss.dw.com/xml/rss-chi-all', regions: ['EUR'], terms: 'uncertain', category: 'world' },
   { id: 'bbc-world', label: 'BBC News', homepage: 'https://www.bbc.com/news', url: `${bbc}/news/world/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'world' },
   { id: 'bbc-europe', label: 'BBC 歐洲', homepage: 'https://www.bbc.com/news', url: `${bbc}/news/world/europe/rss.xml`, regions: ['EUR'], terms: 'uncertain', category: 'world' },
   { id: 'guardian', label: 'The Guardian', homepage: 'https://www.theguardian.com/world', url: 'https://www.theguardian.com/world/rss', regions: ['EUR'], terms: 'uncertain', category: 'world' },
@@ -147,8 +146,9 @@ export function sourcesForRegion(region: string): string[] {
 
 /**
  * Outlets blocked from Hong Kong and mainland (china) desks for mainland compliance.
- * They are not fetched (removed from FEEDS). Cached headlines with these labels/hosts
- * stay off hk/china category pages, HKG focus, and HK/mainland briefings.
+ * They are not fetched (removed from FEEDS), including 德國之聲 (`dw-zh`).
+ * Cached headlines with these labels/hosts stay off hk/china category pages,
+ * HKG focus, and HK/mainland briefings.
  * International-only English desks are unchanged unless listed here.
  */
 const BLOCKED_HK_CHINA_LABELS = new Set([

@@ -7,7 +7,8 @@ describe('feed list', () => {
   it('stays inside the Pages subrequest budget and covers every category', () => {
     expect(FEEDS_PER_SHARD).toBe(2);
     expect(SHARD_COUNT).toBeLessThanOrEqual(40);
-    expect(FEEDS.length).toBe(FEEDS_PER_SHARD * SHARD_COUNT);
+    // A removed outlet may leave the last shard short. Do not add a filler feed to refill the grid.
+    expect(FEEDS.length).toBeLessThanOrEqual(FEEDS_PER_SHARD * SHARD_COUNT);
     expect(FEEDS.length).toBeGreaterThanOrEqual(30);
     expect(new Set(FEEDS.map((feed) => feed.id)).size).toBe(FEEDS.length);
     expect(FEEDS.some((feed) => feed.url.includes('scmp.com'))).toBe(false);
@@ -45,7 +46,10 @@ describe('feed list', () => {
     expect(FEEDS.some((feed) => feed.id === 'icable-china' && feed.regions.includes('HKG'))).toBe(true);
     expect(FEEDS.some((feed) => feed.id === 'chinanews' && feed.regions.includes('ASI'))).toBe(true);
     expect(FEEDS.some((feed) => feed.id === 'stheadline-china' && feed.regions.includes('HKG'))).toBe(true);
-    expect(FEEDS.some((feed) => /rfi\.fr|voachinese|rfa\.org|hongkongfp|ftchinese|zhongwen\/trad/i.test(`${feed.id} ${feed.url} ${feed.homepage}`))).toBe(false);
+    expect(FEEDS.some((feed) => /rfi\.fr|voachinese|rfa\.org|hongkongfp|ftchinese|zhongwen\/trad|dw\.com|rss\.dw\.com/i.test(`${feed.id} ${feed.url} ${feed.homepage}`))).toBe(false);
+    for (const id of ['rfi-zh', 'voa-zh', 'rfa-zh', 'nyt-zh', 'bbc-zh', 'dw-zh']) {
+      expect(FEEDS.some((feed) => feed.id === id)).toBe(false);
+    }
     expect(FEEDS.some((feed) => feed.id === 'people-politics')).toBe(true);
     const sitemap = readFileSync('public/sitemap.xml', 'utf8');
     expect(sitemap).toContain('https://world-news.xyz/region/twn');
