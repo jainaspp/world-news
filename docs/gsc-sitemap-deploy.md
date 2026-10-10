@@ -18,7 +18,7 @@
 - 建置：`npm ci && npm run build`（產出 `dist/`）
 - 手動：`npx wrangler pages deploy dist --project-name world-news`
 - CI：push／PR 跑 lint＋typecheck＋test＋build（`.github/workflows/ci.yml`）
-- 可選自動部署：`.github/workflows/deploy-pages.yml`（需 `CLOUDFLARE_API_TOKEN` ＋ `CLOUDFLARE_ACCOUNT_ID` secrets；只在 `main`）
+- 自動部署：合併 `main` 後用 `npx wrangler pages deploy dist --project-name world-news`（需 `CLOUDFLARE_API_TOKEN`）；Pages 亦會跟 git 整合時自動建置
 
 ## 驗收對照（A→E）
 
