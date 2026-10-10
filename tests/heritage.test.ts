@@ -71,10 +71,13 @@ describe('當年今日 seed', () => {
 });
 
 describe('當年今日 pages', () => {
-  it('places one to three cards under the digest and above 今日必讀', () => {
+  it('places a collapsed 當年今日 pack under the digest and above 今日必讀', () => {
     const now = new Date('2026-10-09T04:00:00Z');
     const section = renderOnThisDaySection(now);
     expect(section).toContain('當年今日');
+    expect(section).toContain('<details class="otd-pack heritage">');
+    expect(section).not.toContain('<details class="otd-pack heritage" open');
+    expect(section).toContain('點開睇');
     expect(section).toContain('/static/heritage/ink-divider.png');
     expect(section).toContain('廣華醫院');
     expect(section).toContain('href="/on-this-day/10-09/"');
@@ -84,12 +87,22 @@ describe('當年今日 pages', () => {
       { href: '/explainer/a/', title: '睡蓮新種', description: '雨林發現新品種。' },
     ], now);
     const digest = home.indexOf('class="digest-strip"');
-    const heritage = home.indexOf('class="heritage"');
+    const heritage = home.indexOf('otd-pack heritage');
     const must = home.indexOf('今日必讀');
     expect(digest).toBeGreaterThan(-1);
     expect(digest).toBeLessThan(heritage);
     expect(heritage).toBeLessThan(must);
     expect(readFileSync('src/App.tsx', 'utf8').indexOf('<OnThisDay />')).toBeGreaterThan(0);
+  });
+
+  it('keeps day and landmark pages expanded without the homepage pack shell', () => {
+    const day = renderOnThisDayPage('10-09');
+    expect(day.html).toContain('heritage-page');
+    expect(day.html).not.toContain('otd-pack');
+    expect(day.html).toContain('廣華醫院');
+    const hub = renderLandmarkHub('');
+    expect(hub.html).toContain('heritage-page');
+    expect(hub.html).not.toContain('otd-pack');
   });
 
   it('renders the day list with prev and next, and keeps a thin day out of ads', () => {
