@@ -128,6 +128,18 @@ describe('column pages', () => {
   it('copies the homepage stylesheet for the column pages at build time', () => {
     expect(readFileSync('scripts/prerender.mjs', 'utf8')).toContain("copyFileSync('src/App.css', 'dist/site.css')");
   });
+
+  it('stacks related headlines on a phone instead of a 112px side column', () => {
+    expect(renderContentPage(digest(), 'https://world-news.xyz/digest/2026-10-06-am')).toContain('class="news-grid related-grid"');
+    const app = readFileSync('src/App.css', 'utf8');
+    const columns = readFileSync('public/columns.css', 'utf8');
+    const mobile = app.slice(app.indexOf('@media (max-width: 700px)'));
+    expect(mobile).toContain('.news-grid:not(.related-grid) .story-media');
+    expect(mobile).not.toContain('.news-grid .story-media {\n    flex: none; width: 112px;');
+    expect(columns).toContain('.news-grid.related-grid { align-items: start; }');
+    expect(columns).toContain('grid-template-columns: minmax(0, 1fr)');
+    expect(columns).toContain('height: auto');
+  });
 });
 
 import { analysisFromCluster as fromCluster, pickAnalysisClusters, bestImage, imageScore, promptFor as prompt, ANALYSIS_PER_RUN } from '../shared/content';

@@ -103,6 +103,41 @@ html.dark .highlight-box h2 { color: #ff8a9b; }
 .related-grid .region-icon-lg { width: 32px; height: 32px; }
 .related-grid .story-meta { font-size: 0.8rem; }
 @media (min-width: 700px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
+/* Phone related cards are ~half the page. A 112px side image leaves a one-character
+   title column and a stretched empty body. Stack image over text instead. */
+@media (max-width: 700px) {
+  .news-grid.related-grid { align-items: start; }
+  .news-grid.related-grid .story {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+    min-height: 0;
+  }
+  .news-grid.related-grid .story-media {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    aspect-ratio: 16 / 9;
+  }
+  .news-grid.related-grid .thumb,
+  .news-grid.related-grid .thumb-fallback {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 200px;
+    min-height: 0;
+    object-fit: cover;
+  }
+  .news-grid.related-grid .story-body {
+    width: 100%;
+    min-width: 0;
+  }
+  .news-grid.related-grid .story-title {
+    width: 100%;
+    max-width: 100%;
+  }
+}
 /* Heat badge: "N 間媒體報道". */
 .heat-badge {
   display: inline-flex; align-items: center; gap: 4px; border-radius: var(--radius-pill); padding: 2px 9px;
