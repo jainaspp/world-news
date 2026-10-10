@@ -29,6 +29,8 @@ describe('今日必讀 and fail-page gates', () => {
       { href: '/explainer/c/', title: '四條紋', description: 'Adidas 提出侵權訴訟。' },
     ]);
     expect(html).toContain('今日必讀');
+    expect(html).toContain('must-read-count');
+    expect(html).toContain('class="rank"');
     expect(html).toContain('href="/explainer/a/"');
     expect(html).not.toContain('adsbygoogle');
     expect(renderMustRead([])).toBe('');

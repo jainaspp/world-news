@@ -1,5 +1,5 @@
 import type { MajorEntry } from './angles.js';
-import type { LiveAlert } from './alerts.js';
+import { displayAlerts, type LiveAlert } from './alerts.js';
 import { chrome, esc, footer, head, hkt } from './contentPage.js';
 
 export function renderMajorBanner(entry: MajorEntry): string {
@@ -7,8 +7,9 @@ export function renderMajorBanner(entry: MajorEntry): string {
 }
 
 export function renderAlertRow(alerts: LiveAlert[]): string {
-  if (!alerts.length) return '';
-  const pills = alerts.map((alert) => `<a class="alert-pill" href="${esc(alert.href)}" target="_blank" rel="noopener noreferrer">${esc(alert.name)}</a>`).join('');
+  const rows = displayAlerts(alerts);
+  if (!rows.length) return '';
+  const pills = rows.map((alert) => `<a class="alert-pill${alert.id === 'mtr-bundle' ? ' alert-pill-mtr' : ''}" href="${esc(alert.href)}" target="_blank" rel="noopener noreferrer">${esc(alert.name)}</a>`).join('');
   return `<section class="alert-row" aria-label="天氣及交通警告">${pills}</section>`;
 }
 

@@ -183,16 +183,16 @@ function TemplateSwitch({ listMode, lang, onPick }: { listMode: boolean; lang: U
 
 function DigestStrip({ lang }: { lang: UiLang }) {
   return (
-    <aside className="digest-strip">
+    <aside className="digest-strip" aria-label="精選欄目">
       <span className="badge">AI</span>
-      <a className="digest-primary" href="/digest/">{t('todayPicks', lang)}</a>
-      <a className="digest-keep" href="/briefing/">{t('hkBriefing', lang)}</a>
-      <a className="digest-keep" href="/explainer/">{t('multiCompare', lang)}</a>
-      <a className="digest-keep" href="/topic/">{t('topicPack', lang)}</a>
-      <a className="digest-keep" href="/weekly/">{t('weekly', lang)}</a>
-      <a className="digest-keep" href="/analysis/">{t('hotAnalysis', lang)}</a>
-      <a href="/data/">{t('dataHub', lang)}</a>
-      <a href="/quiz/">{t('dailyQuiz', lang)}</a>
+      <a className="chip digest-primary active" href="/digest/">{t('todayPicks', lang)}</a>
+      <a className="chip digest-keep" href="/briefing/">{t('hkBriefing', lang)}</a>
+      <a className="chip digest-keep" href="/explainer/">{t('multiCompare', lang)}</a>
+      <a className="chip digest-keep" href="/topic/">{t('topicPack', lang)}</a>
+      <a className="chip digest-keep" href="/weekly/">{t('weekly', lang)}</a>
+      <a className="chip digest-keep" href="/analysis/">{t('hotAnalysis', lang)}</a>
+      <a className="chip" href="/data/">{t('dataHub', lang)}</a>
+      <a className="chip" href="/quiz/">{t('dailyQuiz', lang)}</a>
     </aside>
   );
 }
@@ -649,11 +649,12 @@ export default function App() {
                     {stale ? (lang === 'en' ? 'Some sources are down; showing a recent cache.' : '部分來源暫時連不上，以下是較早儲存的標題。') : lang === 'en' ? 'Some sources did not reply; other headlines are still available.' : '部分來源暫時沒有回應，其餘頭條仍可閱讀。'}
                   </p>
                 )}
-                {!special && !wide && <HkInfoStrip />}
                 {!special && <DigestStrip lang={lang} />}
                 {!special && <MustRead category={view.category} />}
                 {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
                 {!special && <OnThisDay />}
+                {!special && !wide && <HkInfoStrip />}
+                {!special && <p className="feed-divider" role="presentation"><span>最新標題</span></p>}
                 {listMode ? (
                   <>
                     {Array.from({ length: Math.ceil(listed.length / FEED_AD_EVERY) }, (_, chunk) => {

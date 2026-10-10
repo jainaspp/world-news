@@ -59,8 +59,8 @@ function templateSwitch(): string {
 
 /** Digest strip weights: 導讀＞懶人包＞專題. OTD／地標 stay off this strip and off top main nav. */
 function digestStrip(briefingLinks: { href: string; label: string }[]): string {
-  const briefs = briefingLinks.map((link) => `<a class="digest-keep" href="${esc(link.href)}">${esc(link.label)}</a>`).join('');
-  return `<aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a>${briefs}<a class="digest-keep" href="/explainer/">新聞懶人包</a><a class="digest-keep" href="/topic/">專題懶人包</a><a class="digest-keep" href="/weekly/">週報</a><a class="digest-keep" href="/analysis/">熱門分析</a><a href="/data/">數據</a><a href="/quiz/">每日小測</a></aside>`;
+  const briefs = briefingLinks.map((link) => `<a class="chip digest-keep" href="${esc(link.href)}">${esc(link.label)}</a>`).join('');
+  return `<aside class="digest-strip" aria-label="精選欄目"><span class="badge">AI</span><a class="chip digest-primary active" href="/digest/">今日精選</a>${briefs}<a class="chip digest-keep" href="/explainer/">新聞懶人包</a><a class="chip digest-keep" href="/topic/">專題懶人包</a><a class="chip digest-keep" href="/weekly/">週報</a><a class="chip digest-keep" href="/analysis/">熱門分析</a><a class="chip" href="/data/">數據</a><a class="chip" href="/quiz/">每日小測</a></aside>`;
 }
 
 function rankList(items: NewsItem[], counts: Map<string, number>, feedSlot: string): string {
@@ -157,11 +157,12 @@ export function renderHomeFeed(
     ${major}
     <main id="news">
       ${homeIntroTop()}
-      ${info}
       ${digestStrip(briefingLinks)}
       ${renderMustRead(mustRead)}
       ${focusHtml.trim()}
       ${renderOnThisDaySection(now)}
+      ${info}
+      <p class="feed-divider" role="presentation"><span>最新標題</span></p>
       <div class="home-cards">
         ${top}
         <div class="news-grid">${grid}</div>

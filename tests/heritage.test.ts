@@ -78,6 +78,8 @@ describe('當年今日 pages', () => {
     expect(section).toContain('<details class="otd-pack heritage pack-shell pack-heritage">');
     expect(section).not.toContain('<details class="otd-pack heritage pack-shell pack-heritage" open');
     expect(section).toContain('點開睇');
+    expect(section).toContain('香港地標');
+    expect(section).toContain('href="/hk/landmarks/"');
     expect(section).toContain('/static/heritage/ink-divider.png');
     expect(section).toContain('廣華醫院');
     expect(section).toContain('href="/on-this-day/10-09/"');
@@ -95,6 +97,14 @@ describe('當年今日 pages', () => {
     const app = readFileSync('src/App.tsx', 'utf8');
     expect(app.indexOf('<MustRead')).toBeGreaterThan(0);
     expect(app.indexOf('<MustRead')).toBeLessThan(app.indexOf('<OnThisDay />'));
+  });
+
+  it('still shows a collapsed pack with 香港地標 when the day has no fact', () => {
+    const empty = renderOnThisDaySection(new Date('2026-02-03T04:00:00Z'));
+    expect(empty).toContain('otd-pack heritage');
+    expect(empty).toContain('香港地標');
+    expect(empty).toContain('href="/hk/landmarks/"');
+    expect(empty).not.toContain('<details class="otd-pack heritage pack-shell pack-heritage" open');
   });
 
   it('keeps day and landmark pages expanded without the homepage pack shell', () => {

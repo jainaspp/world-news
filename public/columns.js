@@ -247,20 +247,47 @@
       fetch('/api/alerts').then(function (r) { return r.ok ? r.json() : null; }).then(function (json) {
         var alerts = json && json.alerts;
         if (!alerts || !alerts.length) return;
+        var weather = [];
+        var transport = [];
+        alerts.forEach(function (alert) {
+          if (!alert || !alert.name || !alert.href) return;
+          if (alert.kind === 'transport') transport.push(alert);
+          else weather.push(alert);
+        });
+        var shown = weather.slice();
+        if (transport.length === 1) shown.push(transport[0]);
+        else if (transport.length > 1) {
+          shown.push({
+            id: 'mtr-bundle',
+            name: '港鐵 · ' + transport.length + ' 條',
+            href: 'https://www.mtr.com.hk/ch/customer/services/train_service_index.html',
+            kind: 'transport'
+          });
+        }
         var row = document.createElement('section');
         row.className = 'alert-row';
         row.setAttribute('aria-label', '天氣及交通警告');
-        alerts.forEach(function (alert) {
-          if (!alert || !alert.name || !alert.href) return;
+        shown.forEach(function (alert) {
           var pill = document.createElement('a');
-          pill.className = 'alert-pill';
+          pill.className = alert.id === 'mtr-bundle' ? 'alert-pill alert-pill-mtr' : 'alert-pill';
           pill.href = alert.href;
           pill.target = '_blank';
           pill.rel = 'noopener noreferrer';
           pill.textContent = alert.name;
           row.appendChild(pill);
         });
-        if (row.childNodes.length) alertSlot.appendChild(row);
+        if (!row.childNodes.length) return;
+        /* Keep section chips next to H1: place alerts after hero/index head, not between chrome and title. */
+        var host = document.querySelector('.column-page .column-hero')
+          || document.querySelector('.column-page .index-head')
+          || document.querySelector('.column-page #content');
+        if (host && host.parentNode) {
+          if (host.nextSibling) host.parentNode.insertBefore(row, host.nextSibling);
+          else host.parentNode.appendChild(row);
+          alertSlot.remove();
+        } else {
+          alertSlot.appendChild(row);
+        }
       }).catch(function () {});
     }
   })();

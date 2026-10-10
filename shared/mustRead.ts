@@ -44,14 +44,14 @@ export function mustReadForSurface(links: MustReadLink[], category?: string): Mu
 export function renderMustRead(links: MustReadLink[]): string {
   const rows = links.slice(0, 5);
   if (!rows.length) return '';
-  const cards = rows.map((link) => `<article class="story">
+  const cards = rows.map((link, index) => `<article class="story must-read-card">
       <div class="story-body">
-        <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">新聞懶人包</span></div>
+        <div class="story-kicker"><span class="rank" aria-hidden="true">${index + 1}</span><span class="badge ai-badge">AI 整合</span><span class="kicker-region">新聞懶人包</span></div>
         <h2 class="story-title"><a href="${esc(link.href)}">${esc(link.title)}</a></h2>
         ${link.description ? `<p class="dek">${esc(link.description)}</p>` : ''}
       </div>
     </article>`).join('');
-  return `<section class="must-read" aria-label="今日必讀"><h2 class="section-title">今日必讀</h2><div class="news-grid">${cards}</div></section>`;
+  return `<section class="must-read pack-shell" aria-label="今日必讀"><h2 class="section-title">今日必讀<span class="must-read-count">${rows.length}</span></h2><div class="news-grid">${cards}</div></section>`;
 }
 
 export function mustReadBootstrap(links: MustReadLink[]): string {

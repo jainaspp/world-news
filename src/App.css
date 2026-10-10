@@ -106,13 +106,20 @@ html.dark .logo-link .logo-full.logo-dark { display: block; }
 .header-actions { display: flex; align-items: center; gap: 4px; flex: none; }
 a.chip { color: inherit; text-decoration: none; }
 .digest-strip {
-  display: flex; flex-wrap: nowrap; gap: 10px; align-items: center; min-width: 0; max-width: 100%;
-  overflow-x: auto; overflow-y: hidden; margin-top: 8px;
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-width: 0; max-width: 100%;
+  margin-top: 8px;
   padding: 8px 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
-  scrollbar-width: thin;
 }
 .digest-strip a, .analysis-link { font-weight: 700; text-decoration: none; }
-.digest-strip a { flex: 0 0 auto; white-space: nowrap; }
+.digest-strip .chip {
+  flex: 0 0 auto; white-space: nowrap; min-height: 40px; border-color: var(--chip-border);
+}
+.digest-strip .chip.active {
+  background: color-mix(in srgb, var(--accent) 12%, var(--card));
+  color: var(--text); border-color: var(--accent); font-weight: 700;
+  box-shadow: inset 0 -3px 0 var(--accent); border-radius: var(--radius-pill);
+}
+.digest-strip .badge { flex: none; }
 .analysis-box {
   display: flex; gap: 8px; align-items: center; margin-top: 8px; padding: 8px 10px;
   border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--chip);
@@ -315,12 +322,13 @@ a.chip { color: inherit; text-decoration: none; }
   .hk-info-wrap { margin-top: 4px; }
   .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 8px; font-size: 13px; overflow: visible; flex-wrap: wrap; white-space: normal; }
   .digest-strip {
-    width: 100%; margin-top: 4px; padding: 0; background: transparent;
-    border: 0; border-radius: 0; box-shadow: none;
+    width: 100%; margin-top: 4px; padding: 6px 8px;
+    flex-wrap: wrap; overflow: visible;
+    /* keep card chrome so chips stay bordered (no borderless scroll truncate) */
   }
-  .digest-strip .badge, .digest-strip a:not(.digest-primary):not(.digest-keep) { display: none; }
-  .digest-strip a.digest-primary, .digest-strip a.digest-keep {
-    flex: 0 0 auto; white-space: nowrap; padding: 4px 10px; font-size: 14px; line-height: 1.35; font-weight: 700;
+  .digest-strip .badge { display: none; }
+  .digest-strip .chip {
+    min-height: 36px; padding: 4px 10px; font-size: 14px; line-height: 1.35;
   }
   .home-intro.home-intro-top { margin-top: 4px; padding: 6px 10px; }
   .home-intro-line { font-size: 14px; }
@@ -438,11 +446,19 @@ html.dark .hk-info-hsi.hsi-down { color: #7fd6b4; }
 .major-banner a { color: inherit; font-weight: 700; text-decoration: none; min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .major-kicker { flex: none; font-weight: 700; }
 .major-dismiss { flex: none; border: 0; background: transparent; color: #fff; cursor: pointer; min-width: 36px; min-height: 32px; font-size: 1.2rem; }
-.alert-row { position: static; display: flex; gap: 8px; overflow-x: auto; margin: 8px 0 0; scrollbar-width: thin; }
+.alert-row {
+  position: static; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  margin: 8px 0 0; max-width: 100%;
+}
 .alert-pill {
   flex: none; background: var(--color-breaking); color: #fff !important; text-decoration: none; font-weight: 700;
   border-radius: var(--radius-pill); padding: 4px 10px; font-size: 0.82rem; min-height: 28px;
   display: inline-flex; align-items: center;
+}
+.alert-pill-mtr { letter-spacing: 0.02em; }
+.column-page .alert-row, .column-page #alert-slot:empty { margin: 0; }
+.column-page .alert-row {
+  margin: 0 0 10px;
 }
 .angle-more { font-size: 0.85rem; }
 .angle-more summary { cursor: pointer; font-weight: 700; }
@@ -762,6 +778,52 @@ html.wn-list .ssr-home .home-list { display: block; }
 @media (max-width: 700px) {
   .tab-bar .template-switch button { min-height: 32px; padding: 2px 10px; font-size: 14px; }
 }
+
+/* 今日必讀：序號＋數量＋左側飾條（pack-shell） */
+.must-read {
+  margin: 12px 0 8px;
+  padding: 12px 12px 14px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  position: relative;
+  overflow: hidden;
+}
+.must-read.pack-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, #9a7b4f, var(--accent));
+  pointer-events: none;
+}
+.must-read .section-title {
+  display: flex; align-items: baseline; gap: 8px;
+  margin: 0 0 10px; font-family: var(--font-serif); font-size: 1.25rem;
+}
+.must-read-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.5rem; height: 1.5rem; padding: 0 6px;
+  border-radius: var(--radius-pill); background: var(--chip);
+  border: 1px solid var(--line); font-size: 0.82rem; font-weight: 700;
+  font-family: var(--font-sans); color: var(--muted);
+}
+.must-read .rank {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.35rem; height: 1.35rem;
+  font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700;
+  color: var(--accent); line-height: 1;
+}
+.must-read .news-grid { margin: 0; }
+.feed-divider {
+  display: flex; align-items: center; gap: 10px;
+  margin: 16px 0 10px; color: var(--muted); font-size: 0.85rem; font-weight: 700;
+}
+.feed-divider::before, .feed-divider::after {
+  content: ""; flex: 1; height: 1px; background: var(--line);
+}
+.feed-divider span { flex: none; letter-spacing: 0.04em; }
+.otd-pack-links { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 4px; }
 
 /* 當年今日＋香港地標：嵌主站深淺色（Art OTD v1.1）。
    繼承 --card/--text/--bg/--line/--accent；唔做 body 全頁換皮。
