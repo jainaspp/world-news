@@ -136,8 +136,8 @@ export function renderHomeFeed(
     return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
     ${digestStrip(briefingLinks)}
-    ${renderMustRead(mustRead)}
     ${renderOnThisDaySection(now)}
+    ${renderMustRead(mustRead)}
     <div class="template-bar">${templateSwitch()}</div>
     <div class="status-panel" aria-busy="true"><h2>載入頭條中…</h2><p>正在取得最新標題。</p></div>
   </div>`;
@@ -158,9 +158,9 @@ export function renderHomeFeed(
     <main id="news">
       ${homeIntroTop()}
       ${digestStrip(briefingLinks)}
+      ${renderOnThisDaySection(now)}
       ${renderMustRead(mustRead)}
       ${focusHtml.trim()}
-      ${renderOnThisDaySection(now)}
       ${info}
       <p class="feed-divider" role="presentation"><span>最新標題</span></p>
       <div class="home-cards">

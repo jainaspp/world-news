@@ -650,9 +650,9 @@ export default function App() {
                   </p>
                 )}
                 {!special && <DigestStrip lang={lang} />}
+                {!special && <OnThisDay />}
                 {!special && <MustRead category={view.category} />}
                 {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
-                {!special && <OnThisDay />}
                 {!special && !wide && <HkInfoStrip />}
                 {!special && <p className="feed-divider" role="presentation"><span>最新標題</span></p>}
                 {listMode ? (
