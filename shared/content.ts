@@ -7,6 +7,7 @@ import { bestImage } from './media.js';
 import { bracketNames, englishNames, fixOutlets, scrubPlaces } from './grounding.js';
 export { bestImage, imageScore } from './media.js';
 import type { StoryCluster } from './trending';
+import { blockedHkChinaStory } from './feeds.js';
 
 /** Cheap Qwen MoE on Workers AI. Traditional Chinese is strong, and the neuron rate stays inside the free 10k/day. */
 export const AI_MODEL = '@cf/qwen/qwen3-30b-a3b-fp8';
@@ -452,7 +453,7 @@ export function draftSentences(sources: SourceRef[]): string[] {
 }
 
 export function digestFromClusters(clusters: StoryCluster[], key: string, now = new Date()): ContentDoc {
-  const blocks = clusters.slice(0, 10).filter((cluster) => cluster.count >= 2).map((cluster) => {
+  const blocks = clusters.slice(0, 10).filter((cluster) => cluster.count >= 2 && !hkChinaClusterBlocked(cluster)).map((cluster) => {
     const sources = sourcesFromCluster(cluster);
     return { title: cluster.lead.title, sentences: draftSentences(sources), sources, category: cluster.lead.category || 'world' };
   });
@@ -494,10 +495,20 @@ function isHk(cluster: StoryCluster): boolean {
   return cluster.items.some((item) => item.category === 'hk');
 }
 
+function isChinaDesk(cluster: StoryCluster): boolean {
+  return cluster.items.some((item) => item.category === 'china');
+}
+
+/** HK/mainland-desk clusters must not carry Taiwan / sensitive / blocked-outlet material. */
+function hkChinaClusterBlocked(cluster: StoryCluster): boolean {
+  if (!isHk(cluster) && !isChinaDesk(cluster)) return false;
+  return cluster.items.some((item) => blockedHkChinaStory(item));
+}
+
 export function pickAnalysisClusters(clusters: StoryCluster[], limit = ANALYSIS_PER_RUN): StoryCluster[] {
-  const picked = clusters.filter((cluster) => cluster.count >= 3).slice(0, limit);
+  const picked = clusters.filter((cluster) => cluster.count >= 3 && !hkChinaClusterBlocked(cluster)).slice(0, limit);
   if (!picked.some(isHk)) {
-    const local = clusters.find((cluster) => cluster.count >= 2 && isHk(cluster));
+    const local = clusters.find((cluster) => cluster.count >= 2 && isHk(cluster) && !hkChinaClusterBlocked(cluster));
     if (local) {
       if (picked.length >= limit) picked.pop();
       picked.push(local);
@@ -506,13 +517,14 @@ export function pickAnalysisClusters(clusters: StoryCluster[], limit = ANALYSIS_
   if (picked.length < Math.min(5, limit)) {
     for (const cluster of clusters) {
       if (picked.length >= Math.min(5, limit)) break;
-      if (cluster.count >= 2 && !picked.includes(cluster)) picked.push(cluster);
+      if (cluster.count >= 2 && !hkChinaClusterBlocked(cluster) && !picked.includes(cluster)) picked.push(cluster);
     }
   }
   return picked;
 }
 
 export function analysisEligible(cluster: StoryCluster): boolean {
+  if (hkChinaClusterBlocked(cluster)) return false;
   return cluster.count >= 3 || (cluster.count >= 2 && isHk(cluster));
 }
 

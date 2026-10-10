@@ -3,6 +3,7 @@ import { cantoneseLeft, polishProse, preachySentence, proseSane, tidyDisplay } f
 import { SOURCE_LIST_CAP } from './search.js';
 import type { NewsItem } from './types.js';
 import { hasChinese, isMostlyEnglish, toHK } from './zh.js';
+import { blockedHkChinaStory } from './feeds.js';
 
 /**
  * Evergreen topic packs. Facts are never stored here — only the desk, the match
@@ -278,7 +279,11 @@ export function relatedTopics(text: string): TopicConfig[] {
 
 export function matchTopicItems(items: NewsItem[], topic: TopicConfig): NewsItem[] {
   return items
-    .filter((item) => topicMatchesText(`${item.title}\n${item.excerpt || ''}`, topic))
+    .filter((item) => {
+      if ((topic.desk === 'hk' || topic.desk === 'china' || topic.category === 'hk' || topic.category === 'china')
+        && blockedHkChinaStory(item)) return false;
+      return topicMatchesText(`${item.title}\n${item.excerpt || ''}`, topic);
+    })
     .sort((a, b) => Date.parse(b.pubDate) - Date.parse(a.pubDate) || a.id.localeCompare(b.id));
 }
 

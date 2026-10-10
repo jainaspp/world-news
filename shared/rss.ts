@@ -2,6 +2,7 @@ import { categorize, type CategoryId } from './categories.js';
 import type { Feed } from './feeds';
 import type { NewsItem } from './types';
 import { toHK } from './zh.js';
+import { blockedHkChinaStory } from './feeds.js';
 
 const PER_FEED = 30;
 
@@ -171,6 +172,8 @@ function addItem(items: NewsItem[], feed: Feed, title: string, link: string, pub
   };
   if (image) item.image = image;
   if (traditionalExcerpt) item.excerpt = traditionalExcerpt;
+  // Mainland-compliance: drop Taiwan / sensitive / blocked outlets from hk & china desks at ingest.
+  if ((item.category === 'hk' || item.category === 'china') && blockedHkChinaStory(item)) return;
   items.push(item);
 }
 

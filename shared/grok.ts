@@ -14,7 +14,7 @@ import {
   narrativeSane,
   explainerFloor,
 } from './content.js';
-import { FEEDS } from './feeds.js';
+import { FEEDS, blockedHkChinaStory } from './feeds.js';
 import { stableId } from './rss.js';
 import type { NewsItem } from './types.js';
 
@@ -323,7 +323,7 @@ export function routeForCluster(cluster: StoryCluster): 'grok' | 'workers' {
   return 'grok';
 }
 
-const CHINA_RE = /中國|中共|北京|上海|台灣|臺灣|歐中|中歐|中美|中日|中方|兩岸|習近平|國務院|人大|大陸|內地/;
+const CHINA_RE = /中國|中共|北京|上海|深圳|廣州|歐中|中歐|中美|中日|中方|習近平|國務院|人大|大陸|內地/;
 
 /** Mainland and China-related headlines, including ones the category rules filed under business. Hong Kong stories stay in Hong Kong. */
 export function isChinaItem(item: NewsItem): boolean {
@@ -504,12 +504,13 @@ function onHktDate(item: NewsItem, date: string): boolean {
 /** Lifestyle, promotion, and sponsored items that are not news for a briefing. */
 export const PROMO_RE = /優惠|好去處|自助餐|快閃|\d折|半價|著數|食評|試食|抽獎|贊助|Sponsored|\$\d+起|人均\$|攻略|打卡|名車盛會|花園派對|開倉|團購|一日遊|酒店住宿|staycation|優惠碼|開箱/i;
 
-const MAINLAND_RE = /中國|中共|北京|上海|深圳|廣州|歐中|中歐|中美|中日|中方|兩岸|習近平|國務院|人大|大陸|內地|我國|外交部|商務部/;
+const MAINLAND_RE = /中國|中共|北京|上海|深圳|廣州|歐中|中歐|中美|中日|中方|習近平|國務院|人大|大陸|內地|我國|外交部|商務部/;
 const FOREIGN_RE = /加州|美國|英國|日本|韓國|歐洲|台灣|臺灣|匈牙利|俄羅斯|印度|澳洲|加拿大|法國|德國/;
 
 /** Briefing material: no promotions, and a 內地 item must be about the mainland rather than a foreign or Taiwan story. */
 export function briefingNews(item: NewsItem, side: 'hk' | 'china'): boolean {
   if (PROMO_RE.test(item.title)) return false;
+  if (blockedHkChinaStory(item)) return false;
   if (side === 'hk') return item.category === 'hk';
   if (!isChinaItem(item)) return false;
   return !(FOREIGN_RE.test(item.title) && !MAINLAND_RE.test(item.title));

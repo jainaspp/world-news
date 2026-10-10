@@ -54,7 +54,7 @@ const RULES: { id: CategoryId; pattern: RegExp }[] = [
   { id: 'entertainment', pattern: /娛樂|電影|celebrity|box office|音樂|concert|藝人/i },
   { id: 'science', pattern: /科學|\bscience\b|\bnasa\b|\bspace\b|太空|氣候|\bclimate\b|天文|物理|化學/i },
   { id: 'health', pattern: /健康|疫苗|covid|醫學|hospital|病毒|疾病|醫療|衛生/i },
-  { id: 'china', pattern: /中國|北京|上海|台灣|臺灣|beijing|taiwan|taipei|xi jinping/i },
+  { id: 'china', pattern: /中國|北京|上海|深圳|廣州|beijing|shanghai|xi jinping/i },
   { id: 'asia', pattern: /日本|韓國|印度|亞洲|japan|korea|india|asean|tokyo|seoul/i },
 ];
 
