@@ -248,7 +248,7 @@ export function renderOnThisDayPage(mmdd: string, ads: HeritageAds = DEFAULT_ADS
     <p class="footnote">本欄只收地理、建築、民生、節慶、交通開幕、體育與公共文化。新增事實時請在種子檔寫上月日與年份。</p>`;
   const description = rows[0]?.fact || `${labelMmdd(mmdd)}尚未收錄紀事。`;
   return shell({
-    title: `${labelMmdd(mmdd)}　當年今日`,
+    title: `${labelMmdd(mmdd)} 當年今日`,
     description,
     path: `/on-this-day/${mmdd}/`,
     body,
