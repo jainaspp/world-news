@@ -1,5 +1,7 @@
 /** Footer links on every page. The legal pages are Traditional Chinese (HK). */
 export const FOOTER_LINKS = [
+  { href: '/on-this-day/', label: '當年今日' },
+  { href: '/hk/landmarks/', label: '香港地標' },
   { href: '/explainer/', label: '新聞懶人包' },
   { href: '/briefing/', label: '每日導讀' },
   { href: '/data/', label: '數據' },

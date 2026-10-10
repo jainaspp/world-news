@@ -30,6 +30,7 @@ import { BoardToggles } from './components/BoardToggles';
 import { MostRead } from './components/MostRead';
 import { WeekFocus } from './components/WeekFocus';
 import { MustRead } from './components/MustRead';
+import { OnThisDay } from './components/OnThisDay';
 import { TrendingTopics } from './components/TrendingTopics';
 import { trendingTopics } from '../shared/topics';
 import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_NAME, SITE_URL } from './config';
@@ -650,6 +651,7 @@ export default function App() {
                 )}
                 {!special && !wide && <HkInfoStrip />}
                 {!special && <DigestStrip lang={lang} />}
+                {!special && <OnThisDay />}
                 {!special && <MustRead category={view.category} />}
                 {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
                 {listMode ? (
