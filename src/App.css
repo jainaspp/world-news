@@ -810,7 +810,8 @@ html.wn-list .ssr-home .home-list { display: block; }
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  align-items: baseline;
+  align-items: center;
+  min-height: 36px;
   padding: 12px 14px 12px 18px;
   font-weight: 700;
   position: relative;
@@ -963,7 +964,7 @@ html.dark .detail-hero::after {
   position: relative;
   z-index: 1;
 }
-.otd-grid { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); position: relative; z-index: 1; }
+.otd-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); position: relative; z-index: 1; }
 .otd-card, .otd-row, .lm-card {
   background: var(--otd-card);
   border: 1px solid var(--otd-line);
@@ -1082,7 +1083,7 @@ html.dark .year-seal {
 .otd-row .otd-fact { font-size: 16px; }
 .heritage-filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 18px; }
 .heritage-filters .chip { border-color: var(--otd-line); }
-.lm-grid { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.lm-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .lm-card { overflow: hidden; text-decoration: none; color: inherit; display: block; }
 .lm-card .cover { aspect-ratio: 4 / 3; overflow: hidden; background: var(--otd-visual-bg); }
 .lm-card .body { padding: 12px 14px 14px; position: relative; z-index: 1; }

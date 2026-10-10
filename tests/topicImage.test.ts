@@ -105,7 +105,7 @@ describe('topic pictures', () => {
     const index = renderTopicIndex(cards, 'https://world-news.xyz/topic/');
     expect(index).toContain('src="/topics/us-rates.jpg"');
     expect(index).toContain('src="/topics/weather.jpg"');
-    const property = index.split('<article class="story">').slice(1).find((chunk) => chunk.includes('/topic/property/')) ?? '';
+    const property = index.split(/<article class="story\b[^"]*">/).slice(1).find((chunk) => chunk.includes('/topic/property/')) ?? '';
     expect(property).toContain('thumb-fallback');
     expect(property).not.toContain('<img class="thumb"');
   });

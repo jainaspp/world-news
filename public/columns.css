@@ -273,3 +273,67 @@ html.dark .data-down strong, html.dark .data-down .data-delta { color: #7fd6b4; 
 .quiz-reveal { margin: 10px 0 0; line-height: 1.5; }
 .quiz-score { font-family: var(--font-serif); font-size: 1.35rem; margin: 0; }
 .search-status { margin: 0; color: var(--muted); }
+
+/* Shared pack shell (Art UI upgrade 2026-10-11). Nest into site tokens; no page reskin. */
+.pack-shell {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg, 16px);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+html.dark .pack-shell { box-shadow: none; }
+.pack-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--pack-accent, var(--accent));
+  pointer-events: none;
+  z-index: 1;
+}
+.pack-shell.pack-topic { --pack-accent: linear-gradient(180deg, var(--accent), #5b8def); }
+.pack-shell.pack-topic::before {
+  background: linear-gradient(180deg, var(--accent), #5b8def);
+}
+.pack-shell.pack-heritage { --pack-accent: linear-gradient(180deg, #9a7b4f, var(--accent)); }
+.pack-shell.pack-heritage::before {
+  background: linear-gradient(180deg, #9a7b4f, var(--accent));
+}
+.pack-kicker {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+.pack-fold > summary,
+.topic-fold > summary {
+  cursor: pointer;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  list-style: none;
+}
+.pack-fold > summary::-webkit-details-marker,
+.topic-fold > summary::-webkit-details-marker { display: none; }
+.pack-fold .points,
+.topic-fold .points { margin-top: 10px; }
+
+/* Denser column/topic index cards */
+.column-index .analysis-grid { gap: 12px; }
+.column-index .story.pack-shell .story-body { padding-left: 14px; }
+.column-index .story.pack-shell .story-media { border-radius: 0; }
+@media (min-width: 700px) {
+  .analysis-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+}
+.chip { min-height: 36px; }
+
+/* Heritage packs already paint a brass→accent bar in App.css; keep one bar. */
+.pack-shell.pack-heritage::before,
+.pack-shell.otd-pack::before {
+  background: linear-gradient(180deg, #9a7b4f, var(--accent));
+}

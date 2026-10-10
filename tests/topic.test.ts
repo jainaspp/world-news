@@ -428,7 +428,7 @@ describe('topic pages', () => {
     expect(page).toContain('class="timeline"');
     expect(page).toContain('class="topic-figure"');
     expect(page).toContain('房屋');
-    expect(page).toContain('<details class="topic-fold"');
+    expect(page).toContain('<details class="topic-fold pack-fold"');
     expect(page).toContain('對市民有什麼影響');
     expect(page).toContain('各方反應');
     expect(page).toContain('相關頭條');

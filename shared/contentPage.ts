@@ -451,7 +451,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const note = modelFailed ? `<p class="notice" role="status">${MODEL_FAILED_NOTICE}</p>` : '';
   const points = modelFailed ? [] : keyPoints(doc);
   const pointsLabel = doc.kind === 'digest' ? '今期重點' : '重點';
-  const pointsBox = points.length > 1 ? `<section class="key-points" aria-label="${pointsLabel}"><h2>${pointsLabel}</h2><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></section>` : '';
+  const pointsBox = points.length > 1 ? `<section class="key-points pack-shell" aria-label="${pointsLabel}"><h2>${pointsLabel}</h2><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></section>` : '';
   const highlight = !modelFailed && doc.highlight?.items.length
     ? `<section class="highlight-box" aria-label="${esc(doc.highlight.label)}"><h2>${esc(doc.highlight.label)}</h2><ul>${doc.highlight.items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul></section>`
     : '';
@@ -478,7 +478,9 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const timelineSources = timelineBlock && timelineRows(timelineBlock.sources).length >= 2 ? timelineBlock.sources : sources;
   const explainerTimeline = !modelFailed && doc.kind === 'compare' ? eventTimeline(timelineSources) : '';
   const sourceSection = listed.length
-    ? `<section class="story column-block"><div class="story-body"><h2 class="column-h2">來源（${listed.length}）</h2>${sourceList(listed)}</div></section>`
+    ? (doc.kind === 'compare'
+      ? `<details class="topic-fold pack-fold"><summary>來源（${listed.length}）</summary>${sourceList(listed)}</details>`
+      : `<section class="story column-block"><div class="story-body"><h2 class="column-h2">來源（${listed.length}）</h2>${sourceList(listed)}</div></section>`)
     : '';
   const topicHits = doc.kind === 'compare'
     ? relatedTopics([doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => [block.title, ...block.sentences, ...block.sources.map((source) => source.title)])].join('\n')).slice(0, 2)
@@ -565,10 +567,10 @@ export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, op
   const title = '熱門分析';
   const description = '多個來源同時報道的熱門新聞：背景、各方說法、與香港的關係。AI 根據公開標題整理。';
   const sorted = sortByHeat(entries);
-  const cards = sorted.map((entry, index) => `<article class="story">
+  const cards = sorted.map((entry, index) => `<article class="story pack-shell">
           <a class="story-media" href="/analysis/${encodeURIComponent(entry.key)}/" tabindex="-1" aria-hidden="true">${media(entry.image, entry.category, categoryLabel(entry.category || 'world'), index < 2)}</a>
           <div class="story-body">
-            <div class="story-kicker"><span class="badge ai-badge">AI 整合</span>${heatBadge(entry.outlets ?? entry.sources) || `<span class="cluster-badge">${entry.sources} 篇報道</span>`}${catChip(entry.category)}</div>
+            <div class="story-kicker"><span class="pack-kicker">熱門分析</span><span class="badge ai-badge">AI 整合</span>${heatBadge(entry.outlets ?? entry.sources) || `<span class="cluster-badge">${entry.sources} 篇報道</span>`}${catChip(entry.category)}</div>
             <h2 class="story-title"><a href="/analysis/${encodeURIComponent(entry.key)}/">${esc(entry.title)}</a></h2>
             ${entry.originalTitle && !/[\u3400-\u9fff]/.test(entry.originalTitle) ? `<p class="orig-title" lang="en">${esc(entry.originalTitle)}</p>` : ''}
             <div class="story-meta"><time datetime="${esc(entry.publishedAt)}">${esc(hkt(entry.publishedAt, false))}</time></div>
@@ -626,10 +628,10 @@ export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEn
   const meta = LISTING[kind];
   const path = kind === 'compare' ? 'explainer' : kind;
   const sorted = [...entries].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
-  const cards = sorted.map((entry, index) => `<article class="story">
+  const cards = sorted.map((entry, index) => `<article class="story pack-shell">
           <a class="story-media" href="/${path}/${encodeURIComponent(entry.key)}/" tabindex="-1" aria-hidden="true">${media(entry.image, entry.category, categoryLabel(entry.category || 'world'), index < 2)}</a>
           <div class="story-body">
-            <div class="story-kicker"><span class="badge ai-badge">AI 整合</span>${heatBadge(entry.outlets ?? entry.sources) || `<span class="cluster-badge">${entry.sources} 篇來源</span>`}${catChip(entry.category)}</div>
+            <div class="story-kicker"><span class="pack-kicker">${meta.kicker}</span><span class="badge ai-badge">AI 整合</span>${heatBadge(entry.outlets ?? entry.sources) || `<span class="cluster-badge">${entry.sources} 篇來源</span>`}${catChip(entry.category)}</div>
             <h2 class="story-title"><a href="/${path}/${encodeURIComponent(entry.key)}/">${esc(entry.title)}</a></h2>
             <p class="dek">${esc(entry.description)}</p>
             <div class="story-meta"><time datetime="${esc(entry.publishedAt)}">${esc(hkt(entry.publishedAt, false))}</time></div>
