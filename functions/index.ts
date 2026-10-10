@@ -9,7 +9,7 @@ import { loadBriefingLinks, loadMustRead } from './content/mustRead.js';
 import type { ContentEnv } from './content/store.js';
 import { edgeCache, type PagesContext } from './env.js';
 
-const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v7');
+const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v8');
 const FRESH_S = 120;
 
 function envSlot(env: Record<string, unknown>): string {
