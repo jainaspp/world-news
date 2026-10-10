@@ -130,7 +130,7 @@ function packBody(model: TopicPageModel): string {
     : '';
   const nav = `<nav class="topic-jump" aria-label="本頁小節">${jump('#summary', '重點', points.length > 1)}${jump('#timeline', '時間線', events.length >= 2)}${jump('#figures', figuresHeading === '主要措施' ? '措施' : '數字', groups.length > 0)}${jump('#impact', '影響', pack.impact.length > 0)}${jump('#reactions', '反應', pack.reactions.length > 0)}${jump('#background', topic.slug === 'policy-address' ? '五年規劃' : '背景', Boolean(topic.background && pack.background?.length))}${jump('#headlines', '頭條', model.headlines.length > 0)}</nav>`;
   const sources = pack.sources.length
-    ? `<section class="story column-block" id="sources"><div class="story-body"><h2 class="column-h2">來源（${pack.sources.length}）</h2>${sourceList(pack.sources)}</div></section>`
+    ? `<details class="topic-fold pack-fold" id="sources"><summary>來源（${pack.sources.length}）</summary>${sourceList(pack.sources)}</details>`
     : '';
   return `${pointsBox}${nav}${timeline}${figures}${fold('impact', '對市民有什麼影響', pack.impact.map(endLine))}${fold('reactions', '各方反應', pack.reactions.map(endLine))}${topic.background ? fold('background', topic.background.label, (pack.background ?? []).map(endLine)) : ''}${headlineList(model.headlines)}${sources}`;
 }
@@ -218,7 +218,7 @@ ${head(`${title}專題`, description, canonical, image || '', 'article', `${robo
   ${chrome('topic')}
   <div class="layout">
     <main id="content" class="column-main">
-      <article class="story story-hero column-hero">
+      <article class="story story-hero column-hero pack-shell pack-topic">
         ${heroPhoto(picture, topic.category, topic.title)}
         <div class="story-body">
           <div class="story-kicker">${shown ? '<span class="badge ai-badge">AI 整合</span>' : ''}<span class="kicker-region">專題懶人包</span>${catChip(topic.category)}</div>
@@ -271,25 +271,31 @@ export function topicIndexCards(packs: Map<string, TopicPack | null>): TopicInde
   });
 }
 
-/** Listing of configured topics. Empty packs still get a card so the section is discoverable. */
+/** Listing of public (ready) topic packs. Empty shells — especially 樓市 — stay off the grid until ready. */
 export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads?: AdConfig): string {
   const client = ads?.client || DEFAULT_CLIENT;
   const title = '專題懶人包';
-  const description = '施政報告、財政預算案、樓市、天氣警告、中美關係、美國利率等持續題目。有新報道才更新。';
-  const articles = cards.map((card, index) => {
+  const description = '施政報告、財政預算案、天氣警告、中美關係、美國利率等持續題目。有公開懶人包才列出；未齊料的空殼專題暫不顯示。';
+  const ready = cards.filter((card) => card.ready);
+  // Pending non-property shells may appear in a weakened fold; property stays fully hidden until ready.
+  const pending = cards.filter((card) => !card.ready && card.topic.slug !== 'property');
+  const articles = ready.map((card, index) => {
     const when = card.updatedAt ? `<div class="story-meta"><time datetime="${esc(card.updatedAt)}">${esc(hkt(card.updatedAt, false))}</time></div>` : '';
     const credit = card.picture ? photoCredit(card.picture) : '';
     return `<article class="story pack-shell pack-topic">
       <a class="story-media" href="/topic/${esc(card.topic.slug)}/" tabindex="-1" aria-hidden="true">${media(card.picture?.url, card.topic.category, card.topic.title, index < 2, card.picture?.alt ?? '')}</a>
       <div class="story-body">
         ${credit}
-        <div class="story-kicker"><span class="pack-kicker">專題懶人包</span>${card.ready ? '<span class="badge ai-badge">AI 整合</span>' : ''}${catChip(card.topic.category)}</div>
+        <div class="story-kicker"><span class="pack-kicker">專題懶人包</span><span class="badge ai-badge">AI 整合</span>${catChip(card.topic.category)}</div>
         <h2 class="story-title"><a href="/topic/${esc(card.topic.slug)}/">${esc(card.topic.title)}</a></h2>
         <p class="dek">${esc(card.description)}</p>
         ${when}
       </div>
     </article>`;
   }).join('');
+  const pendingFold = pending.length
+    ? `<details class="topic-fold pack-fold topic-pending"><summary>籌備中（${pending.length}）</summary><ul class="points">${pending.map((card) => `<li><span>${esc(card.topic.title)}</span> — ${esc(card.description)}</li>`).join('')}</ul></details>`
+    : '';
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -298,7 +304,7 @@ export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads
     inLanguage: 'zh-HK',
     mainEntity: {
       '@type': 'ItemList',
-      itemListElement: cards.map((card, index) => ({
+      itemListElement: ready.map((card, index) => ({
         '@type': 'ListItem',
         position: index + 1,
         name: card.topic.title,
@@ -308,7 +314,7 @@ export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads
   }).replace(/</g, '\\u003c')}</script>`;
   return `<!doctype html>
 <html lang="zh-HK">
-${head(title, description, canonical, absoluteSrc(cards.find((card) => card.picture)?.picture?.url || '', canonical), 'website', `<meta name="robots" content="index,follow" />${ld}`, client)}
+${head(title, description, canonical, absoluteSrc(ready.find((card) => card.picture)?.picture?.url || '', canonical), 'website', `<meta name="robots" content="index,follow" />${ld}`, client)}
 <body>
   <div class="page column-page" data-kind="topic-index">
   ${chrome('topic')}
@@ -318,7 +324,8 @@ ${head(title, description, canonical, absoluteSrc(cards.find((card) => card.pict
       <h1 class="column-title">${title}</h1>
       <p class="dek">${esc(description)}</p>
     </header>
-    <div class="news-grid analysis-grid">${articles}</div>
+    ${ready.length ? `<div class="news-grid analysis-grid">${articles}</div>` : '<p class="notice">暫時未有公開專題懶人包。</p>'}
+    ${pendingFold}
   </main>
   ${footer(false)}
   </div>

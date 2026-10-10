@@ -57,6 +57,7 @@ function templateSwitch(): string {
   return `<div class="template-switch" role="group" aria-label="版面"><button type="button" data-wn-template-switch data-layout="cards" aria-pressed="true">${LAYOUT_CARDS_HK}</button><button type="button" data-wn-template-switch data-layout="list" aria-pressed="false">${LAYOUT_LIST_HK}</button></div><script>try{var on=document.documentElement.classList.contains("wn-list");var box=document.currentScript.previousElementSibling;if(box){var nodes=box.querySelectorAll("[data-wn-template-switch]");for(var i=0;i<nodes.length;i++){var list=nodes[i].getAttribute("data-layout")==="list";nodes[i].setAttribute("aria-pressed",list===on?"true":"false")}}}catch(e){}</script>`;
 }
 
+/** Digest strip weights: 導讀＞懶人包＞專題. OTD／地標 stay off this strip and off top main nav. */
 function digestStrip(briefingLinks: { href: string; label: string }[]): string {
   const briefs = briefingLinks.map((link) => `<a class="digest-keep" href="${esc(link.href)}">${esc(link.label)}</a>`).join('');
   return `<aside class="digest-strip"><span class="badge">AI 整合</span><a class="digest-primary" href="/digest/">今日精選</a>${briefs}<a class="digest-keep" href="/explainer/">新聞懶人包</a><a class="digest-keep" href="/topic/">專題懶人包</a><a class="digest-keep" href="/weekly/">週報</a><a class="digest-keep" href="/analysis/">熱門分析</a><a href="/data/">數據</a><a href="/quiz/">每日小測</a></aside>`;
@@ -135,6 +136,7 @@ export function renderHomeFeed(
     return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
     ${digestStrip(briefingLinks)}
+    ${renderMustRead(mustRead)}
     ${renderOnThisDaySection(now)}
     <div class="template-bar">${templateSwitch()}</div>
     <div class="status-panel" aria-busy="true"><h2>載入頭條中…</h2><p>正在取得最新標題。</p></div>
@@ -157,9 +159,9 @@ export function renderHomeFeed(
       ${homeIntroTop()}
       ${info}
       ${digestStrip(briefingLinks)}
-      ${renderOnThisDaySection(now)}
       ${renderMustRead(mustRead)}
       ${focusHtml.trim()}
+      ${renderOnThisDaySection(now)}
       <div class="home-cards">
         ${top}
         <div class="news-grid">${grid}</div>

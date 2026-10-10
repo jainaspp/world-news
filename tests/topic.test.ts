@@ -402,8 +402,11 @@ describe('topic pages', () => {
     const index = renderTopicIndex(cards, 'https://world-news.xyz/topic/');
     expect(index).toContain('<h1 class="column-title">專題懶人包</h1>');
     expect(index).toContain('href="/topic/policy-address/"');
-    expect(index).toContain('href="/topic/budget/"');
-    expect(index).toContain('rel="canonical" href="https://world-news.xyz/topic/"');
+    // Empty shells stay off the main grid; 樓市 never appears until ready.
+    expect(index).not.toContain('href="/topic/budget/"');
+    expect(index).not.toContain('href="/topic/property/"');
+    expect(index).toContain('籌備中');
+        expect(index).toContain('rel="canonical" href="https://world-news.xyz/topic/"');
     expect(index).toContain('name="description"');
     expect(index).toContain('AI 整合');
 
@@ -423,7 +426,7 @@ describe('topic pages', () => {
     expect(page).toContain('圖片：Tksteven，維基共享資源（CC BY-SA 3.0）');
     expect(page).not.toContain('編者按');
     expect(index).toContain('src="/topics/policy-address.jpg"');
-    expect(index).toContain('src="/topics/us-rates.jpg"');
+    expect(index).not.toContain('src="/topics/us-rates.jpg"');
     expect(index).not.toContain('/topics/property.jpg');
     expect(page).toContain('class="timeline"');
     expect(page).toContain('class="topic-figure"');
@@ -433,6 +436,7 @@ describe('topic pages', () => {
     expect(page).toContain('各方反應');
     expect(page).toContain('相關頭條');
     expect(page).toContain('來源（1）');
+    expect(page).toContain('id="sources"');
     expect(page.match(/class="source-list"/g)).toHaveLength(1);
     expect(page).not.toContain('只供參考');
     expect(page).not.toContain('免責');

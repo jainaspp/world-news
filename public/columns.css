@@ -47,7 +47,7 @@ html.dark .highlight-box h2 { color: #ff8a9b; }
 }
 .points { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; line-height: 1.7; }
 .points li::marker { color: var(--accent); }
-.sources summary { cursor: pointer; color: var(--muted); font-weight: 700; font-size: 0.92rem; min-height: 32px; display: flex; align-items: center; }
+.sources summary { cursor: pointer; color: var(--muted); font-weight: 700; font-size: 0.92rem; min-height: 36px; display: flex; align-items: center; }
 .source-list { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 6px; }
 .source-list a {
   display: grid; grid-template-columns: 16px auto minmax(0, 1fr); gap: 4px 8px; align-items: baseline;
@@ -336,4 +336,21 @@ html.dark .pack-shell { box-shadow: none; }
 .pack-shell.pack-heritage::before,
 .pack-shell.otd-pack::before {
   background: linear-gradient(180deg, #9a7b4f, var(--accent));
+}
+
+
+/* Stable 2-line titles on pack index cards (Art A→E) */
+.column-index .story-title,
+.analysis-grid .story-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.topic-pending { margin-top: 16px; }
+.topic-pending > summary { color: var(--muted); font-size: 0.95rem; }
+@media (max-width: 700px) {
+  .chip, .pack-fold > summary, .topic-fold > summary, .otd-pack > summary, .sources summary {
+    min-height: 36px;
+  }
 }

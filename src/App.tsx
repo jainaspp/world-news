@@ -651,9 +651,9 @@ export default function App() {
                 )}
                 {!special && !wide && <HkInfoStrip />}
                 {!special && <DigestStrip lang={lang} />}
-                {!special && <OnThisDay />}
                 {!special && <MustRead category={view.category} />}
                 {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
+                {!special && <OnThisDay />}
                 {listMode ? (
                   <>
                     {Array.from({ length: Math.ceil(listed.length / FEED_AD_EVERY) }, (_, chunk) => {

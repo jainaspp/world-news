@@ -71,7 +71,7 @@ describe('當年今日 seed', () => {
 });
 
 describe('當年今日 pages', () => {
-  it('places a collapsed 當年今日 pack under the digest and above 今日必讀', () => {
+  it('places a collapsed 當年今日 pack below 今日必讀 and near the ranking', () => {
     const now = new Date('2026-10-09T04:00:00Z');
     const section = renderOnThisDaySection(now);
     expect(section).toContain('當年今日');
@@ -90,9 +90,11 @@ describe('當年今日 pages', () => {
     const heritage = home.indexOf('otd-pack heritage');
     const must = home.indexOf('今日必讀');
     expect(digest).toBeGreaterThan(-1);
-    expect(digest).toBeLessThan(heritage);
-    expect(heritage).toBeLessThan(must);
-    expect(readFileSync('src/App.tsx', 'utf8').indexOf('<OnThisDay />')).toBeGreaterThan(0);
+    expect(must).toBeGreaterThan(digest);
+    expect(heritage).toBeGreaterThan(must);
+    const app = readFileSync('src/App.tsx', 'utf8');
+    expect(app.indexOf('<MustRead')).toBeGreaterThan(0);
+    expect(app.indexOf('<MustRead')).toBeLessThan(app.indexOf('<OnThisDay />'));
   });
 
   it('keeps day and landmark pages expanded without the homepage pack shell', () => {
