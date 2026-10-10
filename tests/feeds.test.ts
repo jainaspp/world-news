@@ -45,6 +45,8 @@ describe('feed list', () => {
     expect(FEEDS.some((feed) => feed.id === 'icable-china' && feed.regions.includes('HKG'))).toBe(true);
     expect(FEEDS.some((feed) => feed.id === 'chinanews' && feed.regions.includes('ASI'))).toBe(true);
     expect(FEEDS.some((feed) => feed.id === 'stheadline-china' && feed.regions.includes('HKG'))).toBe(true);
+    expect(FEEDS.some((feed) => /rfi\.fr|voachinese|rfa\.org|hongkongfp|ftchinese|zhongwen\/trad/i.test(`${feed.id} ${feed.url} ${feed.homepage}`))).toBe(false);
+    expect(FEEDS.some((feed) => feed.id === 'people-politics')).toBe(true);
     const sitemap = readFileSync('public/sitemap.xml', 'utf8');
     expect(sitemap).toContain('https://world-news.xyz/region/twn');
   });

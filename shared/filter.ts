@@ -1,4 +1,4 @@
-import { removedFromTaiwanPage } from './feeds.js';
+import { blockedHkChinaStory, removedFromTaiwanPage } from './feeds.js';
 import type { NewsItem, TimeRange } from './types';
 
 const WINDOWS: Record<Exclude<TimeRange, 'all'>, number> = {
@@ -18,10 +18,12 @@ export function filterNews(
   const time = opts.time ?? 'all';
   const now = opts.now ?? Date.now();
   const windowMs = time === 'all' ? 0 : WINDOWS[time];
+  const hkChinaDesk = category === 'hk' || category === 'china' || region === 'HKG';
 
   return items.filter((item) => {
     if (region && !item.regions.includes(region)) return false;
     if (region === 'TWN' && removedFromTaiwanPage(item)) return false;
+    if (hkChinaDesk && blockedHkChinaStory(item)) return false;
     if (category && item.category !== category) return false;
     if (source && item.source !== source) return false;
     if (query && !`${item.title} ${item.source}`.toLowerCase().includes(query)) return false;

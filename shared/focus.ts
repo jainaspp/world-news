@@ -1,6 +1,6 @@
 import { CATEGORIES, CATEGORY_IDS } from './categories.js';
 import { hktParts } from './content.js';
-import { REGIONS, removedFromTaiwanPage } from './feeds.js';
+import { REGIONS, blockedHkChinaStory, removedFromTaiwanPage } from './feeds.js';
 import { hanCount } from './grok.js';
 import { cantoneseLeft, polishProse } from './prose.js';
 import type { NewsItem } from './types.js';
@@ -81,8 +81,10 @@ export function itemsForFocus(items: NewsItem[], page: FocusPage, now = new Date
       if (page.scope === 'region') {
         if (!item.regions.includes(code)) return false;
         if (code === 'TWN' && removedFromTaiwanPage(item)) return false;
+        if (code === 'HKG' && blockedHkChinaStory(item)) return false;
         return true;
       }
+      if ((page.id === 'hk' || page.id === 'china') && blockedHkChinaStory(item)) return false;
       return item.category === page.id;
     })
     .sort((a, b) => Date.parse(b.pubDate) - Date.parse(a.pubDate))

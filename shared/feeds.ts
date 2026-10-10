@@ -73,7 +73,6 @@ export function feedsInShard(part: string): Feed[] {
 export const FEEDS: Feed[] = [
   { id: 'rthk-hk', label: '香港電台', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_clocal.xml`, regions: ['HKG'], terms: 'uncertain', category: 'hk' },
   { id: 'rthk-en-hk', label: '港台英文', homepage: 'https://news.rthk.hk', url: `${rthk}/e_expressnews_elocal.xml`, regions: ['HKG'], terms: 'uncertain', category: 'hk' },
-  { id: 'hkfp', label: 'HKFP', homepage: 'https://hongkongfp.com', url: 'https://hongkongfp.com/feed/', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
   { id: 'yahoo-hk', label: 'Yahoo 新聞', homepage: 'https://hk.news.yahoo.com', url: 'https://hk.news.yahoo.com/rss', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
   { id: 'now-hk', label: 'Now 新聞', homepage: 'https://news.now.com/home/local', url: 'https://newsapi1.now.com/pccw-news-api/api/getNewsList?category=119&pageNo=1&pageSize=30', regions: ['HKG'], terms: 'uncertain', category: 'hk', format: 'now' },
   { id: 'icable-hk', label: '有線新聞', homepage: 'https://www.i-cable.com', url: 'https://www.i-cable.com/category/%E6%96%B0%E8%81%9E%E8%B3%87%E8%A8%8A/%E6%B8%AF%E8%81%9E/feed/', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
@@ -85,26 +84,27 @@ export const FEEDS: Feed[] = [
   { id: 'skbuzz', label: 'SAI KUNG BUZZ', homepage: 'https://hongkongbuzz.hk', url: 'https://hongkongbuzz.hk/feed', regions: ['HKG'], terms: 'uncertain', category: 'hk' },
   { id: 'rthk-china', label: '港台大中華', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_greaterchina.xml`, regions: ['HKG'], terms: 'uncertain', category: 'china' },
   { id: 'rthk-en-china', label: '港台英文大中華', homepage: 'https://news.rthk.hk', url: `${rthk}/e_expressnews_egreaterchina.xml`, regions: ['HKG'], terms: 'uncertain', category: 'china' },
-  { id: 'bbc-zh', label: 'BBC 中文', homepage: 'https://www.bbc.com/zhongwen/trad', url: `${bbc}/zhongwen/trad/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'china' },
-  { id: 'guardian-china', label: 'Guardian 中國', homepage: 'https://www.theguardian.com/world/china', url: 'https://www.theguardian.com/world/china/rss', regions: ['ASI'], terms: 'uncertain', category: 'china' },
   { id: 'icable-china', label: '有線中國', homepage: 'https://www.i-cable.com', url: 'https://www.i-cable.com/category/%E6%96%B0%E8%81%9E%E8%B3%87%E8%A8%8A/%E4%B8%AD%E5%9C%8B%E5%9C%A8%E7%B7%9A/feed/', regions: ['HKG'], terms: 'uncertain', category: 'china' },
-  { id: 'stheadline-china', label: '星島中國', homepage: 'https://www.stheadline.com/realtime-china', url: 'https://www.stheadline.com/rss', regions: ['HKG'], terms: 'uncertain', category: 'china', includePaths: ['/realtime-china/', '/china-topics/', '/china-politics/', '/china-taiwan/', '/china/'] },
+  { id: 'stheadline-china', label: '星島中國', homepage: 'https://www.stheadline.com/realtime-china', url: 'https://www.stheadline.com/rss', regions: ['HKG'], terms: 'uncertain', category: 'china', includePaths: ['/realtime-china/', '/china-topics/', '/china-politics/', '/china/'] },
   { id: 'chinanews', label: '中新網', homepage: 'https://www.chinanews.com.cn', url: 'https://www.chinanews.com.cn/rss/china.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
-  { id: 'rfa-zh', label: '自由亞洲', homepage: 'https://www.rfa.org/mandarin', url: 'https://www.rfa.org/arc/outboundfeeds/mandarin/rss/', regions: ['INT'], terms: 'uncertain', category: 'china' },
   { id: 'sixthtone', label: 'Sixth Tone', homepage: 'https://www.sixthtone.com', url: 'https://api.sixthtone.com/cont/output/rssApi', regions: ['ASI'], terms: 'uncertain', category: 'china' },
   { id: 'hk01-china', label: '香港01中國', homepage: 'https://www.hk01.com/zone/5', url: 'https://web-data.api.hk01.com/v2/feed/zone/5', regions: ['HKG'], terms: 'uncertain', category: 'china', format: 'hk01' },
   { id: 'now-china', label: 'Now 兩岸', homepage: 'https://news.now.com', url: 'https://newsapi1.now.com/pccw-news-api/api/getNewsList?category=120&pageNo=1&pageSize=30', regions: ['HKG'], terms: 'uncertain', category: 'china', format: 'now' },
-  { id: 'ft-zh', label: 'FT中文', homepage: 'https://www.ftchinese.com', url: 'https://www.ftchinese.com/rss/news', regions: ['ASI'], terms: 'uncertain', category: 'china' },
   { id: 'cgtn-china', label: 'CGTN中國', homepage: 'https://www.cgtn.com', url: 'https://www.cgtn.com/subscribe/rss/section/china.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
-  { id: 'nyt-zh', label: '紐約時報中文', homepage: 'https://cn.nytimes.com', url: 'https://cn.nytimes.com/rss/zh-hant/', regions: ['INT'], terms: 'uncertain', category: 'china' },
-  { id: 'voa-zh', label: '美國之音', homepage: 'https://www.voachinese.com', url: 'https://www.voachinese.com/api/', regions: ['INT'], terms: 'uncertain', category: 'china' },
   { id: 'jiemian', label: '界面新聞', homepage: 'https://www.jiemian.com', url: 'https://a.jiemian.com/index.php?m=article&a=rss', regions: ['ASI'], terms: 'uncertain', category: 'china' },
+  { id: 'people-politics', label: '人民網時政', homepage: 'https://www.people.com.cn', url: 'https://www.people.com.cn/rss/politics.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
+  { id: 'xinhua-politics', label: '新華社時政', homepage: 'https://www.news.cn', url: 'https://www.news.cn/politics/news_politics.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
+  { id: 'globaltimes', label: '環球時報', homepage: 'https://www.globaltimes.cn', url: 'https://www.globaltimes.cn/rss/outbrain.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
+  { id: 'sina-china', label: '新浪大陸', homepage: 'https://news.sina.com.cn', url: 'https://rss.sina.com.cn/news/china/focus15.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
+  { id: 'ecns', label: '中國新聞網英文', homepage: 'https://www.ecns.cn', url: 'https://www.ecns.cn/rss/rss.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
+  { id: 'chinanews-scroll', label: '中新網滾動', homepage: 'https://www.chinanews.com.cn', url: 'https://www.chinanews.com.cn/rss/scroll-news.xml', regions: ['ASI'], terms: 'uncertain', category: 'china' },
+  { id: 'people-world', label: '人民網國際', homepage: 'https://www.people.com.cn', url: 'https://www.people.com.cn/rss/world.xml', regions: ['ASI'], terms: 'uncertain', category: 'world' },
+  { id: 'cgtn-world', label: 'CGTN國際', homepage: 'https://www.cgtn.com', url: 'https://www.cgtn.com/subscribe/rss/section/world.xml', regions: ['ASI'], terms: 'uncertain', category: 'world' },
   { id: 'nhk', label: 'NHK', homepage: 'https://www3.nhk.or.jp/nhkworld/', url: 'https://news.web.nhk/n-data/conf/na/rss/cat0.xml', regions: ['JPN'], terms: 'uncertain', category: 'asia' },
   { id: 'yonhap', label: 'Yonhap', homepage: 'https://en.yna.co.kr', url: 'https://en.yna.co.kr/RSS/news.xml', regions: ['KOR'], terms: 'uncertain', category: 'asia' },
   { id: 'bbc-asia', label: 'BBC 亞洲', homepage: 'https://www.bbc.com/news', url: `${bbc}/news/world/asia/rss.xml`, regions: ['ASI'], terms: 'uncertain', category: 'asia' },
   { id: 'rthk-world', label: '港台國際', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_cinternational.xml`, regions: ['HKG'], terms: 'uncertain', category: 'world' },
   { id: 'dw-zh', label: '德國之聲', homepage: 'https://www.dw.com/zh', url: 'https://rss.dw.com/xml/rss-chi-all', regions: ['EUR'], terms: 'uncertain', category: 'world' },
-  { id: 'rfi-zh', label: 'RFI 中文', homepage: 'https://www.rfi.fr/cn/', url: 'https://www.rfi.fr/cn/rss', regions: ['EUR'], terms: 'uncertain', category: 'world' },
   { id: 'bbc-world', label: 'BBC News', homepage: 'https://www.bbc.com/news', url: `${bbc}/news/world/rss.xml`, regions: ['INT'], terms: 'uncertain', category: 'world' },
   { id: 'bbc-europe', label: 'BBC 歐洲', homepage: 'https://www.bbc.com/news', url: `${bbc}/news/world/europe/rss.xml`, regions: ['EUR'], terms: 'uncertain', category: 'world' },
   { id: 'guardian', label: 'The Guardian', homepage: 'https://www.theguardian.com/world', url: 'https://www.theguardian.com/world/rss', regions: ['EUR'], terms: 'uncertain', category: 'world' },
@@ -142,6 +142,44 @@ export function sourcesForRegion(region: string): string[] {
     (feed) => feed.label,
   );
   return [...new Set(labels)];
+}
+
+
+/**
+ * Outlets blocked from Hong Kong and mainland (china) desks for mainland compliance.
+ * They are not fetched (removed from FEEDS). Cached headlines with these labels/hosts
+ * stay off hk/china category pages, HKG focus, and HK/mainland briefings.
+ * International-only English desks are unchanged unless listed here.
+ */
+const BLOCKED_HK_CHINA_LABELS = new Set([
+  'RFI 中文',
+  '美國之音',
+  '自由亞洲',
+  '紐約時報中文',
+  'BBC 中文',
+  '德國之聲',
+  'FT中文',
+  'Guardian 中國',
+  'HKFP',
+]);
+
+const BLOCKED_HK_CHINA_HOST = /(?:^|\/\/)(?:www\.)?(?:rfi\.fr|voachinese\.com|voanews\.com|rfa\.org|nytimes\.com|cn\.nytimes\.com|bbc\.com\/zhongwen|feeds\.bbci\.co\.uk\/zhongwen|dw\.com\/zh|rss\.dw\.com|ftchinese\.com|hongkongfp\.com)(?=$|[/?#\s])/i;
+
+/**
+ * Taiwan coverage and sensitive political keywords — stripped from HK/mainland pipelines
+ * (category hk/china, HKG focus, briefings, hk/china explainers). Not a legal opinion.
+ */
+const HK_CHINA_STORY_BLOCK_RE = /台灣|臺灣|台湾|Taiwan|Taipei|台北|臺北|高雄|台南|臺南|台中|臺中|新北|桃園|民進黨|國民黨(?!軍)|蔡英文|賴清德|馬英九|陳水扁|台獨|臺獨|台独|兩岸|两岸|兩岸關係|两岸关系|九二共識|九二共识|武統|護國神山|Free Tibet|西藏流亡|達賴|达赖|Dalai|法輪|法轮|Falun|六四|八九民運|天安門事件|天安门事件|Tiananmen|疆獨|疆独|藏獨|藏独|港獨|港独|自焚.*藏|新疆.*再教育|再教育營|集中營.*新疆|Xinjiang.*(camp|genocide)|活摘|正確記憶|支那/i;
+
+export function blockedHkChinaOutlet(item: { source: string; sourceUrl?: string; link?: string }): boolean {
+  if (BLOCKED_HK_CHINA_LABELS.has(item.source.trim())) return true;
+  const href = `${item.sourceUrl ?? ''} ${item.link ?? ''}`;
+  return BLOCKED_HK_CHINA_HOST.test(href);
+}
+
+export function blockedHkChinaStory(item: { title: string; excerpt?: string; source: string; sourceUrl?: string; link?: string }): boolean {
+  if (blockedHkChinaOutlet(item)) return true;
+  return HK_CHINA_STORY_BLOCK_RE.test(`${item.title}\n${item.excerpt || ''}`);
 }
 
 /**
