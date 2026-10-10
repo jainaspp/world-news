@@ -333,14 +333,16 @@ a.chip { color: inherit; text-decoration: none; }
   .home-intro.home-intro-top { margin-top: 4px; padding: 6px 10px; }
   .home-intro-line { font-size: 14px; }
   .home-more summary { min-height: 28px; font-size: 14px; }
-  /* Dense mobile cards: image on the left so photos don't dominate the screen. */
-  .news-grid .story {
+  /* Dense mobile cards: image on the left so photos don't dominate a full-width feed row.
+     Related headlines are already two-up, so they keep the stacked card (see columns.css). */
+  .news-grid:not(.related-grid) .story {
     display: flex; flex-direction: row; align-items: flex-start; min-width: 0; min-height: 0;
   }
-  .news-grid .story-media {
+  .news-grid:not(.related-grid) .story-media {
     flex: none; width: 112px; height: 112px; max-width: 112px; max-height: 112px; aspect-ratio: 1 / 1;
   }
-  .news-grid .thumb, .news-grid .thumb-fallback {
+  .news-grid:not(.related-grid) .thumb,
+  .news-grid:not(.related-grid) .thumb-fallback {
     width: 112px; height: 112px; max-width: 112px; max-height: 112px; min-height: 0; object-fit: cover;
   }
   .news-grid .thumb-source { font-size: 0.68rem; }
