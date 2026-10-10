@@ -37,6 +37,16 @@
   --danger: var(--color-breaking);
   --shadow: var(--shadow-sm);
   --logo-dot: #c8102e;
+  /* Composited motion only. --motion-dismiss matches the 420ms remove timeout. */
+  --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-rise: 700ms;
+  --motion-rise-card: 750ms;
+  --motion-seal: 600ms;
+  --motion-ken: 1100ms;
+  --motion-sweep: 900ms;
+  --motion-pulse: 2.4s;
+  --motion-stagger: 120ms;
+  --motion-dismiss: 420ms;
   font-family: var(--font-sans);
 }
 
@@ -575,7 +585,13 @@ a.cluster-link:hover { border-color: var(--accent); }
   .refresh-btn.is-refreshing svg { animation: refresh-spin 0.6s ease-in-out; }
   .story-arrive { animation: story-arrive 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
   .major-banner { animation: banner-in 380ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-  .major-banner.is-leaving { animation: banner-out 300ms ease-in forwards; }
+  .major-banner.is-leaving { animation: banner-out var(--motion-dismiss) ease-in forwards; }
+  .digest-strip { animation: story-arrive 380ms var(--motion-ease) both; }
+  .must-read .story { animation: story-arrive 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .must-read .story:nth-child(2) { animation-delay: 40ms; }
+  .must-read .story:nth-child(3) { animation-delay: 80ms; }
+  .must-read .story:nth-child(4) { animation-delay: 120ms; }
+  .must-read .story:nth-child(5) { animation-delay: 160ms; }
   .wx-icon-sun { animation: wx-sun-spin 14s linear infinite, wx-sun-glow 3.2s ease-in-out infinite; }
   .wx-icon-cloud { animation: wx-cloud 3.4s ease-in-out infinite; }
   .wx-icon-rain { animation: wx-bob 1.5s ease-in-out infinite; }
@@ -623,9 +639,16 @@ a.cluster-link:hover { border-color: var(--accent); }
   .skeleton .thumb-fallback,
   .skeleton-line,
   .masthead .icon-btn,
-  .chip {
+  .chip,
+  .must-read,
+  .must-read .story,
+  .digest-strip {
     animation: none;
     transition: none;
+  }
+  .chrome {
+    backdrop-filter: none;
+    background: var(--bg);
   }
 }
 
@@ -659,8 +682,8 @@ a.cluster-link:hover { border-color: var(--accent); }
   to { opacity: 1; transform: none; }
 }
 @keyframes banner-out {
-  from { opacity: 1; transform: none; max-height: 4.5rem; }
-  to { opacity: 0; transform: translateY(-8px); max-height: 0; margin-top: 0; padding-top: 0; padding-bottom: 0; }
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(-8px); }
 }
 @keyframes wx-sun-spin {
   to { transform: rotate(360deg); }
@@ -685,6 +708,107 @@ a.cluster-link:hover { border-color: var(--accent); }
 @keyframes skeleton-shimmer {
   from { background-position: 100% 0; }
   to { background-position: -100% 0; }
+}
+
+/* Heritage motion for 當年今日 / 香港地標.
+   Opt-in utilities: .motion-fade-rise, .motion-seal-in, .motion-img-ken,
+   .motion-timeline-pulse, .motion-brass-sweep.
+   The same keyframes bind to the gazetteer classes (.heritage, .otd-card,
+   .otd-row, .lm-card, .detail-hero, .year-seal, .otd-visual, .ink-rule,
+   .heritage-timeline) so they run when that markup is on the page.
+   body.static is the screenshot freeze. */
+@keyframes fade-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes seal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes img-ken {
+  from { transform: scale(1.08); }
+  to { transform: none; }
+}
+@keyframes timeline-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.72; }
+}
+@keyframes brass-sweep {
+  from { opacity: 0.35; transform: scaleX(0); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  body:not(.static) .heritage {
+    animation: fade-rise var(--motion-rise) var(--motion-ease) both;
+  }
+  body:not(.static) .otd-card,
+  body:not(.static) .otd-row,
+  body:not(.static) .lm-card,
+  body:not(.static) .detail-hero,
+  body:not(.static) .motion-fade-rise {
+    animation: fade-rise var(--motion-rise-card) var(--motion-ease) both;
+  }
+  body:not(.static) .otd-card:nth-child(2),
+  body:not(.static) .otd-row:nth-child(2),
+  body:not(.static) .lm-card:nth-child(2),
+  body:not(.static) .motion-fade-rise:nth-child(2) { animation-delay: var(--motion-stagger); }
+  body:not(.static) .otd-card:nth-child(3),
+  body:not(.static) .otd-row:nth-child(3),
+  body:not(.static) .lm-card:nth-child(3),
+  body:not(.static) .motion-fade-rise:nth-child(3) { animation-delay: calc(var(--motion-stagger) * 2); }
+  body:not(.static) .otd-card:nth-child(4),
+  body:not(.static) .otd-row:nth-child(4),
+  body:not(.static) .lm-card:nth-child(4),
+  body:not(.static) .motion-fade-rise:nth-child(4) { animation-delay: calc(var(--motion-stagger) * 3); }
+  body:not(.static) .otd-card:nth-child(5),
+  body:not(.static) .otd-row:nth-child(5),
+  body:not(.static) .lm-card:nth-child(5),
+  body:not(.static) .motion-fade-rise:nth-child(5) { animation-delay: calc(var(--motion-stagger) * 4); }
+  body:not(.static) .otd-card:nth-child(6),
+  body:not(.static) .otd-row:nth-child(6),
+  body:not(.static) .lm-card:nth-child(6),
+  body:not(.static) .motion-fade-rise:nth-child(6) { animation-delay: calc(var(--motion-stagger) * 5); }
+  body:not(.static) .year-seal,
+  body:not(.static) .motion-seal-in {
+    animation: seal-in var(--motion-seal) var(--motion-ease) 200ms both;
+  }
+  body:not(.static) .otd-visual img,
+  body:not(.static) .lm-card .cover img,
+  body:not(.static) .detail-hero .cover img,
+  body:not(.static) .motion-img-ken {
+    transform-origin: center;
+    animation: img-ken var(--motion-ken) var(--motion-ease) both;
+  }
+  body:not(.static) .heritage-timeline li::before,
+  body:not(.static) .motion-timeline-pulse {
+    transform-origin: center;
+    animation: timeline-pulse var(--motion-pulse) ease-in-out infinite;
+  }
+  body:not(.static) .ink-rule,
+  body:not(.static) .motion-brass-sweep {
+    transform-origin: left center;
+    animation: brass-sweep var(--motion-sweep) var(--motion-ease) both;
+  }
+}
+body.static .heritage,
+body.static .otd-card,
+body.static .otd-row,
+body.static .lm-card,
+body.static .detail-hero,
+body.static .year-seal,
+body.static .ink-rule,
+body.static .otd-visual img,
+body.static .lm-card .cover img,
+body.static .detail-hero .cover img,
+body.static .heritage-timeline li::before,
+body.static .motion-fade-rise,
+body.static .motion-seal-in,
+body.static .motion-img-ken,
+body.static .motion-timeline-pulse,
+body.static .motion-brass-sweep {
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 
 .subscribe-menu { position: relative; flex: none; }

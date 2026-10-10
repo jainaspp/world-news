@@ -40,6 +40,7 @@ import { useBookmarks } from './hooks/useBookmarks';
 import { useFollows } from './hooks/useFollows';
 import { useNews } from './hooks/useNews';
 import { readView, viewHref, type ViewState } from './routing';
+import { scrollBehavior } from './utils/scroll';
 import './App.css';
 
 const TIMES: { id: TimeRange; labelKey: 'all' | 'hour' | 'today' | 'week' }[] = [
@@ -518,7 +519,7 @@ export default function App() {
                 <button
                   type="button"
                   className="chip more-topics"
-                  onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                  onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: scrollBehavior(), block: 'start' })}
                 >
                   {t('more', lang)}
                 </button>
@@ -609,7 +610,7 @@ export default function App() {
                 })}
               </nav>
               {board.prefs.keywords && (
-                <button type="button" className="chip more-topics" onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+                <button type="button" className="chip more-topics" onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: scrollBehavior(), block: 'start' })}>
                   {t('more', lang)} · {t('keywords', lang)}
                 </button>
               )}
@@ -833,7 +834,7 @@ export default function App() {
             className="new-items"
             onClick={() => {
               showPending();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              window.scrollTo({ top: 0, behavior: scrollBehavior() });
             }}
           >
             {lang === 'en' ? `${freshCount} ${t('newHeadlines', lang)}` : `有 ${freshCount} ${t('newHeadlines', lang)}`}
