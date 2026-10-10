@@ -83,8 +83,9 @@ describe('shared homepage shell', () => {
     expect(html).toContain(LAYOUT_CARDS_HK);
     expect(html).toContain(LAYOUT_LIST_HK);
     expect(html).toContain('class="digest-strip"');
-    expect(html).toContain('class="digest-primary"');
-    expect(html).toContain('class="digest-keep"');
+    expect(html).toContain('digest-primary');
+    expect(html).toContain('digest-keep');
+    expect(html).toContain('class="chip digest-primary active"');
     expect(html).toContain('href="/explainer/"');
     expect(html).toContain('新聞懶人包');
     expect(html).toContain('href="/topic/"');
@@ -145,7 +146,8 @@ describe('shared homepage shell', () => {
     const css = readFileSync('src/App.css', 'utf8');
     expect(css).toContain('.rank-row-top');
     expect(css).toContain('.digest-strip');
-    expect(css).toContain('.digest-strip a { flex: 0 0 auto; white-space: nowrap; }');
+    expect(css).toContain('.digest-strip .chip');
+    expect(css).toContain('flex-wrap: wrap');
     expect(css).toContain('min-height: 44px');
     expect(css).toContain('-webkit-line-clamp: 2');
     expect(css).not.toMatch(/\.rank-title\s*\{[^}]*white-space:\s*nowrap/);
