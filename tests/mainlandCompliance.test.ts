@@ -17,17 +17,21 @@ function item(partial: Partial<NewsItem> & Pick<NewsItem, 'id' | 'title' | 'sour
 describe('mainland compliance sources', () => {
   it('no longer fetches blocked foreign Chinese outlets or HKFP / RFI', () => {
     const blob = FEEDS.map((feed) => `${feed.id} ${feed.label} ${feed.url} ${feed.homepage}`).join('\n');
-    for (const needle of ['rfi.fr', 'voachinese', 'rfa.org', 'nytimes.com', 'zhongwen', 'ftchinese', 'hongkongfp', 'Guardian 中國', '自由亞洲', '美國之音', '紐約時報中文', 'BBC 中文', 'RFI 中文', 'HKFP', 'FT中文']) {
+    for (const needle of ['rfi.fr', 'voachinese', 'rfa.org', 'nytimes.com', 'zhongwen', 'ftchinese', 'hongkongfp', 'dw.com', 'rss.dw.com', 'Guardian 中國', '自由亞洲', '美國之音', '紐約時報中文', 'BBC 中文', 'RFI 中文', 'HKFP', 'FT中文', '德國之聲']) {
       expect(blob.includes(needle)).toBe(false);
+    }
+    for (const id of ['rfi-zh', 'voa-zh', 'rfa-zh', 'nyt-zh', 'bbc-zh', 'dw-zh']) {
+      expect(FEEDS.some((feed) => feed.id === id)).toBe(false);
     }
     expect(FEEDS.some((feed) => feed.id === 'people-politics')).toBe(true);
     expect(FEEDS.some((feed) => feed.id === 'xinhua-politics')).toBe(true);
-    expect(FEEDS.some((feed) => feed.id === 'dw-zh')).toBe(true); // international-only pending confirm
   });
 
   it('blocks outlet labels and hosts used on hk/china desks', () => {
     expect(blockedHkChinaOutlet({ source: 'RFI 中文', link: 'https://www.rfi.fr/cn/a' })).toBe(true);
     expect(blockedHkChinaOutlet({ source: '美國之音', link: 'https://www.voachinese.com/a' })).toBe(true);
+    expect(blockedHkChinaOutlet({ source: '德國之聲', link: 'https://www.dw.com/zh/a' })).toBe(true);
+    expect(blockedHkChinaOutlet({ source: '港台國際', link: 'https://rss.dw.com/xml/rss-chi-all' })).toBe(true);
     expect(blockedHkChinaOutlet({ source: '香港電台', link: 'https://news.rthk.hk/a' })).toBe(false);
   });
 });

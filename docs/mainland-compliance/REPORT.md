@@ -31,6 +31,7 @@
 | `ft-zh` | FT中文 | china | Blocked in mainland |
 | `guardian-china` | Guardian 中國 | china | Foreign China desk feed |
 | `hkfp` | HKFP | hk | Sensitive for mainland-facing HK desk |
+| `dw-zh` | 德國之聲 | world | Same class as RFI; removed from `FEEDS` after confirm. No longer ingested on any desk |
 
 ### Replacements added (compliant mainland / state-affiliated)
 
@@ -49,13 +50,14 @@
 
 RTHK, Yahoo 新聞, Now, 有線, 星島, 政府新聞網, 新聞公報, 香港01, 巴士的報, SAI KUNG BUZZ, 港台大中華, 中新網, Sixth Tone, CGTN中國, 界面, Now 兩岸 feed (stories still keyword-filtered).
 
-### International-only — **confirm before delete**
+### International English — kept
 
 | id | label | category | note |
 | --- | --- | --- | --- |
-| `dw-zh` | 德國之聲 | world | Same class as RFI; **still fetched for international**. Listed in desk blocklist so it cannot enter hk/china. **Confirm to remove from FEEDS entirely.** |
 | `bbc-world`, `bbc-asia`, `bbc-biz`, … | BBC English | world/asia/… | English international — **kept**. Confirm if site-wide ban wanted. |
 | `guardian`, `guardian-biz`, … | Guardian English | world/… | **kept** pending confirm |
+
+`dw-zh` (德國之聲中文) is **not** in this set. It is absent from `FEEDS` and from every HK / mainland / international ingest list. The desk blocklist still matches the label `德國之聲` and hosts `dw.com/zh` / `rss.dw.com`, so a cached headline cannot re-enter hk/china pages.
 
 ## Story filters (HK / mainland pipelines)
 
@@ -72,7 +74,7 @@ Also: removed `/china-taiwan/` from 星島中國 `includePaths`.
 
 - Region chip「台灣」page still exists (already emptied of CNA feeds earlier).
 - International English feeds (BBC/Guardian/Al Jazeera/…) still on world/business/tech desks.
-- `dw-zh` still in `FEEDS` until you confirm delete.
+- `dw-zh` removed from `FEEDS` (2026-10-11 follow-up). RFI / VOA / RFA / NYT CN / BBC CN remain absent.
 
 ## Patch branch
 
@@ -81,6 +83,5 @@ Tests: `tests/mainlandCompliance.test.ts` + existing feeds/guards/rss/topic suit
 
 ## Ask PP O
 
-1. **Delete `dw-zh` (德國之聲) from FEEDS entirely?** (recommended yes — same class as RFI)  
-2. **Site-wide ban BBC/Guardian English too?** (default no — only china/HK desks cleaned)  
-3. Merge PR when ready.
+1. **Delete `dw-zh` (德國之聲) from FEEDS entirely?** Done — no longer ingested.
+2. **Site-wide ban BBC/Guardian English too?** (default no — only china/HK desks cleaned)
