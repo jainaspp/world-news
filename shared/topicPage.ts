@@ -16,6 +16,7 @@ import {
 } from './contentPage.js';
 import { readableSourceTitle } from './search.js';
 import type { NewsItem } from './types.js';
+import { categoryLabel } from './categories.js';
 import { pictureForTopic } from './topicImage.js';
 import {
   TOPIC_PACKS,
@@ -98,9 +99,14 @@ function fold(id: string, title: string, lines: string[]): string {
   return `<details class="topic-fold pack-fold" id="${id}"><summary>${esc(title)}</summary><ul class="points">${lines.map((line) => `<li>${esc(line)}</li>`).join('')}</ul></details>`;
 }
 
+function areaCard(id: string, title: string, body: string): string {
+  if (!body) return '';
+  return `<section class="topic-area pack-shell pack-topic" id="${id}" aria-label="${esc(title)}"><h3>${esc(title)}</h3>${body}</section>`;
+}
+
 function headlineList(items: NewsItem[]): string {
   if (!items.length) {
-    return '<section class="story column-block" id="headlines" aria-label="相關頭條"><div class="story-body"><h2 class="column-h2">相關頭條</h2><p class="topic-empty">近日未有相關報道。</p></div></section>';
+    return '<p class="notice" id="headlines">近日未有相關報道。</p>';
   }
   const rows = items.slice(0, 12).map((item) => {
     const url = safeHttp(item.link);
@@ -109,7 +115,7 @@ function headlineList(items: NewsItem[]): string {
     const when = item.pubDate ? `<time datetime="${esc(item.pubDate)}">${esc(hkt(item.pubDate, false))}</time>` : '';
     return `<li>${when}<span class="tl-body">${linked}<span class="source-name">${esc(item.source)}</span></span></li>`;
   }).join('');
-  return `<section class="story column-block" id="headlines" aria-label="相關頭條"><div class="story-body"><h2 class="column-h2">相關頭條</h2><ol class="topic-wires">${rows}</ol></div></section>`;
+  return `<details class="topic-fold pack-fold" id="headlines"><summary>相關頭條</summary><ol class="topic-wires">${rows}</ol></details>`;
 }
 
 function packBody(model: TopicPageModel): string {
@@ -119,21 +125,22 @@ function packBody(model: TopicPageModel): string {
   // Policy topics list measures; the others list key numbers (a death toll is not a measure).
   const figuresHeading = topic.slug === 'policy-address' || topic.slug === 'budget' ? '主要措施' : '重要數字';
   const pointsBox = points.length > 1
-    ? `<section class="key-points" id="summary" aria-label="重點"><h2>重點</h2><ol>${points.map((point) => `<li>${esc(endLine(point))}</li>`).join('')}</ol></section>`
+    ? areaCard('summary', '重點', `<ol>${points.map((point) => `<li>${esc(endLine(point))}</li>`).join('')}</ol>`)
     : '';
   const events = pack.timeline.length >= 2 ? pack.timeline : wireTimeline(model.headlines);
   const timeline = events.length >= 2
-    ? `<section class="story column-block timeline-card" id="timeline" aria-label="時間線"><div class="story-body"><h2 class="column-h2">時間線</h2><ol class="timeline">${events.map((row, index) => `<li><time datetime="${esc(row.date)}">${esc(zhDate(row.date))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body"><strong class="tl-phase">${phaseName(index, events.length)}</strong> ${esc(endLine(row.text))}</span></li>`).join('')}</ol></div></section>`
+    ? areaCard('timeline', '時間線', `<ol class="timeline">${events.map((row, index) => `<li><time datetime="${esc(row.date)}">${esc(zhDate(row.date))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body"><strong class="tl-phase">${phaseName(index, events.length)}</strong> ${esc(endLine(row.text))}</span></li>`).join('')}</ol>`)
     : '';
   const groups = figureGroups(pack.figures, topic.areas);
   const figures = groups.length
-    ? `<section class="topic-measures" id="figures" aria-label="${figuresHeading}"><h2 class="column-h2">${figuresHeading}</h2><div class="topic-areas">${groups.map((group) => `<section class="topic-area"><h3>${esc(group.area)}</h3><ul>${group.rows.map((row) => `<li class="topic-figure"><strong>${esc(row.value)}</strong><span>${esc(row.label)}</span></li>`).join('')}</ul></section>`).join('')}</div></section>`
+    ? `<section class="topic-measures" id="figures" aria-label="${figuresHeading}"><h2 class="column-h2">${figuresHeading}</h2><div class="topic-areas">${groups.map((group) => `<section class="topic-area pack-shell pack-topic"><h3>${esc(group.area)}</h3><ul>${group.rows.map((row) => `<li class="topic-figure"><strong>${esc(row.value)}</strong><span>${esc(row.label)}</span></li>`).join('')}</ul></section>`).join('')}</div></section>`
     : '';
+  const impact = areaCard('impact', '對市民有什麼影響', pack.impact.length ? `<ul class="points">${pack.impact.map((line) => `<li>${esc(endLine(line))}</li>`).join('')}</ul>` : '');
   const nav = `<nav class="topic-jump" aria-label="本頁小節">${jump('#summary', '重點', points.length > 1)}${jump('#timeline', '時間線', events.length >= 2)}${jump('#figures', figuresHeading === '主要措施' ? '措施' : '數字', groups.length > 0)}${jump('#impact', '影響', pack.impact.length > 0)}${jump('#reactions', '反應', pack.reactions.length > 0)}${jump('#background', topic.slug === 'policy-address' ? '五年規劃' : '背景', Boolean(topic.background && pack.background?.length))}${jump('#headlines', '頭條', model.headlines.length > 0)}</nav>`;
   const sources = pack.sources.length
     ? `<details class="topic-fold pack-fold" id="sources"><summary>來源（${pack.sources.length}）</summary>${sourceList(pack.sources)}</details>`
     : '';
-  return `${pointsBox}${nav}${timeline}${figures}${fold('impact', '對市民有什麼影響', pack.impact.map(endLine))}${fold('reactions', '各方反應', pack.reactions.map(endLine))}${topic.background ? fold('background', topic.background.label, (pack.background ?? []).map(endLine)) : ''}${headlineList(model.headlines)}${sources}`;
+  return `${pointsBox}${nav}${timeline}${figures}${impact}${fold('reactions', '各方反應', pack.reactions.map(endLine))}${topic.background ? fold('background', topic.background.label, (pack.background ?? []).map(endLine)) : ''}${headlineList(model.headlines)}${sources}`;
 }
 
 function absoluteSrc(src: string, canonical: string): string {
@@ -279,21 +286,32 @@ export function topicIndexCards(packs: Map<string, TopicPack | null>): TopicInde
   });
 }
 
+function topicFilters(cards: TopicIndexCard[], active: string): string {
+  const ids = [...new Set(cards.filter((card) => card.ready).map((card) => card.topic.category))];
+  if (!ids.length) return '';
+  const chip = (href: string, label: string, on: boolean) => `<a class="chip${on ? ' active' : ''}" href="${href}"${on ? ' aria-current="page"' : ''}>${esc(label)}</a>`;
+  const all = chip('/topic/', '全部', !active);
+  const rest = ids.map((id) => chip(`/topic/?cat=${encodeURIComponent(id)}`, categoryLabel(id), active === id)).join('');
+  return `<nav class="topic-filters" aria-label="專題分類">${all}${rest}</nav>`;
+}
+
 /** Listing of public (ready) topic packs. Empty shells — especially 樓市 — stay off the grid until ready. */
-export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads?: AdConfig): string {
+export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads?: AdConfig, category = ''): string {
   const readyForAds = cards.some((card) => card.ready);
   const adCfg = readyForAds ? (ads ?? { client: DEFAULT_CLIENT }) : undefined;
   const client = readyForAds ? (adCfg?.client || DEFAULT_CLIENT) : '';
   const title = '專題懶人包';
   const description = '施政報告、財政預算案、天氣警告、中美關係、美國利率等持續題目。有公開懶人包才列出；未齊料的空殼專題暫不顯示。';
-  const ready = cards.filter((card) => card.ready);
+  const readyAll = cards.filter((card) => card.ready);
+  const active = readyAll.some((card) => card.topic.category === category) ? category : '';
+  const ready = active ? readyAll.filter((card) => card.topic.category === active) : readyAll;
   // Pending non-property shells may appear in a weakened fold; property stays fully hidden until ready.
   const pending = cards.filter((card) => !card.ready && card.topic.slug !== 'property');
   const articles = ready.map((card, index) => {
     const when = card.updatedAt ? `<div class="story-meta"><time datetime="${esc(card.updatedAt)}">${esc(hkt(card.updatedAt, false))}</time></div>` : '';
     const credit = card.picture ? photoCredit(card.picture) : '';
     return `<article class="story pack-shell pack-topic">
-      <a class="story-media" href="/topic/${esc(card.topic.slug)}/" tabindex="-1" aria-hidden="true">${media(card.picture?.url, card.topic.category, card.topic.title, index < 2, card.picture?.alt ?? '')}</a>
+      <a class="story-media${card.picture ? '' : ' pack-fallback'}" href="/topic/${esc(card.topic.slug)}/" tabindex="-1" aria-hidden="true">${media(card.picture?.url, card.topic.category, card.topic.title, index < 2, card.picture?.alt ?? '')}</a>
       <div class="story-body">
         <div class="story-kicker"><span class="pack-kicker">專題懶人包</span><span class="badge ai-badge">AI 整合</span>${catChip(card.topic.category)}</div>
         <h2 class="story-title"><a href="/topic/${esc(card.topic.slug)}/">${esc(card.topic.title)}</a></h2>
@@ -337,6 +355,7 @@ ${head(title, description, canonical, absoluteSrc(ready.find((card) => card.pict
       <p class="dek">${esc(description)}</p>
     </header>
     ${adUnit(adCfg, adCfg?.top, 'top')}
+    ${topicFilters(cards, active)}
     ${ready.length ? `<div class="news-grid analysis-grid">${articles}</div>` : '<p class="notice">暫時未有公開專題懶人包。</p>'}
     ${pendingFold}
     ${adUnit(adCfg, adCfg?.bottom, 'bottom')}

@@ -77,7 +77,12 @@ describe('當年今日 pages', () => {
     expect(section).toContain('當年今日');
     expect(section).toContain('<details class="otd-pack heritage pack-shell pack-heritage">');
     expect(section).not.toContain('<details class="otd-pack heritage pack-shell pack-heritage" open');
-    expect(section).toContain('點開睇');
+    expect(section).toContain('展開查看');
+    expect(section).toContain('查看全部');
+    expect(section).not.toContain('點開睇');
+    expect(section).not.toContain('睇晒');
+    const summary = section.slice(section.indexOf('<summary'), section.indexOf('</summary>'));
+    expect(summary).not.toContain('<img');
     expect(section).toContain('香港地標');
     expect(section).toContain('href="/hk/landmarks/"');
     expect(section).toContain('/static/heritage/ink-divider.png');

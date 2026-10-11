@@ -117,7 +117,7 @@ html.dark .logo-link .logo-full.logo-dark { display: block; }
 a.chip { color: inherit; text-decoration: none; }
 .digest-strip {
   display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-width: 0; max-width: 100%;
-  margin-top: 8px;
+  margin-top: 16px;
   padding: 8px 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
 }
 .digest-strip a, .analysis-link { font-weight: 700; text-decoration: none; }
@@ -332,7 +332,7 @@ a.chip { color: inherit; text-decoration: none; }
   .hk-info-wrap { margin-top: 4px; }
   .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 8px; font-size: 13px; overflow: visible; flex-wrap: wrap; white-space: normal; }
   .digest-strip {
-    width: 100%; margin-top: 4px; padding: 6px 8px;
+    width: 100%; margin-top: 14px; padding: 6px 8px;
     flex-wrap: wrap; overflow: visible;
     /* keep card chrome so chips stay bordered (no borderless scroll truncate) */
   }
@@ -660,7 +660,12 @@ a.cluster-link:hover { border-color: var(--accent); }
   .chip,
   .must-read,
   .must-read .story,
-  .digest-strip {
+  .digest-strip,
+  .pack-shell,
+  .topic-fold,
+  .topic-area,
+  .otd-pack,
+  .otd-pack[open] .otd-pack-body {
     animation: none;
     transition: none;
   }
@@ -807,6 +812,9 @@ a.cluster-link:hover { border-color: var(--accent); }
     transform-origin: left center;
     animation: brass-sweep var(--motion-sweep) var(--motion-ease) both;
   }
+  body:not(.static) .otd-pack[open] .otd-pack-body {
+    animation: fade-rise var(--motion-rise) var(--motion-ease) both;
+  }
 }
 body.static .heritage,
 body.static .otd-card,
@@ -823,7 +831,8 @@ body.static .motion-fade-rise,
 body.static .motion-seal-in,
 body.static .motion-img-ken,
 body.static .motion-timeline-pulse,
-body.static .motion-brass-sweep {
+body.static .motion-brass-sweep,
+body.static .otd-pack[open] .otd-pack-body {
   animation: none;
   opacity: 1;
   transform: none;
@@ -907,7 +916,7 @@ html.wn-list .ssr-home .home-list { display: block; }
 
 /* 今日必讀：序號＋數量＋左側飾條（pack-shell） */
 .must-read {
-  margin: 12px 0 8px;
+  margin: 16px 0;
   padding: 12px 12px 14px 14px;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
@@ -974,7 +983,7 @@ html.wn-list .ssr-home .home-list { display: block; }
 
 /* Homepage collapsed pack (like 懶人包) */
 .otd-pack {
-  margin: 14px 0 20px;
+  margin: 16px 0;
   border: 1px solid var(--otd-line);
   border-radius: var(--radius-lg);
   background: var(--otd-card);
@@ -982,8 +991,7 @@ html.wn-list .ssr-home .home-list { display: block; }
   position: relative;
   overflow: hidden;
 }
-.otd-pack::before,
-.heritage:not(.otd-pack)::before {
+.otd-pack::before {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
@@ -1039,7 +1047,6 @@ html.wn-list .ssr-home .home-list { display: block; }
 
 /* Low-opacity paper only on pack/cards — never body:has(.heritage) full-page wash */
 .otd-pack::after,
-.heritage:not(.otd-pack)::after,
 .otd-card::after,
 .otd-row::after,
 .lm-card::after,
@@ -1054,25 +1061,13 @@ html.wn-list .ssr-home .home-list { display: block; }
   z-index: 0;
 }
 html.dark .otd-pack::after,
-html.dark .heritage:not(.otd-pack)::after,
 html.dark .otd-card::after,
 html.dark .otd-row::after,
 html.dark .lm-card::after,
 html.dark .detail-hero::after {
-  opacity: 0.12;
+  opacity: 0.1;
 }
 
-.heritage:not(.otd-pack) {
-  margin: 18px 0 28px;
-  padding: 18px 16px 20px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--otd-line);
-  background: var(--otd-card);
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  overflow: hidden;
-  color: var(--otd-ink);
-}
 .heritage-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .heritage .section-head,
 .heritage-page .section-head {
@@ -1092,7 +1087,7 @@ html.dark .detail-hero::after {
   letter-spacing: 0.02em;
   color: var(--otd-ink);
 }
-.heritage .section-title { margin: 0; font-size: 22px; }
+.heritage .section-title { margin: 0; font-size: 20px; }
 .heritage-page-title,
 .heritage-page > .column-index h1.section-title { font-size: 28px; margin: 0; }
 .section-kicker {
@@ -1263,7 +1258,7 @@ html.dark .year-seal {
   color: var(--otd-ink);
   text-decoration: none;
 }
-.day-hero-date { font-family: var(--font-serif); font-size: 34px; font-weight: 900; margin: 0; letter-spacing: 0.02em; color: var(--otd-ink); }
+.day-hero-date { font-family: var(--font-serif); font-size: 28px; font-weight: 700; margin: 0; letter-spacing: 0.02em; color: var(--otd-ink); }
 .otd-list { display: grid; gap: 16px; }
 .otd-row { display: grid; grid-template-columns: 220px minmax(0, 1fr); overflow: hidden; }
 .otd-row .otd-visual { aspect-ratio: 4 / 3; min-height: 100%; }
@@ -1275,10 +1270,10 @@ html.dark .year-seal {
 .lm-card { overflow: hidden; text-decoration: none; color: inherit; display: block; }
 .lm-card .cover { aspect-ratio: 4 / 3; overflow: hidden; background: var(--otd-visual-bg); }
 .lm-card .body { padding: 12px 14px 14px; position: relative; z-index: 1; }
-.lm-card h3 { margin: 0 0 6px; font-family: var(--font-serif); font-size: 17px; font-weight: 700; color: var(--otd-ink); }
-.lm-card p { margin: 0 0 10px; font-size: 13px; color: var(--otd-muted); line-height: 1.45; }
+.lm-card h3 { margin: 0 0 6px; font-family: var(--font-serif); font-size: 16px; font-weight: 700; color: var(--otd-ink); }
+.lm-card p { margin: 0 0 10px; font-size: 15px; color: var(--otd-muted); line-height: 1.55; }
 .detail-hero {
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--otd-line);
   box-shadow: var(--shadow-sm);
@@ -1293,7 +1288,7 @@ html.dark .detail-hero { box-shadow: none; }
   position: relative;
   z-index: 1;
 }
-.detail-hero h1 { margin: 0 0 8px; font-size: 28px; font-weight: 900; }
+.detail-hero h1 { margin: 0 0 8px; font-size: 28px; font-weight: 700; }
 .detail-hero .lede { margin: 0 0 14px; color: var(--otd-muted); font-size: 15px; max-width: 42em; line-height: 1.55; }
 .map-btn {
   display: inline-flex;
@@ -1332,13 +1327,6 @@ html.dark .detail-hero { box-shadow: none; }
 .heritage-timeline .td { margin: 4px 0 0; font-size: 13px; color: var(--otd-muted); line-height: 1.45; }
 .heritage-timeline-title { margin: 28px 0 12px; }
 .heritage-place { margin-top: 22px; }
-.heritage-empty {
-  padding: 14px;
-  border: 1px solid var(--otd-line);
-  border-radius: 12px;
-  background: var(--otd-card);
-  color: var(--otd-muted);
-}
 .heritage-note { margin: 18px 0 0; color: var(--otd-muted); font-size: 14px; max-width: 46em; line-height: 1.55; }
 .footnote {
   margin-top: 28px;
@@ -1360,38 +1348,6 @@ html.dark .detail-hero { box-shadow: none; }
   .otd-row { grid-template-columns: 1fr; }
   .day-hero-date { font-size: 28px; }
 }
-@keyframes heritage-rise {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes heritage-seal {
-  from { opacity: 0; transform: translateY(6px) scale(0.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes heritage-ken {
-  from { transform: scale(1.04); }
-  to { transform: scale(1); }
-}
-@keyframes heritage-pulse {
-  0%, 100% { box-shadow: 0 0 0 3px var(--otd-card); }
-  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--otd-brass) 35%, transparent), 0 0 0 3px var(--otd-card); }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .otd-pack[open] .otd-pack-body { animation: heritage-rise 0.35s ease both; }
-  .heritage:not(.otd-pack) { animation: heritage-rise 0.55s ease both; }
-  .otd-card, .otd-row, .lm-card, .detail-hero { animation: heritage-rise 0.6s ease both; }
-  .otd-card:nth-child(2), .otd-row:nth-child(2), .lm-card:nth-child(2) { animation-delay: 0.08s; }
-  .otd-card:nth-child(3), .otd-row:nth-child(3), .lm-card:nth-child(3) { animation-delay: 0.16s; }
-  .heritage .otd-visual img, .lm-card .cover img, .detail-hero .cover img { animation: heritage-ken 0.9s ease-out both; }
-  .year-seal { animation: heritage-seal 0.5s 0.12s ease both; }
-  .heritage-timeline li::before { animation: heritage-pulse 2.8s ease-in-out infinite; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .heritage, .otd-pack[open] .otd-pack-body, .otd-card, .otd-row, .lm-card, .detail-hero, .year-seal,
-  .heritage .otd-visual img, .lm-card .cover img, .detail-hero .cover img,
-  .heritage-timeline li::before {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
+@media (min-width: 700px) {
+  .lm-grid { gap: 14px; }
 }

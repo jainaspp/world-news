@@ -108,7 +108,7 @@ export function renderOnThisDaySection(now = new Date()): string {
     ? `<div class="otd-grid">${rows.map((row) => factCard(row, false)).join('')}</div>`
     : '<p class="section-lede">今日暫無紀事，可改看香港地標圖錄。</p>';
   const count = rows.length;
-  const teaser = count ? `今日 ${count} 則 · 點開睇` : '香港地標 · 點開睇';
+  const teaser = count ? `今日 ${count} 則 · 展開查看` : '香港地標 · 展開查看';
   return `<details class="otd-pack heritage pack-shell pack-heritage">
   <summary class="otd-pack-summary">
     <span class="otd-pack-title" id="otd-title">當年今日</span>
@@ -121,7 +121,7 @@ export function renderOnThisDaySection(now = new Date()): string {
     <p class="section-lede">舊紙年表式紀事：回望本地建築落成、基建通車與公共生活節點。只記地理與民生。</p>
     ${cards}
     <div class="otd-pack-links">
-      <a class="section-more otd-pack-more" href="/on-this-day/${esc(mmdd)}/">睇晒 →</a>
+      <a class="section-more otd-pack-more" href="/on-this-day/${esc(mmdd)}/">查看全部 →</a>
       <a class="section-more otd-pack-more" href="/hk/landmarks/">香港地標 →</a>
     </div>
   </div>
@@ -251,7 +251,7 @@ export function renderOnThisDayPage(mmdd: string, ads: HeritageAds = DEFAULT_ADS
   const indexable = dayIndexable(mmdd);
   const list = rows.length
     ? `<div class="otd-list">${rows.map((row) => factRow(row)).join('')}</div>${linkedLandmarks(rows)}`
-    : `<p class="heritage-empty">這一日尚未收錄紀事。可改看前後日期，或先讀<a href="/hk/landmarks/">香港地標</a>。</p>`;
+    : `<p class="notice">這一日尚未收錄紀事。可改看前後日期，或先讀<a href="/hk/landmarks/">香港地標</a>。</p>`;
   const note = today === mmdd ? '香港時間的今天。' : '';
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/hk/landmarks/">香港地標</a> · 當年今日</nav>
     ${dayNav(mmdd)}

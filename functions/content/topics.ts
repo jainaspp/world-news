@@ -576,7 +576,8 @@ export async function serveTopicIndex(context: PagesContext): Promise<Response> 
   applyRuntimeEnv(context.env);
   const env = context.env as ContentEnv;
   const cards: TopicIndexCard[] = topicIndexCards(await loadCards(env).catch(() => new Map()));
-  const html = renderTopicIndex(cards, `${siteUrl(env)}/topic/`, adConfig(env));
+  const category = new URL(context.request.url).searchParams.get('cat') || '';
+  const html = renderTopicIndex(cards, `${siteUrl(env)}/topic/`, adConfig(env), category);
   return new Response(html, { headers: HTML_HEADERS });
 }
 

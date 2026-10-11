@@ -25,6 +25,7 @@ html.dark .theme-toggle .icon-moon { display: none; }
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-4); box-shadow: var(--shadow);
 }
 .key-points { border-left: 4px solid var(--accent); }
+.key-points.pack-shell { border-left: 1px solid var(--line); }
 .key-points h2, .highlight-box h2, .section-title { font-family: var(--font-serif); font-size: 1.15rem; margin: 0 0 var(--space-2); }
 .key-points ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; line-height: 1.55; }
 .highlight-box {
@@ -266,9 +267,10 @@ html.dark .data-down strong, html.dark .data-down .data-delta { color: #7fd6b4; 
 .topic-areas { display: grid; gap: var(--space-3); }
 .topic-area {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
-  padding: var(--space-4); box-shadow: var(--shadow); border-top: 3px solid var(--accent); display: grid; gap: 8px;
+  padding: var(--space-4); box-shadow: var(--shadow-sm); display: grid; gap: 8px;
 }
-.topic-area h3 { margin: 0; font-family: var(--font-serif); font-size: 1.05rem; }
+html.dark .topic-area { box-shadow: none; }
+.topic-area h3 { margin: 0; font-family: var(--font-serif); font-size: 18px; font-weight: 700; }
 .topic-area ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .topic-figure { display: grid; gap: 2px; }
 .topic-figure strong { font-family: var(--font-serif); font-size: 1.35rem; line-height: 1.2; font-variant-numeric: tabular-nums; }
@@ -395,5 +397,64 @@ html.dark .pack-shell { box-shadow: none; }
 @media (max-width: 700px) {
   .chip, .pack-fold > summary, .topic-fold > summary, .otd-pack > summary, .sources summary {
     min-height: 36px;
+  }
+}
+
+/* Art 2026-10-11: one card language. H1 28 / section 18 / card title 16–17 / body 15 / meta 13. */
+.column-index .column-title,
+.column-hero.pack-shell .column-title {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.column-page .column-h2 { font-size: 18px; }
+.column-index .dek,
+.column-hero.pack-shell .dek { font-size: 15px; line-height: 1.55; }
+.column-index .pack-shell .dek {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.column-page .story-meta,
+.column-page .pack-kicker { font-size: 13px; }
+.pack-shell .ai-badge { font-size: 11px; line-height: 1.3; padding: 1px 6px; }
+.pack-preview {
+  margin: 0;
+  padding-left: 1.15em;
+  display: grid;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.pack-preview li::marker { color: var(--accent); }
+.topic-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.topic-jump .chip,
+.topic-filters .chip { color: var(--accent); }
+.column-index .pack-topic .pack-fallback,
+.column-index .pack-topic .pack-fallback .thumb-fallback {
+  background: var(--chip);
+  color: var(--text);
+}
+.column-page[data-kind="compare"] .timeline li,
+.column-page[data-kind="analysis"] .timeline li,
+.column-page[data-kind="topic"] .timeline li { padding-bottom: 8px; }
+.column-hero.pack-shell .story-media,
+.column-hero.pack-shell .thumb,
+.column-hero.pack-shell .thumb-fallback { max-height: 220px; }
+@media (min-width: 1200px) {
+  .column-hero.pack-shell .thumb,
+  .column-hero.pack-shell .thumb-fallback,
+  .column-hero.pack-shell .story-media { max-height: 220px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pack-shell,
+  .topic-fold,
+  .pack-fold,
+  .topic-area,
+  .pack-preview {
+    animation: none;
+    transition: none;
   }
 }
