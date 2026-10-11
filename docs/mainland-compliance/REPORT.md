@@ -68,6 +68,8 @@ RTHK, Yahoo 新聞, Now, 有線, 星島, 政府新聞網, 新聞公報, 香港01
 
 Applied at: RSS ingest (hk/china category), `filterNews`, briefing, HKG/hk/china focus, hk/china topic match, digest/analysis when cluster is hk/china-desk.
 
+Weekly tech/business picks (`buildWeekly`, `weeklyFromHeadlines`) also drop any row `blockedHkChinaOutlet` matches, including a cached or miscategorized RFI / HKFP headline. `columnHeroSources` / `leadImage` skip those labels and hosts for weekly, digest, and analysis heroes. English BBC and Guardian feeds stay in `FEEDS`. Deploy does not rewrite the weekly document already in KV — regenerate it (Warm AI pages, Sunday 20:00 HKT, or `POST /api/generate?kind=weekly`) so the live source list is replaced.
+
 Also: removed `/china-taiwan/` from 星島中國 `includePaths`.
 
 ## What did **not** change

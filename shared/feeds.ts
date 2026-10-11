@@ -148,8 +148,9 @@ export function sourcesForRegion(region: string): string[] {
  * Outlets blocked from Hong Kong and mainland (china) desks for mainland compliance.
  * They are not fetched (removed from FEEDS), including 德國之聲 (`dw-zh`).
  * Cached headlines with these labels/hosts stay off hk/china category pages,
- * HKG focus, and HK/mainland briefings.
- * International-only English desks are unchanged unless listed here.
+ * HKG focus, HK/mainland briefings, weekly tech/business sources, and
+ * weekly/digest/analysis hero images.
+ * International-only English desks (BBC News, Guardian) are unchanged unless listed here.
  */
 const BLOCKED_HK_CHINA_LABELS = new Set([
   'RFI 中文',
@@ -175,6 +176,15 @@ export function blockedHkChinaOutlet(item: { source: string; sourceUrl?: string;
   if (BLOCKED_HK_CHINA_LABELS.has(item.source.trim())) return true;
   const href = `${item.sourceUrl ?? ''} ${item.link ?? ''}`;
   return BLOCKED_HK_CHINA_HOST.test(href);
+}
+
+/** Drop cached or miscategorized rows whose label or article/image host is blocked. */
+export function dropBlockedHkChinaOutlets<T extends { source: string; sourceUrl?: string; link?: string; url?: string; image?: string }>(items: T[]): T[] {
+  return items.filter((item) => !blockedHkChinaOutlet({
+    source: item.source,
+    sourceUrl: item.sourceUrl,
+    link: [item.link, item.url, item.image].filter((part): part is string => Boolean(part)).join(' '),
+  }));
 }
 
 export function blockedHkChinaStory(item: { title: string; excerpt?: string; source: string; sourceUrl?: string; link?: string }): boolean {

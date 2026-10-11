@@ -7,7 +7,7 @@ import { bestImage } from './media.js';
 import { bracketNames, englishNames, fixOutlets, scrubPlaces } from './grounding.js';
 export { bestImage, imageScore } from './media.js';
 import type { StoryCluster } from './trending';
-import { blockedHkChinaStory } from './feeds.js';
+import { blockedHkChinaStory, dropBlockedHkChinaOutlets } from './feeds.js';
 
 /** Cheap Qwen MoE on Workers AI. Traditional Chinese is strong, and the neuron rate stays inside the free 10k/day. */
 export const AI_MODEL = '@cf/qwen/qwen3-30b-a3b-fp8';
@@ -228,8 +228,16 @@ export function outletCount(sources: SourceRef[]): number {
   return new Set(sources.map((source) => source.source)).size;
 }
 
+const COLUMN_HERO_KINDS = new Set<ContentDoc['kind']>(['weekly', 'digest', 'analysis']);
+
+/** Sources whose photo may be the weekly, digest, or analysis hero. Blocked outlets are skipped. */
+export function columnHeroSources(sources: SourceRef[], kind: ContentDoc['kind']): SourceRef[] {
+  if (!COLUMN_HERO_KINDS.has(kind)) return sources;
+  return dropBlockedHkChinaOutlets(sources);
+}
+
 export function leadImage(doc: ContentDoc): string {
-  return bestImage(doc.blocks.flatMap((block) => block.sources));
+  return bestImage(columnHeroSources(doc.blocks.flatMap((block) => block.sources), doc.kind));
 }
 
 export function docCategories(doc: ContentDoc): string[] {
@@ -557,12 +565,15 @@ export function weeklyFromHeadlines(tech: SourceRef[], business: SourceRef[], ke
     sentences: sources.length ? draftSentences(sources) : ['這一週未有足夠標題。', '來源未有提及更多。', '有新標題後會再更新。'],
     sources,
   });
+  // Filter before the cap so a blocked cached row does not take a slot from a kept outlet.
+  const techSources = dropBlockedHkChinaOutlets(tech).slice(0, 8);
+  const businessSources = dropBlockedHkChinaOutlets(business).slice(0, 8);
   return {
     kind: 'weekly',
     key,
     title: `一週回顧 ${key}`,
     description: '一週科技同一週財經，只根據已收錄的標題。',
-    blocks: [block('一週科技', tech.slice(0, 8), 'tech'), block('一週財經', business.slice(0, 8), 'business')],
+    blocks: [block('一週科技', techSources, 'tech'), block('一週財經', businessSources, 'business')],
     publishedAt: now.toISOString(),
     hkt: formatHkt(now.toISOString()),
     mode: 'sources',
