@@ -4,6 +4,7 @@ import { hkoIconEmoji } from '../shared/hk';
 import { chrome } from '../shared/contentPage';
 import { wmoEmoji } from '../shared/wx';
 import { arrivedIds, newItems } from '../src/hooks/useNews';
+import { scrollBehavior } from '../src/utils/scroll';
 import { wxIconClass } from '../src/utils/wxMotion';
 import type { NewsItem } from '../shared/types';
 
@@ -41,18 +42,89 @@ describe('reduced motion', () => {
       '.skeleton .thumb-fallback',
       '.masthead .icon-btn',
       '.chip',
+      '.must-read',
+      '.digest-strip',
     ]) {
       expect(reduce).toContain(selector);
     }
+    expect(reduce).toContain('backdrop-filter: none');
     const enabled = css.slice(enableAt, reduceAt);
     expect(enabled).toContain('live-pulse');
     expect(enabled).toContain('refresh-spin');
     expect(enabled).toContain('story-arrive');
     expect(enabled).toContain('banner-in');
     expect(enabled).toContain('banner-out');
+    expect(enabled).toContain('var(--motion-dismiss)');
+    expect(enabled).toContain('.digest-strip');
+    expect(enabled).toContain('.must-read .story');
     expect(enabled).toContain('skeleton-shimmer');
     expect(enabled).toContain('wx-sun-spin');
     expect(enabled).not.toContain('animation: none');
+  });
+
+  it('dismisses the major banner with opacity and transform only', () => {
+    expect(css).toContain('--motion-dismiss: 420ms');
+    const start = css.indexOf('@keyframes banner-out');
+    const end = css.indexOf('@keyframes', start + 1);
+    const bannerOut = css.slice(start, end);
+    expect(bannerOut).toContain('opacity');
+    expect(bannerOut).toContain('transform');
+    expect(bannerOut).not.toMatch(/max-height|margin|padding/);
+    expect(readFileSync('src/components/MajorBanner.tsx', 'utf8')).toContain('420');
+    expect(readFileSync('public/columns.js', 'utf8')).toContain('420');
+  });
+});
+
+describe('smooth scroll', () => {
+  it('uses auto when reduced motion is requested', () => {
+    expect(scrollBehavior(true)).toBe('auto');
+    expect(scrollBehavior(false)).toBe('smooth');
+    for (const file of ['src/App.tsx', 'src/components/BackToTop.tsx']) {
+      const source = readFileSync(file, 'utf8');
+      expect(source).toContain('scrollBehavior()');
+      expect(source).not.toMatch(/behavior:\s*['"]smooth['"]/);
+    }
+  });
+});
+
+describe('heritage motion', () => {
+  const css = readFileSync('src/App.css', 'utf8');
+
+  it('ships fade-rise, seal, ken, pulse, and brass sweep behind reduced-motion and screenshot gates', () => {
+    for (const name of ['fade-rise', 'seal-in', 'img-ken', 'timeline-pulse', 'brass-sweep']) {
+      expect(css).toContain(`@keyframes ${name}`);
+    }
+    const blockStart = css.indexOf('@keyframes fade-rise');
+    const gated = css.slice(blockStart);
+    const preference = gated.indexOf('@media (prefers-reduced-motion: no-preference)');
+    expect(preference).toBeGreaterThan(-1);
+    const wired = gated.slice(preference);
+    for (const selector of [
+      'body:not(.static) .heritage',
+      'body:not(.static) .otd-card',
+      'body:not(.static) .otd-row',
+      'body:not(.static) .lm-card',
+      'body:not(.static) .detail-hero',
+      'body:not(.static) .year-seal',
+      'body:not(.static) .otd-visual img',
+      'body:not(.static) .heritage-timeline li::before',
+      'body:not(.static) .ink-rule',
+      '.motion-fade-rise',
+      '.motion-seal-in',
+      '.motion-img-ken',
+      '.motion-timeline-pulse',
+      '.motion-brass-sweep',
+    ]) {
+      expect(wired).toContain(selector);
+    }
+    expect(wired).toContain('var(--motion-stagger)');
+    const freeze = css.indexOf('body.static .heritage');
+    expect(freeze).toBeGreaterThan(blockStart);
+    const frozen = css.slice(freeze, css.indexOf('.subscribe-menu', freeze));
+    expect(frozen).toContain('animation: none');
+    expect(frozen).toContain('body.static .year-seal');
+    expect(frozen).toContain('body.static .heritage-timeline li::before');
+    expect(frozen).toContain('body.static .ink-rule');
   });
 });
 
