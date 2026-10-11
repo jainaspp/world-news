@@ -159,7 +159,7 @@ function outletAngles(sources: SourceRef[]): string {
           ${url ? `<a class="read-original" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${source.angle ? `<span lang="en">${esc(source.title)}</span>` : '閱讀原文'} →</a>` : ''}
         </li>`;
   }).join('');
-  return `<section class="angles" aria-label="各媒體角度"><h2 class="section-title">各媒體角度</h2><ul class="angle-grid">${cards}</ul></section>`;
+  return `<details class="topic-fold pack-fold"><summary>各媒體角度</summary><ul class="angle-grid">${cards}</ul></details>`;
 }
 
 function timelineRows(sources: SourceRef[]): SourceRef[] {
@@ -459,13 +459,17 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
     const blockImage = doc.kind === 'analysis' ? '' : safeHttp(bestImage(block.sources));
     const blockCategory = block.category || block.sources[0]?.category;
     const showMedia = doc.kind === 'digest' && index > 0;
-    const section = `<section class="story column-block${showMedia ? ' with-media' : ''}" id="s${index + 1}">
+    const points = `<ul class="points">${block.sentences.map((sentence) => `<li>${esc(sentence)}</li>`).join('')}</ul>`;
+    const secondary = (doc.kind === 'compare' || doc.kind === 'analysis') && /背景|各方|反應|回應|後續|點解要關心|與香港|接落嚟/.test(block.title);
+    const section = secondary
+      ? `<details class="topic-fold pack-fold"><summary>${esc(block.title)}</summary>${points}</details>`
+      : `<section class="story column-block${showMedia ? ' with-media' : ''}" id="s${index + 1}">
         ${showMedia ? `<div class="story-media">${media(blockImage, blockCategory, block.sources[0]?.source || categoryLabel(blockCategory || 'world'))}</div>` : ''}
         <div class="story-body">
           <div class="story-kicker">${doc.kind === 'analysis' ? `<span class="block-no">${index + 1}</span>` : catChip(blockCategory)}${doc.kind !== 'analysis' ? heatBadge(new Set(block.sources.map((s) => s.source)).size) : ''}</div>
           <h2 class="column-h2">${esc(block.title)}</h2>
           ${doc.kind === 'digest' ? originalTitle(block.originalTitle, block.sources[0]?.url) : ''}
-          <ul class="points">${block.sentences.map((sentence) => `<li>${esc(sentence)}</li>`).join('')}</ul>
+          ${points}
         </div>
       </section>`;
     return section + (index + 1 === midAt && bodyBlocks.length > 1 ? adUnit(ads, ads?.mid, 'mid', true) : '');
@@ -501,7 +505,7 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
   ${chrome(doc.kind)}
   <div class="layout">
     <main id="content" class="column-main">
-      <article class="story story-hero column-hero">
+      <article class="story story-hero column-hero${doc.kind === 'compare' || doc.kind === 'analysis' ? ' pack-shell' : ''}">
         <div class="story-media">${media(image, leadCategory, sources[0]?.source || '世界頭條', true)}</div>
         <div class="story-body">
           <div class="index-title-row">
@@ -549,6 +553,31 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
 </html>`;
 }
 
+function packPreviewList(entry: IndexEntry): string {
+  const lines = (entry.preview ?? []).map((line) => line.trim()).filter(Boolean).slice(0, 2);
+  if (lines.length < 2) return '';
+  return `<ol class="pack-preview">${lines.map((line) => `<li>${esc(line)}</li>`).join('')}</ol>`;
+}
+
+/** Index card shared by 新聞懶人包 and 熱門分析: kicker, title, one dek, two preview lines. */
+function columnPackCard(entry: IndexEntry, href: string, kicker: string, index: number, sourceWord: string, showOriginal = false): string {
+  const dek = entry.description ? `<p class="dek">${esc(entry.description)}</p>` : '';
+  const original = showOriginal && entry.originalTitle && !/[\u3400-\u9fff]/.test(entry.originalTitle)
+    ? `<p class="orig-title" lang="en">${esc(entry.originalTitle)}</p>`
+    : '';
+  return `<article class="story pack-shell">
+          <a class="story-media" href="${href}" tabindex="-1" aria-hidden="true">${media(entry.image, entry.category, categoryLabel(entry.category || 'world'), index < 2)}</a>
+          <div class="story-body">
+            <div class="story-kicker"><span class="pack-kicker">${esc(kicker)}</span><span class="badge ai-badge">AI 整合</span>${heatBadge(entry.outlets ?? entry.sources) || `<span class="cluster-badge">${entry.sources} 篇${sourceWord}</span>`}${catChip(entry.category)}</div>
+            <h2 class="story-title"><a href="${href}">${esc(entry.title)}</a></h2>
+            ${original}
+            ${dek}
+            ${packPreviewList(entry)}
+            <div class="story-meta"><time datetime="${esc(entry.publishedAt)}">${esc(hkt(entry.publishedAt, false))}</time></div>
+          </div>
+        </article>`;
+}
+
 /** Recent pieces (within 48 h of the newest) first, by outlet count then time; older pieces after. */
 export function sortByHeat(entries: IndexEntry[]): IndexEntry[] {
   const times = entries.map((entry) => Date.parse(entry.publishedAt)).filter(Number.isFinite);
@@ -565,15 +594,7 @@ export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, op
   const title = '熱門分析';
   const description = '多個來源同時報道的熱門新聞：背景、各方說法、與香港的關係。AI 根據公開標題整理。';
   const sorted = sortByHeat(entries);
-  const cards = sorted.map((entry, index) => `<article class="story pack-shell">
-          <a class="story-media" href="/analysis/${encodeURIComponent(entry.key)}/" tabindex="-1" aria-hidden="true">${media(entry.image, entry.category, categoryLabel(entry.category || 'world'), index < 2)}</a>
-          <div class="story-body">
-            <div class="story-kicker"><span class="pack-kicker">熱門分析</span><span class="badge ai-badge">AI 整合</span>${heatBadge(entry.outlets ?? entry.sources) || `<span class="cluster-badge">${entry.sources} 篇報道</span>`}${catChip(entry.category)}</div>
-            <h2 class="story-title"><a href="/analysis/${encodeURIComponent(entry.key)}/">${esc(entry.title)}</a></h2>
-            ${entry.originalTitle && !/[\u3400-\u9fff]/.test(entry.originalTitle) ? `<p class="orig-title" lang="en">${esc(entry.originalTitle)}</p>` : ''}
-            <div class="story-meta"><time datetime="${esc(entry.publishedAt)}">${esc(hkt(entry.publishedAt, false))}</time></div>
-          </div>
-        </article>`);
+  const cards = sorted.map((entry, index) => columnPackCard(entry, `/analysis/${encodeURIComponent(entry.key)}/`, '熱門分析', index, '報道', true));
   const withAd = cards.flatMap((card, index) => (index === 3 ? [card, adUnit(ads, ads?.mid, 'mid', true)] : [card])).join('');
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
@@ -628,15 +649,8 @@ export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEn
   const meta = LISTING[kind];
   const path = kind === 'compare' ? 'explainer' : kind;
   const sorted = [...entries].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
-  const cards = sorted.map((entry, index) => `<article class="story pack-shell">
-          <a class="story-media" href="/${path}/${encodeURIComponent(entry.key)}/" tabindex="-1" aria-hidden="true">${media(entry.image, entry.category, categoryLabel(entry.category || 'world'), index < 2)}</a>
-          <div class="story-body">
-            <div class="story-kicker"><span class="pack-kicker">${meta.kicker}</span><span class="badge ai-badge">AI 整合</span>${heatBadge(entry.outlets ?? entry.sources) || `<span class="cluster-badge">${entry.sources} 篇來源</span>`}${catChip(entry.category)}</div>
-            <h2 class="story-title"><a href="/${path}/${encodeURIComponent(entry.key)}/">${esc(entry.title)}</a></h2>
-            <p class="dek">${esc(entry.description)}</p>
-            <div class="story-meta"><time datetime="${esc(entry.publishedAt)}">${esc(hkt(entry.publishedAt, false))}</time></div>
-          </div>
-        </article>`);
+  const cardKicker = kind === 'compare' ? '新聞懶人包' : meta.kicker;
+  const cards = sorted.map((entry, index) => columnPackCard(entry, `/${path}/${encodeURIComponent(entry.key)}/`, cardKicker, index, '來源'));
   const withAd = cards.flatMap((card, index) => (index === 3 ? [card, adUnit(ads, ads?.mid, 'mid', true)] : [card])).join('');
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',

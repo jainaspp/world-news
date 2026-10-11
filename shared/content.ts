@@ -220,6 +220,8 @@ export interface IndexEntry {
   /** Distinct outlets ("N 間媒體報道"). Older rows may lack it. */
   outlets?: number;
   originalTitle?: string;
+  /** Two short lines for the 新聞懶人包 / 熱門分析 index card. Older rows may lack it. */
+  preview?: string[];
 }
 
 export function outletCount(sources: SourceRef[]): number {
@@ -326,6 +328,24 @@ export function attachCitations(doc: ContentDoc, urls: string[]): ContentDoc {
   return { ...doc, citations: merged };
 }
 
+/** Two scan lines for an explainer or analysis index card. Not stored for other columns. */
+export function indexPreview(doc: ContentDoc): string[] {
+  if (doc.kind !== 'compare' && doc.kind !== 'analysis') return [];
+  const points = (doc.points ?? []).map((line) => line.trim()).filter(Boolean);
+  const sentences = doc.blocks
+    .filter((block) => block.title !== '事件時間線')
+    .flatMap((block) => block.sentences)
+    .map((line) => line.trim())
+    .filter(Boolean);
+  const lines: string[] = [];
+  for (const line of [...points, ...sentences]) {
+    if (lines.includes(line)) continue;
+    lines.push(line.length > 80 ? `${line.slice(0, 79)}…` : line);
+    if (lines.length === 2) break;
+  }
+  return lines.length === 2 ? lines : [];
+}
+
 export function indexEntry(doc: ContentDoc): IndexEntry {
   const entry: IndexEntry = {
     key: doc.key,
@@ -340,6 +360,8 @@ export function indexEntry(doc: ContentDoc): IndexEntry {
   if (image) entry.image = image;
   const category = docCategories(doc)[0];
   if (category) entry.category = category;
+  const preview = indexPreview(doc);
+  if (preview.length === 2) entry.preview = preview;
   return entry;
 }
 
