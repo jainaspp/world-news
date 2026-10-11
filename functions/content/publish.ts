@@ -26,6 +26,7 @@ import {
   type SourceRef,
 } from '../../shared/content.js';
 import { clusterRecent } from '../../shared/board.js';
+import { dropBlockedHkChinaOutlets } from '../../shared/feeds.js';
 import type { NewsItem } from '../../shared/types';
 import type { PagesContext } from '../env.js';
 import { indexableEntries } from './mustRead.js';
@@ -226,16 +227,14 @@ export async function buildWeekly(env: ContentEnv, key: string, now = new Date()
   } catch {
     rollup = [];
   }
-  const pick = (category: string): SourceRef[] => rollup
-    .filter((item) => item.category === category)
+  const pick = (category: string): SourceRef[] => dropBlockedHkChinaOutlets(rollup.filter((item) => item.category === category))
     .slice(-8)
     .map((item) => ({ title: item.title, url: item.url, source: item.source, category: item.category, ...(item.image ? { image: item.image } : {}) }));
   let tech = pick('tech');
   let business = pick('business');
   if (!tech.length || !business.length) {
     const { items } = await loadClusters();
-    const fromNews = (category: string): SourceRef[] => items
-      .filter((item) => item.category === category)
+    const fromNews = (category: string): SourceRef[] => dropBlockedHkChinaOutlets(items.filter((item) => item.category === category))
       .slice(0, 8)
       .map((item) => ({ title: item.title, url: item.link, source: item.source, excerpt: item.excerpt, category: item.category, ...(item.image ? { image: item.image } : {}), pubDate: item.pubDate }));
     if (!tech.length) tech = fromNews('tech');

@@ -1,6 +1,6 @@
 import { readableSourceTitle } from './search.js';
 import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
-import { briefingPublic, briefingScopeOf, explainerCurrent, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
+import { briefingPublic, briefingScopeOf, columnHeroSources, explainerCurrent, leadImage, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
 import { bestImage } from './media.js';
 import { listens } from './listen.js';
 import { adSlotMarkup } from './adSlot.js';
@@ -405,7 +405,7 @@ function keyPoints(doc: ContentDoc): string[] {
 export function renderContentPage(doc: ContentDoc, canonical: string, options: PageOptions = {}): string {
   const sources = [...new Map(doc.blocks.flatMap((block) => block.sources).map((source) => [source.url, source])).values()];
   const listed = doc.kind === 'briefing' || doc.kind === 'compare' ? listedSources(doc) : (doc.citations?.length ? doc.citations.slice(0, 10) : sources);
-  const image = safeHttp(bestImage(sources));
+  const image = safeHttp(doc.kind === 'weekly' || doc.kind === 'digest' || doc.kind === 'analysis' ? leadImage(doc) : bestImage(sources));
   const outlets = new Set(sources.map((source) => source.source)).size;
   const timelineBlock = doc.kind === 'compare' ? doc.blocks.find((block) => block.title === '事件時間線') : undefined;
   const shownBlocks = doc.blocks
@@ -456,7 +456,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const bodyBlocks = modelFailed ? [] : shownBlocks;
   const midAt = Math.max(1, Math.ceil(bodyBlocks.length / 2));
   const blocks = bodyBlocks.map((block, index) => {
-    const blockImage = doc.kind === 'analysis' ? '' : safeHttp(bestImage(block.sources));
+    const blockImage = doc.kind === 'analysis' ? '' : safeHttp(bestImage(columnHeroSources(block.sources, doc.kind)));
     const blockCategory = block.category || block.sources[0]?.category;
     const showMedia = doc.kind === 'digest' && index > 0;
     const points = `<ul class="points">${block.sentences.map((sentence) => `<li>${esc(sentence)}</li>`).join('')}</ul>`;
