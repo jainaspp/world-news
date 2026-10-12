@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { shouldRedirect } from '../functions/_middleware';
+import { apexRedirect, onRequest, shouldRedirect } from '../functions/_middleware';
 import { parseAqhi, parseHkoNow, parseHkoWarnings } from '../shared/hk';
 import { relatedItems, renderStoryMissing, renderStoryPage } from '../shared/storyPage';
 import { trendingTopics } from '../shared/topics';
@@ -80,6 +80,53 @@ describe('pages.dev and SEO', () => {
     expect(shouldRedirect('features-v4.world-news-b5e.pages.dev', '/', undefined)).toBe(false);
     expect(shouldRedirect('world-news-b5e.pages.dev', '/', 'false')).toBe(false);
     expect(shouldRedirect('x.world-news-b5e.pages.dev', '/', 'true')).toBe(true);
+  });
+
+  it('301s www to the apex and bare 404 hubs to the homepage', async () => {
+    expect(apexRedirect('www.world-news.xyz', '/', '')).toBe('https://world-news.xyz/');
+    expect(apexRedirect('WWW.world-news.xyz', '/about/', '?x=1')).toBe('https://world-news.xyz/about/?x=1');
+    expect(apexRedirect('www.world-news.xyz', '/story/abc123/', '')).toBe('https://world-news.xyz/story/abc123/');
+    expect(apexRedirect('www.world-news.xyz', '/api/news', '?region=HKG')).toBe('https://world-news.xyz/api/news?region=HKG');
+    for (const path of ['/focus', '/focus/', '/board', '/board/', '/story', '/story/']) {
+      expect(apexRedirect('world-news.xyz', path, '')).toBe('https://world-news.xyz/');
+      expect(apexRedirect('www.world-news.xyz', path, '?q=1')).toBe('https://world-news.xyz/?q=1');
+    }
+    expect(apexRedirect('world-news.xyz', '/', '')).toBeNull();
+    expect(apexRedirect('world-news.xyz', '/about/', '?x=1')).toBeNull();
+    expect(apexRedirect('world-news.xyz', '/story/abc123/', '')).toBeNull();
+    expect(apexRedirect('world-news-b5e.pages.dev', '/focus/', '')).toBeNull();
+    expect(apexRedirect('preview.world-news-b5e.pages.dev', '/', '')).toBeNull();
+
+    const www = await onRequest({
+      request: new Request('https://www.world-news.xyz/focus/?q=1'),
+      env: {},
+      waitUntil() {},
+      next: async () => new Response('nope', { status: 200 }),
+    });
+    expect(www.status).toBe(301);
+    expect(www.headers.get('location')).toBe('https://world-news.xyz/?q=1');
+
+    const pages = await onRequest({
+      request: new Request('https://world-news-b5e.pages.dev/about/'),
+      env: {},
+      waitUntil() {},
+      next: async () => new Response('page', { status: 200 }),
+    });
+    expect(pages.status).toBe(301);
+    expect(pages.headers.get('location')).toBe('https://world-news.xyz/about/');
+
+    let served = false;
+    const home = await onRequest({
+      request: new Request('https://world-news.xyz/'),
+      env: {},
+      waitUntil() {},
+      next: async () => {
+        served = true;
+        return new Response('home', { status: 200 });
+      },
+    });
+    expect(served).toBe(true);
+    expect(home.status).toBe(200);
   });
 
   it('has hreflang, a preloaded headline request, PWA icons and an analysis sitemap entry', () => {

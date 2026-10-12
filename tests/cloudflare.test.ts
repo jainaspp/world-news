@@ -8,7 +8,18 @@ describe('Cloudflare Pages', () => {
       .split('\n')
       .map((line) => line.trim())
       .filter((line) => line && !line.startsWith('#'));
-    expect(rules).toEqual(['/region/:code / 200', '/category/:slug / 200']);
+    expect(rules).toEqual([
+      '/focus https://world-news.xyz/ 301',
+      '/focus/ https://world-news.xyz/ 301',
+      '/board https://world-news.xyz/ 301',
+      '/board/ https://world-news.xyz/ 301',
+      '/story https://world-news.xyz/ 301',
+      '/story/ https://world-news.xyz/ 301',
+      '/region/:code / 200',
+      '/category/:slug / 200',
+    ]);
+    expect(redirects).toContain('www.world-news.xyz');
+    expect(redirects).not.toMatch(/\/story\/\*/);
     expect(redirects).not.toMatch(/\/\*\s+\/index\.html/);
     expect(redirects).toMatch(/REDIRECT_PAGES_DEV/);
 
