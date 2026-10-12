@@ -1,15 +1,18 @@
 import { loadHkNow } from '../server/hkService.js';
 import { loadHsiQuote } from '../server/hsiService.js';
 import { applyRuntimeEnv } from '../server/runtimeEnv.js';
+import { homeAllowsAds } from '../shared/adPolicy.js';
+import { filterNews } from '../shared/filter.js';
 import { injectHomeShell, type HomeMarket } from '../shared/homePage.js';
 import { mustReadForSurface } from '../shared/mustRead.js';
+import { readView } from '../src/routing.js';
 import { loadList } from './board/list.js';
 import { readBoard, scheduleBoard } from './board/store.js';
 import { loadBriefingLinks, loadMustRead } from './content/mustRead.js';
 import type { ContentEnv } from './content/store.js';
 import { edgeCache, type PagesContext } from './env.js';
 
-const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v8');
+const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v9');
 const FRESH_S = 120;
 
 function envSlot(env: Record<string, unknown>): string {
@@ -32,9 +35,12 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   const shellResponse = await assets.fetch(new Request(new URL('/index.html', context.request.url)));
   if (!shellResponse.ok) return context.next();
   const shell = await shellResponse.text();
+  const url = new URL(context.request.url);
+  const view = readView({ pathname: url.pathname, search: url.search });
+  const allowAds = homeAllowsAds(view);
 
   const cache = edgeCache();
-  if (cache) {
+  if (allowAds && cache) {
     try {
       const hit = await cache.match(CACHE_KEY);
       if (hit) {
@@ -57,7 +63,15 @@ export async function onRequest(context: PagesContext): Promise<Response> {
       loadHsiQuote().catch(() => null),
       readBoard(context.env as ContentEnv),
     ]);
-    items = list;
+    items = allowAds
+      ? list
+      : filterNews(list, {
+        region: view.bookmarks || view.following ? 'ALL' : view.region,
+        category: view.bookmarks || view.following ? 'all' : view.category,
+        source: view.bookmarks || view.following ? '' : view.source,
+        q: view.q,
+        time: view.time,
+      });
     market = { hk, hsi };
     if (snapshot) {
       counts = new Map(Object.entries(snapshot.counts));
@@ -76,14 +90,25 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   } catch {
     briefings = undefined;
   }
-  const html = injectHomeShell(shell, items, counts, market, envSlot(context.env), major, '', briefings, mustReadForSurface(mustRead));
+  const html = injectHomeShell(
+    shell,
+    items,
+    counts,
+    market,
+    allowAds ? envSlot(context.env) : '',
+    major,
+    '',
+    briefings,
+    mustReadForSurface(mustRead),
+    !allowAds,
+  );
   const headers = new Headers({
     'content-type': 'text/html; charset=utf-8',
     'cache-control': 'public, max-age=60, s-maxage=120, stale-while-revalidate=600',
     'x-cached-at': String(Date.now()),
   });
   const response = new Response(html, { status: 200, headers });
-  if (cache && items.length) {
+  if (allowAds && cache && items.length) {
     context.waitUntil(cache.put(CACHE_KEY, response.clone()).catch(() => undefined));
   }
   return response;

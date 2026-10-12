@@ -130,16 +130,20 @@ export function renderHomeFeed(
   briefingLinks: { href: string; label: string }[] = DEFAULT_BRIEFING_LINKS,
   mustRead: MustReadLink[] = [],
   now = new Date(),
+  settled = false,
 ): string {
   const list = demoteGraphic(items).slice(0, SSR_COUNT);
   if (!list.length) {
+    const panel = settled
+      ? '<div class="status-panel"><h2>這個範圍暫時沒有標題</h2><p>可以返回首頁，或改看其他地區與分類。</p></div>'
+      : '<div class="status-panel" aria-busy="true"><h2>載入頭條中…</h2><p>正在取得最新標題。</p></div>';
     return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
     ${digestStrip(briefingLinks)}
     ${renderOnThisDaySection(now)}
     ${renderMustRead(mustRead)}
     <div class="template-bar">${templateSwitch()}</div>
-    <div class="status-panel" aria-busy="true"><h2>載入頭條中…</h2><p>正在取得最新標題。</p></div>
+    ${panel}
   </div>`;
   }
   const fresh = breakingIds(list);
@@ -217,8 +221,9 @@ export function injectHomeShell(
   focusHtml = '',
   briefingLinks: { href: string; label: string }[] = DEFAULT_BRIEFING_LINKS,
   mustRead: MustReadLink[] = [],
+  settled = false,
 ): string {
-  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead);
+  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead, new Date(), settled);
   const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner) + mustReadBootstrap(mustRead);
   const lead = demoteGraphic(items)[0];
   const heroImage = lead?.image && /^https?:\/\//.test(lead.image) ? lead.image : '';
@@ -228,7 +233,21 @@ export function injectHomeShell(
   let html = shell;
   if (preload) html = html.replace('</head>', `${preload}\n</head>`);
   html = html.replace('<div id="root"></div>', `<div id="root">${feed}</div>${boot}`);
-  return html;
+  return gateHomeAds(html);
+}
+
+const PAGEAD = 'pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+
+/** Drop any pagead loader, then add one only when this HTML already contains a real manual unit. */
+export function gateHomeAds(html: string, client = 'ca-pub-8392975944327076'): string {
+  const stripped = html.replace(
+    new RegExp(`<script[^>]*src="https://${PAGEAD.replace(/\./g, '\\.')}[^"]*"[^>]*>\\s*</script>`, 'g'),
+    '',
+  );
+  if (!stripped.includes('<ins class="adsbygoogle"')) return stripped;
+  if (stripped.includes(PAGEAD)) return stripped;
+  const tag = `<script async src="https://${PAGEAD}?client=${esc(client)}" crossorigin="anonymous"></script>`;
+  return stripped.includes('</head>') ? stripped.replace('</head>', `${tag}\n</head>`) : `${tag}${stripped}`;
 }
 
 export { SSR_COUNT, hostOf };

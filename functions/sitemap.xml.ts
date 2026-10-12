@@ -11,6 +11,16 @@ import { docKey, readDoc, readIndex, type ContentEnv } from './content/store.js'
 import { publicTopicPaths } from './content/topics.js';
 import type { PagesContext } from './env.js';
 
+/** Drop whole <url> blocks. Used for /region/twn and any failed digest still sitting in the static file. */
+export function omitSitemapLocs(xml: string, locs: string[]): string {
+  let next = xml;
+  for (const loc of locs) {
+    const escaped = loc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    next = next.replace(new RegExp(`\\s*<url>\\s*<loc>${escaped}</loc>[\\s\\S]*?</url>`, 'g'), '');
+  }
+  return next;
+}
+
 function entry(loc: string, lastmod: string, freq: string, priority: string): string {
   const day = lastmod ? `\n    <lastmod>${lastmod.slice(0, 10)}</lastmod>` : '';
   return `  <url>\n    <loc>${loc}</loc>${day}\n    <changefreq>${freq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`;
@@ -81,9 +91,19 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     .filter((path) => !base.includes(`https://world-news.xyz${path}`))
     .map((path) => entry(`https://world-news.xyz${path}`, new Date().toISOString(), 'daily', path === '/today/' ? '0.7' : '0.5'))
     .join('');
-  const xml = base.includes('</urlset>')
+  const published = new Set([
+    ...analysisPub.map((row) => `https://world-news.xyz/analysis/${encodeURIComponent(row.key)}`),
+    ...digestPub.map((row) => `https://world-news.xyz/digest/${row.key}`),
+    ...weeklyPub.map((row) => `https://world-news.xyz/weekly/${row.key}`),
+  ]);
+  const merged = base.includes('</urlset>')
     ? base.replace('</urlset>', `${major}${legal}${data}${heritage}${today}${topicIndex}${topics}${extra}</urlset>`)
     : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${heritage}${today}${topicIndex}${topics}${extra}</urlset>\n`;
+  const withoutShells = merged.replace(
+    /\s*<url>\s*<loc>(https:\/\/world-news\.xyz\/(?:digest|weekly|analysis)\/[^<]+)<\/loc>[\s\S]*?<\/url>/g,
+    (block, loc: string) => (published.has(loc) ? block : ''),
+  );
+  const xml = omitSitemapLocs(withoutShells, ['https://world-news.xyz/region/twn']);
   return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=600' } });
 }
 

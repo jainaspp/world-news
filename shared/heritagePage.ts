@@ -1,4 +1,4 @@
-import { adSlotMarkup } from './adSlot.js';
+import { adSlotMarkup, validAdSlot } from './adSlot.js';
 import { AD_BODY_CHARS, cjkChars, chrome, esc, footer, head } from './contentPage.js';
 import {
   LANDMARK_FILTERS,
@@ -18,8 +18,7 @@ import {
 
 const ORIGIN = 'https://world-news.xyz';
 
-/** Days/landmarks with real seeds may list below the AdSense body floor; ads still need AD_BODY_CHARS. */
-const HERITAGE_INDEX_CHARS = 280;
+/** Indexing and ads share the column body floor. Thinner days are noindex and stay out of the sitemap. */
 
 const GAZETTEER_NOTE = '世界頭條這欄以香港時間的月日編年，收入建築落成、交通通車、公共場館、節慶與體育場地。每條只寫年份、事情與地點，方便讀者對照地圖。頁面不設帳號，也不把紀事改寫成新聞報道。地圖連結通往公開地圖，只為標示位置。若同一日有多於三條，首頁先列最早的三條，其餘在當日編年頁看完。地標頁寫簡介、時間線與到訪方式，讓一頁足以獨立閱讀。種子檔可再加月日，條件是事情本身屬於地理、建築、民生、節慶、交通、體育或公共文化。';
 
@@ -147,11 +146,11 @@ function dayProse(mmdd: string): string[] {
 }
 
 export function dayIndexable(mmdd: string): boolean {
-  return proseChars(dayProse(mmdd)) >= HERITAGE_INDEX_CHARS;
+  return proseChars(dayProse(mmdd)) >= AD_BODY_CHARS;
 }
 
 function dayShowAds(mmdd: string): boolean {
-  return proseChars(dayProse(mmdd)) >= AD_BODY_CHARS;
+  return dayIndexable(mmdd);
 }
 
 function landmarkProse(place: Landmark): string[] {
@@ -177,15 +176,17 @@ function shell(options: {
   path: string;
   body: string;
   indexable: boolean;
+  showAds: boolean;
   ads: HeritageAds;
   status?: number;
 }): { html: string; status: number; indexable: boolean } {
   const canonical = `${ORIGIN}${options.path}`;
   const robots = options.indexable ? 'index,follow' : 'noindex,follow';
   const extra = `<meta name="robots" content="${robots}" />`;
+  const loadAds = options.showAds && Boolean(validAdSlot(options.ads.slot));
   const html = `<!doctype html>
 <html lang="zh-HK">
-${head(options.title, options.description, canonical, '', 'website', extra, options.ads.client, options.indexable)}
+${head(options.title, options.description, canonical, '', 'website', extra, loadAds ? options.ads.client : '', loadAds)}
 <body>
   <div class="page column-page heritage-page pack-heritage" data-kind="heritage">
   ${chrome('none')}
@@ -199,9 +200,8 @@ ${head(options.title, options.description, canonical, '', 'website', extra, opti
   return { html, status: options.status ?? 200, indexable: options.indexable };
 }
 
-/** Indexable heritage pages always reserve a bottom unit; empty slot id → grey placeholder. */
-function adUnit(ads: HeritageAds, indexable: boolean): string {
-  if (!indexable) return '';
+function adUnit(ads: HeritageAds, eligible: boolean): string {
+  if (!eligible) return '';
   return adSlotMarkup('banner', ads.slot, ads.client || DEFAULT_ADS.client, 'bottom');
 }
 
@@ -243,6 +243,7 @@ export function renderOnThisDayPage(mmdd: string, ads: HeritageAds = DEFAULT_ADS
       path: '/on-this-day/',
       body: `<nav class="crumb"><a href="/">首頁</a> · 當年今日</nav><h1 class="section-title">找不到這一日</h1><p class="section-lede">請回到<a href="/on-this-day/">當日編年</a>，或改看<a href="/hk/landmarks/">香港地標</a>。</p>`,
       indexable: false,
+      showAds: false,
       ads,
       status: 404,
     });
@@ -269,6 +270,7 @@ export function renderOnThisDayPage(mmdd: string, ads: HeritageAds = DEFAULT_ADS
     path: `/on-this-day/${mmdd}/`,
     body,
     indexable,
+    showAds: dayShowAds(mmdd),
     ads,
   });
 }
@@ -305,6 +307,7 @@ export function renderLandmarkHub(kind: string, ads: HeritageAds = DEFAULT_ADS):
     path: selected ? `/hk/landmarks/?kind=${selected}` : '/hk/landmarks/',
     body,
     indexable,
+    showAds: indexable,
     ads,
   });
 }
@@ -318,6 +321,7 @@ export function renderLandmarkPage(slug: string, ads: HeritageAds = DEFAULT_ADS)
       path: '/hk/landmarks/',
       body: `<nav class="crumb"><a href="/">首頁</a> · <a href="/hk/landmarks/">香港地標</a></nav><h1 class="section-title">找不到此地標</h1><p class="section-lede">請返回<a href="/hk/landmarks/">地標圖錄</a>。</p>`,
       indexable: false,
+      showAds: false,
       ads,
       status: 404,
     });
@@ -354,6 +358,7 @@ export function renderLandmarkPage(slug: string, ads: HeritageAds = DEFAULT_ADS)
     path: `/hk/landmarks/${place.slug}/`,
     body,
     indexable,
+    showAds: indexable,
     ads,
   });
 }

@@ -52,6 +52,7 @@ describe('feed list', () => {
     }
     expect(FEEDS.some((feed) => feed.id === 'people-politics')).toBe(true);
     const sitemap = readFileSync('public/sitemap.xml', 'utf8');
-    expect(sitemap).toContain('https://world-news.xyz/region/twn');
+    expect(sitemap).not.toContain('https://world-news.xyz/region/twn');
+    expect(sitemap).toContain('https://world-news.xyz/region/hkg');
   });
 });

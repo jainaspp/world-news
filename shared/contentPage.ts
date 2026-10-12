@@ -3,7 +3,7 @@ import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import { briefingPublic, briefingScopeOf, columnHeroSources, explainerCurrent, leadImage, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
 import { bestImage } from './media.js';
 import { listens } from './listen.js';
-import { adSlotMarkup } from './adSlot.js';
+import { adSlotMarkup, hasManualSlots } from './adSlot.js';
 import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
 
@@ -120,10 +120,15 @@ function sourceList(sources: SourceRef[]): string {
   return rows ? `<ul class="source-list">${rows}</ul>` : '';
 }
 
-/** Empty slot ids still reserve the grey「支持世界頭條」box; only a missing ads config hides the unit. */
+/** A unit is emitted only for a numeric slot id. Empty env vars produce no box and no script. */
 export function adUnit(ads: AdConfig | undefined, slot: string | undefined, position: string, inArticle = false): string {
-  if (!ads) return '';
+  if (!ads || !hasManualSlots([slot])) return '';
   return adSlotMarkup(inArticle ? 'feed' : 'banner', slot || '', ads.client || DEFAULT_CLIENT, position);
+}
+
+function adsForPage(substantial: boolean, ads: AdConfig | undefined): AdConfig | undefined {
+  if (!substantial || !ads || !hasManualSlots([ads.top, ads.mid, ads.bottom])) return undefined;
+  return ads;
 }
 
 const FILLER = /來源未有提及|未有足夠|沒有足夠資料|資料未有|未有提供/;
@@ -416,8 +421,8 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   // MODEL_FAILED_NOTICE and must not load AdSense even when a slot id is configured.
   const modelFailed = doc.mode !== 'ai';
   const substantial = !modelFailed && shownBlocks.length > 0 && pageBodyChars(doc) >= AD_BODY_CHARS;
-  const ads = substantial ? (options.ads ?? { client: DEFAULT_CLIENT }) : undefined;
-  const client = substantial ? (ads?.client || DEFAULT_CLIENT) : '';
+  const ads = adsForPage(substantial, options.ads);
+  const client = ads ? (ads.client || DEFAULT_CLIENT) : '';
   const categories = [...new Set(doc.blocks.flatMap((block) => [block.category, ...block.sources.map((source) => source.category)]).filter((id): id is string => Boolean(id)))].slice(0, 4);
   const leadCategory = categories[0] || 'world';
   const description = doc.description.slice(0, 180);
@@ -587,15 +592,12 @@ export function sortByHeat(entries: IndexEntry[]): IndexEntry[] {
   return [...entries].sort((a, b) => Number(fresh(b)) - Number(fresh(a)) || heat(b) - heat(a) || Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
 }
 
-export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, options: PageOptions = {}): string {
-  const showAds = entries.length > 0;
-  const ads = showAds ? (options.ads ?? { client: DEFAULT_CLIENT }) : undefined;
-  const client = showAds ? (ads?.client || DEFAULT_CLIENT) : '';
+export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, _options: PageOptions = {}): string {
+  // Directory pages stay ad-free. A card grid is not an article body.
   const title = '熱門分析';
   const description = '多個來源同時報道的熱門新聞：背景、各方說法、與香港的關係。AI 根據公開標題整理。';
   const sorted = sortByHeat(entries);
-  const cards = sorted.map((entry, index) => columnPackCard(entry, `/analysis/${encodeURIComponent(entry.key)}/`, '熱門分析', index, '報道', true));
-  const withAd = cards.flatMap((card, index) => (index === 3 ? [card, adUnit(ads, ads?.mid, 'mid', true)] : [card])).join('');
+  const cards = sorted.map((entry, index) => columnPackCard(entry, `/analysis/${encodeURIComponent(entry.key)}/`, '熱門分析', index, '報道', true)).join('');
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -604,7 +606,7 @@ export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, op
   }).replace(/</g, '\\u003c')}</script>`;
   return `<!doctype html>
 <html lang="zh-HK">
-${head(title, description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', ld, client)}
+${head(title, description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', ld, '', false)}
 <body>
   <div class="page column-page" data-kind="analysis-index">
   ${chrome('analysis')}
@@ -616,9 +618,7 @@ ${head(title, description, canonical, entries.find((entry) => entry.image)?.imag
       </div>
       <p class="dek">${esc(description)}</p>
     </header>
-    ${adUnit(ads, ads?.top, 'top')}
-    ${entries.length ? `<div class="news-grid analysis-grid">${withAd}</div>` : '<p class="notice">暫時未有分析。熱門新聞有三個或以上來源報道時，會自動整理一篇。</p>'}
-    ${adUnit(ads, ads?.bottom, 'bottom')}
+    ${entries.length ? `<div class="news-grid analysis-grid">${cards}</div>` : '<p class="notice">暫時未有分析。熱門新聞有三個或以上來源報道時，會自動整理一篇。</p>'}
   </main>
   ${footer()}
   </div>
@@ -642,16 +642,12 @@ const LISTING: Record<'briefing' | 'compare', { title: string; description: stri
 };
 
 /** Listing page for 每日香港導讀 or 新聞懶人包. */
-export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEntry[], canonical: string, options: PageOptions = {}): string {
-  const showAds = entries.length > 0;
-  const ads = showAds ? (options.ads ?? { client: DEFAULT_CLIENT }) : undefined;
-  const client = showAds ? (ads?.client || DEFAULT_CLIENT) : '';
+export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEntry[], canonical: string, _options: PageOptions = {}): string {
   const meta = LISTING[kind];
   const path = kind === 'compare' ? 'explainer' : kind;
   const sorted = [...entries].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
   const cardKicker = kind === 'compare' ? '新聞懶人包' : meta.kicker;
-  const cards = sorted.map((entry, index) => columnPackCard(entry, `/${path}/${encodeURIComponent(entry.key)}/`, cardKicker, index, '來源'));
-  const withAd = cards.flatMap((card, index) => (index === 3 ? [card, adUnit(ads, ads?.mid, 'mid', true)] : [card])).join('');
+  const cards = sorted.map((entry, index) => columnPackCard(entry, `/${path}/${encodeURIComponent(entry.key)}/`, cardKicker, index, '來源')).join('');
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -665,7 +661,7 @@ export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEn
   }).replace(/</g, '\\u003c')}</script>`;
   return `<!doctype html>
 <html lang="zh-HK">
-${head(meta.title, meta.description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', `<meta name="robots" content="index,follow" />${ld}`, client)}
+${head(meta.title, meta.description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', `<meta name="robots" content="index,follow" />${ld}`, '', false)}
 <body>
   <div class="page column-page" data-kind="${kind}-index">
   ${chrome(kind)}
@@ -677,9 +673,7 @@ ${head(meta.title, meta.description, canonical, entries.find((entry) => entry.im
       </div>
       <p class="dek">${esc(meta.description)}</p>
     </header>
-    ${adUnit(ads, ads?.top, 'top')}
-    ${entries.length ? `<div class="news-grid analysis-grid">${withAd}</div>` : `<p class="notice">${esc(meta.empty)}</p>`}
-    ${adUnit(ads, ads?.bottom, 'bottom')}
+    ${entries.length ? `<div class="news-grid analysis-grid">${cards}</div>` : `<p class="notice">${esc(meta.empty)}</p>`}
   </main>
   ${footer()}
   </div>

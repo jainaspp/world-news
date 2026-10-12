@@ -11,11 +11,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://world-news.xyz/region/twn</loc>
-    <changefreq>hourly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://world-news.xyz/region/jpn</loc>
     <changefreq>hourly</changefreq>
     <priority>0.6</priority>
