@@ -1,5 +1,6 @@
+import { hasManualSlots } from './adSlot.js';
 import type { AdConfig } from './contentPage.js';
-import { chrome, esc, footer, head, hkt } from './contentPage.js';
+import { AD_BODY_CHARS, cjkChars, chrome, esc, footer, head, hkt } from './contentPage.js';
 import {
   DATA_HUB,
   DATA_PAGES,
@@ -23,6 +24,10 @@ function adsOf(ads: AdConfig | undefined): AdConfig {
     mid: ads?.mid,
     bottom: ads?.bottom,
   };
+}
+
+function dataAdsOn(ads: AdConfig, prose: string): boolean {
+  return cjkChars(prose) >= AD_BODY_CHARS && hasManualSlots([ads.top, ads.mid, ads.bottom]);
 }
 
 function manualAd(ads: AdConfig, position: 'top' | 'bottom'): string {
@@ -130,12 +135,13 @@ function jsonLd(name: string, description: string, canonical: string, updated: s
   return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 }
 
-function shell(title: string, description: string, path: string, body: string, ads: AdConfig, updated = ''): string {
+function shell(title: string, description: string, path: string, body: string, ads: AdConfig, loadAds: boolean, updated = ''): string {
   const canonical = `https://world-news.xyz${path}`;
   const robots = '<meta name="robots" content="index,follow" />';
+  const client = loadAds ? (ads.client || DEFAULT_CLIENT) : '';
   return `<!doctype html>
 <html lang="zh-HK">
-${head(title, description, canonical, '', 'website', `${robots}${jsonLd(title, description, canonical, updated)}`, ads.client)}
+${head(title, description, canonical, '', 'website', `${robots}${jsonLd(title, description, canonical, updated)}`, client, loadAds)}
 <body>
   <div class="page column-page" data-kind="data">
   ${chrome('data')}
@@ -152,6 +158,7 @@ export function renderDataPage(spec: DataPageSpec, series: DataSeries, options: 
   const summary = summarise(spec, days);
   const updated = days[days.length - 1]?.updated || '';
   const when = updated ? formatUpdated(updated) : '';
+  const loadAds = dataAdsOn(ads, [spec.title, spec.description, spec.blurb, summary, '如何閱讀本頁', '出處與更新', '走勢由本站按每日快照繪成，沒有使用第三方圖表庫。'].join(''));
   const body = `<div class="layout">
     <main id="content" class="column-main data-main">
       <header class="index-head">
@@ -161,19 +168,19 @@ export function renderDataPage(spec: DataPageSpec, series: DataSeries, options: 
       </header>
       ${statCards(spec, days)}
       <section class="editor-note data-summary" aria-label="今日變化"><h2 class="column-h2">今日變化</h2><p>${esc(summary)}</p></section>
-      ${manualAd(ads, 'top')}
+      ${loadAds ? manualAd(ads, 'top') : ''}
       <section class="story column-block"><div class="story-body"><h2 class="column-h2">如何閱讀本頁</h2><p>${esc(spec.blurb)}</p></div></section>
       ${charts(spec, days)}
       ${historyTable(spec, days)}
       <section class="story column-block"><div class="story-body"><h2 class="column-h2">出處與更新</h2><p>來源：<a href="${esc(spec.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(spec.sourceName)}</a>。${when ? `本頁記錄更新於 <time datetime="${esc(updated)}">${esc(when)}</time>。` : '今日尚未寫入記錄。'}走勢由本站按每日快照繪成，沒有使用第三方圖表庫。</p></div></section>
-      ${manualAd(ads, 'bottom')}
+      ${loadAds ? manualAd(ads, 'bottom') : ''}
     </main>
     <aside class="sidebar" aria-label="側欄">
       ${sourceCard(spec, days)}
       ${relatedNav(spec.path)}
     </aside>
   </div>`;
-  return shell(spec.title, spec.description, spec.path, body, ads, updated);
+  return shell(spec.title, spec.description, spec.path, body, ads, loadAds, updated);
 }
 
 function hubFigure(page: DataPageSpec, series: DataSeries | undefined): string {
@@ -189,6 +196,14 @@ function hubFigure(page: DataPageSpec, series: DataSeries | undefined): string {
 
 export function renderDataHub(series: DataSeries[], options: AdConfig = { client: DEFAULT_CLIENT }): string {
   const ads = adsOf(options);
+  const prose = [
+    DATA_HUB.title,
+    DATA_HUB.description,
+    '關於這些數字',
+    '本站每日記錄香港天氣、空氣質素、匯率、金價與油價各一筆，方便與新聞一併閱讀。資料來自本站已使用的公開來源，不經 AI 生成。每一欄都有今日數字、近 30 日表格與簡單走勢。市場價格只供參考，並非投資建議。',
+    ...DATA_PAGES.map((page) => `${page.title}${page.blurb}`),
+  ].join('');
+  const loadAds = dataAdsOn(ads, prose);
   const byId = new Map(series.map((row) => [row.id, row]));
   const cards = DATA_PAGES.map((page) => {
     const row = byId.get(page.id);
@@ -203,17 +218,17 @@ export function renderDataHub(series: DataSeries[], options: AdConfig = { client
         <p class="dek">${esc(DATA_HUB.description)}</p>
       </header>
       <section class="editor-note" aria-label="關於數據頁"><h2 class="column-h2">關於這些數字</h2><p>本站每日記錄香港天氣、空氣質素、匯率、金價與油價各一筆，方便與新聞一併閱讀。資料來自本站已使用的公開來源，不經 AI 生成。每一欄都有今日數字、近 30 日表格與簡單走勢。市場價格只供參考，並非投資建議。</p><p><a href="/today/">今日香港十大新聞時間線</a>按時間列出當日最多媒體報道的事件，資料來自已收錄標題，不經模型生成。</p></section>
-      ${manualAd(ads, 'top')}
+      ${loadAds ? manualAd(ads, 'top') : ''}
       <div class="data-hub-grid">${cards}</div>
       <section class="story column-block"><div class="story-body"><h2 class="column-h2">每日如何記錄</h2><ul class="points"><li>香港時間每一日第一次有人打開頁面，先向來源取得今日數字，然後寫入記錄。</li><li>當日其後的請求直接讀取已記錄的一筆，避免重複向天文台與報價來源查詢。</li><li>只有 1 日的時候，表格有一行，走勢是一個點。之後每日加一筆，最多 30 日。</li></ul></div></section>
-      ${manualAd(ads, 'bottom')}
+      ${loadAds ? manualAd(ads, 'bottom') : ''}
     </main>
     <aside class="sidebar" aria-label="側欄">
       ${relatedNav('')}
       <section class="side-card"><h2>不是預測</h2><p>這裡沒有預報模型，亦沒有買賣建議。天氣與空氣質素請以來源網站的最新公布為準。</p></section>
     </aside>
   </div>`;
-  return shell(DATA_HUB.title, DATA_HUB.description, DATA_HUB.path, body, ads, updated);
+  return shell(DATA_HUB.title, DATA_HUB.description, DATA_HUB.path, body, ads, loadAds, updated);
 }
 
 export function renderDataMissing(): string {

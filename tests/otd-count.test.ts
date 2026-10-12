@@ -14,7 +14,11 @@ describe('otd densify', () => {
     }
     const otd = heritagePublicPaths().filter((p) => p.includes('/on-this-day/'));
     expect(withF).toBe(86);
-    expect(idx).toBeGreaterThanOrEqual(80);
-    expect(otd.length).toBe(idx + 1); // index + days
+    // Ads and the sitemap share the 500-character floor. Thinner days stay out.
+    expect(idx).toBeGreaterThan(0);
+    expect(idx).toBeLessThan(withF);
+    expect(dayIndexable('01-01')).toBe(false);
+    expect(otd).not.toContain('/on-this-day/01-01/');
+    expect(otd.length).toBe(idx + 1); // index + days that clear the floor
   });
 });

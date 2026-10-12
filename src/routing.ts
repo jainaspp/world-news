@@ -26,7 +26,7 @@ function categoryCode(value: string): string {
   return id === 'all' || isCategoryId(id) ? id : 'all';
 }
 
-export function readView(location: Location = window.location): ViewState {
+export function readView(location: { pathname: string; search: string } = window.location): ViewState {
   const params = new URLSearchParams(location.search);
   const path = location.pathname;
   let region = regionCode(params.get('region') ?? '');

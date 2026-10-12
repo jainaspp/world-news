@@ -88,18 +88,19 @@ describe('merged HK strip', () => {
 });
 
 describe('manual ad rhythm', () => {
-  it('reserves a placeholder and does not collapse an empty slot', () => {
-    const html = adSlotMarkup('feed', '');
-    expect(html).toContain('ad-slot-feed');
-    expect(html).toContain('支持世界頭條');
-    expect(html).toContain('廣告');
-    expect(html).not.toContain('adsbygoogle');
-    expect(adSlotMarkup('sidebar', '1234567890')).toContain('ad-slot-sidebar');
+  it('omits the unit entirely when the slot id is empty', () => {
+    expect(adSlotMarkup('feed', '')).toBe('');
+    expect(adSlotMarkup('sidebar', 'placeholder')).toBe('');
+    const slotted = adSlotMarkup('sidebar', '1234567890');
+    expect(slotted).toContain('ad-slot-sidebar');
+    expect(slotted).toContain('adsbygoogle');
+    expect(slotted).not.toContain('ad-placeholder');
+    expect(slotted).not.toContain('支持世界頭條');
   });
 
   it('inserts a feed slot after every 8 standard cards and never before the hero', () => {
     const items = Array.from({ length: 12 }, (_, index) => item(String(index).padStart(2, '0'), 90));
-    const html = renderHomeFeed(items);
+    const html = renderHomeFeed(items, new Map(), null, '1234567890');
     const heroAt = html.indexOf('story-hero');
     const adAt = html.indexOf('ad-slot-feed');
     expect(heroAt).toBeGreaterThan(-1);

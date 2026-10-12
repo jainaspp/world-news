@@ -1,7 +1,10 @@
+import { hasManualSlots } from './adSlot.js';
 import type { AdConfig } from './contentPage.js';
 import {
+  AD_BODY_CHARS,
   adUnit,
   bookmarkButton,
+  cjkChars,
   catChip,
   chrome,
   esc,
@@ -188,6 +191,19 @@ function endLine(line: string): string {
   return /[。！？」』）)]$/.test(line) ? line : `${line}。`;
 }
 
+function topicBodyChars(pack: TopicPack): number {
+  return cjkChars([
+    pack.title,
+    pack.description,
+    ...pack.points,
+    ...pack.timeline.flatMap((event) => [event.text]),
+    ...pack.figures.flatMap((figure) => [figure.area, figure.label, figure.value]),
+    ...pack.impact,
+    ...pack.reactions,
+    ...(pack.background ?? []),
+  ].join(''));
+}
+
 /** One evergreen topic. Live headlines come from the feed; the pack is the last saved version. */
 export function renderTopicPage(model: TopicPageModel, canonical: string, ads?: AdConfig): string {
   const { topic, pack } = model;
@@ -197,9 +213,9 @@ export function renderTopicPage(model: TopicPageModel, canonical: string, ads?: 
   const description = (shownDescription || topic.blurb).slice(0, 180);
   const picture = pictureForTopic(topic.slug, pack);
   const image = picture ? absoluteSrc(picture.url, canonical) : '';
-  const showAds = Boolean(shown) || model.headlines.length > 0;
-  const adCfg = showAds ? (ads ?? { client: DEFAULT_CLIENT }) : undefined;
-  const client = showAds ? (adCfg?.client || DEFAULT_CLIENT) : '';
+  const substantial = Boolean(shown && topicPublic(shown) && topicBodyChars(shown) >= AD_BODY_CHARS);
+  const adCfg = substantial && ads && hasManualSlots([ads.top, ads.mid, ads.bottom]) ? ads : undefined;
+  const client = adCfg ? (adCfg.client || DEFAULT_CLIENT) : '';
   const indexable = shown ? topicPublic(shown) : false;
   const robots = `<meta name="robots" content="${indexable ? 'index,follow' : 'noindex,follow'}" />`;
   const json = shown
@@ -222,7 +238,7 @@ export function renderTopicPage(model: TopicPageModel, canonical: string, ads?: 
     : '';
   return `<!doctype html>
 <html lang="zh-HK">
-${head(`${title}專題`, description, canonical, image || '', 'article', `${robots}${json}`, client, Boolean(shown))}
+${head(`${title}專題`, description, canonical, image || '', 'article', `${robots}${json}`, client, Boolean(adCfg))}
 <body>
   <div class="page column-page" data-kind="topic">
   ${chrome('topic')}
@@ -296,10 +312,7 @@ function topicFilters(cards: TopicIndexCard[], active: string): string {
 }
 
 /** Listing of public (ready) topic packs. Empty shells — especially 樓市 — stay off the grid until ready. */
-export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads?: AdConfig, category = ''): string {
-  const readyForAds = cards.some((card) => card.ready);
-  const adCfg = readyForAds ? (ads ?? { client: DEFAULT_CLIENT }) : undefined;
-  const client = readyForAds ? (adCfg?.client || DEFAULT_CLIENT) : '';
+export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, _ads?: AdConfig, category = ''): string {
   const title = '專題懶人包';
   const description = '施政報告、財政預算案、天氣警告、中美關係、美國利率等持續題目。有公開懶人包才列出；未齊料的空殼專題暫不顯示。';
   const readyAll = cards.filter((card) => card.ready);
@@ -342,7 +355,7 @@ export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, ads
   }).replace(/</g, '\\u003c')}</script>`;
   return `<!doctype html>
 <html lang="zh-HK">
-${head(title, description, canonical, absoluteSrc(ready.find((card) => card.picture)?.picture?.url || '', canonical), 'website', `<meta name="robots" content="index,follow" />${ld}`, client)}
+${head(title, description, canonical, absoluteSrc(ready.find((card) => card.picture)?.picture?.url || '', canonical), 'website', `<meta name="robots" content="index,follow" />${ld}`, '', false)}
 <body>
   <div class="page column-page" data-kind="topic-index">
   ${chrome('topic')}
@@ -354,11 +367,9 @@ ${head(title, description, canonical, absoluteSrc(ready.find((card) => card.pict
       </div>
       <p class="dek">${esc(description)}</p>
     </header>
-    ${adUnit(adCfg, adCfg?.top, 'top')}
     ${topicFilters(cards, active)}
     ${ready.length ? `<div class="news-grid analysis-grid">${articles}</div>` : '<p class="notice">暫時未有公開專題懶人包。</p>'}
     ${pendingFold}
-    ${adUnit(adCfg, adCfg?.bottom, 'bottom')}
   </main>
   ${footer(false)}
   </div>

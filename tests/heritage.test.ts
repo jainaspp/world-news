@@ -159,11 +159,14 @@ describe('當年今日 pages', () => {
     expect(detail.html).toContain('openstreetmap.org');
     expect(detail.html).toContain('溫和時間線');
     expect(detail.html).toContain('1962');
-    expect(detail.html).toContain('pagead2.googlesyndication.com');
-    expect(detail.html).toContain('支持世界頭條');
-    expect(detail.html).toContain('data-ad-position="bottom"');
+    expect(detail.html).not.toContain('pagead2.googlesyndication.com');
+    expect(detail.html).not.toContain('支持世界頭條');
+    expect(detail.html).not.toContain('ad-placeholder');
     expect(detail.html).not.toContain('data-ad-slot');
     expect(detail.html).not.toContain('<ins class="adsbygoogle"');
+    const slotted = renderLandmarkPage('city-hall', { client: 'ca-pub-8392975944327076', slot: '1234567890' });
+    expect(slotted.html).toContain('data-ad-slot="1234567890"');
+    expect(slotted.html).toContain('pagead2.googlesyndication.com');
     expect(renderLandmarkPage('no-such').status).toBe(404);
     const paths = heritagePublicPaths();
     expect(paths).toContain('/on-this-day/');

@@ -15,7 +15,7 @@ import {
   renderContentPage,
 } from '../shared/contentPage';
 import { FEEDS } from '../shared/feeds';
-import { renderHomeFeed } from '../shared/homePage';
+import { gateHomeAds, renderHomeFeed } from '../shared/homePage';
 import { renderAboutPage, renderContactPage, renderPrivacyPage, renderTermsPage } from '../shared/sitePages';
 import { renderStoryPage } from '../shared/storyPage';
 import type { NewsItem } from '../shared/types';
@@ -179,7 +179,11 @@ describe('thin pages and original columns', () => {
     expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '', time: 'all', bookmarks: true })).toBe(false);
 
     const items = Array.from({ length: 12 }, (_, index) => headline(`a${index}`, `標題${index}`));
-    const html = renderHomeFeed(items);
+    const bare = renderHomeFeed(items);
+    expect(bare).not.toContain('ad-slot');
+    expect(bare).not.toContain('adsbygoogle');
+    expect(bare).not.toContain('ad-placeholder');
+    const html = renderHomeFeed(items, new Map(), null, '1234567890');
     expect(html).toContain('home-intro');
     expect(html).toContain('href="/privacy/"');
     const ads = html.match(/class="ad-slot/g) || [];
@@ -188,7 +192,10 @@ describe('thin pages and original columns', () => {
     expect(html.slice(0, adAt).match(/class="story/g)?.length).toBeGreaterThanOrEqual(6);
 
     const shell = readFileSync('index.html', 'utf8');
-    expect(shell.indexOf('location.pathname')).toBeLessThan(shell.indexOf('adsbygoogle.js'));
+    expect(shell).not.toContain('adsbygoogle');
+    const injected = gateHomeAds(shell.replace('<div id="root"></div>', `<div id="root">${html}</div>`));
+    expect(injected).toContain('adsbygoogle.js');
+    expect(gateHomeAds(shell.replace('<div id="root"></div>', `<div id="root">${bare}</div>`))).not.toContain('adsbygoogle');
     expect(readFileSync('public/robots.txt', 'utf8')).toContain('User-agent: Mediapartners-Google\nAllow: /');
     const xml = readFileSync('public/sitemap.xml', 'utf8');
     for (const path of ['/about/', '/privacy/', '/terms/', '/contact/']) {
@@ -201,7 +208,8 @@ describe('thin pages and original columns', () => {
     expect(xml).toContain('https://world-news.xyz/data/');
     expect(xml).toContain('https://world-news.xyz/on-this-day/');
     expect(xml).toContain('https://world-news.xyz/hk/landmarks/');
-    expect(count).toBe(40);
+    expect(count).toBe(39);
+    expect(xml).not.toContain('/region/twn');
     expect(xml).toContain('https://world-news.xyz/today/');
   });
 });

@@ -58,9 +58,9 @@ function envString(env: ContentEnv, ...names: string[]): string {
 }
 
 /**
- * AdSense config for column pages. The page renderer loads adsbygoogle.js only on a finished
- * AI article. Manual units render when a slot id is set as a Pages environment variable;
- * there is no slot id in the repo.
+ * AdSense config for column pages. The page renderer loads adsbygoogle.js only when a
+ * finished AI article clears the body floor AND a numeric slot id is set. Empty slot
+ * env vars must not leave a placeholder or the pagead script. There is no slot id in the repo.
  */
 export function adConfig(env: ContentEnv): AdConfig {
   const top = envString(env, 'AD_SLOT_TOP', 'VITE_AD_SLOT_TOP');

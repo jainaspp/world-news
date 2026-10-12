@@ -18,10 +18,22 @@
 | `SUPABASE_SERVICE_ROLE_KEY` | 要用備份儲存才需要 | Supabase 的 service role key。只放在伺服器，不要加 `VITE_` 字首 |
 | `CRON_SECRET` | 要用每日抓取才需要 | 自己定一組長密碼。Vercel Cron 會用 `Authorization: Bearer <CRON_SECRET>` 呼叫 `/api/crawl` |
 | `VITE_SITE_URL` | 否 | 分享連結用。預設 `https://world-news.xyz` |
-| `VITE_AD_SLOT_TOP` | 否 | 1200px 以上，標題熱詞下面的側欄 300×600（`.ad-slot-sidebar`）。不會放在 hero 前面，亦不會黏住畫面底部（安裝提示先佔底部）。留空仍保留灰色「支持世界頭條」框 |
-| `VITE_AD_SLOT_FEED` | 否 | 每 8 則標準卡片之後的資訊流版位（`.ad-slot-feed`，min-height 280）。不會放在 hero 前面。收藏頁不會顯示。留空仍保留灰色框，不會收起 |
+| `VITE_AD_SLOT_TOP` | 否 | 1200px 以上，標題熱詞下面的側欄 300×600（`.ad-slot-sidebar`）。只在未篩選首頁、而且 ID 是數字時畫出。留空不留灰色框 |
+| `VITE_AD_SLOT_FEED` / `AD_SLOT_FEED` / `AD_SLOT_MID` | 否 | 每 8 則標準卡片之後的資訊流版位。留空不留框，也不載入 `adsbygoogle.js` |
+| `AD_SLOT_TOP` / `AD_SLOT_BOTTOM` | 否 | 欄目頁頂部與底部。頁面中文內文少於 500 字，或目錄頁（`/analysis/`、`/topic/`），不會使用 |
 
-`index.html` 仍會載入 AdSense（`ca-pub-8392975944327076`）。版位 ID 留空時，手動 `<ins>` 不會畫出，灰色佔位「支持世界頭條」仍然留在版面，不會收起。自動廣告仍可以由這個 loader 投放。`VITE_GOOGLE_AD_CLIENT` 可選，預設就是這個發布商 ID，要跟 loader 上的 `client` 相同。
+`index.html` 不再無條件載入 AdSense。`pagead/js/adsbygoogle.js` 只在頁面已經有真實 `<ins>` 時出現：版位 ID 已設定，而且該頁允許廣告（未篩選首頁，或內文達到 500 字的欄目／當年今日／地標）。地區、分類、搜尋、分析目錄、專題目錄、失敗的日報殼、以及內文不足的編年頁都沒有廣告 DOM，也沒有這支 script。`/region/twn` 另外 `noindex`，並且不在 sitemap。`VITE_GOOGLE_AD_CLIENT` 可選，預設 `ca-pub-8392975944327076`。
+
+版位留空時可以用下面幾條確認（回應里不應出現 `adsbygoogle` 或 `ad-placeholder`）：
+
+```bash
+for path in /region/twn /region/hkg /category/hk /category/china /analysis/ /topic/ /on-this-day/01-01/ /hk/landmarks/; do
+  echo "== $path"
+  curl -fsS "https://world-news.xyz$path" | grep -E 'adsbygoogle|ad-placeholder|支持世界頭條' || echo "clean"
+done
+```
+
+有設定版位、而且內文夠長的 `/explainer/…` 或 `/digest/…` 才可以出現 `adsbygoogle.js` 與 `<ins>`. 不要為了通過審查填假的版位 ID，也不要在這裡按 AdSense 的重新審查。
 
 `/ads.txt` 由 `public/ads.txt` 以純文字提供，內容是 `google.com, pub-8392975944327076, DIRECT, f08c47fec0942fa0`。專案目前沒有 Content-Security-Policy。如果之後加上，要允許 `pagead2.googlesyndication.com`、`googleads.g.doubleclick.net`、`tpc.googlesyndication.com` 同 `adservice.google.com`。
 

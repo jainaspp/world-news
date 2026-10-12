@@ -212,7 +212,8 @@ describe('trend chart and HK summary', () => {
     expect(html).toContain(spec.description);
     expect(html).toContain('rel="canonical" href="https://world-news.xyz/data/weather/"');
     expect(html).toContain('index,follow');
-    expect(html).toContain('adsbygoogle.js');
+    expect(html).not.toContain('adsbygoogle');
+    expect(html).not.toContain('ad-placeholder');
     expect(html).toContain(summarise(spec, series.days));
     expect(html).toContain('<table');
     expect(html).toContain('<svg');
@@ -227,7 +228,7 @@ describe('trend chart and HK summary', () => {
 
     const hub = renderDataHub([series], { client: 'ca-pub-8392975944327076' });
     for (const page of DATA_PAGES) expect(hub).toContain(`href="${page.path}"`);
-    expect(hub).toContain('adsbygoogle.js');
+    expect(hub).not.toContain('adsbygoogle');
     expect(hub).toContain('28 度');
     expect(hub).not.toContain('/story/');
   });

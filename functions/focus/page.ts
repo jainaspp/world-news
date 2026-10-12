@@ -1,8 +1,10 @@
 import { loadHkNow } from '../../server/hkService.js';
 import { loadHsiQuote } from '../../server/hsiService.js';
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
-import { removedFromTaiwanPage } from '../../shared/feeds.js';
+import { homeAllowsAds, type HomeAdView } from '../../shared/adPolicy.js';
+import { filterNews } from '../../shared/filter.js';
 import { focusKey, focusPages, parseFocus, renderWeekFocus, type FocusPage } from '../../shared/focus.js';
+import { esc } from '../../shared/contentPage.js';
 import { injectHomeShell, type HomeMarket } from '../../shared/homePage.js';
 import { mustReadForSurface } from '../../shared/mustRead.js';
 import { loadList } from '../board/list.js';
@@ -17,6 +19,45 @@ function envSlot(env: Record<string, unknown>): string {
     if (typeof value === 'string' && value.trim()) return value.trim();
   }
   return '';
+}
+
+/** Same list the SPA shows for /region/:code and /category/:slug. */
+export function focusFeedItems(items: Parameters<typeof filterNews>[0], page: FocusPage) {
+  return page.scope === 'region'
+    ? filterNews(items, { region: page.id.toUpperCase() })
+    : filterNews(items, { category: page.id.toLowerCase() });
+}
+
+function focusAdView(page: FocusPage): HomeAdView {
+  return page.scope === 'region'
+    ? { region: page.id.toUpperCase(), category: 'all', source: '', q: '', time: 'all' }
+    : { region: 'ALL', category: page.id.toLowerCase(), source: '', q: '', time: 'all' };
+}
+
+function retargetShell(html: string, path: string, title: string, noindex: boolean): string {
+  let next = html.replace(
+    '<link rel="canonical" href="https://world-news.xyz/" />',
+    `<link rel="canonical" href="https://world-news.xyz${path}" />`,
+  );
+  next = next.replace(
+    '<meta property="og:url" content="https://world-news.xyz/" />',
+    `<meta property="og:url" content="https://world-news.xyz${path}" />`,
+  );
+  next = next.replace(
+    '<link rel="alternate" hreflang="zh-HK" href="https://world-news.xyz/" />',
+    `<link rel="alternate" hreflang="zh-HK" href="https://world-news.xyz${path}" />`,
+  );
+  next = next.replace(
+    '<title>世界頭條 — 新聞標題、來源、原文連結</title>',
+    `<title>${esc(title)} — 世界頭條</title>`,
+  );
+  if (noindex) {
+    next = next.replace(
+      '<meta name="robots" content="index, follow" />',
+      '<meta name="robots" content="noindex, follow" />',
+    );
+  }
+  return next;
 }
 
 /** Homepage shell for a region or category URL, with the stored weekly intro above the list. */
@@ -44,9 +85,7 @@ export async function serveFocusHome(context: PagesContext, page: FocusPage): Pr
       readValue(env, focusKey(page)).catch(() => null),
       loadMustRead(env).catch(() => []),
     ]);
-    items = page.scope === 'region' && page.id.toLowerCase() === 'twn'
-      ? list.filter((item) => !removedFromTaiwanPage(item))
-      : list;
+    items = focusFeedItems(list, page);
     market = { hk, hsi };
     if (snapshot) {
       counts = new Map(Object.entries(snapshot.counts));
@@ -57,12 +96,33 @@ export async function serveFocusHome(context: PagesContext, page: FocusPage): Pr
   } catch {
     items = [];
   }
-  const html = injectHomeShell(shell, items, counts, market, envSlot(context.env), major, focusHtml, undefined, mustReadForSurface(mustRead, page.scope === 'category' ? page.id : ''));
+  const allowAds = homeAllowsAds(focusAdView(page));
+  const known = focusPages().find((row) => row.scope === page.scope && row.id === page.id);
+  const path = page.scope === 'region' ? `/region/${page.id}` : `/category/${page.id}`;
+  const noindex = page.scope === 'region' && page.id === 'twn';
+  const html = retargetShell(
+    injectHomeShell(
+      shell,
+      items,
+      counts,
+      market,
+      allowAds ? envSlot(context.env) : '',
+      major,
+      focusHtml,
+      undefined,
+      mustReadForSurface(mustRead, page.scope === 'category' ? page.id : ''),
+      true,
+    ),
+    path,
+    known?.label || page.label,
+    noindex,
+  );
   return new Response(html, {
     status: 200,
     headers: {
       'content-type': 'text/html; charset=utf-8',
       'cache-control': 'public, max-age=60, s-maxage=120, stale-while-revalidate=600',
+      ...(noindex ? { 'x-robots-tag': 'noindex, follow' } : {}),
     },
   });
 }

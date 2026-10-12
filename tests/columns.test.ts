@@ -66,16 +66,14 @@ describe('column pages', () => {
     expect(html).toContain('https://example.com/a');
   });
 
-  it('loads AdSense on a finished AI digest and keeps grey placeholders without slot ids', () => {
+  it('does not load AdSense on a finished digest until a numeric slot id is set', () => {
     const html = renderContentPage(finishedDigest(), 'https://world-news.xyz/digest/2026-10-06-am');
-    expect(html).toContain('adsbygoogle.js?client=ca-pub-8392975944327076');
+    expect(html).not.toContain('adsbygoogle');
+    expect(html).not.toContain('ad-placeholder');
+    expect(html).not.toContain('支持世界頭條');
     expect(html).toContain('name="robots" content="index,follow"');
     expect(html).toContain('2 間媒體報道');
     expect(html).not.toContain('模型暫時未能完成');
-    expect(html).toContain('支持世界頭條');
-    expect(html).toContain('data-ad-position="top"');
-    expect(html).toContain('data-ad-position="bottom"');
-    expect(html).not.toContain('<ins class="adsbygoogle"');
   });
 
   it('renders top, mid and bottom units only when slot ids are set on a real body', () => {
@@ -117,7 +115,8 @@ describe('column pages', () => {
     const list = renderAnalysisIndex([{ ...index[0]!, key: 'demo-0123456789ab', title: '示範分析' }], 'https://world-news.xyz/analysis/');
     expect(list).toContain('/analysis/demo-0123456789ab/');
     expect(list).toContain('class="thumb"');
-    expect(list).toContain('adsbygoogle.js');
+    expect(list).not.toContain('adsbygoogle');
+    expect(list).not.toContain('ad-placeholder');
   });
 
   it('weekly blocks carry category chips', () => {
