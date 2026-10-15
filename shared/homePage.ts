@@ -1,4 +1,4 @@
-import { FEED_AD_EVERY } from './adPolicy.js';
+import { adsRuntimeEnabled, FEED_AD_EVERY } from './adPolicy.js';
 import { demoteGraphic, mustReadBootstrap, renderMustRead, type MustReadLink } from './mustRead.js';
 import { adSlotMarkup } from './adSlot.js';
 import type { MajorEntry } from './angles.js';
@@ -7,7 +7,7 @@ import { categoryLabel } from './categories.js';
 import { analysisSlug } from './content.js';
 import { LAYOUT_CARDS_HK, LAYOUT_LIST_HK, rankHeatCount } from './homeTemplate.js';
 import { esc, favicon, footer, media, safeHttp } from './contentPage.js';
-import { homeIntroFoot, homeIntroTop } from './homeIntro.js';
+import { homeIntroFoot, homeIntroTop, type IntroHref } from './homeIntro.js';
 import { renderHkInfo } from './hkInfo.js';
 import { renderMajorBanner } from './majorPage.js';
 import type { HkNow } from './hk.js';
@@ -28,6 +28,24 @@ export const DEFAULT_BRIEFING_LINKS = [
   { href: '/briefing/', label: '國際導讀' },
   { href: '/briefing/', label: '科技財經導讀' },
 ];
+
+/** Homepage chips for columns that are easy to leave thin. Absent means the chip stays off. */
+export interface HomeColumnLinks {
+  /** Newest digest that clears columnIndexable. */
+  digestHref?: string;
+  /** Newest weekly that clears columnIndexable. */
+  weeklyHref?: string;
+  /** At least one analysis post clears columnIndexable. */
+  analysis?: boolean;
+  /** The current quiz edition has questions. */
+  quiz?: boolean;
+  /** At least one topic pack is public. */
+  topic?: boolean;
+}
+
+export function columnsBootstrap(columns: HomeColumnLinks): string {
+  return `<script id="wn-columns" type="application/json">${JSON.stringify(columns).replace(/</g, '\\u003c')}</script>`;
+}
 
 function hostOf(url: string): string {
   try {
@@ -53,14 +71,32 @@ function timeAgo(dateStr: string, now = Date.now()): string {
   return `${date.getMonth() + 1}月${date.getDate()}日`;
 }
 
+/** Homepage link for a column hub. Null keeps the label as text until that column is public. */
+export function columnHref(columns: HomeColumnLinks, href: string): string | null {
+  if (href === '/digest/') return columns.digestHref || null;
+  if (href === '/weekly/') return columns.weeklyHref || null;
+  if (href === '/analysis/') return columns.analysis ? href : null;
+  if (href === '/topic/') return columns.topic ? href : null;
+  return href;
+}
+
+function introHref(columns: HomeColumnLinks): IntroHref {
+  return (href) => columnHref(columns, href);
+}
+
 function templateSwitch(): string {
   return `<div class="template-switch" role="group" aria-label="版面"><button type="button" data-wn-template-switch data-layout="cards" aria-pressed="true">${LAYOUT_CARDS_HK}</button><button type="button" data-wn-template-switch data-layout="list" aria-pressed="false">${LAYOUT_LIST_HK}</button></div><script>try{var on=document.documentElement.classList.contains("wn-list");var box=document.currentScript.previousElementSibling;if(box){var nodes=box.querySelectorAll("[data-wn-template-switch]");for(var i=0;i<nodes.length;i++){var list=nodes[i].getAttribute("data-layout")==="list";nodes[i].setAttribute("aria-pressed",list===on?"true":"false")}}}catch(e){}</script>`;
 }
 
-/** Digest strip weights: 導讀＞懶人包＞專題. OTD／地標 stay off this strip and off top main nav. */
-function digestStrip(briefingLinks: { href: string; label: string }[]): string {
+/** Digest strip weights: 導讀＞懶人包＞專題. Thin digest, weekly, analysis, quiz and topic hubs stay off until they clear the public floor. */
+function digestStrip(briefingLinks: { href: string; label: string }[], columns: HomeColumnLinks = {}): string {
   const briefs = briefingLinks.map((link) => `<a class="chip digest-keep" href="${esc(link.href)}">${esc(link.label)}</a>`).join('');
-  return `<aside class="digest-strip" aria-label="精選欄目"><span class="badge">AI</span><a class="chip digest-primary active" href="/digest/">今日精選</a>${briefs}<a class="chip digest-keep" href="/explainer/">新聞懶人包</a><a class="chip digest-keep" href="/topic/">專題懶人包</a><a class="chip digest-keep" href="/weekly/">週報</a><a class="chip digest-keep" href="/analysis/">熱門分析</a><a class="chip" href="/data/">數據</a><a class="chip" href="/quiz/">每日小測</a></aside>`;
+  const digest = columns.digestHref ? `<a class="chip digest-primary active" href="${esc(columns.digestHref)}">今日精選</a>` : '';
+  const topic = columns.topic ? '<a class="chip digest-keep" href="/topic/">專題懶人包</a>' : '';
+  const weekly = columns.weeklyHref ? `<a class="chip digest-keep" href="${esc(columns.weeklyHref)}">週報</a>` : '';
+  const analysis = columns.analysis ? '<a class="chip digest-keep" href="/analysis/">熱門分析</a>' : '';
+  const quiz = columns.quiz ? '<a class="chip" href="/quiz/">每日小測</a>' : '';
+  return `<aside class="digest-strip" aria-label="精選欄目"><span class="badge">AI</span>${digest}${briefs}<a class="chip digest-keep" href="/explainer/">新聞懶人包</a>${topic}${weekly}${analysis}<a class="chip" href="/data/">數據</a>${quiz}</aside>`;
 }
 
 function rankList(items: NewsItem[], counts: Map<string, number>, feedSlot: string): string {
@@ -131,6 +167,7 @@ export function renderHomeFeed(
   mustRead: MustReadLink[] = [],
   now = new Date(),
   settled = false,
+  columns: HomeColumnLinks = {},
 ): string {
   const list = demoteGraphic(items).slice(0, SSR_COUNT);
   if (!list.length) {
@@ -139,7 +176,7 @@ export function renderHomeFeed(
       : '<div class="status-panel" aria-busy="true"><h2>載入頭條中…</h2><p>正在取得最新標題。</p></div>';
     return `<a class="skip-link" href="#news">跳到新聞</a>
   <div class="page ssr-home">
-    ${digestStrip(briefingLinks)}
+    ${digestStrip(briefingLinks, columns)}
     ${renderOnThisDaySection(now)}
     ${renderMustRead(mustRead)}
     <div class="template-bar">${templateSwitch()}</div>
@@ -160,8 +197,8 @@ export function renderHomeFeed(
     <div class="template-bar">${templateSwitch()}</div>
     ${major}
     <main id="news">
-      ${homeIntroTop()}
-      ${digestStrip(briefingLinks)}
+      ${homeIntroTop(introHref(columns))}
+      ${digestStrip(briefingLinks, columns)}
       ${renderOnThisDaySection(now)}
       ${renderMustRead(mustRead)}
       ${focusHtml.trim()}
@@ -173,7 +210,7 @@ export function renderHomeFeed(
       </div>
       ${rankList(list, counts, feedSlot)}
     </main>
-    ${homeIntroFoot()}
+    ${homeIntroFoot(introHref(columns))}
     ${footer()}
   </div>`;
 }
@@ -222,9 +259,10 @@ export function injectHomeShell(
   briefingLinks: { href: string; label: string }[] = DEFAULT_BRIEFING_LINKS,
   mustRead: MustReadLink[] = [],
   settled = false,
+  columns: HomeColumnLinks = {},
 ): string {
-  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead, new Date(), settled);
-  const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner) + mustReadBootstrap(mustRead);
+  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead, new Date(), settled, columns);
+  const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner) + mustReadBootstrap(mustRead) + columnsBootstrap(columns);
   const lead = demoteGraphic(items)[0];
   const heroImage = lead?.image && /^https?:\/\//.test(lead.image) ? lead.image : '';
   const preload = heroImage
@@ -238,12 +276,16 @@ export function injectHomeShell(
 
 const PAGEAD = 'pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
 
-/** Drop any pagead loader, then add one only when this HTML already contains a real manual unit. */
+/** Drop any pagead loader. During the review hold, also drop ad units. Otherwise add one loader only when a real manual unit is already in the HTML. */
 export function gateHomeAds(html: string, client = 'ca-pub-8392975944327076'): string {
-  const stripped = html.replace(
+  let stripped = html.replace(
     new RegExp(`<script[^>]*src="https://${PAGEAD.replace(/\./g, '\\.')}[^"]*"[^>]*>\\s*</script>`, 'g'),
     '',
   );
+  if (!adsRuntimeEnabled()) {
+    stripped = stripped.replace(/<div class="ad-slot[^"]*"[\s\S]*?<\/div>/g, '');
+    return stripped.replace(/<ins class="adsbygoogle"[\s\S]*?<\/ins>/g, '');
+  }
   if (!stripped.includes('<ins class="adsbygoogle"')) return stripped;
   if (stripped.includes(PAGEAD)) return stripped;
   const tag = `<script async src="https://${PAGEAD}?client=${esc(client)}" crossorigin="anonymous"></script>`;

@@ -187,3 +187,22 @@ export function acceptQuiz(payload: unknown, sources: QuizSource[]): QuizQuestio
 export function parseQuiz(text: string, sources: QuizSource[]): QuizQuestion[] {
   return acceptQuiz(extractJson(text), sources);
 }
+
+/** A stored edition the quiz page can show. Fewer than three sound questions is empty. */
+export function readyQuiz(raw: string | null): QuizDoc | null {
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw) as QuizDoc;
+    if (!parsed || !Array.isArray(parsed.questions)) return null;
+    const questions = parsed.questions.filter((row) => Array.isArray(row?.choices)
+      && typeof row.answer === 'string'
+      && choicesSound(row.choices, row.answer, String(row.sourceTitle ?? '')));
+    const asked = questions.map((row) => ({
+      ...row,
+      prompt: /[？?。！]$/.test(row.prompt) ? row.prompt : `${row.prompt}？`,
+    }));
+    return asked.length >= QUIZ_MIN ? { ...parsed, questions: asked } : null;
+  } catch {
+    return null;
+  }
+}

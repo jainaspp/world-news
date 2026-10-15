@@ -1,3 +1,5 @@
+import { adsRuntimeEnabled } from './adPolicy.js';
+
 /** Local escape so this module does not import contentPage (avoids a cycle). */
 function esc(value: string): string {
   return value
@@ -31,7 +33,7 @@ export function adSlotMarkup(
   position?: string,
 ): string {
   const id = validAdSlot(slot);
-  if (!id) return '';
+  if (!adsRuntimeEnabled() || !id) return '';
   const kind = variant === 'sidebar' ? 'ad-slot-sidebar' : variant === 'banner' ? 'ad-slot-banner' : 'ad-slot-feed';
   const format =
     variant === 'feed'

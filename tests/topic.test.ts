@@ -458,10 +458,12 @@ describe('topic pages', () => {
   });
 
   it('links the homepage, the column nav, the sitemap, and a related explainer', () => {
-    const home = renderHomeFeed([item({ id: 'a', title: '標題', link: 'https://example.com/a' })]);
+    const home = renderHomeFeed([item({ id: 'a', title: '標題', link: 'https://example.com/a' })], new Map(), null, '', null, '', undefined, [], new Date(), false, { topic: true });
     expect(home).toContain('href="/topic/"');
+    expect(renderHomeFeed([item({ id: 'a', title: '標題', link: 'https://example.com/a' })])).not.toContain('href="/topic/"');
     expect(readFileSync('src/App.tsx', 'utf8')).toContain('href="/topic/"');
-    expect(readFileSync('public/sitemap.xml', 'utf8')).toContain('https://world-news.xyz/topic/');
+    expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('https://world-news.xyz/topic/');
+    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('topicRows.length');
     expect(readFileSync('.github/workflows/warm-content.yml', 'utf8')).toContain('kind=topic');
     expect(readFileSync('.github/workflows/warm-content.yml', 'utf8')).toContain('topic_skip');
     expect(readFileSync('functions/api/generate.ts', 'utf8')).toContain("kind === 'topic'");

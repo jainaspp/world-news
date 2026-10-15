@@ -9,7 +9,7 @@ import {
   RAW_HTML_CAP,
 } from '../../shared/articleText.js';
 import { AI_MODEL, textFromAi } from '../../shared/content.js';
-import { renderTopicIndex, renderTopicPage, topicIndexCards, type TopicIndexCard } from '../../shared/topicPage.js';
+import { renderTopicIndex, renderTopicPage, topicIndexCards, topicIndexListed, type TopicIndexCard } from '../../shared/topicPage.js';
 import {
   anchoredPrompt,
   ANCHORED_FIGURE_CAP,
@@ -578,7 +578,9 @@ export async function serveTopicIndex(context: PagesContext): Promise<Response> 
   const cards: TopicIndexCard[] = topicIndexCards(await loadCards(env).catch(() => new Map()));
   const category = new URL(context.request.url).searchParams.get('cat') || '';
   const html = renderTopicIndex(cards, `${siteUrl(env)}/topic/`, adConfig(env), category);
-  return new Response(html, { headers: HTML_HEADERS });
+  const headers = new Headers(HTML_HEADERS);
+  if (!topicIndexListed(cards, category)) headers.set('x-robots-tag', 'noindex, follow');
+  return new Response(html, { headers });
 }
 
 export async function serveTopic(context: PagesContext): Promise<Response> {
@@ -588,8 +590,8 @@ export async function serveTopic(context: PagesContext): Promise<Response> {
   const topic = topicBySlug(slug);
   const cards = await loadCards(env).catch(() => new Map());
   if (!topic) {
-    const html = renderTopicIndex(topicIndexCards(cards), `${siteUrl(env)}/topic/`, adConfig(env));
-    return new Response(html, { status: 404, headers: HTML_HEADERS });
+    const html = renderTopicIndex(topicIndexCards(cards), `${siteUrl(env)}/topic/`, adConfig(env), '', true);
+    return new Response(html, { status: 404, headers: { ...HTML_HEADERS, 'x-robots-tag': 'noindex, follow' } });
   }
   const board = await readBoard(env).catch(() => null);
   const items = materialFromBoard(board)?.items ?? [];

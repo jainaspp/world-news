@@ -311,8 +311,16 @@ function topicFilters(cards: TopicIndexCard[], active: string): string {
   return `<nav class="topic-filters" aria-label="專題分類">${all}${rest}</nav>`;
 }
 
+/** True when this index view lists at least one public pack. Empty and filtered-empty shells are not. */
+export function topicIndexListed(cards: TopicIndexCard[], category = ''): boolean {
+  const readyAll = cards.filter((card) => card.ready);
+  const active = readyAll.some((card) => card.topic.category === category) ? category : '';
+  const ready = active ? readyAll.filter((card) => card.topic.category === active) : readyAll;
+  return ready.length > 0;
+}
+
 /** Listing of public (ready) topic packs. Empty shells — especially 樓市 — stay off the grid until ready. */
-export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, _ads?: AdConfig, category = ''): string {
+export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, _ads?: AdConfig, category = '', forceNoindex = false): string {
   const title = '專題懶人包';
   const description = '施政報告、財政預算案、天氣警告、中美關係、美國利率等持續題目。有公開懶人包才列出；未齊料的空殼專題暫不顯示。';
   const readyAll = cards.filter((card) => card.ready);
@@ -355,7 +363,7 @@ export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, _ad
   }).replace(/</g, '\\u003c')}</script>`;
   return `<!doctype html>
 <html lang="zh-HK">
-${head(title, description, canonical, absoluteSrc(ready.find((card) => card.picture)?.picture?.url || '', canonical), 'website', `<meta name="robots" content="index,follow" />${ld}`, '', false)}
+${head(title, description, canonical, absoluteSrc(ready.find((card) => card.picture)?.picture?.url || '', canonical), 'website', `<meta name="robots" content="${!forceNoindex && ready.length ? 'index,follow' : 'noindex,follow'}" />${ld}`, '', false)}
 <body>
   <div class="page column-page" data-kind="topic-index">
   ${chrome('topic')}

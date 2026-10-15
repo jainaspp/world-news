@@ -1,13 +1,14 @@
 import { loadHkNow } from '../server/hkService.js';
 import { loadHsiQuote } from '../server/hsiService.js';
 import { applyRuntimeEnv } from '../server/runtimeEnv.js';
-import { homeAllowsAds } from '../shared/adPolicy.js';
+import { adsRuntimeEnabled, homeAllowsAds } from '../shared/adPolicy.js';
 import { filterNews } from '../shared/filter.js';
-import { injectHomeShell, type HomeMarket } from '../shared/homePage.js';
+import { injectHomeShell, type HomeColumnLinks, type HomeMarket } from '../shared/homePage.js';
 import { mustReadForSurface } from '../shared/mustRead.js';
 import { readView } from '../src/routing.js';
 import { loadList } from './board/list.js';
 import { readBoard, scheduleBoard } from './board/store.js';
+import { loadHomeColumns } from './content/homeColumns.js';
 import { loadBriefingLinks, loadMustRead } from './content/mustRead.js';
 import type { ContentEnv } from './content/store.js';
 import { edgeCache, type PagesContext } from './env.js';
@@ -84,9 +85,13 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   }
   let briefings: { href: string; label: string }[] | undefined;
   let mustRead: Awaited<ReturnType<typeof loadMustRead>> = [];
+  let columns: HomeColumnLinks = {};
   try {
     const env = context.env as ContentEnv;
-    [briefings, mustRead] = await Promise.all([loadBriefingLinks(env), loadMustRead(env)]);
+    const [links, packs, cols] = await Promise.all([loadBriefingLinks(env), loadMustRead(env), loadHomeColumns(env)]);
+    briefings = links;
+    mustRead = packs;
+    columns = cols;
   } catch {
     briefings = undefined;
   }
@@ -95,12 +100,13 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     items,
     counts,
     market,
-    allowAds ? envSlot(context.env) : '',
+    allowAds && adsRuntimeEnabled() ? envSlot(context.env) : '',
     major,
     '',
     briefings,
     mustReadForSurface(mustRead),
     !allowAds,
+    columns,
   );
   const headers = new Headers({
     'content-type': 'text/html; charset=utf-8',

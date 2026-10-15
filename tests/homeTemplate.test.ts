@@ -76,7 +76,21 @@ describe('shared homepage shell', () => {
   ];
 
   it('keeps one shell and swaps only the main column', () => {
-    const html = renderHomeFeed(rows, new Map([['a1', 4], ['b2', 1]]));
+    const open = {
+      digestHref: '/digest/2026-10-15-am',
+      weeklyHref: '/weekly/2026-10-12',
+      analysis: true,
+      quiz: true,
+      topic: true,
+    };
+    const html = renderHomeFeed(rows, new Map([['a1', 4], ['b2', 1]]), null, '', null, '', undefined, [], new Date('2026-10-15T04:00:00Z'), false, open);
+    const closed = renderHomeFeed(rows, new Map([['a1', 4], ['b2', 1]]));
+    const closedStrip = closed.slice(closed.indexOf('class="digest-strip"'), closed.indexOf('class="home-cards"'));
+    expect(closedStrip).not.toContain('href="/digest/');
+    expect(closedStrip).not.toContain('href="/weekly/');
+    expect(closedStrip).not.toContain('href="/analysis/');
+    expect(closedStrip).not.toContain('href="/quiz/');
+    expect(closedStrip).not.toContain('href="/topic/');
     expect(html).toContain('data-wn-template-switch');
     expect(html).toContain('data-layout="cards"');
     expect(html).toContain('data-layout="list"');
@@ -90,10 +104,10 @@ describe('shared homepage shell', () => {
     expect(html).toContain('新聞懶人包');
     expect(html).toContain('href="/topic/"');
     expect(html).toContain('專題懶人包');
-    expect(html).toContain('href="/digest/"');
+    expect(html).toContain('href="/digest/2026-10-15-am"');
     expect(html).toContain('href="/briefing/"');
     expect(html).toContain('每日香港導讀');
-    expect(html).toContain('href="/weekly/"');
+    expect(html).toContain('href="/weekly/2026-10-12"');
     expect(html).toContain('週報');
     expect(html).toContain('href="/analysis/"');
     expect(html).toContain('熱門分析');
@@ -132,7 +146,7 @@ describe('shared homepage shell', () => {
     const entry = html.slice(html.indexOf('class="digest-strip"'), html.indexOf('class="home-cards"'));
     expect(entry).toContain('href="/explainer/"');
     expect(entry).toContain('href="/topic/"');
-    expect(entry).toContain('href="/weekly/"');
+    expect(entry).toContain('href="/weekly/2026-10-12"');
     expect(entry).toContain('熱門分析');
     expect(html.indexOf('class="digest-strip"')).toBeLessThan(html.indexOf('class="home-list"'));
   });

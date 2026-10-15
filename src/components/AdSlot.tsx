@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { adsRuntimeEnabled } from '../../shared/adPolicy';
 import { validAdSlot } from '../../shared/adSlot';
 import { AD_CLIENT } from '../config';
 
@@ -43,7 +44,7 @@ export function AdSlot({ slot, variant }: { slot: string; variant: Variant }) {
     ensureAdScript();
   }, [id]);
 
-  if (!id) return null;
+  if (!adsRuntimeEnabled() || !id) return null;
 
   const feed = variant === 'feed';
   const sidebar = variant === 'sidebar';

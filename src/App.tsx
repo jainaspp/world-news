@@ -10,6 +10,7 @@ import { clusterStories, sourceCounts } from '../shared/trending';
 import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem, TimeRange } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
+import { columnHref, type HomeColumnLinks } from '../shared/homePage';
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
@@ -51,15 +52,19 @@ const TIMES: { id: TimeRange; labelKey: 'all' | 'hour' | 'today' | 'week' }[] = 
 ];
 
 function HomeIntroBody() {
+  const columns = useMemo(readHomeColumns, []);
   return (
     <>
       <p>{HOME_INTRO}</p>
       <ul className="home-sections">
-        {HOME_SECTIONS.map((section) => (
-          <li key={section.name}>
-            <strong>{section.href ? <a href={section.href}>{section.name}</a> : section.name}</strong> {section.text}
-          </li>
-        ))}
+        {HOME_SECTIONS.map((section) => {
+          const href = section.href ? columnHref(columns, section.href) : null;
+          return (
+            <li key={section.name}>
+              <strong>{href ? <a href={href}>{section.name}</a> : section.name}</strong> {section.text}
+            </li>
+          );
+        })}
       </ul>
     </>
   );
@@ -182,18 +187,30 @@ function TemplateSwitch({ listMode, lang, onPick }: { listMode: boolean; lang: U
   );
 }
 
+function readHomeColumns(): HomeColumnLinks {
+  try {
+    const node = document.getElementById('wn-columns');
+    if (!node?.textContent) return {};
+    const parsed = JSON.parse(node.textContent) as HomeColumnLinks;
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
 function DigestStrip({ lang }: { lang: UiLang }) {
+  const columns = useMemo(readHomeColumns, []);
   return (
     <aside className="digest-strip" aria-label="精選欄目">
       <span className="badge">AI</span>
-      <a className="chip digest-primary active" href="/digest/">{t('todayPicks', lang)}</a>
+      {columns.digestHref ? <a className="chip digest-primary active" href={columns.digestHref}>{t('todayPicks', lang)}</a> : null}
       <a className="chip digest-keep" href="/briefing/">{t('hkBriefing', lang)}</a>
       <a className="chip digest-keep" href="/explainer/">{t('multiCompare', lang)}</a>
-      <a className="chip digest-keep" href="/topic/">{t('topicPack', lang)}</a>
-      <a className="chip digest-keep" href="/weekly/">{t('weekly', lang)}</a>
-      <a className="chip digest-keep" href="/analysis/">{t('hotAnalysis', lang)}</a>
+      {columns.topic ? <a className="chip digest-keep" href="/topic/">{t('topicPack', lang)}</a> : null}
+      {columns.weeklyHref ? <a className="chip digest-keep" href={columns.weeklyHref}>{t('weekly', lang)}</a> : null}
+      {columns.analysis ? <a className="chip digest-keep" href="/analysis/">{t('hotAnalysis', lang)}</a> : null}
       <a className="chip" href="/data/">{t('dataHub', lang)}</a>
-      <a className="chip" href="/quiz/">{t('dailyQuiz', lang)}</a>
+      {columns.quiz ? <a className="chip" href="/quiz/">{t('dailyQuiz', lang)}</a> : null}
     </aside>
   );
 }

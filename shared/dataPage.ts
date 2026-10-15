@@ -1,3 +1,4 @@
+import { adsRuntimeEnabled } from './adPolicy.js';
 import { hasManualSlots } from './adSlot.js';
 import type { AdConfig } from './contentPage.js';
 import { AD_BODY_CHARS, cjkChars, chrome, esc, footer, head, hkt } from './contentPage.js';
@@ -32,7 +33,7 @@ function dataAdsOn(ads: AdConfig, prose: string): boolean {
 
 function manualAd(ads: AdConfig, position: 'top' | 'bottom'): string {
   const slot = (position === 'top' ? ads.top : ads.bottom) || '';
-  if (!/^\d{6,}$/.test(slot)) return '';
+  if (!adsRuntimeEnabled() || !/^\d{6,}$/.test(slot)) return '';
   return `<div class="ad-slot ad-slot-banner" data-ad-position="${position}" aria-label="廣告"><span class="ad-label">廣告</span><ins class="adsbygoogle" data-ad-client="${esc(ads.client)}" data-ad-slot="${esc(slot)}" data-ad-format="auto" data-full-width-responsive="true" style="display:block"></ins></div>`;
 }
 

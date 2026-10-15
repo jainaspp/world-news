@@ -357,6 +357,9 @@ describe('pages', () => {
     expect(html).toContain('核對答案');
     expect(html).toContain('閱讀相關報道');
     expect(html).toContain('https://example.com/mtr');
+    expect(html).not.toContain('noindex');
+    expect(renderQuizPage(null)).toContain('noindex,follow');
+    expect(renderQuizPage(null)).toContain('今日試題尚未整理');
     expect(readFileSync('functions/api/generate.ts', 'utf8')).toContain("kind === 'quiz'");
     expect(readFileSync('.github/workflows/warm-content.yml', 'utf8')).toContain('kind=quiz');
     expect(readFileSync('public/quiz.js', 'utf8')).toContain('分享成績');

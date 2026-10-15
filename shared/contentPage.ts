@@ -3,6 +3,7 @@ import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import { briefingPublic, briefingScopeOf, columnHeroSources, explainerCurrent, leadImage, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
 import { bestImage } from './media.js';
 import { listens } from './listen.js';
+import { adsRuntimeEnabled } from './adPolicy.js';
 import { adSlotMarkup, hasManualSlots } from './adSlot.js';
 import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
@@ -16,7 +17,7 @@ import { relatedTopics } from './topicPack.js';
 
 export interface AdConfig {
   client: string;
-  /** AdSense ad unit ids. Empty keeps the grey placeholder; Auto ads (if on in AdSense) still place ads. */
+  /** AdSense ad unit ids. Empty, or the review hold, emits no unit and no pagead script. */
   top?: string;
   mid?: string;
   bottom?: string;
@@ -285,7 +286,7 @@ export function head(title: string, description: string, canonical: string, imag
   <link rel="stylesheet" href="/columns.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="${FONTS}" media="print" onload="this.media='all'" />
-  ${loadAds && client ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(client)}" crossorigin="anonymous"></script>` : ''}
+  ${loadAds && client && adsRuntimeEnabled() ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(client)}" crossorigin="anonymous"></script>` : ''}
   <script defer src="/live-translate.js"></script>
   <script defer src="/columns.js"></script>
   ${extra}
@@ -604,9 +605,10 @@ export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, _o
     name: title,
     itemListElement: sorted.map((entry, index) => ({ '@type': 'ListItem', position: index + 1, name: entry.title, url: `https://world-news.xyz/analysis/${encodeURIComponent(entry.key)}` })),
   }).replace(/</g, '\\u003c')}</script>`;
+  const robots = `<meta name="robots" content="${entries.length ? 'index,follow' : 'noindex,follow'}" />`;
   return `<!doctype html>
 <html lang="zh-HK">
-${head(title, description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', ld, '', false)}
+${head(title, description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', `${robots}${ld}`, '', false)}
 <body>
   <div class="page column-page" data-kind="analysis-index">
   ${chrome('analysis')}

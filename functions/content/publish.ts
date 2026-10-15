@@ -302,7 +302,9 @@ export async function serveAnalysisIndex(context: PagesContext): Promise<Respons
   applyRuntimeEnv(context.env);
   const env = envOf(context);
   const entries = await indexableEntries(env, 'analysis', await readIndex(env, 'analysis').catch(() => []));
-  return new Response(renderAnalysisIndex(entries, `${siteUrl(env)}/analysis/`, { ads: adConfig(env) }), { headers: HTML_HEADERS });
+  const headers = new Headers(HTML_HEADERS);
+  if (!entries.length) headers.set('x-robots-tag', 'noindex, follow');
+  return new Response(renderAnalysisIndex(entries, `${siteUrl(env)}/analysis/`, { ads: adConfig(env) }), { headers });
 }
 
 export async function serveWeekly(context: PagesContext): Promise<Response> {

@@ -85,10 +85,10 @@ describe('column pages', () => {
     const html = renderContentPage(finishedDigest(), 'https://world-news.xyz/digest/x', {
       ads: { client: 'ca-pub-8392975944327076', top: '1111111111', mid: '2222222222', bottom: '3333333333' },
     });
-    expect(html).toContain('data-ad-position="top"');
-    expect(html).toContain('data-ad-slot="2222222222"');
-    expect(html).toContain('data-ad-layout="in-article"');
-    expect(html).toContain('data-ad-position="bottom"');
+    expect(html).toContain('name="robots" content="index,follow"');
+    expect(html).not.toContain('adsbygoogle');
+    expect(html).not.toContain('pagead2.googlesyndication.com');
+    expect(html).not.toContain('data-ad-slot');
   });
 
   it('keeps a highlight only when its numbers come from the sources', () => {

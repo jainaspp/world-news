@@ -115,5 +115,6 @@ export function renderQuizPage(doc: QuizDoc | null): string {
         <button type="button" class="chip quiz-share" hidden>分享成績</button>
       </form>
       <script src="/quiz.js" defer></script>` : '<p class="notice">今日試題尚未整理。請於 07:30 或 18:30（香港時間）之後再來。</p>'}`;
-  return page('每日新聞小測', '根據當日公開標題整理的選擇題。', '/quiz/', body);
+  const robots = questions.length ? '' : '<meta name="robots" content="noindex,follow" />';
+  return page('每日新聞小測', '根據當日公開標題整理的選擇題。', '/quiz/', body, robots);
 }

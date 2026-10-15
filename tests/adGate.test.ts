@@ -46,7 +46,7 @@ describe('AdSense gates', () => {
     expect(adSlotMarkup('feed', '')).toBe('');
     const focus = readFileSync('functions/focus/page.ts', 'utf8');
     expect(focus).toContain('focusFeedItems');
-    expect(focus).toContain("allowAds ? envSlot(context.env) : ''");
+    expect(focus).toContain('adsRuntimeEnabled() ? envSlot(context.env) : \'\'');
   });
 
   it('keeps the pagead script off the shell unless a real unit was rendered', () => {
@@ -57,7 +57,8 @@ describe('AdSense gates', () => {
     const bare = gateHomeAds(`<html><head></head><body>${renderHomeFeed(items)}</body></html>`);
     expect(bare).not.toContain('adsbygoogle');
     const slotted = gateHomeAds(`<html><head></head><body>${renderHomeFeed(items, new Map(), null, '1234567890')}</body></html>`);
-    expect(slotted).toContain('adsbygoogle.js?client=ca-pub-8392975944327076');
+    expect(slotted).not.toContain('adsbygoogle');
+    expect(slotted).not.toContain('pagead2.googlesyndication.com');
     expect(slotted).not.toContain('ad-placeholder');
     expect(slotted).not.toContain('支持世界頭條');
   });
@@ -75,6 +76,7 @@ describe('AdSense gates', () => {
       top: '1111111111',
     });
     expect(topics).not.toContain('adsbygoogle');
+    expect(topics).toContain('noindex,follow');
 
     const thin = weeklyFromHeadlines(
       [{ title: '晶片出口新規', url: 'https://example.com/t', source: 'BBC 科技' }],
@@ -97,6 +99,10 @@ describe('AdSense gates', () => {
     expect(xml).toContain('https://world-news.xyz/');
     expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('omitSitemapLocs');
     expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('region/twn');
+    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('https://world-news.xyz/digest/');
+    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('https://world-news.xyz/weekly/');
+    expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('https://world-news.xyz/analysis/');
+    expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('https://world-news.xyz/digest/');
   });
 
   it('withholds ads and indexing from a thin on-this-day page and from an empty landmark slot', () => {
@@ -112,7 +118,8 @@ describe('AdSense gates', () => {
     expect(hub.html).not.toContain('ad-placeholder');
     const thick = renderOnThisDayPage('10-09', { client: 'ca-pub-8392975944327076', slot: '1234567890' });
     expect(thick.indexable).toBe(true);
-    expect(thick.html).toContain('data-ad-slot="1234567890"');
-    expect(thick.html).toContain('adsbygoogle.js');
+    expect(thick.html).toContain('index,follow');
+    expect(thick.html).not.toContain('adsbygoogle');
+    expect(thick.html).not.toContain('pagead2.googlesyndication.com');
   });
 });
