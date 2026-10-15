@@ -1,6 +1,10 @@
+import { spawnSync } from 'node:child_process';
 import { copyFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { build } from 'esbuild';
+
+const sitemap = spawnSync(process.execPath, ['scripts/write-sitemap.mjs'], { stdio: 'inherit' });
+if (sitemap.status !== 0) process.exit(sitemap.status ?? 1);
 
 // The AI column pages are rendered by Pages Functions and link /site.css, which is the
 // homepage's own stylesheet, so both share one header, chip, card, footer and dark-mode source.

@@ -329,8 +329,8 @@ describe('mocked Grok generation', () => {
     expect(home).toContain('class="home-intro home-intro-top"');
     expect(chrome('briefing')).toContain('href="/briefing/"');
     expect(chrome('compare')).toContain('href="/explainer/"');
-    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('/briefing/');
-    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('/explainer/');
+    expect(readFileSync('shared/sitemap.ts', 'utf8')).toContain('/briefing/');
+    expect(readFileSync('shared/sitemap.ts', 'utf8')).toContain('/explainer/');
     expect(readFileSync('public/sitemap.xml', 'utf8')).toContain('https://world-news.xyz/briefing/');
     expect(readFileSync('public/sitemap.xml', 'utf8')).toContain('https://world-news.xyz/explainer/');
     expect(readFileSync('functions/compare/[slug].ts', 'utf8')).toContain('301');

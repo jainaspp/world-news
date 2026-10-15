@@ -7,7 +7,7 @@ import { focusFeedItems } from '../functions/focus/page';
 import { gateHomeAds, renderHomeFeed } from '../shared/homePage';
 import { heritagePublicPaths, renderLandmarkHub, renderOnThisDayPage } from '../shared/heritagePage';
 import { renderTopicIndex, topicIndexCards } from '../shared/topicPage';
-import { omitSitemapLocs } from '../functions/sitemap.xml';
+import { omitSitemapLocs } from '../shared/sitemap';
 import type { NewsItem } from '../shared/types';
 import { weeklyFromHeadlines } from '../shared/content';
 
@@ -97,12 +97,11 @@ describe('AdSense gates', () => {
     expect(xml).not.toContain('/region/twn');
     expect(xml).not.toContain('/digest/2026-10-01-am');
     expect(xml).toContain('https://world-news.xyz/');
-    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('omitSitemapLocs');
-    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('region/twn');
-    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('https://world-news.xyz/digest/');
-    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('https://world-news.xyz/weekly/');
-    expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('https://world-news.xyz/analysis/');
+    expect(readFileSync('shared/sitemap.ts', 'utf8')).toContain('omitSitemapLocs');
+    expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('/region/twn');
     expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('https://world-news.xyz/digest/');
+    expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('https://world-news.xyz/weekly/');
+    expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('https://world-news.xyz/analysis/');
   });
 
   it('withholds ads and indexing from a thin on-this-day page and from an empty landmark slot', () => {

@@ -265,9 +265,8 @@ describe('homepage intro stays in the HTML without leading the screen', () => {
     expect(aboutLazy).toHaveLength(1);
     expect(aboutLazy[0]).toContain('整合多方報道、配時間線');
     expect(about).not.toContain('adsbygoogle');
-    const sitemap = readFileSync('functions/sitemap.xml.ts', 'utf8');
-    expect(sitemap).toContain('DATA_PAGES');
-    expect(sitemap).not.toContain('/story/');
+    expect(readFileSync('shared/sitemap.ts', 'utf8')).toContain('DATA_PAGES');
+    expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('/story/');
     for (const id of ['weather', 'aqhi', 'fx', 'gold', 'oil'] satisfies DataPageId[]) {
       expect(readFileSync('public/sitemap.xml', 'utf8')).toContain(`https://world-news.xyz/data/${id}/`);
     }

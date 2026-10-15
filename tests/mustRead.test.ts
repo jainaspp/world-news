@@ -43,7 +43,7 @@ describe('今日必讀 and fail-page gates', () => {
     expect(home).toContain('今日必讀');
     expect(home).toContain('/explainer/a/');
     expect(demoteGraphic([item('bad', 'execution by firing squad', '2026-10-09T01:00:00Z'), item('ok', '港鐵', '2026-10-09T02:00:00Z')])[0]?.title).toBe('港鐵');
-    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('indexableEntries');
+    expect(readFileSync('functions/content/sitemapPublish.ts', 'utf8')).toContain('indexableEntries');
     expect(readFileSync('functions/content/publish.ts', 'utf8')).toContain('indexableEntries');
   });
 

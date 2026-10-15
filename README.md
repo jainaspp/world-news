@@ -130,7 +130,7 @@ npx wrangler kv namespace create CONTENT
 
 ## Grok 導讀同新聞懶人包
 
-`/briefing/`、`/briefing/<slot>/`（`YYYY-MM-DD-am` 或 `pm`）和 `/explainer/`、`/explainer/<key>/` 都是可索引的 HTML，會寫進 `sitemap.xml`。正文少於 500 字、或未完成應有段落的導讀和懶人包會 `noindex`，不進列表和 sitemap。導讀用當日香港和內地標題（包括「歐中貿易談判」這類歸在財經、但內容是中國的報道），每日 07:30 和 18:30（香港時間）各一篇，並連到同日已發布的懶人包。新聞懶人包先收緊到同一事件（標題重疊、同一分類、數小時內），再由 Grok 剔走不是該事件的標題；每日最多 20 篇。標題用模型寫的中文，不拼接來源標題。文首三行重點，下面是事件時間線、事件經過；各方回應和後續關注沒有來源就不寫。舊網址 `/compare/` 會 301 到 `/explainer/`。導讀和懶人包用 xAI `grok-4.3` 的 Responses API，並開啟 `web_search`（每次最多約 5 次搜尋、來源列表最多 10 條，排除社交網站）。Workers AI 只在本月 10 美元上限用盡，或 xAI 沒有回應時才用。
+`/briefing/`、`/briefing/<slot>/`（`YYYY-MM-DD-am` 或 `pm`）和 `/explainer/`、`/explainer/<key>/` 都是可索引的 HTML。目錄在靜態 `public/sitemap.xml`。單篇在發布寫入 index、且該次 env 設了 `SITEMAP_FILE` 時，由 `writePublishedSitemap` 併入同一份檔，再隨下次部署更新。`/sitemap.xml` 不再是 Pages Function。正文少於 500 字、或未完成應有段落的導讀和懶人包會 `noindex`，不進列表和 sitemap。導讀用當日香港和內地標題（包括「歐中貿易談判」這類歸在財經、但內容是中國的報道），每日 07:30 和 18:30（香港時間）各一篇，並連到同日已發布的懶人包。新聞懶人包先收緊到同一事件（標題重疊、同一分類、數小時內），再由 Grok 剔走不是該事件的標題；每日最多 20 篇。標題用模型寫的中文，不拼接來源標題。文首三行重點，下面是事件時間線、事件經過；各方回應和後續關注沒有來源就不寫。舊網址 `/compare/` 會 301 到 `/explainer/`。導讀和懶人包用 xAI `grok-4.3` 的 Responses API，並開啟 `web_search`（每次最多約 5 次搜尋、來源列表最多 10 條，排除社交網站）。Workers AI 只在本月 10 美元上限用盡，或 xAI 沒有回應時才用。
 
 香港和內地的導讀、懶人包、本週重點仍用 Grok。科技、財經、國際、科學、健康、體育、娛樂的懶人包，以及國際導讀（`scope=world`）和科技財經導讀（`scope=techfin`），用 MiniMax（`MiniMax-M2.5`，不夠則 `MiniMax-M2`）。MiniMax 是編碼方案月費，每篇費用記 0，不計入 10 美元上限。429 或額度用盡才改走 Grok，Grok 也不可用才用 Workers AI。輸出會做簡轉繁。每個早上或傍晚最多 15 篇 MiniMax 懶人包（每次 `kind=explainer` 最多 5 篇，現有排程連打三次就滿）。不帶 `scope` 的 `kind=briefing` 會一次寫香港、國際、科技財經三篇。
 

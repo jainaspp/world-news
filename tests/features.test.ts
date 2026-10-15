@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { apexRedirect, onRequest, shouldRedirect } from '../functions/_middleware';
+import { renderSitemap, sitemapUrls } from '../shared/sitemap';
 import { parseAqhi, parseHkoNow, parseHkoWarnings } from '../shared/hk';
 import { relatedItems, renderStoryMissing, renderStoryPage } from '../shared/storyPage';
 import { trendingTopics } from '../shared/topics';
@@ -137,6 +138,9 @@ describe('pages.dev and SEO', () => {
     for (const icon of manifest.icons) expect(() => readFileSync(`public${icon.src}`)).not.toThrow();
     expect(manifest.icons.some((icon) => icon.purpose === 'maskable')).toBe(true);
     expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('https://world-news.xyz/analysis/');
-    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('analysisPub.length');
+    expect(renderSitemap(sitemapUrls())).not.toContain('https://world-news.xyz/analysis/');
+    expect(renderSitemap(sitemapUrls({
+      analyses: [{ key: 'demo-0123456789ab', publishedAt: '2026-10-11T00:00:00.000Z' }],
+    }))).toContain('https://world-news.xyz/analysis/demo-0123456789ab');
   });
 });

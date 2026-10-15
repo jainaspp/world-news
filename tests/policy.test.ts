@@ -16,6 +16,7 @@ import {
 } from '../shared/contentPage';
 import { FEEDS } from '../shared/feeds';
 import { gateHomeAds, renderHomeFeed } from '../shared/homePage';
+import { staticSitemapUrls } from '../shared/sitemap';
 import { renderAboutPage, renderContactPage, renderPrivacyPage, renderTermsPage } from '../shared/sitePages';
 import { renderStoryPage } from '../shared/storyPage';
 import type { NewsItem } from '../shared/types';
@@ -207,10 +208,10 @@ describe('thin pages and original columns', () => {
     expect(xml).toContain('https://world-news.xyz/briefing/');
     expect(xml).toContain('https://world-news.xyz/explainer/');
     const count = xml.match(/<loc>/g)?.length ?? 0;
+    expect(count).toBe(staticSitemapUrls().length);
     expect(xml).toContain('https://world-news.xyz/data/');
     expect(xml).toContain('https://world-news.xyz/on-this-day/');
     expect(xml).toContain('https://world-news.xyz/hk/landmarks/');
-    expect(count).toBe(35);
     expect(xml).not.toContain('https://world-news.xyz/digest/');
     expect(xml).not.toContain('https://world-news.xyz/weekly/');
     expect(xml).not.toContain('https://world-news.xyz/analysis/');
