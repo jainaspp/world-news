@@ -129,7 +129,8 @@ describe('當年今日 pages', () => {
     expect(page.html).toContain('← 10月8日');
     expect(page.html).toContain('10月10日 →');
     expect(page.html).toContain('href="/hk/landmarks/kwong-wah/"');
-    expect(page.html).toContain('data-ad-slot="1234567890"');
+    expect(page.html).not.toContain('data-ad-slot');
+    expect(page.html).not.toContain('adsbygoogle');
     expect(dayIndexable('10-09')).toBe(true);
     const filled = renderOnThisDayPage('10-10');
     expect(filled.indexable).toBe(true);
@@ -165,8 +166,9 @@ describe('當年今日 pages', () => {
     expect(detail.html).not.toContain('data-ad-slot');
     expect(detail.html).not.toContain('<ins class="adsbygoogle"');
     const slotted = renderLandmarkPage('city-hall', { client: 'ca-pub-8392975944327076', slot: '1234567890' });
-    expect(slotted.html).toContain('data-ad-slot="1234567890"');
-    expect(slotted.html).toContain('pagead2.googlesyndication.com');
+    expect(slotted.html).not.toContain('data-ad-slot');
+    expect(slotted.html).not.toContain('pagead2.googlesyndication.com');
+    expect(slotted.html).not.toContain('adsbygoogle');
     expect(renderLandmarkPage('no-such').status).toBe(404);
     const paths = heritagePublicPaths();
     expect(paths).toContain('/on-this-day/');

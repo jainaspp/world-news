@@ -150,11 +150,13 @@ describe('thin pages and original columns', () => {
       ads: { client: 'ca-pub-8392975944327076', top: '1111111111' },
     });
     expect(slotted).toContain('<h2 class="column-h2">一週科技</h2>');
-    expect(slotted).toContain('adsbygoogle.js');
-    expect(slotted).toContain('<span class="ad-label">廣告</span>');
-    expect(slotted.indexOf('column-hero')).toBeLessThan(slotted.indexOf('data-ad-position="top"'));
+    expect(slotted).toContain('name="robots" content="index,follow"');
+    expect(slotted).not.toContain('adsbygoogle');
+    expect(slotted).not.toContain('pagead2.googlesyndication.com');
+    expect(slotted).not.toContain('data-ad-position');
     const emptyIndex = renderAnalysisIndex([], 'https://world-news.xyz/analysis/');
     expect(emptyIndex).not.toContain('編者按');
+    expect(emptyIndex).toContain('noindex,follow');
     expect(emptyIndex).not.toContain('adsbygoogle');
 
     const digestPrompt = promptFor({ ...weekly, kind: 'digest' });
@@ -187,14 +189,14 @@ describe('thin pages and original columns', () => {
     expect(html).toContain('home-intro');
     expect(html).toContain('href="/privacy/"');
     const ads = html.match(/class="ad-slot/g) || [];
-    expect(ads).toHaveLength(2);
-    const adAt = html.indexOf('ad-slot');
-    expect(html.slice(0, adAt).match(/class="story/g)?.length).toBeGreaterThanOrEqual(6);
+    expect(ads).toHaveLength(0);
+    expect(html).not.toContain('adsbygoogle');
 
     const shell = readFileSync('index.html', 'utf8');
     expect(shell).not.toContain('adsbygoogle');
     const injected = gateHomeAds(shell.replace('<div id="root"></div>', `<div id="root">${html}</div>`));
-    expect(injected).toContain('adsbygoogle.js');
+    expect(injected).not.toContain('adsbygoogle');
+    expect(injected).not.toContain('pagead2.googlesyndication.com');
     expect(gateHomeAds(shell.replace('<div id="root"></div>', `<div id="root">${bare}</div>`))).not.toContain('adsbygoogle');
     expect(readFileSync('public/robots.txt', 'utf8')).toContain('User-agent: Mediapartners-Google\nAllow: /');
     const xml = readFileSync('public/sitemap.xml', 'utf8');
@@ -208,7 +210,11 @@ describe('thin pages and original columns', () => {
     expect(xml).toContain('https://world-news.xyz/data/');
     expect(xml).toContain('https://world-news.xyz/on-this-day/');
     expect(xml).toContain('https://world-news.xyz/hk/landmarks/');
-    expect(count).toBe(39);
+    expect(count).toBe(35);
+    expect(xml).not.toContain('https://world-news.xyz/digest/');
+    expect(xml).not.toContain('https://world-news.xyz/weekly/');
+    expect(xml).not.toContain('https://world-news.xyz/analysis/');
+    expect(xml).not.toContain('https://world-news.xyz/topic/');
     expect(xml).not.toContain('/region/twn');
     expect(xml).toContain('https://world-news.xyz/today/');
   });

@@ -1,14 +1,15 @@
 import { loadHkNow } from '../../server/hkService.js';
 import { loadHsiQuote } from '../../server/hsiService.js';
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
-import { homeAllowsAds, type HomeAdView } from '../../shared/adPolicy.js';
+import { adsRuntimeEnabled, homeAllowsAds, type HomeAdView } from '../../shared/adPolicy.js';
 import { filterNews } from '../../shared/filter.js';
 import { focusKey, focusPages, parseFocus, renderWeekFocus, type FocusPage } from '../../shared/focus.js';
 import { esc } from '../../shared/contentPage.js';
-import { injectHomeShell, type HomeMarket } from '../../shared/homePage.js';
+import { injectHomeShell, type HomeColumnLinks, type HomeMarket } from '../../shared/homePage.js';
 import { mustReadForSurface } from '../../shared/mustRead.js';
 import { loadList } from '../board/list.js';
 import { readBoard } from '../board/store.js';
+import { loadHomeColumns } from '../content/homeColumns.js';
 import { loadMustRead } from '../content/mustRead.js';
 import { readValue, type ContentEnv } from '../content/store.js';
 import type { PagesContext } from '../env.js';
@@ -97,6 +98,12 @@ export async function serveFocusHome(context: PagesContext, page: FocusPage): Pr
     items = [];
   }
   const allowAds = homeAllowsAds(focusAdView(page));
+  let columns: HomeColumnLinks = {};
+  try {
+    columns = await loadHomeColumns(env);
+  } catch {
+    columns = {};
+  }
   const known = focusPages().find((row) => row.scope === page.scope && row.id === page.id);
   const path = page.scope === 'region' ? `/region/${page.id}` : `/category/${page.id}`;
   const noindex = page.scope === 'region' && page.id === 'twn';
@@ -106,12 +113,13 @@ export async function serveFocusHome(context: PagesContext, page: FocusPage): Pr
       items,
       counts,
       market,
-      allowAds ? envSlot(context.env) : '',
+      allowAds && adsRuntimeEnabled() ? envSlot(context.env) : '',
       major,
       focusHtml,
       undefined,
       mustReadForSurface(mustRead, page.scope === 'category' ? page.id : ''),
       true,
+      columns,
     ),
     path,
     known?.label || page.label,

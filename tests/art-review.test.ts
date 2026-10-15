@@ -92,25 +92,20 @@ describe('manual ad rhythm', () => {
     expect(adSlotMarkup('feed', '')).toBe('');
     expect(adSlotMarkup('sidebar', 'placeholder')).toBe('');
     const slotted = adSlotMarkup('sidebar', '1234567890');
-    expect(slotted).toContain('ad-slot-sidebar');
-    expect(slotted).toContain('adsbygoogle');
+    expect(slotted).toBe('');
+    expect(slotted).not.toContain('adsbygoogle');
     expect(slotted).not.toContain('ad-placeholder');
     expect(slotted).not.toContain('支持世界頭條');
   });
 
-  it('inserts a feed slot after every 8 standard cards and never before the hero', () => {
+  it('keeps the hero and the ranked list free of ad units during the review hold', () => {
     const items = Array.from({ length: 12 }, (_, index) => item(String(index).padStart(2, '0'), 90));
     const html = renderHomeFeed(items, new Map(), null, '1234567890');
-    const heroAt = html.indexOf('story-hero');
-    const adAt = html.indexOf('ad-slot-feed');
-    expect(heroAt).toBeGreaterThan(-1);
-    expect(adAt).toBeGreaterThan(heroAt);
-    expect(html.match(/ad-slot-feed/g)).toHaveLength(2);
-    const beforeAd = html.slice(0, adAt);
-    expect(beforeAd.match(/<article/g)).toHaveLength(9);
+    expect(html.indexOf('story-hero')).toBeGreaterThan(-1);
+    expect(html).not.toContain('ad-slot');
+    expect(html).not.toContain('adsbygoogle');
     const list = html.slice(html.indexOf('class="home-list"'));
-    const listAd = list.indexOf('ad-slot-feed');
-    expect(list.slice(0, listAd).match(/class="rank-row/g)).toHaveLength(8);
+    expect(list.match(/class="rank-row/g)).toHaveLength(12);
   });
 });
 

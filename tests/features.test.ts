@@ -136,6 +136,7 @@ describe('pages.dev and SEO', () => {
     const manifest = JSON.parse(readFileSync('public/manifest.json', 'utf8')) as { icons: { src: string; purpose: string }[] };
     for (const icon of manifest.icons) expect(() => readFileSync(`public${icon.src}`)).not.toThrow();
     expect(manifest.icons.some((icon) => icon.purpose === 'maskable')).toBe(true);
-    expect(readFileSync('public/sitemap.xml', 'utf8')).toContain('https://world-news.xyz/analysis/');
+    expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('https://world-news.xyz/analysis/');
+    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('analysisPub.length');
   });
 });

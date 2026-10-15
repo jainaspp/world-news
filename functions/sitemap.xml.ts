@@ -76,13 +76,17 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     .filter(([loc]) => !base.includes(loc))
     .map(([loc, freq, priority]) => entry(loc, '2026-10-07', freq, priority))
     .join('');
-  const topics = (await publicTopicPaths(env).catch(() => []))
+  const topicRows = await publicTopicPaths(env).catch(() => []);
+  const topics = topicRows
     .filter((row) => !base.includes(`https://world-news.xyz/topic/${row.slug}/`))
     .map((row) => entry(`https://world-news.xyz/topic/${row.slug}/`, row.updatedAt, 'daily', '0.7'))
     .join('');
-  const topicIndex = base.includes('https://world-news.xyz/topic/')
-    ? ''
-    : entry('https://world-news.xyz/topic/', new Date().toISOString(), 'daily', '0.7');
+  const topicIndex = topicRows.length && !base.includes('https://world-news.xyz/topic/</loc>')
+    ? entry('https://world-news.xyz/topic/', new Date().toISOString(), 'daily', '0.7')
+    : '';
+  const analysisHub = analysisPub.length && !base.includes('https://world-news.xyz/analysis/</loc>')
+    ? entry('https://world-news.xyz/analysis/', analysisPub[0]?.publishedAt || new Date().toISOString(), 'hourly', '0.7')
+    : '';
   const heritage = heritagePublicPaths()
     .filter((path) => !base.includes(`https://world-news.xyz${path}`))
     .map((path) => entry(`https://world-news.xyz${path}`, '2026-10-09', path.includes('/landmarks/') ? 'monthly' : 'daily', path === '/hk/landmarks/' || path === '/on-this-day/' ? '0.7' : '0.6'))
@@ -97,13 +101,20 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     ...weeklyPub.map((row) => `https://world-news.xyz/weekly/${row.key}`),
   ]);
   const merged = base.includes('</urlset>')
-    ? base.replace('</urlset>', `${major}${legal}${data}${heritage}${today}${topicIndex}${topics}${extra}</urlset>`)
-    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${heritage}${today}${topicIndex}${topics}${extra}</urlset>\n`;
+    ? base.replace('</urlset>', `${major}${legal}${data}${heritage}${today}${analysisHub}${topicIndex}${topics}${extra}</urlset>`)
+    : `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${major}${legal}${data}${heritage}${today}${analysisHub}${topicIndex}${topics}${extra}</urlset>\n`;
   const withoutShells = merged.replace(
     /\s*<url>\s*<loc>(https:\/\/world-news\.xyz\/(?:digest|weekly|analysis)\/[^<]+)<\/loc>[\s\S]*?<\/url>/g,
     (block, loc: string) => (published.has(loc) ? block : ''),
   );
-  const xml = omitSitemapLocs(withoutShells, ['https://world-news.xyz/region/twn']);
+  const thinHubs = [
+    'https://world-news.xyz/region/twn',
+    'https://world-news.xyz/digest/',
+    'https://world-news.xyz/weekly/',
+  ];
+  if (!analysisPub.length) thinHubs.push('https://world-news.xyz/analysis/');
+  if (!topicRows.length) thinHubs.push('https://world-news.xyz/topic/');
+  const xml = omitSitemapLocs(withoutShells, thinHubs);
   return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=600' } });
 }
 
