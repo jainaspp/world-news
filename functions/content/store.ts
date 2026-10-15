@@ -224,6 +224,15 @@ export async function rememberIndexMany(env: ContentEnv, docs: ContentDoc[]): Pr
   let index = await readIndex(env, kind);
   for (const doc of rows) if (doc.kind === kind) index = mergeIndex(index, doc, INDEX_LIMIT[kind]);
   await writeValue(env, indexKey(kind), JSON.stringify(index));
+  // Pages must leave SITEMAP_FILE unset. Set it only on a Node publisher that can rewrite public/sitemap.xml.
+  const file = env.SITEMAP_FILE;
+  if (typeof file !== 'string' || !file) return;
+  try {
+    const { writePublishedSitemap } = await import('./sitemapPublish.js');
+    await writePublishedSitemap(env, file);
+  } catch (error) {
+    console.warn('sitemap file was not rewritten', error instanceof Error ? error.message : error);
+  }
 }
 
 export function indexKey(kind: ContentDoc['kind']): string {

@@ -95,13 +95,12 @@ describe('Hang Seng quote', () => {
 
 describe('sitemap stays off the news board', () => {
   it('keeps column urls and does not list thin story pages', () => {
-    const sitemap = readFileSync('functions/sitemap.xml.ts', 'utf8');
+    const sitemap = readFileSync('shared/sitemap.ts', 'utf8');
     expect(sitemap).toContain('/analysis/');
     expect(sitemap).toContain('/digest/');
     expect(sitemap).toContain('/about/');
     expect(sitemap).not.toContain('storySitemapEntries');
     expect(sitemap).not.toContain('getNews');
-    expect(sitemap).not.toContain('/story/');
     const xml = readFileSync('public/sitemap.xml', 'utf8');
     expect(xml).toContain('https://world-news.xyz/region/hkg');
     expect(xml).not.toContain('/story/');

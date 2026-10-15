@@ -1,6 +1,7 @@
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { resetKvWriteState } from '../functions/content/store';
+import { sitemapForPublish } from '../shared/sitemap';
 import { resetUsageState } from '../functions/content/usage';
 import { BOARD_KV_KEY, computeBoard } from '../shared/board';
 import { renderContentPage } from '../shared/contentPage';
@@ -463,7 +464,8 @@ describe('topic pages', () => {
     expect(renderHomeFeed([item({ id: 'a', title: '標題', link: 'https://example.com/a' })])).not.toContain('href="/topic/"');
     expect(readFileSync('src/App.tsx', 'utf8')).toContain('href="/topic/"');
     expect(readFileSync('public/sitemap.xml', 'utf8')).not.toContain('https://world-news.xyz/topic/');
-    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('topicRows.length');
+    expect(sitemapForPublish([], [{ slug: 'policy-address', updatedAt: '2026-10-07T01:00:00.000Z' }])).toContain('https://world-news.xyz/topic/policy-address/');
+    expect(sitemapForPublish()).not.toContain('https://world-news.xyz/topic/');
     expect(readFileSync('.github/workflows/warm-content.yml', 'utf8')).toContain('kind=topic');
     expect(readFileSync('.github/workflows/warm-content.yml', 'utf8')).toContain('topic_skip');
     expect(readFileSync('functions/api/generate.ts', 'utf8')).toContain("kind === 'topic'");

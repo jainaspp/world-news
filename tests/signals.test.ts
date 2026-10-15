@@ -137,7 +137,7 @@ describe('endpoints stay separate', () => {
     expect(readFileSync('functions/api/clusters.ts', 'utf8')).not.toContain('clusterCards');
     expect(readFileSync('functions/api/board.ts', 'utf8')).toContain('computeBoard(');
     expect(readFileSync('public/sitemap.xml', 'utf8')).toContain('https://world-news.xyz/major/');
-    expect(readFileSync('functions/sitemap.xml.ts', 'utf8')).toContain('/major/');
+    expect(readFileSync('shared/sitemap.ts', 'utf8')).toContain('/major/');
   });
 });
 
