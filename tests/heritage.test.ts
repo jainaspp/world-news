@@ -5,6 +5,7 @@ import landmarksSeed from '../shared/heritage/landmarks';
 import { AD_BODY_CHARS } from '../shared/contentPage';
 import {
   factsOn,
+  heritageBlocked,
   hktMmdd,
   homeFacts,
   isMmdd,
@@ -44,6 +45,18 @@ describe('當年今日 seed', () => {
     expect(seedIssues()).toEqual([]);
     const raw = JSON.stringify(factsSeed) + JSON.stringify(landmarksSeed);
     expect(raw).not.toMatch(FORBIDDEN);
+    expect(raw).toContain('維港兩岸');
+    expect(heritageBlocked('維港兩岸常有除夕倒數')).toBe(false);
+    expect(heritageBlocked('航線繼續連接兩岸')).toBe(false);
+    expect(heritageBlocked('兩岸關係')).toBe(true);
+    expect(heritageBlocked('海峽兩岸局勢')).toBe(true);
+    expect(heritageBlocked('台灣')).toBe(true);
+    expect(heritageBlocked('臺灣')).toBe(true);
+    expect(heritageBlocked('Taiwan')).toBe(true);
+    expect(heritageBlocked('Taipei')).toBe(true);
+    expect(heritageBlocked('國民黨軍')).toBe(false);
+    expect(heritageBlocked('國民黨')).toBe(true);
+    expect(heritageBlocked('主權')).toBe(true);
     expect(raw).not.toContain('"mmdd": "06-04"');
     expect(raw).not.toContain('"mmdd": "07-01"');
   });
@@ -93,12 +106,21 @@ describe('當年今日 pages', () => {
     const home = renderHomeFeed([item()], new Map(), null, '', null, '', [], [
       { href: '/explainer/a/', title: '睡蓮新種', description: '雨林發現新品種。' },
     ], now);
+    const axis = home.indexOf('id="civ"');
+    const pin = home.indexOf('今日落點');
+    const slice = home.indexOf('id="slice"');
     const digest = home.indexOf('class="digest-strip"');
-    const heritage = home.indexOf('otd-pack heritage');
     const must = home.indexOf('今日必讀');
-    expect(digest).toBeGreaterThan(-1);
-    expect(heritage).toBeGreaterThan(digest);
-    expect(must).toBeGreaterThan(heritage);
+    expect(axis).toBeGreaterThan(-1);
+    expect(pin).toBeGreaterThan(axis);
+    expect(slice).toBeGreaterThan(pin);
+    expect(digest).toBeGreaterThan(slice);
+    expect(must).toBeGreaterThan(digest);
+    expect(home).toContain('chip civ-chip');
+    expect(home).toContain('站在一條很長的時間軸上');
+    expect(home).not.toContain('otd-pack');
+    expect(home).not.toContain('MOCK');
+    expect(home).not.toContain('adsbygoogle');
     const app = readFileSync('src/App.tsx', 'utf8');
     expect(app.indexOf('<OnThisDay')).toBeGreaterThan(0);
     expect(app.indexOf('<OnThisDay')).toBeLessThan(app.indexOf('<MustRead'));

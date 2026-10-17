@@ -3,6 +3,7 @@ import { columnIndexable } from './contentPage.js';
 import { CATEGORY_IDS } from './categories.js';
 import { DATA_HUB, DATA_PAGES } from './dataSeries.js';
 import { REGIONS } from './feeds.js';
+import { civilizationPublicPaths } from './civilizationPage.js';
 import { heritagePublicPaths } from './heritagePage.js';
 
 export const SITEMAP_ORIGIN = 'https://world-news.xyz';
@@ -89,6 +90,9 @@ export function staticSitemapUrls(): SitemapUrl[] {
   for (const page of DATA_PAGES) urls.push(entry(`${SITEMAP_ORIGIN}${page.path}`, 'daily', '0.6'));
   urls.push(entry(`${SITEMAP_ORIGIN}/major/`, 'hourly', '0.8'));
   urls.push(entry(`${SITEMAP_ORIGIN}/category/entertainment`, 'hourly', '0.7'));
+  for (const path of civilizationPublicPaths()) {
+    urls.push(entry(`${SITEMAP_ORIGIN}${path}`, 'weekly', '0.8', '2026-10-17'));
+  }
   for (const path of heritagePublicPaths()) {
     const hub = path === '/on-this-day/' || path === '/hk/landmarks/';
     urls.push(entry(

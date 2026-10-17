@@ -60,29 +60,37 @@ export const LANDMARK_FILTERS: { kind: '' | LandmarkKind; label: string }[] = [
   { kind: 'view', label: '自然／觀景' },
 ];
 
-/** Geography and civic life only. Political and protest wording is refused. */
-const FORBIDDEN = /六四|六月四日|6月4日|06-04|港獨|香港獨立|文革|文化大革命|主權|示威|遊行|抗議|佔領|暴動|鎮壓/;
+/**
+ * Geography and civic life only. Political wording and Taiwan place names are refused.
+ * 「維港兩岸」 is Victoria Harbour, not a political term, and stays in the seed.
+ */
+const TAIWAN_FORBIDDEN = /台灣|臺灣|台湾|Taiwan|Taipei|台北|臺北|高雄|台南|臺南|台中|臺中|新北|桃園|民進黨|國民黨(?!軍)|蔡英文|賴清德|馬英九|陳水扁|台獨|臺獨|台独|九二共識|九二共识|武統|護國神山/i;
+const POLITICAL_FORBIDDEN = /六四|六月四日|6月4日|06-04|天安門事件|天安门事件|Tiananmen|港獨|港独|香港獨立|文革|文化大革命|主權|示威|遊行|抗議|佔領|暴動|鎮壓|法輪|法轮|達賴|达赖|Dalai|疆獨|疆独|藏獨|藏独|再教育營|活摘|Free Tibet/i;
+const STRAIT_POLITICAL = /兩岸關係|两岸关系|兩岸協議|两岸协议|兩岸局勢|两岸局势|海峽兩岸|海峡两岸|兩岸.{0,6}(?:關係|協議|局勢|海峽|政治)|(?:關係|協議|局勢|海峽|政治).{0,6}兩岸|两岸.{0,6}(?:关系|协议|局势|海峡|政治)|(?:关系|协议|局势|海峡|政治).{0,6}两岸/;
 
-const facts = (factsJson as HeritageFact[]).filter((row) => !forbiddenText(JSON.stringify(row)));
-const landmarks = (landmarksJson as Landmark[]).filter((row) => !forbiddenText(JSON.stringify(row)));
+const facts = (factsJson as HeritageFact[]).filter((row) => !heritageBlocked(JSON.stringify(row)));
+const landmarks = (landmarksJson as Landmark[]).filter((row) => !heritageBlocked(JSON.stringify(row)));
 const bySlug = new Map(landmarks.map((row) => [row.slug, row]));
 
-function forbiddenText(value: string): boolean {
-  return FORBIDDEN.test(value);
+/** True when copy hits the Taiwan table or a political red line. Harbour 「維港兩岸」 is kept. */
+export function heritageBlocked(value: string): boolean {
+  if (TAIWAN_FORBIDDEN.test(value) || POLITICAL_FORBIDDEN.test(value)) return true;
+  const harbour = value.replace(/維港兩岸/g, '').replace(/維多利亞港兩岸/g, '');
+  return STRAIT_POLITICAL.test(harbour);
 }
 
 export function seedIssues(): string[] {
   const issues: string[] = [];
   for (const row of factsJson as HeritageFact[]) {
     if (!isMmdd(row.mmdd)) issues.push(`bad date ${row.mmdd}`);
-    if (forbiddenText(JSON.stringify(row))) issues.push(`blocked fact ${row.mmdd} ${row.year}`);
+    if (heritageBlocked(JSON.stringify(row))) issues.push(`blocked fact ${row.mmdd} ${row.year}`);
     if (row.landmark && !bySlug.has(row.landmark)) issues.push(`missing landmark ${row.landmark}`);
   }
   for (const row of landmarksJson as Landmark[]) {
     if (!row.slug || bySlug.get(row.slug) !== row && landmarks.filter((item) => item.slug === row.slug).length !== 1) {
       issues.push(`slug ${row.slug}`);
     }
-    if (forbiddenText(JSON.stringify(row))) issues.push(`blocked landmark ${row.slug}`);
+    if (heritageBlocked(JSON.stringify(row))) issues.push(`blocked landmark ${row.slug}`);
   }
   if ((factsJson as HeritageFact[]).some((row) => row.mmdd === '06-04' || row.mmdd === '07-01')) {
     issues.push('blocked calendar day');
