@@ -1,8 +1,11 @@
 import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPage.js';
+import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderChronicleStrip, renderStageGrid } from './civilization/chronicle.js';
 import { ORIGINS_BODY, ORIGINS_SOURCES } from './civilization/originsSource.js';
 import { renderMildMarkdown } from './civilization/markdown.js';
 import { homeFacts, hktMmdd, labelMmdd, type HeritageFact } from './heritage.js';
 import { landmarkBySlug } from './heritage.js';
+
+export { chronicleIndexable, chronicleProse } from './civilization/chronicle.js';
 
 const ORIGIN = 'https://world-news.xyz';
 
@@ -28,7 +31,7 @@ export const HUB_MILESTONES: { era: string; title: string; text: string }[] = [
   },
 ];
 
-const HUB_READ = '閱讀時先看軸上的四個位置：起源、技術、城市、今天。今天的新聞是軸上的切片。沒有溫和史對照的電訊不強加年代座標。技術與城市若尚未寫成獨立長頁，頁面只連到已經夠厚的地標與編年，不製造空殼網址。';
+const HUB_READ = '閱讀時先看軸上的四個位置：起源、技術、城市、今天。今天的新聞是軸上的切片。沒有溫和史對照的電訊不強加年代座標。技術與城市若尚未寫成獨立長頁，頁面只連到已經夠厚的地標與編年，不製造空殼網址。軸下編年帶列出十個階段，點進階段可讀完整編年。';
 
 const HUB_LOCAL = '香港科學館於一九九一年開幕，以常設展覽介紹日常科學與自然現象，可作為城市向公眾講解深時間的節點。香港太空館於一九八〇年開幕，天象廳介紹星空與太陽系，方便把宇宙尺度和人族年表放在一起對照。兩館都是既有地標頁。';
 
@@ -43,6 +46,7 @@ export function hubProse(): string {
     ...HUB_MILESTONES.flatMap((row) => [row.era, row.title, row.text]),
     HUB_READ,
     HUB_LOCAL,
+    chronicleCardProse(),
   ].join('');
 }
 
@@ -59,6 +63,7 @@ export function civilizationPublicPaths(): string[] {
   const paths: string[] = [];
   if (hubIndexable()) paths.push('/civilization/');
   if (originsIndexable()) paths.push('/civilization/origins/');
+  if (chronicleIndexable()) paths.push('/civilization/chronicle/');
   return paths;
 }
 
@@ -189,6 +194,7 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
       <a class="btn btn-brass" href="${esc(primaryHref)}">${esc(primaryLabel)}</a>
       <a class="btn btn-ghost" href="${esc(todayHref)}">跳到今日切片</a>
     </div>
+    ${renderChronicleStrip()}
   </section>`;
 }
 
@@ -334,8 +340,10 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
   const body = `<nav class="crumb"><a href="/">首頁</a> · 文明</nav>
     ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice' })}
     ${hubHero()}
+    <h1 class="column-title civ-page-title">人類文明</h1>
+    ${renderTodayPin(now)}
+    ${renderStageGrid()}
     <article class="civ-article">
-      <h1 class="column-title civ-page-title">人類文明</h1>
       <h2>導語</h2>
       <p>${esc(HUB_LEDE)}</p>
       <h2>起源摘要</h2>
@@ -348,12 +356,24 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
       <p>${esc(HUB_LOCAL)}</p>
       <p><a href="/hk/landmarks/science-museum/">香港科學館</a> · <a href="/hk/landmarks/space-museum/">香港太空館</a></p>
     </article>
-    ${renderTodayPin(now)}
     ${renderLayerAside()}`;
   return shell({
     title: '人類文明',
     description: '從深時間到今日切片的溫和文明總覽。',
     path: '/civilization/',
+    body,
+    indexable,
+  });
+}
+
+export function renderChroniclePage(): { html: string; status: number; indexable: boolean } {
+  const indexable = chronicleIndexable();
+  const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 編年</nav>
+    ${renderChronicleArticle()}`;
+  return shell({
+    title: '文明編年',
+    description: '從史前採集到智能工具的十階段編年，以能量、信息、制度、貨幣四線標出界定里程碑。',
+    path: '/civilization/chronicle/',
     body,
     indexable,
   });

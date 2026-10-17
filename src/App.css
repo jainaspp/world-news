@@ -1733,6 +1733,12 @@ a.axis-node:hover { color: #f7f1e6; }
     width: min(46%, 380px);
     margin: 0.2rem 0 1rem 1.1rem;
   }
+  .chronicle-page .civ-figure {
+    float: none;
+    clear: none;
+    width: 100%;
+    margin: 12px 0 16px;
+  }
 }
 .focus-title {
   margin: 10px 2px 0;
@@ -1745,6 +1751,204 @@ a.axis-node:hover { color: #f7f1e6; }
   font-family: var(--font-serif);
   font-size: clamp(1.6rem, 3vw, 2rem);
   line-height: 1.3;
+}
+
+/* Ten-stage chronicle. Ink strip on the axis; paper cards on the hub and long page. */
+.chronicle-strip {
+  position: relative;
+  margin-top: 14px;
+}
+.chronicle-strip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 28px;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(22, 28, 36, 0), #161c24);
+}
+.chronicle-track {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0 22px 2px 0;
+  list-style: none;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+.chronicle-track::-webkit-scrollbar { height: 0; display: none; }
+.stage-dot {
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 64px;
+  color: #e8e4dc;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 1.2;
+}
+.stage-dot:hover { color: #f7f1e6; }
+.stage-dot .thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #f7f1e6;
+  border: 1.5px solid #c4a572;
+  overflow: hidden;
+}
+.stage-dot .stage-seal {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+}
+.stage-dot .name { white-space: nowrap; }
+.stage-seal {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #efe4d2;
+  color: #161c24;
+  border: 1.5px solid #9a7b4f;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.chronicle-board { margin-top: 18px; }
+.chronicle-board-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.chronicle-board-head h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+}
+.chronicle-board-head a { font-size: 13px; font-weight: 700; white-space: nowrap; }
+.chronicle-board-note { margin: 6px 0 12px; font-size: 13px; color: #5c6570; }
+.stage-grid { display: grid; gap: 12px; }
+.stage-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #d4cbb8;
+  border-radius: 14px;
+  background: #f7f1e6;
+  color: #161c24;
+}
+a.stage-cover { text-decoration: none; }
+.stage-cover,
+.stage-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #f7f1e6;
+  border-radius: 0;
+}
+.stage-frame { border-radius: 12px; }
+.stage-cover img,
+.stage-frame img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  border-radius: 0;
+}
+.stage-cover img[hidden],
+.stage-frame img[hidden] { display: none; }
+.stage-card .stage-seal,
+.chronicle-stage .stage-seal {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  font-size: 14px;
+}
+.stage-cover:has(img[hidden]) .stage-seal,
+.stage-frame:has(img[hidden]) .stage-seal {
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+}
+.stage-cover[data-stage="1"] { background: linear-gradient(145deg, #c9844a 0%, #f7f1e6 62%); }
+.stage-cover[data-stage="2"] { background: linear-gradient(145deg, #d7a15a 0%, #f7f1e6 64%); }
+.stage-cover[data-stage="3"] { background: linear-gradient(145deg, #c4a572 0%, #f7f1e6 66%); }
+.stage-cover[data-stage="4"] { background: linear-gradient(145deg, #b7a48a 0%, #f4efe6 68%); }
+.stage-cover[data-stage="5"] { background: linear-gradient(145deg, #a89880 0%, #f4efe6 68%); }
+.stage-cover[data-stage="6"] { background: linear-gradient(145deg, #8e99a4 0%, #f3f5f8 70%); }
+.stage-cover[data-stage="7"] { background: linear-gradient(145deg, #7f8b96 0%, #eef1f4 70%); }
+.stage-cover[data-stage="8"] { background: linear-gradient(145deg, #6e7c89 0%, #eef1f4 72%); }
+.stage-cover[data-stage="9"] { background: linear-gradient(145deg, #5e7384 0%, #e7eef3 72%); }
+.stage-cover[data-stage="10"] { background: linear-gradient(145deg, #4d6272 0%, #e6edf2 74%); }
+.stage-body { padding: 10px 14px 14px; }
+.stage-body .era,
+.chronicle-stage .era { margin: 0 0 4px; color: #9a7b4f; font-size: 12px; font-weight: 700; }
+.stage-body h3 { margin: 0 0 6px; font-family: var(--font-serif); font-size: 1.05rem; }
+.stage-body h3 a { color: inherit; text-decoration: none; }
+.stage-milestones { margin: 0 0 8px; padding-left: 1.15em; font-size: 13px; }
+.stage-milestones li { margin: 0 0 2px; }
+.stage-meaning { margin: 0 0 8px; font-size: 14px; line-height: 1.6; }
+.line-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+.line-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid #9a7b4f;
+  background: #f7f1e6;
+  color: #161c24;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+.stage-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; font-size: 13px; font-weight: 700; }
+.stage-source { margin: 0 0 8px; font-size: 13px; color: #5c6570; }
+.chronicle-nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 2px 0 8px;
+}
+.chronicle-nav::-webkit-scrollbar { display: none; }
+.chronicle-nav .chip {
+  background: #f7f1e6;
+  border-color: #d4cbb8;
+  color: #161c24;
+  min-height: 36px;
+}
+.chronicle-stage {
+  scroll-margin-top: 12px;
+  margin: 8px 0 22px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #d4cbb8;
+}
+.chronicle-stage h2 { margin: 0 0 10px; }
+.chronicle-page .civ-figure { margin: 12px 0 16px; }
+.civ-page .today-pin { margin-top: 16px; }
+@media (min-width: 640px) {
+  .stage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* Dark civ surfaces. Light ink / paper / cool-gray above stays put. */
@@ -1825,4 +2029,38 @@ html.dark .civ-figure-credit { color: #d2c4b0; }
 html.dark .civ-hub-hero figcaption {
   color: #161c24;
   background: rgba(22, 28, 36, 0.12);
+}
+html.dark .stage-card,
+html.dark .chronicle-stage {
+  color: #f3eadc;
+}
+html.dark .stage-card {
+  background: #2a231b;
+  border-color: #5c4a34;
+}
+html.dark .stage-card h3 a,
+html.dark .chronicle-stage h2,
+html.dark .chronicle-board-head h2 { color: #f7f1e6; }
+html.dark .chronicle-board-note,
+html.dark .stage-meaning,
+html.dark .stage-source,
+html.dark .stage-milestones { color: #d2c4b0; }
+html.dark .chronicle-stage { border-bottom-color: #5c4a34; }
+html.dark .stage-cover,
+html.dark .stage-frame { background: #2a231b; }
+html.dark .stage-cover img,
+html.dark .stage-frame img { opacity: 0.92; }
+html.dark .stage-card .stage-seal,
+html.dark .chronicle-stage .stage-seal,
+html.dark .line-chip,
+html.dark .chronicle-nav .chip {
+  background: #3a3126;
+  color: #f7f1e6;
+  border-color: #c4a572;
+}
+html.dark .stage-dot .thumb,
+html.dark .stage-dot .stage-seal {
+  background: #f7f1e6;
+  color: #161c24;
+  border-color: #c4a572;
 }

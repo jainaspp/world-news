@@ -3,12 +3,16 @@ import { describe, expect, it } from 'vitest';
 import { renderContentPage, type ContentDoc } from '../shared/content';
 import { cjkChars } from '../shared/contentPage';
 import { coordinateChipHtml, renderCivilizationSlice } from '../shared/civilization/renderSlice';
+import { CHRONICLE_STAGES, chronicleCardMilestones } from '../shared/civilization/chronicle';
 import {
+  chronicleIndexable,
+  chronicleProse,
   civilizationPublicPaths,
   hubIndexable,
   hubProse,
   originsIndexable,
   originsProse,
+  renderChroniclePage,
   renderCivilizationHub,
   renderCivilizationMiss,
   renderOriginsPage,
@@ -22,6 +26,7 @@ import { staticSitemapXml } from '../shared/sitemap';
 import type { NewsItem } from '../shared/types';
 
 const BLOCKED = /主權|台灣|臺灣|台湾|Taiwan|Taipei|台北|臺北|MOCK|紅線：無/;
+const REDLINE = /台灣|臺灣|台湾|Taiwan|Taipei|台北|臺北|高雄|台南|臺南|台中|臺中|新北|桃園|台獨|臺獨|六四|天安門|Tiananmen|港獨|文革|文化大革命|主權|示威|遊行|抗議|佔領|RFI|法輪|達賴/i;
 
 function explainer(key: string, title = '公開模型可以在個人電腦試行'): ContentDoc {
   return {
@@ -46,10 +51,13 @@ describe('civilization thick pages', () => {
     expect(originsIndexable()).toBe(true);
     expect(cjkChars(hubProse())).toBeGreaterThanOrEqual(500);
     expect(hubIndexable()).toBe(true);
-    expect(civilizationPublicPaths()).toEqual(['/civilization/', '/civilization/origins/']);
+    expect(cjkChars(chronicleProse())).toBeGreaterThanOrEqual(1200);
+    expect(chronicleIndexable()).toBe(true);
+    expect(civilizationPublicPaths()).toEqual(['/civilization/', '/civilization/origins/', '/civilization/chronicle/']);
     const xml = staticSitemapXml();
     expect(xml).toContain('https://world-news.xyz/civilization/</loc>');
     expect(xml).toContain('https://world-news.xyz/civilization/origins/</loc>');
+    expect(xml).toContain('https://world-news.xyz/civilization/chronicle/</loc>');
     expect(xml).not.toContain('/civilization/tech');
     expect(xml).not.toContain('/civilization/cities');
     const file = readFileSync('public/sitemap.xml', 'utf8');
@@ -188,6 +196,78 @@ describe('civilization thick pages', () => {
     expect(vignette).not.toContain('invert');
     expect(css).toContain('html.dark .axis-vignette::after');
     expect(css).toContain('html.dark .layer-cover img');
+    expect(hub.html.match(/class="stage-card"/g)).toHaveLength(10);
+    expect(hub.html.indexOf('class="chronicle-board"')).toBeLessThan(hub.html.indexOf('class="civ-article"'));
+    expect(hub.html.indexOf('class="chronicle-strip"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
+    expect(hub.html).toContain('打開完整編年');
+    for (const stage of CHRONICLE_STAGES) {
+      expect(hub.html).toContain(`href="/civilization/chronicle/#stage-${stage.n}"`);
+      expect(hub.html).toContain(stage.name);
+      expect(hub.html).toContain(stage.meaning);
+      const card = hub.html.slice(hub.html.indexOf(`<article class="stage-card" data-stage="${stage.n}">`));
+      const next = card.indexOf('<article class="stage-card"', 1);
+      const body = next === -1 ? card.slice(0, card.indexOf('class="civ-article"')) : card.slice(0, next);
+      expect(body.match(/<li>/g)).toHaveLength(chronicleCardMilestones(stage).length);
+      for (const line of stage.lines) expect(body).toContain(`>${line}<`);
+      if (stage.origins) expect(body).toContain('href="/civilization/origins/"');
+      else expect(body).not.toContain('詳見起源');
+    }
+    expect(hub.html).not.toMatch(REDLINE);
+    for (let n = 1; n <= 10; n += 1) {
+      expect(existsSync(`public/static/civilization/civ-stage-${n}-cover-640w.webp`), `stage ${n} 640`).toBe(true);
+      expect(existsSync(`public/static/civilization/civ-stage-${n}-cover-400w.webp`), `stage ${n} 400`).toBe(true);
+      expect(hub.html).toContain(`src="/static/civilization/civ-stage-${n}-cover-640w.webp"`);
+      expect(hub.html).toContain(`civ-stage-${n}-cover-400w.webp 400w`);
+    }
+    expect(hub.html).toContain('onerror="this.hidden=true"');
+    const firstCard = hub.html.slice(hub.html.indexOf('<article class="stage-card" data-stage="1">'), hub.html.indexOf('<article class="stage-card" data-stage="2">'));
+    const thirdCard = hub.html.slice(hub.html.indexOf('<article class="stage-card" data-stage="3">'), hub.html.indexOf('<article class="stage-card" data-stage="4">'));
+    expect(firstCard).toContain('loading="eager"');
+    expect(thirdCard).toContain('loading="lazy"');
+    const stripOnly = hub.html.slice(hub.html.indexOf('class="chronicle-strip"'), hub.html.indexOf('</nav>', hub.html.indexOf('class="chronicle-strip"')));
+    expect(stripOnly).not.toContain('<img');
+    expect(stripOnly).not.toContain('civ-stage-');
+  });
+
+  it('publishes an indexable ten-stage chronicle and keeps the copy inside the red lines', () => {
+    const page = renderChroniclePage();
+    expect(page.status).toBe(200);
+    expect(page.indexable).toBe(true);
+    expect(page.html).toContain('index,follow');
+    expect(page.html).toContain('文明編年：從採集到智能工具');
+    expect(page.html).toContain('href="/civilization/"');
+    expect(page.html).toContain('href="/civilization/origins/"');
+    expect(page.html).toContain('href="/#slice"');
+    expect(page.html).toContain('能量');
+    expect(page.html).toContain('信息');
+    expect(page.html).toContain('制度');
+    expect(page.html).toContain('貨幣');
+    expect(page.html).not.toContain('adsbygoogle');
+    expect(page.html.match(/class="civ-figure"/g)).toHaveLength(10);
+    expect(page.html).not.toMatch(BLOCKED);
+    expect(page.html).not.toMatch(REDLINE);
+    expect(heritageBlocked(page.html)).toBe(false);
+    for (const stage of CHRONICLE_STAGES) {
+      const start = page.html.indexOf(`id="stage-${stage.n}"`);
+      expect(start).toBeGreaterThan(-1);
+      const end = stage.n < 10 ? page.html.indexOf(`id="stage-${stage.n + 1}"`) : page.html.indexOf('四線總結');
+      const section = page.html.slice(start, end);
+      expect(section).toContain(stage.name);
+      expect(section).toContain(stage.prose.slice(0, 12));
+      expect(section).toContain('class="civ-figure"');
+      expect(section).toContain(`src="/static/civilization/civ-stage-${stage.n}-cover-640w.webp"`);
+      expect(section).toContain(`civ-stage-${stage.n}-cover-400w.webp 400w`);
+      expect(section).toContain('onerror="this.hidden=true"');
+      expect(section).toContain('class="stage-seal"');
+      if (stage.origins) expect(section).toContain('href="/civilization/origins/"');
+      else expect(section).not.toContain('/civilization/origins/');
+    }
+    expect(page.html).toContain('https://iho.asu.edu/');
+    expect(page.html).toContain('https://whc.unesco.org/en/list/1405/');
+    expect(page.html).toContain('http://www.cnm.com.cn/');
+    expect(page.html).toContain('https://home.cern/science/computing/the-birth-of-the-web/short-history-web/');
+    expect(page.html.match(/AI 整合/g)).toHaveLength(1);
+    expect([...CHRONICLE_STAGES.map((stage) => stage.short)].every((name) => [...name].length <= 6 && [...name].length > 0)).toBe(true);
   });
 });
 
@@ -220,6 +300,22 @@ describe('homepage today slice', () => {
     expect(html.indexOf('class="axis-vignette"')).toBeLessThan(html.indexOf('class="axis-title"'));
     expect(html).toContain('class="axis-node"');
     expect(html).toContain('class="layer-cover"');
+    const axis = html.slice(html.indexOf('class="milestones"'), html.indexOf('class="chronicle-strip"'));
+    expect(axis.match(/class="axis-node/g)).toHaveLength(4);
+    expect(axis).toContain('>起源<');
+    expect(axis).toContain('>技術<');
+    expect(axis).toContain('>城市<');
+    expect(axis).toContain('>今天<');
+    const strip = html.slice(html.indexOf('class="chronicle-strip"'), html.indexOf('class="today-pin"'));
+    expect(html.indexOf('class="chronicle-strip"')).toBeGreaterThan(html.indexOf('id="civ"'));
+    expect(html.indexOf('class="chronicle-strip"')).toBeLessThan(html.indexOf('今日落點'));
+    expect(strip.match(/class="stage-dot"/g)).toHaveLength(10);
+    expect(strip).not.toContain('<img');
+    expect(strip).toContain('>01<');
+    expect(strip).toContain('>10<');
+    expect(strip).toContain('href="/civilization/chronicle/#stage-1"');
+    expect(strip).toContain('href="/civilization/chronicle/#stage-10"');
+    expect(strip).not.toMatch(REDLINE);
     expect(html).not.toContain('node-today');
     expect(html).not.toContain('<p class="axis-title">');
     expect(html).not.toContain('adsbygoogle');
