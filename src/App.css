@@ -1385,7 +1385,64 @@ html.dark .detail-hero { box-shadow: none; }
   background-image: radial-gradient(rgba(255, 255, 255, 0.18) 0.6px, transparent 0.6px);
   background-size: 3px 3px;
 }
-.axis-hero > * { position: relative; z-index: 1; }
+.axis-hero > :not(.axis-vignette) { position: relative; z-index: 1; }
+.axis-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: #161c24;
+}
+.axis-vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/static/civilization/civ-home-axis-bg-640w.webp");
+  background-image: image-set(
+    url("/static/civilization/civ-home-axis-bg-640w.webp") type("image/webp") 1x,
+    url("/static/civilization/civ-home-axis-bg-1280w.webp") type("image/webp") 2x
+  );
+  background-position: center 42%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+}
+.axis-vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(22, 28, 36, 0.84) 0%, rgba(22, 28, 36, 0.58) 42%, rgba(22, 28, 36, 0.86) 100%);
+  pointer-events: none;
+}
+@media (min-width: 700px) {
+  .axis-vignette::before {
+    background-image: url("/static/civilization/civ-home-axis-bg-960w.webp");
+    background-image: image-set(
+      url("/static/civilization/civ-home-axis-bg-960w.webp") type("image/webp") 1x,
+      url("/static/civilization/civ-home-axis-bg-1920w.webp") type("image/webp") 2x
+    );
+    opacity: 0.42;
+  }
+  .axis-vignette::after {
+    background: linear-gradient(180deg, rgba(22, 28, 36, 0.74) 0%, rgba(22, 28, 36, 0.48) 42%, rgba(22, 28, 36, 0.78) 100%);
+  }
+}
+@media (min-width: 1100px) {
+  .axis-vignette::before {
+    background-image: url("/static/civilization/civ-home-axis-bg-1280w.webp");
+    background-image: image-set(
+      url("/static/civilization/civ-home-axis-bg-1280w.webp") type("image/webp") 1x,
+      url("/static/civilization/civ-home-axis-bg-1920w.webp") type("image/webp") 2x
+    );
+    opacity: 0.44;
+  }
+}
+@media (min-width: 1600px) {
+  .axis-vignette::before {
+    background-image: url("/static/civilization/civ-home-axis-bg-1920w.webp");
+    opacity: 0.45;
+  }
+}
 .axis-hero .kicker {
   margin: 0 0 8px;
   font-size: 11px;
@@ -1543,20 +1600,101 @@ a.axis-node:hover { color: #f7f1e6; }
 .layer-grid { display: grid; gap: 10px; }
 .layer-card {
   display: block;
-  padding: 12px 14px;
+  padding: 0 0 12px;
+  overflow: hidden;
   border: 1px solid #d4cbb8;
   border-radius: 14px;
   background: #f7f1e6;
   color: #161c24;
   text-decoration: none;
 }
+.layer-card > :not(.layer-cover) { margin-left: 14px; margin-right: 14px; }
 .layer-card h3 { margin: 0 0 4px; font-family: var(--font-serif); font-size: 1rem; }
-.layer-card p { margin: 0; font-size: 13px; color: #5c6570; }
-.layer-card .era { margin-bottom: 4px; color: #9a7b4f; font-size: 11px; font-weight: 700; }
+.layer-card p { margin-top: 0; margin-bottom: 0; font-size: 13px; color: #5c6570; }
+.layer-cover picture { display: contents; }
+.layer-card .era { margin-top: 10px; margin-bottom: 4px; color: #9a7b4f; font-size: 11px; font-weight: 700; }
+.layer-cover {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+  background: #f7f1e6;
+  position: relative;
+}
+.layer-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.layer-cover img[hidden] { display: none; }
 .layer-primary { box-shadow: inset 0 0 0 1px #9a7b4f; }
 .civ-article { margin-top: 18px; overflow-x: auto; }
-.civ-article h2, .civ-article h3 { font-family: var(--font-serif); }
+.civ-article h2, .civ-article h3 { font-family: var(--font-serif); clear: both; }
 .civ-article p, .civ-article li { line-height: 1.75; }
+.civ-hub-hero,
+.civ-origins-hero,
+.civ-figure {
+  position: relative;
+  margin: 1rem 0 1.25rem;
+}
+.civ-hub-hero {
+  margin: 14px 0 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f7f1e6;
+}
+.civ-hub-hero img,
+.civ-origins-hero img,
+.civ-figure img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #161c24;
+}
+.civ-hub-hero img { aspect-ratio: 21 / 9; object-position: center center; border-radius: 0; }
+.civ-origins-hero { background: #161c24; border-radius: 12px; overflow: hidden; }
+.civ-origins-hero img { aspect-ratio: 1200 / 514; border-radius: 0; }
+.civ-origins-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(22, 28, 36, 0.22), transparent 32%, rgba(22, 28, 36, 0.28));
+}
+.civ-figure img { aspect-ratio: 8 / 5; }
+.civ-figure figcaption,
+.civ-figure-credit {
+  font-size: 14px;
+  color: #5c6570;
+  margin-top: 6px;
+}
+.civ-hub-hero figcaption {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(22, 28, 36, 0.1);
+  color: #161c24;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 700;
+}
+.civ-hub-hero img[hidden],
+.civ-origins-hero img[hidden],
+.civ-figure img[hidden] { display: none; }
+.civ-origins-hero:has(img[hidden])::before,
+.civ-figure:has(img[hidden])::before,
+.civ-hub-hero:has(img[hidden])::before {
+  content: "";
+  display: block;
+  background: #f7f1e6;
+}
+.civ-origins-hero:has(img[hidden])::before { aspect-ratio: 1200 / 514; background: #161c24; }
+.civ-figure:has(img[hidden])::before { aspect-ratio: 8 / 5; }
+.civ-hub-hero:has(img[hidden])::before { aspect-ratio: 21 / 9; }
 .civ-milestone-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
 .civ-milestone-list .era { margin: 0; color: #9a7b4f; font-size: 12px; font-weight: 700; }
 .civ-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0 18px; }
@@ -1588,6 +1726,12 @@ a.axis-node:hover { color: #f7f1e6; }
   .civ-side { position: sticky; top: 12px; }
   .civ-side .layers { margin-top: 0; }
   .axis-hero { padding-left: 22px; padding-right: 22px; }
+  .civ-article .civ-figure {
+    float: right;
+    clear: right;
+    width: min(46%, 380px);
+    margin: 0.2rem 0 1rem 1.1rem;
+  }
 }
 .focus-title {
   margin: 10px 2px 0;
@@ -1659,3 +1803,25 @@ html.dark .civ-slot h3 { color: #f7f1e6; }
 html.dark .layer-card p,
 html.dark .civ-slot p { color: #d2c4b0; }
 html.dark .civ-page-title { color: var(--color-text); }
+html.dark .axis-vignette::after {
+  background: linear-gradient(180deg, rgba(22, 28, 36, 0.92) 0%, rgba(22, 28, 36, 0.68) 42%, rgba(22, 28, 36, 0.94) 100%);
+}
+html.dark .layer-cover { background: #2a231b; }
+html.dark .layer-cover img,
+html.dark .civ-figure img { opacity: 0.92; }
+html.dark .layer-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: rgba(22, 28, 36, 0.12);
+}
+html.dark .civ-origins-hero::after {
+  background: linear-gradient(180deg, rgba(22, 28, 36, 0.34), rgba(22, 28, 36, 0.12) 40%, rgba(22, 28, 36, 0.4));
+}
+html.dark .civ-figure figcaption,
+html.dark .civ-figure-credit { color: #d2c4b0; }
+html.dark .civ-hub-hero figcaption {
+  color: #161c24;
+  background: rgba(22, 28, 36, 0.12);
+}
