@@ -121,7 +121,7 @@ function originsHero(): string {
   return `<figure class="civ-origins-hero">${civImage({
     src: `${CIV}/civ-origins-hero-1200w.webp`,
     srcset: `${CIV}/civ-origins-hero-640w.webp 640w, ${CIV}/civ-origins-hero-960w.webp 960w, ${CIV}/civ-origins-hero-1200w.webp 1200w`,
-    sizes: '(max-width: 960px) 100vw, 812px',
+    sizes: '100vw',
     width: 1200,
     height: 514,
     alt: '深時間：人類起源溫和示意',
