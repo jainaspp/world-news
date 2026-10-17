@@ -186,8 +186,8 @@ function paperSeal(n: number): string {
 }
 
 /**
- * Cover slot. Art drops `cosmo-stage-{n}-cover-{640,400}w.webp` later.
- * A missing file hides the image and leaves the paper ordinal.
+ * Cover slot for every stage. The paper ordinal is in the figure and stays hidden
+ * while the WebP loads. onerror reveals it if a file is missing.
  */
 export function cosmoCoverImg(stage: CosmoStage, eager: boolean): string {
   const base = `${CIV}/cosmo-stage-${stage.n}-cover`;

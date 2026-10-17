@@ -333,9 +333,17 @@ describe('civilization thick pages', () => {
       expect(section).toContain(`cosmo-stage-${stage.n}-cover-400w.webp 400w`);
       expect(section).toContain('onerror="this.hidden=true"');
       expect(section).toContain('class="stage-seal"');
+      expect(existsSync(`public/static/civilization/cosmo-stage-${stage.n}-cover-640w.webp`), `cosmo ${stage.n} 640`).toBe(true);
+      expect(existsSync(`public/static/civilization/cosmo-stage-${stage.n}-cover-400w.webp`), `cosmo ${stage.n} 400`).toBe(true);
       expect(section).not.toContain('/civilization/chronicle/');
       for (const line of stage.lines) expect(section).toContain(`>${line}<`);
     }
+    const css = readFileSync('src/App.css', 'utf8');
+    const seal = css.slice(css.indexOf('.cosmo-stage .stage-seal'), css.indexOf('.stage-cover[data-stage="1"]'));
+    expect(seal).toContain('visibility: hidden');
+    expect(seal).toContain('.cosmo-stage .stage-frame:has(img[hidden]) .stage-seal');
+    expect(seal).toContain('visibility: visible');
+    expect(seal).not.toContain('.stage-card .stage-seal');
     const handoff = page.html.slice(page.html.indexOf('交接人類起源'));
     expect(handoff.indexOf('href="/civilization/origins/"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));
     expect(handoff).toContain('https://science.nasa.gov/solar-system/solar-system-facts/');

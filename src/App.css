@@ -1892,6 +1892,15 @@ a.stage-cover { text-decoration: none; }
   bottom: 50%;
   transform: translate(-50%, 50%);
 }
+/* Cosmos covers are on disk. The ordinal stays in the markup and shows only if the file fails. Chronicle seals are unchanged. */
+.cosmo-stage .stage-seal,
+.deep-time-card.cosmo-card .stage-seal {
+  visibility: hidden;
+}
+.cosmo-stage .stage-frame:has(img[hidden]) .stage-seal,
+.deep-time-card.cosmo-card .stage-cover:has(img[hidden]) .stage-seal {
+  visibility: visible;
+}
 .stage-cover[data-stage="1"] { background: linear-gradient(145deg, #c9844a 0%, #f7f1e6 62%); }
 .stage-cover[data-stage="2"] { background: linear-gradient(145deg, #d7a15a 0%, #f7f1e6 64%); }
 .stage-cover[data-stage="3"] { background: linear-gradient(145deg, #c4a572 0%, #f7f1e6 66%); }

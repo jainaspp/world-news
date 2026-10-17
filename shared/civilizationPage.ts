@@ -360,7 +360,7 @@ function renderDeepTimeBoard(): string {
     </div>
     <p class="chronicle-board-note">宇宙長河接到人類起源。約七百萬年前，演化進入人族階段。下方編年仍是文明十階段。</p>
     <div class="deep-time-grid">
-      <article class="deep-time-card">
+      <article class="deep-time-card cosmo-card">
         ${cosmosCover}
         <div class="stage-body">
           <p class="era">宇宙長河</p>
