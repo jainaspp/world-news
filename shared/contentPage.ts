@@ -7,6 +7,7 @@ import { adsRuntimeEnabled } from './adPolicy.js';
 import { adSlotMarkup, hasManualSlots } from './adSlot.js';
 import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
+import { jdToolCardMarkup } from './jdToolCard.js';
 
 /**
  * Server-rendered pages for the AI columns (/digest/, /weekly/, /analysis/).
@@ -488,6 +489,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const sourceSection = listed.length
     ? `<details class="topic-fold pack-fold"><summary>來源（${listed.length}）</summary>${sourceList(listed)}</details>`
     : '';
+  const toolCard = !modelFailed && doc.kind === 'compare' ? jdToolCardMarkup(doc.key) : '';
   const topicHits = doc.kind === 'compare'
     ? relatedTopics([doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => [block.title, ...block.sentences, ...block.sources.map((source) => source.title)])].join('\n')).slice(0, 2)
     : [];
@@ -542,6 +544,7 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
       ${blocks}
       ${explainerLinks}
       ${analysisTimeline}
+      ${toolCard}
       ${sourceSection}
       ${adUnit(ads, ads?.bottom, 'bottom')}
       <section class="related" id="related" data-categories="${esc(relatedCats)}" data-exclude="${esc(JSON.stringify(exclude))}" hidden>

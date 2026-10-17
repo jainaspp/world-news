@@ -458,3 +458,30 @@ html.dark .pack-shell { box-shadow: none; }
     transition: none;
   }
 }
+
+/* Compact JD Tech tool card, above the explainer source list. */
+.jd-tool-card {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: grid;
+  gap: 2px;
+  box-shadow: var(--shadow-sm);
+}
+html.dark .jd-tool-card { box-shadow: none; }
+.jd-tool-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.jd-tool-link {
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  text-decoration: none;
+}
+.jd-tool-link:hover { text-decoration: underline; }
