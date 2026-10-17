@@ -373,6 +373,12 @@ export default function App() {
   const secondary = deskLead ? rest.slice(0, 4) : [];
   const gridItems = deskLead ? rest.slice(4) : rest;
   const special = view.bookmarks || view.following;
+  const poeticAxis = !special && view.region === 'ALL' && view.category === 'all' && !view.q.trim() && !view.source.trim() && view.time === 'all';
+  const focusLabel = !focusPage
+    ? ''
+    : focusPage.scope === 'region'
+      ? (REGIONS.find((region) => region.code.toLowerCase() === focusPage.id)?.label ?? '')
+      : (CATEGORIES.find((category) => category.id === focusPage.id)?.label ?? '');
   const filtersActive = view.source !== '' || view.region !== 'ALL' || (view.category !== 'all' && !special);
   const breaking = useMemo(() => breakingIds(hero ? [hero, ...gridItems] : gridItems), [hero, gridItems]);
   const rankBreaking = useMemo(() => breakingIds(listed), [listed]);
@@ -654,11 +660,12 @@ export default function App() {
 
         <div className="layout">
           <main id="news">
-            {!special && <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand() }} />}
+            {!special && <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis }) }} />}
             <div className={special ? undefined : 'civ-frame'}>
             <div className={special ? undefined : 'civ-main'}>
             {!special && <OnThisDay />}
             <section className={special ? undefined : 'today-slice'} id={special ? undefined : 'slice'} aria-label={special ? undefined : '今日切片'}>
+            {!special && focusLabel ? <h1 className="focus-title">{focusLabel}</h1> : null}
             {!special && <div dangerouslySetInnerHTML={{ __html: sliceHeadHtml() }} />}
             <MajorBanner />
             <AlertRow />

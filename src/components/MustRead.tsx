@@ -23,7 +23,7 @@ export function MustRead({ category }: { category: string }) {
       <h2 className="section-title">今日必讀<span className="must-read-count">{links.length}</span></h2>
       <div className="news-grid">
         {links.map((link, index) => {
-          const coordinate = coordinateFor(link.href);
+          const coordinate = coordinateFor({ href: link.href, title: link.title, description: link.description });
           return (
           <article className="story must-read-card" key={link.href}>
             <div className="story-body">

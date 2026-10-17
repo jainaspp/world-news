@@ -14,6 +14,8 @@ import {
   renderOriginsPage,
   renderTodayPin,
 } from '../shared/civilizationPage';
+import { focusPages } from '../shared/focus';
+import { heritageBlocked } from '../shared/heritage';
 import { renderHomeFeed } from '../shared/homePage';
 import { renderMustRead } from '../shared/mustRead';
 import { staticSitemapXml } from '../shared/sitemap';
@@ -21,11 +23,11 @@ import type { NewsItem } from '../shared/types';
 
 const BLOCKED = /主權|台灣|臺灣|台湾|Taiwan|Taipei|台北|臺北|MOCK|紅線：無/;
 
-function explainer(key: string): ContentDoc {
+function explainer(key: string, title = '公開模型可以在個人電腦試行'): ContentDoc {
   return {
     kind: 'compare',
     key,
-    title: '公開模型可以在個人電腦試行',
+    title,
     description: '多間媒體報道同一項工具更新。',
     blocks: [
       { title: '事件經過', sentences: ['公開模型可以在個人電腦試行。', '安裝步驟已經公開。'], sources: [] },
@@ -62,6 +64,12 @@ describe('civilization thick pages', () => {
     expect(page.html).toContain('人類起源時間線');
     expect(page.html).toContain('href="/hk/landmarks/science-museum/"');
     expect(page.html).toContain('href="/hk/landmarks/space-museum/"');
+    expect(page.html).toContain('<strong><a href="/hk/landmarks/science-museum/">香港科學館</a></strong>');
+    expect(page.html).toContain('<strong><a href="/hk/landmarks/space-museum/">香港太空館</a></strong>');
+    expect(page.html).not.toMatch(/%%CIV/);
+    expect(page.html).toContain('<strong>Ma</strong>');
+    expect(page.html).toContain('<em>Homo</em>');
+    expect(page.html).not.toContain('站在一條很長的時間軸上');
     expect(page.html).toContain('Jebel Irhoud');
     expect(page.html).toContain('學術爭議');
     expect(page.html).toContain('href="https://iho.asu.edu/accessible-timeline"');
@@ -87,8 +95,15 @@ describe('civilization thick pages', () => {
     expect(hub.html).not.toContain('href="/civilization/cities/');
     expect(hub.html).not.toContain('adsbygoogle');
     expect(hub.html).not.toMatch(BLOCKED);
+    expect(hub.html).toContain('<h1 class="column-title civ-page-title">人類文明</h1>');
+    expect(hub.html).not.toContain('<h1 class="axis-title">');
+    expect(hub.html).toContain('<p class="axis-title">站在一條很長的時間軸上</p>');
     expect(hub.html).toContain('今日落點');
-    expect(hub.html).toContain('尚未收錄紀事');
+    expect(hub.html).not.toContain('尚未收錄');
+    const pin = hub.html.slice(hub.html.indexOf('class="today-pin"'), hub.html.indexOf('aria-label="文明層"'));
+    expect(pin).toContain('深時間 · 起源里程碑');
+    expect(pin).toContain('href="/civilization/origins/"');
+    expect(heritageBlocked(pin)).toBe(false);
     const missed = renderCivilizationMiss();
     expect(missed.status).toBe(404);
     expect(missed.indexable).toBe(false);
@@ -121,11 +136,68 @@ describe('homepage today slice', () => {
     expect(html).toContain('href="/explainer/"');
     expect(html).toContain('class="home-cards"');
     expect(html).not.toContain('coord-chip');
+    expect(html).toContain('<h1 class="axis-title">站在一條很長的時間軸上</h1>');
+    expect(html).not.toContain('<p class="axis-title">');
     expect(html).not.toContain('adsbygoogle');
     expect(html).not.toMatch(BLOCKED);
     const pin = renderTodayPin(new Date('2026-10-09T04:00:00.000Z'));
     expect(pin).toContain('廣華醫院');
     expect(pin).toContain('pin-seal');
+    expect(pin).toContain('當年今日');
+    expect(pin).not.toContain('起源里程碑');
+  });
+
+  it('uses an origins milestone when the calendar day has no heritage fact', () => {
+    const empty = renderTodayPin(new Date('2026-02-03T04:00:00.000Z'));
+    const later = renderTodayPin(new Date('2026-10-17T04:00:00.000Z'));
+    const blockedDay = renderTodayPin(new Date('2026-06-04T04:00:00.000Z'));
+    for (const pin of [empty, later, blockedDay]) {
+      expect(pin).not.toContain('尚未收錄');
+      expect(pin).toContain('深時間 · 起源里程碑');
+      expect(pin).toContain('href="/civilization/origins/"');
+      expect(pin).toContain('class="pin-fact"');
+      const fact = pin.slice(pin.indexOf('pin-fact'), pin.indexOf('pin-links'));
+      expect(heritageBlocked(fact)).toBe(false);
+      expect(fact).not.toMatch(/台灣|臺灣|台湾|Taiwan|六四|主權|示威|06-04|07-01/);
+    }
+    expect(renderTodayPin(new Date('2026-02-02T16:00:00.000Z'))).toBe(empty);
+    expect(later).not.toBe(empty);
+  });
+
+  it('keeps the poetic axis title as the only home h1', () => {
+    const item: NewsItem = {
+      id: 'n1',
+      title: '港鐵公布票價檢討',
+      link: 'https://example.com/n',
+      source: '香港電台',
+      sourceUrl: 'https://news.rthk.hk',
+      regions: ['HKG'],
+      pubDate: '2026-10-17T01:00:00.000Z',
+      category: 'hk',
+    };
+    const home = renderHomeFeed([item]);
+    expect(home.match(/<h1\b/g)).toHaveLength(1);
+    expect(home).toContain('<h1 class="axis-title">站在一條很長的時間軸上</h1>');
+    expect(focusPages().length).toBeGreaterThanOrEqual(19);
+    for (const page of focusPages()) {
+      const html = renderHomeFeed([item], new Map(), null, '', null, '', [], [], new Date('2026-10-17T04:00:00.000Z'), false, {}, page.label);
+      expect(html).not.toContain('<h1 class="axis-title">');
+      expect(html).toContain('<p class="axis-title">站在一條很長的時間軸上</p>');
+      expect(html).toContain(`<h1 class="focus-title">${page.label}</h1>`);
+      expect(html.match(/<h1\b/g)).toHaveLength(1);
+    }
+    const css = readFileSync('src/App.css', 'utf8');
+    expect(css).toContain('html.dark .axis-hero');
+    expect(css).toContain('html.dark .today-pin');
+    expect(css).toContain('html.dark .today-slice');
+    expect(css).toContain('html.dark .today-slice .story-title');
+    expect(css).toContain('html.dark .coord-chip');
+    expect(css).toContain('html.dark .layer-card');
+    expect(css).toMatch(/\.today-slice \{[^}]*background:\s*#f3f5f8/);
+    expect(css).toMatch(/\.today-pin \{[^}]*background-color:\s*#f7f1e6/);
+    expect(css).toMatch(/\.axis-hero \{[^}]*background:\s*#161c24/);
+    expect(readFileSync('functions/focus/page.ts', 'utf8')).toContain('known?.label || page.label');
+    expect(readFileSync('src/App.tsx', 'utf8')).toContain('asHeading: poeticAxis');
   });
 });
 
@@ -145,7 +217,8 @@ describe('civilization slice', () => {
     const page = renderContentPage(explainer(key), `https://world-news.xyz/explainer/${key}/`);
     expect(page.indexOf('class="civ-slice"')).toBeGreaterThan(-1);
     expect(page.indexOf('class="civ-slice"')).toBeLessThan(page.indexOf('jd-tool-card'));
-    const plain = renderContentPage(explainer('plain-explainer'), 'https://world-news.xyz/explainer/plain-explainer/');
+    expect(slice).not.toContain('今｜近｜遠');
+    const plain = renderContentPage(explainer('plain-explainer', '港鐵公布票價檢討'), 'https://world-news.xyz/explainer/plain-explainer/');
     expect(plain).not.toContain('civ-slice');
     expect(plain).not.toContain('jd-tool-card');
     const must = renderMustRead([
@@ -154,5 +227,21 @@ describe('civilization slice', () => {
     ]);
     expect(must.match(/coord-chip/g)).toHaveLength(1);
     expect(must).toContain('科技史 · 1991');
+    const rotated = renderMustRead([
+      { href: '/explainer/2026-11-02-opaque-a/', title: '新語言模型可在個人電腦試行', description: '開發者公布安裝方式。' },
+      { href: '/explainer/2026-11-02-park/', title: '公園翻新工程展開', description: '康樂場地關閉一週。' },
+      { href: '/explainer/2026-11-02-opaque-b/', title: '語音轉寫可以整理會議紀錄', description: '工具更新。' },
+      { href: '/explainer/2026-11-02-fare/', title: '港鐵公布票價檢討', description: '下月公布結果。' },
+      { href: '/explainer/2026-11-02-opaque-c/', title: '長文寫作工具更新', description: '分工對照。' },
+    ]);
+    expect(rotated.match(/coord-chip/g)?.length).toBeGreaterThanOrEqual(3);
+    expect(rotated).toContain('科技史 · 1991');
+    expect(rotated).toContain('科技史 · 1980');
+    expect(rotated).not.toContain('今｜近｜遠');
+    const speech = renderCivilizationSlice({ key: 'dated-out', title: '語音轉寫可以整理會議紀錄' });
+    expect(speech).toContain('語音影像');
+    expect(speech).toContain('data-slots="2"');
+    expect(speech).not.toContain('>近<');
+    expect(renderCivilizationSlice({ key: 'dated-out', title: '公園翻新工程展開' })).toBe('');
   });
 });

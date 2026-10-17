@@ -47,7 +47,7 @@ export function renderMustRead(links: MustReadLink[]): string {
   if (!rows.length) return '';
   const cards = rows.map((link, index) => `<article class="story must-read-card">
       <div class="story-body">
-        <div class="story-kicker"><span class="rank" aria-hidden="true">${index + 1}</span><span class="badge ai-badge">AI 整合</span><span class="kicker-region">新聞懶人包</span>${coordinateChipHtml(link.href)}</div>
+        <div class="story-kicker"><span class="rank" aria-hidden="true">${index + 1}</span><span class="badge ai-badge">AI 整合</span><span class="kicker-region">新聞懶人包</span>${coordinateChipHtml({ href: link.href, title: link.title, description: link.description })}</div>
         <h2 class="story-title"><a href="${esc(link.href)}">${esc(link.title)}</a></h2>
         ${link.description ? `<p class="dek">${esc(link.description)}</p>` : ''}
       </div>

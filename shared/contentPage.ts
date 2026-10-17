@@ -490,7 +490,9 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const sourceSection = listed.length
     ? `<details class="topic-fold pack-fold"><summary>來源（${listed.length}）</summary>${sourceList(listed)}</details>`
     : '';
-  const civSlice = !modelFailed && doc.kind === 'compare' ? renderCivilizationSlice(doc.key) : '';
+  const civSlice = !modelFailed && doc.kind === 'compare'
+    ? renderCivilizationSlice({ key: doc.key, title: doc.title, description: doc.description })
+    : '';
   const toolCard = !modelFailed && doc.kind === 'compare' ? jdToolCardMarkup(doc.key) : '';
   const topicHits = doc.kind === 'compare'
     ? relatedTopics([doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => [block.title, ...block.sentences, ...block.sources.map((source) => source.title)])].join('\n')).slice(0, 2)

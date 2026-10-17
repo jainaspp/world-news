@@ -9,21 +9,20 @@ function inline(raw: string): string {
     tokens.push(html);
     return token;
   };
+  /** Escape text, but put already-built tags back. One pass is not enough for **[label](href)**. */
+  const pieces = (value: string) => value.split(/%%CIV(\d+)%%/).map((part, index) => {
+    if (index % 2 === 0) return esc(part);
+    return tokens[Number(part)] ?? `${MARK}${part}%%`;
+  }).join('');
   let text = raw;
+  text = text.replace(/`([^`]+)`/g, (_match, value: string) => hold(`<code>${esc(value)}</code>`));
   text = text.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_match, label: string, href: string) => {
     if (!href.startsWith('/') && !href.startsWith('https://')) return label;
-    return hold(`<a href="${esc(href)}">${esc(label)}</a>`);
+    return hold(`<a href="${esc(href)}">${pieces(label)}</a>`);
   });
-  text = text.replace(/\*\*([^*]+)\*\*/g, (_match, value: string) => hold(`<strong>${esc(value)}</strong>`));
-  text = text.replace(/\*([^*]+)\*/g, (_match, value: string) => hold(`<em>${esc(value)}</em>`));
-  text = text.replace(/`([^`]+)`/g, (_match, value: string) => hold(`<code>${esc(value)}</code>`));
-  text = esc(text);
-  return text.split(MARK).map((part, index) => {
-    if (index === 0) return part;
-    const end = part.indexOf('%%');
-    const token = end >= 0 ? tokens[Number(part.slice(0, end))] : undefined;
-    return `${token ?? ''}${end >= 0 ? part.slice(end + 2) : part}`;
-  }).join('');
+  text = text.replace(/\*\*([^*]+)\*\*/g, (_match, value: string) => hold(`<strong>${pieces(value)}</strong>`));
+  text = text.replace(/\*([^*]+)\*/g, (_match, value: string) => hold(`<em>${pieces(value)}</em>`));
+  return pieces(text);
 }
 
 function isRuleRow(line: string): boolean {

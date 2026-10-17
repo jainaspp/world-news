@@ -168,7 +168,9 @@ export function renderHomeFeed(
   now = new Date(),
   settled = false,
   columns: HomeColumnLinks = {},
+  pageH1 = '',
 ): string {
+  const frame = (inner: string) => wrapCivilizationHome(inner, now, Boolean(columns.topic), { pageH1 });
   const list = demoteGraphic(items).slice(0, SSR_COUNT);
   if (!list.length) {
     const panel = settled
@@ -177,7 +179,7 @@ export function renderHomeFeed(
     const inner = `${digestStrip(briefingLinks, columns)}${renderMustRead(mustRead)}<div class="template-bar">${templateSwitch()}</div>${panel}`;
     return `<a class="skip-link" href="#slice">跳到今日切片</a>
   <div class="page ssr-home">
-    ${wrapCivilizationHome(inner, now, Boolean(columns.topic))}
+    ${frame(inner)}
     ${footer()}
   </div>`;
   }
@@ -206,7 +208,7 @@ export function renderHomeFeed(
   return `<a class="skip-link" href="#slice">跳到今日切片</a>
   <div class="page ssr-home">
     <main id="news">
-      ${wrapCivilizationHome(inner, now, Boolean(columns.topic))}
+      ${frame(inner)}
     </main>
     ${homeIntroFoot(introHref(columns))}
     ${footer()}
@@ -258,8 +260,9 @@ export function injectHomeShell(
   mustRead: MustReadLink[] = [],
   settled = false,
   columns: HomeColumnLinks = {},
+  pageH1 = '',
 ): string {
-  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead, new Date(), settled, columns);
+  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead, new Date(), settled, columns, pageH1);
   const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner) + mustReadBootstrap(mustRead) + columnsBootstrap(columns);
   const lead = demoteGraphic(items)[0];
   const heroImage = lead?.image && /^https?:\/\//.test(lead.image) ? lead.image : '';
