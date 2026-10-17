@@ -120,6 +120,7 @@ export async function serveFocusHome(context: PagesContext, page: FocusPage): Pr
       mustReadForSurface(mustRead, page.scope === 'category' ? page.id : ''),
       true,
       columns,
+      known?.label || page.label,
     ),
     path,
     known?.label || page.label,

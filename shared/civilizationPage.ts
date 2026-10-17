@@ -67,13 +67,16 @@ export function renderCivNav(topic = false): string {
   return `<nav class="civ-nav" aria-label="主欄目"><a class="chip civ-chip" href="/civilization/">文明</a><a class="chip" href="#slice">今日</a><a class="chip" href="/briefing/">導讀</a><a class="chip" href="/explainer/">懶人包</a>${topicChip}<a class="chip" href="/data/">數據</a></nav>`;
 }
 
-export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: string; todayHref?: string } = {}): string {
+export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: string; todayHref?: string; asHeading?: boolean } = {}): string {
   const primaryHref = options.primaryHref ?? '/civilization/';
   const primaryLabel = options.primaryLabel ?? '打開文明總覽';
   const todayHref = options.todayHref ?? '#slice';
+  const title = options.asHeading === false
+    ? '<p class="axis-title">站在一條很長的時間軸上</p>'
+    : '<h1 class="axis-title">站在一條很長的時間軸上</h1>';
   return `<section class="axis-hero" id="civ" aria-label="文明軸">
     <p class="kicker">Human span · 溫和史</p>
-    <h1 class="axis-title">站在一條很長的時間軸上</h1>
+    ${title}
     <p class="axis-lede">從人類起源到城市公共生活。新聞是軸上「今天」那一刀。先看見尺度，再讀今日。</p>
     <div class="deep-axis" aria-label="深時間軸">
       <div class="rail" aria-hidden="true"></div>
@@ -103,17 +106,41 @@ function pinFact(fact: HeritageFact): string {
   </div>`;
 }
 
-/** Paper card pinned on the axis. An empty day keeps landmark and origins exits. */
+const PIN_SEALS = ['30萬年', '6萬年', '1萬年'] as const;
+
+/** Stable across the year. Deep time does not need a calendar match. */
+function pinFallbackIndex(now: Date): number {
+  const [month, day] = hktMmdd(now).split('-').map((part) => Number(part));
+  const date = Date.UTC(2024, (month || 1) - 1, day || 1);
+  const index = Math.round((date - Date.UTC(2024, 0, 1)) / 86_400_000);
+  const count = HUB_MILESTONES.length;
+  return ((index % count) + count) % count;
+}
+
+function pinFallback(now: Date): string {
+  const index = pinFallbackIndex(now);
+  const row = HUB_MILESTONES[index];
+  const seal = PIN_SEALS[index] ?? '起源';
+  if (!row) return '';
+  return `<div class="pin-fact">
+    <span class="pin-seal"><span class="pin-seal-year">${esc(seal)}</span><span class="pin-seal-cat">起源</span></span>
+    <div>
+      <p>${esc(row.title)}。${esc(row.text)}</p>
+      <p class="cap">${esc(row.era)} · 人類起源</p>
+    </div>
+  </div>`;
+}
+
+/** Paper card pinned on the axis. An empty calendar day shows one origins milestone. */
 export function renderTodayPin(now = new Date()): string {
   const mmdd = hktMmdd(now);
   const fact = homeFacts(now, 1)[0];
-  const body = fact
-    ? pinFact(fact)
-    : '<p class="pin-empty">這一日尚未收錄紀事。可先看香港地標，或閱讀人類起源。</p>';
+  const body = fact ? pinFact(fact) : pinFallback(now);
   const origins = fact ? '' : '<a href="/civilization/origins/">人類起源 →</a>';
+  const meta = fact ? '當年今日 · 溫和史紀事' : '深時間 · 起源里程碑';
   return `<section class="today-pin" aria-label="今日落點">
     <h2>今日落點 · ${esc(labelMmdd(mmdd))}</h2>
-    <p class="meta">當年今日 · 溫和史紀事</p>
+    <p class="meta">${meta}</p>
     ${body}
     <div class="pin-links">
       <a href="/on-this-day/${esc(mmdd)}/">全日編年 →</a>
@@ -151,14 +178,17 @@ export function sliceHeadHtml(): string {
   return `<div class="slice-head"><h2>今日切片</h2><span class="tag">NEWS ON THE AXIS</span></div><p class="slice-note">導讀、懶人包與最新標題嵌在文明軸之下。有溫和史對照時才顯示層與年代。</p>`;
 }
 
-export function wrapCivilizationHome(inner: string, now = new Date(), topic = false): string {
+export function wrapCivilizationHome(inner: string, now = new Date(), topic = false, options: { pageH1?: string } = {}): string {
+  const pageH1 = options.pageH1?.trim() ?? '';
+  const heading = pageH1 ? `<h1 class="focus-title">${esc(pageH1)}</h1>` : '';
   return `${renderCivNav(topic)}
   <div class="civ-home">
-    ${renderAxisBand()}
+    ${renderAxisBand({ asHeading: !pageH1 })}
     <div class="civ-frame">
       <div class="civ-main">
         ${renderTodayPin(now)}
         <section class="today-slice" id="slice" aria-label="今日切片">
+          ${heading}
           ${sliceHeadHtml()}
           ${inner}
         </section>
@@ -201,8 +231,9 @@ function milestoneList(): string {
 export function renderCivilizationHub(now = new Date()): { html: string; status: number; indexable: boolean } {
   const indexable = hubIndexable();
   const body = `<nav class="crumb"><a href="/">首頁</a> · 文明</nav>
-    ${renderAxisBand({ primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice' })}
+    ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice' })}
     <article class="civ-article">
+      <h1 class="column-title civ-page-title">人類文明</h1>
       <h2>導語</h2>
       <p>${esc(HUB_LEDE)}</p>
       <h2>起源摘要</h2>
