@@ -1733,7 +1733,8 @@ a.axis-node:hover { color: #f7f1e6; }
     width: min(46%, 380px);
     margin: 0.2rem 0 1rem 1.1rem;
   }
-  .chronicle-page .civ-figure {
+  .chronicle-page .civ-figure,
+  .cosmos-page .civ-figure {
     float: none;
     clear: none;
     width: 100%;
@@ -1839,7 +1840,8 @@ a.axis-node:hover { color: #f7f1e6; }
 .chronicle-board-head a { font-size: 13px; font-weight: 700; white-space: nowrap; }
 .chronicle-board-note { margin: 6px 0 12px; font-size: 13px; color: #5c6570; }
 .stage-grid { display: grid; gap: 12px; }
-.stage-card {
+.stage-card,
+.deep-time-card {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1874,6 +1876,7 @@ a.stage-cover { text-decoration: none; }
 .stage-cover img[hidden],
 .stage-frame img[hidden] { display: none; }
 .stage-card .stage-seal,
+.deep-time-card .stage-seal,
 .chronicle-stage .stage-seal {
   position: absolute;
   left: 10px;
@@ -1923,7 +1926,8 @@ a.stage-cover { text-decoration: none; }
 }
 .stage-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; font-size: 13px; font-weight: 700; }
 .stage-source { margin: 0 0 8px; font-size: 13px; color: #5c6570; }
-.chronicle-nav {
+.chronicle-nav,
+.cosmo-nav {
   display: flex;
   gap: 8px;
   overflow-x: auto;
@@ -1931,8 +1935,10 @@ a.stage-cover { text-decoration: none; }
   scrollbar-width: none;
   padding: 2px 0 8px;
 }
-.chronicle-nav::-webkit-scrollbar { display: none; }
-.chronicle-nav .chip {
+.chronicle-nav::-webkit-scrollbar,
+.cosmo-nav::-webkit-scrollbar { display: none; }
+.chronicle-nav .chip,
+.cosmo-nav .chip {
   background: #f7f1e6;
   border-color: #d4cbb8;
   color: #161c24;
@@ -1945,10 +1951,45 @@ a.stage-cover { text-decoration: none; }
   border-bottom: 1px solid #d4cbb8;
 }
 .chronicle-stage h2 { margin: 0 0 10px; }
-.chronicle-page .civ-figure { margin: 12px 0 16px; }
+.chronicle-page .civ-figure,
+.cosmos-page .civ-figure { margin: 12px 0 16px; }
 .civ-page .today-pin { margin-top: 16px; }
+.deep-time { margin-top: 18px; }
+.deep-time-grid { display: grid; gap: 12px; }
+.deep-time-return { margin: 0 0 12px; }
+.deep-time-return a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #9a7b4f;
+  background: #f7f1e6;
+  color: #161c24;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.cosmo-hero {
+  margin: 0 0 16px;
+  padding: 18px 16px 14px;
+  border-radius: 14px;
+  background: #161c24;
+  color: #f7f1e6;
+}
+.cosmo-hero .kicker {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c4a572;
+}
+.cosmo-hero .civ-page-title { margin: 0; color: #f7f1e6; }
+.cosmo-stage { scroll-margin-top: 12px; }
 @media (min-width: 640px) {
-  .stage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stage-grid,
+  .deep-time-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* Dark civ surfaces. Light ink / paper / cool-gray above stays put. */
@@ -2008,6 +2049,8 @@ html.dark .civ-slot h3 { color: #f7f1e6; }
 html.dark .layer-card p,
 html.dark .civ-slot p { color: #d2c4b0; }
 html.dark .civ-page-title { color: var(--color-text); }
+html.dark .cosmo-hero { background: #161c24; color: #f7f1e6; }
+html.dark .cosmo-hero .civ-page-title { color: #f7f1e6; }
 html.dark .axis-vignette::after {
   background: linear-gradient(180deg, rgba(22, 28, 36, 0.72) 0%, rgba(22, 28, 36, 0.32) 46%, rgba(22, 28, 36, 0.66) 100%);
 }
@@ -2031,14 +2074,17 @@ html.dark .civ-hub-hero figcaption {
   background: rgba(22, 28, 36, 0.12);
 }
 html.dark .stage-card,
+html.dark .deep-time-card,
 html.dark .chronicle-stage {
   color: #f3eadc;
 }
-html.dark .stage-card {
+html.dark .stage-card,
+html.dark .deep-time-card {
   background: #2a231b;
   border-color: #5c4a34;
 }
 html.dark .stage-card h3 a,
+html.dark .deep-time-card h3 a,
 html.dark .chronicle-stage h2,
 html.dark .chronicle-board-head h2 { color: #f7f1e6; }
 html.dark .chronicle-board-note,
@@ -2051,9 +2097,12 @@ html.dark .stage-frame { background: #2a231b; }
 html.dark .stage-cover img,
 html.dark .stage-frame img { opacity: 0.92; }
 html.dark .stage-card .stage-seal,
+html.dark .deep-time-card .stage-seal,
 html.dark .chronicle-stage .stage-seal,
 html.dark .line-chip,
-html.dark .chronicle-nav .chip {
+html.dark .chronicle-nav .chip,
+html.dark .cosmo-nav .chip,
+html.dark .deep-time-return a {
   background: #3a3126;
   color: #f7f1e6;
   border-color: #c4a572;
