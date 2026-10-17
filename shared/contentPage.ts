@@ -7,6 +7,7 @@ import { adsRuntimeEnabled } from './adPolicy.js';
 import { adSlotMarkup, hasManualSlots } from './adSlot.js';
 import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
+import { renderCivilizationSlice } from './civilization/renderSlice.js';
 import { jdToolCardMarkup } from './jdToolCard.js';
 
 /**
@@ -294,7 +295,7 @@ export function head(title: string, description: string, canonical: string, imag
 </head>`;
 }
 
-export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved'): string {
+export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization'): string {
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
@@ -326,7 +327,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
     </header>
     <div class="tab-bar">
       <nav class="filters" aria-label="欄目">
-        <a class="chip" href="/">頭條</a>
+        <a class="chip${active === 'civilization' ? ' civ-chip' : ''}" href="/civilization/"${active === 'civilization' ? ' aria-current="page"' : ''}>文明</a><a class="chip" href="/">頭條</a>
         ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/"${active === 'today' ? ' aria-current="page"' : ''}>時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a><a class="chip${active === 'quiz' ? ' active' : ''}" href="/quiz/"${active === 'quiz' ? ' aria-current="page"' : ''}>小測</a>
       </nav>
       ${subscribeMenu()}
@@ -489,6 +490,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const sourceSection = listed.length
     ? `<details class="topic-fold pack-fold"><summary>來源（${listed.length}）</summary>${sourceList(listed)}</details>`
     : '';
+  const civSlice = !modelFailed && doc.kind === 'compare' ? renderCivilizationSlice(doc.key) : '';
   const toolCard = !modelFailed && doc.kind === 'compare' ? jdToolCardMarkup(doc.key) : '';
   const topicHits = doc.kind === 'compare'
     ? relatedTopics([doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => [block.title, ...block.sentences, ...block.sources.map((source) => source.title)])].join('\n')).slice(0, 2)
@@ -544,6 +546,7 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
       ${blocks}
       ${explainerLinks}
       ${analysisTimeline}
+      ${civSlice}
       ${toolCard}
       ${sourceSection}
       ${adUnit(ads, ads?.bottom, 'bottom')}

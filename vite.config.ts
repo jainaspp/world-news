@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import react from '@vitejs/plugin-react';
 import { defineConfig, type Plugin } from 'vitest/config';
@@ -13,6 +14,7 @@ import { onRequest as majorPage } from './functions/major/index';
 import { onRequest as searchPage } from './functions/search/index';
 import { onRequest as savedPage } from './functions/saved/index';
 import { onRequest as quizPage } from './functions/quiz/index';
+import { onRequest as civilizationPage } from './functions/civilization/[[path]]';
 import { onRequest as feedPage } from './functions/feed.xml';
 import { onRequest as searchIndexApi } from './functions/api/search-index';
 import { onRequest as subscribeApi } from './functions/api/subscribe';
@@ -95,6 +97,12 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
   middlewares.use((req, res, next) => {
     const url = req.url ?? '';
     const path = pagePath(url);
+    if (path === '/site.css') {
+      res.statusCode = 200;
+      res.setHeader('content-type', 'text/css; charset=utf-8');
+      res.end(readFileSync('src/App.css'));
+      return;
+    }
     const handled = url.startsWith('/api/news') || url.startsWith('/api/crawl') || url.startsWith('/api/hsi') || url.startsWith('/api/hk')
       || url.startsWith('/api/markets') || url.startsWith('/api/alerts') || url.startsWith('/api/board') || url.startsWith('/api/clusters')
       || url.startsWith('/api/major') || url.startsWith('/api/reads') || url.startsWith('/api/popular') || url.startsWith('/api/search-index')
@@ -102,6 +110,7 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
       || path === '/data' || path.startsWith('/data/')
       || path === '/search' || path === '/saved' || path === '/quiz'
       || path === '/feed.xml' || path === '/briefing' || path.startsWith('/briefing/')
+      || path === '/civilization' || path.startsWith('/civilization/')
       || path === '/topic' || path.startsWith('/topic/');
     if (!handled) {
       next();
@@ -155,6 +164,7 @@ function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerRespo
           await forward(res, leaf.length > 1 ? await topicPage(context) : await topicIndex(context));
           return;
         }
+        if (url.startsWith('/civilization')) { await forward(res, await civilizationPage(context)); return; }
         if (url.startsWith('/briefing')) {
           const path = url.split('?')[0] || '';
           const leaf = path.replace(/\/+$/, '').split('/').filter(Boolean);

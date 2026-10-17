@@ -142,10 +142,11 @@ describe('pack shell columns', () => {
       { href: '/explainer/a/', title: '港鐵票價', description: '建議仍待公布。' },
     ], new Date('2026-10-09T04:00:00Z'));
     expect(feed).toContain('class="digest-strip"');
-    expect(feed).toContain('<details class="otd-pack heritage pack-shell pack-heritage">');
-    expect(feed).not.toContain('<details class="otd-pack heritage pack-shell pack-heritage" open');
-    expect(feed.indexOf('otd-pack')).toBeGreaterThan(feed.indexOf('digest-strip'));
-    expect(feed.indexOf('今日必讀')).toBeGreaterThan(feed.indexOf('otd-pack'));
+    expect(feed).toContain('今日落點');
+    expect(feed).toContain('id="slice"');
+    expect(feed).not.toContain('otd-pack');
+    expect(feed.indexOf('今日落點')).toBeLessThan(feed.indexOf('digest-strip'));
+    expect(feed.indexOf('今日必讀')).toBeGreaterThan(feed.indexOf('digest-strip'));
   });
 });
 

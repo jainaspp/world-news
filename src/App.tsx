@@ -10,6 +10,7 @@ import { clusterStories, sourceCounts } from '../shared/trending';
 import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem, TimeRange } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
+import { renderAxisBand, renderLayerAside, sliceHeadHtml } from '../shared/civilizationPage';
 import { columnHref, type HomeColumnLinks } from '../shared/homePage';
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
@@ -196,6 +197,20 @@ function readHomeColumns(): HomeColumnLinks {
   } catch {
     return {};
   }
+}
+
+function CivNav() {
+  const columns = useMemo(readHomeColumns, []);
+  return (
+    <nav className="civ-nav" aria-label="主欄目">
+      <a className="chip civ-chip" href="/civilization/">文明</a>
+      <a className="chip" href="#slice">今日</a>
+      <a className="chip" href="/briefing/">導讀</a>
+      <a className="chip" href="/explainer/">懶人包</a>
+      {columns.topic ? <a className="chip" href="/topic/">專題</a> : null}
+      <a className="chip" href="/data/">數據</a>
+    </nav>
+  );
 }
 
 function DigestStrip({ lang }: { lang: UiLang }) {
@@ -486,6 +501,8 @@ export default function App() {
             </div>
           </header>
 
+          <CivNav />
+
           <div className="tab-bar">
             <TemplateSwitch listMode={listMode} lang={lang} onPick={pickLayout} />
             <button
@@ -635,11 +652,16 @@ export default function App() {
           )}
         </div>
 
-        <MajorBanner />
-        <AlertRow />
-
         <div className="layout">
           <main id="news">
+            {!special && <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand() }} />}
+            <div className={special ? undefined : 'civ-frame'}>
+            <div className={special ? undefined : 'civ-main'}>
+            {!special && <OnThisDay />}
+            <section className={special ? undefined : 'today-slice'} id={special ? undefined : 'slice'} aria-label={special ? undefined : '今日切片'}>
+            {!special && <div dangerouslySetInnerHTML={{ __html: sliceHeadHtml() }} />}
+            <MajorBanner />
+            <AlertRow />
             {allowAds && <HomeIntroTop />}
             {loading && !special && items.length === 0 ? (
               <div className="news-grid" aria-busy="true" aria-live="polite">
@@ -668,7 +690,6 @@ export default function App() {
                   </p>
                 )}
                 {!special && <DigestStrip lang={lang} />}
-                {!special && <OnThisDay />}
                 {!special && <MustRead category={view.category} />}
                 {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
                 {!special && !wide && <HkInfoStrip />}
@@ -765,6 +786,10 @@ export default function App() {
                 )}
               </>
             )}
+            </section>
+            </div>
+            {!special && <aside className="civ-side" aria-label="文明層" dangerouslySetInnerHTML={{ __html: renderLayerAside() }} />}
+            </div>
           </main>
           <aside className="sidebar" aria-label="sidebar">
             <div className="board-prefs">

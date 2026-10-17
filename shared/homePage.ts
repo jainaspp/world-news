@@ -13,7 +13,7 @@ import { renderMajorBanner } from './majorPage.js';
 import type { HkNow } from './hk.js';
 import type { HsiQuote } from './hsi.js';
 import type { NewsItem } from './types.js';
-import { renderOnThisDaySection } from './heritagePage.js';
+import { wrapCivilizationHome } from './civilizationPage.js';
 import { titleLang } from './zh.js';
 
 export interface HomeMarket {
@@ -174,13 +174,11 @@ export function renderHomeFeed(
     const panel = settled
       ? '<div class="status-panel"><h2>這個範圍暫時沒有標題</h2><p>可以返回首頁，或改看其他地區與分類。</p></div>'
       : '<div class="status-panel" aria-busy="true"><h2>載入頭條中…</h2><p>正在取得最新標題。</p></div>';
-    return `<a class="skip-link" href="#news">跳到新聞</a>
+    const inner = `${digestStrip(briefingLinks, columns)}${renderMustRead(mustRead)}<div class="template-bar">${templateSwitch()}</div>${panel}`;
+    return `<a class="skip-link" href="#slice">跳到今日切片</a>
   <div class="page ssr-home">
-    ${digestStrip(briefingLinks, columns)}
-    ${renderOnThisDaySection(now)}
-    ${renderMustRead(mustRead)}
-    <div class="template-bar">${templateSwitch()}</div>
-    ${panel}
+    ${wrapCivilizationHome(inner, now, Boolean(columns.topic))}
+    ${footer()}
   </div>`;
   }
   const fresh = breakingIds(list);
@@ -192,23 +190,23 @@ export function renderHomeFeed(
   }).join('');
   const info = renderHkInfo(market?.hk, market?.hsi);
   const major = banner ? `${renderMajorBanner(banner)}<script>try{var n=document.currentScript.previousElementSibling;if(n&&localStorage.getItem('wn-major-dismiss')===n.getAttribute('data-major-id'))n.remove()}catch(e){}</script>` : '';
-  return `<a class="skip-link" href="#news">跳到新聞</a>
-  <div class="page ssr-home">
-    <div class="template-bar">${templateSwitch()}</div>
+  const inner = `<div class="template-bar">${templateSwitch()}</div>
     ${major}
+    ${homeIntroTop(introHref(columns))}
+    ${digestStrip(briefingLinks, columns)}
+    ${renderMustRead(mustRead)}
+    ${focusHtml.trim()}
+    ${info}
+    <p class="feed-divider" role="presentation"><span>最新標題</span></p>
+    <div class="home-cards">
+      ${top}
+      <div class="news-grid">${grid}</div>
+    </div>
+    ${rankList(list, counts, feedSlot)}`;
+  return `<a class="skip-link" href="#slice">跳到今日切片</a>
+  <div class="page ssr-home">
     <main id="news">
-      ${homeIntroTop(introHref(columns))}
-      ${digestStrip(briefingLinks, columns)}
-      ${renderOnThisDaySection(now)}
-      ${renderMustRead(mustRead)}
-      ${focusHtml.trim()}
-      ${info}
-      <p class="feed-divider" role="presentation"><span>最新標題</span></p>
-      <div class="home-cards">
-        ${top}
-        <div class="news-grid">${grid}</div>
-      </div>
-      ${rankList(list, counts, feedSlot)}
+      ${wrapCivilizationHome(inner, now, Boolean(columns.topic))}
     </main>
     ${homeIntroFoot(introHref(columns))}
     ${footer()}

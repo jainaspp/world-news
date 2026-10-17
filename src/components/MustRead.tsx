@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { coordinateFor } from '../../shared/civilization/slices';
 import { mustReadForSurface, type MustReadLink } from '../../shared/mustRead';
 
 function readMustRead(): MustReadLink[] {
@@ -21,15 +22,18 @@ export function MustRead({ category }: { category: string }) {
     <section className="must-read pack-shell" aria-label="今日必讀">
       <h2 className="section-title">今日必讀<span className="must-read-count">{links.length}</span></h2>
       <div className="news-grid">
-        {links.map((link, index) => (
+        {links.map((link, index) => {
+          const coordinate = coordinateFor(link.href);
+          return (
           <article className="story must-read-card" key={link.href}>
             <div className="story-body">
-              <div className="story-kicker"><span className="rank" aria-hidden="true">{index + 1}</span><span className="badge ai-badge">AI 整合</span><span className="kicker-region">新聞懶人包</span></div>
+              <div className="story-kicker"><span className="rank" aria-hidden="true">{index + 1}</span><span className="badge ai-badge">AI 整合</span><span className="kicker-region">新聞懶人包</span>{coordinate ? <span className="coord-chip">{coordinate.layer} · {coordinate.year}</span> : null}</div>
               <h2 className="story-title"><a href={link.href}>{link.title}</a></h2>
               {link.description ? <p className="dek">{link.description}</p> : null}
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
