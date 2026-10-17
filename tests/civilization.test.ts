@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { renderContentPage, type ContentDoc } from '../shared/content';
 import { cjkChars } from '../shared/contentPage';
@@ -79,6 +79,36 @@ describe('civilization thick pages', () => {
     expect(page.html).not.toContain('pagead2.googlesyndication.com');
     expect(page.html).not.toMatch(BLOCKED);
     expect(page.html).not.toContain('寫作與上線備註');
+    const heroAt = page.html.indexOf('class="civ-origins-hero"');
+    const titleAt = page.html.indexOf('<h1>人類起源時間線');
+    const stage1 = page.html.indexOf('data-stage="1"');
+    const stage2 = page.html.indexOf('data-stage="2"');
+    const stage3 = page.html.indexOf('data-stage="3"');
+    const deep = page.html.indexOf('<h3>一、深層分離');
+    const africa = page.html.indexOf('<h3>二、非洲現代人多樣性');
+    const spread = page.html.indexOf('<h3>三、全球擴張');
+    const next = page.html.indexOf('<h2>各里程碑溫和說明</h2>');
+    expect(titleAt).toBeGreaterThan(-1);
+    expect(heroAt).toBeGreaterThan(titleAt);
+    expect(deep).toBeGreaterThan(heroAt);
+    expect(stage1).toBeGreaterThan(deep);
+    expect(stage1).toBeLessThan(africa);
+    expect(stage2).toBeGreaterThan(africa);
+    expect(stage2).toBeLessThan(spread);
+    expect(stage3).toBeGreaterThan(spread);
+    expect(stage3).toBeLessThan(next);
+    expect(page.html).toContain('src="/static/civilization/civ-origins-hero-1200w.webp"');
+    expect(page.html).toContain('civ-origins-hero-640w.webp 640w');
+    expect(page.html).toContain('src="/static/civilization/civ-origins-stage1-800w.webp"');
+    expect(page.html).toContain('src="/static/civilization/civ-origins-stage2-800w.webp"');
+    expect(page.html).toContain('src="/static/civilization/civ-origins-stage3-800w.webp"');
+    expect(page.html).toContain('示意·非遷徙路線');
+    expect(page.html).toContain('loading="eager"');
+    expect(page.html).toContain('fetchpriority="high"');
+    expect(page.html.match(/class="civ-figure"/g)).toHaveLength(3);
+    expect(page.html).not.toContain('/static/heritage/');
+    expect(page.html).not.toContain('node-today');
+    expect(page.html).toContain('href="/static/civilization/MANIFEST.md"');
   });
 
   it('gives the hub a real origins summary and does not promote thin layer URLs', () => {
@@ -108,6 +138,56 @@ describe('civilization thick pages', () => {
     expect(missed.status).toBe(404);
     expect(missed.indexable).toBe(false);
     expect(missed.html).toContain('noindex,follow');
+    expect(hub.html.indexOf('class="civ-hub-hero"')).toBeGreaterThan(hub.html.indexOf('class="axis-hero"'));
+    expect(hub.html.indexOf('class="civ-hub-hero"')).toBeLessThan(hub.html.indexOf('class="civ-article"'));
+    expect(hub.html).toContain('src="/static/civilization/overview-hero-v1.jpg"');
+    expect(hub.html).toContain('class="axis-vignette"');
+    expect(hub.html).toContain('src="/static/civilization/civ-layer-origins-640w.webp"');
+    expect(hub.html).toContain('civ-layer-origins-400w.webp 400w');
+    expect(hub.html).toContain('civ-layer-origins-640x400.webp');
+    expect(hub.html).toContain('src="/static/civilization/node-tech-v1.jpg"');
+    expect(hub.html).toContain('src="/static/civilization/node-city-v1.jpg"');
+    expect(hub.html).not.toContain('node-today');
+    expect(hub.html).not.toContain('/static/heritage/');
+    const primary = hub.html.slice(hub.html.indexOf('layer-primary'), hub.html.indexOf('layer-secondary'));
+    expect(primary).toContain('class="layer-cover"');
+    expect(primary).toContain('人類起源：深時間溫和示意');
+    for (const file of [
+      'civ-home-axis-bg-640w.webp',
+      'civ-home-axis-bg-960w.webp',
+      'civ-home-axis-bg-1280w.webp',
+      'civ-home-axis-bg-1920w.webp',
+      'civ-layer-origins-400w.webp',
+      'civ-layer-origins-640w.webp',
+      'civ-layer-origins-640x400.webp',
+      'civ-origins-hero-640w.webp',
+      'civ-origins-hero-960w.webp',
+      'civ-origins-hero-1200w.webp',
+      'civ-origins-stage1-640w.webp',
+      'civ-origins-stage1-800w.webp',
+      'civ-origins-stage2-640w.webp',
+      'civ-origins-stage2-800w.webp',
+      'civ-origins-stage3-640w.webp',
+      'civ-origins-stage3-800w.webp',
+      'overview-hero-v1.jpg',
+      'node-city-v1.jpg',
+      'node-tech-v1.jpg',
+      'MANIFEST.md',
+    ]) {
+      expect(existsSync(`public/static/civilization/${file}`), file).toBe(true);
+    }
+    const css = readFileSync('src/App.css', 'utf8');
+    const vignette = css.slice(css.indexOf('.axis-vignette {'), css.indexOf('.axis-hero .kicker'));
+    expect(vignette).toContain('pointer-events: none');
+    expect(vignette).toContain('civ-home-axis-bg-1280w.webp');
+    expect(vignette).toContain('civ-home-axis-bg-640w.webp');
+    expect(vignette).toContain('civ-home-axis-bg-960w.webp');
+    expect(vignette).toContain('civ-home-axis-bg-1920w.webp');
+    expect(vignette).toContain('opacity: 0.4');
+    expect(vignette).toContain('opacity: 0.45');
+    expect(vignette).not.toContain('invert');
+    expect(css).toContain('html.dark .axis-vignette::after');
+    expect(css).toContain('html.dark .layer-cover img');
   });
 });
 
@@ -137,6 +217,10 @@ describe('homepage today slice', () => {
     expect(html).toContain('class="home-cards"');
     expect(html).not.toContain('coord-chip');
     expect(html).toContain('<h1 class="axis-title">站在一條很長的時間軸上</h1>');
+    expect(html.indexOf('class="axis-vignette"')).toBeLessThan(html.indexOf('class="axis-title"'));
+    expect(html).toContain('class="axis-node"');
+    expect(html).toContain('class="layer-cover"');
+    expect(html).not.toContain('node-today');
     expect(html).not.toContain('<p class="axis-title">');
     expect(html).not.toContain('adsbygoogle');
     expect(html).not.toMatch(BLOCKED);

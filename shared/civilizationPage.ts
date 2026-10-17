@@ -62,6 +62,103 @@ export function civilizationPublicPaths(): string[] {
   return paths;
 }
 
+const CIV = '/static/civilization';
+
+function civImage(options: {
+  src: string;
+  srcset?: string;
+  sizes?: string;
+  width: number;
+  height: number;
+  alt: string;
+  eager?: boolean;
+}): string {
+  const loading = options.eager ? 'eager' : 'lazy';
+  const priority = options.eager ? ' fetchpriority="high"' : '';
+  const srcset = options.srcset ? ` srcset="${options.srcset}"` : '';
+  const sizes = options.sizes ? ` sizes="${options.sizes}"` : '';
+  return `<img src="${options.src}"${srcset}${sizes} width="${options.width}" height="${options.height}" alt="${esc(options.alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
+}
+
+/** Hide a missing file without a broken-image icon. The slot keeps its paper or ink ground. */
+function layerCover(src: string, alt: string, srcset?: string): string {
+  return `<div class="layer-cover">${civImage({
+    src,
+    srcset,
+    sizes: '(max-width: 600px) 100vw, 280px',
+    width: 640,
+    height: 480,
+    alt,
+  })}</div>`;
+}
+
+function originsLayerCover(): string {
+  return `<div class="layer-cover"><picture>
+    <source media="(min-aspect-ratio: 8/5)" srcset="${CIV}/civ-layer-origins-640x400.webp" type="image/webp" />
+    ${civImage({
+      src: `${CIV}/civ-layer-origins-640w.webp`,
+      srcset: `${CIV}/civ-layer-origins-400w.webp 400w, ${CIV}/civ-layer-origins-640w.webp 640w`,
+      sizes: '(max-width: 600px) 100vw, 280px',
+      width: 640,
+      height: 480,
+      alt: '人類起源：深時間溫和示意',
+    })}
+  </picture></div>`;
+}
+
+function hubHero(): string {
+  return `<figure class="civ-hub-hero">${civImage({
+    src: `${CIV}/overview-hero-v1.jpg`,
+    sizes: '(max-width: 960px) 100vw, 812px',
+    width: 1280,
+    height: 720,
+    alt: '人類文明溫和史示意：紙感長河',
+    eager: true,
+  })}<figcaption>人類文明</figcaption></figure>`;
+}
+
+function originsHero(): string {
+  return `<figure class="civ-origins-hero">${civImage({
+    src: `${CIV}/civ-origins-hero-1200w.webp`,
+    srcset: `${CIV}/civ-origins-hero-640w.webp 640w, ${CIV}/civ-origins-hero-960w.webp 960w, ${CIV}/civ-origins-hero-1200w.webp 1200w`,
+    sizes: '100vw',
+    width: 1200,
+    height: 514,
+    alt: '深時間：人類起源溫和示意',
+    eager: true,
+  })}</figure>`;
+}
+
+function stageFigure(stage: 1 | 2 | 3, alt: string, caption: string): string {
+  const file = `${CIV}/civ-origins-stage${stage}`;
+  return `<figure class="civ-figure" data-stage="${stage}">${civImage({
+    src: `${file}-800w.webp`,
+    srcset: `${file}-640w.webp 640w, ${file}-800w.webp 800w`,
+    sizes: '(max-width: 959px) 100vw, 380px',
+    width: 800,
+    height: 500,
+    alt,
+  })}<figcaption>${esc(caption)}</figcaption></figure>`;
+}
+
+/** Insert after the heading element so its text, and any id, stay the anchor. */
+function insertAfterHeading(html: string, level: 1 | 2 | 3, marker: string, insert: string): string {
+  const re = new RegExp(`(<h${level}>[^<]*${marker}[^<]*</h${level}>)`);
+  const found = re.exec(html);
+  if (!found || found.index === undefined) return html;
+  const at = found.index + found[0].length;
+  return `${html.slice(0, at)}\n${insert}${html.slice(at)}`;
+}
+
+function originsArticle(body: string): string {
+  let html = body;
+  html = insertAfterHeading(html, 1, '人類起源時間線', originsHero());
+  html = insertAfterHeading(html, 3, '一、深層分離', stageFigure(1, '一、深層分離：譜系分叉示意（約 100–30 萬年前）', '深層分離 · 示意 · 約數'));
+  html = insertAfterHeading(html, 3, '二、非洲現代人多樣性', stageFigure(2, '二、非洲現代人多樣性：多點柔光示意（約 30–6 萬年前）', '非洲內部多樣 · 示意 · 約數'));
+  html = insertAfterHeading(html, 3, '三、全球擴張', stageFigure(3, '三、全球擴張：粒子輻射示意（非遷徙路線、非政治疆界）', '全球擴張 · 示意·非遷徙路線 · 約數'));
+  return html;
+}
+
 export function renderCivNav(topic = false): string {
   const topicChip = topic ? '<a class="chip" href="/topic/">專題</a>' : '';
   return `<nav class="civ-nav" aria-label="主欄目"><a class="chip civ-chip" href="/civilization/">文明</a><a class="chip" href="#slice">今日</a><a class="chip" href="/briefing/">導讀</a><a class="chip" href="/explainer/">懶人包</a>${topicChip}<a class="chip" href="/data/">數據</a></nav>`;
@@ -75,6 +172,7 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
     ? '<p class="axis-title">站在一條很長的時間軸上</p>'
     : '<h1 class="axis-title">站在一條很長的時間軸上</h1>';
   return `<section class="axis-hero" id="civ" aria-label="文明軸">
+    <div class="axis-vignette" aria-hidden="true"></div>
     <p class="kicker">Human span · 溫和史</p>
     ${title}
     <p class="axis-lede">從人類起源到城市公共生活。新聞是軸上「今天」那一刀。先看見尺度，再讀今日。</p>
@@ -156,16 +254,19 @@ export function renderLayerAside(): string {
     <h2>三大文明層</h2>
     <div class="layer-grid">
       <a class="layer-card layer-primary" href="/civilization/origins/">
+        ${originsLayerCover()}
         <div class="era">深時間</div>
         <h3>人類起源</h3>
         <p>解剖學現代人到全球擴張。約三十萬年前起的年表。</p>
       </a>
       <article class="layer-card layer-secondary">
+        ${layerCover(`${CIV}/node-tech-v1.jpg`, '科技與發現：公共科普示意')}
         <div class="era">發現</div>
         <h3>科技與發現</h3>
         <p>這一層尚未單獨成頁。可先看<a href="/hk/landmarks/science-museum/">香港科學館</a>。</p>
       </article>
       <article class="layer-card layer-secondary">
+        ${layerCover(`${CIV}/node-city-v1.jpg`, '城市・基建・民生示意')}
         <div class="era">公共生活</div>
         <h3>城市・基建・民生</h3>
         <p>通車、建築與場館已寫在<a href="/hk/landmarks/">香港地標</a>與<a href="/on-this-day/">當年今日</a>。</p>
@@ -232,6 +333,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
   const indexable = hubIndexable();
   const body = `<nav class="crumb"><a href="/">首頁</a> · 文明</nav>
     ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice' })}
+    ${hubHero()}
     <article class="civ-article">
       <h1 class="column-title civ-page-title">人類文明</h1>
       <h2>導語</h2>
@@ -261,9 +363,10 @@ export function renderOriginsPage(): { html: string; status: number; indexable: 
   const indexable = originsIndexable();
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 人類起源</nav>
     <article class="civ-article">
-      ${renderMildMarkdown(ORIGINS_BODY)}
+      ${originsArticle(renderMildMarkdown(ORIGINS_BODY))}
       <p class="civ-ai"><span class="badge">AI 整合</span> 本頁由公開科普與學術綜述入口整理，只供對照深時間。</p>
       ${renderMildMarkdown(ORIGINS_SOURCES)}
+      <p class="civ-figure-credit">插圖為深時間示意，年代為約數，並非遷徙路線或政治疆界。圖像說明見<a href="${CIV}/MANIFEST.md">素材目錄</a>。</p>
     </article>`;
   return shell({
     title: '人類起源時間線',
