@@ -1,10 +1,13 @@
 import { esc } from '../contentPage.js';
 
+const MARK = '%%CIV';
+
 function inline(raw: string): string {
   const tokens: string[] = [];
   const hold = (html: string) => {
+    const token = `${MARK}${tokens.length}%%`;
     tokens.push(html);
-    return `\u0000${tokens.length - 1}\u0000`;
+    return token;
   };
   let text = raw;
   text = text.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_match, label: string, href: string) => {
@@ -15,7 +18,12 @@ function inline(raw: string): string {
   text = text.replace(/\*([^*]+)\*/g, (_match, value: string) => hold(`<em>${esc(value)}</em>`));
   text = text.replace(/`([^`]+)`/g, (_match, value: string) => hold(`<code>${esc(value)}</code>`));
   text = esc(text);
-  return text.replace(/\u0000(\d+)\u0000/g, (_match, index: string) => tokens[Number(index)] ?? '');
+  return text.split(MARK).map((part, index) => {
+    if (index === 0) return part;
+    const end = part.indexOf('%%');
+    const token = end >= 0 ? tokens[Number(part.slice(0, end))] : undefined;
+    return `${token ?? ''}${end >= 0 ? part.slice(end + 2) : part}`;
+  }).join('');
 }
 
 function isRuleRow(line: string): boolean {
