@@ -158,6 +158,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://world-news.xyz/civilization/chronicle/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://world-news.xyz/on-this-day/</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>daily</changefreq>
