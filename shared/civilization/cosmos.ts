@@ -246,7 +246,8 @@ function scaleNest(): string {
 
 function stageSection(stage: CosmoStage): string {
   const points = stage.milestones.map((item) => `<li>${esc(item)}</li>`).join('');
-  return `<section class="chronicle-stage cosmo-stage" id="cosmo-${stage.n}" data-stage="${stage.n}">
+  const reveal = stage.n === 1 ? ' civ-reveal civ-reveal--above-fold is-inview' : ' civ-reveal';
+  return `<section class="chronicle-stage cosmo-stage${reveal}" id="cosmo-${stage.n}" data-stage="${stage.n}">
     <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
     <h2 tabindex="-1">${esc(stage.name)}</h2>
     <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${cosmoCoverImg(stage, stage.n === 1)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
@@ -278,6 +279,7 @@ export function renderCosmosArticle(): string {
     ${lineChips(LINES)}
     ${starmap()}
     <nav class="chronicle-nav cosmo-nav cosmo-nav-chips" aria-label="跳到宇宙階段">${nav}</nav>
+    <div class="civ-progress" aria-hidden="true"></div>
     ${COSMOS_STAGES.map(stageSection).join('')}
     ${scaleNest()}
     <h2>交接地球生命</h2>

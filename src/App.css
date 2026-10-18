@@ -1946,7 +1946,7 @@ a.stage-cover { text-decoration: none; }
 .stage-source { margin: 0 0 8px; font-size: 13px; color: #5c6570; }
 /* 里程碑深讀：產物｜推動力 block. Paper card on the ink-and-paper scale. */
 .milestone-block {
-  scroll-margin-top: 12px;
+  scroll-margin-top: 136px;
   margin: 12px 0;
   border: 1px solid #d4cbb8;
   border-radius: 12px;
@@ -2053,7 +2053,7 @@ a.stage-cover { text-decoration: none; }
   min-height: 36px;
 }
 .chronicle-stage {
-  scroll-margin-top: 12px;
+  scroll-margin-top: 136px;
   margin: 8px 0 22px;
   padding-bottom: 8px;
   border-bottom: 1px solid #d4cbb8;
@@ -2101,7 +2101,7 @@ a.stage-cover { text-decoration: none; }
 .cosmo-hero .civ-page-title,
 .earth-hero .civ-page-title { margin: 0; color: #f7f1e6; }
 .cosmo-stage,
-.earth-stage { scroll-margin-top: 12px; }
+.earth-stage { scroll-margin-top: 136px; }
 .earth-part { margin: 0 0 14px; }
 .earth-part h3 {
   margin: 0 0 6px;
@@ -2400,7 +2400,7 @@ a.stage-cover { text-decoration: none; }
 .tech-hero .civ-page-title,
 .city-hero .civ-page-title { margin: 0; color: #f7f1e6; }
 .tech-stage,
-.city-stage { scroll-margin-top: 12px; }
+.city-stage { scroll-margin-top: 136px; }
 .civ-node-hero {
   margin: 0 0 16px;
   border-radius: 14px;
@@ -2592,3 +2592,93 @@ html.dark .stage-dot .stage-seal {
   color: #161c24;
   border-color: #c4a572;
 }
+
+/* Civilization axis motion (P0).
+   Hide styles apply only under html.civ-motion, which the head boot adds and
+   columns.js keeps after IntersectionObserver is armed. No class, reduced
+   motion, or body.static: stages stay fully visible. Transform and opacity only.
+   Reveal runs when a stage enters the viewport. Stage plates do not ken.
+   The 2px progress bar overlaps the nav's existing bottom padding (margin-top:
+   -2px). It is not sticky and does not add a second stage rail.
+   Hash targets clear the sticky .chrome (masthead + tab row, about 110px). */
+.civ-page .chronicle-stage,
+.civ-page .chronicle-stage h2,
+.civ-page #jurassic,
+.civ-page .earth-part,
+.civ-page .milestone-block,
+.civ-page .civ-block,
+.civ-page .civ-block-h {
+  scroll-margin-top: 136px;
+}
+.civ-page .stage-frame img,
+.civ-page .civ-figure img,
+.civ-page .civ-block-frame img,
+.civ-page .milestone-frame img,
+.civ-page .stage-cover img {
+  animation: none;
+}
+.chronicle-nav .chip.is-current {
+  background: #161c24;
+  color: #f7f1e6;
+  border-color: #161c24;
+}
+.civ-progress {
+  position: static;
+  height: 2px;
+  max-height: 2px;
+  margin: -2px 0 0;
+  background: #9a7b4f;
+  transform: scaleX(1);
+  transform-origin: left center;
+  pointer-events: none;
+}
+.cosmo-star.is-active .cosmo-star-dot {
+  opacity: 1;
+  box-shadow: 0 0 0 2px #c4a572, 0 0 0 6px rgba(196, 165, 114, 0.35);
+}
+@media (prefers-reduced-motion: no-preference) {
+  body:not(.static) .milestones .axis-node {
+    animation: fade-rise var(--motion-rise) var(--motion-ease) both;
+  }
+  body:not(.static) .milestones li:nth-child(2) .axis-node { animation-delay: var(--motion-stagger); }
+  body:not(.static) .milestones li:nth-child(3) .axis-node { animation-delay: calc(var(--motion-stagger) * 2); }
+  body:not(.static) .milestones li:nth-child(4) .axis-node { animation-delay: calc(var(--motion-stagger) * 3); }
+  body:not(.static) .milestones li:nth-child(5) .axis-node { animation-delay: calc(var(--motion-stagger) * 4); }
+  body:not(.static) .milestones li:nth-child(6) .axis-node { animation-delay: calc(var(--motion-stagger) * 5); }
+  body:not(.static) .axis-node .dot.now {
+    transform-origin: center;
+    animation: timeline-pulse 900ms ease-in-out 2;
+  }
+  body:not(.static) .deep-axis .rail {
+    transform-origin: left center;
+    animation: brass-sweep var(--motion-sweep) var(--motion-ease) both;
+  }
+  html.civ-motion body:not(.static) .civ-reveal {
+    transition: opacity var(--motion-rise) var(--motion-ease), transform var(--motion-rise) var(--motion-ease);
+  }
+  html.civ-motion body:not(.static) .civ-reveal:not(.is-inview):not(.civ-reveal--above-fold) {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  html.civ-motion body:not(.static) .civ-progress {
+    transform: scaleX(var(--civ-progress, 0));
+  }
+}
+body.static .axis-node,
+body.static .axis-node .dot.now,
+body.static .deep-axis .rail,
+body.static .civ-reveal,
+body.static .civ-reveal .stage-frame img,
+body.static .civ-reveal .civ-figure img,
+body.static .civ-progress {
+  animation: none;
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+html.dark .chronicle-nav .chip.is-current {
+  background: #161c24;
+  color: #f7f1e6;
+  border-color: #c4a572;
+}
+html.dark .civ-progress { background: #c4a572; }

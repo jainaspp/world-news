@@ -285,7 +285,8 @@ function stageSection(stage: ChronicleStage): string {
   const href = sourceHref(stage.sourceUrl);
   const source = href ? `<p class="stage-source">來源：<a href="${href}">${esc(stage.sourceName)}</a></p>` : '';
   const origins = stage.origins ? '<p class="stage-links"><a href="/civilization/origins/">詳見人類起源時間線</a></p>' : '';
-  return `<section class="chronicle-stage" id="stage-${stage.n}" data-stage="${stage.n}">
+  const reveal = stage.n === 1 ? ' civ-reveal civ-reveal--above-fold is-inview' : ' civ-reveal';
+  return `<section class="chronicle-stage${reveal}" id="stage-${stage.n}" data-stage="${stage.n}">
     <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
     <h2>${esc(stage.name)}</h2>
     <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame">${stageCoverImg(stage, stage.n === 1)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
@@ -329,6 +330,7 @@ export function renderChronicleArticle(): string {
     <h2>如何閱讀本編年</h2>
     <p>${esc(CHRONICLE_HOW)}</p>
     <nav class="chronicle-nav" aria-label="跳到階段">${nav}</nav>
+    <div class="civ-progress" aria-hidden="true"></div>
     ${stages.map(stageSection).join('')}
     <h2>四線總結</h2>
     <p>${esc(CHRONICLE_SUMMARY)}</p>

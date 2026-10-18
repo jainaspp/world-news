@@ -223,7 +223,8 @@ function stageSection(stage: TechStage): string {
   if (stage.origins) extra.push('<a href="/civilization/origins/">人類起源時間線</a>');
   if (stage.chronicle) extra.push(`<a href="/civilization/chronicle/#stage-${stage.chronicle}">對照文明編年</a>`);
   const links = extra.length ? `<p class="stage-links">${extra.join('')}</p>` : '';
-  return `<section class="chronicle-stage tech-stage" id="tech-${stage.n}" data-stage="${stage.n}">
+  const reveal = stage.n === 1 ? ' civ-reveal civ-reveal--above-fold is-inview' : ' civ-reveal';
+  return `<section class="chronicle-stage tech-stage${reveal}" id="tech-${stage.n}" data-stage="${stage.n}">
     <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
     <h2>${esc(stage.name)}</h2>
     <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${techCoverImg(stage, false)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
@@ -255,6 +256,7 @@ export function renderTechArticle(): string {
     <p>${esc(LEDE_BEFORE)}<a href="/#slice">${LEDE_LINK}</a>${esc(LEDE_AFTER)}</p>
     ${lineChips(LINES)}
     <nav class="chronicle-nav tech-nav" aria-label="跳到技術階段">${nav}</nav>
+    <div class="civ-progress" aria-hidden="true"></div>
     ${TECH_STAGES.map(stageSection).join('')}
     <h2>交接編年與今日</h2>
     <p>${esc(HANDOFF_A)}<a href="/civilization/origins/">人類起源時間線</a>${esc(HANDOFF_B)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_C)}<a href="/civilization/city/">城市・基建・民生</a>${esc(HANDOFF_D)}<a href="/#slice">今日切片</a>${esc(HANDOFF_E)}</p>
