@@ -936,4 +936,68 @@ describe('civilization slice', () => {
     expect(speech).not.toContain('>近<');
     expect(renderCivilizationSlice({ key: 'dated-out', title: '公園翻新工程展開' })).toBe('');
   });
+
+  it('adds restrained stage reveal classes without hiding the first plate', () => {
+    const pages = [
+      { html: renderEarthPage().html, first: 'id="earth-1"', count: 8 },
+      { html: renderCosmosPage().html, first: 'id="cosmo-1"', count: 10 },
+      { html: renderChroniclePage().html, first: 'id="stage-1"', count: 10 },
+      { html: renderTechPage().html, first: 'id="tech-1"', count: 10 },
+      { html: renderCityPage().html, first: 'id="city-1"', count: 10 },
+    ];
+    for (const page of pages) {
+      const classNames = [...page.html.matchAll(/class="([^"]*)"/g)].map((match) => match[1]);
+      const reveals = classNames.filter((name) => name.split(/\s+/).includes('civ-reveal'));
+      expect(reveals).toHaveLength(page.count);
+      expect(reveals.filter((name) => name.split(/\s+/).includes('civ-reveal--above-fold') && name.split(/\s+/).includes('is-inview'))).toHaveLength(1);
+      expect(page.html).toContain('class="civ-progress"');
+      expect(page.html).toContain('classList.add("civ-motion")');
+      expect(page.html).toContain('data-civ-motion');
+      const firstAt = page.html.indexOf(page.first);
+      const open = page.html.lastIndexOf('<section', firstAt);
+      const first = page.html.slice(open, page.html.indexOf('>', firstAt));
+      expect(first).toContain('civ-reveal--above-fold');
+      expect(first).toContain('is-inview');
+    }
+    const earth = renderEarthPage().html;
+    const jurassic = earth.slice(earth.indexOf('id="earth-5"'), earth.indexOf('id="earth-6"'));
+    expect(jurassic).toContain('id="jurassic"');
+    expect(jurassic).toContain(' civ-reveal"');
+    expect(jurassic).not.toContain('civ-reveal--above-fold');
+    expect(jurassic).not.toContain('is-inview');
+    const css = readFileSync('src/App.css', 'utf8');
+    const motion = css.slice(css.indexOf('Civilization axis motion'));
+    expect(motion).toContain('html.civ-motion body:not(.static) .civ-reveal:not(.is-inview):not(.civ-reveal--above-fold)');
+    expect(motion).toContain('scroll-margin-top: 136px');
+    expect(motion).toContain('#jurassic');
+    expect(motion).toContain('body.static .civ-reveal');
+    expect(motion).toContain('opacity: 1');
+    expect(motion).toContain('animation: none');
+    expect(motion).toContain('scaleX(var(--civ-progress, 0))');
+    expect(motion).toContain('height: 2px');
+    expect(motion).toContain('position: static');
+    expect(motion).toContain('.civ-page .stage-frame img');
+    expect(motion).toContain('animation: none');
+    expect(motion).not.toContain('img-ken');
+    expect(motion).not.toContain('animation-timeline');
+    expect(motion).not.toContain('position: sticky');
+    expect(motion).not.toContain('paper-texture');
+    expect(css).not.toContain('scroll-margin-top: 12px');
+    const js = readFileSync('public/columns.js', 'utf8');
+    expect(js).toContain('function motionReduced()');
+    expect(js).toContain('IntersectionObserver');
+    expect(js).toContain('rootMargin: \'0px 0px -10% 0px\'');
+    expect(js).toContain('if (!entry.isIntersecting) return;');
+    expect(js).toContain('--civ-progress');
+    expect(js).toContain('aria-current');
+    expect(js).toContain('data-civ-motion');
+    expect(js).toContain('.cosmo-starmap');
+    expect(js).toContain('prefers-reduced-motion: reduce');
+    expect(js).toContain('scrollIntoView');
+    expect(js).toContain('body.classList.contains(\'static\')');
+    expect(js).not.toContain('lenis');
+    expect(js).not.toContain('scroll-behavior');
+    const pkg = readFileSync('package.json', 'utf8');
+    expect(pkg).not.toMatch(/gsap|lenis|lottie|three|animejs|motion/i);
+  });
 });

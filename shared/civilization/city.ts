@@ -242,7 +242,8 @@ function stageSection(stage: CityStage): string {
   if (stage.chronicle) extra.push(`<a href="/civilization/chronicle/#stage-${stage.chronicle}">對照文明編年</a>`);
   const chronicle = extra.length ? `<p class="stage-links">${extra.join('')}</p>` : '';
   const local = stage.local ? localLinks() : '';
-  return `<section class="chronicle-stage city-stage" id="city-${stage.n}" data-stage="${stage.n}">
+  const reveal = stage.n === 1 ? ' civ-reveal civ-reveal--above-fold is-inview' : ' civ-reveal';
+  return `<section class="chronicle-stage city-stage${reveal}" id="city-${stage.n}" data-stage="${stage.n}">
     <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
     <h2>${esc(stage.name)}</h2>
     <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${cityCoverImg(stage, false)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
@@ -275,6 +276,7 @@ export function renderCityArticle(): string {
     <p>${esc(LEDE_BEFORE)}<a href="/civilization/tech/">${LEDE_TECH}</a>${esc(LEDE_MID)}<a href="/civilization/chronicle/">${LEDE_CHRONICLE}</a>${esc(LEDE_AFTER)}</p>
     ${lineChips(LINES)}
     <nav class="chronicle-nav city-nav" aria-label="跳到城市階段">${nav}</nav>
+    <div class="civ-progress" aria-hidden="true"></div>
     ${CITY_STAGES.map(stageSection).join('')}
     <h2>交接編年與本地案例</h2>
     <p>${esc(HANDOFF_A)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_B)}<a href="/civilization/tech/">科技與發現</a>${esc(HANDOFF_C)}<a href="/hk/landmarks/">香港地標</a>${esc(HANDOFF_D)}<a href="/on-this-day/">當年今日</a>${esc(HANDOFF_E)}<a href="/#slice">今日切片</a>${esc(HANDOFF_F)}</p>

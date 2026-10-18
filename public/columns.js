@@ -41,46 +41,200 @@
     document.querySelectorAll('ins.adsbygoogle').forEach(function () { (window.adsbygoogle = window.adsbygoogle || []).push({}); });
   } catch (e) {}
 
+  var civReveals = document.querySelectorAll('.civ-reveal');
+  var civNavs = document.querySelectorAll('.chronicle-nav');
   var starmap = document.querySelector('.cosmo-starmap');
-  if (starmap) {
-    function cosmoReduced() {
+  if (civReveals.length || civNavs.length || starmap) {
+    var stages = Array.prototype.slice.call(civReveals);
+    var currentId = '';
+    var io = null;
+    var scrollOn = false;
+    var ticking = false;
+
+    function motionReduced() {
       try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
     }
-    function focusStage(href, updateHash) {
-      var id = String(href || '').replace(/^#/, '');
-      if (!/^cosmo-\d+$/.test(id)) return;
-      var section = document.getElementById(id);
-      if (!section) return;
-      section.scrollIntoView({ behavior: cosmoReduced() ? 'auto' : 'smooth', block: 'start' });
-      var heading = section.querySelector('h2');
+    function motionFrozen() {
+      return !!(document.body && document.body.classList.contains('static'));
+    }
+    function chipOn(href, id) {
+      return href === id || (id === 'earth-5' && href === 'jurassic');
+    }
+    function setCurrent(id) {
+      if (!id || id === currentId) return;
+      currentId = id;
+      document.querySelectorAll('.chronicle-nav .chip').forEach(function (chip) {
+        var href = (chip.getAttribute('href') || '').replace(/^#/, '');
+        var on = chipOn(href, id);
+        chip.classList.toggle('is-current', on);
+        if (on) chip.setAttribute('aria-current', 'true');
+        else chip.removeAttribute('aria-current');
+      });
+      document.querySelectorAll('.cosmo-star').forEach(function (star) {
+        var link = star.querySelector('a[href^="#"]');
+        var href = link ? (link.getAttribute('href') || '').replace(/^#/, '') : '';
+        star.classList.toggle('is-active', href === id);
+      });
+    }
+    function writeProgress(value) {
+      root.style.setProperty('--civ-progress', String(value));
+    }
+    function measure() {
+      var rects = stages.map(function (stage) { return stage.getBoundingClientRect(); });
+      var line = window.innerHeight * 0.28;
+      var nextId = '';
+      var best = Infinity;
+      var i;
+      for (i = 0; i < stages.length; i++) {
+        var rect = rects[i];
+        if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
+        var dist = Math.abs(rect.top - line);
+        if (dist < best) { best = dist; nextId = stages[i].id; }
+      }
+      if (!nextId) {
+        for (i = stages.length - 1; i >= 0; i--) {
+          if (rects[i].top <= line) { nextId = stages[i].id; break; }
+        }
+      }
+      var progress = 1;
+      if (rects.length) {
+        var start = rects[0].top + window.scrollY;
+        var end = rects[rects.length - 1].bottom + window.scrollY - window.innerHeight;
+        var span = end - start;
+        progress = span <= 1 ? 1 : (window.scrollY - start) / span;
+        if (progress < 0) progress = 0;
+        if (progress > 1) progress = 1;
+        progress = Math.round(progress * 1000) / 1000;
+      }
+      return { id: nextId, progress: progress };
+    }
+    function paint() {
+      if (!stages.length) return;
+      var reading = measure();
+      if (reading.id) setCurrent(reading.id);
+      writeProgress(reading.progress);
+    }
+    function onScroll() {
+      if (document.hidden || ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        if (document.hidden) return;
+        paint();
+      });
+    }
+    function bindScroll() {
+      if (scrollOn) return;
+      scrollOn = true;
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+    }
+    function unbindScroll() {
+      if (!scrollOn) return;
+      scrollOn = false;
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    }
+    function focusHash(raw, updateHash) {
+      var id = String(raw || '').replace(/^#/, '');
+      if (!id) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+      var stage = el.classList.contains('civ-reveal') ? el : (el.closest ? el.closest('.civ-reveal') : null);
+      if (stage) stage.classList.add('is-inview');
+      var target = stage && el === stage ? stage : el;
+      target.scrollIntoView({ behavior: motionReduced() ? 'auto' : 'smooth', block: 'start' });
+      var heading = (el.tagName === 'H2' || el.tagName === 'H3') ? el : (stage ? stage.querySelector('h2') : null);
       if (heading) {
         if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
-        heading.focus({ preventScroll: true });
+        try { heading.focus({ preventScroll: true }); } catch (err) {}
       }
-      if (updateHash && history.pushState) history.pushState(null, '', '#' + id);
+      if (stage && stage.id) setCurrent(stage.id);
+      if (updateHash && history.pushState && location.hash !== '#' + id) history.pushState(null, '', '#' + id);
     }
-    function bindCosmoJump(root) {
-      if (!root) return;
-      root.addEventListener('click', function (event) {
-        var link = event.target.closest('a[href^="#cosmo-"]');
-        if (!link || !root.contains(link)) return;
+    function bindHashJump(box) {
+      if (!box || box.getAttribute('data-civ-jump')) return;
+      box.setAttribute('data-civ-jump', '1');
+      box.addEventListener('click', function (event) {
+        var link = event.target.closest('a[href^="#"]');
+        if (!link || !box.contains(link)) return;
+        var id = (link.getAttribute('href') || '').replace(/^#/, '');
+        if (!document.getElementById(id)) return;
         event.preventDefault();
-        focusStage(link.getAttribute('href'), true);
+        focusHash(id, true);
       });
-      root.addEventListener('keydown', function (event) {
+      box.addEventListener('keydown', function (event) {
         if (event.repeat || (event.key !== ' ' && event.code !== 'Space')) return;
-        var link = event.target.closest('a[href^="#cosmo-"]');
-        if (!link || !root.contains(link)) return;
+        var link = event.target.closest('a[href^="#"]');
+        if (!link || !box.contains(link)) return;
         event.preventDefault();
         link.click();
       });
     }
-    bindCosmoJump(starmap);
-    bindCosmoJump(document.querySelector('.cosmo-nav'));
+    if (starmap) bindHashJump(starmap);
+    civNavs.forEach(bindHashJump);
+    document.querySelectorAll('.stage-links').forEach(bindHashJump);
     window.addEventListener('popstate', function () {
-      if (/^#cosmo-\d+$/.test(location.hash)) focusStage(location.hash, false);
+      if (location.hash) focusHash(location.hash, false);
     });
-    if (/^#cosmo-\d+$/.test(location.hash)) focusStage(location.hash, false);
+    if (location.hash) focusHash(location.hash, false);
+
+    function stopMotion() {
+      root.classList.remove('civ-motion');
+      stages.forEach(function (stage) { stage.classList.add('is-inview'); });
+      writeProgress(1);
+      unbindScroll();
+      if (io) { io.disconnect(); io = null; }
+      paint();
+    }
+    function armObserver() {
+      if (!('IntersectionObserver' in window)) { stopMotion(); return; }
+      try {
+        /* Only the stage that entered the viewport. Do not reveal every plate on load. */
+        io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-inview');
+            io.unobserve(entry.target);
+          });
+        }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+        stages.forEach(function (stage) {
+          if (!stage.classList.contains('is-inview')) io.observe(stage);
+        });
+      } catch (err) {
+        stopMotion();
+      }
+    }
+    if (!stages.length || motionReduced() || motionFrozen()) {
+      if (motionReduced() || motionFrozen()) stopMotion();
+      else writeProgress(1);
+    } else {
+      root.classList.add('civ-motion');
+      root.setAttribute('data-civ-motion', '1');
+      armObserver();
+      bindScroll();
+      paint();
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          unbindScroll();
+          if (io) io.disconnect();
+        } else if (root.classList.contains('civ-motion')) {
+          if (io) {
+            stages.forEach(function (stage) {
+              if (!stage.classList.contains('is-inview')) io.observe(stage);
+            });
+          }
+          bindScroll();
+          paint();
+        }
+      });
+      try {
+        var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (motionQuery.addEventListener) motionQuery.addEventListener('change', function () {
+          if (motionQuery.matches) stopMotion();
+        });
+      } catch (err) {}
+    }
   }
 
   var related = document.getElementById('related');

@@ -94,7 +94,8 @@ function stageSection(stage: EarthStage): string {
   const jumps = stage.n === 5
     ? '<p class="stage-links"><a href="#jurassic">侏羅紀</a><a href="#earth-5-env">環境</a><a href="#earth-5-life">優勢類群</a><a href="#earth-5-product">關鍵產物</a><a href="#earth-5-driver">推動力</a></p>'
     : '';
-  return `<section class="chronicle-stage earth-stage" id="earth-${stage.n}" data-stage="${stage.n}">
+  const reveal = stage.n === 1 ? ' civ-reveal civ-reveal--above-fold is-inview' : ' civ-reveal';
+  return `<section class="chronicle-stage earth-stage${reveal}" id="earth-${stage.n}" data-stage="${stage.n}">
     <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
     <h2 tabindex="-1"${jurassicId}>${esc(stage.name)}</h2>
     <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${earthCoverImg(stage, stage.n === 1)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
@@ -128,6 +129,7 @@ export function renderEarthArticle(): string {
     <p>${esc(EARTH_LEDE.split('約七百萬年前交接入類起源。')[0] ?? '')}<a href="/civilization/origins/">約七百萬年前交接入類起源</a>。${esc(EARTH_LEDE.split('約七百萬年前交接入類起源。')[1] ?? '')}</p>
     ${lineChips(EARTH_LINES)}
     <nav class="chronicle-nav earth-nav" aria-label="跳到地球生命階段">${nav}${jurassicChip}</nav>
+    <div class="civ-progress" aria-hidden="true"></div>
     ${EARTH_STAGES.map(stageSection).join('')}
     <h2>交接人類起源</h2>
     <p>${esc(HANDOFF_BACK_A)}<a href="/civilization/cosmos/">宇宙長河</a>${esc(HANDOFF_BACK_B)}</p>
