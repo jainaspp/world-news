@@ -252,6 +252,7 @@ describe('civilization thick pages', () => {
     expect(deep.indexOf('href="/civilization/cosmos/"')).toBeLessThan(deep.indexOf('href="/civilization/origins/"'));
     expect(deep).toContain('閱讀宇宙長河');
     expect(deep).toContain('src="/static/civilization/cosmo-stage-1-cover-640w.webp"');
+    expect(deep).toContain('cosmo-stage-1-cover-1280w.webp 1280w');
     expect(deep).toContain('>宇宙<');
     expect(deep).not.toContain('civ-stage-');
     expect(hub.html.indexOf('class="chronicle-strip"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
@@ -372,8 +373,10 @@ describe('civilization thick pages', () => {
       expect(section).toContain('class="civ-figure"');
       expect(section).toContain(`src="/static/civilization/cosmo-stage-${stage.n}-cover-640w.webp"`);
       expect(section).toContain(`cosmo-stage-${stage.n}-cover-400w.webp 400w`);
+      expect(section).toContain(`cosmo-stage-${stage.n}-cover-1280w.webp 1280w`);
       expect(section).toContain('onerror="this.hidden=true"');
       expect(section).toContain('class="stage-seal"');
+      expect(existsSync(`public/static/civilization/cosmo-stage-${stage.n}-cover-1280w.webp`), `cosmo ${stage.n} 1280`).toBe(true);
       expect(existsSync(`public/static/civilization/cosmo-stage-${stage.n}-cover-640w.webp`), `cosmo ${stage.n} 640`).toBe(true);
       expect(existsSync(`public/static/civilization/cosmo-stage-${stage.n}-cover-400w.webp`), `cosmo ${stage.n} 400`).toBe(true);
       expect(section).not.toContain('/civilization/chronicle/');

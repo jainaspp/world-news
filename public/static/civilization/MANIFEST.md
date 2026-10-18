@@ -8,6 +8,8 @@ Red lines: no Taiwan / politics / border maps / faces / flags
 
 **Batch B remake 2026-10-18** (no old-crop): fresh Art WebP replaced chronicle stage covers S1–S10. Public files are `civ-stage-{1..10}-cover-{1280,640,400}w.webp` (1280×720 native; 640×400 and 400×250 are 16:10 center crops, not a recompress of the previous covers). Hub cards and chronicle figures keep the 640 src and include 1280w in the srcset. Axis, hub, origins, cosmos, tech, and city files are unchanged.
 
+**Batch C remake 2026-10-18** (no old-crop): fresh Art WebP replaced cosmos stage covers CS1–CS10. Public files are `cosmo-stage-{1..10}-cover-{1280,640,400}w.webp` (1280×720 native; 640×400 and 400×250 are 16:10 center crops, not a recompress of the previous covers). The cosmos page and hub cosmos card keep the 640 src and include 1280w in the srcset. Axis, hub, origins, civ-stage, tech, and city files are unchanged.
+
 | Slot | Files | Notes |
 |------|-------|-------|
 | H1 axis-bg | civ-home-axis-bg-{640,960,1280,1920}w.webp (+jpg) | CSS bg; opacity 0.35–0.55 + ink mask; alt="" |
@@ -25,6 +27,6 @@ Checked-in drop is WebP only (JPEG twins were not attached), plus `overview-hero
 | Slot | Files | Notes |
 |------|-------|-------|
 | S1–S10 stage covers | civ-stage-{1..10}-cover-{1280,640,400}w.webp | Batch B remake 2026-10-18, not old-crop. 1280×720 plus 640×400 / 400×250 16:10 crops. Hub cards and chronicle figures. Strip stays a paper ordinal; no `civ-node-*-480w` thumb is on disk. |
-| CS1–CS10 cosmos covers | cosmo-stage-{1..10}-cover-{640,400}w.webp | 640×400 and 400×250, 16:10. All ten on disk. Hub cosmos card uses CS1. Paper ordinal is hidden unless the file fails. See `MANIFEST-cosmo-stages.md`. |
+| CS1–CS10 cosmos covers | cosmo-stage-{1..10}-cover-{1280,640,400}w.webp | Batch C remake 2026-10-18, fresh art not old-crop. 1280×720 plus 640×400 / 400×250 16:10 crops. Hub cosmos card uses CS1. Paper ordinal is hidden unless the file fails. See `MANIFEST-cosmo-stages.md`. |
 | T1–T10 tech covers | tech-stage-{1..10}-cover-{640,400}w.webp | 640×400 and 400×250, 16:10. Interim crops of `node-tech-v1.jpg` for `/civilization/tech/`. Page hero keeps the full JPEG. |
 | U1–U10 city covers | city-stage-{1..10}-cover-{640,400}w.webp | 640×400 and 400×250, 16:10. Interim crops of `node-city-v1.jpg` for `/civilization/city/`. Page hero keeps the full JPEG. |
