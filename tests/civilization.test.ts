@@ -3,7 +3,9 @@ import { describe, expect, it } from 'vitest';
 import { renderContentPage, type ContentDoc } from '../shared/content';
 import { cjkChars } from '../shared/contentPage';
 import { coordinateChipHtml, renderCivilizationSlice } from '../shared/civilization/renderSlice';
-import { CHRONICLE_STAGES, chronicleCardMilestones } from '../shared/civilization/chronicle';
+import { CHRONICLE_STAGES, chronicleCardMilestones, chronicleStagesOrdered } from '../shared/civilization/chronicle';
+import { CHRONICLE_MILESTONE_BLOCKS, milestoneBlockAnchor } from '../shared/civilization/chronicleMilestones';
+import { milestoneBlockProse, milestoneBlocksFor } from '../shared/civilization/milestoneBlock';
 import { CITY_STAGES } from '../shared/civilization/city';
 import { COSMOS_STAGES } from '../shared/civilization/cosmos';
 import { EARTH_STAGES, earthStageText } from '../shared/civilization/earth';
@@ -344,6 +346,40 @@ describe('civilization thick pages', () => {
       expect(section).toContain('class="stage-seal"');
       if (stage.origins) expect(section).toContain('href="/civilization/origins/"');
       else expect(section).not.toContain('/civilization/origins/');
+      const blocks = milestoneBlocksFor(stage.n);
+      expect(blocks.length).toBeGreaterThanOrEqual(1);
+      for (const [index, block] of blocks.entries()) {
+        const anchor = milestoneBlockAnchor(stage.n, block, index);
+        expect(section).toContain(`<details class="milestone-block" id="${anchor}" data-stage="${stage.n}" open>`);
+        const blockAt = section.indexOf(`id="${anchor}"`);
+        const blockEnd = section.indexOf('</details>', blockAt);
+        expect(blockEnd).toBeGreaterThan(blockAt);
+        const body = section.slice(blockAt, blockEnd);
+        expect(body).toContain('里程碑深讀 · 產物與推動力');
+        expect(body).toContain(`<summary>`);
+        expect(body).toContain(`>${block.event}<`);
+        for (const heading of ['界定事件', '關鍵產物', '推動力', '溫和影響']) {
+          expect(body).toContain(`<h3 class="milestone-h">${heading}</h3>`);
+        }
+        expect(body).toContain(block.eventDetail.slice(0, 12));
+        for (const product of block.products) {
+          expect(body).toContain(`<span class="product-kind">${product.kind}</span>`);
+          expect(body).toContain(`<strong>${product.name}</strong>：${product.detail}`);
+        }
+        for (const driver of block.drivers) {
+          expect(body).toContain(`<strong>${driver.name}</strong>：${driver.detail}`);
+        }
+        expect(body).toContain(block.impact);
+        for (const line of block.lines) expect(body).toContain(`>${line}<`);
+        expect(body).toContain('class="milestone-frame"');
+        expect(body).toContain('class="milestone-seal"');
+        if (block.image) {
+          expect(body).toContain(`src="/static/civilization/${block.image}-640w.webp"`);
+          expect(body).toContain(`${block.image}-1280w.webp 1280w`);
+          expect(body).toContain('onerror="this.hidden=true"');
+        }
+        expect(body).not.toMatch(REDLINE);
+      }
     }
     expect(page.html).toContain('https://iho.asu.edu/');
     expect(page.html).toContain('https://whc.unesco.org/en/list/1405/');
@@ -353,6 +389,43 @@ describe('civilization thick pages', () => {
     expect([...CHRONICLE_STAGES.map((stage) => stage.short)].every((name) => [...name].length <= 6 && [...name].length > 0)).toBe(true);
     expect(page.html).not.toContain('/civilization/cosmos/');
     expect(page.html).not.toContain('#cosmo-');
+  });
+
+  it('keeps milestone product/driver blocks data-driven, thick, and inside the red lines', () => {
+    expect(chronicleStagesOrdered().map((stage) => stage.n)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    const anchors = new Set<string>();
+    for (let n = 1; n <= 10; n += 1) {
+      const blocks = milestoneBlocksFor(n);
+      expect(blocks.length).toBeGreaterThanOrEqual(1);
+      expect(cjkChars(milestoneBlockProse(n))).toBeGreaterThanOrEqual(300);
+      for (const [index, block] of blocks.entries()) {
+        const anchor = milestoneBlockAnchor(n, block, index);
+        expect(anchor).toMatch(new RegExp(`^stage-${n}-[a-z0-9-]+$`));
+        expect(anchors.has(anchor)).toBe(false);
+        anchors.add(anchor);
+        expect(block.event.length).toBeGreaterThan(0);
+        expect(block.eventDetail.length).toBeGreaterThan(0);
+        expect(block.products.length).toBeGreaterThanOrEqual(2);
+        expect(block.drivers.length).toBeGreaterThanOrEqual(2);
+        expect(block.impact.length).toBeGreaterThan(0);
+        for (const product of block.products) expect(['技術', '制度', '媒介']).toContain(product.kind);
+        for (const line of block.lines) expect(['能量', '信息', '制度', '貨幣']).toContain(line);
+        const all = [block.event, block.eventDetail, block.impact, ...block.products.flatMap((p) => [p.name, p.detail]), ...block.drivers.flatMap((d) => [d.name, d.detail])].join('');
+        expect(all).not.toMatch(BLOCKED);
+        expect(all).not.toMatch(REDLINE);
+      }
+    }
+    expect(Object.keys(CHRONICLE_MILESTONE_BLOCKS).map(Number).sort((a, b) => a - b)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    expect(cjkChars(chronicleProse())).toBeGreaterThanOrEqual(4000);
+    const css = readFileSync('src/App.css', 'utf8');
+    expect(css).toContain('.milestone-block {');
+    expect(css).toContain('.milestone-block[open] summary::after');
+    expect(css).toContain('html.dark .milestone-block');
+    expect(css).toContain('#161c24');
+    const page = renderChroniclePage();
+    expect(page.html.match(/class="milestone-block"/g)).toHaveLength(10);
+    expect(page.html).toContain('id="stage-1-product"');
+    expect(page.html).toContain('id="stage-10-product"');
   });
 
   it('publishes an indexable ten-stage cosmos page and hands off to origins', () => {
