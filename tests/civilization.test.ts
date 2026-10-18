@@ -589,6 +589,11 @@ describe('civilization thick pages', () => {
     expect(section).toContain('id="earth-5-life"');
     expect(section).toContain('id="earth-5-product"');
     expect(section).toContain('id="earth-5-driver"');
+    expect(section).toContain('id="jurassic"');
+    expect(section).toContain('class="civ-block-seal"');
+    expect(section).toContain('>界定事件<');
+    expect(section).toContain('>關鍵產物<');
+    expect(section).toContain('>溫和影響<');
     expect(section).toContain('>環境<');
     expect(section).toContain('>優勢類群<');
     expect(section).toContain('>產物<');
@@ -624,6 +629,20 @@ describe('civilization thick pages', () => {
     expect(css).toContain('.earth-hero');
     expect(css).toContain('#161c24');
     expect(css).toContain('.earth-stage .stage-frame:has(img[hidden]) .stage-seal');
+    expect(page.html).toContain('href="#jurassic"');
+    for (const stage of EARTH_STAGES) {
+      expect(page.html).toContain(`id="earth-${stage.n}-product"`);
+      expect(page.html).toContain(`id="earth-${stage.n}-driver"`);
+    }
+    const route = readFileSync('functions/civilization/[[path]].ts', 'utf8');
+    expect(route).toContain('export const PAGES');
+    expect(route).not.toContain("rest === 'earth'");
+    const spine = readFileSync('shared/civilization/spine.ts', 'utf8');
+    expect(spine).toContain('export const SPINE');
+    expect(spine).toContain("label: '地球'");
+    expect(readFileSync('shared/civilizationPage.ts', 'utf8')).toContain('renderSpineAxis');
+    expect(readFileSync('shared/civilization/blocks.ts', 'utf8')).toContain('cover: string | null');
+    expect(readFileSync('shared/civilization/chronicle.ts', 'utf8')).toContain('milestoneBlock');
   });
 
   it('publishes an indexable ten-stage tech page and hands off to the chronicle', () => {
