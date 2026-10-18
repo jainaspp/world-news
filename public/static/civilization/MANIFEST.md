@@ -4,9 +4,12 @@ Date: 2026-10-17 HKT
 Source: Art GenerateImage + home-axis-hero-v1
 Red lines: no Taiwan / politics / border maps / faces / flags
 
+**Batch A remake 2026-10-18** (no old-crop): fresh Art WebP/JPEG replaced the public files for H1 axis, C0 hub, C1 origins layer, O0 origins hero, and O2–O4 origins stages. Hub still serves `overview-hero-v1.jpg` and prefers the new `civ-hub-hero-{1200,960,640}w.webp` srcset. Tech, city, civ-stage, and cosmo-stage covers are unchanged.
+
 | Slot | Files | Notes |
 |------|-------|-------|
 | H1 axis-bg | civ-home-axis-bg-{640,960,1280,1920}w.webp (+jpg) | CSS bg; opacity 0.35–0.55 + ink mask; alt="" |
+| C0 hub hero | overview-hero-v1.jpg; civ-hub-hero-{1200,960,640}w.webp | JPEG src; webp srcset preferred. Full opacity. |
 | C1 layer origins | civ-layer-origins-{640,400}w.webp (+jpg); 640 also as 640×400 crop | 4:3 cover preferred 640×480 |
 | O0 origins hero | civ-origins-hero-{1200,960,640}w.webp (+jpg) | 21:9 crop |
 | O2 stage1 | civ-origins-stage1-{800,640}w.webp (+jpg) | 深層分離 · 抽象分叉 |
@@ -15,7 +18,7 @@ Red lines: no Taiwan / politics / border maps / faces / flags
 
 Masters also under /workspace/world-news/assets/civilization/
 
-Checked-in drop is WebP only (JPEG twins were not attached). Also on disk for slots outside this table: `overview-hero-v1.jpg` (C0 hub hero, full opacity) and `node-city-v1.jpg` / `node-tech-v1.jpg` (secondary layer covers). `node-today` is not mounted on the axis.
+Checked-in drop is WebP only (JPEG twins were not attached), plus `overview-hero-v1.jpg`. `node-city-v1.jpg` / `node-tech-v1.jpg` remain secondary layer covers. `node-today` is not mounted on the axis.
 
 | Slot | Files | Notes |
 |------|-------|-------|

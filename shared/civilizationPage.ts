@@ -123,6 +123,7 @@ function originsLayerCover(): string {
 function hubHero(): string {
   return `<figure class="civ-hub-hero">${civImage({
     src: `${CIV}/overview-hero-v1.jpg`,
+    srcset: `${CIV}/civ-hub-hero-640w.webp 640w, ${CIV}/civ-hub-hero-960w.webp 960w, ${CIV}/civ-hub-hero-1200w.webp 1200w`,
     sizes: '(max-width: 960px) 100vw, 812px',
     width: 1280,
     height: 720,

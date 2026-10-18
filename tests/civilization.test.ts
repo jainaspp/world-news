@@ -183,6 +183,9 @@ describe('civilization thick pages', () => {
     expect(hub.html.indexOf('class="civ-hub-hero"')).toBeGreaterThan(hub.html.indexOf('class="axis-hero"'));
     expect(hub.html.indexOf('class="civ-hub-hero"')).toBeLessThan(hub.html.indexOf('class="civ-article"'));
     expect(hub.html).toContain('src="/static/civilization/overview-hero-v1.jpg"');
+    expect(hub.html).toContain('civ-hub-hero-640w.webp 640w');
+    expect(hub.html).toContain('civ-hub-hero-960w.webp 960w');
+    expect(hub.html).toContain('civ-hub-hero-1200w.webp 1200w');
     expect(hub.html).toContain('class="axis-vignette"');
     expect(hub.html).toContain('src="/static/civilization/civ-layer-origins-640w.webp"');
     expect(hub.html).toContain('civ-layer-origins-400w.webp 400w');
@@ -221,6 +224,9 @@ describe('civilization thick pages', () => {
       'civ-origins-stage3-640w.webp',
       'civ-origins-stage3-800w.webp',
       'overview-hero-v1.jpg',
+      'civ-hub-hero-640w.webp',
+      'civ-hub-hero-960w.webp',
+      'civ-hub-hero-1200w.webp',
       'node-city-v1.jpg',
       'node-tech-v1.jpg',
       'MANIFEST.md',
