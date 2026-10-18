@@ -1,8 +1,9 @@
 import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPage.js';
 import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderChronicleStrip, renderStageGrid } from './civilization/chronicle.js';
 import { renderCityArticle, cityIndexable } from './civilization/city.js';
-import { COSMOS_STAGES, cosmoCoverImg, cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
-import { EARTH_STAGES, earthCoverImg, earthIndexable, renderEarthArticle } from './civilization/earth.js';
+import { cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
+import { earthIndexable, renderEarthArticle } from './civilization/earth.js';
+import { renderDeepTimeBoardFromSpine, renderSpineAxis } from './civilization/spine.js';
 import { ORIGINS_BODY, ORIGINS_SOURCES } from './civilization/originsSource.js';
 import { renderTechArticle, techIndexable } from './civilization/tech.js';
 import { renderMildMarkdown } from './civilization/markdown.js';
@@ -197,14 +198,7 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
     <p class="axis-lede">從宇宙、地球生命到人類起源與城市公共生活。新聞是軸上「今天」那一刀。先看見尺度，再讀今日。</p>
     <div class="deep-axis" aria-label="深時間軸">
       <div class="rail" aria-hidden="true"></div>
-      <ol class="milestones">
-        <li><a class="axis-node" href="/civilization/cosmos/"><span class="dot"></span><span class="lab">宇宙</span><span class="yr">~138億</span></a></li>
-        <li><a class="axis-node" href="/civilization/earth/"><span class="dot"></span><span class="lab">地球</span><span class="yr">~40億</span></a></li>
-        <li><a class="axis-node" href="/civilization/origins/"><span class="dot"></span><span class="lab">起源</span><span class="yr">~300ka</span></a></li>
-        <li><a class="axis-node" href="/civilization/tech/"><span class="dot"></span><span class="lab">技術</span><span class="yr">發現</span></a></li>
-        <li><a class="axis-node" href="/civilization/city/"><span class="dot"></span><span class="lab">城市</span><span class="yr">基建</span></a></li>
-        <li><a class="axis-node axis-now" href="${esc(todayHref)}"><span class="dot now"></span><span class="lab">今天</span><span class="yr">切片</span></a></li>
-      </ol>
+      ${renderSpineAxis(todayHref)}
     </div>
     <div class="axis-cta">
       <a class="btn btn-brass" href="${esc(primaryHref)}">${esc(primaryLabel)}</a>
@@ -351,59 +345,9 @@ function milestoneList(): string {
   return `<ol class="civ-milestone-list">${HUB_MILESTONES.map((row) => `<li><p class="era">${esc(row.era)}</p><h3>${esc(row.title)}</h3><p>${esc(row.text)}</p></li>`).join('')}</ol>`;
 }
 
-/** Deep-time pair sits above the chronicle grid. Cosmos is the left card. */
+/** Deep-time cards follow the spine list. A new node with `board` appears here. */
 function renderDeepTimeBoard(): string {
-  const first = COSMOS_STAGES[0];
-  const cosmosCover = first
-    ? `<a class="stage-cover" data-stage="1" href="/civilization/cosmos/" aria-label="宇宙長河">${cosmoCoverImg(first, true)}<span class="stage-seal">宇宙</span></a>`
-    : '';
-  const earthFirst = EARTH_STAGES[0];
-  const earthCover = earthFirst
-    ? `<a class="stage-cover" data-stage="1" href="/civilization/earth/" aria-label="地球生命">${earthCoverImg(earthFirst, false)}<span class="stage-seal">地球</span></a>`
-    : '';
-  const originsCover = `<a class="stage-cover" href="/civilization/origins/" aria-label="人類起源">${civImage({
-    src: `${CIV}/civ-layer-origins-640w.webp`,
-    srcset: `${CIV}/civ-layer-origins-400w.webp 400w, ${CIV}/civ-layer-origins-640w.webp 640w`,
-    sizes: '(max-width: 600px) 100vw, 360px',
-    width: 640,
-    height: 480,
-    alt: '人類起源：深時間溫和示意',
-  })}<span class="stage-seal">起源</span></a>`;
-  return `<section class="deep-time" aria-label="深時間">
-    <div class="chronicle-board-head">
-      <h2>深時間</h2>
-    </div>
-    <p class="chronicle-board-note">宇宙長河接到地球生命，再交接入類起源。約七百萬年前，演化進入人族階段。下方編年仍是文明十階段。</p>
-    <div class="deep-time-grid">
-      <article class="deep-time-card cosmo-card">
-        ${cosmosCover}
-        <div class="stage-body">
-          <p class="era">宇宙長河</p>
-          <h3><a href="/civilization/cosmos/">宇宙長河・深時間</a></h3>
-          <p class="stage-meaning">約一百三十八億年前至約七百萬年前。能量、物質、信息與時間。</p>
-          <p class="stage-links"><a href="/civilization/cosmos/">閱讀宇宙長河</a></p>
-        </div>
-      </article>
-      <article class="deep-time-card earth-card">
-        ${earthCover}
-        <div class="stage-body">
-          <p class="era">地球生命</p>
-          <h3><a href="/civilization/earth/">地球生命・深時間</a></h3>
-          <p class="stage-meaning">約四十億年前的早期生命，至約七百萬年前。侏羅紀等中生代在此展開。</p>
-          <p class="stage-links"><a href="/civilization/earth/">閱讀地球生命</a><a href="/civilization/earth/#earth-5">侏羅紀</a></p>
-        </div>
-      </article>
-      <article class="deep-time-card">
-        ${originsCover}
-        <div class="stage-body">
-          <p class="era">人類起源</p>
-          <h3><a href="/civilization/origins/">人類起源</a></h3>
-          <p class="stage-meaning">約七百萬年前人族至智人。宇宙長河在此交接。</p>
-          <p class="stage-links"><a href="/civilization/origins/">閱讀人類起源</a></p>
-        </div>
-      </article>
-    </div>
-  </section>`;
+  return renderDeepTimeBoardFromSpine();
 }
 
 export function renderCivilizationHub(now = new Date()): { html: string; status: number; indexable: boolean } {

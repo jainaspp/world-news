@@ -2110,6 +2110,59 @@ a.stage-cover { text-decoration: none; }
   color: #161c24;
 }
 .earth-part p { margin: 0; }
+.civ-block {
+  margin: 8px 0 14px;
+  border: 1px solid #d4cbb8;
+  border-radius: 12px;
+  background: #f7f1e6;
+  color: #161c24;
+}
+.civ-block summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.civ-block-kicker { color: #9a7b4f; font-size: 12px; letter-spacing: 0.08em; }
+.civ-block-body { padding: 0 12px 12px; }
+.civ-block-h { margin: 12px 0 6px; color: #9a7b4f; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+.civ-block-figure { margin: 0 0 8px; }
+.civ-block-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f7f1e6;
+  border: 1px solid #d4cbb8;
+}
+.civ-block-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.civ-block-frame img[hidden] { display: none; }
+.civ-block-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid #9a7b4f;
+  background: #f7f1e6;
+  color: #161c24;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+}
+.civ-block-figure figcaption { margin-top: 6px; color: #5c6570; font-size: 12px; }
 .cosmo-starmap {
   position: relative;
   z-index: 0;
@@ -2492,6 +2545,11 @@ html.dark .deep-time-card {
 html.dark .stage-card h3 a,
 html.dark .deep-time-card h3 a,
 html.dark .chronicle-stage h2,
+html.dark .civ-block { background: #2a231b; color: #f3eadc; border-color: #5c4a34; }
+html.dark .civ-block-h,
+html.dark .civ-block-kicker { color: #c4a572; }
+html.dark .civ-block-frame,
+html.dark .civ-block-seal { background: #3a3126; color: #f7f1e6; border-color: #c4a572; }
 html.dark .earth-part h3,
 html.dark .chronicle-board-head h2 { color: #f7f1e6; }
 html.dark .chronicle-board-note,

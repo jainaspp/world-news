@@ -9,25 +9,25 @@ function headers(status: number): HeadersInit {
   };
 }
 
-/** /civilization/, /civilization/cosmos/, /civilization/earth/, /civilization/origins/, /civilization/tech/, /civilization/city/, and /civilization/chronicle/. Other segments 404 and stay noindex. */
+type CivPage = { html: string; status: number; indexable: boolean };
+
+/** One record per route. A new thick page is a new key, not another ternary arm. */
+export const PAGES: Record<string, () => CivPage> = {
+  '': renderCivilizationHub,
+  cosmos: renderCosmosPage,
+  earth: renderEarthPage,
+  origins: renderOriginsPage,
+  tech: renderTechPage,
+  city: renderCityPage,
+  chronicle: renderChroniclePage,
+};
+
+/** /civilization/ plus each key in PAGES. Other segments 404 and stay noindex. */
 export function onRequest(context: PagesContext): Response {
   const url = new URL(context.request.url);
   const rest = decodeURIComponent(url.pathname.replace(/\/+$/, '').replace(/^\/civilization\/?/, ''));
-  const page = !rest
-    ? renderCivilizationHub()
-    : rest === 'cosmos'
-      ? renderCosmosPage()
-      : rest === 'earth'
-        ? renderEarthPage()
-        : rest === 'origins'
-        ? renderOriginsPage()
-        : rest === 'tech'
-          ? renderTechPage()
-          : rest === 'city'
-            ? renderCityPage()
-            : rest === 'chronicle'
-              ? renderChroniclePage()
-              : renderCivilizationMiss();
+  const render = Object.prototype.hasOwnProperty.call(PAGES, rest) ? PAGES[rest] : undefined;
+  const page = render ? render() : renderCivilizationMiss();
   const robots = page.indexable ? 'index, follow' : 'noindex, follow';
   return new Response(page.html, {
     status: page.status,
