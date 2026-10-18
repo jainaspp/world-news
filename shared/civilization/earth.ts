@@ -48,14 +48,15 @@ function paperSeal(n: number): string {
 }
 
 /**
- * Cover slot for every stage. Files may be paper placeholders until art arrives.
- * 640 stays the src; 1280w is the high-DPR candidate. onerror reveals the seal.
+ * Cover slot for every stage. The paper ordinal is in the figure and stays hidden
+ * while the WebP loads. 640 stays the src; 1280w is the high-DPR candidate.
+ * onerror reveals the seal if a file is missing.
  */
 export function earthCoverImg(stage: EarthStage, eager: boolean): string {
   const base = `${CIV}/earth-stage-${stage.n}-cover`;
   const loading = eager ? 'eager' : 'lazy';
   const priority = eager ? ' fetchpriority="high"' : '';
-  const alt = `${stage.name}：紙感佔位，年代為約數`;
+  const alt = `${stage.name}：溫和示意，年代為約數`;
   return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w, ${base}-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
 }
 
@@ -96,7 +97,7 @@ function stageSection(stage: EarthStage): string {
   return `<section class="chronicle-stage earth-stage" id="earth-${stage.n}" data-stage="${stage.n}">
     <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
     <h2 tabindex="-1"${jurassicId}>${esc(stage.name)}</h2>
-    <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${earthCoverImg(stage, stage.n === 1)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 紙感佔位 · 約數</figcaption></figure>
+    <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${earthCoverImg(stage, stage.n === 1)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
     <ul class="stage-milestones">${points}</ul>
     <p>${esc(stage.prose)}</p>
     ${jumps}

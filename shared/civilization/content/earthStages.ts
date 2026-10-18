@@ -44,7 +44,7 @@ export const HANDOFF_FWD_B = '。文明制度、技術與貨幣另見';
 export const HANDOFF_FWD_C = '，兩條敘事前後銜接、互不覆蓋。';
 export const EARTH_HANDOFF = `${HANDOFF_BACK_A}宇宙長河${HANDOFF_BACK_B}${HANDOFF_FWD_A}人類起源時間線${HANDOFF_FWD_B}文明編年${HANDOFF_FWD_C}`;
 
-export const EARTH_SOURCE_NOTE = '年代與事件表述均採「約／主流綜述」；上表僅列可公眾核對的地質與古生物入口，不作絕對精準年表。階段圖現為紙感佔位。';
+export const EARTH_SOURCE_NOTE = '年代與事件表述均採「約／主流綜述」；上表僅列可公眾核對的地質與古生物入口，不作絕對精準年表。';
 
 export const EARTH_STAGES: EarthStage[] = [
   {

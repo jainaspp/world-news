@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { renderContentPage, type ContentDoc } from '../shared/content';
 import { cjkChars } from '../shared/contentPage';
@@ -603,12 +603,23 @@ describe('civilization thick pages', () => {
     expect(section).toContain('板塊');
     expect(section).toContain('class="civ-figure"');
     expect(section).toContain('src="/static/civilization/earth-stage-5-cover-640w.webp"');
+    expect(section).toContain('侏羅紀：溫和示意，年代為約數');
+    expect(section).toContain('侏羅紀 · 示意 · 約數');
     expect(section).toContain('onerror="this.hidden=true"');
     expect(cjkChars(section)).toBeGreaterThanOrEqual(600);
+    const stageFigures = [...page.html.matchAll(/<figure class="civ-figure"[\s\S]*?<\/figure>/g)].map((match) => match[0]);
+    expect(stageFigures).toHaveLength(8);
+    for (const figure of stageFigures) {
+      expect(figure).toContain('：溫和示意，年代為約數');
+      expect(figure).toContain('· 示意 · 約數');
+      expect(figure).not.toContain('紙感佔位');
+    }
+    expect(page.html).not.toContain('階段圖現為紙感佔位');
     for (const stage of EARTH_STAGES) {
       expect(page.html).toContain(`id="earth-${stage.n}"`);
       expect(page.html).toContain(`src="/static/civilization/earth-stage-${stage.n}-cover-640w.webp"`);
       expect(existsSync(`public/static/civilization/earth-stage-${stage.n}-cover-1280w.webp`), `earth ${stage.n} 1280`).toBe(true);
+      expect(statSync(`public/static/civilization/earth-stage-${stage.n}-cover-640w.webp`).size, `earth ${stage.n} 640`).toBeGreaterThan(10_000);
       expect(existsSync(`public/static/civilization/earth-stage-${stage.n}-cover-640w.webp`), `earth ${stage.n} 640`).toBe(true);
       expect(existsSync(`public/static/civilization/earth-stage-${stage.n}-cover-400w.webp`), `earth ${stage.n} 400`).toBe(true);
     }
