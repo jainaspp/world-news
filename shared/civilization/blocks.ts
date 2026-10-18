@@ -45,10 +45,11 @@ export function renderReadingBlock(block: ReadingBlock): string {
     return `<li>${kind}<strong>${esc(item.name)}</strong>：${esc(item.detail)}</li>`;
   }).join('');
   const drivers = block.drivers.map((item) => `<li><strong>${esc(item.name)}</strong>：${esc(item.detail)}</li>`).join('');
+  const captionKind = block.cover ? '示意' : '紙感佔位';
   return `<details class="civ-block" id="${esc(block.anchor)}-reading" open>
     <summary><span class="civ-block-kicker">深讀</span><span class="civ-block-event">${esc(block.event)}</span></summary>
     <div class="civ-block-body">
-      <figure class="civ-block-figure">${coverSlot(block)}<figcaption>${esc(block.event)} · 紙感佔位 · 約數</figcaption></figure>
+      <figure class="civ-block-figure">${coverSlot(block)}<figcaption>${esc(block.event)} · ${captionKind} · 約數</figcaption></figure>
       <h3 class="civ-block-h">界定事件</h3>
       <p>${esc(block.eventDetail)}</p>
       <h3 class="civ-block-h" id="${esc(block.anchor)}-product">關鍵產物</h3>

@@ -375,8 +375,17 @@ describe('civilization thick pages', () => {
         expect(body).toContain('class="milestone-seal"');
         if (block.image) {
           expect(body).toContain(`src="/static/civilization/${block.image}-640w.webp"`);
+          expect(body).toContain(`${block.image}-400w.webp 400w`);
           expect(body).toContain(`${block.image}-1280w.webp 1280w`);
           expect(body).toContain('onerror="this.hidden=true"');
+          const figure = body.match(/<figure class="milestone-figure"[\s\S]*?<\/figure>/)?.[0] ?? '';
+          expect(figure).toContain('· 示意 · 約數');
+          expect(figure).not.toContain('紙感佔位');
+          for (const width of [1280, 640, 400]) {
+            const file = `public/static/civilization/${block.image}-${width}w.webp`;
+            expect(existsSync(file), file).toBe(true);
+            expect(statSync(file).size, file).toBeGreaterThan(10_000);
+          }
         }
         expect(body).not.toMatch(REDLINE);
       }
@@ -617,12 +626,29 @@ describe('civilization thick pages', () => {
     expect(page.html).not.toContain('階段圖現為紙感佔位');
     for (const stage of EARTH_STAGES) {
       expect(page.html).toContain(`id="earth-${stage.n}"`);
+      expect(page.html).toContain(`id="earth-${stage.n}-reading"`);
       expect(page.html).toContain(`src="/static/civilization/earth-stage-${stage.n}-cover-640w.webp"`);
+      expect(page.html).toContain(`src="/static/civilization/earth-stage-${stage.n}-product-640w.webp"`);
+      expect(page.html).toContain(`earth-stage-${stage.n}-product-400w.webp 400w`);
+      expect(page.html).toContain(`earth-stage-${stage.n}-product-1280w.webp 1280w`);
       expect(existsSync(`public/static/civilization/earth-stage-${stage.n}-cover-1280w.webp`), `earth ${stage.n} 1280`).toBe(true);
       expect(statSync(`public/static/civilization/earth-stage-${stage.n}-cover-640w.webp`).size, `earth ${stage.n} 640`).toBeGreaterThan(10_000);
       expect(existsSync(`public/static/civilization/earth-stage-${stage.n}-cover-640w.webp`), `earth ${stage.n} 640`).toBe(true);
       expect(existsSync(`public/static/civilization/earth-stage-${stage.n}-cover-400w.webp`), `earth ${stage.n} 400`).toBe(true);
+      for (const width of [1280, 640, 400]) {
+        const file = `public/static/civilization/earth-stage-${stage.n}-product-${width}w.webp`;
+        expect(existsSync(file), file).toBe(true);
+        expect(statSync(file).size, file).toBeGreaterThan(10_000);
+      }
     }
+    const productFigures = [...page.html.matchAll(/<figure class="civ-block-figure"[\s\S]*?<\/figure>/g)].map((match) => match[0]);
+    expect(productFigures).toHaveLength(8);
+    for (const figure of productFigures) {
+      expect(figure).toContain('-product-640w.webp');
+      expect(figure).toContain('· 示意 · 約數');
+      expect(figure).not.toContain('紙感佔位');
+    }
+    expect(page.html).not.toContain('紙感佔位');
     const triassic = page.html.slice(page.html.indexOf('id="earth-4"'), page.html.indexOf('id="earth-5"'));
     const cretaceous = page.html.slice(page.html.indexOf('id="earth-6"'), page.html.indexOf('id="earth-7"'));
     expect(triassic).toContain('三疊紀');
