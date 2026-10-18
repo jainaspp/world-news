@@ -203,11 +203,52 @@ function sourceHref(url: string): string {
   return safe ? esc(safe) : '';
 }
 
+/** Brightness peaks on the 16:9 starmap art, percent from the left and the top. Stage order 1–10. */
+const STARMAP_POINTS: ReadonlyArray<readonly [number, number]> = [
+  [12.1, 52.5],
+  [20.4, 50.1],
+  [28.9, 47.9],
+  [37.0, 46.5],
+  [45.2, 47.8],
+  [53.7, 45.3],
+  [62.5, 44.2],
+  [70.7, 41.2],
+  [78.7, 39.3],
+  [87.2, 35.4],
+];
+
+/** Spatial ladder, large to small. Short labels match the scale-nest art; sizes stay approximate. */
+const COSMOS_SCALES: ReadonlyArray<{ name: string; size: string }> = [
+  { name: '可觀測宇宙', size: '約 930 億光年' },
+  { name: '宇宙網', size: '約數億光年' },
+  { name: '本星系群', size: '約 1000 萬光年' },
+  { name: '銀河系', size: '約 10 萬光年' },
+  { name: '日球層', size: '約 120 天文單位' },
+  { name: '地月系統', size: '約 38.4 萬公里' },
+  { name: '地球', size: '約 1.27 萬公里' },
+];
+
+function starmap(): string {
+  const stars = COSMOS_STAGES.map((stage, index) => {
+    const [left, top] = STARMAP_POINTS[index];
+    return `<li class="cosmo-star" style="--x:${left.toFixed(1)}%;--y:${top.toFixed(1)}%"><a class="cosmo-star-link" href="#cosmo-${stage.n}"><span class="cosmo-star-dot" aria-hidden="true"></span><span class="cosmo-star-label"><span class="cosmo-star-ord">${ordinal(stage.n)}</span> <span class="cosmo-star-name">${esc(stage.short)}</span></span></a></li>`;
+  }).join('');
+  const img = `<img src="${CIV}/cosmo-starmap-640w.webp" srcset="${CIV}/cosmo-starmap-400w.webp 400w, ${CIV}/cosmo-starmap-640w.webp 640w, ${CIV}/cosmo-starmap-1280w.webp 1280w" sizes="(max-width: 720px) 560px, 812px" width="1280" height="720" alt="" decoding="async" />`;
+  return `<nav class="cosmo-starmap" role="navigation" aria-label="宇宙長河十階段"><div class="cosmo-starmap-scroll"><div class="cosmo-starmap-figure">${img}<ol class="cosmo-starmap-stars">${stars}</ol></div></div></nav>`;
+}
+
+/** Scale figure. Placed after stage 10 so the 16:9 starmap can stay under the hero without pushing #cosmo-1 past ~1.4 phone screens. */
+function scaleNest(): string {
+  const levels = COSMOS_SCALES.map((level) => `<li><span class="cosmo-scale-name">${esc(level.name)}</span> · <span class="cosmo-scale-size">${esc(level.size)}</span></li>`).join('');
+  const img = `<img src="${CIV}/cosmo-scale-nest-640w.webp" srcset="${CIV}/cosmo-scale-nest-400w.webp 400w, ${CIV}/cosmo-scale-nest-640w.webp 640w, ${CIV}/cosmo-scale-nest-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 640px" width="1280" height="720" alt="" loading="lazy" decoding="async" />`;
+  return `<figure class="cosmo-scale-nest">${img}<figcaption><p class="cosmo-scale-note">空間尺度由大到小，上一級包含下一級所在區域。數字為約數，採主流綜述。第七級收到地球，其後<a href="/civilization/origins/">交接入類起源</a>。</p><ol class="cosmo-scale-levels">${levels}</ol></figcaption></figure>`;
+}
+
 function stageSection(stage: CosmoStage): string {
   const points = stage.milestones.map((item) => `<li>${esc(item)}</li>`).join('');
   return `<section class="chronicle-stage cosmo-stage" id="cosmo-${stage.n}" data-stage="${stage.n}">
     <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
-    <h2>${esc(stage.name)}</h2>
+    <h2 tabindex="-1">${esc(stage.name)}</h2>
     <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${cosmoCoverImg(stage, stage.n === 1)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
     <ul class="stage-milestones">${points}</ul>
     <p>${esc(stage.prose)}</p>
@@ -234,8 +275,10 @@ export function renderCosmosArticle(): string {
     </header>
     <p>${esc(COSMOS_LEDE.replace(/交接入類起源。$/, ''))}<a href="/civilization/origins/">交接入類起源</a>。</p>
     ${lineChips(LINES)}
-    <nav class="chronicle-nav cosmo-nav" aria-label="跳到宇宙階段">${nav}</nav>
+    ${starmap()}
+    <nav class="chronicle-nav cosmo-nav cosmo-nav-chips" aria-label="跳到宇宙階段">${nav}</nav>
     ${COSMOS_STAGES.map(stageSection).join('')}
+    ${scaleNest()}
     <h2>交接人類起源</h2>
     <p>${esc(HANDOFF_LEAD)}<a href="/civilization/origins/">人類起源時間線</a>${esc(HANDOFF_MID)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_END)}</p>
     <p class="stage-links"><a href="/civilization/origins/">約七百萬年前，演化進入人族階段</a><a href="/civilization/chronicle/">文明編年</a><a href="/civilization/">返回文明總覽</a></p>
