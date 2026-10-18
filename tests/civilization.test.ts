@@ -994,7 +994,9 @@ describe('civilization slice', () => {
     const css = readFileSync('src/App.css', 'utf8');
     const motion = css.slice(css.indexOf('Civilization axis motion'));
     expect(motion).toContain('html.civ-motion body:not(.static) .civ-reveal:not(.is-inview):not(.civ-reveal--above-fold)');
-    expect(motion).toContain('scroll-margin-top: 136px');
+    expect(css).toContain('--civ-anchor-offset: 180px');
+    expect(motion).toContain('scroll-margin-top: var(--civ-anchor-offset)');
+    expect(css).not.toContain('scroll-margin-top: 136px');
     expect(motion).toContain('#jurassic');
     expect(motion).toContain('body.static .civ-reveal');
     expect(motion).toContain('opacity: 1');
