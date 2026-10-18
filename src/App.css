@@ -1894,11 +1894,15 @@ a.stage-cover { text-decoration: none; }
 }
 /* Cosmos covers are on disk. The ordinal stays in the markup and shows only if the file fails. Chronicle seals are unchanged. */
 .cosmo-stage .stage-seal,
-.deep-time-card.cosmo-card .stage-seal {
+.deep-time-card.cosmo-card .stage-seal,
+.tech-stage .stage-seal,
+.city-stage .stage-seal {
   visibility: hidden;
 }
 .cosmo-stage .stage-frame:has(img[hidden]) .stage-seal,
-.deep-time-card.cosmo-card .stage-cover:has(img[hidden]) .stage-seal {
+.deep-time-card.cosmo-card .stage-cover:has(img[hidden]) .stage-seal,
+.tech-stage .stage-frame:has(img[hidden]) .stage-seal,
+.city-stage .stage-frame:has(img[hidden]) .stage-seal {
   visibility: visible;
 }
 .stage-cover[data-stage="1"] { background: linear-gradient(145deg, #c9844a 0%, #f7f1e6 62%); }
@@ -1961,7 +1965,9 @@ a.stage-cover { text-decoration: none; }
 }
 .chronicle-stage h2 { margin: 0 0 10px; }
 .chronicle-page .civ-figure,
-.cosmos-page .civ-figure { margin: 12px 0 16px; }
+.cosmos-page .civ-figure,
+.tech-page .civ-figure,
+.city-page .civ-figure { margin: 12px 0 16px; }
 .civ-page .today-pin { margin-top: 16px; }
 .deep-time { margin-top: 18px; }
 .deep-time-grid { display: grid; gap: 12px; }
@@ -1996,6 +2002,49 @@ a.stage-cover { text-decoration: none; }
 }
 .cosmo-hero .civ-page-title { margin: 0; color: #f7f1e6; }
 .cosmo-stage { scroll-margin-top: 12px; }
+.tech-hero,
+.city-hero {
+  margin: 0 0 16px;
+  padding: 18px 16px 14px;
+  border-radius: 14px;
+  background: #161c24;
+  color: #f7f1e6;
+}
+.tech-hero .kicker,
+.city-hero .kicker {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c4a572;
+}
+.tech-hero .civ-page-title,
+.city-hero .civ-page-title { margin: 0; color: #f7f1e6; }
+.tech-stage,
+.city-stage { scroll-margin-top: 12px; }
+.civ-node-hero {
+  margin: 0 0 16px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #161c24;
+}
+.civ-node-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 0;
+}
+.civ-node-hero figcaption {
+  margin: 0;
+  padding: 8px 12px 10px;
+  background: #f7f1e6;
+  color: #5c6570;
+  font-size: 12px;
+}
+.civ-node-hero img[hidden] { display: none; }
 @media (min-width: 640px) {
   .stage-grid,
   .deep-time-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2060,6 +2109,12 @@ html.dark .civ-slot p { color: #d2c4b0; }
 html.dark .civ-page-title { color: var(--color-text); }
 html.dark .cosmo-hero { background: #161c24; color: #f7f1e6; }
 html.dark .cosmo-hero .civ-page-title { color: #f7f1e6; }
+html.dark .tech-hero,
+html.dark .city-hero { background: #161c24; color: #f7f1e6; }
+html.dark .tech-hero .civ-page-title,
+html.dark .city-hero .civ-page-title { color: #f7f1e6; }
+html.dark .civ-node-hero { background: #161c24; }
+html.dark .civ-node-hero figcaption { color: #d2c4b0; background: #2a231b; }
 html.dark .axis-vignette::after {
   background: linear-gradient(180deg, rgba(22, 28, 36, 0.72) 0%, rgba(22, 28, 36, 0.32) 46%, rgba(22, 28, 36, 0.66) 100%);
 }
