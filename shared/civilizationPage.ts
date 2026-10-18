@@ -1,17 +1,21 @@
 import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPage.js';
 import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderChronicleStrip, renderStageGrid } from './civilization/chronicle.js';
+import { renderCityArticle, cityIndexable } from './civilization/city.js';
 import { COSMOS_STAGES, cosmoCoverImg, cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
 import { ORIGINS_BODY, ORIGINS_SOURCES } from './civilization/originsSource.js';
+import { renderTechArticle, techIndexable } from './civilization/tech.js';
 import { renderMildMarkdown } from './civilization/markdown.js';
 import { homeFacts, hktMmdd, labelMmdd, type HeritageFact } from './heritage.js';
 import { landmarkBySlug } from './heritage.js';
 
 export { chronicleIndexable, chronicleProse } from './civilization/chronicle.js';
+export { cityIndexable, cityProse } from './civilization/city.js';
 export { cosmosIndexable, cosmosProse } from './civilization/cosmos.js';
+export { techIndexable, techProse } from './civilization/tech.js';
 
 const ORIGIN = 'https://world-news.xyz';
 
-const HUB_LEDE = '世界頭條把每日新聞放在人類文明的時間軸上。讀者先看見深時間、技術發現與城市公共生活的尺度，再進入今天的導讀、懶人包與電訊。遠史只收溫和題材，用來說明今日切片何以落在這一日，並不取代新聞主線。本頁寫明閱讀方法、起源層的實質摘要，以及三則可以核對的里程碑。空的層頁不另開網址，也不進入網站地圖。';
+const HUB_LEDE = '世界頭條把每日新聞放在人類文明的時間軸上。讀者先看見深時間、技術發現與城市公共生活的尺度，再進入今天的導讀、懶人包與電訊。遠史只收溫和題材，用來說明今日切片何以落在這一日，並不取代新聞主線。本頁寫明閱讀方法、起源層的實質摘要，以及三則可以核對的里程碑。技術與城市已各有長頁。仍未寫厚的層次不另開網址，也不進入網站地圖。';
 
 const HUB_ORIGINS = '約三十萬年前，解剖學上的現代人已能在非洲化石中辨認。摩洛哥 Jebel Irhoud 等地點常被公共科普引為重要證據之一，但現代人起源是非洲內部的長期過程，不是單一洞穴的一日事件。約六萬至四萬五千年前的主要擴張，使現代人分布到歐亞等地，並與尼安德特人、丹尼索瓦人發生有限的基因交流。比例與時間仍有學術爭議，本站不作人群比較。約一萬一千七百年前全新世開始之後，農業與定居轉入城市和基建，不放進起源的月日卡。全文見人類起源時間線。';
 
@@ -33,9 +37,9 @@ export const HUB_MILESTONES: { era: string; title: string; text: string }[] = [
   },
 ];
 
-const HUB_READ = '閱讀時先看軸上的位置：最左是宇宙，其後為起源、技術、城市、今天。今天的新聞是軸上的切片。沒有溫和史對照的電訊不強加年代座標。技術與城市若尚未寫成獨立長頁，頁面只連到已經夠厚的地標與編年，不製造空殼網址。軸下編年帶仍列出十個文明階段，點進階段可讀完整編年。宇宙十階不掛在這條編年帶上。';
+const HUB_READ = '閱讀時先看軸上的位置：最左是宇宙，其後為起源、技術、城市、今天。今天的新聞是軸上的切片。沒有溫和史對照的電訊不強加年代座標。宇宙、起源、技術與城市都已寫成獨立長頁。技術頁記工具、能源、媒介與知識；城市頁記聚落、公共工程與日常公共生活，香港地標只作其中的本地案例。軸下編年帶仍列出十個文明階段，點進階段可讀完整編年。宇宙十階不掛在這條編年帶上。';
 
-const HUB_LOCAL = '香港科學館於一九九一年開幕，以常設展覽介紹日常科學與自然現象，可作為城市向公眾講解深時間的節點。香港太空館於一九八〇年開幕，天象廳介紹星空與太陽系，方便把宇宙尺度和人族年表放在一起對照。兩館都是既有地標頁。';
+const HUB_LOCAL = '香港科學館於一九九一年開幕，以常設展覽介紹日常科學與自然現象，可作為城市向公眾講解深時間的節點。香港太空館於一九八〇年開幕，天象廳介紹星空與太陽系，方便把宇宙尺度和人族年表放在一起對照。兩館都是既有地標頁，在科技與發現、城市・基建・民生的長頁裡作為本地錨，而不代替這兩頁。';
 
 export function originsProse(): string {
   return `${ORIGINS_BODY}\n${ORIGINS_SOURCES}`;
@@ -66,6 +70,8 @@ export function civilizationPublicPaths(): string[] {
   if (hubIndexable()) paths.push('/civilization/');
   if (cosmosIndexable()) paths.push('/civilization/cosmos/');
   if (originsIndexable()) paths.push('/civilization/origins/');
+  if (techIndexable()) paths.push('/civilization/tech/');
+  if (cityIndexable()) paths.push('/civilization/city/');
   if (chronicleIndexable()) paths.push('/civilization/chronicle/');
   return paths;
 }
@@ -190,8 +196,8 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
       <ol class="milestones">
         <li><a class="axis-node" href="/civilization/cosmos/"><span class="dot"></span><span class="lab">宇宙</span><span class="yr">~138億</span></a></li>
         <li><a class="axis-node" href="/civilization/origins/"><span class="dot"></span><span class="lab">起源</span><span class="yr">~300ka</span></a></li>
-        <li><span class="axis-node"><span class="dot"></span><span class="lab">技術</span><span class="yr">發現</span></span></li>
-        <li><a class="axis-node" href="/hk/landmarks/"><span class="dot"></span><span class="lab">城市</span><span class="yr">基建</span></a></li>
+        <li><a class="axis-node" href="/civilization/tech/"><span class="dot"></span><span class="lab">技術</span><span class="yr">發現</span></a></li>
+        <li><a class="axis-node" href="/civilization/city/"><span class="dot"></span><span class="lab">城市</span><span class="yr">基建</span></a></li>
         <li><a class="axis-node axis-now" href="${esc(todayHref)}"><span class="dot now"></span><span class="lab">今天</span><span class="yr">切片</span></a></li>
       </ol>
     </div>
@@ -259,7 +265,7 @@ export function renderTodayPin(now = new Date()): string {
   </section>`;
 }
 
-/** Origins is the only primary layer link. Tech and cities stay secondary until they are thick pages. */
+/** Origins, tech, and city are primary layer links. Landmark pages stay inside the city long page. */
 export function renderLayerAside(): string {
   return `<section class="layers" aria-label="文明層">
     <h2>三大文明層</h2>
@@ -270,18 +276,18 @@ export function renderLayerAside(): string {
         <h3>人類起源</h3>
         <p>解剖學現代人到全球擴張。約三十萬年前起的年表。</p>
       </a>
-      <article class="layer-card layer-secondary">
+      <a class="layer-card layer-primary" href="/civilization/tech/">
         ${layerCover(`${CIV}/node-tech-v1.jpg`, '科技與發現：公共科普示意')}
         <div class="era">發現</div>
         <h3>科技與發現</h3>
-        <p>這一層尚未單獨成頁。可先看<a href="/hk/landmarks/science-museum/">香港科學館</a>。</p>
-      </article>
-      <article class="layer-card layer-secondary">
+        <p>工具、能源、媒介與知識。從深時間石器到今日新聞切片。</p>
+      </a>
+      <a class="layer-card layer-primary" href="/civilization/city/">
         ${layerCover(`${CIV}/node-city-v1.jpg`, '城市・基建・民生示意')}
         <div class="era">公共生活</div>
         <h3>城市・基建・民生</h3>
-        <p>通車、建築與場館已寫在<a href="/hk/landmarks/">香港地標</a>與<a href="/on-this-day/">當年今日</a>。</p>
-      </article>
+        <p>聚落、公共工程與日常公共生活。香港地標只作本地案例。</p>
+      </a>
     </div>
   </section>`;
 }
@@ -402,6 +408,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
       <p>${esc(HUB_READ)}</p>
       <h2>本地科普節點</h2>
       <p>${esc(HUB_LOCAL)}</p>
+      <p><a href="/civilization/tech/">科技與發現</a> · <a href="/civilization/city/">城市・基建・民生</a></p>
       <p><a href="/hk/landmarks/science-museum/">香港科學館</a> · <a href="/hk/landmarks/space-museum/">香港太空館</a></p>
     </article>
     ${renderLayerAside()}`;
@@ -440,6 +447,32 @@ export function renderChroniclePage(): { html: string; status: number; indexable
   });
 }
 
+export function renderTechPage(): { html: string; status: number; indexable: boolean } {
+  const indexable = techIndexable();
+  const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 科技與發現</nav>
+    ${renderTechArticle()}`;
+  return shell({
+    title: '科技與發現',
+    description: '從石器、用火、文字與科學儀器到工業能量、大眾媒介與今日新聞切片。',
+    path: '/civilization/tech/',
+    body,
+    indexable,
+  });
+}
+
+export function renderCityPage(): { html: string; status: number; indexable: boolean } {
+  const indexable = cityIndexable();
+  const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 城市・基建・民生</nav>
+    ${renderCityArticle()}`;
+  return shell({
+    title: '城市・基建・民生',
+    description: '從聚落、公共工程與交通樞紐到公民場館與日常公共生活。香港地標只作本地案例。',
+    path: '/civilization/city/',
+    body,
+    indexable,
+  });
+}
+
 export function renderOriginsPage(): { html: string; status: number; indexable: boolean } {
   const indexable = originsIndexable();
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 人類起源</nav>
@@ -463,7 +496,7 @@ export function renderCivilizationMiss(): { html: string; status: number; indexa
     title: '找不到這一層',
     description: '這一層尚未成頁。',
     path: '/civilization/',
-    body: `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a></nav><h1>找不到這一層</h1><p>可返回<a href="/civilization/">文明總覽</a>，或閱讀<a href="/civilization/origins/">人類起源</a>。</p>`,
+    body: `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a></nav><h1>找不到這一層</h1><p>可返回<a href="/civilization/">文明總覽</a>，或閱讀<a href="/civilization/origins/">人類起源</a>、<a href="/civilization/tech/">科技與發現</a>與<a href="/civilization/city/">城市・基建・民生</a>。</p>`,
     indexable: false,
     status: 404,
   });

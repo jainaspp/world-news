@@ -21,3 +21,5 @@ Checked-in drop is WebP only (JPEG twins were not attached). Also on disk for sl
 |------|-------|-------|
 | S1–S10 stage covers | civ-stage-{1..10}-cover-{640,400}w.webp | 640×400, 16:10. Hub cards and chronicle figures. Strip stays a paper ordinal; no `civ-node-*-480w` thumb is on disk. |
 | CS1–CS10 cosmos covers | cosmo-stage-{1..10}-cover-{640,400}w.webp | 640×400 and 400×250, 16:10. All ten on disk. Hub cosmos card uses CS1. Paper ordinal is hidden unless the file fails. See `MANIFEST-cosmo-stages.md`. |
+| T1–T10 tech covers | tech-stage-{1..10}-cover-{640,400}w.webp | 640×400 and 400×250, 16:10. Interim crops of `node-tech-v1.jpg` for `/civilization/tech/`. Page hero keeps the full JPEG. |
+| U1–U10 city covers | city-stage-{1..10}-cover-{640,400}w.webp | 640×400 and 400×250, 16:10. Interim crops of `node-city-v1.jpg` for `/civilization/city/`. Page hero keeps the full JPEG. |
