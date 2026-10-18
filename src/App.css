@@ -47,6 +47,8 @@
   --motion-pulse: 2.4s;
   --motion-stagger: 120ms;
   --motion-dismiss: 420ms;
+  /* Civ hash targets clear sticky .chrome. Mobile chrome measured ~163px. */
+  --civ-anchor-offset: 180px;
   font-family: var(--font-sans);
 }
 
@@ -1946,7 +1948,7 @@ a.stage-cover { text-decoration: none; }
 .stage-source { margin: 0 0 8px; font-size: 13px; color: #5c6570; }
 /* 里程碑深讀：產物｜推動力 block. Paper card on the ink-and-paper scale. */
 .milestone-block {
-  scroll-margin-top: 136px;
+  scroll-margin-top: var(--civ-anchor-offset);
   margin: 12px 0;
   border: 1px solid #d4cbb8;
   border-radius: 12px;
@@ -2053,7 +2055,7 @@ a.stage-cover { text-decoration: none; }
   min-height: 36px;
 }
 .chronicle-stage {
-  scroll-margin-top: 136px;
+  scroll-margin-top: var(--civ-anchor-offset);
   margin: 8px 0 22px;
   padding-bottom: 8px;
   border-bottom: 1px solid #d4cbb8;
@@ -2101,7 +2103,7 @@ a.stage-cover { text-decoration: none; }
 .cosmo-hero .civ-page-title,
 .earth-hero .civ-page-title { margin: 0; color: #f7f1e6; }
 .cosmo-stage,
-.earth-stage { scroll-margin-top: 136px; }
+.earth-stage { scroll-margin-top: var(--civ-anchor-offset); }
 .earth-part { margin: 0 0 14px; }
 .earth-part h3 {
   margin: 0 0 6px;
@@ -2400,7 +2402,7 @@ a.stage-cover { text-decoration: none; }
 .tech-hero .civ-page-title,
 .city-hero .civ-page-title { margin: 0; color: #f7f1e6; }
 .tech-stage,
-.city-stage { scroll-margin-top: 136px; }
+.city-stage { scroll-margin-top: var(--civ-anchor-offset); }
 .civ-node-hero {
   margin: 0 0 16px;
   border-radius: 14px;
@@ -2600,7 +2602,8 @@ html.dark .stage-dot .stage-seal {
    Reveal runs when a stage enters the viewport. Stage plates do not ken.
    The 2px progress bar overlaps the nav's existing bottom padding (margin-top:
    -2px). It is not sticky and does not add a second stage rail.
-   Hash targets clear the sticky .chrome (masthead + tab row, about 110px). */
+   Hash targets use --civ-anchor-offset (180px) so titles clear sticky .chrome.
+   Mobile QA measured that chrome at about 163px. */
 .civ-page .chronicle-stage,
 .civ-page .chronicle-stage h2,
 .civ-page #jurassic,
@@ -2608,7 +2611,7 @@ html.dark .stage-dot .stage-seal {
 .civ-page .milestone-block,
 .civ-page .civ-block,
 .civ-page .civ-block-h {
-  scroll-margin-top: 136px;
+  scroll-margin-top: var(--civ-anchor-offset);
 }
 .civ-page .stage-frame img,
 .civ-page .civ-figure img,
