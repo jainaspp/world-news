@@ -1734,7 +1734,8 @@ a.axis-node:hover { color: #f7f1e6; }
     margin: 0.2rem 0 1rem 1.1rem;
   }
   .chronicle-page .civ-figure,
-  .cosmos-page .civ-figure {
+  .cosmos-page .civ-figure,
+  .earth-page .civ-figure {
     float: none;
     clear: none;
     width: 100%;
@@ -1895,12 +1896,16 @@ a.stage-cover { text-decoration: none; }
 /* Cosmos covers are on disk. The ordinal stays in the markup and shows only if the file fails. Chronicle seals are unchanged. */
 .cosmo-stage .stage-seal,
 .deep-time-card.cosmo-card .stage-seal,
+.earth-stage .stage-seal,
+.deep-time-card.earth-card .stage-seal,
 .tech-stage .stage-seal,
 .city-stage .stage-seal {
   visibility: hidden;
 }
 .cosmo-stage .stage-frame:has(img[hidden]) .stage-seal,
 .deep-time-card.cosmo-card .stage-cover:has(img[hidden]) .stage-seal,
+.earth-stage .stage-frame:has(img[hidden]) .stage-seal,
+.deep-time-card.earth-card .stage-cover:has(img[hidden]) .stage-seal,
 .tech-stage .stage-frame:has(img[hidden]) .stage-seal,
 .city-stage .stage-frame:has(img[hidden]) .stage-seal {
   visibility: visible;
@@ -2056,12 +2061,13 @@ a.stage-cover { text-decoration: none; }
 .chronicle-stage h2 { margin: 0 0 10px; }
 .chronicle-page .civ-figure,
 .cosmos-page .civ-figure,
+.earth-page .civ-figure,
 .tech-page .civ-figure,
 .city-page .civ-figure { margin: 12px 0 16px; }
 .civ-page .today-pin { margin-top: 16px; }
 .deep-time { margin-top: 18px; }
 .deep-time-grid { display: grid; gap: 12px; }
-.deep-time-return { margin: 0 0 12px; }
+.deep-time-return { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
 .deep-time-return a {
   display: inline-flex;
   align-items: center;
@@ -2075,14 +2081,16 @@ a.stage-cover { text-decoration: none; }
   font-weight: 700;
   text-decoration: none;
 }
-.cosmo-hero {
+.cosmo-hero,
+.earth-hero {
   margin: 0 0 16px;
   padding: 18px 16px 14px;
   border-radius: 14px;
   background: #161c24;
   color: #f7f1e6;
 }
-.cosmo-hero .kicker {
+.cosmo-hero .kicker,
+.earth-hero .kicker {
   margin: 0 0 6px;
   font-size: 11px;
   font-weight: 700;
@@ -2090,8 +2098,18 @@ a.stage-cover { text-decoration: none; }
   text-transform: uppercase;
   color: #c4a572;
 }
-.cosmo-hero .civ-page-title { margin: 0; color: #f7f1e6; }
-.cosmo-stage { scroll-margin-top: 12px; }
+.cosmo-hero .civ-page-title,
+.earth-hero .civ-page-title { margin: 0; color: #f7f1e6; }
+.cosmo-stage,
+.earth-stage { scroll-margin-top: 12px; }
+.earth-part { margin: 0 0 14px; }
+.earth-part h3 {
+  margin: 0 0 6px;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: #161c24;
+}
+.earth-part p { margin: 0; }
 .cosmo-starmap {
   position: relative;
   z-index: 0;
@@ -2352,9 +2370,15 @@ a.stage-cover { text-decoration: none; }
   font-size: 12px;
 }
 .civ-node-hero img[hidden] { display: none; }
+@media (max-width: 640px) {
+  .axis-node { font-size: 11px; }
+}
 @media (min-width: 640px) {
   .stage-grid,
   .deep-time-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 960px) {
+  .deep-time-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 /* Dark civ surfaces. Light ink / paper / cool-gray above stays put. */
@@ -2414,8 +2438,10 @@ html.dark .civ-slot h3 { color: #f7f1e6; }
 html.dark .layer-card p,
 html.dark .civ-slot p { color: #d2c4b0; }
 html.dark .civ-page-title { color: var(--color-text); }
-html.dark .cosmo-hero { background: #161c24; color: #f7f1e6; }
-html.dark .cosmo-hero .civ-page-title { color: #f7f1e6; }
+html.dark .cosmo-hero,
+html.dark .earth-hero { background: #161c24; color: #f7f1e6; }
+html.dark .cosmo-hero .civ-page-title,
+html.dark .earth-hero .civ-page-title { color: #f7f1e6; }
 html.dark .cosmo-starmap,
 html.dark .cosmo-scale-nest {
   background: #2a231b;
@@ -2466,6 +2492,7 @@ html.dark .deep-time-card {
 html.dark .stage-card h3 a,
 html.dark .deep-time-card h3 a,
 html.dark .chronicle-stage h2,
+html.dark .earth-part h3,
 html.dark .chronicle-board-head h2 { color: #f7f1e6; }
 html.dark .chronicle-board-note,
 html.dark .stage-meaning,

@@ -274,14 +274,17 @@ export function renderCosmosArticle(): string {
       <h1 class="column-title civ-page-title">${esc(COSMOS_TITLE)}</h1>
     </header>
     <p>${esc(COSMOS_LEDE.replace(/交接入類起源。$/, ''))}<a href="/civilization/origins/">交接入類起源</a>。</p>
+    <p class="deep-time-return"><a href="/civilization/earth/">生命各階的厚寫：地球生命</a></p>
     ${lineChips(LINES)}
     ${starmap()}
     <nav class="chronicle-nav cosmo-nav cosmo-nav-chips" aria-label="跳到宇宙階段">${nav}</nav>
     ${COSMOS_STAGES.map(stageSection).join('')}
     ${scaleNest()}
+    <h2>交接地球生命</h2>
+    <p>宇宙長河在生命起源、大氧化與顯生宙只作粗線。從早期生命到約七百萬年前的各階，見<a href="/civilization/earth/">地球生命</a>，其後再進入人類起源。</p>
     <h2>交接人類起源</h2>
     <p>${esc(HANDOFF_LEAD)}<a href="/civilization/origins/">人類起源時間線</a>${esc(HANDOFF_MID)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_END)}</p>
-    <p class="stage-links"><a href="/civilization/origins/">約七百萬年前，演化進入人族階段</a><a href="/civilization/chronicle/">文明編年</a><a href="/civilization/">返回文明總覽</a></p>
+    <p class="stage-links"><a href="/civilization/earth/">地球生命</a><a href="/civilization/origins/">約七百萬年前，演化進入人族階段</a><a href="/civilization/chronicle/">文明編年</a><a href="/civilization/">返回文明總覽</a></p>
     <h2>來源</h2>
     ${sourceTable()}
     <p class="stage-source">${esc(COSMOS_SOURCE_NOTE)}</p>
