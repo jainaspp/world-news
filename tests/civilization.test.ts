@@ -270,10 +270,12 @@ describe('civilization thick pages', () => {
     }
     expect(hub.html).not.toMatch(REDLINE);
     for (let n = 1; n <= 10; n += 1) {
+      expect(existsSync(`public/static/civilization/civ-stage-${n}-cover-1280w.webp`), `stage ${n} 1280`).toBe(true);
       expect(existsSync(`public/static/civilization/civ-stage-${n}-cover-640w.webp`), `stage ${n} 640`).toBe(true);
       expect(existsSync(`public/static/civilization/civ-stage-${n}-cover-400w.webp`), `stage ${n} 400`).toBe(true);
       expect(hub.html).toContain(`src="/static/civilization/civ-stage-${n}-cover-640w.webp"`);
       expect(hub.html).toContain(`civ-stage-${n}-cover-400w.webp 400w`);
+      expect(hub.html).toContain(`civ-stage-${n}-cover-1280w.webp 1280w`);
     }
     expect(hub.html).toContain('onerror="this.hidden=true"');
     const firstCard = hub.html.slice(hub.html.indexOf('<article class="stage-card" data-stage="1">'), hub.html.indexOf('<article class="stage-card" data-stage="2">'));
@@ -315,6 +317,7 @@ describe('civilization thick pages', () => {
       expect(section).toContain('class="civ-figure"');
       expect(section).toContain(`src="/static/civilization/civ-stage-${stage.n}-cover-640w.webp"`);
       expect(section).toContain(`civ-stage-${stage.n}-cover-400w.webp 400w`);
+      expect(section).toContain(`civ-stage-${stage.n}-cover-1280w.webp 1280w`);
       expect(section).toContain('onerror="this.hidden=true"');
       expect(section).toContain('class="stage-seal"');
       if (stage.origins) expect(section).toContain('href="/civilization/origins/"');

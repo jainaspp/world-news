@@ -4,7 +4,9 @@ Date: 2026-10-17 HKT
 Source: Art GenerateImage + home-axis-hero-v1
 Red lines: no Taiwan / politics / border maps / faces / flags
 
-**Batch A remake 2026-10-18** (no old-crop): fresh Art WebP/JPEG replaced the public files for H1 axis, C0 hub, C1 origins layer, O0 origins hero, and O2–O4 origins stages. Hub still serves `overview-hero-v1.jpg` and prefers the new `civ-hub-hero-{1200,960,640}w.webp` srcset. Tech, city, civ-stage, and cosmo-stage covers are unchanged.
+**Batch A remake 2026-10-18** (no old-crop): fresh Art WebP/JPEG replaced the public files for H1 axis, C0 hub, C1 origins layer, O0 origins hero, and O2–O4 origins stages. Hub still serves `overview-hero-v1.jpg` and prefers the new `civ-hub-hero-{1200,960,640}w.webp` srcset. Batch A left tech, city, cosmos, and chronicle stage covers in place.
+
+**Batch B remake 2026-10-18** (no old-crop): fresh Art WebP replaced chronicle stage covers S1–S10. Public files are `civ-stage-{1..10}-cover-{1280,640,400}w.webp` (1280×720 native; 640×400 and 400×250 are 16:10 center crops, not a recompress of the previous covers). Hub cards and chronicle figures keep the 640 src and include 1280w in the srcset. Axis, hub, origins, cosmos, tech, and city files are unchanged.
 
 | Slot | Files | Notes |
 |------|-------|-------|
@@ -22,7 +24,7 @@ Checked-in drop is WebP only (JPEG twins were not attached), plus `overview-hero
 
 | Slot | Files | Notes |
 |------|-------|-------|
-| S1–S10 stage covers | civ-stage-{1..10}-cover-{640,400}w.webp | 640×400, 16:10. Hub cards and chronicle figures. Strip stays a paper ordinal; no `civ-node-*-480w` thumb is on disk. |
+| S1–S10 stage covers | civ-stage-{1..10}-cover-{1280,640,400}w.webp | Batch B remake 2026-10-18, not old-crop. 1280×720 plus 640×400 / 400×250 16:10 crops. Hub cards and chronicle figures. Strip stays a paper ordinal; no `civ-node-*-480w` thumb is on disk. |
 | CS1–CS10 cosmos covers | cosmo-stage-{1..10}-cover-{640,400}w.webp | 640×400 and 400×250, 16:10. All ten on disk. Hub cosmos card uses CS1. Paper ordinal is hidden unless the file fails. See `MANIFEST-cosmo-stages.md`. |
 | T1–T10 tech covers | tech-stage-{1..10}-cover-{640,400}w.webp | 640×400 and 400×250, 16:10. Interim crops of `node-tech-v1.jpg` for `/civilization/tech/`. Page hero keeps the full JPEG. |
 | U1–U10 city covers | city-stage-{1..10}-cover-{640,400}w.webp | 640×400 and 400×250, 16:10. Interim crops of `node-city-v1.jpg` for `/civilization/city/`. Page hero keeps the full JPEG. |
