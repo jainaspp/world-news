@@ -41,6 +41,48 @@
     document.querySelectorAll('ins.adsbygoogle').forEach(function () { (window.adsbygoogle = window.adsbygoogle || []).push({}); });
   } catch (e) {}
 
+  var starmap = document.querySelector('.cosmo-starmap');
+  if (starmap) {
+    function cosmoReduced() {
+      try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+    }
+    function focusStage(href, updateHash) {
+      var id = String(href || '').replace(/^#/, '');
+      if (!/^cosmo-\d+$/.test(id)) return;
+      var section = document.getElementById(id);
+      if (!section) return;
+      section.scrollIntoView({ behavior: cosmoReduced() ? 'auto' : 'smooth', block: 'start' });
+      var heading = section.querySelector('h2');
+      if (heading) {
+        if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      }
+      if (updateHash && history.pushState) history.pushState(null, '', '#' + id);
+    }
+    function bindCosmoJump(root) {
+      if (!root) return;
+      root.addEventListener('click', function (event) {
+        var link = event.target.closest('a[href^="#cosmo-"]');
+        if (!link || !root.contains(link)) return;
+        event.preventDefault();
+        focusStage(link.getAttribute('href'), true);
+      });
+      root.addEventListener('keydown', function (event) {
+        if (event.repeat || (event.key !== ' ' && event.code !== 'Space')) return;
+        var link = event.target.closest('a[href^="#cosmo-"]');
+        if (!link || !root.contains(link)) return;
+        event.preventDefault();
+        link.click();
+      });
+    }
+    bindCosmoJump(starmap);
+    bindCosmoJump(document.querySelector('.cosmo-nav'));
+    window.addEventListener('popstate', function () {
+      if (/^#cosmo-\d+$/.test(location.hash)) focusStage(location.hash, false);
+    });
+    if (/^#cosmo-\d+$/.test(location.hash)) focusStage(location.hash, false);
+  }
+
   var related = document.getElementById('related');
   if (!related) return;
   var TILE = { hk: ['#C8102E', 'hkg', '香港'], china: ['#9A3412', 'asi', '中國'], asia: ['#0C3C78', 'asi', '亞洲'], world: ['#1D4F91', 'int', '國際'], business: ['#0B6B4F', 'usa', '財經'], tech: ['#1E4D8C', 'all', '科技'], science: ['#0F6E56', 'int', '科學'], health: ['#8A4B08', 'all', '健康'], sport: ['#8E1B2C', 'all', '體育'], entertainment: ['#5B3A8C', 'all', '娛樂'] };

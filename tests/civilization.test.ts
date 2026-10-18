@@ -349,6 +349,63 @@ describe('civilization thick pages', () => {
     expect(page.html).toContain('index,follow');
     expect(page.html).toContain('宇宙長河・深時間');
     expect(page.html).toContain('class="cosmo-hero"');
+    expect(page.html).toContain('class="cosmo-starmap"');
+    expect(page.html).toContain('role="navigation"');
+    expect(page.html).toContain('aria-label="宇宙長河十階段"');
+    expect(page.html).toContain('class="cosmo-scale-nest"');
+    expect(page.html).toContain('class="chronicle-nav cosmo-nav cosmo-nav-chips"');
+    expect(page.html).toContain('src="/static/civilization/cosmo-starmap-640w.webp"');
+    expect(page.html).toContain('cosmo-starmap-400w.webp 400w');
+    expect(page.html).toContain('cosmo-starmap-1280w.webp 1280w');
+    expect(page.html).toContain('src="/static/civilization/cosmo-scale-nest-640w.webp"');
+    expect(page.html).toContain('cosmo-scale-nest-400w.webp 400w');
+    expect(page.html).toContain('cosmo-scale-nest-1280w.webp 1280w');
+    expect(page.html).not.toContain('/static/civilization/cosmo-scale-640w.webp');
+    expect(page.html).not.toContain('/civilization/starmap/');
+    expect(page.html).toContain('數字為約數，採主流綜述');
+    expect(page.html).toContain('--x:12.1%');
+    expect(page.html).toContain('--y:52.5%');
+    expect(page.html).toContain('--x:87.2%');
+    expect(page.html).toContain('--y:35.4%');
+    for (const [name, size] of [
+      ['可觀測宇宙', '約 930 億光年'],
+      ['宇宙網', '約數億光年'],
+      ['本星系群', '約 1000 萬光年'],
+      ['銀河系', '約 10 萬光年'],
+      ['日球層', '約 120 天文單位'],
+      ['地月系統', '約 38.4 萬公里'],
+      ['地球', '約 1.27 萬公里'],
+    ]) {
+      expect(page.html).toContain(name);
+      expect(page.html).toContain(size);
+    }
+    const heroAt = page.html.indexOf('class="cosmo-hero"');
+    const mapAt = page.html.indexOf('class="cosmo-starmap"');
+    const nestAt = page.html.indexOf('class="cosmo-scale-nest"');
+    const chipsAt = page.html.indexOf('class="chronicle-nav cosmo-nav');
+    const stageAt = page.html.indexOf('id="cosmo-1"');
+    const handoffAt = page.html.indexOf('交接人類起源');
+    expect(heroAt).toBeLessThan(mapAt);
+    expect(mapAt).toBeLessThan(chipsAt);
+    expect(chipsAt).toBeLessThan(stageAt);
+    expect(page.html.indexOf('id="cosmo-10"')).toBeLessThan(nestAt);
+    expect(nestAt).toBeLessThan(handoffAt);
+    expect(existsSync('public/static/civilization/cosmo-starmap-1280w.webp')).toBe(true);
+    expect(existsSync('public/static/civilization/cosmo-starmap-640w.webp')).toBe(true);
+    expect(existsSync('public/static/civilization/cosmo-starmap-400w.webp')).toBe(true);
+    expect(existsSync('public/static/civilization/cosmo-scale-nest-1280w.webp')).toBe(true);
+    expect(existsSync('public/static/civilization/cosmo-scale-nest-640w.webp')).toBe(true);
+    expect(existsSync('public/static/civilization/cosmo-scale-nest-400w.webp')).toBe(true);
+    const css = readFileSync('src/App.css', 'utf8');
+    expect(css).toContain('.cosmo-starmap-figure {\n  position: relative;\n  min-width: 560px;');
+    expect(css).toContain('min-height: 44px');
+    expect(css).toContain('aspect-ratio: 16 / 9');
+    expect(css).toContain('max-height: min(52vh, 360px)');
+    expect(css).toContain('.cosmo-star-link,\n  .cosmo-star-dot,\n  .cosmo-scale-levels li { animation: none; transition: none; }');
+    const jump = readFileSync('public/columns.js', 'utf8');
+    expect(jump).toContain('.cosmo-starmap');
+    expect(jump).toContain('prefers-reduced-motion: reduce');
+    expect(jump).toContain('scrollIntoView');
     expect(page.html).toContain('href="/civilization/"');
     expect(page.html).toContain('href="/civilization/origins/"');
     expect(page.html).toContain('href="/civilization/chronicle/"');
@@ -390,7 +447,6 @@ describe('civilization thick pages', () => {
       expect(section).not.toContain('/civilization/chronicle/');
       for (const line of stage.lines) expect(section).toContain(`>${line}<`);
     }
-    const css = readFileSync('src/App.css', 'utf8');
     const seal = css.slice(css.indexOf('.cosmo-stage .stage-seal'), css.indexOf('.stage-cover[data-stage="1"]'));
     expect(seal).toContain('visibility: hidden');
     expect(seal).toContain('.cosmo-stage .stage-frame:has(img[hidden]) .stage-seal');
