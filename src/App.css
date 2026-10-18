@@ -1939,6 +1939,96 @@ a.stage-cover { text-decoration: none; }
 }
 .stage-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; font-size: 13px; font-weight: 700; }
 .stage-source { margin: 0 0 8px; font-size: 13px; color: #5c6570; }
+/* 里程碑深讀：產物｜推動力 block. Paper card on the ink-and-paper scale. */
+.milestone-block {
+  scroll-margin-top: 12px;
+  margin: 12px 0;
+  border: 1px solid #d4cbb8;
+  border-radius: 12px;
+  background: #fbf7ee;
+  overflow: hidden;
+}
+.milestone-block summary {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 44px 10px 14px;
+  cursor: pointer;
+  list-style: none;
+}
+.milestone-block summary::-webkit-details-marker { display: none; }
+.milestone-block summary::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #9a7b4f;
+  border-bottom: 2px solid #9a7b4f;
+  transform: translateY(-70%) rotate(45deg);
+}
+.milestone-block[open] summary::after { transform: translateY(-30%) rotate(225deg); }
+.milestone-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #9a7b4f; }
+.milestone-event { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700; color: #161c24; }
+.milestone-body { padding: 0 14px 14px; }
+.milestone-figure { margin: 0 0 12px; }
+.milestone-figure figcaption { margin-top: 4px; font-size: 12px; color: #5c6570; }
+.milestone-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 21 / 9;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #e9dfc9 0%, #f7f1e6 72%);
+}
+.milestone-frame img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.milestone-frame img[hidden] { display: none; }
+.milestone-seal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid #9a7b4f;
+  background: #f7f1e6;
+  color: #161c24;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+}
+.milestone-h { margin: 12px 0 6px; color: #9a7b4f; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+.product-list,
+.driver-list { margin: 0 0 4px; padding-left: 1.15em; font-size: 14px; line-height: 1.7; }
+.product-list li,
+.driver-list li { margin: 0 0 6px; }
+.product-kind {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 7px;
+  margin-right: 6px;
+  border-radius: 999px;
+  border: 1px solid #9a7b4f;
+  background: #f7f1e6;
+  color: #161c24;
+  font-size: 11px;
+  font-weight: 700;
+  vertical-align: 1px;
+}
+.milestone-lines { margin: 8px 0 0; }
 .chronicle-nav,
 .cosmo-nav {
   display: flex;
@@ -2382,6 +2472,20 @@ html.dark .stage-meaning,
 html.dark .stage-source,
 html.dark .stage-milestones { color: #d2c4b0; }
 html.dark .chronicle-stage { border-bottom-color: #5c4a34; }
+html.dark .milestone-block { background: #2a231b; border-color: #5c4a34; }
+html.dark .milestone-event { color: #f7f1e6; }
+html.dark .milestone-kicker,
+html.dark .milestone-h { color: #c4a572; }
+html.dark .milestone-block summary::after { border-color: #c4a572; }
+html.dark .milestone-body,
+html.dark .product-list,
+html.dark .driver-list { color: #d2c4b0; }
+html.dark .milestone-body strong { color: #f3eadc; }
+html.dark .milestone-figure figcaption { color: #d2c4b0; }
+html.dark .milestone-frame { background: #2a231b; }
+html.dark .milestone-frame img { opacity: 0.92; }
+html.dark .milestone-seal,
+html.dark .product-kind { background: #3a3126; color: #f7f1e6; border-color: #c4a572; }
 html.dark .stage-cover,
 html.dark .stage-frame { background: #2a231b; }
 html.dark .stage-cover img,
