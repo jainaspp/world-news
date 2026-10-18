@@ -72,7 +72,19 @@ function partHtml(stage: EarthStage): string {
   }).join('');
 }
 
-/** 產物 and 推動力 stay in the stage data and render through the shared block. Cover stays null until art exists. */
+/** Alt text for the Batch G product vignette on each earth deep-read block. */
+const EARTH_PRODUCT_ALT: Record<number, string> = {
+  1: '早期生命與大氧化：疊層石與淺海溫和示意，年代為約數',
+  2: '寒武紀大爆發：三葉蟲與海洋生物溫和示意，年代為約數',
+  3: '古生代海洋與陸地植物：鱗木森林與早期四足動物溫和示意，年代為約數',
+  4: '三疊紀：主龍類與乾旱內陸溫和示意，年代為約數',
+  5: '侏羅紀：蜥腳類與裸子植物林溫和示意，年代為約數',
+  6: '白堊紀與末期更替：開花植物與白堊沉積溫和示意，年代為約數',
+  7: '新生代哺乳動物輻射：食草哺乳動物與草地溫和示意，年代為約數',
+  8: '交接人族：疏林與開闊地溫和示意，年代為約數',
+};
+
+/** 產物 and 推動力 stay in the stage data and render through the shared block. */
 function readingBlock(stage: EarthStage): ReadingBlock {
   const product = stage.parts.find((part) => part.heading === '產物');
   const driver = stage.parts.find((part) => part.heading === '推動力');
@@ -83,7 +95,8 @@ function readingBlock(stage: EarthStage): ReadingBlock {
     products: [{ name: product?.heading ?? '產物', detail: product?.text ?? stage.meaning }],
     drivers: [{ name: driver?.heading ?? '推動力', detail: driver?.text ?? '' }],
     impact: stage.meaning,
-    cover: null,
+    cover: `${CIV}/earth-stage-${stage.n}-product`,
+    coverAlt: EARTH_PRODUCT_ALT[stage.n] ?? `${stage.name}：產物溫和示意，年代為約數`,
     lines: stage.lines,
   };
 }

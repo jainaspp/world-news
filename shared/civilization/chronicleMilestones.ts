@@ -41,7 +41,7 @@ export interface ChronicleMilestoneBlock {
   lines: CivLine[];
   /**
    * 既視感圖槽：`/static/civilization` 下的素材基名（不含尺寸後綴），
-   * 例如 `civ-stage-7-product`。缺省或缺圖時渲染紙感佔位，不阻擴容。
+   * 例如 `civ-stage-7-product`。有圖時圖說為「示意」；缺省或缺圖時留下紙感「產」印，不阻擴容。
    */
   image?: string;
   imageAlt?: string;
