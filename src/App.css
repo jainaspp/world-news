@@ -2004,14 +2004,22 @@ a.stage-cover { text-decoration: none; }
 .cosmo-stage { scroll-margin-top: 12px; }
 .cosmo-starmap {
   position: relative;
+  z-index: 0;
+  isolation: isolate;
+  max-width: 100%;
+  min-width: 0;
   margin: 0 0 12px;
   padding: 4px;
+  overflow: hidden;
   border: 1px solid #d4cbb8;
   border-radius: 14px;
   background: #f7f1e6;
 }
 .cosmo-starmap-scroll {
+  max-width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   border-radius: 10px;
@@ -2022,11 +2030,13 @@ a.stage-cover { text-decoration: none; }
 .cosmo-starmap-figure {
   position: relative;
   min-width: 560px;
+  width: max(100%, 560px);
   margin: 0;
 }
 .cosmo-starmap-figure img {
   display: block;
   width: 100%;
+  max-width: none;
   height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
@@ -2120,24 +2130,45 @@ a.stage-cover { text-decoration: none; }
   .cosmo-starmap::after { display: none; }
 }
 .cosmo-scale-nest {
-  margin: 0 0 14px;
-  padding: 10px 10px 12px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0 auto 14px;
+  padding: 12px 16px 12px;
+  overflow: hidden;
+  box-sizing: border-box;
   border: 1px solid #d4cbb8;
   border-radius: 14px;
   background: #f7f1e6;
   color: #161c24;
 }
-.cosmo-scale-nest img {
-  display: block;
-  width: min(100%, calc(min(52vh, 360px) * 16 / 9));
+/* 16:9 frame. content-box so the global border-box reset does not eat the ratio padding. */
+.cosmo-scale-frame {
+  box-sizing: content-box;
+  position: relative;
+  width: 100%;
   max-width: 100%;
-  height: auto;
-  max-height: min(52vh, 360px);
+  height: 0;
   margin: 0 auto;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
+  padding-bottom: 56.25%;
+  overflow: hidden;
   border-radius: 10px;
   background: #161c24;
+}
+.cosmo-scale-nest img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  aspect-ratio: auto;
+  object-fit: contain;
+  object-position: center center;
+  border-radius: 0;
+  background: transparent;
 }
 .cosmo-scale-note {
   margin: 8px 0 6px;

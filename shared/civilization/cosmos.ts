@@ -240,8 +240,8 @@ function starmap(): string {
 /** Scale figure. Placed after stage 10 so the 16:9 starmap can stay under the hero without pushing #cosmo-1 past ~1.4 phone screens. */
 function scaleNest(): string {
   const levels = COSMOS_SCALES.map((level) => `<li><span class="cosmo-scale-name">${esc(level.name)}</span> · <span class="cosmo-scale-size">${esc(level.size)}</span></li>`).join('');
-  const img = `<img src="${CIV}/cosmo-scale-nest-640w.webp" srcset="${CIV}/cosmo-scale-nest-400w.webp 400w, ${CIV}/cosmo-scale-nest-640w.webp 640w, ${CIV}/cosmo-scale-nest-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 640px" width="1280" height="720" alt="" loading="lazy" decoding="async" />`;
-  return `<figure class="cosmo-scale-nest">${img}<figcaption><p class="cosmo-scale-note">空間尺度由大到小，上一級包含下一級所在區域。數字為約數，採主流綜述。第七級收到地球，其後<a href="/civilization/origins/">交接入類起源</a>。</p><ol class="cosmo-scale-levels">${levels}</ol></figcaption></figure>`;
+  const img = `<img src="${CIV}/cosmo-scale-nest-640w.webp" srcset="${CIV}/cosmo-scale-nest-400w.webp 400w, ${CIV}/cosmo-scale-nest-640w.webp 640w, ${CIV}/cosmo-scale-nest-1280w.webp 1280w" sizes="(max-width: 640px) calc(100vw - 48px), 640px" width="1280" height="720" alt="" loading="lazy" decoding="async" />`;
+  return `<figure class="cosmo-scale-nest"><div class="cosmo-scale-frame">${img}</div><figcaption><p class="cosmo-scale-note">空間尺度由大到小，上一級包含下一級所在區域。數字為約數，採主流綜述。第七級收到地球，其後<a href="/civilization/origins/">交接入類起源</a>。</p><ol class="cosmo-scale-levels">${levels}</ol></figcaption></figure>`;
 }
 
 function stageSection(stage: CosmoStage): string {
