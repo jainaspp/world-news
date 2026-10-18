@@ -47,8 +47,9 @@
   --motion-pulse: 2.4s;
   --motion-stagger: 120ms;
   --motion-dismiss: 420ms;
-  /* Civ hash targets clear sticky .chrome. Mobile chrome measured ~163px. */
-  --civ-anchor-offset: 180px;
+  /* Civ hash targets clear sticky .chrome before JS measures it.
+     220px covers a ~188px mobile chrome (masthead, tabs, wrapped market row). */
+  --civ-anchor-offset: 220px;
   font-family: var(--font-sans);
 }
 
@@ -2602,8 +2603,9 @@ html.dark .stage-dot .stage-seal {
    Reveal runs when a stage enters the viewport. Stage plates do not ken.
    The 2px progress bar overlaps the nav's existing bottom padding (margin-top:
    -2px). It is not sticky and does not add a second stage rail.
-   Hash targets use --civ-anchor-offset (180px) so titles clear sticky .chrome.
-   Mobile QA measured that chrome at about 163px. */
+   Hash targets use --civ-anchor-offset so titles clear sticky .chrome.
+   220px is the SSR/no-JS fallback. columns.js measures .chrome.offsetHeight
+   and sets the variable to that height plus 16px. */
 .civ-page .chronicle-stage,
 .civ-page .chronicle-stage h2,
 .civ-page #jurassic,

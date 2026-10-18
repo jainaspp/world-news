@@ -135,6 +135,47 @@
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     }
+    var anchorChrome = -1;
+    var hashPlacedAt = 0;
+    function syncCivAnchorOffset() {
+      var chrome = document.querySelector('.chrome');
+      var height = chrome ? chrome.offsetHeight : 0;
+      /* 16px gap under the sticky header. 220px matches the CSS fallback. */
+      var offset = height > 0 ? height + 16 : 220;
+      root.style.setProperty('--civ-anchor-offset', offset + 'px');
+      return { height: height, offset: offset };
+    }
+    function documentTop(el) {
+      var top = 0;
+      var node = el;
+      while (node) {
+        top += node.offsetTop || 0;
+        node = node.offsetParent;
+      }
+      return top;
+    }
+    function placeHashTarget(target, behavior) {
+      var reading = syncCivAnchorOffset();
+      anchorChrome = reading.height;
+      hashPlacedAt = Date.now();
+      var top = documentTop(target) - reading.offset;
+      if (top < 0) top = 0;
+      if (Math.abs(window.scrollY - top) < 2) return;
+      window.scrollTo({ top: top, behavior: behavior || (motionReduced() ? 'auto' : 'smooth') });
+    }
+    function correctHashIfCovered() {
+      var reading = syncCivAnchorOffset();
+      if (reading.height === anchorChrome) return;
+      var previous = anchorChrome;
+      anchorChrome = reading.height;
+      if (previous < 0 || !location.hash) return;
+      var el = document.getElementById(String(location.hash).replace(/^#/, ''));
+      if (!el) return;
+      var rect = el.getBoundingClientRect();
+      var recent = Date.now() - hashPlacedAt < 2500;
+      var covered = rect.top < reading.height && rect.bottom > 0 && rect.top > -reading.height;
+      if (recent || covered) placeHashTarget(el, 'auto');
+    }
     function focusHash(raw, updateHash) {
       var id = String(raw || '').replace(/^#/, '');
       if (!id) return;
@@ -142,13 +183,13 @@
       if (!el) return;
       var stage = el.classList.contains('civ-reveal') ? el : (el.closest ? el.closest('.civ-reveal') : null);
       if (stage) stage.classList.add('is-inview');
-      var target = stage && el === stage ? stage : el;
-      target.scrollIntoView({ behavior: motionReduced() ? 'auto' : 'smooth', block: 'start' });
       var heading = (el.tagName === 'H2' || el.tagName === 'H3') ? el : (stage ? stage.querySelector('h2') : null);
       if (heading) {
         if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
         try { heading.focus({ preventScroll: true }); } catch (err) {}
       }
+      var target = stage && el === stage ? stage : el;
+      placeHashTarget(target);
       if (stage && stage.id) setCurrent(stage.id);
       if (updateHash && history.pushState && location.hash !== '#' + id) history.pushState(null, '', '#' + id);
     }
@@ -174,6 +215,13 @@
     if (starmap) bindHashJump(starmap);
     civNavs.forEach(bindHashJump);
     document.querySelectorAll('.stage-links').forEach(bindHashJump);
+    anchorChrome = syncCivAnchorOffset().height;
+    window.addEventListener('resize', correctHashIfCovered);
+    window.addEventListener('orientationchange', correctHashIfCovered);
+    if (window.ResizeObserver) {
+      var chromeEl = document.querySelector('.chrome');
+      if (chromeEl) new ResizeObserver(correctHashIfCovered).observe(chromeEl);
+    }
     window.addEventListener('popstate', function () {
       if (location.hash) focusHash(location.hash, false);
     });
