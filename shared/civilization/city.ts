@@ -214,13 +214,13 @@ function paperSeal(n: number): string {
   return `<span class="stage-seal">${ordinal(n)}</span>`;
 }
 
-/** Cover slot for every stage. The paper ordinal stays hidden while the WebP loads. */
+/** 640×400 stage cover, with a 1280w candidate for high-DPR. onerror hides a missing file so the paper seal remains. */
 export function cityCoverImg(stage: CityStage, eager: boolean): string {
   const base = `${CIV}/city-stage-${stage.n}-cover`;
   const loading = eager ? 'eager' : 'lazy';
   const priority = eager ? ' fetchpriority="high"' : '';
   const alt = `${stage.name}：溫和示意，年代為約數`;
-  return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
+  return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w, ${base}-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
 }
 
 function sourceHref(url: string): string {
