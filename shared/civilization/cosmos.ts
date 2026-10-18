@@ -187,14 +187,15 @@ function paperSeal(n: number): string {
 
 /**
  * Cover slot for every stage. The paper ordinal is in the figure and stays hidden
- * while the WebP loads. onerror reveals it if a file is missing.
+ * while the WebP loads. 640 stays the src; 1280w is the high-DPR candidate.
+ * onerror reveals the seal if a file is missing.
  */
 export function cosmoCoverImg(stage: CosmoStage, eager: boolean): string {
   const base = `${CIV}/cosmo-stage-${stage.n}-cover`;
   const loading = eager ? 'eager' : 'lazy';
   const priority = eager ? ' fetchpriority="high"' : '';
   const alt = `${stage.name}：溫和示意，年代為約數`;
-  return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
+  return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w, ${base}-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
 }
 
 function sourceHref(url: string): string {
