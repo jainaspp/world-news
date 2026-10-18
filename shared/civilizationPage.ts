@@ -2,6 +2,7 @@ import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPag
 import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderChronicleStrip, renderStageGrid } from './civilization/chronicle.js';
 import { renderCityArticle, cityIndexable } from './civilization/city.js';
 import { COSMOS_STAGES, cosmoCoverImg, cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
+import { EARTH_STAGES, earthCoverImg, earthIndexable, renderEarthArticle } from './civilization/earth.js';
 import { ORIGINS_BODY, ORIGINS_SOURCES } from './civilization/originsSource.js';
 import { renderTechArticle, techIndexable } from './civilization/tech.js';
 import { renderMildMarkdown } from './civilization/markdown.js';
@@ -11,6 +12,7 @@ import { landmarkBySlug } from './heritage.js';
 export { chronicleIndexable, chronicleProse } from './civilization/chronicle.js';
 export { cityIndexable, cityProse } from './civilization/city.js';
 export { cosmosIndexable, cosmosProse } from './civilization/cosmos.js';
+export { earthIndexable, earthProse } from './civilization/earth.js';
 export { techIndexable, techProse } from './civilization/tech.js';
 
 const ORIGIN = 'https://world-news.xyz';
@@ -37,7 +39,7 @@ export const HUB_MILESTONES: { era: string; title: string; text: string }[] = [
   },
 ];
 
-const HUB_READ = '閱讀時先看軸上的位置：最左是宇宙，其後為起源、技術、城市、今天。今天的新聞是軸上的切片。沒有溫和史對照的電訊不強加年代座標。宇宙、起源、技術與城市都已寫成獨立長頁。技術頁記工具、能源、媒介與知識；城市頁記聚落、公共工程與日常公共生活，香港地標只作其中的本地案例。軸下編年帶仍列出十個文明階段，點進階段可讀完整編年。宇宙十階不掛在這條編年帶上。';
+const HUB_READ = '閱讀時先看軸上的位置：最左是宇宙，其後為地球生命、起源、技術、城市、今天。今天的新聞是軸上的切片。沒有溫和史對照的電訊不強加年代座標。宇宙、地球生命、起源、技術與城市都已寫成獨立長頁。地球生命頁寫大氧化到侏羅紀、白堊紀與哺乳動物輻射。技術頁記工具、能源、媒介與知識；城市頁記聚落、公共工程與日常公共生活，香港地標只作其中的本地案例。軸下編年帶仍列出十個文明階段，點進階段可讀完整編年。宇宙十階與地球生命各階都不掛在這條編年帶上。';
 
 const HUB_LOCAL = '香港科學館於一九九一年開幕，以常設展覽介紹日常科學與自然現象，可作為城市向公眾講解深時間的節點。香港太空館於一九八〇年開幕，天象廳介紹星空與太陽系，方便把宇宙尺度和人族年表放在一起對照。兩館都是既有地標頁，在科技與發現、城市・基建・民生的長頁裡作為本地錨，而不代替這兩頁。';
 
@@ -69,6 +71,7 @@ export function civilizationPublicPaths(): string[] {
   const paths: string[] = [];
   if (hubIndexable()) paths.push('/civilization/');
   if (cosmosIndexable()) paths.push('/civilization/cosmos/');
+  if (earthIndexable()) paths.push('/civilization/earth/');
   if (originsIndexable()) paths.push('/civilization/origins/');
   if (techIndexable()) paths.push('/civilization/tech/');
   if (cityIndexable()) paths.push('/civilization/city/');
@@ -168,7 +171,7 @@ function insertAfterHeading(html: string, level: 1 | 2 | 3, marker: string, inse
 function originsArticle(body: string): string {
   let html = body;
   html = insertAfterHeading(html, 1, '人類起源時間線', originsHero());
-  html = insertAfterHeading(html, 1, '人類起源時間線', '<p class="deep-time-return"><a href="/civilization/cosmos/">更早的深時間：宇宙長河</a></p>');
+  html = insertAfterHeading(html, 1, '人類起源時間線', '<p class="deep-time-return"><a href="/civilization/earth/">上一層：地球生命</a><a href="/civilization/cosmos/">更早的深時間：宇宙長河</a></p>');
   html = insertAfterHeading(html, 3, '一、深層分離', stageFigure(1, '一、深層分離：譜系分叉示意（約 100–30 萬年前）', '深層分離 · 示意 · 約數'));
   html = insertAfterHeading(html, 3, '二、非洲現代人多樣性', stageFigure(2, '二、非洲現代人多樣性：多點柔光示意（約 30–6 萬年前）', '非洲內部多樣 · 示意 · 約數'));
   html = insertAfterHeading(html, 3, '三、全球擴張', stageFigure(3, '三、全球擴張：粒子輻射示意（非遷徙路線、非政治疆界）', '全球擴張 · 示意·非遷徙路線 · 約數'));
@@ -191,11 +194,12 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
     <div class="axis-vignette" aria-hidden="true"></div>
     <p class="kicker">Human span · 溫和史</p>
     ${title}
-    <p class="axis-lede">從人類起源到城市公共生活。新聞是軸上「今天」那一刀。先看見尺度，再讀今日。</p>
+    <p class="axis-lede">從宇宙、地球生命到人類起源與城市公共生活。新聞是軸上「今天」那一刀。先看見尺度，再讀今日。</p>
     <div class="deep-axis" aria-label="深時間軸">
       <div class="rail" aria-hidden="true"></div>
       <ol class="milestones">
         <li><a class="axis-node" href="/civilization/cosmos/"><span class="dot"></span><span class="lab">宇宙</span><span class="yr">~138億</span></a></li>
+        <li><a class="axis-node" href="/civilization/earth/"><span class="dot"></span><span class="lab">地球</span><span class="yr">~40億</span></a></li>
         <li><a class="axis-node" href="/civilization/origins/"><span class="dot"></span><span class="lab">起源</span><span class="yr">~300ka</span></a></li>
         <li><a class="axis-node" href="/civilization/tech/"><span class="dot"></span><span class="lab">技術</span><span class="yr">發現</span></a></li>
         <li><a class="axis-node" href="/civilization/city/"><span class="dot"></span><span class="lab">城市</span><span class="yr">基建</span></a></li>
@@ -353,6 +357,10 @@ function renderDeepTimeBoard(): string {
   const cosmosCover = first
     ? `<a class="stage-cover" data-stage="1" href="/civilization/cosmos/" aria-label="宇宙長河">${cosmoCoverImg(first, true)}<span class="stage-seal">宇宙</span></a>`
     : '';
+  const earthFirst = EARTH_STAGES[0];
+  const earthCover = earthFirst
+    ? `<a class="stage-cover" data-stage="1" href="/civilization/earth/" aria-label="地球生命">${earthCoverImg(earthFirst, false)}<span class="stage-seal">地球</span></a>`
+    : '';
   const originsCover = `<a class="stage-cover" href="/civilization/origins/" aria-label="人類起源">${civImage({
     src: `${CIV}/civ-layer-origins-640w.webp`,
     srcset: `${CIV}/civ-layer-origins-400w.webp 400w, ${CIV}/civ-layer-origins-640w.webp 640w`,
@@ -365,7 +373,7 @@ function renderDeepTimeBoard(): string {
     <div class="chronicle-board-head">
       <h2>深時間</h2>
     </div>
-    <p class="chronicle-board-note">宇宙長河接到人類起源。約七百萬年前，演化進入人族階段。下方編年仍是文明十階段。</p>
+    <p class="chronicle-board-note">宇宙長河接到地球生命，再交接入類起源。約七百萬年前，演化進入人族階段。下方編年仍是文明十階段。</p>
     <div class="deep-time-grid">
       <article class="deep-time-card cosmo-card">
         ${cosmosCover}
@@ -374,6 +382,15 @@ function renderDeepTimeBoard(): string {
           <h3><a href="/civilization/cosmos/">宇宙長河・深時間</a></h3>
           <p class="stage-meaning">約一百三十八億年前至約七百萬年前。能量、物質、信息與時間。</p>
           <p class="stage-links"><a href="/civilization/cosmos/">閱讀宇宙長河</a></p>
+        </div>
+      </article>
+      <article class="deep-time-card earth-card">
+        ${earthCover}
+        <div class="stage-body">
+          <p class="era">地球生命</p>
+          <h3><a href="/civilization/earth/">地球生命・深時間</a></h3>
+          <p class="stage-meaning">約四十億年前的早期生命，至約七百萬年前。侏羅紀等中生代在此展開。</p>
+          <p class="stage-links"><a href="/civilization/earth/">閱讀地球生命</a><a href="/civilization/earth/#earth-5">侏羅紀</a></p>
         </div>
       </article>
       <article class="deep-time-card">
@@ -430,6 +447,19 @@ export function renderCosmosPage(): { html: string; status: number; indexable: b
     title: '宇宙長河・深時間',
     description: '從大爆炸到人族前生物圈的十階段深時間，約七百萬年前交接入類起源。',
     path: '/civilization/cosmos/',
+    body,
+    indexable,
+  });
+}
+
+export function renderEarthPage(): { html: string; status: number; indexable: boolean } {
+  const indexable = earthIndexable();
+  const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 地球生命</nav>
+    ${renderEarthArticle()}`;
+  return shell({
+    title: '地球生命・深時間',
+    description: '從大氧化、寒武紀到三疊紀、侏羅紀、白堊紀與哺乳動物輻射，約七百萬年前交接入類起源。',
+    path: '/civilization/earth/',
     body,
     indexable,
   });

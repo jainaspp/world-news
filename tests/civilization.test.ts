@@ -6,6 +6,7 @@ import { coordinateChipHtml, renderCivilizationSlice } from '../shared/civilizat
 import { CHRONICLE_STAGES, chronicleCardMilestones } from '../shared/civilization/chronicle';
 import { CITY_STAGES } from '../shared/civilization/city';
 import { COSMOS_STAGES } from '../shared/civilization/cosmos';
+import { EARTH_STAGES, earthStageText } from '../shared/civilization/earth';
 import { TECH_STAGES } from '../shared/civilization/tech';
 import {
   chronicleIndexable,
@@ -15,6 +16,8 @@ import {
   civilizationPublicPaths,
   cosmosIndexable,
   cosmosProse,
+  earthIndexable,
+  earthProse,
   hubIndexable,
   hubProse,
   originsIndexable,
@@ -24,6 +27,7 @@ import {
   renderCivilizationHub,
   renderCivilizationMiss,
   renderCosmosPage,
+  renderEarthPage,
   renderOriginsPage,
   renderTechPage,
   renderTodayPin,
@@ -74,6 +78,7 @@ describe('civilization thick pages', () => {
     expect(civilizationPublicPaths()).toEqual([
       '/civilization/',
       '/civilization/cosmos/',
+      '/civilization/earth/',
       '/civilization/origins/',
       '/civilization/tech/',
       '/civilization/city/',
@@ -82,6 +87,7 @@ describe('civilization thick pages', () => {
     const xml = staticSitemapXml();
     expect(xml).toContain('https://world-news.xyz/civilization/</loc>');
     expect(xml).toContain('https://world-news.xyz/civilization/cosmos/</loc>');
+    expect(xml).toContain('https://world-news.xyz/civilization/earth/</loc>');
     expect(xml).toContain('https://world-news.xyz/civilization/origins/</loc>');
     expect(xml).toContain('https://world-news.xyz/civilization/tech/</loc>');
     expect(xml).toContain('https://world-news.xyz/civilization/city/</loc>');
@@ -116,8 +122,12 @@ describe('civilization thick pages', () => {
     expect(page.html).not.toContain('寫作與上線備註');
     const heroAt = page.html.indexOf('class="civ-origins-hero"');
     const titleAt = page.html.indexOf('<h1>人類起源時間線');
+    const earthReturn = page.html.indexOf('上一層：地球生命');
     const cosmosReturn = page.html.indexOf('更早的深時間：宇宙長河');
+    expect(page.html).toContain('href="/civilization/earth/"');
     expect(page.html).toContain('href="/civilization/cosmos/"');
+    expect(earthReturn).toBeGreaterThan(titleAt);
+    expect(earthReturn).toBeLessThan(cosmosReturn);
     expect(cosmosReturn).toBeGreaterThan(titleAt);
     expect(cosmosReturn).toBeLessThan(heroAt);
     const stage1 = page.html.indexOf('data-stage="1"');
@@ -257,7 +267,10 @@ describe('civilization thick pages', () => {
     expect(hub.html.indexOf('class="deep-time"')).toBeLessThan(hub.html.indexOf('class="chronicle-board"'));
     expect(hub.html.indexOf('class="chronicle-board"')).toBeLessThan(hub.html.indexOf('class="civ-article"'));
     const deep = hub.html.slice(hub.html.indexOf('class="deep-time"'), hub.html.indexOf('class="chronicle-board"'));
-    expect(deep.indexOf('href="/civilization/cosmos/"')).toBeLessThan(deep.indexOf('href="/civilization/origins/"'));
+    expect(deep.indexOf('href="/civilization/cosmos/"')).toBeLessThan(deep.indexOf('href="/civilization/earth/"'));
+    expect(deep.indexOf('href="/civilization/earth/"')).toBeLessThan(deep.indexOf('href="/civilization/origins/"'));
+    expect(deep).toContain('閱讀地球生命');
+    expect(deep).toContain('侏羅紀');
     expect(deep).toContain('閱讀宇宙長河');
     expect(deep).toContain('src="/static/civilization/cosmo-stage-1-cover-640w.webp"');
     expect(deep).toContain('cosmo-stage-1-cover-1280w.webp 1280w');
@@ -412,8 +425,10 @@ describe('civilization thick pages', () => {
     expect(jump).toContain('prefers-reduced-motion: reduce');
     expect(jump).toContain('scrollIntoView');
     expect(page.html).toContain('href="/civilization/"');
+    expect(page.html).toContain('href="/civilization/earth/"');
     expect(page.html).toContain('href="/civilization/origins/"');
     expect(page.html).toContain('href="/civilization/chronicle/"');
+    expect(page.html).toContain('交接地球生命');
     expect(page.html).toContain('約七百萬年前，演化進入人族階段');
     expect(page.html).toContain('已铺就宜居地球');
     expect(page.html).toContain('假說並存');
@@ -460,6 +475,82 @@ describe('civilization thick pages', () => {
     const handoff = page.html.slice(page.html.indexOf('交接人類起源'));
     expect(handoff.indexOf('href="/civilization/origins/"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));
     expect(handoff).toContain('https://science.nasa.gov/solar-system/solar-system-facts/');
+  });
+
+  it('publishes an indexable earth-life page with a thick Jurassic section', () => {
+    expect(cjkChars(earthProse())).toBeGreaterThanOrEqual(1200);
+    expect(earthIndexable()).toBe(true);
+    expect(EARTH_STAGES).toHaveLength(8);
+    expect([...EARTH_STAGES.map((stage) => stage.short)].every((name) => [...name].length <= 6 && [...name].length > 0)).toBe(true);
+    const jurassic = EARTH_STAGES.find((stage) => stage.name === '侏羅紀');
+    expect(jurassic).toBeTruthy();
+    expect(cjkChars(earthStageText(jurassic!))).toBeGreaterThanOrEqual(600);
+    const page = renderEarthPage();
+    expect(page.status).toBe(200);
+    expect(page.indexable).toBe(true);
+    expect(page.html).toContain('index,follow');
+    expect(page.html).toContain('地球生命・深時間');
+    expect(page.html).toContain('class="earth-hero"');
+    expect(page.html).toContain('href="/civilization/cosmos/"');
+    expect(page.html).toContain('href="/civilization/origins/"');
+    expect(page.html).toContain('href="/civilization/"');
+    expect(page.html).not.toContain('/civilization/starmap/');
+    expect(page.html).not.toContain('adsbygoogle');
+    expect(page.html).not.toContain('pagead2.googlesyndication.com');
+    expect(page.html.match(/class="civ-figure"/g)).toHaveLength(8);
+    expect(page.html.match(/AI 整合/g)).toHaveLength(1);
+    expect(page.html).toContain('https://stratigraphy.org/chart');
+    expect(page.html).toContain('https://ucmp.berkeley.edu/mesozoic/jurassic/jurassic.php');
+    expect(page.html).toContain('https://www.nigpas.cas.cn/');
+    expect(page.html).toContain('約／主流綜述');
+    expect(page.html).not.toMatch(BLOCKED);
+    expect(page.html).not.toMatch(REDLINE);
+    expect(heritageBlocked(page.html)).toBe(false);
+    const start = page.html.indexOf('id="earth-5"');
+    const end = page.html.indexOf('id="earth-6"');
+    expect(start).toBeGreaterThan(page.html.indexOf('id="earth-4"'));
+    expect(end).toBeGreaterThan(start);
+    const section = page.html.slice(start, end);
+    expect(section).toContain('侏羅紀');
+    expect(section).toContain('id="earth-5-env"');
+    expect(section).toContain('id="earth-5-life"');
+    expect(section).toContain('id="earth-5-product"');
+    expect(section).toContain('id="earth-5-driver"');
+    expect(section).toContain('>環境<');
+    expect(section).toContain('>優勢類群<');
+    expect(section).toContain('>產物<');
+    expect(section).toContain('>推動力<');
+    expect(section).toContain('羽毛');
+    expect(section).toContain('翼膜');
+    expect(section).toContain('板塊');
+    expect(section).toContain('class="civ-figure"');
+    expect(section).toContain('src="/static/civilization/earth-stage-5-cover-640w.webp"');
+    expect(section).toContain('onerror="this.hidden=true"');
+    expect(cjkChars(section)).toBeGreaterThanOrEqual(600);
+    for (const stage of EARTH_STAGES) {
+      expect(page.html).toContain(`id="earth-${stage.n}"`);
+      expect(page.html).toContain(`src="/static/civilization/earth-stage-${stage.n}-cover-640w.webp"`);
+      expect(existsSync(`public/static/civilization/earth-stage-${stage.n}-cover-1280w.webp`), `earth ${stage.n} 1280`).toBe(true);
+      expect(existsSync(`public/static/civilization/earth-stage-${stage.n}-cover-640w.webp`), `earth ${stage.n} 640`).toBe(true);
+      expect(existsSync(`public/static/civilization/earth-stage-${stage.n}-cover-400w.webp`), `earth ${stage.n} 400`).toBe(true);
+    }
+    const triassic = page.html.slice(page.html.indexOf('id="earth-4"'), page.html.indexOf('id="earth-5"'));
+    const cretaceous = page.html.slice(page.html.indexOf('id="earth-6"'), page.html.indexOf('id="earth-7"'));
+    expect(triassic).toContain('三疊紀');
+    expect(triassic).toContain('>產物<');
+    expect(triassic).toContain('>推動力<');
+    expect(cretaceous).toContain('白堊紀');
+    expect(cretaceous).toContain('>產物<');
+    expect(cretaceous).toContain('>推動力<');
+    expect(cjkChars(triassic)).toBeGreaterThanOrEqual(280);
+    expect(cjkChars(cretaceous)).toBeGreaterThanOrEqual(280);
+    const handoff = page.html.slice(page.html.indexOf('交接人類起源'));
+    expect(handoff.indexOf('href="/civilization/cosmos/"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));
+    expect(handoff.indexOf('href="/civilization/origins/"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));
+    const css = readFileSync('src/App.css', 'utf8');
+    expect(css).toContain('.earth-hero');
+    expect(css).toContain('#161c24');
+    expect(css).toContain('.earth-stage .stage-frame:has(img[hidden]) .stage-seal');
   });
 
   it('publishes an indexable ten-stage tech page and hands off to the chronicle', () => {
@@ -607,10 +698,12 @@ describe('homepage today slice', () => {
     expect(html).toContain('class="axis-node"');
     expect(html).toContain('class="layer-cover"');
     const axis = html.slice(html.indexOf('class="milestones"'), html.indexOf('class="chronicle-strip"'));
-    expect(axis.match(/class="axis-node/g)).toHaveLength(5);
+    expect(axis.match(/class="axis-node/g)).toHaveLength(6);
     expect(axis.indexOf('>宇宙<')).toBeGreaterThan(-1);
-    expect(axis.indexOf('>宇宙<')).toBeLessThan(axis.indexOf('>起源<'));
+    expect(axis.indexOf('>宇宙<')).toBeLessThan(axis.indexOf('>地球<'));
+    expect(axis.indexOf('>地球<')).toBeLessThan(axis.indexOf('>起源<'));
     expect(axis).toContain('href="/civilization/cosmos/"');
+    expect(axis).toContain('href="/civilization/earth/"');
     expect(axis).toContain('>起源<');
     expect(axis).toContain('href="/civilization/tech/"');
     expect(axis).toContain('>技術<');
@@ -628,7 +721,9 @@ describe('homepage today slice', () => {
     expect(strip).toContain('href="/civilization/chronicle/#stage-1"');
     expect(strip).toContain('href="/civilization/chronicle/#stage-10"');
     expect(strip).not.toContain('/civilization/cosmos/');
+    expect(strip).not.toContain('/civilization/earth/');
     expect(strip).not.toContain('#cosmo-');
+    expect(strip).not.toContain('#earth-');
     expect(strip).not.toMatch(REDLINE);
     expect(html).not.toContain('node-today');
     expect(html).not.toContain('<p class="axis-title">');

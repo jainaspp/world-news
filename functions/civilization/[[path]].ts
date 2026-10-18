@@ -1,4 +1,4 @@
-import { renderChroniclePage, renderCityPage, renderCivilizationHub, renderCivilizationMiss, renderCosmosPage, renderOriginsPage, renderTechPage } from '../../shared/civilizationPage.js';
+import { renderChroniclePage, renderCityPage, renderCivilizationHub, renderCivilizationMiss, renderCosmosPage, renderEarthPage, renderOriginsPage, renderTechPage } from '../../shared/civilizationPage.js';
 import type { PagesContext } from '../env.js';
 
 function headers(status: number): HeadersInit {
@@ -9,7 +9,7 @@ function headers(status: number): HeadersInit {
   };
 }
 
-/** /civilization/, /civilization/cosmos/, /civilization/origins/, /civilization/tech/, /civilization/city/, and /civilization/chronicle/. Other segments 404 and stay noindex. */
+/** /civilization/, /civilization/cosmos/, /civilization/earth/, /civilization/origins/, /civilization/tech/, /civilization/city/, and /civilization/chronicle/. Other segments 404 and stay noindex. */
 export function onRequest(context: PagesContext): Response {
   const url = new URL(context.request.url);
   const rest = decodeURIComponent(url.pathname.replace(/\/+$/, '').replace(/^\/civilization\/?/, ''));
@@ -17,7 +17,9 @@ export function onRequest(context: PagesContext): Response {
     ? renderCivilizationHub()
     : rest === 'cosmos'
       ? renderCosmosPage()
-      : rest === 'origins'
+      : rest === 'earth'
+        ? renderEarthPage()
+        : rest === 'origins'
         ? renderOriginsPage()
         : rest === 'tech'
           ? renderTechPage()

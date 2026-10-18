@@ -1,0 +1,408 @@
+import { cjkChars, esc, safeHttp } from '../contentPage.js';
+
+/** Thick-page floor. Below this the page stays noindex. */
+export const EARTH_MIN_CHARS = 1200;
+
+export type EarthLine = '環境' | '類群' | '產物' | '推動力';
+
+export interface EarthPart {
+  /** Stable anchor. Jurassic parts keep earth-5-* so the section can be cited. */
+  id?: string;
+  heading: string;
+  text: string;
+}
+
+export interface EarthStage {
+  n: number;
+  name: string;
+  /** Jump-chip label. At most six characters. */
+  short: string;
+  era: string;
+  milestones: string[];
+  meaning: string;
+  lines: EarthLine[];
+  prose: string;
+  parts: EarthPart[];
+}
+
+export interface EarthSource {
+  name: string;
+  note: string;
+  url: string;
+}
+
+const LINES: EarthLine[] = ['環境', '類群', '產物', '推動力'];
+
+export const EARTH_TITLE = '地球生命・深時間';
+
+export const EARTH_LEDE = '宇宙長河已把能量、物質與時空寫到生命起源為止，本頁不再重述暴脹、核合成與星系。這裡接上的是地球生命本身：早期代謝與含氧大氣、寒武紀的身體構型、古生代的海洋與陸地植物，然後是三疊紀、侏羅紀、白堊紀，以及新生代的哺乳動物輻射。年代一律標「約」，採主流綜述，不把單一化石點寫成全球定論。約七百萬年前交接入類起源。本頁只寫自然史。';
+
+const HANDOFF_BACK_A = '更早的能量、物質與時空尺度，仍見';
+const HANDOFF_BACK_B = '；本頁從生命化學與含氧大氣寫起，不把宇宙史再講一遍。';
+const HANDOFF_FWD_A = '約七百萬年前，演化進入人族階段。森林與開闊地的生態背景到此為止，化石、石器與基因組請繼續閱讀';
+const HANDOFF_FWD_B = '。文明制度、技術與貨幣另見';
+const HANDOFF_FWD_C = '，兩條敘事前後銜接、互不覆蓋。';
+export const EARTH_HANDOFF = `${HANDOFF_BACK_A}宇宙長河${HANDOFF_BACK_B}${HANDOFF_FWD_A}人類起源時間線${HANDOFF_FWD_B}文明編年${HANDOFF_FWD_C}`;
+
+export const EARTH_SOURCE_NOTE = '年代與事件表述均採「約／主流綜述」；上表僅列可公眾核對的地質與古生物入口，不作絕對精準年表。階段圖現為紙感佔位。';
+
+export const EARTH_STAGES: EarthStage[] = [
+  {
+    n: 1,
+    name: '早期生命與大氧化',
+    short: '大氧化',
+    era: '約 40–20 億年前',
+    milestones: ['可自我維持的代謝與複製', '氧氣在大氣與淺海顯著累積'],
+    meaning: '為後續複雜細胞與食物網準備化學前提，並與宇宙長河的生命起源粗線相接。',
+    lines: ['環境', '產物', '推動力'],
+    prose: '主流綜述把可自我維持的代謝或複製，放在約四十億至三十五億年前的窗口。具體場所仍有熱液噴口、潮間水體與礦物表面等假說並存，本頁不採單一路徑為定論。其後約二十四億至二十億年前，產氧光合作用使游離氧在大氣與淺海顯著累積，是為大氧化。宇宙長河只保留這條粗線，細節從這裡寫起。',
+    parts: [
+      {
+        heading: '環境',
+        text: '早期地球的地表水已經穩定到足以維持海洋與水循環，但大氣仍以還原性氣體為主。火山供氣、隕石帶來的有機物，以及海底熱液的溫度梯度，為碳、氮、硫的循環提供場所。淺海光照帶與深海無光帶並存，化學條件隨地區而異，不宜寫成全球均一的培養皿。',
+      },
+      {
+        heading: '優勢類群',
+        text: '這一階段的優勢類群是微生物。產甲烷菌、硫酸鹽還原菌與後來的產氧光合細菌，分別占據不同的氧化還原生態位。真核生物的起源通常被放在大氧化之後的數億年裡，線粒體與宿主的合併仍有時間爭議，宜標約。多細胞組織尚未成為化石記錄的主體。',
+      },
+      {
+        heading: '產物',
+        text: '最重要的產物是含氧的水體與大氣，以及由此改寫的礦物組合。條帶狀鐵建造記錄了鐵與氧的反覆相遇。好氧呼吸這條代謝路徑一旦可行，單位有機物所能調動的能量便高於多數厭氧途徑，為後來更大的細胞與食物網留下化學餘地。這是自然史意義上的產物，不是技術產品。',
+      },
+      {
+        heading: '推動力',
+        text: '推動力來自分化本身與地球化學緩衝，而不是一次突然的決策。光合生物把光能固定為有機碳並釋放氧；海洋中的鐵、硫與還原性氣體則消耗氧。當產出持續超過消耗，游離氧才得以積累。氣候與火山排氣會改變這張收支表，所以大氧化的強度與次數仍有綜述區間。',
+      },
+    ],
+  },
+  {
+    n: 2,
+    name: '寒武紀大爆發',
+    short: '寒武紀',
+    era: '約 5.4–4.9 億年前',
+    milestones: ['左右對稱動物的身體構型迅速增多', '捕食與礦化外殼進入化石記錄'],
+    meaning: '生物信息寫進可保存的身體構型，生態位從微生物席擴展到運動與捕食。',
+    lines: ['環境', '類群', '產物', '推動力'],
+    prose: '約五億七千萬至五億四千萬年前，埃迪卡拉生物群已出現多種大型軟體生物。左右對稱、分節、具消化與運動構造的動物，則在寒武紀的化石記錄裡迅速增多。公共敘事稱之為大爆發。它描述的是身體構型與生態關係在地質時間上的相對加快，不是一日之內的事件，也不是此後不再有新門類。',
+    parts: [
+      {
+        heading: '環境',
+        text: '寒武紀的海平面相對較高，廣闊的淺海大陸架為底棲與游泳生物提供空間。大氣與海水含氧量已高於前寒武紀的多數區間，足以支持較活躍的代謝，但局部缺氧仍常見。海底微生物席依然存在，只是不再獨占整個底質。',
+      },
+      {
+        heading: '優勢類群',
+        text: '節肢動物、腕足動物、軟體動物、棘皮動物與早期脊索動物的親屬，在澄江、布爾吉斯等頁岩以及全球碳酸鹽與泥岩中留下可對照的記錄。奇蝦類等大型捕食者顯示，食物網已有明確的營養級。許多類群仍難以放進現生門類，分類位置隨新標本修訂。',
+      },
+      {
+        heading: '產物',
+        text: '這一階段的產物是可礦化的外殼、外骨骼與牙齒狀構造，以及由捕食關係組織起來的海洋食物網。眼、附肢與分節身體使運動和感覺可以寫進解剖，而不只留在化學循環裡。糞化石與捕食痕跡則是行為的地質記錄。植物與複雜陸地生態尚未登場。',
+      },
+      {
+        heading: '推動力',
+        text: '推動力包括氧氣條件的改善、基因調控網絡允許身體分區，以及捕食本身帶來的選擇。礦化可能與海水化學、捕食壓力同時有關，單一原因不足以解釋全球記錄。板塊位置改變淺海面積，但本頁不把某一條海岸線寫成爆發的開關。',
+      },
+    ],
+  },
+  {
+    n: 3,
+    name: '古生代海洋與陸地植物',
+    short: '古生代',
+    era: '約 4.9–2.5 億年前',
+    milestones: ['有頜魚類與陸地植物森林', '四足動物上岸', '二疊紀末類群更替'],
+    meaning: '初級生產從海藻擴展到陸地森林，脊椎動物獲得在空氣中生活的身體前提。',
+    lines: ['環境', '類群', '產物', '推動力'],
+    prose: '寒武紀之後，古生代的其餘時間把生命從淺海推上陸地。奧陶紀海洋動物繼續分化；志留紀至泥盆紀，維管植物與有頜魚類先後成為公共敘事的主線；石炭紀森林大面積發育；二疊紀陸相群落已包括多樣的合弓類。約二億五千二百萬年前的二疊紀末，海洋與陸地同時出現大規模類群更替。主流綜述把它與大規模火山、海洋缺氧和碳循環擾動放在一起討論，相對權重仍有學術討論。本頁只記自然史後果，不寫成災變故事。',
+    parts: [
+      {
+        heading: '環境',
+        text: '古生代的大陸拼合幾經改動，石炭紀至二疊紀逐漸形成盤古大陸的主體。南半球一度有大規模冰川，石炭紀的濕潤低地則適合森林。淺海面積隨海平面升降而伸縮，珊瑚礁與腕足動物群落反覆重組。內陸盆地開始積累河湖沉積，為後來的陸相化石提供場所。',
+      },
+      {
+        heading: '優勢類群',
+        text: '海洋裡，魚類從無頜到有頜，盾皮魚、軟骨魚與硬骨魚先後占據不同生態位。陸上，裸蕨之類的早期植物之後，石松、楔葉與種子蕨組成高大森林；昆蟲發展出飛行。四足動物由肉鰭魚類的一支在泥盆紀進入濱岸，石炭紀與二疊紀已有多樣的兩棲類與羊膜動物。植物與節肢動物的組合，是陸地食物網的基礎。',
+      },
+      {
+        heading: '產物',
+        text: '森林的產物包括木質部、葉與孢子花粉，以及大面積埋藏後形成的煤炭前身。羊膜卵使脊椎動物的繁殖可以離開開闊水面。昆蟲的翅是另一條進入空氣的構造，早於脊椎動物的滑翔與飛行。這些構造把能量與信息固定在身體和地層裡，供後續生態系使用。',
+      },
+      {
+        heading: '推動力',
+        text: '推動力是光照下的陸地初級生產、土壤與根系對岩石風化的改變，以及大陸拼合帶來的氣候分帶。植物加強風化會影響大氣二氧化碳，進而影響氣候，形成緩慢的反饋。二疊紀末的環境壓力則來自地球內部排氣與海洋化學，而不是單一生物類群的「失敗」。',
+      },
+    ],
+  },
+  {
+    n: 4,
+    name: '三疊紀',
+    short: '三疊紀',
+    era: '約 2.52–2.01 億年前',
+    milestones: ['盤古大陸上的乾旱內陸與季風海岸', '主龍類、早期恐龍與哺乳型動物'],
+    meaning: '中生代的身體構型與陸地食物網在災後生態位中重新組織。',
+    lines: ['環境', '類群', '產物', '推動力'],
+    prose: '三疊紀緊接二疊紀末的類群更替，約從二億五千二百萬年前延續到約二億零一百萬年前。它是中生代的開端，也是侏羅紀的直接前鄰。海洋與陸地都經歷漫長的復原：有些類群很快重新占據生態位，有些則要到三疊紀中晚期才多樣化。早期恐龍已經出現，但在許多陸相群落裡尚未獨占優勢。',
+    parts: [
+      {
+        id: 'earth-4-env',
+        heading: '環境',
+        text: '盤古大陸在三疊紀仍大致連成一塊，內陸遠離海岸，季節性乾旱顯著，紅色碎屑岩與蒸發岩常見。赤道與副熱帶可能存在強烈的季風對比：濕季帶來短促的河流與植被，乾季則限制大型森林的連續分布。海侵在中晚期擴大淺海，特提斯海域成為海洋生物復原的重要場所。氣候整體偏暖，極地冰川稀少。以上均為主流綜述的約略圖景，區域剖面並不完全同步。',
+      },
+      {
+        id: 'earth-4-life',
+        heading: '優勢類群',
+        text: '陸上，主龍類分化為鱷形類、翼龍與恐龍等支系；非主龍的合弓類仍在，哺乳型動物的小型夜間生態位開始成形。植食動物包括二齒獸類的殘餘以及後來的恐龍與其他主龍。海洋中，魚龍等海生爬行類、菊石與新的硬骨魚重建食物網，珊瑚礁在中晚期重新發育。植物以裸子植物、種子蕨與蕨類為主，開花植物尚未出現。',
+      },
+      {
+        id: 'earth-4-product',
+        heading: '產物',
+        text: '三疊紀留給侏羅紀的產物，是若干關鍵身體構型：直立步態的主龍類肢骨、翼龍的翼膜前身，以及哺乳型動物的下頜與中耳逐步分化。這些都不是一日完成的器官，而是在三疊紀化石裡可以逐段核對的結構。陸地群落的另一產物，是災後重新接上的食物鏈：初級生產、植食與捕食再次形成可追蹤的營養級。',
+      },
+      {
+        id: 'earth-4-driver',
+        heading: '推動力',
+        text: '推動力首先是空出的生態位與仍在拼合的盤古大陸。內陸乾旱限制了森林規模，也篩選出耐旱的植物與能長距離移動的脊椎動物。晚三疊世的火山活動與氣候濕度變化，與一次較小規模的類群更替時間相近，因果細節仍有討論。板塊尚未大幅裂開，海岸線相對簡單，這與隨後侏羅紀的張裂形成對照。',
+      },
+    ],
+  },
+  {
+    n: 5,
+    name: '侏羅紀',
+    short: '侏羅紀',
+    era: '約 2.01–1.45 億年前',
+    milestones: ['淺海與裸子植物森林並存', '蜥腳類與獸腳類占據多數陸相優勢', '羽毛與翼膜兩條飛行前奏'],
+    meaning: '中生代陸地食物網與飛行構造在張裂的大陸和暖室氣候中成形。',
+    lines: ['環境', '類群', '產物', '推動力'],
+    prose: '侏羅紀約從二億零一百萬年前延續至約一億四千五百萬年前，夾在三疊紀的復原與白堊紀的開花植物、高海平面之間。主流綜述把它看成盤古大陸明顯張裂、淺海擴大、裸子植物森林穩定占據陸地的一段。恐龍在許多陸相盆地成為優勢脊椎動物，但海洋、天空與林下各有自己的類群，不宜寫成單一主角的時代。以下分環境、優勢類群、產物與推動力說明。年代取國際年代地層表的約數，區域化石的首現與末現可以偏早或偏晚。',
+    parts: [
+      {
+        id: 'earth-5-env',
+        heading: '環境',
+        text: '三疊紀末至侏羅紀初，盤古大陸開始沿多條裂谷張開。北大西洋的雛形、特提斯海的擴展，以及岡瓦納與勞亞之間的調整，使海岸線變長，內陸不再像三疊紀那樣整片遠離海洋。水汽更容易進入盆地，河流與湖泊沉積廣布，形成後來稱為大陸紅層與湖相頁岩的多種組合。氣候整體偏暖，主流估計大氣二氧化碳高於今日，極地少見持久冰蓋，但季節性仍然存在，高緯地區並非沒有冬季。淺海大陸架面積大，碳酸鹽台地與缺氧事件形成的黑色頁岩交替出現，記錄了生產力與水體分層的波動。植被以松柏、蘇鐵、銀杏類與蕨類為主，森林可以在廣闊的沿海平原上連續分布。本頁把這些圖景標為約與主流綜述：單一剖面的古溫度數字不宜直接換成全球常數。',
+      },
+      {
+        id: 'earth-5-life',
+        heading: '優勢類群',
+        text: '陸上的優勢植食者，在許多盆地是大型蜥腳類恐龍。它們以高大裸子植物的枝葉為食，長頸與巨大體型是對垂直方向食物的一種解剖回應，消化則依賴發酵，具體生理仍多為推論。獸腳類恐龍占據捕食與雜食的多個體型檔，從小型奔跑者到大型捕食者都有化石。鳥臀類已經出現，裝甲、角與複雜牙列的大輻射，主流綜述多放在稍後的白堊紀。天空中，翼龍是已經能夠主動飛行的脊椎動物。海洋裡，魚龍、蛇頸龍與海生鱷形類分占不同營養級，菊石與箭石是常見的頭足類，硬骨魚繼續分化；礁體由六射珊瑚等建造。林下與土壤中，昆蟲多樣，部分類群與植物的相互關係加深。哺乳型動物仍然小型，多被放在夜間或隱蔽生態位，卻已在侏羅紀留下更完整的骨骼。沒有一個類群單獨定義這個紀。',
+      },
+      {
+        id: 'earth-5-product',
+        heading: '產物',
+        text: '侏羅紀在自然史上的產物，是一批可以在化石裡核對的構造與生態關係。羽毛或羽毛狀皮膚衍生物見於多件獸腳類標本。近鳥類、曉廷龍等中晚侏羅世化石，把分枝狀羽毛前推到鳥類起飛之前；主流綜述把它們理解為顯示、保溫，以及空氣動力的前奏，而不是某一日突然完成的振翅飛行。哪些屬種已經能滑翔、哪些仍以地面展示為主，仍隨新標本與空氣動力模型修訂。翼龍的翼膜、加長的第四指與輕盈骨骼，是另一條飛行路線的產物，與後來鳥類的羽毛翅膀並非同一器官。植物方面，高大裸子植物林產出木材、樹脂、花粉與落葉，這些材料既餵養植食動物，也在湖沼裡成為可保存的信息載體。淺海則把浮游與底棲生產力固化為碳酸鹽與頁岩。恐龍的足跡、巢與蛋化石，使行為不再只靠骨骼推測。以上都是身體、生態與地層意義上的產物。',
+      },
+      {
+        id: 'earth-5-driver',
+        heading: '推動力',
+        text: '推動侏羅紀生物格局的，主要是板塊運動與氣候，而不是單一的災變或目的論上的進步。大陸張裂改變洋流與水汽路徑，內陸盆地更容易維持植被與河流，大型植食恐龍從而獲得比較連續的初級生產。海平面相對較高，大陸架面積擴大，海洋生物的棲息空間增加；洋中脊活動與火山排氣影響碳循環，維持暖室氣候，使高緯地區也能出現森林。氧氣與二氧化碳的具體濃度仍有模型差異，本頁只記方向：相對溫暖、海岸線破碎、陸相盆地發育。在這個舞台上，選擇來自捕食、植物的高度與防衛、以及空氣動力對滑翔和飛行的篩選。侏羅紀與白堊紀之交有類群進退，但主流敘事把它看成漸進和區域性的更替，不宜寫成末日。三疊紀留下的身體構型，在這些推動力下展開為侏羅紀的食物網；白堊紀則在此基礎上迎來開花植物與更高的海平面。',
+      },
+    ],
+  },
+  {
+    n: 6,
+    name: '白堊紀與末期更替',
+    short: '白堊紀',
+    era: '約 1.45–0.66 億年前',
+    milestones: ['開花植物擴展', '高海平面與白堊沉積', '約 6600 萬年前的類群更替'],
+    meaning: '中生代食物網在開花植物與廣海條件下重組，並在紀末讓出一批陸地與海洋生態位。',
+    lines: ['環境', '類群', '產物', '推動力'],
+    prose: '白堊紀約從一億四千五百萬年前至約六千六百萬年前，是中生代的最後一段，也是侏羅紀格局的延續與改寫。大陸繼續裂解，海平面在許多時段更高，開花植物進入化石記錄並逐步改變陸地初級生產。約六千六百萬年前，非鳥恐龍、菊石與部分海生爬行類等類群大規模消失。主流綜述同時討論小行星撞擊與大規模火山活動兩條環境壓力，兩者的相對權重仍有學術討論。本頁只記自然史後果。',
+    parts: [
+      {
+        id: 'earth-6-env',
+        heading: '環境',
+        text: '南大西洋張開，岡瓦納進一步拆分為今天各大洋所包圍的陸塊雛形。淺海多次漫上大陸內部，形成廣闊的陸表海，白堊這種顆粒極細的碳酸鹽沉積因而得名。氣候在多數時段溫暖，白堊紀中期有過顯著的高溫區間，區域性的缺氧事件在頁岩裡留下記錄。內陸盆地仍然發育河流與湖泊，與侏羅紀相比，沿海平原的規模往往更大。',
+      },
+      {
+        id: 'earth-6-life',
+        heading: '優勢類群',
+        text: '恐龍仍然是許多陸相生態系的大型脊椎動物：鴨嘴龍類、角龍類、甲龍類與暴龍類等在晚白堊世尤為常見，地理分區隨大陸裂解而加深。鳥類已經多樣，並在紀末之後延續。哺乳動物仍以小型類群為主。海洋中，滄龍取代了侏羅紀部分魚龍的生態位，蛇頸龍仍然存在，菊石到達形態上的高峰。開花植物從早白堊世的局部出現，擴展到晚白堊世的多種葉形與花粉類型；裸子植物並未消失。',
+      },
+      {
+        id: 'earth-6-product',
+        heading: '產物',
+        text: '白堊紀最顯著的產物是開花植物的花、果實與更有效的導水構造，以及與之相伴的昆蟲傳粉關係。花粉記錄使這項產物可以跨地區對比。鳥類的飛翔羽與龍骨突，把侏羅紀的羽毛前奏推進到更完整的飛行身體。白堊沉積本身是海洋鈣質超微化石的地質產物，記錄了開闊海洋的生產力。這些產物改寫了接下來新生代所能繼承的生態基礎。',
+      },
+      {
+        id: 'earth-6-driver',
+        heading: '推動力',
+        text: '板塊繼續張裂，推動海平面、洋流與生物地理分區。開花植物改變了林冠結構與昆蟲食物，形成新的選擇。紀末的環境壓力來自地外撞擊與大火成岩省的排氣，兩者都可能在短於平常演化節奏的時間裡改變光照、溫度與食物鏈；細節與先後仍在修訂。更替之後空出的生態位，是新生代哺乳動物與鳥類輻射的前提，而不是敘事上的終點。',
+      },
+    ],
+  },
+  {
+    n: 7,
+    name: '新生代哺乳動物輻射',
+    short: '哺乳輻射',
+    era: '約 6600 萬年前起',
+    milestones: ['古近紀體型與食性迅速分化', '新近紀草地擴展與食草動物'],
+    meaning: '中生代讓出的生態位被哺乳動物、鳥類與開花植物森林重新填滿。',
+    lines: ['環境', '類群', '產物', '推動力'],
+    prose: '約六千六百萬年前之後，新生代開始。哺乳動物在古近紀迅速分化出多種體型與食性，鳥類占據飛行與地面的多個生態位，開花植物森林在溫暖期大面積分布。約三千四百萬年前起氣候整體轉涼，南極冰蓋逐步發育；新近紀草地擴展，食草哺乳動物的高冠牙與群居生態成為陸相主線之一。靈長類在熱帶森林中分化。這些都是人族出現之前的生態背景。',
+    parts: [
+      {
+        heading: '環境',
+        text: '古近紀早期繼承了溫暖氣候，高緯地區可見森林。其後溫度下降，海陸分布逐漸接近今日的輪廓，但仍有重要差異：特提斯殘海逐步封閉，青藏高原的隆起在新近紀顯著影響亞洲季風，具體高度與時間仍有討論。草地在中新世前後擴展，森林則在熱帶與部分溫帶保留。',
+      },
+      {
+        heading: '優勢類群',
+        text: '早期新生代的優勢大型動物包括多種現已消失的哺乳動物目，以及鱷魚、不飛鳥在局部生態系中的角色。稍後，奇蹄類、偶蹄類、長鼻類與食肉類重新組織陸地食物網。鯨類回到海洋。靈長類從原猴類到猿類的分化，發生在森林環境中。人類譜系的細節留到下一階段與人類起源頁，此處只確認靈長類已經在場。',
+      },
+      {
+        heading: '產物',
+        text: '高冠牙、反芻與蹄行，是草地擴展的解剖產物。靈長類的抓握與立體視覺，是樹棲生活的產物。開花植物的果實與種子繼續改寫動物的食性。這些構造都在化石與現生比較中可被核對，出現時間標約。',
+      },
+      {
+        heading: '推動力',
+        text: '推動力是紀末空出的生態位、氣候轉涼，以及草地對森林的部分替代。構造隆起改變區域降雨。選擇因此從「誰能在森林裡做小型夜行者」轉向「誰能利用開闊地的草與視線」。這一段不寫技術，也不寫制度。',
+      },
+    ],
+  },
+  {
+    n: 8,
+    name: '交接人族',
+    short: '交接人族',
+    era: '約 700 萬年前',
+    milestones: ['非洲森林—開闊地環境', '早期人族與其他猿類分途'],
+    meaning: '地球生命頁在人族分化處收束，交接入類起源。',
+    lines: ['環境', '類群', '產物', '推動力'],
+    prose: '約七百萬年前，主流綜述認為人族與黑猩猩譜系的共同祖先所在支系，在非洲開始分途。確切的屬種、地點與年份仍會隨新化石移動，本頁只用約數標出交接點。此前數千萬年的靈長類演化、草地與森林的並存，已經寫在新生代一節。這裡不再展開直立行走的細節、石器或走出非洲，那些屬於人類起源時間線。',
+    parts: [
+      {
+        heading: '環境',
+        text: '晚中新世的非洲，森林、疏林與更開闊的草地同時存在，比例隨地區和軌道尺度的氣候波動而改變。水源沿河谷分布。這個鑲嵌環境是早期人族的生態舞台，不是單一草原取代全部森林的瞬間。',
+      },
+      {
+        heading: '優勢類群',
+        text: '當時的優勢大型動物仍是各類食草哺乳動物與食肉類。猿類只是森林與林緣的一支。人族的出現不意味其他類群退場，只意味此後的敘事可以改從人族化石寫起。',
+      },
+      {
+        heading: '產物',
+        text: '在交接點上，可以確認的產物是樹棲靈長類已經具備的感覺與運動基礎，以及開闊地所要求的不同移動方式。哪些化石已經習慣雙足、哪些仍以樹棲為主，留給人類起源頁按標本討論。',
+      },
+      {
+        heading: '推動力',
+        text: '推動這一次譜系分途的，是非洲氣候波動與棲息地鑲嵌，而不是地球生命頁所能展開的文化或技術。板塊尺度的隆起與季風，只作為更早新生代推動力的延續。約七百萬年這個數字是主流綜述的約數。',
+      },
+    ],
+  },
+];
+
+export const EARTH_SOURCES: EarthSource[] = [
+  { name: 'International Commission on Stratigraphy · Chart', note: '國際年代地層表，紀與世的約略界線', url: 'https://stratigraphy.org/chart' },
+  { name: 'UCMP · The Jurassic Period', note: '侏羅紀氣候、恐龍、海洋爬行類與植物的公共綜述', url: 'https://ucmp.berkeley.edu/mesozoic/jurassic/jurassic.php' },
+  { name: 'UCMP · The Triassic Period', note: '三疊紀盤古大陸、主龍類與災後復原', url: 'https://ucmp.berkeley.edu/mesozoic/triassic/triassic.php' },
+  { name: 'UCMP · The Cretaceous Period', note: '白堊紀開花植物、高海平面與紀末更替', url: 'https://ucmp.berkeley.edu/mesozoic/cretaceous/cretaceous.php' },
+  { name: 'UCMP · The Proterozoic Eon', note: '元古宙與大氧化的公共入口', url: 'https://ucmp.berkeley.edu/precambrian/proterozoic.php' },
+  { name: 'British Geological Survey · Geological time', note: '地質時間與化石記錄的科普入口', url: 'https://www.bgs.ac.uk/discovering-geology/fossils-and-geological-time/geological-time/' },
+  { name: 'Smithsonian · Paleontology teaching resources', note: '古生物與深時間公共教學入口', url: 'https://naturalhistory.si.edu/education/teaching-resources/paleontology' },
+  { name: '中國科學院南京地質古生物研究所', note: '國內地層古生物研究與科學傳播入口', url: 'https://www.nigpas.cas.cn/' },
+];
+
+export function earthStageHref(stage: number): string {
+  return `/civilization/earth/#earth-${stage}`;
+}
+
+export function earthStageText(stage: EarthStage): string {
+  return [stage.prose, ...stage.parts.flatMap((part) => [part.heading, part.text])].join('\n');
+}
+
+/** Essay counted for the index floor. Source URLs and chrome stay out. */
+export function earthProse(): string {
+  return [
+    EARTH_TITLE,
+    EARTH_LEDE,
+    ...EARTH_STAGES.flatMap((stage) => [stage.name, stage.era, ...stage.milestones, stage.meaning, earthStageText(stage), ...stage.lines]),
+    EARTH_HANDOFF,
+    EARTH_SOURCE_NOTE,
+    ...EARTH_SOURCES.flatMap((row) => [row.name, row.note]),
+    ...LINES,
+  ].join('\n');
+}
+
+export function earthIndexable(): boolean {
+  return EARTH_STAGES.length === 8 && cjkChars(earthProse()) >= EARTH_MIN_CHARS;
+}
+
+function ordinal(n: number): string {
+  return String(n).padStart(2, '0');
+}
+
+function lineChips(lines: readonly string[]): string {
+  return `<p class="line-chips">${lines.map((line) => `<span class="line-chip">${esc(line)}</span>`).join('')}</p>`;
+}
+
+const CIV = '/static/civilization';
+
+function paperSeal(n: number): string {
+  return `<span class="stage-seal">${ordinal(n)}</span>`;
+}
+
+/**
+ * Cover slot for every stage. Files may be paper placeholders until art arrives.
+ * 640 stays the src; 1280w is the high-DPR candidate. onerror reveals the seal.
+ */
+export function earthCoverImg(stage: EarthStage, eager: boolean): string {
+  const base = `${CIV}/earth-stage-${stage.n}-cover`;
+  const loading = eager ? 'eager' : 'lazy';
+  const priority = eager ? ' fetchpriority="high"' : '';
+  const alt = `${stage.name}：紙感佔位，年代為約數`;
+  return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w, ${base}-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
+}
+
+function sourceHref(url: string): string {
+  const safe = safeHttp(url);
+  return safe ? esc(safe) : '';
+}
+
+function partHtml(stage: EarthStage): string {
+  return stage.parts.map((part) => {
+    const id = part.id ? ` id="${esc(part.id)}"` : '';
+    return `<div class="earth-part"${id}><h3>${esc(part.heading)}</h3><p>${esc(part.text)}</p></div>`;
+  }).join('');
+}
+
+function stageSection(stage: EarthStage): string {
+  const points = stage.milestones.map((item) => `<li>${esc(item)}</li>`).join('');
+  const jurassic = stage.n === 5 ? '<p class="stage-links"><a href="#earth-5-env">環境</a><a href="#earth-5-life">優勢類群</a><a href="#earth-5-product">產物</a><a href="#earth-5-driver">推動力</a></p>' : '';
+  return `<section class="chronicle-stage earth-stage" id="earth-${stage.n}" data-stage="${stage.n}">
+    <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
+    <h2 tabindex="-1">${esc(stage.name)}</h2>
+    <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${earthCoverImg(stage, stage.n === 1)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 紙感佔位 · 約數</figcaption></figure>
+    <ul class="stage-milestones">${points}</ul>
+    <p>${esc(stage.prose)}</p>
+    ${jurassic}
+    ${partHtml(stage)}
+    <p class="stage-meaning">${esc(stage.meaning)}</p>
+    ${lineChips(stage.lines)}
+  </section>`;
+}
+
+function sourceTable(): string {
+  const body = EARTH_SOURCES.map((row, index) => {
+    const href = sourceHref(row.url);
+    const link = href ? `<a href="${href}">${esc(row.url)}</a>` : esc(row.url);
+    return `<tr><td>${index + 1}</td><td>${esc(row.name)}</td><td>${esc(row.note)}</td><td>${link}</td></tr>`;
+  }).join('');
+  return `<table class="civ-table"><thead><tr><th>#</th><th>機構／入口</th><th>說明</th><th>網址</th></tr></thead><tbody>${body}</tbody></table>`;
+}
+
+export function renderEarthArticle(): string {
+  const nav = EARTH_STAGES.map((stage) => `<a class="chip" href="#earth-${stage.n}">${ordinal(stage.n)} ${esc(stage.short)}</a>`).join('');
+  return `<article class="civ-article earth-page">
+    <header class="earth-hero">
+      <p class="kicker">Deep life · 地球生命</p>
+      <h1 class="column-title civ-page-title">${esc(EARTH_TITLE)}</h1>
+    </header>
+    <p class="deep-time-return"><a href="/civilization/cosmos/">上一層：宇宙長河</a></p>
+    <p>${esc(EARTH_LEDE.split('約七百萬年前交接入類起源。')[0] ?? '')}<a href="/civilization/origins/">約七百萬年前交接入類起源</a>。${esc(EARTH_LEDE.split('約七百萬年前交接入類起源。')[1] ?? '')}</p>
+    ${lineChips(LINES)}
+    <nav class="chronicle-nav earth-nav" aria-label="跳到地球生命階段">${nav}</nav>
+    ${EARTH_STAGES.map(stageSection).join('')}
+    <h2>交接人類起源</h2>
+    <p>${esc(HANDOFF_BACK_A)}<a href="/civilization/cosmos/">宇宙長河</a>${esc(HANDOFF_BACK_B)}</p>
+    <p>${esc(HANDOFF_FWD_A)}<a href="/civilization/origins/">人類起源時間線</a>${esc(HANDOFF_FWD_B)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_FWD_C)}</p>
+    <p class="stage-links"><a href="/civilization/cosmos/">返回宇宙長河</a><a href="/civilization/origins/">約七百萬年前，演化進入人族階段</a><a href="/civilization/earth/#earth-5">侏羅紀專節</a><a href="/civilization/">返回文明總覽</a></p>
+    <h2>來源</h2>
+    ${sourceTable()}
+    <p class="stage-source">${esc(EARTH_SOURCE_NOTE)}</p>
+    <p class="civ-ai"><span class="badge">AI 整合</span> 本頁由公開科普與主流綜述入口整合，僅供研究與編輯參考。</p>
+  </article>`;
+}
