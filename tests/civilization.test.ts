@@ -400,7 +400,12 @@ describe('civilization thick pages', () => {
     expect(css).toContain('.cosmo-starmap-figure {\n  position: relative;\n  min-width: 560px;');
     expect(css).toContain('min-height: 44px');
     expect(css).toContain('aspect-ratio: 16 / 9');
-    expect(css).toContain('max-height: min(52vh, 360px)');
+    expect(css).toContain('.cosmo-scale-frame');
+    expect(css).toContain('padding-bottom: 56.25%');
+    expect(css).toContain('object-fit: contain');
+    expect(css).not.toContain('max-height: min(52vh, 360px)');
+    expect(page.html).toContain('class="cosmo-scale-frame"');
+    expect(page.html).not.toContain('sizes="(max-width: 640px) 100vw, 640px"');
     expect(css).toContain('.cosmo-star-link,\n  .cosmo-star-dot,\n  .cosmo-scale-levels li { animation: none; transition: none; }');
     const jump = readFileSync('public/columns.js', 'utf8');
     expect(jump).toContain('.cosmo-starmap');
