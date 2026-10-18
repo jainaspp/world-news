@@ -1,4 +1,5 @@
 import { cjkChars, esc, safeHttp } from '../contentPage.js';
+import { milestoneBlockProse, milestoneBlockSources, renderMilestoneBlocks } from './milestoneBlock.js';
 
 /** Thick-page floor from the chronicle brief. Below this the page stays noindex. */
 export const CHRONICLE_MIN_CHARS = 1200;
@@ -178,12 +179,21 @@ export function chronicleStageHref(stage: number): string {
   return `/civilization/chronicle/#stage-${stage}`;
 }
 
+/**
+ * Display order comes from the data: stages render sorted by `n`, so the
+ * canonical order is configurable in one place while `#stage-N` anchors stay
+ * stable regardless of array order.
+ */
+export function chronicleStagesOrdered(): ChronicleStage[] {
+  return [...CHRONICLE_STAGES].sort((a, b) => a.n - b.n);
+}
+
 export function chronicleCardMilestones(stage: ChronicleStage): string[] {
   return stage.milestones.slice(0, 2);
 }
 
 export function chronicleCardProse(): string {
-  return CHRONICLE_STAGES.map((stage) => [
+  return chronicleStagesOrdered().map((stage) => [
     stage.name,
     stage.era,
     ...chronicleCardMilestones(stage),
@@ -198,7 +208,7 @@ export function chronicleProse(): string {
     CHRONICLE_TITLE,
     CHRONICLE_LEDE,
     CHRONICLE_HOW,
-    ...CHRONICLE_STAGES.flatMap((stage) => [stage.name, stage.era, ...stage.milestones, stage.meaning, stage.prose, ...stage.lines]),
+    ...chronicleStagesOrdered().flatMap((stage) => [stage.name, stage.era, ...stage.milestones, stage.meaning, stage.prose, ...stage.lines, milestoneBlockProse(stage.n)]),
     CHRONICLE_SUMMARY,
     CHRONICLE_BRIDGE,
     ...LINES,
@@ -234,12 +244,12 @@ function stageCoverImg(stage: ChronicleStage, eager: boolean): string {
 }
 
 export function renderChronicleStrip(): string {
-  const items = CHRONICLE_STAGES.map((stage) => `<li><a class="stage-dot" href="${chronicleStageHref(stage.n)}"><span class="thumb" data-stage="${stage.n}">${paperSeal(stage.n)}</span><span class="name">${esc(stage.short)}</span></a></li>`).join('');
+  const items = chronicleStagesOrdered().map((stage) => `<li><a class="stage-dot" href="${chronicleStageHref(stage.n)}"><span class="thumb" data-stage="${stage.n}">${paperSeal(stage.n)}</span><span class="name">${esc(stage.short)}</span></a></li>`).join('');
   return `<nav class="chronicle-strip" aria-label="文明編年"><ol class="chronicle-track">${items}</ol></nav>`;
 }
 
 export function renderStageGrid(): string {
-  const cards = CHRONICLE_STAGES.map((stage) => {
+  const cards = chronicleStagesOrdered().map((stage) => {
     const href = chronicleStageHref(stage.n);
     const points = chronicleCardMilestones(stage).map((item) => `<li>${esc(item)}</li>`).join('');
     const origins = stage.origins ? '<a href="/civilization/origins/">詳見起源</a>' : '';
@@ -283,16 +293,23 @@ function stageSection(stage: ChronicleStage): string {
     <p>${esc(stage.prose)}</p>
     <p class="stage-meaning">${esc(stage.meaning)}</p>
     ${lineChips(stage.lines)}
+    ${renderMilestoneBlocks(stage)}
     ${source}
     ${origins}
   </section>`;
 }
 
 function sourceTable(): string {
+  const seen = new Set<string>();
   const rows: ChronicleSource[] = [
-    ...CHRONICLE_STAGES.map((stage) => ({ stage: String(stage.n), name: stage.sourceName, url: stage.sourceUrl })),
+    ...chronicleStagesOrdered().map((stage) => ({ stage: String(stage.n), name: stage.sourceName, url: stage.sourceUrl })),
+    ...milestoneBlockSources(),
     ...CHRONICLE_EXTRA_SOURCES,
-  ];
+  ].filter((row) => {
+    if (seen.has(row.url)) return false;
+    seen.add(row.url);
+    return true;
+  });
   const body = rows.map((row) => {
     const href = sourceHref(row.url);
     const link = href ? `<a href="${href}">${esc(row.url)}</a>` : esc(row.url);
@@ -302,7 +319,8 @@ function sourceTable(): string {
 }
 
 export function renderChronicleArticle(): string {
-  const nav = CHRONICLE_STAGES.map((stage) => `<a class="chip" href="#stage-${stage.n}">${ordinal(stage.n)} ${esc(stage.short)}</a>`).join('');
+  const stages = chronicleStagesOrdered();
+  const nav = stages.map((stage) => `<a class="chip" href="#stage-${stage.n}">${ordinal(stage.n)} ${esc(stage.short)}</a>`).join('');
   const lede = CHRONICLE_LEDE.split('\n').map((paragraph) => `<p>${esc(paragraph)}</p>`).join('');
   return `<article class="civ-article chronicle-page">
     <h1 class="column-title civ-page-title">${esc(CHRONICLE_TITLE)}</h1>
@@ -311,7 +329,7 @@ export function renderChronicleArticle(): string {
     <h2>如何閱讀本編年</h2>
     <p>${esc(CHRONICLE_HOW)}</p>
     <nav class="chronicle-nav" aria-label="跳到階段">${nav}</nav>
-    ${CHRONICLE_STAGES.map(stageSection).join('')}
+    ${stages.map(stageSection).join('')}
     <h2>四線總結</h2>
     <p>${esc(CHRONICLE_SUMMARY)}</p>
     <h2>與今日新聞的銜接</h2>
