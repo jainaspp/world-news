@@ -202,6 +202,8 @@ describe('civilization thick pages', () => {
     expect(originsCard).toContain('人類起源：深時間溫和示意');
     const techCard = aside.slice(aside.indexOf('href="/civilization/tech/"'), aside.indexOf('href="/civilization/city/"'));
     expect(techCard).toContain('src="/static/civilization/node-tech-v1.jpg"');
+    expect(techCard).toContain('civ-layer-tech-400w.webp 400w');
+    expect(techCard).toContain('civ-layer-tech-640w.webp 640w');
     expect(techCard).toContain('科技與發現');
     const cityCard = aside.slice(aside.indexOf('href="/civilization/city/"'));
     expect(cityCard).toContain('src="/static/civilization/node-city-v1.jpg"');
@@ -229,6 +231,8 @@ describe('civilization thick pages', () => {
       'civ-hub-hero-1200w.webp',
       'node-city-v1.jpg',
       'node-tech-v1.jpg',
+      'civ-layer-tech-400w.webp',
+      'civ-layer-tech-640w.webp',
       'MANIFEST.md',
     ]) {
       expect(existsSync(`public/static/civilization/${file}`), file).toBe(true);
@@ -432,8 +436,10 @@ describe('civilization thick pages', () => {
       expect(section).toContain('class="civ-figure"');
       expect(section).toContain(`src="/static/civilization/tech-stage-${stage.n}-cover-640w.webp"`);
       expect(section).toContain(`tech-stage-${stage.n}-cover-400w.webp 400w`);
+      expect(section).toContain(`tech-stage-${stage.n}-cover-1280w.webp 1280w`);
       expect(section).toContain('onerror="this.hidden=true"');
       expect(section).toContain('class="stage-seal"');
+      expect(existsSync(`public/static/civilization/tech-stage-${stage.n}-cover-1280w.webp`), `tech ${stage.n} 1280`).toBe(true);
       expect(existsSync(`public/static/civilization/tech-stage-${stage.n}-cover-640w.webp`), `tech ${stage.n} 640`).toBe(true);
       expect(existsSync(`public/static/civilization/tech-stage-${stage.n}-cover-400w.webp`), `tech ${stage.n} 400`).toBe(true);
       for (const line of stage.lines) expect(section).toContain(`>${line}<`);
