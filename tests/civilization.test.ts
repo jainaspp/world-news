@@ -505,7 +505,8 @@ describe('civilization thick pages', () => {
     const jump = readFileSync('public/columns.js', 'utf8');
     expect(jump).toContain('.cosmo-starmap');
     expect(jump).toContain('prefers-reduced-motion: reduce');
-    expect(jump).toContain('scrollIntoView');
+    expect(jump).toContain('placeHashTarget');
+    expect(jump).toContain('syncCivAnchorOffset');
     expect(page.html).toContain('href="/civilization/"');
     expect(page.html).toContain('href="/civilization/earth/"');
     expect(page.html).toContain('href="/civilization/origins/"');
@@ -994,7 +995,10 @@ describe('civilization slice', () => {
     const css = readFileSync('src/App.css', 'utf8');
     const motion = css.slice(css.indexOf('Civilization axis motion'));
     expect(motion).toContain('html.civ-motion body:not(.static) .civ-reveal:not(.is-inview):not(.civ-reveal--above-fold)');
-    expect(css).toContain('--civ-anchor-offset: 180px');
+    const anchorDecl = css.match(/--civ-anchor-offset:\s*(\d+)px/);
+    expect(anchorDecl).toBeTruthy();
+    expect(Number(anchorDecl?.[1])).toBeGreaterThanOrEqual(220);
+    expect(css).not.toContain('--civ-anchor-offset: 180px');
     expect(motion).toContain('scroll-margin-top: var(--civ-anchor-offset)');
     expect(css).not.toContain('scroll-margin-top: 136px');
     expect(motion).toContain('#jurassic');
@@ -1021,7 +1025,14 @@ describe('civilization slice', () => {
     expect(js).toContain('data-civ-motion');
     expect(js).toContain('.cosmo-starmap');
     expect(js).toContain('prefers-reduced-motion: reduce');
-    expect(js).toContain('scrollIntoView');
+    expect(js).toContain('syncCivAnchorOffset');
+    expect(js).toContain('querySelector(\'.chrome\')');
+    expect(js).toContain('offsetHeight');
+    expect(js).toContain('height + 16');
+    expect(js).toContain('--civ-anchor-offset');
+    expect(js).toContain('orientationchange');
+    expect(js).toContain('ResizeObserver');
+    expect(js).toContain('placeHashTarget');
     expect(js).toContain('body.classList.contains(\'static\')');
     expect(js).not.toContain('lenis');
     expect(js).not.toContain('scroll-behavior');
