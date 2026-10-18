@@ -284,7 +284,7 @@ export function renderLayerAside(): string {
         <p>工具、能源、媒介與知識。從深時間石器到今日新聞切片。</p>
       </a>
       <a class="layer-card layer-primary" href="/civilization/city/">
-        ${layerCover(`${CIV}/node-city-v1.jpg`, '城市・基建・民生示意')}
+        ${layerCover(`${CIV}/node-city-v1.jpg`, '城市・基建・民生示意', `${CIV}/civ-layer-city-400w.webp 400w, ${CIV}/civ-layer-city-640w.webp 640w`)}
         <div class="era">公共生活</div>
         <h3>城市・基建・民生</h3>
         <p>聚落、公共工程與日常公共生活。香港地標只作本地案例。</p>

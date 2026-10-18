@@ -207,6 +207,8 @@ describe('civilization thick pages', () => {
     expect(techCard).toContain('科技與發現');
     const cityCard = aside.slice(aside.indexOf('href="/civilization/city/"'));
     expect(cityCard).toContain('src="/static/civilization/node-city-v1.jpg"');
+    expect(cityCard).toContain('civ-layer-city-400w.webp 400w');
+    expect(cityCard).toContain('civ-layer-city-640w.webp 640w');
     expect(cityCard).toContain('城市・基建・民生');
     for (const file of [
       'civ-home-axis-bg-640w.webp',
@@ -233,6 +235,8 @@ describe('civilization thick pages', () => {
       'node-tech-v1.jpg',
       'civ-layer-tech-400w.webp',
       'civ-layer-tech-640w.webp',
+      'civ-layer-city-400w.webp',
+      'civ-layer-city-640w.webp',
       'MANIFEST.md',
     ]) {
       expect(existsSync(`public/static/civilization/${file}`), file).toBe(true);
@@ -497,8 +501,10 @@ describe('civilization thick pages', () => {
       expect(section).toContain('class="civ-figure"');
       expect(section).toContain(`src="/static/civilization/city-stage-${stage.n}-cover-640w.webp"`);
       expect(section).toContain(`city-stage-${stage.n}-cover-400w.webp 400w`);
+      expect(section).toContain(`city-stage-${stage.n}-cover-1280w.webp 1280w`);
       expect(section).toContain('onerror="this.hidden=true"');
       expect(section).toContain('class="stage-seal"');
+      expect(existsSync(`public/static/civilization/city-stage-${stage.n}-cover-1280w.webp`), `city ${stage.n} 1280`).toBe(true);
       expect(existsSync(`public/static/civilization/city-stage-${stage.n}-cover-640w.webp`), `city ${stage.n} 640`).toBe(true);
       expect(existsSync(`public/static/civilization/city-stage-${stage.n}-cover-400w.webp`), `city ${stage.n} 400`).toBe(true);
       for (const line of stage.lines) expect(section).toContain(`>${line}<`);
