@@ -278,7 +278,7 @@ export function renderLayerAside(): string {
         <p>解剖學現代人到全球擴張。約三十萬年前起的年表。</p>
       </a>
       <a class="layer-card layer-primary" href="/civilization/tech/">
-        ${layerCover(`${CIV}/node-tech-v1.jpg`, '科技與發現：公共科普示意')}
+        ${layerCover(`${CIV}/node-tech-v1.jpg`, '科技與發現：公共科普示意', `${CIV}/civ-layer-tech-400w.webp 400w, ${CIV}/civ-layer-tech-640w.webp 640w`)}
         <div class="era">發現</div>
         <h3>科技與發現</h3>
         <p>工具、能源、媒介與知識。從深時間石器到今日新聞切片。</p>
