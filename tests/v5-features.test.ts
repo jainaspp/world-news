@@ -84,7 +84,7 @@ describe('SSR homepage feed', () => {
     const injected = injectHomeShell(shell, [{ ...sample, excerpt: 'EXCERPT_SHOULD_NOT_LEAK_INTO_HTML' }]);
     expect(injected).toContain('id="wn-bootstrap"');
     expect(injected).not.toContain('EXCERPT_SHOULD_NOT_LEAK');
-    expect(injected).toContain('rel="preload"');
+    expect(injected).not.toContain('rel="preload" as="image"');
     expect(injected).toContain('story-hero');
   });
 });

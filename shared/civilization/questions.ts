@@ -123,16 +123,16 @@ export const CIV_QUESTIONS: readonly CivQuestion[] = [
     precedent: '現代金融',
   },
   {
-    id: 'chemical-energy',
-    question: '化學能量在生物圈如何被調動？',
-    href: '/civilization/earth/#earth-1',
-    precedent: '早期生命與大氧化',
+    id: 'planet-budget',
+    question: '行星能量收支如何被核對？',
+    href: '/civilization/#future-f1',
+    precedent: '能量宜居',
   },
   {
-    id: 'deep-cooperate',
-    question: '語言與計劃如何在深時間累積？',
-    href: '/civilization/origins/',
-    precedent: '人類起源',
+    id: 'risk-record',
+    question: '生存風險如何被事後核對？',
+    href: '/civilization/#future-f6',
+    precedent: '生存風險',
   },
 ];
 

@@ -190,9 +190,14 @@ describe('civilization thick pages', () => {
     expect(hub.html).toContain('<p class="axis-title">站在一條很長的時間軸上</p>');
     expect(hub.html).toContain('今日落點');
     expect(hub.html).not.toContain('尚未收錄');
-    const pin = hub.html.slice(hub.html.indexOf('class="today-pin"'), hub.html.indexOf('aria-label="文明層"'));
-    expect(pin).toContain('深時間 · 起源里程碑');
-    expect(pin).toContain('href="/civilization/origins/"');
+    const pinStart = hub.html.indexOf('class="today-pin"');
+    const pin = hub.html.slice(pinStart, hub.html.indexOf('</section>', pinStart));
+    expect(pin).toContain('編年 · 信息革命');
+    expect(pin).toContain('href="/civilization/chronicle/#stage-9"');
+    expect(pin).not.toContain('深時間 · 起源里程碑');
+    expect(pin).not.toContain('href="/civilization/origins/"');
+    expect(hub.html.indexOf('class="deep-time"')).toBeLessThan(pinStart);
+    expect(pinStart).toBeLessThan(hub.html.indexOf('id="future"'));
     expect(heritageBlocked(pin)).toBe(false);
     const missed = renderCivilizationMiss();
     expect(missed.status).toBe(404);
@@ -878,15 +883,28 @@ describe('homepage today slice', () => {
     expect(axis).toContain('>技術<');
     expect(axis).toContain('href="/civilization/city/"');
     expect(axis).toContain('>城市<');
-    expect(axis.indexOf('>城市<')).toBeLessThan(axis.indexOf('>未來<'));
-    expect(axis.indexOf('>未來<')).toBeLessThan(axis.indexOf('>今天<'));
+    expect(axis.indexOf('>城市<')).toBeLessThan(axis.indexOf('>今天<'));
+    expect(axis.indexOf('>今天<')).toBeLessThan(axis.indexOf('>未來<'));
     expect(axis).toContain('href="/civilization/#future"');
     expect(axis).not.toContain('/civilization/future/');
     expect(axis).not.toContain('href="/hk/landmarks/"');
     expect(axis).toContain('>今天<');
     const strip = html.slice(html.indexOf('class="chronicle-strip"'), html.indexOf('class="today-pin"'));
     expect(html.indexOf('class="chronicle-strip"')).toBeGreaterThan(html.indexOf('id="civ"'));
+    expect(html.indexOf('class="bulletin-clock"')).toBeGreaterThan(html.indexOf('id="civ"'));
+    expect(html.indexOf('class="bulletin-clock"')).toBeLessThan(html.indexOf('class="chronicle-strip"'));
     expect(html.indexOf('class="chronicle-strip"')).toBeLessThan(html.indexOf('今日落點'));
+    expect(html.indexOf('今日落點')).toBeLessThan(html.indexOf('id="slice"'));
+    expect(html.indexOf('id="slice"')).toBeLessThan(html.indexOf('aria-label="文明層"'));
+    const primary = html.slice(html.indexOf('aria-label="主欄目"'), html.indexOf('</nav>'));
+    expect(primary).toContain('>文明<');
+    expect(primary).toContain('>今天<');
+    expect(primary).toContain('>開蒙<');
+    expect(primary).not.toContain('導讀');
+    expect(primary).not.toContain('/briefing/');
+    const hero = html.slice(html.indexOf('class="axis-hero"'), html.indexOf('class="bulletin-clock"'));
+    expect(hero).not.toContain('/learn/');
+    expect(html).toContain('href="/civilization/#future"');
     expect(strip.match(/class="stage-dot"/g)).toHaveLength(10);
     expect(strip).not.toContain('<img');
     expect(strip).toContain('>01<');
@@ -909,14 +927,16 @@ describe('homepage today slice', () => {
     expect(pin).not.toContain('起源里程碑');
   });
 
-  it('uses an origins milestone when the calendar day has no heritage fact', () => {
+  it('uses chronicle stage 9 when the calendar day has no heritage fact', () => {
     const empty = renderTodayPin(new Date('2026-02-03T04:00:00.000Z'));
     const later = renderTodayPin(new Date('2026-10-17T04:00:00.000Z'));
     const blockedDay = renderTodayPin(new Date('2026-06-04T04:00:00.000Z'));
     for (const pin of [empty, later, blockedDay]) {
       expect(pin).not.toContain('尚未收錄');
-      expect(pin).toContain('深時間 · 起源里程碑');
-      expect(pin).toContain('href="/civilization/origins/"');
+      expect(pin).toContain('編年 · 信息革命');
+      expect(pin).toContain('href="/civilization/chronicle/#stage-9"');
+      expect(pin).not.toContain('深時間 · 起源里程碑');
+      expect(pin).not.toContain('href="/civilization/origins/"');
       expect(pin).toContain('class="pin-fact"');
       const fact = pin.slice(pin.indexOf('pin-fact'), pin.indexOf('pin-links'));
       expect(heritageBlocked(fact)).toBe(false);
@@ -1156,7 +1176,7 @@ describe('civilization slice', () => {
 describe('civilization question index', () => {
   const patternIds = PATTERN_CARDS.map((card) => card.id).join('|');
   const nearIds = SLICE_THEMES.map((theme) => theme.id).join('|');
-  const allowed = new RegExp(`^(?:/#near-(?:${nearIds})|/civilization/chronicle/#(?:stage-(?:[1-9]|10)|pattern-(?:${patternIds}))|/civilization/#pattern-(?:${patternIds})|/civilization/tech/#tech-(?:[1-9]|10)|/civilization/earth/#earth-[1-8]|/civilization/origins/)$`);
+  const allowed = new RegExp(`^(?:/#near-(?:${nearIds})|/civilization/chronicle/#(?:stage-(?:[1-9]|10)|pattern-(?:${patternIds}))|/civilization/#pattern-(?:${patternIds})|/civilization/#future(?:-[a-z0-9]+)*|/civilization/tech/#tech-(?:[1-9]|10)|/civilization/earth/#earth-[1-8]|/civilization/origins/)$`);
 
   function rendered(path: string): { status: number; html: string } {
     const normalized = path.replace(/\/+$/, '') || '/';
@@ -1180,6 +1200,7 @@ describe('civilization question index', () => {
     expect(new Set(CIV_QUESTIONS.map((row) => row.id)).size).toBe(CIV_QUESTIONS.length);
     expect(new Set(CIV_QUESTIONS.map((row) => row.question)).size).toBe(CIV_QUESTIONS.length);
     expect(questionIndexIssues()).toEqual([]);
+    expect(CIV_QUESTIONS.filter((row) => row.href.startsWith('/civilization/#future')).length).toBeGreaterThanOrEqual(2);
     expect(questionHrefAllowed('/civilization/methodology/')).toBe(false);
     expect(questionHrefAllowed('/civilization/vault/')).toBe(false);
     expect(questionHrefAllowed('/civilization/search/')).toBe(false);
