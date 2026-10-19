@@ -9,10 +9,13 @@ import { SLICE_THEMES } from '../shared/civilization/slices';
 import { CHRONICLE_STAGES, chronicleCardMilestones, chronicleStagesOrdered } from '../shared/civilization/chronicle';
 import { CHRONICLE_MILESTONE_BLOCKS, milestoneBlockAnchor } from '../shared/civilization/chronicleMilestones';
 import { milestoneBlockProse, milestoneBlocksFor } from '../shared/civilization/milestoneBlock';
-import { CITY_STAGES } from '../shared/civilization/city';
+import { axisReadingIssues } from '../shared/civilization/axisReading';
+import { CITY_LINES, CITY_STAGES } from '../shared/civilization/city';
+import { CITY_READINGS } from '../shared/civilization/content/cityReadings';
+import { TECH_READINGS } from '../shared/civilization/content/techReadings';
 import { COSMOS_STAGES } from '../shared/civilization/cosmos';
 import { EARTH_STAGES, earthStageText } from '../shared/civilization/earth';
-import { TECH_STAGES } from '../shared/civilization/tech';
+import { TECH_LINES, TECH_STAGES } from '../shared/civilization/tech';
 import {
   chronicleIndexable,
   chronicleProse,
@@ -734,7 +737,22 @@ describe('civilization thick pages', () => {
       for (const line of stage.lines) expect(section).toContain(`>${line}<`);
       if (stage.origins) expect(section).toContain('href="/civilization/origins/"');
       if (stage.chronicle) expect(section).toContain(`href="/civilization/chronicle/#stage-${stage.chronicle}"`);
+      expect(section).toContain(`id="tech-${stage.n}-reading"`);
+      expect(section).toContain(`id="tech-${stage.n}-product"`);
+      expect(section).toContain(`id="tech-${stage.n}-driver"`);
+      expect(section).toContain('>界定事件<');
+      expect(section).toContain('>關鍵產物<');
+      expect(section).toContain('>推動力<');
+      expect(section).toContain('>溫和影響<');
+      expect(section).toContain('class="civ-block"');
+      expect(section).toContain('class="civ-block-seal"');
+      expect(section).toContain('紙感佔位');
+      expect(section).toContain(`href="#tech-${stage.n}-reading"`);
+      expect(cjkChars(section)).toBeGreaterThanOrEqual(400);
+      expect(axisReadingIssues(TECH_READINGS[stage.n] ?? [], stage.lines, TECH_LINES)).toEqual([]);
     }
+    expect(readFileSync('shared/civilization/tech.ts', 'utf8')).not.toContain('打製石器成為可傳遞的製法');
+    expect(readFileSync('functions/civilization/[[path]].ts', 'utf8')).not.toContain('TECH_READINGS');
     const handoff = page.html.slice(page.html.indexOf('交接編年與今日'));
     expect(handoff.indexOf('href="/civilization/chronicle/"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));
     expect(handoff).toContain('href="/civilization/city/"');
@@ -793,7 +811,25 @@ describe('civilization thick pages', () => {
       expect(existsSync(`public/static/civilization/city-stage-${stage.n}-cover-640w.webp`), `city ${stage.n} 640`).toBe(true);
       expect(existsSync(`public/static/civilization/city-stage-${stage.n}-cover-400w.webp`), `city ${stage.n} 400`).toBe(true);
       for (const line of stage.lines) expect(section).toContain(`>${line}<`);
+      expect(section).toContain(`id="city-${stage.n}-reading"`);
+      expect(section).toContain(`id="city-${stage.n}-product"`);
+      expect(section).toContain(`id="city-${stage.n}-driver"`);
+      expect(section).toContain('>界定事件<');
+      expect(section).toContain('>關鍵產物<');
+      expect(section).toContain('>推動力<');
+      expect(section).toContain('>溫和影響<');
+      expect(section).toContain('class="civ-block"');
+      expect(section).toContain('class="civ-block-seal"');
+      expect(section).toContain('紙感佔位');
+      expect(section).toContain(`href="#city-${stage.n}-reading"`);
+      expect(cjkChars(section)).toBeGreaterThanOrEqual(400);
+      expect(axisReadingIssues(CITY_READINGS[stage.n] ?? [], stage.lines, CITY_LINES)).toEqual([]);
     }
+    const localReading = page.html.slice(page.html.indexOf('id="city-9"'), page.html.indexOf('id="city-10"'));
+    expect(localReading.indexOf('id="city-9-reading"')).toBeLessThan(localReading.indexOf('href="/hk/landmarks/"'));
+    expect(localReading).toContain('不吞沒本頁');
+    expect(readFileSync('shared/civilization/city.ts', 'utf8')).not.toContain('全球城市線需要一個可以走進去的地址');
+    expect(readFileSync('functions/civilization/[[path]].ts', 'utf8')).not.toContain('CITY_READINGS');
     expect(page.html.indexOf('id="city-9"')).toBeGreaterThan(page.html.indexOf('id="city-8"'));
     const handoff = page.html.slice(page.html.indexOf('交接編年與本地案例'));
     expect(handoff.indexOf('href="/hk/landmarks/"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));

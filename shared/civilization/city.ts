@@ -1,4 +1,6 @@
 import { cjkChars, esc, safeHttp } from '../contentPage.js';
+import { axisReadingProse, renderStageReadings, stageReadingJump } from './axisReading.js';
+import { CITY_READINGS } from './content/cityReadings.js';
 
 /** Thick-page floor. Below this the page stays noindex. */
 export const CITY_MIN_CHARS = 1200;
@@ -28,7 +30,7 @@ export interface CitySource {
   url: string;
 }
 
-const LINES: CityLine[] = ['聚落', '工程', '交通', '民生'];
+export const CITY_LINES: readonly CityLine[] = ['聚落', '工程', '交通', '民生'];
 
 export const CITY_TITLE = '城市・基建・民生';
 
@@ -187,12 +189,20 @@ export function cityProse(): string {
   return [
     CITY_TITLE,
     CITY_LEDE,
-    ...CITY_STAGES.flatMap((stage) => [stage.name, stage.era, ...stage.milestones, stage.meaning, stage.prose, ...stage.lines]),
+    ...CITY_STAGES.flatMap((stage) => [
+      stage.name,
+      stage.era,
+      ...stage.milestones,
+      stage.meaning,
+      stage.prose,
+      ...stage.lines,
+      axisReadingProse(CITY_READINGS[stage.n] ?? []),
+    ]),
     CITY_HANDOFF,
     CITY_SOURCE_NOTE,
     ...CITY_SOURCES.flatMap((row) => [row.name, row.note]),
     ...CITY_LOCAL_LINKS.flatMap((row) => [row.label]),
-    ...LINES,
+    ...CITY_LINES,
   ].join('\n');
 }
 
@@ -238,7 +248,10 @@ function localLinks(): string {
 
 function stageSection(stage: CityStage): string {
   const points = stage.milestones.map((item) => `<li>${esc(item)}</li>`).join('');
+  const readings = CITY_READINGS[stage.n] ?? [];
   const extra: string[] = [];
+  const readingJump = stageReadingJump('city', stage.n, readings);
+  if (readingJump) extra.push(readingJump);
   if (stage.chronicle) extra.push(`<a href="/civilization/chronicle/#stage-${stage.chronicle}">對照文明編年</a>`);
   const chronicle = extra.length ? `<p class="stage-links">${extra.join('')}</p>` : '';
   const local = stage.local ? localLinks() : '';
@@ -251,6 +264,7 @@ function stageSection(stage: CityStage): string {
     <p>${esc(stage.prose)}</p>
     <p class="stage-meaning">${esc(stage.meaning)}</p>
     ${lineChips(stage.lines)}
+    ${renderStageReadings('city', stage.n, readings)}
     ${chronicle}
     ${local}
   </section>`;
@@ -274,7 +288,7 @@ export function renderCityArticle(): string {
     </header>
     ${nodeHero()}
     <p>${esc(LEDE_BEFORE)}<a href="/civilization/tech/">${LEDE_TECH}</a>${esc(LEDE_MID)}<a href="/civilization/chronicle/">${LEDE_CHRONICLE}</a>${esc(LEDE_AFTER)}</p>
-    ${lineChips(LINES)}
+    ${lineChips(CITY_LINES)}
     <nav class="chronicle-nav city-nav" aria-label="跳到城市階段">${nav}</nav>
     <div class="civ-progress" aria-hidden="true"></div>
     ${CITY_STAGES.map(stageSection).join('')}
