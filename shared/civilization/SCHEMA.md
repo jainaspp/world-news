@@ -25,7 +25,17 @@
 | `drivers` | 推動力。每項有 `name`、`detail` |
 | `impact` | 溫和影響 |
 
-編年里程碑繼續由 `chronicleMilestones.ts` 提供，頁面仍用既有里程碑樣式。地球生命頁繼續走 `renderReadingBlock`。兩邊不各寫一套產物與推動力欄位。
+編年里程碑繼續由 `chronicleMilestones.ts` 提供，頁面仍用既有里程碑樣式。地球生命頁繼續走 `renderReadingBlock`。技術頁與城市頁的階段深讀也走同一塊，資料分別在 `content/techReadings.ts` 與 `content/cityReadings.ts`。各頁不另寫一套產物與推動力欄位。
+
+## 技術頁與城市頁
+
+每一階段的陣列可以有多塊。加一塊只加資料，不改 `functions/civilization/[[path]].ts`，不加 `PAGES` 鍵。第一塊的錨是 `#tech-N-reading`、`#tech-N-product`、`#tech-N-driver`，城市頁把前綴換成 `city`。同階段第二塊起用 `slug` 分開。
+
+技術頁的 `lines` 與產物 `kind` 只用工具、能源、媒介、知識。城市頁只用聚落、工程、交通、民生。這些詞不寫進 `CivLine`。
+
+`image` 省略時，塊內留下紙感「產」印。填上 `/static/civilization` 下的基名後，同一槽改顯示圖像。
+
+香港地標只留在城市頁本地案例末尾的目錄連結。階段正文仍是全球城市線，不把節點做成跳去地標的空殼。
 
 ## 模式卡
 

@@ -1,5 +1,7 @@
 import { cjkChars, esc, safeHttp } from '../contentPage.js';
+import { axisReadingProse, renderStageReadings, stageReadingJump } from './axisReading.js';
 import { caseSourceRows, renderCaseNav, renderCasesBeside } from './cases.js';
+import { TECH_READINGS } from './content/techReadings.js';
 import { renderSliceReturns } from './renderSlice.js';
 
 /** Thick-page floor. Below this the page stays noindex. */
@@ -30,7 +32,7 @@ export interface TechSource {
   url: string;
 }
 
-const LINES: TechLine[] = ['工具', '能源', '媒介', '知識'];
+export const TECH_LINES: readonly TechLine[] = ['工具', '能源', '媒介', '知識'];
 
 export const TECH_TITLE = '科技與發現';
 
@@ -175,11 +177,19 @@ export function techProse(): string {
   return [
     TECH_TITLE,
     TECH_LEDE,
-    ...TECH_STAGES.flatMap((stage) => [stage.name, stage.era, ...stage.milestones, stage.meaning, stage.prose, ...stage.lines]),
+    ...TECH_STAGES.flatMap((stage) => [
+      stage.name,
+      stage.era,
+      ...stage.milestones,
+      stage.meaning,
+      stage.prose,
+      ...stage.lines,
+      axisReadingProse(TECH_READINGS[stage.n] ?? []),
+    ]),
     TECH_HANDOFF,
     TECH_SOURCE_NOTE,
     ...TECH_SOURCES.flatMap((row) => [row.name, row.note]),
-    ...LINES,
+    ...TECH_LINES,
   ].join('\n');
 }
 
@@ -221,7 +231,10 @@ function nodeHero(): string {
 
 function stageSection(stage: TechStage): string {
   const points = stage.milestones.map((item) => `<li>${esc(item)}</li>`).join('');
+  const readings = TECH_READINGS[stage.n] ?? [];
   const extra: string[] = [];
+  const readingJump = stageReadingJump('tech', stage.n, readings);
+  if (readingJump) extra.push(readingJump);
   if (stage.origins) extra.push('<a href="/civilization/origins/">人類起源時間線</a>');
   if (stage.chronicle) extra.push(`<a href="/civilization/chronicle/#stage-${stage.chronicle}">對照文明編年</a>`);
   const links = extra.length ? `<p class="stage-links">${extra.join('')}</p>` : '';
@@ -234,6 +247,7 @@ function stageSection(stage: TechStage): string {
     <p>${esc(stage.prose)}</p>
     <p class="stage-meaning">${esc(stage.meaning)}</p>
     ${lineChips(stage.lines)}
+    ${renderStageReadings('tech', stage.n, readings)}
     ${links}
     ${renderCasesBeside('/civilization/tech/', `tech-${stage.n}`)}
   </section>`;
@@ -261,7 +275,7 @@ export function renderTechArticle(): string {
     </header>
     ${nodeHero()}
     <p>${esc(LEDE_BEFORE)}<a href="/#slice">${LEDE_LINK}</a>${esc(LEDE_AFTER)}</p>
-    ${lineChips(LINES)}
+    ${lineChips(TECH_LINES)}
     <nav class="chronicle-nav tech-nav" aria-label="跳到技術階段">${nav}</nav>
     ${renderCaseNav('/civilization/tech/')}
     <div class="civ-progress" aria-hidden="true"></div>
