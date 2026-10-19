@@ -51,7 +51,7 @@ describe('civilization future P0', () => {
       expect(civChars(domain.blurb)).toBeLessThanOrEqual(80);
     }
     expect(FUTURE_HORIZONS.map((horizon) => horizon.title)).toEqual([
-      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）',
+      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力',
     ]);
     const biodiversity = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-biodiversity-services');
     expect(biodiversity?.domainId).toBe('f6');
@@ -83,9 +83,24 @@ describe('civilization future P0', () => {
     expect(`${tracss?.pending}\n${tracss?.expired}`).not.toMatch(/只剩/);
     expect(countdownSentence(tracss!, NOW)).toBe(tracss?.pending);
     expect(countdownSentence(tracss!, new Date('2027-01-01T00:00:00.000Z'))).toBe(tracss?.expired);
-    expect(FUTURE_COUNTDOWNS.length).toBeGreaterThanOrEqual(3);
+    expect(FUTURE_COUNTDOWNS.length).toBeGreaterThanOrEqual(4);
     expect(futureHrefAllowed('/civilization/#future-horizon-amr')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-countdown-amr')).toBe(true);
+    const freshwater = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-freshwater-stress');
+    expect(freshwater?.domainId).toBe('f6');
+    expect(freshwater?.alsoDomainId).toBe('f1');
+    expect(freshwater?.kind).toBe('resource');
+    expect(freshwater?.timeBand).toBe('進行中');
+    expect(freshwater?.band).toBe('e2');
+    expect(freshwater?.confidence).toBe('steady');
+    expect(freshwater?.dataAsOf).toBe('2026-10-19');
+    expect(freshwater?.sources.length).toBeGreaterThanOrEqual(4);
+    expect(freshwater?.sources.every((source) => source.url.startsWith('https://'))).toBe(true);
+    const sdg = FUTURE_COUNTDOWNS.find((item) => item.id === 'unwater-sdg6');
+    expect(sdg?.horizonId).toBe('horizon-freshwater-stress');
+    expect(sdg?.checkpoint).toBe('2027-06-30');
+    expect(countdownSentence(sdg!, NOW)).toBe(sdg?.pending);
+    expect(countdownSentence(sdg!, new Date('2027-07-01T00:00:00.000Z'))).toBe(sdg?.expired);
     expect(civChars(STAGE10_BRIDGE)).toBeGreaterThanOrEqual(80);
     expect(civChars(STAGE10_BRIDGE)).toBeLessThanOrEqual(120);
     expect(futureHrefAllowed('/civilization/#future')).toBe(true);
@@ -167,6 +182,11 @@ describe('civilization future P0', () => {
     const gbf = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-cbd-gbf-checkpoint');
     expect(panel).toContain(gbf?.pending ?? '');
     expect(panel).not.toContain(gbf?.expired ?? 'missing-expired');
+    expect(panel).toContain('id="future-countdown-unwater"');
+    expect(panel).toContain('id="future-horizon-freshwater"');
+    expect(panel).toContain('SDG 6 淡水進度盤點');
+    expect(panel).toContain('href="#future-horizon-freshwater"');
+    expect(panel).toContain('href="#future-f1"');
     expect(panel).toContain('id="future-clade"');
     expect(panel).toContain('共享遺產');
     expect(panel).toContain('共演化');
@@ -222,6 +242,7 @@ describe('civilization future P0', () => {
     expect(schema).toContain('verify-flood');
     expect(schema).toContain('抗微生物藥物耐藥性（AMR）');
     expect(schema).toContain('生物多樣性與生態系服務約束');
+    expect(schema).toContain('淡水可用量與衛生服務壓力');
     expect(schema).toContain('2026-10-19');
     expect(schema).not.toMatch(REDLINE);
     const sitemap = readFileSync('shared/sitemap.ts', 'utf8');

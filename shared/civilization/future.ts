@@ -56,7 +56,7 @@ export const FUTURE_CONFIDENCE = ['limited', 'partial', 'steady'] as const;
 export type FutureConfidence = (typeof FUTURE_CONFIDENCE)[number];
 
 /** Horizon kind. Expand only when a card is published. */
-export const FUTURE_HORIZON_KINDS = ['biosphere', 'health'] as const;
+export const FUTURE_HORIZON_KINDS = ['biosphere', 'health', 'resource'] as const;
 export type FutureHorizonKind = (typeof FUTURE_HORIZON_KINDS)[number];
 
 /** Review horizon. Not an onset date and not a clock. */
@@ -146,6 +146,7 @@ const CONFIDENCE_LABEL: Record<FutureConfidence, string> = {
 const HORIZON_KIND_LABEL: Record<FutureHorizonKind, string> = {
   biosphere: '生物圈',
   health: '健康',
+  resource: '資源',
 };
 
 const CLADE_KIND_LABEL: Record<FutureCladeKind, string> = {
@@ -361,6 +362,29 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '世界衛生組織｜更新版全球行動計畫（二〇二六至二〇三六年）', url: 'https://www.who.int/news/item/25-05-2026-the-world-health-assembly-adopts-updated-global-action-plan-on-antimicrobial-resistance-(2026-2036)' },
     ],
   },
+  {
+    id: 'horizon-freshwater-stress',
+    anchor: 'future-horizon-freshwater',
+    title: '淡水可用量與衛生服務壓力',
+    domainId: 'f6',
+    alsoDomainId: 'f1',
+    kind: 'resource',
+    band: 'e2',
+    timeBand: '進行中',
+    confidence: 'steady',
+    mechanism: '安全飲用水、環境衛生與水資源管理的進度，由可持續發展目標六的指標與綜合報告共同核對。壓力來自用水需求、污染、基礎設施維修與氣候變率疊加。這項約束正在持續，盤點修訂的是覆蓋與缺口。',
+    mitigation: '覆蓋缺口依聯合國水機制，以及世界衛生組織與聯合國兒童基金會聯合監測計劃的指標更新。節水、廢水處理與流域管理是可以事後核對的槓桿。敘事只跟著綜合報告與年度指標窗口走。',
+    uncertainty: '國家數據有時滯，方法也不盡相同。一地的極端乾旱，不能由全球均值直接代表。',
+    dataAsOf: '2026-10-19',
+    sources: [
+      { name: '聯合國水機制｜可持續發展目標六綜合報告（二〇二六）', url: 'https://www.unwater.org/publications/sdg-6-synthesis-report-2026' },
+      { name: '聯合國水機制｜可持續發展目標六進度報告', url: 'https://www.unwater.org/publications/sdg-6-progress-reports' },
+      { name: '聯合國水機制｜可持續發展目標六數據', url: 'https://www.sdg6data.org/en' },
+      { name: '世界衛生組織與聯合國兒童基金會｜聯合監測計劃家戶進度', url: 'https://washdata.org/reports/jmp-2025-wash-households' },
+      { name: '世界衛生組織｜飲用水', url: 'https://www.who.int/news-room/fact-sheets/detail/drinking-water' },
+      { name: '聯合國教科文組織｜世界水資源發展報告（二〇二五）', url: 'https://www.unesco.org/reports/wwdr/en/2025' },
+    ],
+  },
 ];
 
 /**
@@ -433,6 +457,15 @@ export const FUTURE_COUNTDOWNS: readonly CountdownItem[] = [
     title: 'WHO AMR 進度自評',
     pending: '下一檢查點是世界衛生組織抗微生物藥物耐藥性國家自評的年度公開窗口，約每年一輪。本頁把這一輪記到二〇二六年十二月。這是核對日期，不是災變時鐘。',
     expired: '該輪自評窗口已過。等待下一輪自評。請改讀世界衛生組織最新的公開自評，本頁不保留倒數。',
+  },
+  {
+    id: 'unwater-sdg6',
+    anchor: 'future-countdown-unwater',
+    horizonId: 'horizon-freshwater-stress',
+    checkpoint: '2027-06-30',
+    title: 'SDG 6 淡水進度盤點',
+    pending: '二〇二六年可持續發展目標六綜合報告已經發布。下一檢查點是指標保管機構的年度進度公開窗口，約在二〇二七年六月。這是核對日期，不是災變時鐘。',
+    expired: '該年度進度窗口已過。請改讀聯合國水機制與聯合監測計劃最新的公開進度，本頁不保留倒數。',
   },
 ];
 
@@ -600,7 +633,7 @@ export function futureIssues(): string[] {
   }
   if (FUTURE_CLADE.domainId !== 'f4') issues.push('clade-domain');
 
-  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）'];
+  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力'];
   if (FUTURE_HORIZONS.length !== horizonTitles.length) issues.push('horizon-count');
   const horizonIds = new Set<string>();
   for (const [index, horizon] of FUTURE_HORIZONS.entries()) {
@@ -665,6 +698,22 @@ export function futureIssues(): string[] {
   }
   const gbf = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-cbd-gbf-checkpoint');
   if (!gbf || gbf.horizonId !== 'horizon-biodiversity-services' || gbf.checkpoint !== '2026-10-30') issues.push('countdown-gbf');
+  const freshwater = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-freshwater-stress');
+  if (!freshwater
+    || freshwater.domainId !== 'f6'
+    || freshwater.alsoDomainId !== 'f1'
+    || freshwater.kind !== 'resource'
+    || freshwater.timeBand !== '進行中'
+    || freshwater.band !== 'e2'
+    || freshwater.confidence !== 'steady'
+    || freshwater.dataAsOf !== '2026-10-19'
+    || freshwater.sources.length < 4) {
+    issues.push('horizon-freshwater');
+  }
+  const sdg6 = FUTURE_COUNTDOWNS.find((item) => item.id === 'unwater-sdg6');
+  if (!sdg6 || sdg6.horizonId !== 'horizon-freshwater-stress' || sdg6.checkpoint !== '2027-06-30') {
+    issues.push('countdown-sdg6');
+  }
 
   const instanceIds = new Set<string>();
   for (const card of FUTURE_INSTANCES) {
