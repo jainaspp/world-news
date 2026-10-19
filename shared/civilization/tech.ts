@@ -1,4 +1,5 @@
 import { cjkChars, esc, safeHttp } from '../contentPage.js';
+import { caseSourceRows, renderCaseNav, renderCasesBeside } from './cases.js';
 import { renderSliceReturns } from './renderSlice.js';
 
 /** Thick-page floor. Below this the page stays noindex. */
@@ -234,11 +235,16 @@ function stageSection(stage: TechStage): string {
     <p class="stage-meaning">${esc(stage.meaning)}</p>
     ${lineChips(stage.lines)}
     ${links}
+    ${renderCasesBeside('/civilization/tech/', `tech-${stage.n}`)}
   </section>`;
 }
 
 function sourceTable(): string {
-  const body = TECH_SOURCES.map((row, index) => {
+  const rows = [
+    ...TECH_SOURCES,
+    ...caseSourceRows('/civilization/tech/').map((row) => ({ name: row.name, note: row.note, url: row.url })),
+  ];
+  const body = rows.map((row, index) => {
     const href = sourceHref(row.url);
     const link = href ? `<a href="${href}">${esc(row.url)}</a>` : esc(row.url);
     return `<tr><td>${index + 1}</td><td>${esc(row.name)}</td><td>${esc(row.note)}</td><td>${link}</td></tr>`;
@@ -257,6 +263,7 @@ export function renderTechArticle(): string {
     <p>${esc(LEDE_BEFORE)}<a href="/#slice">${LEDE_LINK}</a>${esc(LEDE_AFTER)}</p>
     ${lineChips(LINES)}
     <nav class="chronicle-nav tech-nav" aria-label="跳到技術階段">${nav}</nav>
+    ${renderCaseNav('/civilization/tech/')}
     <div class="civ-progress" aria-hidden="true"></div>
     ${TECH_STAGES.map(stageSection).join('')}
     <h2>交接編年與今日</h2>

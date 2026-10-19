@@ -1,6 +1,7 @@
 import { cjkChars, esc, safeHttp } from '../contentPage.js';
 import { CIV_LINES, type CivLine } from './contract.js';
 import { milestoneBlockProse, milestoneBlockSources, renderMilestoneBlocks } from './milestoneBlock.js';
+import { caseSourceRows, renderCaseNav, renderCasesBeside } from './cases.js';
 import { patternLinksForStage, patternSourceRows, renderPatternCardsForStage, renderPatternNav } from './patterns.js';
 import { renderSliceReturns } from './renderSlice.js';
 
@@ -298,6 +299,7 @@ function stageSection(stage: ChronicleStage): string {
     ${lineChips(stage.lines)}
     ${renderMilestoneBlocks(stage)}
     ${renderPatternCardsForStage(stage.n)}
+    ${renderCasesBeside('/civilization/chronicle/', `stage-${stage.n}`)}
     ${source}
     ${origins}
   </section>`;
@@ -309,6 +311,7 @@ function sourceTable(): string {
     ...chronicleStagesOrdered().map((stage) => ({ stage: String(stage.n), name: stage.sourceName, url: stage.sourceUrl })),
     ...milestoneBlockSources(),
     ...patternSourceRows(),
+    ...caseSourceRows('/civilization/chronicle/'),
     ...CHRONICLE_EXTRA_SOURCES,
   ].filter((row) => {
     if (seen.has(row.url)) return false;
@@ -335,6 +338,7 @@ export function renderChronicleArticle(): string {
     <p>${esc(CHRONICLE_HOW)}</p>
     <nav class="chronicle-nav" aria-label="跳到階段">${nav}</nav>
     ${renderPatternNav()}
+    ${renderCaseNav('/civilization/chronicle/')}
     <div class="civ-progress" aria-hidden="true"></div>
     ${stages.map(stageSection).join('')}
     <h2>四線總結</h2>
