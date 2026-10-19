@@ -485,3 +485,10 @@ html.dark .jd-tool-card { box-shadow: none; }
   text-decoration: none;
 }
 .jd-tool-link:hover { text-decoration: underline; }
+.jd-tool-note {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.45;
+}

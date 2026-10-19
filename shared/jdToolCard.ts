@@ -1,8 +1,15 @@
 /**
- * Footer tool cards for seven 2026-10-17 tech explainers.
- * Paths and CTAs come from WN-JD-MUSTREAD-TOOL-MAP; UTM follows
- * COMPANION-TRACKING-SPEC Concept B (worldnews / referral / toolcard).
+ * Footer tool cards.
+ * The seven 2026-10-17 reel cards stay in JD_TOOL_CARDS.
+ * Same-topic soft-bridge pairs live in softBridgePairs.ts so weekly ops
+ * can append a row without forking the renderer.
+ * UTM follows COMPANION-TRACKING-SPEC Concept B (worldnews / referral / toolcard).
  */
+
+import { SOFT_BRIDGE_PAIRS, type SoftBridgePair } from './softBridgePairs.js';
+
+export type { SoftBridgePair };
+export { SOFT_BRIDGE_PAIRS };
 
 const JD_REEL = 'https://jainaspp.github.io/jd-tech-landing/reels/';
 
@@ -53,16 +60,28 @@ export const JD_TOOL_CARDS: readonly JdToolCard[] = [
 ];
 
 const BY_KEY = new Map(JD_TOOL_CARDS.map((card) => [card.key, card]));
+const BRIDGE_BY_KEY = new Map(SOFT_BRIDGE_PAIRS.map((pair) => [pair.explainerKey, pair]));
 
-export function jdToolHref(slug: string): string {
-  const params = new URLSearchParams({
+function conceptB(term: string): URLSearchParams {
+  return new URLSearchParams({
     utm_source: 'worldnews',
     utm_medium: 'referral',
     utm_campaign: 'toolcard',
     utm_content: 'card-footer',
-    utm_term: slug,
+    utm_term: term,
   });
-  return `${JD_REEL}${slug}/?${params.toString()}`;
+}
+
+export function jdToolHref(slug: string): string {
+  return `${JD_REEL}${slug}/?${conceptB(slug).toString()}`;
+}
+
+/** Tool or reel URL for one soft-bridge pair. Query is Concept B. */
+export function softBridgeHref(pair: SoftBridgePair): string {
+  const url = new URL(pair.jdUrl);
+  const params = conceptB(pair.utmTerm);
+  params.forEach((value, key) => url.searchParams.set(key, value));
+  return url.toString();
 }
 
 function esc(value: string): string {
@@ -71,9 +90,16 @@ function esc(value: string): string {
   ));
 }
 
-/** One compact card, or empty when this explainer is not in the tool map. */
+function cardHtml(cta: string, href: string, disclosure = ''): string {
+  const note = disclosure ? `<p class="jd-tool-note">${esc(disclosure)}</p>` : '';
+  return `<aside class="jd-tool-card" aria-label="教學：JD Tech"><p class="jd-tool-label">教學：JD Tech</p><a class="jd-tool-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(cta)}</a>${note}</aside>`;
+}
+
+/** One compact card, or empty when this explainer is not in either map. */
 export function jdToolCardMarkup(key: string): string {
+  const pair = BRIDGE_BY_KEY.get(key);
+  if (pair) return cardHtml(pair.cta, softBridgeHref(pair), pair.disclosure);
   const card = BY_KEY.get(key);
   if (!card) return '';
-  return `<aside class="jd-tool-card" aria-label="教學：JD Tech"><p class="jd-tool-label">教學：JD Tech</p><a class="jd-tool-link" href="${esc(jdToolHref(card.slug))}" target="_blank" rel="noopener noreferrer">${esc(card.cta)}</a></aside>`;
+  return cardHtml(card.cta, jdToolHref(card.slug));
 }

@@ -940,7 +940,15 @@ describe('civilization slice', () => {
     expect(slice).toContain('data-anchor="pattern-copy-check"');
     expect(slice).not.toContain('jd-tech');
     expect(slice).not.toContain('jainaspp');
-    const page = renderContentPage(explainer(key), `https://world-news.xyz/explainer/${key}/`);
+    const line = '公開模型可以在個人電腦試行，安裝步驟已經公開，開發者可以核對相容系統。';
+    const page = renderContentPage({
+      ...explainer(key),
+      blocks: [
+        { title: '事件經過', sentences: [line.repeat(20)], sources: [] },
+        { title: '事件時間線', sentences: ['10月17日，模型公布。'], sources: [] },
+        { title: '各方回應', sentences: ['開發者公布相容系統。'], sources: [] },
+      ],
+    }, `https://world-news.xyz/explainer/${key}/`);
     expect(page.indexOf('class="civ-slice"')).toBeGreaterThan(-1);
     expect(page.indexOf('class="civ-slice"')).toBeLessThan(page.indexOf('jd-tool-card'));
     expect(slice).not.toContain('今｜近｜遠');

@@ -493,7 +493,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const civSlice = !modelFailed && doc.kind === 'compare'
     ? renderCivilizationSlice({ key: doc.key, title: doc.title, description: doc.description })
     : '';
-  const toolCard = !modelFailed && doc.kind === 'compare' ? jdToolCardMarkup(doc.key) : '';
+  const toolCard = comparePublic ? jdToolCardMarkup(doc.key) : '';
   const topicHits = doc.kind === 'compare'
     ? relatedTopics([doc.title, doc.description, ...(doc.points ?? []), ...doc.blocks.flatMap((block) => [block.title, ...block.sentences, ...block.sources.map((source) => source.title)])].join('\n')).slice(0, 2)
     : [];
