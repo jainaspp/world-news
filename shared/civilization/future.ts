@@ -78,6 +78,25 @@ export interface FutureHorizon {
   sources: readonly FutureSource[];
 }
 
+/**
+ * A thickened domain card on the hub. Not a route.
+ * `tierId` is maturity. Bands are labels and are not summed.
+ */
+export interface FutureInstance {
+  id: string;
+  anchor: string;
+  domainId: FutureDomainId;
+  title: string;
+  /** 80–120 characters. */
+  blurb: string;
+  mechanism: string;
+  tierId: FutureTier;
+  bands: readonly LevelBand[];
+  /** YYYY-MM-DD. Compilation date, not a catastrophe clock. */
+  dataAsOf: string;
+  sources: readonly FutureSource[];
+}
+
 export interface CountdownItem {
   id: string;
   anchor: string;
@@ -280,6 +299,49 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
   },
 ];
 
+/**
+ * W1 domain cards. At most two. `spare-grid` stays inside `energy-budget`
+ * rather than becoming a third card.
+ */
+export const FUTURE_INSTANCES: readonly FutureInstance[] = [
+  {
+    id: 'energy-budget',
+    anchor: 'future-energy-budget',
+    domainId: 'f1',
+    title: '能量收支與備援',
+    blurb: '地球宜居窗口先受入射短波與外逸長波的收支約束。衛星輻射與海洋熱含量互相核對之後，修訂的是失衡幅度，不是某一年的終局。電網的應急備用只回答單點斷供之後功率能否接回。',
+    mechanism: '監測把大氣層頂的輻射收支與海洋熱含量留在可以互相對照的公共序列裡。序列靠校準與接替的儀器維持，單次退役並不取消這筆帳。修復在電網一側另有條件：可靠性標準要求應急備用至少覆蓋最嚴重的單點出力損失，動用之後要在限期內補回，並留下可事後調取的記錄。備用或記錄缺一，功率就退回單點。設備能否換上，是另一項維修條件，不隨標準文本自動在場。這是條件，不是已完成的階梯。',
+    tierId: 'observe',
+    bands: ['e2'],
+    dataAsOf: '2026-10-19',
+    sources: [
+      { name: '政府間氣候變化專門委員會｜第六次評估第一工作組第七章', url: 'https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-7/' },
+      { name: '美國國家航空航天局｜雲與地球輻射能量系統', url: 'https://ceres.larc.nasa.gov/' },
+      { name: '全球 Argo 海洋觀測網', url: 'https://argo.ucsd.edu/' },
+      { name: '美國國家航空航天局地球觀測站｜氣候與能量收支', url: 'https://science.nasa.gov/earth/earth-observatory/climate-and-earths-energy-budget/' },
+      { name: '美國氣候網｜海洋熱含量', url: 'https://www.climate.gov/news-features/understanding-climate/climate-change-ocean-heat-content' },
+      { name: '北美電力可靠性機構｜應急備用標準', url: 'https://www.nerc.com/standards/reliability-standards/bal/bal-002-3' },
+    ],
+  },
+  {
+    id: 'verify-flood',
+    anchor: 'future-verify-flood',
+    domainId: 'f2',
+    title: '大規模複製下的核對',
+    blurb: '記錄一旦能被低成本複製，未經核對的敘述也可以同時到達許多互不相識的人。可信靠可指認的底本、出處與事後勘誤，不靠傳播有多快。本卡只寫核對程序如何運作，不替具體爭議選邊。',
+    mechanism: '監測要回答兩件事：底本是否仍可打開，以及一份更正能否被後來的複本認出。修復不靠把複本刪盡。已經有穩定編號的文獻，更正或撤稿是另一份公開記錄，必須指回原篇，並把狀態寫進後來的複本仍能讀到的標記。這個程序只在採用它的出版範圍內成立，不能外推成所有公共討論都已核對。底本、編號與可辨認的更正缺一，錯誤就會隨複製一起變寬。',
+    tierId: 'pilot',
+    bands: ['i2'],
+    dataAsOf: '2026-10-19',
+    sources: [
+      { name: '聯合國教科文組織｜媒體與信息素養', url: 'https://www.unesco.org/en/media-information-literacy' },
+      { name: '路透新聞研究所｜數字新聞報告', url: 'https://reutersinstitute.politics.ox.ac.uk/digital-news-report' },
+      { name: '美國國家信息標準組織｜撤稿與更正的傳遞', url: 'https://www.niso.org/standards-committees/crec' },
+      { name: 'Crossref｜更正與撤稿另冊', url: 'https://www.crossref.org/documentation/principles-practices/best-practices/versioning/' },
+    ],
+  },
+];
+
 export const FUTURE_COUNTDOWNS: readonly CountdownItem[] = [
   {
     id: 'wmo-annual',
@@ -334,6 +396,7 @@ export function futureAnchorIds(): string[] {
     'future',
     ...FUTURE_DOMAINS.map((domain) => domain.anchor),
     FUTURE_TIER_CARD.anchor,
+    ...FUTURE_INSTANCES.map((card) => card.anchor),
     ...FUTURE_HORIZONS.map((horizon) => horizon.anchor),
     ...FUTURE_COUNTDOWNS.map((item) => item.anchor),
     FUTURE_CLADE.anchor,
@@ -366,6 +429,14 @@ function publishedText(): string {
       horizon.mitigation,
       horizon.uncertainty,
       ...horizon.sources.map((source) => source.name),
+    ]),
+    ...FUTURE_INSTANCES.flatMap((card) => [
+      card.title,
+      card.blurb,
+      card.mechanism,
+      card.tierId,
+      ...card.bands,
+      ...card.sources.map((source) => source.name),
     ]),
     ...FUTURE_COUNTDOWNS.flatMap((item) => [item.title, item.pending, item.expired]),
   ];
@@ -476,6 +547,37 @@ export function futureIssues(): string[] {
     if (/\d+\s*秒|秒針|setInterval/.test(`${item.pending}\n${item.expired}`)) issues.push(`countdown-clock:${item.id}`);
   }
 
+  const instanceIds = new Set<string>();
+  for (const card of FUTURE_INSTANCES) {
+    if (!SLUG.test(card.id) || instanceIds.has(card.id)) issues.push(`instance-id:${card.id}`);
+    instanceIds.add(card.id);
+    if (card.anchor !== `future-${card.id}` || anchors.has(card.anchor)) issues.push(`instance-anchor:${card.id}`);
+    anchors.add(card.anchor);
+    if (DOOM_TITLE.test(card.title) || !card.title.trim() || civChars(card.title) > 20) issues.push(`instance-title:${card.id}`);
+    const blurbLen = civChars(card.blurb);
+    if (blurbLen < 80 || blurbLen > 120) issues.push(`instance-blurb:${card.id}`);
+    if (!card.mechanism.trim()) issues.push(`instance-mechanism:${card.id}`);
+    if (!(FUTURE_TIERS as readonly string[]).includes(card.tierId)) issues.push(`instance-tier:${card.id}`);
+    if (card.tierId === 'civ-scale' && !`${card.title}\n${card.blurb}\n${card.mechanism}`.includes('假說')) {
+      issues.push(`instance-hypothesis:${card.id}`);
+    }
+    if (!domainById(card.domainId)) issues.push(`instance-domain:${card.id}`);
+    const seenBands = new Set<string>();
+    for (const band of card.bands) {
+      if (!(LEVEL_BANDS as readonly string[]).includes(band) || seenBands.has(band)) issues.push(`instance-band:${card.id}`);
+      seenBands.add(band);
+    }
+    if (!DATE_DAY.test(card.dataAsOf)) issues.push(`instance-asof:${card.id}`);
+    if (card.sources.length < 4) issues.push(`instance-sources:${card.id}`);
+    const urls = new Set<string>();
+    for (const source of card.sources) {
+      if (!source.name.trim() || !/^https:\/\//.test(source.url)) issues.push(`instance-source:${card.id}`);
+      if (urls.has(source.url)) issues.push(`instance-source-dup:${card.id}`);
+      urls.add(source.url);
+    }
+    if (/總分|合成分數|文明分數/.test(`${card.title}\n${card.blurb}\n${card.mechanism}`)) issues.push(`instance-score:${card.id}`);
+  }
+
   const bridgeLen = civChars(STAGE10_BRIDGE);
   if (bridgeLen < 80 || bridgeLen > 120) issues.push('bridge-len');
   for (const domain of FUTURE_DOMAINS) {
@@ -485,6 +587,7 @@ export function futureIssues(): string[] {
 
   const cardDomains = new Set<string>([
     ...FUTURE_HORIZONS.map((horizon) => horizon.domainId),
+    ...FUTURE_INSTANCES.map((card) => card.domainId),
     FUTURE_TIER_CARD.domainId,
     FUTURE_CLADE.domainId,
   ]);
@@ -525,16 +628,49 @@ function renderLevelLegend(id: string): string {
   return `<aside class="future-legend" id="${esc(id)}" aria-label="分帶圖例"><h3>分帶圖例</h3><p>${esc(LEVEL_LEGEND)}</p>${rows}</aside>`;
 }
 
+function instancesFor(domainId: string): readonly FutureInstance[] {
+  return FUTURE_INSTANCES.filter((card) => card.domainId === domainId);
+}
+
 function renderDomains(): string {
   const chips = FUTURE_DOMAINS.map((domain) => `<a href="#${esc(domain.anchor)}">${esc(domain.code)} ${esc(domain.title)}</a>`).join('');
-  const cards = FUTURE_DOMAINS.map((domain) => `<article class="future-domain" id="${esc(domain.anchor)}">
+  const cards = FUTURE_DOMAINS.map((domain) => {
+    const links = instancesFor(domain.id).map((card) => `<a href="#${esc(card.anchor)}">${esc(card.title)}</a>`).join('');
+    const more = links ? `<p class="stage-links">${links}</p>` : '';
+    return `<article class="future-domain" id="${esc(domain.anchor)}">
       <p class="future-kicker">${esc(domain.code)}</p>
       <h3>${esc(domain.title)}</h3>
       <p class="future-status">${esc(domain.status)}</p>
       <p>${esc(domain.blurb)}</p>
       ${lineChips(domain.lines)}
-    </article>`).join('');
+      ${more}
+    </article>`;
+  }).join('');
   return `<nav class="future-domain-nav" aria-label="分域入口">${chips}</nav><div class="future-grid">${cards}</div>`;
+}
+
+function bandFamily(band: string): string {
+  if (band.startsWith('e')) return '能量帶';
+  if (band.startsWith('i')) return '信息帶';
+  return '能動帶';
+}
+
+function renderInstance(card: FutureInstance): string {
+  const domain = domainById(card.domainId);
+  const tier = FUTURE_TIER_ROWS.find((row) => row.tier === card.tierId);
+  const domainLink = domain ? `<a href="#${esc(domain.anchor)}">${esc(domain.code)} ${esc(domain.title)}</a>` : '';
+  const mark = tier?.mark ? ` · ${esc(tier.mark)}` : '';
+  const bands = card.bands.map((band) => `<span class="future-band">${esc(bandFamily(band))} ${esc(band)}</span>`).join('');
+  const bandRow = bands ? `<p class="future-band-row">${bands}</p>` : '';
+  return `<article class="future-card future-instance" id="${esc(card.anchor)}" data-tier="${esc(card.tierId)}">
+    <p class="future-kicker">實例 · ${domainLink} · ${esc(tier?.label ?? card.tierId)}${mark} · 截至 <time datetime="${esc(card.dataAsOf)}">${esc(card.dataAsOf)}</time></p>
+    <h3>${esc(card.title)}</h3>
+    <p>${esc(card.blurb)}</p>
+    ${bandRow}
+    <p class="future-label">機制</p>
+    <p>${esc(card.mechanism)}</p>
+    ${renderSources(card.sources)}
+  </article>`;
 }
 
 function renderTierCard(): string {
@@ -552,7 +688,7 @@ function renderTierCard(): string {
 
 function renderHorizon(horizon: FutureHorizon): string {
   const domain = domainById(horizon.domainId);
-  const family = horizon.band.startsWith('e') ? '能量帶' : horizon.band.startsWith('i') ? '信息帶' : '能動帶';
+  const family = bandFamily(horizon.band);
   const domainLink = domain ? `<a href="#${esc(domain.anchor)}">${esc(domain.code)} ${esc(domain.title)}</a>` : '';
   return `<article class="future-card" id="${esc(horizon.anchor)}">
     <p class="future-kicker">${domainLink} · ${esc(family)} ${esc(horizon.band)} · 信心 ${esc(CONFIDENCE_LABEL[horizon.confidence])} · 截至 ${esc(horizon.dataAsOf)}</p>
@@ -592,6 +728,7 @@ function renderClade(): string {
 
 /** Hub panel. Static HTML, so it stays readable with script off. */
 export function renderFuturePanel(now = new Date()): string {
+  const instances = FUTURE_INSTANCES.map((card) => renderInstance(card)).join('');
   const horizons = FUTURE_HORIZONS.map((horizon) => renderHorizon(horizon)).join('');
   const countdowns = FUTURE_COUNTDOWNS.map((item) => renderCountdown(item, now)).join('');
   return `<section class="future-panel" id="future" aria-label="展望">
@@ -600,6 +737,7 @@ export function renderFuturePanel(now = new Date()): string {
     ${renderDomains()}
     <div class="future-layout">
       <div class="future-main">
+        ${instances}
         ${renderTierCard()}
         ${horizons}
         ${countdowns}
