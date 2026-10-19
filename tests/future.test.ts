@@ -45,9 +45,27 @@ describe('civilization future P0', () => {
     ]);
     expect(FUTURE_CLADE.kinds).toEqual(['tool-extension', 'niche-continue']);
     expect(FUTURE_CLADE.layers.map((layer) => layer.title)).toEqual(['共享遺產', '共演化', 'SETI尚無確證']);
+    expect(FUTURE_DOMAINS.map((domain) => domain.status)).toEqual(['有卡', '有卡', '加厚中', '有卡', '有卡', '有卡']);
+    for (const domain of FUTURE_DOMAINS) {
+      expect(civChars(domain.blurb)).toBeGreaterThanOrEqual(40);
+      expect(civChars(domain.blurb)).toBeLessThanOrEqual(80);
+    }
     expect(FUTURE_HORIZONS.map((horizon) => horizon.title)).toEqual([
-      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '抗微生物藥物耐藥性（AMR）',
+      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）',
     ]);
+    const biodiversity = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-biodiversity-services');
+    expect(biodiversity?.domainId).toBe('f6');
+    expect(biodiversity?.alsoDomainId).toBe('f4');
+    expect(biodiversity?.kind).toBe('biosphere');
+    expect(biodiversity?.timeBand).toBe('進行中');
+    expect(biodiversity?.confidence).toBe('steady');
+    expect(biodiversity?.dataAsOf).toBe('2026-10-19');
+    expect(biodiversity?.sources.length).toBeGreaterThanOrEqual(4);
+    expect(biodiversity?.sources.every((source) => source.url.startsWith('https://'))).toBe(true);
+    const gbf = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-cbd-gbf-checkpoint');
+    expect(gbf?.horizonId).toBe('horizon-biodiversity-services');
+    expect(gbf?.checkpoint).toBe('2026-10-30');
+    expect(gbf?.title.length).toBeLessThanOrEqual(16);
     const amr = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-antimicrobial-resistance');
     expect(amr?.domainId).toBe('f6');
     expect(amr?.alsoDomainId).toBe('f4');
@@ -65,7 +83,7 @@ describe('civilization future P0', () => {
     expect(`${tracss?.pending}\n${tracss?.expired}`).not.toMatch(/只剩/);
     expect(countdownSentence(tracss!, NOW)).toBe(tracss?.pending);
     expect(countdownSentence(tracss!, new Date('2027-01-01T00:00:00.000Z'))).toBe(tracss?.expired);
-    expect(FUTURE_COUNTDOWNS.length).toBeGreaterThanOrEqual(2);
+    expect(FUTURE_COUNTDOWNS.length).toBeGreaterThanOrEqual(3);
     expect(futureHrefAllowed('/civilization/#future-horizon-amr')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-countdown-amr')).toBe(true);
     expect(civChars(STAGE10_BRIDGE)).toBeGreaterThanOrEqual(80);
@@ -74,6 +92,8 @@ describe('civilization future P0', () => {
     expect(futureHrefAllowed('/civilization/#future-f1')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-energy-budget')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-verify-flood')).toBe(true);
+    expect(futureHrefAllowed('/civilization/#future-horizon-biodiversity')).toBe(true);
+    expect(futureHrefAllowed('/civilization/#future-countdown-cbd')).toBe(true);
     expect(futureHrefAllowed('/civilization/future/')).toBe(false);
     expect(FUTURE_INSTANCES.map((card) => card.id)).toEqual(['energy-budget', 'verify-flood']);
     expect(FUTURE_INSTANCES.map((card) => card.domainId)).toEqual(['f1', 'f2']);
@@ -134,12 +154,19 @@ describe('civilization future P0', () => {
     expect(f3).not.toContain('future-instance');
     expect(panel).toContain('id="future-countdown-wmo"');
     expect(panel).toContain(FUTURE_COUNTDOWNS[0]?.pending ?? '');
+    expect(panel).toContain('id="future-horizon-biodiversity"');
+    expect(panel).toContain('id="future-countdown-cbd"');
     expect(panel).toContain('id="future-horizon-amr"');
     expect(panel).toContain('id="future-countdown-amr"');
     expect(panel).toContain('並見');
+    expect(panel).toContain('生物圈');
+    expect(panel).toContain('時間帶 進行中');
     expect(panel).toContain('時間帶 數十年');
     expect(panel).toContain('href="#future-f4"');
     expect(panel).not.toMatch(/只剩\s*[0-9０-９一二三四五六七八九十]+\s*天/);
+    const gbf = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-cbd-gbf-checkpoint');
+    expect(panel).toContain(gbf?.pending ?? '');
+    expect(panel).not.toContain(gbf?.expired ?? 'missing-expired');
     expect(panel).toContain('id="future-clade"');
     expect(panel).toContain('共享遺產');
     expect(panel).toContain('共演化');
@@ -177,6 +204,13 @@ describe('civilization future P0', () => {
     expect(expired).not.toContain(tracssClosed?.pending ?? 'missing-amr');
     expect(expired).toContain('等待下一輪自評');
     expect(expired).not.toMatch(/只剩/);
+    const gbfClosed = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-cbd-gbf-checkpoint');
+    const atClose = renderFuturePanel(new Date('2026-10-30T00:00:00.000Z'));
+    expect(atClose).toContain(gbfClosed?.expired ?? '');
+    expect(atClose).not.toContain(gbfClosed?.pending ?? 'missing');
+    expect(countdownSentence(gbfClosed!, NOW)).toBe(gbfClosed?.pending);
+    expect(expired).toContain(gbfClosed?.expired ?? '');
+    expect(expired).not.toContain(gbfClosed?.pending ?? 'missing');
     const route = readFileSync('functions/civilization/[[path]].ts', 'utf8');
     expect(route).not.toMatch(/future/);
     const schema = readFileSync('shared/civilization/SCHEMA.md', 'utf8');
@@ -187,6 +221,7 @@ describe('civilization future P0', () => {
     expect(schema).toContain('energy-budget');
     expect(schema).toContain('verify-flood');
     expect(schema).toContain('抗微生物藥物耐藥性（AMR）');
+    expect(schema).toContain('生物多樣性與生態系服務約束');
     expect(schema).toContain('2026-10-19');
     expect(schema).not.toMatch(REDLINE);
     const sitemap = readFileSync('shared/sitemap.ts', 'utf8');
