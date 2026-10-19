@@ -1,13 +1,12 @@
 import { esc } from '../contentPage.js';
 import { COSMOS_STAGES, cosmoCoverImg } from './cosmos.js';
 import { EARTH_STAGES, earthCoverImg } from './earth.js';
+import { renderLinkChips, SPINE_COSMOS_LINKS, SPINE_ORIGINS_LINKS, type BridgeChip } from './handoff.js';
 
 const CIV = '/static/civilization';
 
-export interface SpineLink {
-  href: string;
-  label: string;
-}
+/** Board chips use the same shape as the seven-million-year handoff. */
+export type SpineLink = BridgeChip;
 
 export interface SpineBoard {
   cardClass: string;
@@ -16,7 +15,7 @@ export interface SpineBoard {
   era: string;
   title: string;
   meaning: string;
-  links: SpineLink[];
+  links: readonly SpineLink[];
   /** Cosmos and earth covers carry data-stage. Origins does not. */
   dataStage?: boolean;
   cover: () => string;
@@ -52,8 +51,8 @@ export const SPINE: SpineNode[] = [
       aria: '宇宙長河',
       era: '宇宙長河',
       title: '宇宙長河・深時間',
-      meaning: '約一百三十八億年前至約七百萬年前。能量、物質、信息與時間。',
-      links: [{ href: '/civilization/cosmos/', label: '閱讀宇宙長河' }],
+      meaning: '約一百三十八億年前至約七百萬年前。能量、物質、信息與時間，至人族前生物圈收束。',
+      links: SPINE_COSMOS_LINKS,
       dataStage: true,
       cover: () => {
         const first = COSMOS_STAGES[0];
@@ -95,8 +94,8 @@ export const SPINE: SpineNode[] = [
       aria: '人類起源',
       era: '人類起源',
       title: '人類起源',
-      meaning: '約七百萬年前人族至智人。宇宙長河在此交接。',
-      links: [{ href: '/civilization/origins/', label: '閱讀人類起源' }],
+      meaning: '約七百萬年前接上宇宙長河的人族前生物圈，並寫至智人。',
+      links: SPINE_ORIGINS_LINKS,
       cover: originsCover,
     },
   },
@@ -141,7 +140,7 @@ function boardCard(node: SpineNode): string {
   const board = node.board;
   if (!board) return '';
   const cardClass = board.cardClass ? `deep-time-card ${board.cardClass}` : 'deep-time-card';
-  const links = board.links.map((link) => `<a href="${esc(link.href)}">${esc(link.label)}</a>`).join('');
+  const links = renderLinkChips(board.links, board.aria);
   const stageAttr = board.dataStage ? ' data-stage="1"' : '';
   return `<article class="${cardClass}">
         <a class="stage-cover"${stageAttr} href="${esc(node.href)}" aria-label="${esc(board.aria)}">${board.cover()}<span class="stage-seal">${esc(board.seal)}</span></a>
@@ -149,7 +148,7 @@ function boardCard(node: SpineNode): string {
           <p class="era">${esc(board.era)}</p>
           <h3><a href="${esc(node.href)}">${esc(board.title)}</a></h3>
           <p class="stage-meaning">${esc(board.meaning)}</p>
-          <p class="stage-links">${links}</p>
+          ${links}
         </div>
       </article>`;
 }

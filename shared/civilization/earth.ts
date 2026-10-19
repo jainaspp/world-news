@@ -1,4 +1,5 @@
 import { esc, safeHttp } from '../contentPage.js';
+import { ORIGINS_HANDOFF_HREF } from './handoff.js';
 import { renderReadingBlock, type ReadingBlock } from './blocks.js';
 import { renderSliceReturns } from './renderSlice.js';
 import {
@@ -140,15 +141,15 @@ export function renderEarthArticle(): string {
       <h1 class="column-title civ-page-title">${esc(EARTH_TITLE)}</h1>
     </header>
     <p class="deep-time-return"><a href="/civilization/cosmos/">上一層：宇宙長河</a></p>
-    <p>${esc(EARTH_LEDE.split('約七百萬年前交接入類起源。')[0] ?? '')}<a href="/civilization/origins/">約七百萬年前交接入類起源</a>。${esc(EARTH_LEDE.split('約七百萬年前交接入類起源。')[1] ?? '')}</p>
+    <p>${esc(EARTH_LEDE.split('約七百萬年前交接入類起源。')[0] ?? '')}<a href="${ORIGINS_HANDOFF_HREF}">約七百萬年前交接入類起源</a>。${esc(EARTH_LEDE.split('約七百萬年前交接入類起源。')[1] ?? '')}</p>
     ${lineChips(EARTH_LINES)}
     <nav class="chronicle-nav earth-nav" aria-label="跳到地球生命階段">${nav}${jurassicChip}</nav>
     <div class="civ-progress" aria-hidden="true"></div>
     ${EARTH_STAGES.map(stageSection).join('')}
     <h2>交接人類起源</h2>
     <p>${esc(HANDOFF_BACK_A)}<a href="/civilization/cosmos/">宇宙長河</a>${esc(HANDOFF_BACK_B)}</p>
-    <p>${esc(HANDOFF_FWD_A)}<a href="/civilization/origins/">人類起源時間線</a>${esc(HANDOFF_FWD_B)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_FWD_C)}</p>
-    <p class="stage-links"><a href="/civilization/cosmos/">返回宇宙長河</a><a href="/civilization/origins/">約七百萬年前，演化進入人族階段</a><a href="#earth-5">侏羅紀專節</a><a href="#jurassic">侏羅紀</a><a href="/civilization/">返回文明總覽</a></p>
+    <p>${esc(HANDOFF_FWD_A)}<a href="${ORIGINS_HANDOFF_HREF}">人類起源時間線</a>${esc(HANDOFF_FWD_B)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_FWD_C)}</p>
+    <p class="stage-links"><a href="/civilization/cosmos/">返回宇宙長河</a><a href="${ORIGINS_HANDOFF_HREF}">約七百萬年前，演化進入人族階段</a><a href="#earth-5">侏羅紀專節</a><a href="#jurassic">侏羅紀</a><a href="/civilization/">返回文明總覽</a></p>
     ${renderSliceReturns('earth')}
     <h2>來源</h2>
     ${sourceTable()}

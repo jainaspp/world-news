@@ -2149,6 +2149,31 @@ a.stage-cover { text-decoration: none; }
   font-weight: 700;
   text-decoration: none;
 }
+.ma-bridge {
+  scroll-margin-top: var(--civ-anchor-offset);
+  margin: 16px 0;
+  padding: 12px 14px;
+  border: 1px solid #d4cbb8;
+  border-radius: 12px;
+  background: #f7f1e6;
+  color: #161c24;
+}
+.ma-bridge h2 {
+  scroll-margin-top: var(--civ-anchor-offset);
+  margin: 0 0 8px;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: #161c24;
+}
+.ma-bridge p { margin: 0 0 10px; color: #161c24; }
+.ma-bridge a { color: #161c24; }
+.ma-bridge-chips { margin: 0; }
+.ma-bridge-chips .chip {
+  background: #f7f1e6;
+  border-color: #9a7b4f;
+  color: #161c24;
+  font-weight: 700;
+}
 .cosmo-hero,
 .earth-hero {
   margin: 0 0 16px;
@@ -2913,11 +2938,20 @@ html.dark .line-chip,
 html.dark .line-filter .chip,
 html.dark .chronicle-nav .chip,
 html.dark .cosmo-nav .chip,
-html.dark .deep-time-return a {
+html.dark .deep-time-return a,
+html.dark .ma-bridge-chips .chip {
   background: #3a3126;
   color: #f7f1e6;
   border-color: #c4a572;
 }
+html.dark .ma-bridge {
+  background: #2a231b;
+  color: #f3eadc;
+  border-color: #5c4a34;
+}
+html.dark .ma-bridge h2,
+html.dark .ma-bridge p,
+html.dark .ma-bridge a { color: #f7f1e6; }
 html.dark .stage-dot .thumb,
 html.dark .stage-dot .stage-seal {
   background: #f7f1e6;
