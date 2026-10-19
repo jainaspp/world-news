@@ -144,9 +144,10 @@ export function renderPatternCardsForStage(stageN: number): string {
 
 export function renderPatternBoard(): string {
   const cards = PATTERN_CARDS.map((card) => renderPatternCard(card)).join('');
-  return `<section class="pattern-board" aria-label="模式卡">
+  return `<section class="pattern-board" id="pattern-board" aria-label="模式卡">
     <h2>可調用的機制</h2>
     <p class="pattern-note">三張模式卡掛在既有編年階段上。新卡只追加資料，不新增路由。</p>
+    <p class="line-filter-echo" hidden></p>
     ${cards}
   </section>`;
 }

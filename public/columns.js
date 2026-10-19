@@ -287,26 +287,36 @@
 
   function applyLineFilter(line) {
     var root = document.querySelector('.civ-page') || document;
-    var shown = 0;
     root.querySelectorAll('[data-lines]').forEach(function (el) {
       var tokens = (el.getAttribute('data-lines') || '').split(/\s+/);
       var on = !line || tokens.indexOf(line) !== -1;
-      if (on) {
-        el.removeAttribute('hidden');
-        shown += 1;
-      } else {
-        el.setAttribute('hidden', '');
-      }
+      if (on) el.removeAttribute('hidden');
+      else el.setAttribute('hidden', '');
     });
-    var empty = root.querySelector('.line-filter-empty');
-    if (empty) {
-      if (line && shown === 0) empty.removeAttribute('hidden');
-      else empty.setAttribute('hidden', '');
-    }
+    var pressedButton = null;
     root.querySelectorAll('.line-filter [data-line]').forEach(function (button) {
       var pressed = (button.getAttribute('data-line') || '') === line;
       button.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+      if (pressed) pressedButton = button;
     });
+    var status = root.querySelector('.line-filter-status');
+    if (status && pressedButton) {
+      var text = pressedButton.getAttribute('data-status') || '';
+      if (text) status.textContent = text;
+      if ((pressedButton.getAttribute('data-stages') || '0') === '0') status.classList.add('is-empty');
+      else status.classList.remove('is-empty');
+    }
+    var echo = root.querySelector('.line-filter-echo');
+    if (echo) {
+      var echoText = line && pressedButton ? (pressedButton.getAttribute('data-pattern-status') || '') : '';
+      if (echoText) {
+        echo.textContent = echoText;
+        echo.removeAttribute('hidden');
+      } else {
+        echo.textContent = '';
+        echo.setAttribute('hidden', '');
+      }
+    }
   }
   var lineFilter = document.querySelector('.line-filter');
   if (lineFilter) {
@@ -315,6 +325,22 @@
       var button = target && target.closest ? target.closest('[data-line]') : null;
       if (!button || !lineFilter.contains(button)) return;
       applyLineFilter(button.getAttribute('data-line') || '');
+    });
+    lineFilter.addEventListener('keydown', function (event) {
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft' && event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+      var buttons = lineFilter.querySelectorAll('[data-line]');
+      var current = event.target && event.target.closest ? event.target.closest('[data-line]') : null;
+      if (!current || !lineFilter.contains(current)) return;
+      var index = -1;
+      for (var i = 0; i < buttons.length; i += 1) {
+        if (buttons[i] === current) index = i;
+      }
+      if (index < 0) return;
+      event.preventDefault();
+      var delta = (event.key === 'ArrowRight' || event.key === 'ArrowDown') ? 1 : -1;
+      var next = buttons[(index + delta + buttons.length) % buttons.length];
+      next.focus();
+      applyLineFilter(next.getAttribute('data-line') || '');
     });
   }
 
