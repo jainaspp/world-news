@@ -1363,6 +1363,91 @@ html.dark .detail-hero { box-shadow: none; }
   padding: 8px 0 2px;
   scrollbar-width: thin;
 }
+.nav-more { margin: 4px 0 8px; }
+.nav-more summary { cursor: pointer; color: #5c6570; font-size: 13px; }
+.nav-more .filters { margin-top: 6px; }
+.bulletin-clock {
+  margin: 16px 0 8px;
+  padding: 16px 18px 14px;
+  background: #f7f1e6;
+  color: #161c24;
+  border: 1px solid #c4a572;
+  border-radius: 14px;
+}
+.bulletin-clock .bulletin-kicker {
+  margin: 0 0 6px;
+  color: #9a7b4f;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+.bulletin-clock .bulletin-face {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.bulletin-clock .bulletin-num {
+  font-size: 2.4rem;
+  color: #9a7b4f;
+}
+.bulletin-clock .bulletin-unit {
+  margin: 0 10px 0 4px;
+  font-size: 1rem;
+  color: #161c24;
+}
+.bulletin-clock .bulletin-caption,
+.bulletin-clock .bulletin-asof,
+.bulletin-clock .bulletin-link { margin: 8px 0 0; font-size: 14px; }
+.bulletin-clock a { color: #161c24; }
+.learn-page { background: #f7f1e6; color: #161c24; }
+.learn-hero h1,
+.learn-main h1 { font-family: var(--font-serif); }
+.learn-motto { font-size: 1.15rem; }
+.learn-progress,
+.learn-note,
+.learn-bound,
+.learn-locked { color: #3d4550; }
+.learn-bearings { display: flex; flex-wrap: wrap; gap: 8px; font-size: 12px; color: #5c6570; }
+.learn-map {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.learn-door {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 96px;
+  padding: 14px;
+  background: #f7f1e6;
+  color: #161c24;
+  border: 1px solid #c4a572;
+  border-radius: 12px;
+  text-decoration: none;
+}
+.learn-door.is-locked {
+  background: #efe8da;
+  color: #5c6570;
+  border-color: #d4cbb8;
+}
+.learn-door strong { font-size: 1.05rem; }
+.learn-bearing,
+.learn-state { font-size: 12px; }
+.learn-article p,
+.learn-leaf p { max-width: 40rem; }
+html.dark .bulletin-clock {
+  background: #161c24;
+  color: #f7f1e6;
+  border-color: #9a7b4f;
+}
+html.dark .bulletin-clock .bulletin-unit,
+html.dark .bulletin-clock a { color: #f7f1e6; }
+html.dark .learn-page { background: #121820; color: #f7f1e6; }
+html.dark .learn-door { background: #1c2430; color: #f7f1e6; }
+html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
+@media (min-width: 720px) {
+  .learn-map { grid-template-columns: repeat(3, 1fr); }
+}
 .chip.civ-chip {
   background: #161c24;
   color: #f0ebe3;

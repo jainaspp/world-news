@@ -268,7 +268,7 @@ export function head(title: string, description: string, canonical: string, imag
   <link rel="alternate" hreflang="zh-HK" href="${esc(canonical)}" />
   <link rel="alternate" hreflang="x-default" href="${esc(canonical)}" />
   <link rel="alternate" type="application/rss+xml" title="世界頭條" href="/feed.xml" />
-  <meta name="theme-color" content="#1D4F91" />
+  <meta name="theme-color" content="#161c24" />
   <meta property="og:site_name" content="世界頭條" />
   <meta property="og:locale" content="zh_HK" />
   <meta property="og:title" content="${esc(title)}" />
@@ -295,8 +295,10 @@ export function head(title: string, description: string, canonical: string, imag
 </head>`;
 }
 
-export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization'): string {
+export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'learn'): string {
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
+  const current = (key: typeof active) => active === key ? ' aria-current="page"' : '';
+  const primary = `<nav class="civ-nav" aria-label="主欄目"><a class="chip civ-chip${active === 'civilization' ? ' active' : ''}" href="/civilization/"${current('civilization')}>文明</a><a class="chip${active === 'today' ? ' active' : ''}" href="/#slice"${current('today')}>今天</a><a class="chip${active === 'learn' ? ' active' : ''}" href="/learn/"${current('learn')}>開蒙</a></nav>`;
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
     <header class="masthead">
@@ -326,10 +328,14 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
       </div>
     </header>
     <div class="tab-bar">
-      <nav class="filters" aria-label="欄目">
-        <a class="chip${active === 'civilization' ? ' civ-chip' : ''}" href="/civilization/"${active === 'civilization' ? ' aria-current="page"' : ''}>文明</a><a class="chip" href="/">頭條</a>
-        ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/"${active === 'today' ? ' aria-current="page"' : ''}>時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a><a class="chip${active === 'quiz' ? ' active' : ''}" href="/quiz/"${active === 'quiz' ? ' aria-current="page"' : ''}>小測</a>
-      </nav>
+      ${primary}
+      <details class="nav-more">
+        <summary>更多</summary>
+        <nav class="filters" aria-label="更多欄目">
+          <a class="chip" href="/#slice">頭條</a>
+          ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/"${active === 'today' ? ' aria-current="page"' : ''}>時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a><a class="chip${active === 'quiz' ? ' active' : ''}" href="/quiz/"${active === 'quiz' ? ' aria-current="page"' : ''}>小測</a>
+        </nav>
+      </details>
       ${subscribeMenu()}
     </div>
     <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"></div>

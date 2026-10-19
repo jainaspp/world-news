@@ -10,6 +10,8 @@ import { clusterStories, sourceCounts } from '../shared/trending';
 import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem, TimeRange } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
+import { renderBulletinClock } from '../shared/civilization/clock';
+import { renderChronicleStrip } from '../shared/civilization/chronicle';
 import { renderAxisBand, renderLayerAside, sliceHeadHtml } from '../shared/civilizationPage';
 import { renderNearBridge } from '../shared/civilization/renderSlice';
 import { columnHref, type HomeColumnLinks } from '../shared/homePage';
@@ -201,15 +203,11 @@ function readHomeColumns(): HomeColumnLinks {
 }
 
 function CivNav() {
-  const columns = useMemo(readHomeColumns, []);
   return (
     <nav className="civ-nav" aria-label="主欄目">
       <a className="chip civ-chip" href="/civilization/">文明</a>
-      <a className="chip" href="#slice">今日</a>
-      <a className="chip" href="/briefing/">導讀</a>
-      <a className="chip" href="/explainer/">懶人包</a>
-      {columns.topic ? <a className="chip" href="/topic/">專題</a> : null}
-      <a className="chip" href="/data/">數據</a>
+      <a className="chip" href="/#slice">今天</a>
+      <a className="chip" href="/learn/">開蒙</a>
     </nav>
   );
 }
@@ -270,7 +268,7 @@ export default function App() {
     document.documentElement.classList.toggle('dark', dark);
     localStorage.setItem('darkMode', String(dark));
     const theme = document.querySelector('meta[name="theme-color"]');
-    theme?.setAttribute('content', dark ? '#0E141C' : '#1D4F91');
+    theme?.setAttribute('content', dark ? '#0E141C' : '#161c24');
   }, [dark]);
 
   const chooseLang = useCallback((next: UiLang) => {
@@ -510,6 +508,20 @@ export default function App() {
 
           <CivNav />
 
+        </div>
+
+        <div className="layout">
+          <main id="news">
+            {!special && <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false }) }} />}
+            {!special && <div dangerouslySetInnerHTML={{ __html: renderBulletinClock() }} />}
+            {!special && <div dangerouslySetInnerHTML={{ __html: renderChronicleStrip() }} />}
+            <div className={special ? undefined : 'civ-frame'}>
+            <div className={special ? undefined : 'civ-main'}>
+            {!special && <OnThisDay />}
+            <section className={special ? undefined : 'today-slice'} id={special ? undefined : 'slice'} aria-label={special ? undefined : '今日切片'}>
+            {!special && focusLabel ? <h1 className="focus-title">{focusLabel}</h1> : null}
+            {!special && <div dangerouslySetInnerHTML={{ __html: sliceHeadHtml() }} />}
+            {!special && <div dangerouslySetInnerHTML={{ __html: renderNearBridge() }} />}
           <div className="tab-bar">
             <TemplateSwitch listMode={listMode} lang={lang} onPick={pickLayout} />
             <button
@@ -657,18 +669,6 @@ export default function App() {
               )}
             </div>
           )}
-        </div>
-
-        <div className="layout">
-          <main id="news">
-            {!special && <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis }) }} />}
-            <div className={special ? undefined : 'civ-frame'}>
-            <div className={special ? undefined : 'civ-main'}>
-            {!special && <OnThisDay />}
-            <section className={special ? undefined : 'today-slice'} id={special ? undefined : 'slice'} aria-label={special ? undefined : '今日切片'}>
-            {!special && focusLabel ? <h1 className="focus-title">{focusLabel}</h1> : null}
-            {!special && <div dangerouslySetInnerHTML={{ __html: sliceHeadHtml() }} />}
-            {!special && <div dangerouslySetInnerHTML={{ __html: renderNearBridge() }} />}
             <MajorBanner />
             <AlertRow />
             {allowAds && <HomeIntroTop />}

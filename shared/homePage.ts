@@ -139,8 +139,8 @@ function card(item: NewsItem, featured: boolean, sourceCount: number, showBreaki
   const lang = titleLang(item.title);
   const href = articleUrl ? ` href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer"` : '';
   const mediaHtml = articleUrl
-    ? `<a class="story-media" href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">${media(item.image, item.category, item.source, featured)}</a>`
-    : `<div class="story-media">${media(item.image, item.category, item.source, featured)}</div>`;
+    ? `<a class="story-media" href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">${media(item.image, item.category, item.source, false)}</a>`
+    : `<div class="story-media">${media(item.image, item.category, item.source, false)}</div>`;
   const fav = favicon(sourceUrl || articleUrl);
   const titleClass = lang === 'zh' ? 'story-title' : 'story-title title-sans';
   return `<article class="story${featured ? ' story-hero' : ''}">
@@ -264,14 +264,7 @@ export function injectHomeShell(
 ): string {
   const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead, new Date(), settled, columns, pageH1);
   const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner) + mustReadBootstrap(mustRead) + columnsBootstrap(columns);
-  const lead = demoteGraphic(items)[0];
-  const heroImage = lead?.image && /^https?:\/\//.test(lead.image) ? lead.image : '';
-  const preload = heroImage
-    ? `<link rel="preload" as="image" href="${esc(heroImage)}" fetchpriority="high" />`
-    : '';
-  let html = shell;
-  if (preload) html = html.replace('</head>', `${preload}\n</head>`);
-  html = html.replace('<div id="root"></div>', `<div id="root">${feed}</div>${boot}`);
+  const html = shell.replace('<div id="root"></div>', `<div id="root">${feed}</div>${boot}`);
   return gateHomeAds(html);
 }
 

@@ -123,11 +123,12 @@ describe('civilization future P0', () => {
       expect(card.bands.length).toBeGreaterThan(0);
     }
     expect(questionHrefAllowed('/civilization/#future-f6')).toBe(true);
+    expect(questionHrefAllowed('/civilization/#future-f1')).toBe(true);
     expect(questionHrefAllowed('/civilization/future/')).toBe(false);
   });
 
   it('places future on the spine and the hub, and bridges stage 10 without a new route', () => {
-    expect(SPINE.map((node) => node.id)).toEqual(['cosmos', 'earth', 'origins', 'tech', 'city', 'future', 'today']);
+    expect(SPINE.map((node) => node.id)).toEqual(['cosmos', 'earth', 'origins', 'tech', 'city', 'today', 'future']);
     expect(SPINE.find((node) => node.id === 'future')?.href).toBe('/civilization/#future');
     const hub = renderCivilizationHub(NOW);
     const chronicle = renderChroniclePage();
@@ -284,6 +285,15 @@ describe('civilization future P0', () => {
     expect(expired).not.toContain(gbfClosed?.pending ?? 'missing');
     const route = readFileSync('functions/civilization/[[path]].ts', 'utf8');
     expect(route).not.toMatch(/future/);
+    const futureSrc = readFileSync('shared/civilization/future.ts', 'utf8');
+    expect(futureSrc).not.toContain('renderBulletinClock');
+    expect(futureSrc).not.toContain('MONITOR_READING');
+    expect(futureSrc).not.toContain('./clock');
+    const clockSrc = readFileSync('shared/civilization/clock.ts', 'utf8');
+    expect(clockSrc).not.toContain('setInterval');
+    expect(clockSrc).not.toContain("from './future");
+    expect(clockSrc).not.toContain('from "../civilization/future');
+    expect(clockSrc).not.toMatch(/末日|滅絕|災變倒數|秒針|紅色倒數/);
     const schema = readFileSync('shared/civilization/SCHEMA.md', 'utf8');
     expect(schema).toContain('今日切片回扣');
     expect(schema).toContain('/civilization/#future-f1');
