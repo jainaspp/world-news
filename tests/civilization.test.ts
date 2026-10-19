@@ -287,7 +287,7 @@ describe('civilization thick pages', () => {
       expect(hub.html).toContain(`href="/civilization/chronicle/#stage-${stage.n}"`);
       expect(hub.html).toContain(stage.name);
       expect(hub.html).toContain(stage.meaning);
-      const card = hub.html.slice(hub.html.indexOf(`<article class="stage-card" data-stage="${stage.n}">`));
+      const card = hub.html.slice(hub.html.indexOf(`<article class="stage-card" data-stage="${stage.n}"`));
       const next = card.indexOf('<article class="stage-card"', 1);
       const body = next === -1 ? card.slice(0, card.indexOf('class="civ-article"')) : card.slice(0, next);
       expect(body.match(/<li>/g)).toHaveLength(chronicleCardMilestones(stage).length);
@@ -305,8 +305,8 @@ describe('civilization thick pages', () => {
       expect(hub.html).toContain(`civ-stage-${n}-cover-1280w.webp 1280w`);
     }
     expect(hub.html).toContain('onerror="this.hidden=true"');
-    const firstCard = hub.html.slice(hub.html.indexOf('<article class="stage-card" data-stage="1">'), hub.html.indexOf('<article class="stage-card" data-stage="2">'));
-    const thirdCard = hub.html.slice(hub.html.indexOf('<article class="stage-card" data-stage="3">'), hub.html.indexOf('<article class="stage-card" data-stage="4">'));
+    const firstCard = hub.html.slice(hub.html.indexOf('<article class="stage-card" data-stage="1"'), hub.html.indexOf('<article class="stage-card" data-stage="2"'));
+    const thirdCard = hub.html.slice(hub.html.indexOf('<article class="stage-card" data-stage="3"'), hub.html.indexOf('<article class="stage-card" data-stage="4"'));
     expect(firstCard).toContain('loading="eager"');
     expect(thirdCard).toContain('loading="lazy"');
     const stripOnly = hub.html.slice(hub.html.indexOf('class="chronicle-strip"'), hub.html.indexOf('</nav>', hub.html.indexOf('class="chronicle-strip"')));

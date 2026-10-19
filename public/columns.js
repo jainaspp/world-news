@@ -285,6 +285,39 @@
     }
   }
 
+  function applyLineFilter(line) {
+    var root = document.querySelector('.civ-page') || document;
+    var shown = 0;
+    root.querySelectorAll('[data-lines]').forEach(function (el) {
+      var tokens = (el.getAttribute('data-lines') || '').split(/\s+/);
+      var on = !line || tokens.indexOf(line) !== -1;
+      if (on) {
+        el.removeAttribute('hidden');
+        shown += 1;
+      } else {
+        el.setAttribute('hidden', '');
+      }
+    });
+    var empty = root.querySelector('.line-filter-empty');
+    if (empty) {
+      if (line && shown === 0) empty.removeAttribute('hidden');
+      else empty.setAttribute('hidden', '');
+    }
+    root.querySelectorAll('.line-filter [data-line]').forEach(function (button) {
+      var pressed = (button.getAttribute('data-line') || '') === line;
+      button.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+    });
+  }
+  var lineFilter = document.querySelector('.line-filter');
+  if (lineFilter) {
+    lineFilter.addEventListener('click', function (event) {
+      var target = event.target;
+      var button = target && target.closest ? target.closest('[data-line]') : null;
+      if (!button || !lineFilter.contains(button)) return;
+      applyLineFilter(button.getAttribute('data-line') || '');
+    });
+  }
+
   var related = document.getElementById('related');
   if (!related) return;
   var TILE = { hk: ['#C8102E', 'hkg', '香港'], china: ['#9A3412', 'asi', '中國'], asia: ['#0C3C78', 'asi', '亞洲'], world: ['#1D4F91', 'int', '國際'], business: ['#0B6B4F', 'usa', '財經'], tech: ['#1E4D8C', 'all', '科技'], science: ['#0F6E56', 'int', '科學'], health: ['#8A4B08', 'all', '健康'], sport: ['#8E1B2C', 'all', '體育'], entertainment: ['#5B3A8C', 'all', '娛樂'] };
