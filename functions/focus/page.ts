@@ -4,6 +4,7 @@ import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
 import { adsRuntimeEnabled, homeAllowsAds, type HomeAdView } from '../../shared/adPolicy.js';
 import { filterNews } from '../../shared/filter.js';
 import { focusKey, focusPages, parseFocus, renderWeekFocus, type FocusPage } from '../../shared/focus.js';
+import { siteBrand, siteTitle } from '../../shared/brand.js';
 import { esc } from '../../shared/contentPage.js';
 import { injectHomeShell, type HomeColumnLinks, type HomeMarket } from '../../shared/homePage.js';
 import { mustReadForSurface } from '../../shared/mustRead.js';
@@ -49,8 +50,8 @@ function retargetShell(html: string, path: string, title: string, noindex: boole
     `<link rel="alternate" hreflang="zh-HK" href="https://world-news.xyz${path}" />`,
   );
   next = next.replace(
-    '<title>世界頭條 — 新聞標題、來源、原文連結</title>',
-    `<title>${esc(title)} — 世界頭條</title>`,
+    `<title>${siteTitle}</title>`,
+    `<title>${esc(title)} — ${siteBrand}</title>`,
   );
   if (noindex) {
     next = next.replace(

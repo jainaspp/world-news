@@ -207,7 +207,7 @@ describe('trend chart and HK summary', () => {
       days: [day('2026-10-07', { temp: 28, humidity: 75, rain: 0 })],
     };
     const html = renderDataPage(spec, series, { client: 'ca-pub-8392975944327076' });
-    expect(html).toContain('<title>香港天氣 — 世界頭條</title>');
+    expect(html).toContain('<title>香港天氣 — 文明編年史</title>');
     expect(html).toContain('name="description"');
     expect(html).toContain(spec.description);
     expect(html).toContain('rel="canonical" href="https://world-news.xyz/data/weather/"');

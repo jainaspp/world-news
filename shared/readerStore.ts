@@ -1,3 +1,4 @@
+import { siteBrand } from './brand.js';
 import type { NewsItem } from './types.js';
 
 /** Headlines and on-site articles. This browser only; nothing is uploaded. */
@@ -81,7 +82,7 @@ export function articleBookmark(input: {
     id: `article:${input.page}:${input.key}`,
     title: input.title,
     link: input.link,
-    source: '世界頭條',
+    source: siteBrand,
     sourceUrl: 'https://world-news.xyz',
     regions: [],
     pubDate: input.publishedAt,

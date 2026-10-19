@@ -1,6 +1,6 @@
 {
-  "name": "世界頭條",
-  "short_name": "世界頭條",
+  "name": "文明編年史",
+  "short_name": "文明編年史",
   "description": "新聞標題、來源同原文連結。",
   "start_url": "/",
   "scope": "/",

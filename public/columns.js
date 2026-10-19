@@ -675,7 +675,7 @@
             id: id,
             title: button.getAttribute('data-title') || '',
             link: button.getAttribute('data-link') || location.pathname,
-            source: '世界頭條',
+            source: '文明編年史',
             sourceUrl: 'https://world-news.xyz',
             regions: [],
             pubDate: button.getAttribute('data-published') || new Date().toISOString(),

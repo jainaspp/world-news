@@ -1,3 +1,4 @@
+import { siteBrand } from './brand.js';
 import { briefingOverview } from './headlineNumbers.js';
 import { arabicDigits, cantoneseLeft, polishProse, preachySentence, proseSane, rejoinQuotes, splitSentences, tidyDisplay } from './prose.js';
 import { researchSources, SOURCE_LIST_CAP } from './search.js';
@@ -490,7 +491,7 @@ export function digestFromClusters(clusters: StoryCluster[], key: string, now = 
   return {
     kind: 'digest',
     key,
-    title: `世界頭條精選 ${key}`,
+    title: `${siteBrand}精選 ${key}`,
     description: blocks[0] ? `綜合多個來源：${blocks[0].title}` : '這一期暫時沒有足夠來源。',
     blocks,
     publishedAt: now.toISOString(),
