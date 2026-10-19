@@ -63,7 +63,7 @@ describe('follow routing', () => {
       category: 'all',
       source: '',
       q: '',
-      time: 'all',
+      time: 'today',
       bookmarks: false,
       following: true,
       list: false,

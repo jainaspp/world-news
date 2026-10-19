@@ -13,7 +13,7 @@ import { loadBriefingLinks, loadMustRead } from './content/mustRead.js';
 import type { ContentEnv } from './content/store.js';
 import { edgeCache, type PagesContext } from './env.js';
 
-const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v10');
+const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v11');
 const FRESH_S = 120;
 
 function envSlot(env: Record<string, unknown>): string {
@@ -64,15 +64,13 @@ export async function onRequest(context: PagesContext): Promise<Response> {
       loadHsiQuote().catch(() => null),
       readBoard(context.env as ContentEnv),
     ]);
-    items = allowAds
-      ? list
-      : filterNews(list, {
-        region: view.bookmarks || view.following ? 'ALL' : view.region,
-        category: view.bookmarks || view.following ? 'all' : view.category,
-        source: view.bookmarks || view.following ? '' : view.source,
-        q: view.q,
-        time: view.time,
-      });
+    items = filterNews(list, {
+      region: view.bookmarks || view.following ? 'ALL' : view.region,
+      category: view.bookmarks || view.following ? 'all' : view.category,
+      source: view.bookmarks || view.following ? '' : view.source,
+      q: view.q,
+      time: view.bookmarks || view.following ? undefined : view.time,
+    });
     market = { hk, hsi };
     if (snapshot) {
       counts = new Map(Object.entries(snapshot.counts));

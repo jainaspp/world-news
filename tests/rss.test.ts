@@ -157,13 +157,14 @@ describe('filterNews', () => {
     { id: '3', title: 'Last week', link: 'https://example.com/3', source: 'RTHK', sourceUrl: 'https://news.rthk.hk', regions: ['HKG'], pubDate: '2026-09-20T08:00:00Z' },
   ];
 
-  it('filters by region, source, query, and the one-hour window', () => {
+  it('filters by region, source, and query, and keeps today as the only time window', () => {
     expect(filterNews(items, { region: 'HKG', now }).map((item) => item.id)).toEqual(['1', '3']);
     expect(filterNews(items, { source: 'BBC News', now }).map((item) => item.id)).toEqual(['2']);
     expect(filterNews(items, { q: 'harbour', now }).map((item) => item.id)).toEqual(['1']);
-    expect(filterNews(items, { time: 'hour', now }).map((item) => item.id)).toEqual(['1']);
     expect(filterNews(items, { time: 'today', now }).map((item) => item.id)).toEqual(['1', '2']);
+    expect(filterNews(items, { time: 'hour', now }).map((item) => item.id)).toEqual(['1', '2']);
     expect(filterNews(items, { time: 'week', now }).map((item) => item.id)).toEqual(['1', '2']);
+    expect(filterNews(items, { time: 'all', now }).map((item) => item.id)).toEqual(['1', '2']);
   });
 
   it('drops the removed Taiwan outlets from the Taiwan page and keeps other headlines', () => {

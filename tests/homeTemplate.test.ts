@@ -25,7 +25,7 @@ const home = {
   category: 'all',
   source: '',
   q: '',
-  time: 'all' as const,
+  time: 'today' as const,
   bookmarks: false,
   following: false,
   list: false,
@@ -35,7 +35,12 @@ describe('homepage list choice', () => {
   it('defaults to cards and remembers the list in the query', () => {
     const cards = { pathname: '/', search: '', hash: '' } as Location;
     expect(readView(cards).list).toBe(false);
+    expect(readView(cards).time).toBe('today');
+    expect(readView({ pathname: '/', search: '?time=all', hash: '' } as Location).time).toBe('today');
+    expect(readView({ pathname: '/', search: '?time=hour', hash: '' } as Location).time).toBe('today');
+    expect(readView({ pathname: '/', search: '?time=week', hash: '' } as Location).time).toBe('today');
     expect(viewHref(home)).toBe('/');
+    expect(viewHref({ ...home, time: 'today' })).toBe('/');
     expect(viewHref({ ...home, list: true })).toBe('/?view=list');
     const listed = { pathname: '/', search: '?view=list', hash: '' } as Location;
     expect(readView(listed).list).toBe(true);
@@ -44,6 +49,21 @@ describe('homepage list choice', () => {
     const following = { pathname: '/', search: '?view=following', hash: '' } as Location;
     expect(readView(following).list).toBe(false);
     expect(readView(following).following).toBe(true);
+  });
+
+  it('keeps only the today chip on the primary filter row', () => {
+    const app = readFileSync('src/App.tsx', 'utf8');
+    const row = app.slice(app.indexOf('filters-primary'), app.indexOf('<SubscribeMenu />'));
+    expect(row).toContain('TODAY_LABEL');
+    expect(row).not.toContain('全部');
+    expect(row).not.toContain('1小時');
+    expect(row).not.toContain('本週');
+    expect(app).not.toContain('1小時');
+    expect(app).not.toContain('本週');
+    expect(app).not.toContain("id: 'all'");
+    expect(app).not.toContain("id: 'hour'");
+    expect(app).not.toContain("id: 'week'");
+    expect(app).toContain("time: 'today'");
   });
 
   it('keeps the switch labels short', () => {

@@ -31,14 +31,18 @@ export interface HomeAdView {
   following?: boolean;
 }
 
-/** Search, region, category, source, time, bookmarks and follows are thin result lists. */
+/**
+ * Search, region, category, source, bookmarks and follows are thin result lists.
+ * Today is the only time preset and the homepage default, so it still counts as the unfiltered home.
+ * Retired presets (all, hour, week) do not.
+ */
 export function homeAllowsAds(view: HomeAdView): boolean {
-  const time = view.time || 'all';
+  const time = view.time || 'today';
   return !view.q.trim()
     && view.region === 'ALL'
     && view.category === 'all'
     && !view.source.trim()
-    && time === 'all'
+    && time === 'today'
     && !view.bookmarks
     && !view.following;
 }

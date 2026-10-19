@@ -1,23 +1,20 @@
 import { blockedHkChinaStory, removedFromTaiwanPage } from './feeds.js';
-import type { NewsItem, TimeRange } from './types';
+import type { NewsItem } from './types';
 
-const WINDOWS: Record<Exclude<TimeRange, 'all'>, number> = {
-  hour: 60 * 60 * 1000,
-  today: 24 * 60 * 60 * 1000,
-  week: 7 * 24 * 60 * 60 * 1000,
-};
+const TODAY_MS = 24 * 60 * 60 * 1000;
+/** Retired chip values. They no longer open their own window; they use today. */
+const TODAY_PRESETS = new Set(['today', 'all', 'hour', 'week']);
 
 export function filterNews(
   items: NewsItem[],
-  opts: { region?: string; source?: string; category?: string; q?: string; time?: TimeRange; now?: number },
+  opts: { region?: string; source?: string; category?: string; q?: string; time?: string; now?: number },
 ): NewsItem[] {
   const region = opts.region && opts.region !== 'ALL' ? opts.region : '';
   const source = opts.source?.trim() ?? '';
   const category = opts.category && opts.category !== 'all' ? opts.category : '';
   const query = opts.q?.trim().toLowerCase() ?? '';
-  const time = opts.time ?? 'all';
   const now = opts.now ?? Date.now();
-  const windowMs = time === 'all' ? 0 : WINDOWS[time];
+  const windowMs = opts.time && TODAY_PRESETS.has(opts.time) ? TODAY_MS : 0;
   const hkChinaDesk = category === 'hk' || category === 'china' || region === 'HKG';
 
   return items.filter((item) => {
