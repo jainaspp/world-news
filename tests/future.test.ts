@@ -46,9 +46,28 @@ describe('civilization future P0', () => {
     expect(FUTURE_CLADE.kinds).toEqual(['tool-extension', 'niche-continue']);
     expect(FUTURE_CLADE.layers.map((layer) => layer.title)).toEqual(['共享遺產', '共演化', 'SETI尚無確證']);
     expect(FUTURE_HORIZONS.map((horizon) => horizon.title)).toEqual([
-      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測',
+      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '抗微生物藥物耐藥性（AMR）',
     ]);
-    expect(FUTURE_COUNTDOWNS.length).toBeGreaterThanOrEqual(1);
+    const amr = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-antimicrobial-resistance');
+    expect(amr?.domainId).toBe('f6');
+    expect(amr?.alsoDomainId).toBe('f4');
+    expect(amr?.kind).toBe('health');
+    expect(amr?.timeBand).toBe('數十年');
+    expect(amr?.band).toBe('a1');
+    expect(amr?.confidence).toBe('steady');
+    expect(amr?.dataAsOf).toBe('2026-10-19');
+    expect(amr?.sources.length).toBeGreaterThanOrEqual(4);
+    expect(amr?.sources.every((source) => source.url.startsWith('https://www.who.int/'))).toBe(true);
+    const tracss = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-who-amr-tracss');
+    expect(tracss?.horizonId).toBe('horizon-antimicrobial-resistance');
+    expect(tracss?.checkpoint).toBe('2026-12-31');
+    expect(tracss?.expired).toContain('等待下一輪自評');
+    expect(`${tracss?.pending}\n${tracss?.expired}`).not.toMatch(/只剩/);
+    expect(countdownSentence(tracss!, NOW)).toBe(tracss?.pending);
+    expect(countdownSentence(tracss!, new Date('2027-01-01T00:00:00.000Z'))).toBe(tracss?.expired);
+    expect(FUTURE_COUNTDOWNS.length).toBeGreaterThanOrEqual(2);
+    expect(futureHrefAllowed('/civilization/#future-horizon-amr')).toBe(true);
+    expect(futureHrefAllowed('/civilization/#future-countdown-amr')).toBe(true);
     expect(civChars(STAGE10_BRIDGE)).toBeGreaterThanOrEqual(80);
     expect(civChars(STAGE10_BRIDGE)).toBeLessThanOrEqual(120);
     expect(futureHrefAllowed('/civilization/#future')).toBe(true);
@@ -115,6 +134,12 @@ describe('civilization future P0', () => {
     expect(f3).not.toContain('future-instance');
     expect(panel).toContain('id="future-countdown-wmo"');
     expect(panel).toContain(FUTURE_COUNTDOWNS[0]?.pending ?? '');
+    expect(panel).toContain('id="future-horizon-amr"');
+    expect(panel).toContain('id="future-countdown-amr"');
+    expect(panel).toContain('並見');
+    expect(panel).toContain('時間帶 數十年');
+    expect(panel).toContain('href="#future-f4"');
+    expect(panel).not.toMatch(/只剩\s*[0-9０-９一二三四五六七八九十]+\s*天/);
     expect(panel).toContain('id="future-clade"');
     expect(panel).toContain('共享遺產');
     expect(panel).toContain('共演化');
@@ -147,6 +172,11 @@ describe('civilization future P0', () => {
     expect(expired).toContain(FUTURE_COUNTDOWNS[0]?.expired ?? '');
     expect(expired).not.toContain(FUTURE_COUNTDOWNS[0]?.pending ?? 'missing');
     expect(countdownSentence(FUTURE_COUNTDOWNS[0]!, NOW)).toBe(FUTURE_COUNTDOWNS[0]?.pending);
+    const tracssClosed = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-who-amr-tracss');
+    expect(expired).toContain(tracssClosed?.expired ?? '');
+    expect(expired).not.toContain(tracssClosed?.pending ?? 'missing-amr');
+    expect(expired).toContain('等待下一輪自評');
+    expect(expired).not.toMatch(/只剩/);
     const route = readFileSync('functions/civilization/[[path]].ts', 'utf8');
     expect(route).not.toMatch(/future/);
     const schema = readFileSync('shared/civilization/SCHEMA.md', 'utf8');
@@ -156,13 +186,19 @@ describe('civilization future P0', () => {
     expect(schema).toContain('/civilization/#future-f6');
     expect(schema).toContain('energy-budget');
     expect(schema).toContain('verify-flood');
+    expect(schema).toContain('抗微生物藥物耐藥性（AMR）');
+    expect(schema).toContain('2026-10-19');
     expect(schema).not.toMatch(REDLINE);
     const sitemap = readFileSync('shared/sitemap.ts', 'utf8');
     expect(sitemap).not.toContain('future-energy-budget');
     expect(sitemap).not.toContain('future-verify-flood');
+    expect(sitemap).not.toContain('future-horizon-amr');
+    expect(sitemap).not.toContain('future-countdown-amr');
     const pages = readFileSync('functions/civilization/[[path]].ts', 'utf8');
     expect(pages).not.toContain('energy-budget');
     expect(pages).not.toContain('verify-flood');
+    expect(pages).not.toContain('antimicrobial');
+    expect(pages).not.toContain('future-horizon-amr');
     const css = readFileSync('src/App.css', 'utf8');
     const futureCss = css.slice(css.indexOf('.future-panel {'), css.indexOf('.future-panel h2'));
     expect(futureCss).toContain('#f7f1e6');
