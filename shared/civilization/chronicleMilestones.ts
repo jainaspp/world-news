@@ -1,4 +1,4 @@
-import type { CivLine } from './chronicle.js';
+import type { CivDriver, CivLine, CivProduct } from './contract.js';
 
 /**
  * 編年里程碑「產物｜推動力」深讀資料（擴容預備：內容與呈現分離）。
@@ -7,22 +7,18 @@ import type { CivLine } from './chronicle.js';
  * 追加一筆資料；頁面骨架、錨點規則（`#stage-N-product`）、來源表與
  * sitemap 全部由列表渲染，毋須改動模板。未來專篇（如「蒸汽專題」）
  * 可直接重用 `milestoneBlock.ts` 的渲染器與本類型。
+ * 本類型滿足 `CivReadingShape`。模式卡見 `patterns.ts`，不另起一套產物／推動力欄位。
  */
 
 /** 關鍵產物類別：技術／制度／媒介。 */
 export type ProductKind = '技術' | '制度' | '媒介';
 
-export interface MilestoneProduct {
-  name: string;
+export interface MilestoneProduct extends CivProduct {
   kind: ProductKind;
-  detail: string;
 }
 
-export interface MilestoneDriver {
-  /** 推動力類別，常見為 能量／信息／人口／貿易／知識成本，可按資料增長。 */
-  name: string;
-  detail: string;
-}
+/** 推動力類別常見為能量／信息／人口／貿易／知識成本，可按資料增長。 */
+export type MilestoneDriver = CivDriver;
 
 export interface ChronicleMilestoneBlock {
   /** 錨點後綴；預設 `product`，同階段第二塊起自動加序號，保證 `#stage-N-*` 穩定。 */

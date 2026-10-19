@@ -1,10 +1,13 @@
 import { cjkChars, esc, safeHttp } from '../contentPage.js';
+import { CIV_LINES, type CivLine } from './contract.js';
 import { milestoneBlockProse, milestoneBlockSources, renderMilestoneBlocks } from './milestoneBlock.js';
+import { patternLinksForStage, patternSourceRows, renderPatternCardsForStage, renderPatternNav } from './patterns.js';
+
+export type { CivLine };
+export { CIV_LINES };
 
 /** Thick-page floor from the chronicle brief. Below this the page stays noindex. */
 export const CHRONICLE_MIN_CHARS = 1200;
-
-export type CivLine = '能量' | '信息' | '制度' | '貨幣';
 
 export interface ChronicleStage {
   n: number;
@@ -28,8 +31,6 @@ export interface ChronicleSource {
   name: string;
   url: string;
 }
-
-const LINES: CivLine[] = ['能量', '信息', '制度', '貨幣'];
 
 export const CHRONICLE_TITLE = '文明編年：從採集到智能工具';
 
@@ -211,7 +212,7 @@ export function chronicleProse(): string {
     ...chronicleStagesOrdered().flatMap((stage) => [stage.name, stage.era, ...stage.milestones, stage.meaning, stage.prose, ...stage.lines, milestoneBlockProse(stage.n)]),
     CHRONICLE_SUMMARY,
     CHRONICLE_BRIDGE,
-    ...LINES,
+    ...CIV_LINES,
   ].join('\n');
 }
 
@@ -261,7 +262,7 @@ export function renderStageGrid(): string {
         <ul class="stage-milestones">${points}</ul>
         <p class="stage-meaning">${esc(stage.meaning)}</p>
         ${lineChips(stage.lines)}
-        <p class="stage-links"><a href="${href}">閱讀本階段</a>${origins}</p>
+        <p class="stage-links"><a href="${href}">閱讀本階段</a>${origins}${patternLinksForStage(stage.n)}</p>
       </div>
     </article>`;
   }).join('');
@@ -295,6 +296,7 @@ function stageSection(stage: ChronicleStage): string {
     <p class="stage-meaning">${esc(stage.meaning)}</p>
     ${lineChips(stage.lines)}
     ${renderMilestoneBlocks(stage)}
+    ${renderPatternCardsForStage(stage.n)}
     ${source}
     ${origins}
   </section>`;
@@ -305,6 +307,7 @@ function sourceTable(): string {
   const rows: ChronicleSource[] = [
     ...chronicleStagesOrdered().map((stage) => ({ stage: String(stage.n), name: stage.sourceName, url: stage.sourceUrl })),
     ...milestoneBlockSources(),
+    ...patternSourceRows(),
     ...CHRONICLE_EXTRA_SOURCES,
   ].filter((row) => {
     if (seen.has(row.url)) return false;
@@ -326,10 +329,11 @@ export function renderChronicleArticle(): string {
   return `<article class="civ-article chronicle-page">
     <h1 class="column-title civ-page-title">${esc(CHRONICLE_TITLE)}</h1>
     ${lede}
-    ${lineChips(LINES)}
+    ${lineChips(CIV_LINES)}
     <h2>如何閱讀本編年</h2>
     <p>${esc(CHRONICLE_HOW)}</p>
     <nav class="chronicle-nav" aria-label="跳到階段">${nav}</nav>
+    ${renderPatternNav()}
     <div class="civ-progress" aria-hidden="true"></div>
     ${stages.map(stageSection).join('')}
     <h2>四線總結</h2>
