@@ -20,6 +20,8 @@ Red lines: no Taiwan / politics / border maps / faces / flags
 
 **Batch H 2026-10-18** (new art, fills the reserved slots): chronicle milestone product vignettes M1–M10. Public files are `civ-stage-{1..10}-product-{1280,640,400}w.webp` (1280×720 native; 640×400 and 400×250 are 16:10 center crops). Paths were already named in `chronicleMilestones.ts`; the blocks keep the 640 src and include 1280w in the srcset. Figcaption says「示意」. Batch B stage covers are unchanged. Subjects: controlled fire and tools, grain and sickle, clay-tablet texture (not readable modern text), coins and a road, paper and a sail, telescope and a folio, steam and rail, a blank ledger, packet nodes, lab glass and a lattice. Stage 10 was regenerated so the glassware has no scale numbers.
 
+**Art W1 2026-10-19** (new art): paper-feel plates for the civilization `#future` hub. Public files are `future-f{1..6}-cover-{1280,640,400}w.webp` and `future-horizon-biodiversity-cover-{1280,640,400}w.webp` (1280×720 native; 640×400 and 400×250 are 16:10 center crops). Domain cards and the biodiversity horizon use the 640 src and include 1280w in the srcset. Images have no readable text; chips stay in the page. Ink `#161c24` on paper `#f7f1e6`. No `/civilization/future/` route. AMR, freshwater, and the rest of the biodiversity copy are unchanged.
+
 | Slot | Files | Notes |
 |------|-------|-------|
 | H1 axis-bg | civ-home-axis-bg-{640,960,1280,1920}w.webp (+jpg) | CSS bg; opacity 0.35–0.55 + ink mask; alt="" |
@@ -43,3 +45,10 @@ Checked-in drop is WebP only (JPEG twins were not attached), plus `overview-hero
 | E1–E8 earth covers | earth-stage-{1..8}-cover-{1280,640,400}w.webp | Batch F remake 2026-10-18, real Art, not paper stubs. Ink `#161c24` on paper `#f7f1e6`. 1280×720 plus 640×400 / 400×250 16:10 crops. Hub earth card uses E1. Paper ordinal is hidden unless the file fails. |
 | E1–E8 earth products | earth-stage-{1..8}-product-{1280,640,400}w.webp | Batch G 2026-10-18. 1280×720 plus 640×400 / 400×250 16:10 crops. Wired on earth deep-read blocks (`#earth-N-reading`, `#earth-N-product`). Figcaption「示意」. Batch F covers unchanged. |
 | M1–M10 milestone vignettes | civ-stage-{1..10}-product-{1280,640,400}w.webp | Batch H 2026-10-18. Slot names stay wired in `shared/civilization/chronicleMilestones.ts` (`image` field). Files are on disk (1280×720 plus 640×400 / 400×250 16:10 crops, each above 10KB). Figcaption「示意」. A missing file still hides the img and leaves the paper 「產」 seal. Same red lines: no Taiwan / politics / border maps / faces / flags. |
+| F1 能量宜居 | future-f1-cover-{1280,640,400}w.webp | Art W1 2026-10-19. Chip: F1 功率與宜居帶. |
+| F2 信息可信 | future-f2-cover-{1280,640,400}w.webp | Art W1 2026-10-19. Chip: F2 校驗成本. |
+| F3 制度協作 | future-f3-cover-{1280,640,400}w.webp | Art W1 2026-10-19. Chip: F3 規則與公共品. |
+| F4 生物譜系 | future-f4-cover-{1280,640,400}w.webp | Art W1 2026-10-19. Chip: F4 共演化遺產. |
+| F5 技術能力階 | future-f5-cover-{1280,640,400}w.webp | Art W1 2026-10-19. Chip: F5 條件帶示意. |
+| F6 生存風險 | future-f6-cover-{1280,640,400}w.webp | Art W1 2026-10-19. Chip: F6 監測與緩解. |
+| H-bio 生態系服務 | future-horizon-biodiversity-cover-{1280,640,400}w.webp | Art W1 2026-10-19. Biodiversity horizon only. Chip: H-bio 生態系服務. AMR and freshwater horizons stay text. |
