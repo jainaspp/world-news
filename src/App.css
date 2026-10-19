@@ -1759,21 +1759,26 @@ a.axis-node:hover { color: #f7f1e6; }
 .today-slice .digest-strip { margin-top: 4px; }
 
 /* Narrow chrome: masthead, then one scrolling civ row, then one scrolling filter row.
-   更多 and 訂閱 stay outside the scroller so they stay tappable and their menus are not clipped. */
+   更多 and 訂閱 stay in a fixed end slot (flex: none). The track is only the leftover
+   width, so a scrolled chip cannot paint underneath the pin. padding-inline-end keeps
+   the last chip clear of that slot. */
 @media (max-width: 720px) {
   .chrome > .civ-nav-row,
   .chrome > .tab-bar {
     flex-wrap: nowrap;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     min-width: 0;
     padding: 2px 0 4px;
+    overflow: visible;
   }
   .chrome .chip-scroller {
     display: flex;
-    flex: 1 1 auto;
+    flex: 1 1 0%;
+    width: 0;
+    max-width: 100%;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     min-width: 0;
     overflow-x: auto;
     overflow-y: hidden;
@@ -1781,22 +1786,27 @@ a.axis-node:hover { color: #f7f1e6; }
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     padding: 2px 0;
+    padding-inline-end: 10px;
+    scroll-padding-inline-end: 10px;
   }
   .chrome .chip-scroller::-webkit-scrollbar { display: none; }
   .chrome .chip-scroller .civ-nav,
   .chrome .chip-scroller .filters-primary {
-    flex: 0 0 auto;
+    flex: none;
     flex-wrap: nowrap;
     width: max-content;
-    min-width: max-content;
+    min-width: 0;
     overflow: visible;
     padding: 0;
-    gap: 8px;
+    gap: 6px;
+  }
+  .chrome .chip-scroller .chip {
+    flex: none;
   }
   .chrome > .civ-nav-row .civ-more,
   .chrome > .tab-bar .subscribe-menu,
   .chrome > .tab-bar .nav-more {
-    flex: 0 0 auto;
+    flex: none;
     margin-left: 0;
   }
   .chrome .civ-nav .chip,
@@ -1806,7 +1816,8 @@ a.axis-node:hover { color: #f7f1e6; }
   .chrome .subscribe-menu > summary,
   .chrome .nav-more > summary {
     min-height: 36px;
-    padding: 4px 12px;
+    padding: 3px 8px;
+    font-size: 13px;
   }
   .chrome .nav-more > summary {
     display: inline-flex;
