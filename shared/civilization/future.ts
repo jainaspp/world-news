@@ -55,6 +55,14 @@ export interface LevelFamily {
 export const FUTURE_CONFIDENCE = ['limited', 'partial', 'steady'] as const;
 export type FutureConfidence = (typeof FUTURE_CONFIDENCE)[number];
 
+/** Horizon kind. Expand only when a card is published. */
+export const FUTURE_HORIZON_KINDS = ['health'] as const;
+export type FutureHorizonKind = (typeof FUTURE_HORIZON_KINDS)[number];
+
+/** Review horizon. Not an onset date and not a clock. */
+export const FUTURE_TIME_BANDS = ['進行中', '數年', '數十年', '約本世紀', '深時', '未發生'] as const;
+export type FutureTimeBand = (typeof FUTURE_TIME_BANDS)[number];
+
 export const FUTURE_CLADE_KINDS = ['tool-extension', 'niche-continue'] as const;
 export type FutureCladeKind = (typeof FUTURE_CLADE_KINDS)[number];
 
@@ -68,12 +76,18 @@ export interface FutureHorizon {
   anchor: string;
   title: string;
   domainId: FutureDomainId;
+  /** Second domain to read beside. Does not by itself turn 加厚中 into 有卡. */
+  alsoDomainId?: FutureDomainId;
+  kind?: FutureHorizonKind;
+  /** Legend layer. Not a time word. */
   band: LevelBand;
+  /** Review horizon such as 數十年. Not a deadline. */
+  timeBand?: FutureTimeBand;
   confidence: FutureConfidence;
   mechanism: string;
   mitigation: string;
   uncertainty: string;
-  /** YYYY-MM. Compilation date, not a catastrophe clock. */
+  /** YYYY-MM or YYYY-MM-DD. Compilation date, not a catastrophe clock. */
   dataAsOf: string;
   sources: readonly FutureSource[];
 }
@@ -127,6 +141,10 @@ const CONFIDENCE_LABEL: Record<FutureConfidence, string> = {
   limited: '有限',
   partial: '部分',
   steady: '較穩',
+};
+
+const HORIZON_KIND_LABEL: Record<FutureHorizonKind, string> = {
+  health: '健康',
 };
 
 const CLADE_KIND_LABEL: Record<FutureCladeKind, string> = {
@@ -297,6 +315,28 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '美國空間天氣預報中心｜影響說明', url: 'https://www.swpc.noaa.gov/impacts' },
     ],
   },
+  {
+    id: 'horizon-antimicrobial-resistance',
+    anchor: 'future-horizon-amr',
+    title: '抗微生物藥物耐藥性（AMR）',
+    domainId: 'f6',
+    alsoDomainId: 'f4',
+    kind: 'health',
+    band: 'a1',
+    timeBand: '數十年',
+    confidence: 'steady',
+    mechanism: '病原體對既有藥物的反應減弱之後，同一種感染會更難治療。不當使用、感染防控不足，以及新藥研發管線偏薄，是主要驅動。世界衛生組織以同一健康行動計畫與國家自評調查追蹤進度。這是健康基礎設施的維修問題。',
+    mitigation: '處方與農畜用藥保持合理使用。感染預防、疫苗與診斷需要可及。國家進度依自評調查與全球行動計畫的公開窗口刷新。二〇二六年世界衛生大會已通過更新版全球行動計畫，涵蓋二〇二六至二〇三六年。',
+    uncertainty: '監測覆蓋與實驗室能力各地差異很大。新藥研發時程與可及性仍不確定，局部進展不能外推成全球已經修復。',
+    dataAsOf: '2026-10-19',
+    sources: [
+      { name: '世界衛生組織｜抗微生物藥物耐藥性實況報導', url: 'https://www.who.int/news-room/fact-sheets/detail/antimicrobial-resistance' },
+      { name: '世界衛生組織歐洲區｜認識抗微生物藥物耐藥性', url: 'https://www.who.int/europe/news-room/questions-and-answers/item/understanding-antimicrobial-resistance-(amr)' },
+      { name: '世界衛生組織｜抗微生物藥物耐藥性概況', url: 'https://www.who.int/docs/default-source/antimicrobial-resistance/amr-factsheet.pdf' },
+      { name: '世界衛生組織｜國家行動計畫實施與監測', url: 'https://www.who.int/activities/supporting-countries-with-national-action-plan-implementation-and-monitoring' },
+      { name: '世界衛生組織｜更新版全球行動計畫（二〇二六至二〇三六年）', url: 'https://www.who.int/news/item/25-05-2026-the-world-health-assembly-adopts-updated-global-action-plan-on-antimicrobial-resistance-(2026-2036)' },
+    ],
+  },
 ];
 
 /**
@@ -352,6 +392,15 @@ export const FUTURE_COUNTDOWNS: readonly CountdownItem[] = [
     pending: '下一檢查點是世界氣象組織年度全球氣候評估的公開窗口，約在二〇二七年三月。這是核對日期，不是災變時鐘。',
     expired: '該年度評估窗口已過。請改讀世界氣象組織最新的公開評估，本頁不保留倒數。',
   },
+  {
+    id: 'cd-who-amr-tracss',
+    anchor: 'future-countdown-amr',
+    horizonId: 'horizon-antimicrobial-resistance',
+    checkpoint: '2026-12-31',
+    title: 'WHO AMR 進度自評',
+    pending: '下一檢查點是世界衛生組織抗微生物藥物耐藥性國家自評的年度公開窗口，約每年一輪。本頁把這一輪記到二〇二六年十二月。這是核對日期，不是災變時鐘。',
+    expired: '該輪自評窗口已過。等待下一輪自評。請改讀世界衛生組織最新的公開自評，本頁不保留倒數。',
+  },
 ];
 
 export const FUTURE_CLADE: FutureClade = {
@@ -382,7 +431,7 @@ export const STAGE10_BRIDGE = '展望・分域把第十階段接到六個閱讀�
 
 const DOOM_TITLE = /末日|崩潰|滅絕|倒數|災難/;
 const RANK_TITLE = /第[0-9０-９一二三四五六七八九十百]+[級级]文明|文明分數|MiniMax/i;
-const DATE_MONTH = /^\d{4}-\d{2}$/;
+const DATE_STAMP = /^\d{4}-\d{2}(?:-\d{2})?$/;
 const DATE_DAY = /^\d{4}-\d{2}-\d{2}$/;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -428,6 +477,8 @@ function publishedText(): string {
       horizon.mechanism,
       horizon.mitigation,
       horizon.uncertainty,
+      horizon.timeBand ?? '',
+      horizon.kind ? HORIZON_KIND_LABEL[horizon.kind] : '',
       ...horizon.sources.map((source) => source.name),
     ]),
     ...FUTURE_INSTANCES.flatMap((card) => [
@@ -516,8 +567,8 @@ export function futureIssues(): string[] {
   }
   if (FUTURE_CLADE.domainId !== 'f4') issues.push('clade-domain');
 
-  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測'];
-  if (FUTURE_HORIZONS.length !== 3) issues.push('horizon-count');
+  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '抗微生物藥物耐藥性（AMR）'];
+  if (FUTURE_HORIZONS.length !== horizonTitles.length) issues.push('horizon-count');
   const horizonIds = new Set<string>();
   for (const [index, horizon] of FUTURE_HORIZONS.entries()) {
     if (horizon.title !== horizonTitles[index]) issues.push(`horizon-title:${horizon.id}`);
@@ -525,10 +576,13 @@ export function futureIssues(): string[] {
     if (!SLUG.test(horizon.id) || horizonIds.has(horizon.id)) issues.push(`horizon-id:${horizon.id}`);
     horizonIds.add(horizon.id);
     if (!domainById(horizon.domainId)) issues.push(`horizon-domain:${horizon.id}`);
+    if (horizon.alsoDomainId && (!domainById(horizon.alsoDomainId) || horizon.alsoDomainId === horizon.domainId)) issues.push(`horizon-also:${horizon.id}`);
+    if (horizon.kind && !(FUTURE_HORIZON_KINDS as readonly string[]).includes(horizon.kind)) issues.push(`horizon-kind:${horizon.id}`);
+    if (horizon.timeBand && !(FUTURE_TIME_BANDS as readonly string[]).includes(horizon.timeBand)) issues.push(`horizon-time:${horizon.id}`);
     if (!(LEVEL_BANDS as readonly string[]).includes(horizon.band)) issues.push(`horizon-band:${horizon.id}`);
     if (!(FUTURE_CONFIDENCE as readonly string[]).includes(horizon.confidence)) issues.push(`horizon-confidence:${horizon.id}`);
     if (!horizon.mechanism.trim() || !horizon.mitigation.trim() || !horizon.uncertainty.trim()) issues.push(`horizon-copy:${horizon.id}`);
-    if (!DATE_MONTH.test(horizon.dataAsOf)) issues.push(`horizon-asof:${horizon.id}`);
+    if (!DATE_STAMP.test(horizon.dataAsOf)) issues.push(`horizon-asof:${horizon.id}`);
     if (horizon.sources.length < 4) issues.push(`horizon-sources:${horizon.id}`);
     const urls = new Set<string>();
     for (const source of horizon.sources) {
@@ -544,7 +598,27 @@ export function futureIssues(): string[] {
     if (!DATE_DAY.test(item.checkpoint)) issues.push(`countdown-date:${item.id}`);
     if (!item.pending.trim() || !item.expired.trim() || !item.title.trim()) issues.push(`countdown-copy:${item.id}`);
     if (DOOM_TITLE.test(item.title)) issues.push(`countdown-doom:${item.id}`);
-    if (/\d+\s*秒|秒針|setInterval/.test(`${item.pending}\n${item.expired}`)) issues.push(`countdown-clock:${item.id}`);
+    if (/\d+\s*秒|秒針|setInterval|只剩/.test(`${item.pending}\n${item.expired}`)) issues.push(`countdown-clock:${item.id}`);
+  }
+  const amr = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-antimicrobial-resistance');
+  if (!amr
+    || amr.domainId !== 'f6'
+    || amr.alsoDomainId !== 'f4'
+    || amr.kind !== 'health'
+    || amr.timeBand !== '數十年'
+    || amr.band !== 'a1'
+    || amr.confidence !== 'steady'
+    || amr.dataAsOf !== '2026-10-19'
+    || amr.sources.length < 4
+    || amr.sources.some((source) => !source.url.startsWith('https://www.who.int/'))) {
+    issues.push('horizon-amr');
+  }
+  const tracss = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-who-amr-tracss');
+  if (!tracss
+    || tracss.horizonId !== 'horizon-antimicrobial-resistance'
+    || tracss.checkpoint !== '2026-12-31'
+    || !tracss.expired.includes('等待下一輪自評')) {
+    issues.push('countdown-tracss');
   }
 
   const instanceIds = new Set<string>();
@@ -688,10 +762,14 @@ function renderTierCard(): string {
 
 function renderHorizon(horizon: FutureHorizon): string {
   const domain = domainById(horizon.domainId);
+  const also = horizon.alsoDomainId ? domainById(horizon.alsoDomainId) : undefined;
   const family = bandFamily(horizon.band);
   const domainLink = domain ? `<a href="#${esc(domain.anchor)}">${esc(domain.code)} ${esc(domain.title)}</a>` : '';
+  const alsoLink = also ? ` · 並見 <a href="#${esc(also.anchor)}">${esc(also.code)} ${esc(also.title)}</a>` : '';
+  const kind = horizon.kind ? ` · ${esc(HORIZON_KIND_LABEL[horizon.kind])}` : '';
+  const time = horizon.timeBand ? ` · 時間帶 ${esc(horizon.timeBand)}` : '';
   return `<article class="future-card" id="${esc(horizon.anchor)}">
-    <p class="future-kicker">${domainLink} · ${esc(family)} ${esc(horizon.band)} · 信心 ${esc(CONFIDENCE_LABEL[horizon.confidence])} · 截至 ${esc(horizon.dataAsOf)}</p>
+    <p class="future-kicker">${domainLink}${alsoLink} · ${esc(family)} ${esc(horizon.band)}${kind}${time} · 信心 ${esc(CONFIDENCE_LABEL[horizon.confidence])} · 截至 ${esc(horizon.dataAsOf)}</p>
     <h3>${esc(horizon.title)}</h3>
     <p class="future-label">機制</p>
     <p>${esc(horizon.mechanism)}</p>
