@@ -69,6 +69,8 @@ export type FutureCladeKind = (typeof FUTURE_CLADE_KINDS)[number];
 export interface FutureSource {
   name: string;
   url: string;
+  /** Reader-facing limit on what this link is allowed to support. */
+  scope?: string;
 }
 
 export interface FutureHorizon {
@@ -104,6 +106,8 @@ export interface FutureInstance {
   /** 80–120 characters. */
   blurb: string;
   mechanism: string;
+  /** Second passage, when two claims must not share one paragraph. */
+  contingency?: string;
   tierId: FutureTier;
   bands: readonly LevelBand[];
   /** YYYY-MM-DD. Compilation date, not a catastrophe clock. */
@@ -141,6 +145,12 @@ const CONFIDENCE_LABEL: Record<FutureConfidence, string> = {
   limited: '有限',
   partial: '部分',
   steady: '較穩',
+};
+
+/** Panel chips. The stored status stays 有卡 / 加厚中. */
+const DOMAIN_STATUS_READER: Record<FutureDomainStatus, string> = {
+  有卡: '已有可讀卡片',
+  加厚中: '尚未寫入卡片',
 };
 
 const HORIZON_KIND_LABEL: Record<FutureHorizonKind, string> = {
@@ -250,7 +260,7 @@ export const FUTURE_TIER_CARD = {
   anchor: 'future-tier',
   domainId: 'f5' as const,
   title: '技術能力階',
-  note: '這張卡只標成熟度，不排文明高下。頁上三檔分別標為約、示意與假說。契約另有文明尺度一檔，不在本卡畫成等級，也不與前三檔相加。',
+  note: '這張卡只標成熟度，不排文明高下。頁上的「約」「示意」「假說」是成熟度記號，不是等級。契約另有文明尺度一檔，不在本卡畫成等級，也不與前三檔相加。',
 };
 
 export const LEVEL_FAMILIES: readonly LevelFamily[] = [
@@ -259,7 +269,17 @@ export const LEVEL_FAMILIES: readonly LevelFamily[] = [
   { id: 'a', label: '能動帶', bands: ['a0', 'a1', 'a2', 'a3', 'a4'] },
 ];
 
-export const LEVEL_LEGEND = '能量帶 e0–e4、信息帶 i0–i4、能動帶 a0–a4。各帶只標約束寫到哪一層，互不換算，頁面不設合成分數。';
+export const LEVEL_LEGEND = '能量帶 e0–e4、信息帶 i0–i4、能動帶 a0–a4。各帶只標約束寫到哪一層，互不換算，頁面不設合成分數，也不作文明等級。';
+
+/** One sentence each, so these layers are not read as civilization ranks. */
+export const BAND_NOTES = [
+  { band: 'e2', text: 'e2 記行星能量收支與宜居窗口正在被監測的這一層，不是文明等級。' },
+  { band: 'i2', text: 'i2 記底本與更正能否被後來的複本認出，不是文明等級。' },
+  { band: 'a1', text: 'a1 記擾動或耐藥能否被寫成可核對的維修條件，不是文明等級。' },
+] as const;
+
+/** What the six entries answer, then the no-new-URL note. */
+export const FUTURE_OPENING = '六個入口各自回答一件事。能量宜居回答功率受什麼收支約束。信息可信回答底本靠什麼留下。制度協作回答規則如何維修。生物譜系回答延續而不分高下。技術能力階回答成熟到哪一檔。生存風險回答如何被事後核對。這裡不另開網址。';
 
 export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
   {
@@ -288,7 +308,7 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
     domainId: 'f2',
     band: 'i2',
     confidence: 'limited',
-    mechanism: '記錄一旦能被低成本複製，未經校驗的敘述也可以同時到達許多人。可信靠可指認的底本與出處，不靠傳播速度。',
+    mechanism: '記錄一旦能被低成本複製，未經校驗的敘述也可以同時到達許多人。可信靠可指認的底本與出處，不靠傳播速度。萬維網簡史只說明複製變便宜，不支撐大規模誤導。',
     mitigation: '發出之前標明出處，並保留可以事後核對的底本。校驗放在複製之前，協作半徑才不會把錯誤一起放大。',
     uncertainty: '平台機制與讀者習慣持續變化，單一語種的研究不能外推到所有公共討論。',
     dataAsOf: '2026-10',
@@ -296,7 +316,7 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '聯合國教科文組織｜媒體與信息素養', url: 'https://www.unesco.org/en/media-information-literacy' },
       { name: '路透新聞研究所｜數字新聞報告', url: 'https://reutersinstitute.politics.ox.ac.uk/digital-news-report' },
       { name: '經濟合作與發展組織｜虛假信息專題', url: 'https://www.oecd.org/en/topics/disinformation-and-misinformation.html' },
-      { name: '歐洲核子研究組織｜萬維網簡史', url: 'https://home.cern/science/computing/the-birth-of-the-web/short-history-web/' },
+      { name: '歐洲核子研究組織｜萬維網簡史', url: 'https://home.cern/science/computing/the-birth-of-the-web/short-history-web/', scope: '只說明複製變便宜' },
     ],
   },
   {
@@ -397,8 +417,9 @@ export const FUTURE_INSTANCES: readonly FutureInstance[] = [
     anchor: 'future-energy-budget',
     domainId: 'f1',
     title: '能量收支與備援',
-    blurb: '地球宜居窗口先受入射短波與外逸長波的收支約束。衛星輻射與海洋熱含量互相核對之後，修訂的是失衡幅度，不是某一年的終局。電網的應急備用只回答單點斷供之後功率能否接回。',
-    mechanism: '監測把大氣層頂的輻射收支與海洋熱含量留在可以互相對照的公共序列裡。序列靠校準與接替的儀器維持，單次退役並不取消這筆帳。修復在電網一側另有條件：可靠性標準要求應急備用至少覆蓋最嚴重的單點出力損失，動用之後要在限期內補回，並留下可事後調取的記錄。備用或記錄缺一，功率就退回單點。設備能否換上，是另一項維修條件，不隨標準文本自動在場。這是條件，不是已完成的階梯。',
+    blurb: '地球宜居窗口先受入射短波與向外長波輻射的收支約束。衛星輻射與海洋熱含量互相核對之後，修訂的是失衡幅度，不是某一年的終局。本段只記載這一收支如何被監測，並把序列留在可核對的出處。',
+    mechanism: '「觀測」只標這一收支的監測。監測把大氣層頂的輻射收支與海洋熱含量留在可以互相對照的公共序列裡。序列靠校準與接替的儀器維持，單次退役並不取消這一收支。',
+    contingency: '電網的應急備用另成一段。BAL-002-3 適用於北美可靠性標準下的應急備用，要求至少覆蓋最嚴重的單點出力損失，動用之後要在限期內補回，並留下可事後調取的記錄。備用或記錄缺一，功率就退回單點。設備能否換上，是另一項維修條件，不隨標準文本自動在場。這是條件，不是已完成的階梯。',
     tierId: 'observe',
     bands: ['e2'],
     dataAsOf: '2026-10-19',
@@ -417,15 +438,15 @@ export const FUTURE_INSTANCES: readonly FutureInstance[] = [
     domainId: 'f2',
     title: '大規模複製下的核對',
     blurb: '記錄一旦能被低成本複製，未經核對的敘述也可以同時到達許多互不相識的人。可信靠可指認的底本、出處與事後勘誤，不靠傳播有多快。本卡只寫核對程序如何運作，不替具體爭議選邊。',
-    mechanism: '監測要回答兩件事：底本是否仍可打開，以及一份更正能否被後來的複本認出。修復不靠把複本刪盡。已經有穩定編號的文獻，更正或撤稿是另一份公開記錄，必須指回原篇，並把狀態寫進後來的複本仍能讀到的標記。這個程序只在採用它的出版範圍內成立，不能外推成所有公共討論都已核對。底本、編號與可辨認的更正缺一，錯誤就會隨複製一起變寬。',
+    mechanism: '監測要回答兩件事：底本是否仍可打開，以及一份更正能否被後來的複本認出。修復不靠把複本刪盡。已經有穩定編號的文獻，更正或撤稿是另一份公開記錄，必須指回原篇，並把狀態寫進後來的複本仍能讀到的標記。這個程序只在採用它的出版範圍內成立，不能外推成所有公共討論都已核對。底本、編號與可辨認的更正缺一，錯誤就會隨複製一併擴散。撤稿鏈只以美國國家信息標準組織的撤稿傳遞頁，以及 Crossref 的版本、更正、撤稿頁為據。',
     tierId: 'pilot',
     bands: ['i2'],
     dataAsOf: '2026-10-19',
     sources: [
-      { name: '聯合國教科文組織｜媒體與信息素養', url: 'https://www.unesco.org/en/media-information-literacy' },
-      { name: '路透新聞研究所｜數字新聞報告', url: 'https://reutersinstitute.politics.ox.ac.uk/digital-news-report' },
-      { name: '美國國家信息標準組織｜撤稿與更正的傳遞', url: 'https://www.niso.org/standards-committees/crec' },
-      { name: 'Crossref｜更正與撤稿另冊', url: 'https://www.crossref.org/documentation/principles-practices/best-practices/versioning/' },
+      { name: '美國國家信息標準組織｜撤稿與更正的傳遞', url: 'https://www.niso.org/standards-committees/crec', scope: '撤稿鏈' },
+      { name: 'Crossref｜版本、更正與撤稿', url: 'https://www.crossref.org/documentation/principles-practices/best-practices/versioning/', scope: '撤稿鏈' },
+      { name: '聯合國教科文組織｜媒體與信息素養', url: 'https://www.unesco.org/en/media-information-literacy', scope: '不作為撤稿鏈依據' },
+      { name: '路透新聞研究所｜數字新聞報告', url: 'https://reutersinstitute.politics.ox.ac.uk/digital-news-report', scope: '不作為撤稿鏈依據' },
     ],
   },
 ];
@@ -529,7 +550,10 @@ export function futureHrefAllowed(href: string): boolean {
 function publishedText(): string {
   const parts: string[] = [
     STAGE10_BRIDGE,
+    FUTURE_OPENING,
     LEVEL_LEGEND,
+    ...BAND_NOTES.map((note) => note.text),
+    ...Object.values(DOMAIN_STATUS_READER),
     FUTURE_TIER_CARD.note,
     FUTURE_TIER_CARD.title,
     FUTURE_CLADE.title,
@@ -545,15 +569,16 @@ function publishedText(): string {
       horizon.uncertainty,
       horizon.timeBand ?? '',
       horizon.kind ? HORIZON_KIND_LABEL[horizon.kind] : '',
-      ...horizon.sources.map((source) => source.name),
+      ...horizon.sources.map((source) => `${source.name}${source.scope ?? ''}`),
     ]),
     ...FUTURE_INSTANCES.flatMap((card) => [
       card.title,
       card.blurb,
       card.mechanism,
+      card.contingency ?? '',
       card.tierId,
       ...card.bands,
-      ...card.sources.map((source) => source.name),
+      ...card.sources.map((source) => `${source.name}${source.scope ?? ''}`),
     ]),
     ...FUTURE_COUNTDOWNS.flatMap((item) => [item.title, item.pending, item.expired]),
   ];
@@ -614,7 +639,7 @@ export function futureIssues(): string[] {
   for (const row of FUTURE_TIER_ROWS) {
     if (row.label !== TIER_LABEL[row.tier] || !row.blurb.trim()) issues.push(`tier-copy:${row.tier}`);
   }
-  if (FUTURE_TIER_CARD.domainId !== 'f5' || !FUTURE_TIER_CARD.note.includes('約') || !FUTURE_TIER_CARD.note.includes('示意') || !FUTURE_TIER_CARD.note.includes('假說')) {
+  if (FUTURE_TIER_CARD.domainId !== 'f5' || !FUTURE_TIER_CARD.note.includes('約') || !FUTURE_TIER_CARD.note.includes('示意') || !FUTURE_TIER_CARD.note.includes('假說') || !FUTURE_TIER_CARD.note.includes('成熟度記號')) {
     issues.push('tier-card');
   }
 
@@ -624,6 +649,15 @@ export function futureIssues(): string[] {
     issues.push('legend');
   }
   if (/總分|第.+[級级]文明|文明分數/.test(LEVEL_LEGEND)) issues.push('legend-score');
+  if (BAND_NOTES.map((note) => note.band).join() !== 'e2,i2,a1') issues.push('band-notes');
+  for (const note of BAND_NOTES) {
+    if (!note.text.includes(note.band) || !note.text.includes('不是文明等級')) issues.push(`band-note:${note.band}`);
+  }
+  if (!FUTURE_OPENING.endsWith('這裡不另開網址。')) issues.push('opening');
+  for (const domain of FUTURE_DOMAINS) {
+    if (!FUTURE_OPENING.includes(`${domain.title}回答`)) issues.push(`opening:${domain.id}`);
+  }
+  if (DOMAIN_STATUS_READER['有卡'].includes('有卡') || DOMAIN_STATUS_READER['加厚中'].includes('加厚中')) issues.push('status-reader');
 
   if (FUTURE_CLADE.kinds.join() !== FUTURE_CLADE_KINDS.join()) issues.push('clade-kinds');
   if (!FUTURE_CLADE.boundary.trim()) issues.push('clade-boundary');
@@ -743,7 +777,44 @@ export function futureIssues(): string[] {
       if (urls.has(source.url)) issues.push(`instance-source-dup:${card.id}`);
       urls.add(source.url);
     }
-    if (/總分|合成分數|文明分數/.test(`${card.title}\n${card.blurb}\n${card.mechanism}`)) issues.push(`instance-score:${card.id}`);
+    if (/總分|合成分數|文明分數/.test(`${card.title}\n${card.blurb}\n${card.mechanism}\n${card.contingency ?? ''}`)) issues.push(`instance-score:${card.id}`);
+  }
+  const budget = FUTURE_INSTANCES.find((card) => card.id === 'energy-budget');
+  const grid = budget?.contingency ?? '';
+  if (!budget
+    || !budget.blurb.includes('向外長波輻射')
+    || budget.blurb.includes('外逸')
+    || !budget.mechanism.includes('「觀測」只標這一收支的監測')
+    || !budget.mechanism.includes('這一收支')
+    || budget.mechanism.includes('這筆帳')
+    || !grid
+    || grid.includes('觀測')
+    || !grid.includes('BAL-002-3')
+    || !grid.includes('北美可靠性標準下的應急備用')) {
+    issues.push('energy-split');
+  }
+  const flood = FUTURE_INSTANCES.find((card) => card.id === 'verify-flood');
+  const chainUrls = [
+    'https://www.niso.org/standards-committees/crec',
+    'https://www.crossref.org/documentation/principles-practices/best-practices/versioning/',
+  ];
+  const chain = flood?.sources.filter((source) => source.scope === '撤稿鏈') ?? [];
+  if (!flood
+    || !flood.mechanism.includes('一併擴散')
+    || flood.mechanism.includes('變寬')
+    || !flood.mechanism.includes('撤稿鏈只以')
+    || chain.length !== chainUrls.length
+    || chain.some((source, index) => source.url !== chainUrls[index])
+    || flood.sources.some((source) => source.url.includes('cern'))
+    || flood.sources.some((source) => source.scope !== '撤稿鏈' && source.scope !== '不作為撤稿鏈依據')) {
+    issues.push('retraction-sources');
+  }
+  const trust = FUTURE_HORIZONS.find((horizon) => horizon.id === 'trust');
+  const cern = trust?.sources.find((source) => source.url.includes('home.cern'));
+  if (!trust
+    || !trust.mechanism.includes('萬維網簡史只說明複製變便宜，不支撐大規模誤導')
+    || cern?.scope !== '只說明複製變便宜') {
+    issues.push('cern-scope');
   }
 
   const bridgeLen = civChars(STAGE10_BRIDGE);
@@ -783,7 +854,8 @@ function lineChips(lines: readonly string[] | undefined): string {
 function renderSources(sources: readonly FutureSource[]): string {
   const links = sources.map((source) => {
     const href = /^https:\/\//.test(source.url) ? esc(source.url) : '';
-    return href ? `<a href="${href}">${esc(source.name)}</a>` : esc(source.name);
+    const label = `${esc(source.name)}${source.scope ? `（${esc(source.scope)}）` : ''}`;
+    return href ? `<a href="${href}">${label}</a>` : label;
   }).join('');
   return `<p class="future-sources">${links}</p>`;
 }
@@ -793,7 +865,8 @@ function renderLevelLegend(id: string): string {
     const bands = family.bands.map((band) => `<span class="future-band">${esc(band)}</span>`).join('');
     return `<p class="future-band-row"><span class="future-label">${esc(family.label)}</span>${bands}</p>`;
   }).join('');
-  return `<aside class="future-legend" id="${esc(id)}" aria-label="分帶圖例"><h3>分帶圖例</h3><p>${esc(LEVEL_LEGEND)}</p>${rows}</aside>`;
+  const notes = BAND_NOTES.map((note) => `<p>${esc(note.text)}</p>`).join('');
+  return `<aside class="future-legend" id="${esc(id)}" aria-label="分帶圖例"><h3>分帶圖例</h3><p>${esc(LEVEL_LEGEND)}</p>${rows}${notes}</aside>`;
 }
 
 function instancesFor(domainId: string): readonly FutureInstance[] {
@@ -819,7 +892,7 @@ function renderDomains(): string {
     return `<article class="${domainClass(index)}" id="${esc(domain.anchor)}">
       <p class="future-kicker">${esc(domain.code)}</p>
       <h3>${esc(domain.title)}</h3>
-      <p class="future-status">${esc(domain.status)}</p>
+      <p class="future-status">${esc(DOMAIN_STATUS_READER[domain.status])}</p>
       <p>${esc(domain.blurb)}</p>
       ${lineChips(domain.lines)}
       ${more}
@@ -838,16 +911,21 @@ function renderInstance(card: FutureInstance): string {
   const domain = domainById(card.domainId);
   const tier = FUTURE_TIER_ROWS.find((row) => row.tier === card.tierId);
   const domainLink = domain ? `<a href="#${esc(domain.anchor)}">${esc(domain.code)} ${esc(domain.title)}</a>` : '';
-  const mark = tier?.mark ? ` · ${esc(tier.mark)}` : '';
+  const mark = tier?.mark ? `成熟度記號 ${esc(tier.mark)}` : '';
+  const tierBit = card.id === 'energy-budget'
+    ? mark
+    : [esc(tier?.label ?? card.tierId), mark].filter(Boolean).join(' · ');
   const bands = card.bands.map((band) => `<span class="future-band">${esc(bandFamily(band))} ${esc(band)}</span>`).join('');
   const bandRow = bands ? `<p class="future-band-row">${bands}</p>` : '';
+  const contingency = card.contingency ? `<p>${esc(card.contingency)}</p>` : '';
   return `<article class="future-card future-instance civ-reveal" id="${esc(card.anchor)}" data-tier="${esc(card.tierId)}">
-    <p class="future-kicker">實例 · ${domainLink} · ${esc(tier?.label ?? card.tierId)}${mark} · 截至 <time datetime="${esc(card.dataAsOf)}">${esc(card.dataAsOf)}</time></p>
+    <p class="future-kicker">實例 · ${domainLink} · ${tierBit} · 截至 <time datetime="${esc(card.dataAsOf)}">${esc(card.dataAsOf)}</time></p>
     <h3>${esc(card.title)}</h3>
     <p>${esc(card.blurb)}</p>
     ${bandRow}
     <p class="future-label">機制</p>
     <p>${esc(card.mechanism)}</p>
+    ${contingency}
     ${renderSources(card.sources)}
   </article>`;
 }
@@ -916,7 +994,7 @@ export function renderFuturePanel(now = new Date()): string {
   const countdowns = FUTURE_COUNTDOWNS.map((item) => renderCountdown(item, now)).join('');
   return `<section class="future-panel" id="future" aria-label="展望">
     <h2>展望</h2>
-    <p class="future-note">未來接在城市與今天之間，只做總覽上的展望面板。六個分域是閱讀入口。編年仍是十個階段，這裡不另開網址。</p>
+    <p class="future-note">${esc(FUTURE_OPENING)}</p>
     ${renderDomains()}
     <div class="future-layout">
       <div class="future-main">
