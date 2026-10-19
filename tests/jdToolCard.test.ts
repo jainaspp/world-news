@@ -84,11 +84,16 @@ describe('JD Tech tool card', () => {
     }
   });
 
-  it('links the three soft-bridge pairs with Concept B and formal Chinese', () => {
-    expect(SOFT_BRIDGE_PAIRS.length).toBeGreaterThanOrEqual(3);
+  it('links each soft-bridge pair with Concept B and formal Chinese', () => {
+    expect(SOFT_BRIDGE_PAIRS.length).toBeGreaterThanOrEqual(6);
     const slugs = SOFT_BRIDGE_PAIRS.map((pair) => pair.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    expect(new Set(SOFT_BRIDGE_PAIRS.map((pair) => pair.explainerKey)).size).toBe(SOFT_BRIDGE_PAIRS.length);
     expect(slugs).toContain('reread-llamaparse-notebooklm');
     expect(slugs).toContain('verify-redisdocs-perplexity');
+    expect(slugs).toContain('read-web-firecrawl-copilot');
+    expect(slugs).toContain('remember-cognee-notebooklm');
+    expect(slugs).toContain('agreements-docusign-gemini');
     const locked = [
       {
         slug: 'reread-llamaparse-notebooklm',
@@ -97,6 +102,18 @@ describe('JD Tech tool card', () => {
       {
         slug: 'verify-redisdocs-perplexity',
         href: 'https://jainaspp.github.io/jd-tech-landing/tools/perplexity/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=perplexity',
+      },
+      {
+        slug: 'read-web-firecrawl-copilot',
+        href: 'https://jainaspp.github.io/jd-tech-landing/tools/copilot/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=copilot',
+      },
+      {
+        slug: 'remember-cognee-notebooklm',
+        href: 'https://jainaspp.github.io/jd-tech-landing/tools/notebooklm/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=notebooklm',
+      },
+      {
+        slug: 'agreements-docusign-gemini',
+        href: 'https://jainaspp.github.io/jd-tech-landing/tools/gemini/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=gemini',
       },
     ];
     for (const expected of locked) {
