@@ -1719,6 +1719,25 @@ a.axis-node:hover { color: #f7f1e6; }
 .civ-slot p { margin: 0; font-size: 13px; }
 .civ-slot-label { margin: 0 0 4px; font-size: 12px; font-weight: 700; color: #9a7b4f; }
 .civ-slot-year { display: block; font-size: 12px; color: #9a7b4f; }
+.civ-slot-question { margin: 0 0 6px; font-family: var(--font-serif); font-size: 15px; line-height: 1.5; color: #161c24; }
+.civ-near { margin: 16px 0; }
+.today-slice .civ-near { margin: 4px 0 12px; }
+.civ-near .civ-slice-slots { grid-template-columns: 1fr; }
+.civ-slice-return {
+  margin: 16px 0;
+  padding: 12px 14px;
+  border: 1px solid #d4cbb8;
+  border-radius: 14px;
+  background: #f7f1e6;
+  color: #161c24;
+}
+.civ-slice-return h2 { margin: 0 0 6px; font-family: var(--font-serif); font-size: 1.05rem; color: #161c24; }
+.civ-slice-return p { margin: 0 0 8px; font-size: 13px; }
+.civ-slice-return ul { margin: 0; padding-left: 1.2em; }
+.civ-slice-return li { margin: 4px 0; font-size: 14px; }
+@media (min-width: 720px) {
+  .civ-near .civ-slice-slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .civ-page .axis-hero { margin-top: 0; }
 @media (min-width: 960px) {
   .civ-frame {
@@ -2513,9 +2532,18 @@ html.dark .civ-slot {
   border-color: #5c4a34;
 }
 html.dark .layer-card h3,
-html.dark .civ-slot h3 { color: #f7f1e6; }
+html.dark .civ-slot h3,
+html.dark .civ-slot .civ-slot-question,
+html.dark .civ-slice-return h2 { color: #f7f1e6; }
 html.dark .layer-card p,
-html.dark .civ-slot p { color: #d2c4b0; }
+html.dark .civ-slot p,
+html.dark .civ-slice-return,
+html.dark .civ-slice-return p { color: #d2c4b0; }
+html.dark .civ-slice-return {
+  background: #2a231b;
+  border-color: #5c4a34;
+}
+html.dark .civ-slice-return a { color: #f7f1e6; }
 html.dark .civ-page-title { color: var(--color-text); }
 html.dark .cosmo-hero,
 html.dark .earth-hero { background: #161c24; color: #f7f1e6; }

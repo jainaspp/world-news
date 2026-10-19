@@ -2,6 +2,7 @@ import { cjkChars, esc, safeHttp } from '../contentPage.js';
 import { CIV_LINES, type CivLine } from './contract.js';
 import { milestoneBlockProse, milestoneBlockSources, renderMilestoneBlocks } from './milestoneBlock.js';
 import { patternLinksForStage, patternSourceRows, renderPatternCardsForStage, renderPatternNav } from './patterns.js';
+import { renderSliceReturns } from './renderSlice.js';
 
 export type { CivLine };
 export { CIV_LINES };
@@ -341,6 +342,7 @@ export function renderChronicleArticle(): string {
     <h2>與今日新聞的銜接</h2>
     <p>${esc(CHRONICLE_BRIDGE)}</p>
     <p class="stage-links"><a href="/civilization/">返回文明總覽</a><a href="/civilization/origins/">人類起源時間線</a><a href="/#slice">今日切片</a></p>
+    ${renderSliceReturns('chronicle')}
     <h2>來源</h2>
     ${sourceTable()}
     <p class="civ-ai"><span class="badge">AI 整合</span> 本頁由公開博物館與國際組織頁面整合，僅供研究與編輯對照；年代均為約數。</p>
