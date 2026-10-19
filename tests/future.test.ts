@@ -7,6 +7,7 @@ import {
   FUTURE_COUNTDOWNS,
   FUTURE_DOMAINS,
   FUTURE_HORIZONS,
+  FUTURE_INSTANCES,
   FUTURE_TIERS,
   FUTURE_TIER_ROWS,
   LEVEL_BANDS,
@@ -52,7 +53,21 @@ describe('civilization future P0', () => {
     expect(civChars(STAGE10_BRIDGE)).toBeLessThanOrEqual(120);
     expect(futureHrefAllowed('/civilization/#future')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-f1')).toBe(true);
+    expect(futureHrefAllowed('/civilization/#future-energy-budget')).toBe(true);
+    expect(futureHrefAllowed('/civilization/#future-verify-flood')).toBe(true);
     expect(futureHrefAllowed('/civilization/future/')).toBe(false);
+    expect(FUTURE_INSTANCES.map((card) => card.id)).toEqual(['energy-budget', 'verify-flood']);
+    expect(FUTURE_INSTANCES.map((card) => card.domainId)).toEqual(['f1', 'f2']);
+    expect(FUTURE_INSTANCES.map((card) => card.tierId)).toEqual(['observe', 'pilot']);
+    expect(FUTURE_INSTANCES.every((card) => card.tierId !== 'civ-scale')).toBe(true);
+    for (const card of FUTURE_INSTANCES) {
+      expect(civChars(card.blurb)).toBeGreaterThanOrEqual(80);
+      expect(civChars(card.blurb)).toBeLessThanOrEqual(120);
+      expect(card.mechanism.trim().length).toBeGreaterThan(0);
+      expect(card.dataAsOf).toBe('2026-10-19');
+      expect(card.sources.length).toBeGreaterThanOrEqual(4);
+      expect(card.bands.length).toBeGreaterThan(0);
+    }
     expect(questionHrefAllowed('/civilization/#future-f6')).toBe(true);
     expect(questionHrefAllowed('/civilization/future/')).toBe(false);
   });
@@ -80,6 +95,24 @@ describe('civilization future P0', () => {
       expect(panel).toContain(horizon.title);
       for (const source of horizon.sources) expect(panel).toContain(`href="${source.url}"`);
     }
+    expect(panel.match(/class="future-card future-instance"/g)).toHaveLength(2);
+    for (const card of FUTURE_INSTANCES) {
+      expect(panel).toContain(`id="${card.anchor}"`);
+      expect(panel).toContain(card.title);
+      expect(panel).toContain(card.blurb);
+      expect(panel).toContain(card.mechanism);
+      expect(panel).toContain(`datetime="${card.dataAsOf}"`);
+      for (const source of card.sources) expect(panel).toContain(`href="${source.url}"`);
+    }
+    expect(panel).toContain('能量帶 e2');
+    expect(panel).toContain('信息帶 i2');
+    expect(panel).toContain('data-tier="observe"');
+    expect(panel).toContain('data-tier="pilot"');
+    expect(panel).not.toContain('id="future-spare-grid"');
+    expect(panel).not.toContain('/civilization/future/');
+    const f3 = panel.slice(panel.indexOf('id="future-f3"'), panel.indexOf('id="future-f4"'));
+    expect(f3).toContain('加厚中');
+    expect(f3).not.toContain('future-instance');
     expect(panel).toContain('id="future-countdown-wmo"');
     expect(panel).toContain(FUTURE_COUNTDOWNS[0]?.pending ?? '');
     expect(panel).toContain('id="future-clade"');
@@ -121,7 +154,15 @@ describe('civilization future P0', () => {
     expect(schema).toContain('/civilization/#future-f1');
     expect(schema).toContain('/civilization/#future-f2');
     expect(schema).toContain('/civilization/#future-f6');
+    expect(schema).toContain('energy-budget');
+    expect(schema).toContain('verify-flood');
     expect(schema).not.toMatch(REDLINE);
+    const sitemap = readFileSync('shared/sitemap.ts', 'utf8');
+    expect(sitemap).not.toContain('future-energy-budget');
+    expect(sitemap).not.toContain('future-verify-flood');
+    const pages = readFileSync('functions/civilization/[[path]].ts', 'utf8');
+    expect(pages).not.toContain('energy-budget');
+    expect(pages).not.toContain('verify-flood');
     const css = readFileSync('src/App.css', 'utf8');
     const futureCss = css.slice(css.indexOf('.future-panel {'), css.indexOf('.future-panel h2'));
     expect(futureCss).toContain('#f7f1e6');
