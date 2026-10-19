@@ -94,8 +94,10 @@ const PAGE_SIZE = 16;
 function Logo() {
   return (
     <span className="logo-frame">
-      <span className="logo-live" aria-hidden="true" />
-      <span className="logo-word">{siteBrand}</span>
+      <img className="logo-full logo-light" src="/brand/logo.svg" alt="" />
+      <img className="logo-full logo-dark" src="/brand/logo-dark.svg" alt="" />
+      <img className="logo-compact logo-light" src="/brand/logo-compact.svg" alt="" />
+      <img className="logo-compact logo-dark" src="/brand/logo-compact-dark.svg" alt="" />
     </span>
   );
 }

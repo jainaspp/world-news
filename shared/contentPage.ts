@@ -306,8 +306,10 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
       <div class="masthead-title">
         <a class="logo-link" href="/" aria-label="${esc(siteBrand)}">
           <span class="logo-frame">
-            <span class="logo-live" aria-hidden="true"></span>
-            <span class="logo-word">${esc(siteBrand)}</span>
+            <img class="logo-full logo-light" src="/brand/logo.svg" alt="" />
+            <img class="logo-full logo-dark" src="/brand/logo-dark.svg" alt="" />
+            <img class="logo-compact logo-light" src="/brand/logo-compact.svg" alt="" />
+            <img class="logo-compact logo-dark" src="/brand/logo-compact-dark.svg" alt="" />
           </span>
         </a>
       </div>
