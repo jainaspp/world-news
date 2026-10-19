@@ -1,4 +1,11 @@
 import { cjkChars, esc, safeHttp } from '../contentPage.js';
+import {
+  COSMOS_HANDOFF,
+  COSMOS_HANDOFF_CHIPS,
+  ORIGINS_HANDOFF_HREF,
+  renderCosmosHandoff,
+  renderLinkChips,
+} from './handoff.js';
 
 /** Thick-page floor. Below this the page stays noindex. */
 export const COSMOS_MIN_CHARS = 1200;
@@ -30,11 +37,7 @@ export const COSMOS_TITLE = '宇宙長河・深時間';
 
 export const COSMOS_LEDE = '在人類起源與文明編年之前，尚有更深的時間長河：宇宙如何展開能量與時空，冷凝出物質與恆星，結成宜居地球，並讓信息在生命層級累積。本頁以十階段勾勒主流綜述粗線，標以「能量 · 物質 · 信息 · 時間」；年代一律「約」。人類對起源亦有文化與信仰想像，本頁只述科學共識。約七百萬年前交接入類起源。';
 
-/** Page-end handoff. The origins link is the fixed anchor at about seven million years ago. */
-const HANDOFF_LEAD = '約七百萬年前，演化進入人族階段：深時間的能量、物質與生命信息，已铺就宜居地球與複雜生物圈。自此之後的化石、石器與基因組故事，請繼續閱讀本站';
-const HANDOFF_MID = '。文明制度、技術與貨幣的十階段編年，則另見';
-const HANDOFF_END = '；宇宙長河不併入文明編年，兩者前後銜接、互不覆蓋。';
-export const COSMOS_HANDOFF = `${HANDOFF_LEAD}人類起源時間線${HANDOFF_MID}文明編年${HANDOFF_END}`;
+export { COSMOS_HANDOFF } from './handoff.js';
 
 export const COSMOS_SOURCE_NOTE = '年代與事件表述均採「約／主流綜述」；上表僅列可公眾核對的科普入口，不作絕對精準年表。';
 
@@ -241,7 +244,7 @@ function starmap(): string {
 function scaleNest(): string {
   const levels = COSMOS_SCALES.map((level) => `<li><span class="cosmo-scale-name">${esc(level.name)}</span> · <span class="cosmo-scale-size">${esc(level.size)}</span></li>`).join('');
   const img = `<img src="${CIV}/cosmo-scale-nest-640w.webp" srcset="${CIV}/cosmo-scale-nest-400w.webp 400w, ${CIV}/cosmo-scale-nest-640w.webp 640w, ${CIV}/cosmo-scale-nest-1280w.webp 1280w" sizes="(max-width: 640px) calc(100vw - 48px), 640px" width="1280" height="720" alt="" loading="lazy" decoding="async" />`;
-  return `<figure class="cosmo-scale-nest"><div class="cosmo-scale-frame">${img}</div><figcaption><p class="cosmo-scale-note">空間尺度由大到小，上一級包含下一級所在區域。數字為約數，採主流綜述。第七級收到地球，其後<a href="/civilization/origins/">交接入類起源</a>。</p><ol class="cosmo-scale-levels">${levels}</ol></figcaption></figure>`;
+  return `<figure class="cosmo-scale-nest"><div class="cosmo-scale-frame">${img}</div><figcaption><p class="cosmo-scale-note">空間尺度由大到小，上一級包含下一級所在區域。數字為約數，採主流綜述。第七級收到地球，其後<a href="${ORIGINS_HANDOFF_HREF}">交接入類起源</a>。</p><ol class="cosmo-scale-levels">${levels}</ol></figcaption></figure>`;
 }
 
 function stageSection(stage: CosmoStage): string {
@@ -255,6 +258,7 @@ function stageSection(stage: CosmoStage): string {
     <p>${esc(stage.prose)}</p>
     <p class="stage-meaning">${esc(stage.meaning)}</p>
     ${lineChips(stage.lines)}
+    ${stage.n === 10 ? renderLinkChips(COSMOS_HANDOFF_CHIPS.filter((chip) => chip.href === ORIGINS_HANDOFF_HREF), '交接入類起源') : ''}
   </section>`;
 }
 
@@ -274,7 +278,7 @@ export function renderCosmosArticle(): string {
       <p class="kicker">Deep time · 深時間</p>
       <h1 class="column-title civ-page-title">${esc(COSMOS_TITLE)}</h1>
     </header>
-    <p>${esc(COSMOS_LEDE.replace(/交接入類起源。$/, ''))}<a href="/civilization/origins/">交接入類起源</a>。</p>
+    <p>${esc(COSMOS_LEDE.replace(/交接入類起源。$/, ''))}<a href="${ORIGINS_HANDOFF_HREF}">交接入類起源</a>。</p>
     <p class="deep-time-return"><a href="/civilization/earth/">生命各階的厚寫：地球生命</a></p>
     ${lineChips(LINES)}
     ${starmap()}
@@ -284,9 +288,7 @@ export function renderCosmosArticle(): string {
     ${scaleNest()}
     <h2>交接地球生命</h2>
     <p>宇宙長河在生命起源、大氧化與顯生宙只作粗線。從早期生命到約七百萬年前的各階，見<a href="/civilization/earth/">地球生命</a>，其後再進入人類起源。</p>
-    <h2>交接人類起源</h2>
-    <p>${esc(HANDOFF_LEAD)}<a href="/civilization/origins/">人類起源時間線</a>${esc(HANDOFF_MID)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_END)}</p>
-    <p class="stage-links"><a href="/civilization/earth/">地球生命</a><a href="/civilization/origins/">約七百萬年前，演化進入人族階段</a><a href="/civilization/chronicle/">文明編年</a><a href="/civilization/">返回文明總覽</a></p>
+    ${renderCosmosHandoff()}
     <h2>來源</h2>
     ${sourceTable()}
     <p class="stage-source">${esc(COSMOS_SOURCE_NOTE)}</p>

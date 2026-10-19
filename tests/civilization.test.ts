@@ -10,6 +10,7 @@ import { CHRONICLE_STAGES, chronicleCardMilestones, chronicleStagesOrdered } fro
 import { CHRONICLE_MILESTONE_BLOCKS, milestoneBlockAnchor } from '../shared/civilization/chronicleMilestones';
 import { milestoneBlockProse, milestoneBlocksFor } from '../shared/civilization/milestoneBlock';
 import { CITY_STAGES } from '../shared/civilization/city';
+import { COSMOS_HANDOFF_CHIPS, ORIGINS_BRIDGE_CHIPS, SPINE_COSMOS_LINKS, SPINE_ORIGINS_LINKS } from '../shared/civilization/handoff';
 import { COSMOS_STAGES } from '../shared/civilization/cosmos';
 import { EARTH_STAGES, earthStageText } from '../shared/civilization/earth';
 import { TECH_STAGES } from '../shared/civilization/tech';
@@ -130,7 +131,16 @@ describe('civilization thick pages', () => {
     const earthReturn = page.html.indexOf('上一層：地球生命');
     const cosmosReturn = page.html.indexOf('更早的深時間：宇宙長河');
     expect(page.html).toContain('href="/civilization/earth/"');
-    expect(page.html).toContain('href="/civilization/cosmos/"');
+    expect(page.html).toContain('href="/civilization/cosmos/#cosmo-10"');
+    expect(page.html).toContain('id="origins-7ma"');
+    expect(page.html).toContain('約七百萬年前的交接');
+    expect(page.html).toContain('下表第一行即早期人族');
+    expect(page.html).toContain('ma-bridge-chips');
+    for (const chip of ORIGINS_BRIDGE_CHIPS) {
+      expect(page.html).toContain(`href="${chip.href}"`);
+      expect(page.html).toContain(chip.label);
+    }
+    expect(page.html).not.toMatch(/末日|災變倒數|秒針|台灣|臺灣|台湾/);
     expect(earthReturn).toBeGreaterThan(titleAt);
     expect(earthReturn).toBeLessThan(cosmosReturn);
     expect(cosmosReturn).toBeGreaterThan(titleAt);
@@ -272,10 +282,22 @@ describe('civilization thick pages', () => {
     expect(hub.html.indexOf('class="deep-time"')).toBeLessThan(hub.html.indexOf('class="chronicle-board"'));
     expect(hub.html.indexOf('class="chronicle-board"')).toBeLessThan(hub.html.indexOf('class="civ-article"'));
     const deep = hub.html.slice(hub.html.indexOf('class="deep-time"'), hub.html.indexOf('class="chronicle-board"'));
-    expect(deep.indexOf('href="/civilization/cosmos/"')).toBeLessThan(deep.indexOf('href="/civilization/earth/"'));
-    expect(deep.indexOf('href="/civilization/earth/"')).toBeLessThan(deep.indexOf('href="/civilization/origins/"'));
-    expect(deep).toContain('閱讀地球生命');
-    expect(deep).toContain('侏羅紀');
+    const cosmosCard = deep.slice(deep.indexOf('cosmo-card'), deep.indexOf('earth-card'));
+    const earthCard = deep.slice(deep.indexOf('earth-card'), deep.indexOf('stage-seal">起源'));
+    const seamCard = deep.slice(deep.indexOf('stage-seal">起源'));
+    expect(deep.indexOf('cosmo-card')).toBeLessThan(deep.indexOf('earth-card'));
+    expect(deep.indexOf('earth-card')).toBeLessThan(deep.indexOf('stage-seal">起源'));
+    expect(cosmosCard).toContain('閱讀宇宙長河');
+    expect(cosmosCard).toContain('href="/civilization/cosmos/#cosmo-10"');
+    expect(cosmosCard).toContain('class="chip"');
+    expect(earthCard).toContain('閱讀地球生命');
+    expect(earthCard).toContain('侏羅紀');
+    expect(earthCard).toContain('class="chip"');
+    expect(seamCard).toContain('閱讀人類起源');
+    expect(seamCard).toContain('href="/civilization/origins/#origins-7ma"');
+    expect(seamCard).toContain('href="/civilization/cosmos/#cosmo-10"');
+    for (const chip of SPINE_COSMOS_LINKS) expect(cosmosCard).toContain(`href="${chip.href}"`);
+    for (const chip of SPINE_ORIGINS_LINKS) expect(seamCard).toContain(`href="${chip.href}"`);
     expect(deep).toContain('閱讀宇宙長河');
     expect(deep).toContain('src="/static/civilization/cosmo-stage-1-cover-640w.webp"');
     expect(deep).toContain('cosmo-stage-1-cover-1280w.webp 1280w');
@@ -512,11 +534,24 @@ describe('civilization thick pages', () => {
     expect(jump).toContain('syncCivAnchorOffset');
     expect(page.html).toContain('href="/civilization/"');
     expect(page.html).toContain('href="/civilization/earth/"');
-    expect(page.html).toContain('href="/civilization/origins/"');
+    expect(page.html).toContain('href="/civilization/origins/#origins-7ma"');
     expect(page.html).toContain('href="/civilization/chronicle/"');
     expect(page.html).toContain('交接地球生命');
     expect(page.html).toContain('約七百萬年前，演化進入人族階段');
-    expect(page.html).toContain('已铺就宜居地球');
+    expect(page.html).toContain('已鋪就宜居地球');
+    expect(page.html).toContain('id="cosmo-handoff"');
+    expect(page.html).toContain('href="/civilization/origins/#origins-7ma"');
+    expect(page.html).toContain('class="ma-bridge"');
+    expect(page.html).toContain('class="chip"');
+    expect(COSMOS_STAGES).toHaveLength(10);
+    expect(EARTH_STAGES).toHaveLength(8);
+    for (const chip of COSMOS_HANDOFF_CHIPS) {
+      expect(page.html).toContain(`href="${chip.href}"`);
+      expect(page.html).toContain(chip.label);
+    }
+    expect(css).toMatch(/\.ma-bridge \{[^}]*color:\s*#161c24/);
+    expect(css).toMatch(/\.ma-bridge-chips \.chip \{[^}]*color:\s*#161c24/);
+    expect(page.html).not.toMatch(/末日|災變倒數|秒針/);
     expect(page.html).toContain('假說並存');
     expect(page.html).toContain('能量');
     expect(page.html).toContain('物質');
@@ -559,7 +594,8 @@ describe('civilization thick pages', () => {
     expect(seal).toContain('visibility: visible');
     expect(seal).not.toContain('.stage-card .stage-seal');
     const handoff = page.html.slice(page.html.indexOf('交接人類起源'));
-    expect(handoff.indexOf('href="/civilization/origins/"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));
+    expect(handoff.indexOf('href="/civilization/origins/#origins-7ma"')).toBeGreaterThan(-1);
+    expect(handoff.indexOf('href="/civilization/origins/#origins-7ma"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));
     expect(handoff).toContain('https://science.nasa.gov/solar-system/solar-system-facts/');
   });
 
@@ -578,7 +614,7 @@ describe('civilization thick pages', () => {
     expect(page.html).toContain('地球生命・深時間');
     expect(page.html).toContain('class="earth-hero"');
     expect(page.html).toContain('href="/civilization/cosmos/"');
-    expect(page.html).toContain('href="/civilization/origins/"');
+    expect(page.html).toContain('href="/civilization/origins/#origins-7ma"');
     expect(page.html).toContain('href="/civilization/"');
     expect(page.html).not.toContain('/civilization/starmap/');
     expect(page.html).not.toContain('adsbygoogle');
@@ -664,8 +700,10 @@ describe('civilization thick pages', () => {
     expect(cjkChars(triassic)).toBeGreaterThanOrEqual(280);
     expect(cjkChars(cretaceous)).toBeGreaterThanOrEqual(280);
     const handoff = page.html.slice(page.html.indexOf('交接人類起源'));
+    expect(handoff.indexOf('href="/civilization/cosmos/"')).toBeGreaterThan(-1);
     expect(handoff.indexOf('href="/civilization/cosmos/"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));
-    expect(handoff.indexOf('href="/civilization/origins/"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));
+    expect(handoff.indexOf('href="/civilization/origins/#origins-7ma"')).toBeGreaterThan(-1);
+    expect(handoff.indexOf('href="/civilization/origins/#origins-7ma"')).toBeLessThan(handoff.indexOf('<h2>來源</h2>'));
     const css = readFileSync('src/App.css', 'utf8');
     expect(css).toContain('.earth-hero');
     expect(css).toContain('#161c24');
