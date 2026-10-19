@@ -1,5 +1,6 @@
 import { esc, safeHttp } from '../contentPage.js';
 import type { CivDriver, CivProduct, CivSource } from './contract.js';
+import { lineFilterAttrs } from './lineFilter.js';
 
 export type BlockItem = CivProduct;
 
@@ -92,6 +93,7 @@ export function renderReadingBlock(block: ReadingBlock): string {
   const kicker = pattern ? (block.kicker ?? '模式卡') : '深讀';
   const problem = block.problem?.trim() ? `\n    <p class="pattern-problem">${esc(block.problem.trim())}</p>` : '';
   const dataPattern = pattern ? ` data-pattern="${esc(block.anchor.replace(/^pattern-/, ''))}"` : '';
+  const dataLines = lineFilterAttrs(block.lines);
   const extra = [
     mechanismSection(block),
     patternSection('不適用邊界', block.boundary),
@@ -100,7 +102,7 @@ export function renderReadingBlock(block: ReadingBlock): string {
     sourceSection(block),
     stageLink(block.stageHref),
   ].join('');
-  return `<details class="${klass}" id="${esc(domId)}"${dataPattern} open>
+  return `<details class="${klass}" id="${esc(domId)}"${dataPattern}${dataLines} open>
     <summary><span class="civ-block-kicker">${esc(kicker)}</span><span class="civ-block-event">${esc(block.event)}</span></summary>${problem}
     <div class="civ-block-body">
       <figure class="civ-block-figure">${coverSlot(block)}<figcaption>${esc(block.event)} · ${captionKind} · 約數</figcaption></figure>

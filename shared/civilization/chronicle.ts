@@ -2,6 +2,7 @@ import { cjkChars, esc, safeHttp } from '../contentPage.js';
 import { CIV_LINES, type CivLine } from './contract.js';
 import { milestoneBlockProse, milestoneBlockSources, renderMilestoneBlocks } from './milestoneBlock.js';
 import { caseSourceRows, renderCaseNav, renderCasesBeside } from './cases.js';
+import { lineFilterAttrs, renderLineFilter } from './lineFilter.js';
 import { patternLinksForStage, patternSourceRows, renderPatternCardsForStage, renderPatternNav } from './patterns.js';
 import { renderSliceReturns } from './renderSlice.js';
 
@@ -256,7 +257,7 @@ export function renderStageGrid(): string {
     const href = chronicleStageHref(stage.n);
     const points = chronicleCardMilestones(stage).map((item) => `<li>${esc(item)}</li>`).join('');
     const origins = stage.origins ? '<a href="/civilization/origins/">詳見起源</a>' : '';
-    return `<article class="stage-card" data-stage="${stage.n}">
+    return `<article class="stage-card" data-stage="${stage.n}"${lineFilterAttrs(stage.lines)}>
       <a class="stage-cover" href="${href}" aria-label="${esc(`${ordinal(stage.n)} ${stage.name}`)}">${stageCoverImg(stage, stage.n <= 2)}${paperSeal(stage.n)}</a>
       <div class="stage-body">
         <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
@@ -274,6 +275,7 @@ export function renderStageGrid(): string {
       <a href="/civilization/chronicle/">打開完整編年</a>
     </div>
     <p class="chronicle-board-note">十個階段。每張卡片只標一至兩個界定里程碑、一句意義，以及能量、信息、制度、貨幣中的一至兩條線。</p>
+    ${renderLineFilter()}
     <div class="stage-grid">${cards}</div>
   </section>`;
 }

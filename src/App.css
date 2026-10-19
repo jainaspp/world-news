@@ -1966,6 +1966,50 @@ a.stage-cover { text-decoration: none; }
   font-weight: 700;
   line-height: 1;
 }
+/* Hub four-line filter. Ink and paper, same as the label chips.
+   Hidden cards use display:none. No height transition. */
+.line-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+.line-filter .chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  background: #f7f1e6;
+  color: #161c24;
+  border: 1px solid #9a7b4f;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.line-filter .chip[aria-pressed="true"] {
+  background: #161c24;
+  color: #f7f1e6;
+  border-color: #161c24;
+}
+.line-filter-empty {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border: 1px solid #d4cbb8;
+  border-radius: 12px;
+  background: #f7f1e6;
+  color: #161c24;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.civ-page [data-lines][hidden],
+.line-filter-empty[hidden] {
+  display: none;
+  animation: none;
+  transition: none;
+}
 .stage-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; font-size: 13px; font-weight: 700; }
 .stage-source { margin: 0 0 8px; font-size: 13px; color: #5c6570; }
 /* 里程碑深讀：產物｜推動力 block. Paper card on the ink-and-paper scale. */
@@ -2743,6 +2787,7 @@ html.dark .stage-card .stage-seal,
 html.dark .deep-time-card .stage-seal,
 html.dark .chronicle-stage .stage-seal,
 html.dark .line-chip,
+html.dark .line-filter .chip,
 html.dark .chronicle-nav .chip,
 html.dark .cosmo-nav .chip,
 html.dark .deep-time-return a {
@@ -2755,6 +2800,16 @@ html.dark .stage-dot .stage-seal {
   background: #f7f1e6;
   color: #161c24;
   border-color: #c4a572;
+}
+html.dark .line-filter .chip[aria-pressed="true"] {
+  background: #161c24;
+  color: #f7f1e6;
+  border-color: #c4a572;
+}
+html.dark .line-filter-empty {
+  background: #2a231b;
+  color: #f3eadc;
+  border-color: #5c4a34;
 }
 
 /* Civilization axis motion (P0).
