@@ -1,0 +1,623 @@
+import { esc } from '../contentPage.js';
+import { civChars, isCivLine, type CivLine } from './contract.js';
+
+/**
+ * Future P0. A hub anchor and a stage-10 bridge, not a route.
+ * Closed sets live here. `futureIssues` returns [] when the contract holds.
+ * Field list: SCHEMA.md
+ */
+
+export const FUTURE_DOMAIN_IDS = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6'] as const;
+export type FutureDomainId = (typeof FUTURE_DOMAIN_IDS)[number];
+
+export const FUTURE_DOMAIN_STATUS = ['加厚中', '有卡'] as const;
+export type FutureDomainStatus = (typeof FUTURE_DOMAIN_STATUS)[number];
+
+export interface FutureDomain {
+  id: FutureDomainId;
+  code: 'F1' | 'F2' | 'F3' | 'F4' | 'F5' | 'F6';
+  title: string;
+  blurb: string;
+  status: FutureDomainStatus;
+  /** Optional CivLine tags. Not a fifth line. */
+  lines?: readonly CivLine[];
+  anchor: string;
+}
+
+export const FUTURE_TIERS = ['observe', 'pilot', 'infra', 'civ-scale'] as const;
+export type FutureTier = (typeof FUTURE_TIERS)[number];
+
+export const FUTURE_TIER_MARKS = ['約', '示意', '假說'] as const;
+export type FutureTierMark = (typeof FUTURE_TIER_MARKS)[number];
+
+export interface FutureTierRow {
+  tier: FutureTier;
+  label: string;
+  /** Set only on the three rows the v0 card draws. */
+  mark?: FutureTierMark;
+  blurb: string;
+  shown: boolean;
+}
+
+export const LEVEL_BANDS = [
+  'e0', 'e1', 'e2', 'e3', 'e4',
+  'i0', 'i1', 'i2', 'i3', 'i4',
+  'a0', 'a1', 'a2', 'a3', 'a4',
+] as const;
+export type LevelBand = (typeof LEVEL_BANDS)[number];
+
+export interface LevelFamily {
+  id: 'e' | 'i' | 'a';
+  label: string;
+  bands: readonly LevelBand[];
+}
+
+export const FUTURE_CONFIDENCE = ['limited', 'partial', 'steady'] as const;
+export type FutureConfidence = (typeof FUTURE_CONFIDENCE)[number];
+
+export const FUTURE_CLADE_KINDS = ['tool-extension', 'niche-continue'] as const;
+export type FutureCladeKind = (typeof FUTURE_CLADE_KINDS)[number];
+
+export interface FutureSource {
+  name: string;
+  url: string;
+}
+
+export interface FutureHorizon {
+  id: string;
+  anchor: string;
+  title: string;
+  domainId: FutureDomainId;
+  band: LevelBand;
+  confidence: FutureConfidence;
+  mechanism: string;
+  mitigation: string;
+  uncertainty: string;
+  /** YYYY-MM. Compilation date, not a catastrophe clock. */
+  dataAsOf: string;
+  sources: readonly FutureSource[];
+}
+
+export interface CountdownItem {
+  id: string;
+  anchor: string;
+  horizonId: string;
+  /** Checkpoint day, YYYY-MM-DD. */
+  checkpoint: string;
+  title: string;
+  pending: string;
+  expired: string;
+}
+
+export interface FutureCladeLayer {
+  title: '共享遺產' | '共演化' | 'SETI尚無確證';
+  text: string;
+}
+
+export interface FutureClade {
+  id: string;
+  anchor: string;
+  domainId: FutureDomainId;
+  title: string;
+  kinds: readonly FutureCladeKind[];
+  boundary: string;
+  layers: readonly FutureCladeLayer[];
+}
+
+const CONFIDENCE_LABEL: Record<FutureConfidence, string> = {
+  limited: '有限',
+  partial: '部分',
+  steady: '較穩',
+};
+
+const CLADE_KIND_LABEL: Record<FutureCladeKind, string> = {
+  'tool-extension': '工具延伸',
+  'niche-continue': '生態位延續',
+};
+
+const TIER_LABEL: Record<FutureTier, string> = {
+  observe: '觀測',
+  pilot: '試點',
+  infra: '基建',
+  'civ-scale': '文明尺度',
+};
+
+export const FUTURE_DOMAINS: readonly FutureDomain[] = [
+  {
+    id: 'f1',
+    code: 'F1',
+    title: '能量宜居',
+    blurb: '宜居窗口由能量收支與水循環共同約束。本域收氣候與功率的公共觀測，不把單一年寫成終局。',
+    status: '有卡',
+    lines: ['能量'],
+    anchor: 'future-f1',
+  },
+  {
+    id: 'f2',
+    code: 'F2',
+    title: '信息可信',
+    blurb: '複製變便宜之後，可信仍靠可核對的底本。本域收大規模誤導的機制，不替具體爭議選邊。',
+    status: '有卡',
+    lines: ['信息'],
+    anchor: 'future-f2',
+  },
+  {
+    id: 'f3',
+    code: 'F3',
+    title: '制度協作',
+    blurb: '跨人群協作靠可執行的規則與可修復的程序。本域仍在加厚，暫不另開卡片。',
+    status: '加厚中',
+    lines: ['制度'],
+    anchor: 'future-f3',
+  },
+  {
+    id: 'f4',
+    code: 'F4',
+    title: '生物譜系',
+    blurb: '只寫工具如何延伸既有能力，以及生態位如何延續。不寫優生，也不寫人群高下。',
+    status: '有卡',
+    anchor: 'future-f4',
+  },
+  {
+    id: 'f5',
+    code: 'F5',
+    title: '技術能力階',
+    blurb: '成熟度只分觀測、試點與基建三檔，皆為約、示意或假說。不排文明高下。',
+    status: '有卡',
+    lines: ['能量', '信息'],
+    anchor: 'future-f5',
+  },
+  {
+    id: 'f6',
+    code: 'F6',
+    title: '生存風險',
+    blurb: '近地與空間天氣的監測，把擾動寫成可核對的通報。本域不設災變時鐘。',
+    status: '有卡',
+    anchor: 'future-f6',
+  },
+];
+
+export const FUTURE_TIER_ROWS: readonly FutureTierRow[] = [
+  {
+    tier: 'observe',
+    label: TIER_LABEL.observe,
+    mark: '約',
+    shown: true,
+    blurb: '能持續記錄某一現象，並把記錄留在可核對的出處。記錄在場，不等於運行條件已被改寫。',
+  },
+  {
+    tier: 'pilot',
+    label: TIER_LABEL.pilot,
+    mark: '示意',
+    shown: true,
+    blurb: '在有限範圍內試行。結果只說明該範圍，不可外推成全域能力。',
+  },
+  {
+    tier: 'infra',
+    label: TIER_LABEL.infra,
+    mark: '假說',
+    shown: true,
+    blurb: '若維修、備件與記錄同時在場，能力才可能離開單點。這是條件句，不是已完成的階梯。',
+  },
+  {
+    tier: 'civ-scale',
+    label: TIER_LABEL['civ-scale'],
+    shown: false,
+    blurb: '只表示約束被放到文明尺度上討論。不在本卡畫成等級，也不與前三檔相加。',
+  },
+];
+
+export const FUTURE_TIER_CARD = {
+  anchor: 'future-tier',
+  domainId: 'f5' as const,
+  title: '技術能力階',
+  note: '這張卡只標成熟度，不排文明高下。頁上三檔分別標為約、示意與假說。契約另有文明尺度一檔，不在本卡畫成等級，也不與前三檔相加。',
+};
+
+export const LEVEL_FAMILIES: readonly LevelFamily[] = [
+  { id: 'e', label: '能量帶', bands: ['e0', 'e1', 'e2', 'e3', 'e4'] },
+  { id: 'i', label: '信息帶', bands: ['i0', 'i1', 'i2', 'i3', 'i4'] },
+  { id: 'a', label: '能動帶', bands: ['a0', 'a1', 'a2', 'a3', 'a4'] },
+];
+
+export const LEVEL_LEGEND = '能量帶 e0–e4、信息帶 i0–i4、能動帶 a0–a4。各帶只標約束寫到哪一層，互不換算，頁面不設合成分數。';
+
+export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
+  {
+    id: 'climate',
+    anchor: 'future-horizon-climate',
+    title: '氣候宜居約束',
+    domainId: 'f1',
+    band: 'e2',
+    confidence: 'partial',
+    mechanism: '地球宜居窗口由入射能量、溫室氣體與水循環共同約束。公共機構的年度評估修訂的是幅度與範圍，不是把單一年寫成終局。',
+    mitigation: '減排、適應與持續監測可以並行。本站只記機構已經寫明的公共路徑，不發動員句。',
+    uncertainty: '區域差異、回饋強度與政策路徑仍有範圍，不能從全球平均直接讀出某一城市的結果。',
+    dataAsOf: '2026-10',
+    sources: [
+      { name: '政府間氣候變化專門委員會｜第六次評估綜合報告', url: 'https://www.ipcc.ch/report/ar6/syr/' },
+      { name: '世界氣象組織', url: 'https://wmo.int/' },
+      { name: '美國國家航空航天局｜氣候', url: 'https://climate.nasa.gov/' },
+      { name: '哥白尼氣候變化服務', url: 'https://climate.copernicus.eu/' },
+      { name: '美國氣候網', url: 'https://www.climate.gov/' },
+    ],
+  },
+  {
+    id: 'trust',
+    anchor: 'future-horizon-trust',
+    title: '信息可信與大規模誤導',
+    domainId: 'f2',
+    band: 'i2',
+    confidence: 'limited',
+    mechanism: '記錄一旦能被低成本複製，未經校驗的敘述也可以同時到達許多人。可信靠可指認的底本與出處，不靠傳播速度。',
+    mitigation: '發出之前標明出處，並保留可以事後核對的底本。校驗放在複製之前，協作半徑才不會把錯誤一起放大。',
+    uncertainty: '平台機制與讀者習慣持續變化，單一語種的研究不能外推到所有公共討論。',
+    dataAsOf: '2026-10',
+    sources: [
+      { name: '聯合國教科文組織｜媒體與信息素養', url: 'https://www.unesco.org/en/media-information-literacy' },
+      { name: '路透新聞研究所｜數字新聞報告', url: 'https://reutersinstitute.politics.ox.ac.uk/digital-news-report' },
+      { name: '經濟合作與發展組織｜虛假信息專題', url: 'https://www.oecd.org/en/topics/disinformation-and-misinformation.html' },
+      { name: '歐洲核子研究組織｜萬維網簡史', url: 'https://home.cern/science/computing/the-birth-of-the-web/short-history-web/' },
+    ],
+  },
+  {
+    id: 'space',
+    anchor: 'future-horizon-space',
+    title: '近地／空間天氣監測',
+    domainId: 'f6',
+    band: 'a1',
+    confidence: 'partial',
+    mechanism: '太陽活動可以擾動電離層、導航與電網。監測把擾動提前寫成可核對的通報，讓維修與備援有時間對上同一件事。',
+    mitigation: '預報、備援電源與關鍵設施的防護程序，把單次擾動留在可修復的範圍。',
+    uncertainty: '單次事件的到達時間與強度仍有預報誤差。通報是檢查點，不是災變時鐘。',
+    dataAsOf: '2026-10',
+    sources: [
+      { name: '美國國家海洋和大氣管理局｜空間天氣預報中心', url: 'https://www.swpc.noaa.gov/' },
+      { name: '美國國家航空航天局｜太陽物理', url: 'https://science.nasa.gov/heliophysics/' },
+      { name: '歐洲空間局｜空間安全', url: 'https://www.esa.int/Space_Safety' },
+      { name: '美國空間天氣預報中心｜影響說明', url: 'https://www.swpc.noaa.gov/impacts' },
+    ],
+  },
+];
+
+export const FUTURE_COUNTDOWNS: readonly CountdownItem[] = [
+  {
+    id: 'wmo-annual',
+    anchor: 'future-countdown-wmo',
+    horizonId: 'climate',
+    checkpoint: '2027-03-31',
+    title: '年度評估窗口',
+    pending: '下一檢查點是世界氣象組織年度全球氣候評估的公開窗口，約在二〇二七年三月。這是核對日期，不是災變時鐘。',
+    expired: '該年度評估窗口已過。請改讀世界氣象組織最新的公開評估，本頁不保留倒數。',
+  },
+];
+
+export const FUTURE_CLADE: FutureClade = {
+  id: 'mild-clade',
+  anchor: 'future-clade',
+  domainId: 'f4',
+  title: '譜系的溫和讀法',
+  kinds: ['tool-extension', 'niche-continue'],
+  boundary: '本卡只寫工具如何延伸既有能力，以及既有生態位如何延續。不寫優生，不寫人群高下，也不寫封閉棲居。',
+  layers: [
+    {
+      title: '共享遺產',
+      text: '工具與記錄可以離開發明者，成為後來者能夠核對的公共底本。共享的是遺產，不是某一群人的座次。',
+    },
+    {
+      title: '共演化',
+      text: '技術與生活環境互相改寫。沒有單向的階梯，也沒有可以據此排列人群的分數。',
+    },
+    {
+      title: 'SETI尚無確證',
+      text: '搜尋地外技術信號的公開計劃，至今沒有可複核的接觸確證。未確證不寫成已經相遇。',
+    },
+  ],
+};
+
+/** 80–120 characters. Points at the six domains without renaming stage 10. */
+export const STAGE10_BRIDGE = '展望・分域把第十階段接到六個閱讀入口：能量宜居、信息可信、制度協作、生物譜系、技術能力階與生存風險。各域只在總覽展望面板分頭加厚，本階段不改名，編年帶仍止於第十階，不另立第十一階。';
+
+const DOOM_TITLE = /末日|崩潰|滅絕|倒數|災難/;
+const RANK_TITLE = /第[0-9０-９一二三四五六七八九十百]+[級级]文明|文明分數|MiniMax/i;
+const DATE_MONTH = /^\d{4}-\d{2}$/;
+const DATE_DAY = /^\d{4}-\d{2}-\d{2}$/;
+const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+function domainById(id: string): FutureDomain | undefined {
+  return FUTURE_DOMAINS.find((domain) => domain.id === id);
+}
+
+/** Hub anchors this module actually renders. */
+export function futureAnchorIds(): string[] {
+  return [
+    'future',
+    ...FUTURE_DOMAINS.map((domain) => domain.anchor),
+    FUTURE_TIER_CARD.anchor,
+    ...FUTURE_HORIZONS.map((horizon) => horizon.anchor),
+    ...FUTURE_COUNTDOWNS.map((item) => item.anchor),
+    FUTURE_CLADE.anchor,
+    'future-bands',
+  ];
+}
+
+/** True only for `/civilization/#future` and anchors this module renders. */
+export function futureHrefAllowed(href: string): boolean {
+  const match = /^\/civilization\/#([a-z0-9]+(?:-[a-z0-9]+)*)$/.exec(href);
+  if (!match) return false;
+  return new Set(futureAnchorIds()).has(match[1] ?? '');
+}
+
+function publishedText(): string {
+  const parts: string[] = [
+    STAGE10_BRIDGE,
+    LEVEL_LEGEND,
+    FUTURE_TIER_CARD.note,
+    FUTURE_TIER_CARD.title,
+    FUTURE_CLADE.title,
+    FUTURE_CLADE.boundary,
+    ...FUTURE_CLADE.layers.flatMap((layer) => [layer.title, layer.text]),
+    ...FUTURE_CLADE.kinds.map((kind) => CLADE_KIND_LABEL[kind]),
+    ...FUTURE_DOMAINS.flatMap((domain) => [domain.title, domain.blurb, domain.status, ...(domain.lines ?? [])]),
+    ...FUTURE_TIER_ROWS.flatMap((row) => [row.label, row.blurb, row.mark ?? '']),
+    ...FUTURE_HORIZONS.flatMap((horizon) => [
+      horizon.title,
+      horizon.mechanism,
+      horizon.mitigation,
+      horizon.uncertainty,
+      ...horizon.sources.map((source) => source.name),
+    ]),
+    ...FUTURE_COUNTDOWNS.flatMap((item) => [item.title, item.pending, item.expired]),
+  ];
+  return parts.join('\n');
+}
+
+function banIssues(text: string): string[] {
+  const issues: string[] = [];
+  if (RANK_TITLE.test(text)) issues.push('rank');
+  const stripped = text
+    .replace(/沒有總分/g, '')
+    .replace(/不寫優生/g, '')
+    .replace(/不寫人群高下/g, '')
+    .replace(/不寫封閉棲居/g, '')
+    .replace(/不是災變時鐘/g, '')
+    .replace(/不設災變時鐘/g, '')
+    .replace(/不保留倒數/g, '');
+  if (/總分|合成分數之外/.test(stripped) && /總分/.test(stripped)) issues.push('score');
+  if (/優生|封閉棲居|隔離棲居/.test(stripped)) issues.push('clade-ban');
+  if (/末日|滅絕|災變倒數|秒針|紅色倒數/.test(stripped)) issues.push('doom');
+  if (/\/civilization\/future\//.test(text)) issues.push('route');
+  return issues;
+}
+
+/** Empty array means the future contract holds. */
+export function futureIssues(): string[] {
+  const issues: string[] = [];
+  if (FUTURE_DOMAIN_IDS.length !== 6) issues.push('domain-count');
+  const titles = ['能量宜居', '信息可信', '制度協作', '生物譜系', '技術能力階', '生存風險'];
+  const codes = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6'];
+  if (FUTURE_DOMAINS.length !== 6) issues.push('domain-rows');
+  const anchors = new Set<string>();
+  FUTURE_DOMAINS.forEach((domain, index) => {
+    if (domain.id !== FUTURE_DOMAIN_IDS[index]) issues.push(`domain-id:${domain.id}`);
+    if (domain.code !== codes[index]) issues.push(`domain-code:${domain.id}`);
+    if (domain.title !== titles[index]) issues.push(`domain-title:${domain.id}`);
+    if (!domain.blurb.trim()) issues.push(`domain-blurb:${domain.id}`);
+    if (!FUTURE_DOMAIN_STATUS.includes(domain.status)) issues.push(`domain-status:${domain.id}`);
+    if (domain.anchor !== `future-${domain.id}`) issues.push(`domain-anchor:${domain.id}`);
+    if (anchors.has(domain.anchor)) issues.push(`domain-dup:${domain.id}`);
+    anchors.add(domain.anchor);
+    if (domain.lines) {
+      if (domain.lines.length < 1 || new Set(domain.lines).size !== domain.lines.length) issues.push(`domain-lines:${domain.id}`);
+      for (const line of domain.lines) {
+        if (!isCivLine(line)) issues.push(`domain-line:${domain.id}`);
+      }
+    }
+  });
+
+  if ([...FUTURE_TIERS].join() !== 'observe,pilot,infra,civ-scale') issues.push('tiers');
+  if (FUTURE_TIER_ROWS.length !== FUTURE_TIERS.length) issues.push('tier-rows');
+  const shown = FUTURE_TIER_ROWS.filter((row) => row.shown);
+  if (shown.length !== 3) issues.push('tier-shown');
+  if (shown.map((row) => row.tier).join() !== 'observe,pilot,infra') issues.push('tier-shown-order');
+  if (shown.map((row) => row.mark).join() !== '約,示意,假說') issues.push('tier-marks');
+  const hidden = FUTURE_TIER_ROWS.find((row) => row.tier === 'civ-scale');
+  if (!hidden || hidden.shown || hidden.mark) issues.push('tier-civ-scale');
+  for (const row of FUTURE_TIER_ROWS) {
+    if (row.label !== TIER_LABEL[row.tier] || !row.blurb.trim()) issues.push(`tier-copy:${row.tier}`);
+  }
+  if (FUTURE_TIER_CARD.domainId !== 'f5' || !FUTURE_TIER_CARD.note.includes('約') || !FUTURE_TIER_CARD.note.includes('示意') || !FUTURE_TIER_CARD.note.includes('假說')) {
+    issues.push('tier-card');
+  }
+
+  const bands = LEVEL_FAMILIES.flatMap((family) => family.bands);
+  if (bands.join() !== LEVEL_BANDS.join()) issues.push('bands');
+  if (!LEVEL_LEGEND.includes('e0') || !LEVEL_LEGEND.includes('e4') || !LEVEL_LEGEND.includes('i0') || !LEVEL_LEGEND.includes('i4') || !LEVEL_LEGEND.includes('a0') || !LEVEL_LEGEND.includes('a4')) {
+    issues.push('legend');
+  }
+  if (/總分|第.+[級级]文明|文明分數/.test(LEVEL_LEGEND)) issues.push('legend-score');
+
+  if (FUTURE_CLADE.kinds.join() !== FUTURE_CLADE_KINDS.join()) issues.push('clade-kinds');
+  if (!FUTURE_CLADE.boundary.trim()) issues.push('clade-boundary');
+  const layerTitles = ['共享遺產', '共演化', 'SETI尚無確證'];
+  if (FUTURE_CLADE.layers.length !== 3 || FUTURE_CLADE.layers.some((layer, index) => layer.title !== layerTitles[index] || !layer.text.trim())) {
+    issues.push('clade-layers');
+  }
+  if (FUTURE_CLADE.domainId !== 'f4') issues.push('clade-domain');
+
+  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測'];
+  if (FUTURE_HORIZONS.length !== 3) issues.push('horizon-count');
+  const horizonIds = new Set<string>();
+  for (const [index, horizon] of FUTURE_HORIZONS.entries()) {
+    if (horizon.title !== horizonTitles[index]) issues.push(`horizon-title:${horizon.id}`);
+    if (DOOM_TITLE.test(horizon.title)) issues.push(`horizon-doom:${horizon.id}`);
+    if (!SLUG.test(horizon.id) || horizonIds.has(horizon.id)) issues.push(`horizon-id:${horizon.id}`);
+    horizonIds.add(horizon.id);
+    if (!domainById(horizon.domainId)) issues.push(`horizon-domain:${horizon.id}`);
+    if (!(LEVEL_BANDS as readonly string[]).includes(horizon.band)) issues.push(`horizon-band:${horizon.id}`);
+    if (!(FUTURE_CONFIDENCE as readonly string[]).includes(horizon.confidence)) issues.push(`horizon-confidence:${horizon.id}`);
+    if (!horizon.mechanism.trim() || !horizon.mitigation.trim() || !horizon.uncertainty.trim()) issues.push(`horizon-copy:${horizon.id}`);
+    if (!DATE_MONTH.test(horizon.dataAsOf)) issues.push(`horizon-asof:${horizon.id}`);
+    if (horizon.sources.length < 4) issues.push(`horizon-sources:${horizon.id}`);
+    const urls = new Set<string>();
+    for (const source of horizon.sources) {
+      if (!source.name.trim() || !/^https:\/\//.test(source.url)) issues.push(`horizon-source:${horizon.id}`);
+      if (urls.has(source.url)) issues.push(`horizon-source-dup:${horizon.id}`);
+      urls.add(source.url);
+    }
+  }
+
+  if (FUTURE_COUNTDOWNS.length < 1) issues.push('countdown');
+  for (const item of FUTURE_COUNTDOWNS) {
+    if (!horizonIds.has(item.horizonId)) issues.push(`countdown-horizon:${item.id}`);
+    if (!DATE_DAY.test(item.checkpoint)) issues.push(`countdown-date:${item.id}`);
+    if (!item.pending.trim() || !item.expired.trim() || !item.title.trim()) issues.push(`countdown-copy:${item.id}`);
+    if (DOOM_TITLE.test(item.title)) issues.push(`countdown-doom:${item.id}`);
+    if (/\d+\s*秒|秒針|setInterval/.test(`${item.pending}\n${item.expired}`)) issues.push(`countdown-clock:${item.id}`);
+  }
+
+  const bridgeLen = civChars(STAGE10_BRIDGE);
+  if (bridgeLen < 80 || bridgeLen > 120) issues.push('bridge-len');
+  for (const domain of FUTURE_DOMAINS) {
+    if (!STAGE10_BRIDGE.includes(domain.title)) issues.push(`bridge:${domain.id}`);
+  }
+  if (!STAGE10_BRIDGE.includes('不另立第十一階') || !STAGE10_BRIDGE.includes('不改名')) issues.push('bridge-stage');
+
+  const cardDomains = new Set<string>([
+    ...FUTURE_HORIZONS.map((horizon) => horizon.domainId),
+    FUTURE_TIER_CARD.domainId,
+    FUTURE_CLADE.domainId,
+  ]);
+  for (const domain of FUTURE_DOMAINS) {
+    const hasCard = cardDomains.has(domain.id);
+    if (domain.status === '有卡' && !hasCard) issues.push(`status-card:${domain.id}`);
+    if (domain.status === '加厚中' && hasCard) issues.push(`status-open:${domain.id}`);
+  }
+
+  issues.push(...banIssues(publishedText()));
+  return issues;
+}
+
+/** Static sentence. The checkpoint day and after use the expired line. */
+export function countdownSentence(item: CountdownItem, now: Date): string {
+  const today = now.toISOString().slice(0, 10);
+  return today >= item.checkpoint ? item.expired : item.pending;
+}
+
+function lineChips(lines: readonly string[] | undefined): string {
+  if (!lines?.length) return '';
+  return `<p class="line-chips">${lines.map((line) => `<span class="line-chip">${esc(line)}</span>`).join('')}</p>`;
+}
+
+function renderSources(sources: readonly FutureSource[]): string {
+  const links = sources.map((source) => {
+    const href = /^https:\/\//.test(source.url) ? esc(source.url) : '';
+    return href ? `<a href="${href}">${esc(source.name)}</a>` : esc(source.name);
+  }).join('');
+  return `<p class="future-sources">${links}</p>`;
+}
+
+function renderLevelLegend(id: string): string {
+  const rows = LEVEL_FAMILIES.map((family) => {
+    const bands = family.bands.map((band) => `<span class="future-band">${esc(band)}</span>`).join('');
+    return `<p class="future-band-row"><span class="future-label">${esc(family.label)}</span>${bands}</p>`;
+  }).join('');
+  return `<aside class="future-legend" id="${esc(id)}" aria-label="分帶圖例"><h3>分帶圖例</h3><p>${esc(LEVEL_LEGEND)}</p>${rows}</aside>`;
+}
+
+function renderDomains(): string {
+  const chips = FUTURE_DOMAINS.map((domain) => `<a href="#${esc(domain.anchor)}">${esc(domain.code)} ${esc(domain.title)}</a>`).join('');
+  const cards = FUTURE_DOMAINS.map((domain) => `<article class="future-domain" id="${esc(domain.anchor)}">
+      <p class="future-kicker">${esc(domain.code)}</p>
+      <h3>${esc(domain.title)}</h3>
+      <p class="future-status">${esc(domain.status)}</p>
+      <p>${esc(domain.blurb)}</p>
+      ${lineChips(domain.lines)}
+    </article>`).join('');
+  return `<nav class="future-domain-nav" aria-label="分域入口">${chips}</nav><div class="future-grid">${cards}</div>`;
+}
+
+function renderTierCard(): string {
+  const rows = FUTURE_TIER_ROWS.filter((row) => row.shown).map((row) => `<div class="future-tier" data-tier="${esc(row.tier)}">
+      <p><span class="future-mark">${esc(row.mark ?? '')}</span> ${esc(row.label)}</p>
+      <p>${esc(row.blurb)}</p>
+    </div>`).join('');
+  return `<article class="future-card" id="${esc(FUTURE_TIER_CARD.anchor)}">
+    <p class="future-kicker"><a href="#future-f5">F5 技術能力階</a> · 約 · 示意 · 假說</p>
+    <h3>${esc(FUTURE_TIER_CARD.title)}</h3>
+    <p>${esc(FUTURE_TIER_CARD.note)}</p>
+    ${rows}
+  </article>`;
+}
+
+function renderHorizon(horizon: FutureHorizon): string {
+  const domain = domainById(horizon.domainId);
+  const family = horizon.band.startsWith('e') ? '能量帶' : horizon.band.startsWith('i') ? '信息帶' : '能動帶';
+  const domainLink = domain ? `<a href="#${esc(domain.anchor)}">${esc(domain.code)} ${esc(domain.title)}</a>` : '';
+  return `<article class="future-card" id="${esc(horizon.anchor)}">
+    <p class="future-kicker">${domainLink} · ${esc(family)} ${esc(horizon.band)} · 信心 ${esc(CONFIDENCE_LABEL[horizon.confidence])} · 截至 ${esc(horizon.dataAsOf)}</p>
+    <h3>${esc(horizon.title)}</h3>
+    <p class="future-label">機制</p>
+    <p>${esc(horizon.mechanism)}</p>
+    <p class="future-label">緩解</p>
+    <p>${esc(horizon.mitigation)}</p>
+    <p class="future-label">不確定</p>
+    <p>${esc(horizon.uncertainty)}</p>
+    ${renderSources(horizon.sources)}
+  </article>`;
+}
+
+function renderCountdown(item: CountdownItem, now: Date): string {
+  const horizon = FUTURE_HORIZONS.find((row) => row.id === item.horizonId);
+  const back = horizon ? `<p class="stage-links"><a href="#${esc(horizon.anchor)}">${esc(horizon.title)}</a></p>` : '';
+  return `<article class="future-card future-checkpoint" id="${esc(item.anchor)}">
+    <p class="future-kicker">檢查點 · <time datetime="${esc(item.checkpoint)}">${esc(item.checkpoint)}</time></p>
+    <h3>${esc(item.title)}</h3>
+    <p>${esc(countdownSentence(item, now))}</p>
+    ${back}
+  </article>`;
+}
+
+function renderClade(): string {
+  const kinds = FUTURE_CLADE.kinds.map((kind) => esc(CLADE_KIND_LABEL[kind])).join(' · ');
+  const layers = FUTURE_CLADE.layers.map((layer) => `<div class="future-layer"><h4>${esc(layer.title)}</h4><p>${esc(layer.text)}</p></div>`).join('');
+  return `<article class="future-card" id="${esc(FUTURE_CLADE.anchor)}">
+    <p class="future-kicker"><a href="#future-f4">F4 生物譜系</a> · ${kinds}</p>
+    <h3>${esc(FUTURE_CLADE.title)}</h3>
+    <p class="future-label">邊界</p>
+    <p>${esc(FUTURE_CLADE.boundary)}</p>
+    ${layers}
+  </article>`;
+}
+
+/** Hub panel. Static HTML, so it stays readable with script off. */
+export function renderFuturePanel(now = new Date()): string {
+  const horizons = FUTURE_HORIZONS.map((horizon) => renderHorizon(horizon)).join('');
+  const countdowns = FUTURE_COUNTDOWNS.map((item) => renderCountdown(item, now)).join('');
+  return `<section class="future-panel" id="future" aria-label="展望">
+    <h2>展望</h2>
+    <p class="future-note">未來接在城市與今天之間，只做總覽上的展望面板。六個分域是閱讀入口。編年仍是十個階段，這裡不另開網址。</p>
+    ${renderDomains()}
+    <div class="future-layout">
+      <div class="future-main">
+        ${renderTierCard()}
+        ${horizons}
+        ${countdowns}
+        ${renderClade()}
+      </div>
+      ${renderLevelLegend('future-bands')}
+    </div>
+  </section>`;
+}
+
+/** Stage 10 only. Other stages return an empty string. */
+export function renderFutureBridge(stageN: number): string {
+  if (stageN !== 10) return '';
+  const links = FUTURE_DOMAINS.map((domain) => `<a href="/civilization/#${esc(domain.anchor)}">${esc(domain.title)}</a>`).join('');
+  return `<aside class="future-bridge" id="stage-10-bridge" aria-label="展望・分域">
+    <h3>展望・分域</h3>
+    <p>${esc(STAGE10_BRIDGE)}</p>
+    <p class="stage-links"><a href="/civilization/#future">總覽展望</a>${links}</p>
+    ${renderLevelLegend('stage-10-bands')}
+  </aside>`;
+}

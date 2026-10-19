@@ -831,7 +831,7 @@ describe('homepage today slice', () => {
     expect(html).toContain('class="axis-node"');
     expect(html).toContain('class="layer-cover"');
     const axis = html.slice(html.indexOf('class="milestones"'), html.indexOf('class="chronicle-strip"'));
-    expect(axis.match(/class="axis-node/g)).toHaveLength(6);
+    expect(axis.match(/class="axis-node/g)).toHaveLength(7);
     expect(axis.indexOf('>宇宙<')).toBeGreaterThan(-1);
     expect(axis.indexOf('>宇宙<')).toBeLessThan(axis.indexOf('>地球<'));
     expect(axis.indexOf('>地球<')).toBeLessThan(axis.indexOf('>起源<'));
@@ -842,6 +842,10 @@ describe('homepage today slice', () => {
     expect(axis).toContain('>技術<');
     expect(axis).toContain('href="/civilization/city/"');
     expect(axis).toContain('>城市<');
+    expect(axis.indexOf('>城市<')).toBeLessThan(axis.indexOf('>未來<'));
+    expect(axis.indexOf('>未來<')).toBeLessThan(axis.indexOf('>今天<'));
+    expect(axis).toContain('href="/civilization/#future"');
+    expect(axis).not.toContain('/civilization/future/');
     expect(axis).not.toContain('href="/hk/landmarks/"');
     expect(axis).toContain('>今天<');
     const strip = html.slice(html.indexOf('class="chronicle-strip"'), html.indexOf('class="today-pin"'));

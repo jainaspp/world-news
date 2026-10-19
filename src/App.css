@@ -2288,6 +2288,97 @@ a.question-line:hover { text-decoration: underline; }
 .question-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 2px 0 0; }
 .question-precedent { font-size: 12px; font-weight: 700; color: #9a7b4f; }
 .question-near { font-size: 12px; color: #161c24; }
+.future-panel {
+  margin: 18px 0;
+  padding: 14px;
+  border: 1px solid #d4cbb8;
+  border-radius: 14px;
+  background: #f7f1e6;
+  color: #161c24;
+  scroll-margin-top: var(--civ-anchor-offset);
+}
+.future-panel h2,
+.future-domain h3,
+.future-card h3,
+.future-bridge h3,
+.future-legend h3,
+.future-layer h4 {
+  margin: 0 0 6px;
+  font-family: var(--font-serif);
+  color: #161c24;
+}
+.future-panel h2 { font-size: 1.2rem; }
+.future-note { margin: 0 0 12px; color: #5c6570; font-size: 14px; line-height: 1.6; }
+.future-domain-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.future-domain-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #9a7b4f;
+  background: #f7f1e6;
+  color: #161c24;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.future-grid { display: grid; gap: 10px; }
+.future-layout { display: grid; gap: 12px; margin-top: 12px; }
+.future-main { display: grid; gap: 10px; }
+.future-domain,
+.future-card,
+.future-bridge,
+.future-legend {
+  border: 1px solid #d4cbb8;
+  border-radius: 12px;
+  background: #f7f1e6;
+  color: #161c24;
+  padding: 12px;
+  scroll-margin-top: var(--civ-anchor-offset);
+}
+.future-bridge { margin: 12px 0; }
+.future-kicker,
+.future-label { margin: 8px 0 4px; color: #9a7b4f; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; }
+.future-kicker { margin-top: 0; }
+.future-kicker a { color: #9a7b4f; }
+.future-status {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  margin: 0 0 6px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid #161c24;
+  color: #161c24;
+  font-size: 11px;
+  font-weight: 700;
+}
+.future-mark { color: #9a7b4f; font-weight: 700; }
+.future-tier { margin-top: 8px; padding-top: 8px; border-top: 1px solid #d4cbb8; }
+.future-tier p { margin: 0 0 4px; }
+.future-layer { margin-top: 8px; }
+.future-layer p { margin: 0; }
+.future-sources { display: flex; flex-direction: column; gap: 4px; margin: 8px 0 0; font-size: 13px; }
+.future-sources a,
+.future-bridge a { color: #161c24; }
+.future-checkpoint { border-style: solid; }
+.future-band-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 6px; }
+.future-band {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  border: 1px solid #161c24;
+  color: #161c24;
+  font-size: 11px;
+  font-weight: 700;
+}
+@media (min-width: 720px) {
+  .future-grid { grid-template-columns: 1fr 1fr; }
+  .future-layout { grid-template-columns: minmax(0, 1fr) 240px; align-items: start; }
+}
 @media (min-width: 720px) {
   .question-list { grid-template-columns: 1fr 1fr; column-gap: 18px; }
   .question-list li { break-inside: avoid; }
@@ -2748,6 +2839,38 @@ html.dark .question-near { color: #f7f1e6; }
 html.dark .question-note { color: #d2c4b0; }
 html.dark .question-list li { border-top-color: #5c4a34; }
 html.dark .question-precedent { color: #c4a572; }
+html.dark .future-panel,
+html.dark .future-domain,
+html.dark .future-card,
+html.dark .future-bridge,
+html.dark .future-legend {
+  background: #2a231b;
+  color: #f3eadc;
+  border-color: #5c4a34;
+}
+html.dark .future-panel h2,
+html.dark .future-domain h3,
+html.dark .future-card h3,
+html.dark .future-bridge h3,
+html.dark .future-legend h3,
+html.dark .future-layer h4,
+html.dark .future-sources a,
+html.dark .future-bridge a,
+html.dark .future-status,
+html.dark .future-band { color: #f7f1e6; }
+html.dark .future-domain-nav a,
+html.dark .future-status,
+html.dark .future-band {
+  background: #3a3126;
+  border-color: #c4a572;
+  color: #f7f1e6;
+}
+html.dark .future-note { color: #d2c4b0; }
+html.dark .future-kicker,
+html.dark .future-kicker a,
+html.dark .future-label,
+html.dark .future-mark { color: #c4a572; }
+html.dark .future-tier { border-top-color: #5c4a34; }
 html.dark .case-study {
   background: #2a231b;
   color: #f3eadc;

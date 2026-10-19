@@ -4,6 +4,7 @@ import { milestoneBlockProse, milestoneBlockSources, renderMilestoneBlocks } fro
 import { caseSourceRows, renderCaseNav, renderCasesBeside } from './cases.js';
 import { lineFilterAttrs, renderLineFilter } from './lineFilter.js';
 import { patternLinksForStage, patternSourceRows, renderPatternCardsForStage, renderPatternNav } from './patterns.js';
+import { renderFutureBridge } from './future.js';
 import { renderSliceReturns } from './renderSlice.js';
 
 export type { CivLine };
@@ -299,6 +300,7 @@ function stageSection(stage: ChronicleStage): string {
     <p>${esc(stage.prose)}</p>
     <p class="stage-meaning">${esc(stage.meaning)}</p>
     ${lineChips(stage.lines)}
+    ${renderFutureBridge(stage.n)}
     ${renderMilestoneBlocks(stage)}
     ${renderPatternCardsForStage(stage.n)}
     ${renderCasesBeside('/civilization/chronicle/', `stage-${stage.n}`)}

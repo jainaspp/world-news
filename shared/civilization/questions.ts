@@ -2,6 +2,7 @@ import { esc } from '../contentPage.js';
 import { CHRONICLE_STAGES } from './chronicle.js';
 import { civChars } from './contract.js';
 import { EARTH_STAGES } from './earth.js';
+import { futureHrefAllowed } from './future.js';
 import { PATTERN_CARDS } from './patterns.js';
 import { SLICE_THEMES } from './slices.js';
 import { TECH_STAGES } from './tech.js';
@@ -10,7 +11,8 @@ import { TECH_STAGES } from './tech.js';
  * Standing question → precedent index.
  * A new row is a new object in `CIV_QUESTIONS`. It must point at an anchor
  * that already exists: a pattern card, a chronicle / tech / earth stage,
- * the origins page, or a home near-bridge card. No new /civilization/ route.
+ * the origins page, a home near-bridge card, or a hub `#future` anchor.
+ * No new /civilization/ route.
  */
 
 export interface CivQuestion {
@@ -37,6 +39,7 @@ const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 /** True only for anchors that already exist on the hub, the axis, or the home near bridge. */
 export function questionHrefAllowed(href: string): boolean {
+  if (futureHrefAllowed(href)) return true;
   const near = /^\/#near-([a-z0-9]+(?:-[a-z0-9]+)*)$/.exec(href);
   if (near) return NEAR_IDS.has(near[1] ?? '');
   const chroniclePattern = /^\/civilization\/chronicle\/#pattern-([a-z0-9]+(?:-[a-z0-9]+)*)$/.exec(href);
