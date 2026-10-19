@@ -5,6 +5,7 @@ import { renderPatternAxisLinks, renderPatternBoard } from './civilization/patte
 import { renderCityArticle, cityIndexable } from './civilization/city.js';
 import { cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
 import { earthIndexable, renderEarthArticle } from './civilization/earth.js';
+import { renderFuturePanel } from './civilization/future.js';
 import { renderDeepTimeBoardFromSpine, renderSpineAxis } from './civilization/spine.js';
 import { ORIGINS_BODY, ORIGINS_SOURCES } from './civilization/originsSource.js';
 import { renderTechArticle, techIndexable } from './civilization/tech.js';
@@ -52,7 +53,7 @@ export const HUB_MILESTONES: { era: string; title: string; text: string }[] = [
   },
 ];
 
-const HUB_READ = '閱讀時先看軸上的位置：最左是宇宙，其後為地球生命、起源、技術、城市、今天。今天的新聞是軸上的切片。沒有溫和史對照的電訊不強加年代座標。宇宙、地球生命、起源、技術與城市都已寫成獨立長頁。地球生命頁寫大氧化到侏羅紀、白堊紀與哺乳動物輻射。技術頁記工具、能源、媒介與知識；城市頁記聚落、公共工程與日常公共生活，香港地標只作其中的本地案例。軸下編年帶仍列出十個文明階段，點進階段可讀完整編年。宇宙十階與地球生命各階都不掛在這條編年帶上。';
+const HUB_READ = '閱讀時先看軸上的位置：最左是宇宙，其後為地球生命、起源、技術、城市、未來、今天。今天的新聞是軸上的切片。沒有溫和史對照的電訊不強加年代座標。宇宙、地球生命、起源、技術與城市都已寫成獨立長頁。未來停在本頁的展望面板，不另開網址。地球生命頁寫大氧化到侏羅紀、白堊紀與哺乳動物輻射。技術頁記工具、能源、媒介與知識；城市頁記聚落、公共工程與日常公共生活，香港地標只作其中的本地案例。軸下編年帶仍列出十個文明階段，點進階段可讀完整編年。宇宙十階與地球生命各階都不掛在這條編年帶上。';
 
 const HUB_LOCAL = '香港科學館於一九九一年開幕，以常設展覽介紹日常科學與自然現象，可作為城市向公眾講解深時間的節點。香港太空館於一九八〇年開幕，天象廳介紹星空與太陽系，方便把宇宙尺度和人族年表放在一起對照。兩館都是既有地標頁，在科技與發現、城市・基建・民生的長頁裡作為本地錨，而不代替這兩頁。';
 
@@ -207,7 +208,7 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
     <div class="axis-vignette" aria-hidden="true"></div>
     <p class="kicker">Human span · 溫和史</p>
     ${title}
-    <p class="axis-lede">從宇宙、地球生命到人類起源與城市公共生活。新聞是軸上「今天」那一刀。先看見尺度，再讀今日。</p>
+    <p class="axis-lede">從宇宙、地球生命到人類起源、城市公共生活與展望。新聞是軸上「今天」那一刀。先看見尺度，再讀今日。</p>
     <div class="deep-axis" aria-label="深時間軸">
       <div class="rail" aria-hidden="true"></div>
       ${renderSpineAxis(todayHref)}
@@ -376,6 +377,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
     ${renderQuestionIndex()}
     ${renderDeepTimeBoard()}
     ${renderStageGrid()}
+    ${renderFuturePanel(now)}
     <article class="civ-article">
       <h2>導語</h2>
       <p>${esc(HUB_LEDE)}</p>

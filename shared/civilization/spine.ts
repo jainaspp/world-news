@@ -113,6 +113,12 @@ export const SPINE: SpineNode[] = [
     href: '/civilization/city/',
   },
   {
+    id: 'future',
+    label: '未來',
+    year: '展望',
+    href: '/civilization/#future',
+  },
+  {
     id: 'today',
     label: '今天',
     year: '切片',
