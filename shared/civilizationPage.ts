@@ -1,5 +1,6 @@
 import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPage.js';
 import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderChronicleStrip, renderStageGrid } from './civilization/chronicle.js';
+import { renderCaseAxisLinks } from './civilization/cases.js';
 import { renderPatternAxisLinks, renderPatternBoard } from './civilization/patterns.js';
 import { renderCityArticle, cityIndexable } from './civilization/city.js';
 import { cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
@@ -217,6 +218,7 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
     </div>
     ${renderChronicleStrip()}
     ${renderPatternAxisLinks()}
+    ${renderCaseAxisLinks()}
   </section>`;
 }
 

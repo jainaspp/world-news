@@ -90,3 +90,26 @@
 - 首頁近層 `/#near-{主題 id}`
 
 五條近層問句都要出現在索引裡。對得上的列再加一條「今日近層」。`questionIndexIssues` 回傳空陣列才算通過。
+
+## 案例專篇
+
+資料在 `cases.ts` 的 `CASE_STUDIES`。一篇是陣列裡的一筆，掛進已經上線的編年或科技階段，不新增路由，也不進 `PAGES`。
+
+| 欄位 | 約束 |
+|------|------|
+| `id` | 穩定的英文短橫 slug。頁內錨是 `#case-{id}` |
+| `outcome` | `成` 或 `敗`。敗篇只寫中斷條件，不寫人群高下 |
+| `mount` / `beside` | `mount` 是 `/civilization/tech/` 或 `/civilization/chronicle/`。`beside` 是該頁已有的 `tech-N` 或 `stage-N` |
+| 正文 | `lede` 加 `paragraphs`，漢字不少於 800 |
+| 深讀 | `event`、`eventDetail`、`products`、`drivers`、`impact`，以及問題、機制、邊界、維修條件、今日可問 |
+| `sources` | 至少四條 `https`。其中恰好一條 `supports: 'mechanism'` |
+| `related` | 至少四條，且須同時含一張模式卡、一個階段錨、以及 `/civilization/#question-index` |
+
+首批兩篇：
+
+| id | 結果 | 掛在 |
+|----|------|------|
+| `print-cost` | 成 · 印刷與知識成本 | 科技頁 `#tech-7`，並連到 `copy-check` |
+| `gear-pause` | 敗 · 齒輪裝置的中斷條件 | 編年 `#stage-4`，並連到度量、維修與複製三張卡 |
+
+`caseIssues` 回傳空陣列才算通過。軸下另有兩枚紙感入口，鏈到這兩個錨。
