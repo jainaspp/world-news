@@ -166,12 +166,14 @@ function CivNav() {
   const columns = useMemo(readHomeColumns, []);
   return (
     <div className="civ-nav-row">
-      <nav className="civ-nav" aria-label="主欄目">
-        <a className="chip civ-chip" href="/civilization/">文明</a>
-        <a className="chip" href="/civilization/chronicle/">編年</a>
-        <a className="chip" href="/#slice">今天</a>
-        <a className="chip" href="/learn/">開蒙</a>
-      </nav>
+      <div className="chip-scroller">
+        <nav className="civ-nav" aria-label="主欄目">
+          <a className="chip civ-chip" href="/civilization/">文明</a>
+          <a className="chip" href="/civilization/chronicle/">編年</a>
+          <a className="chip" href="/#slice">今天</a>
+          <a className="chip" href="/learn/">開蒙</a>
+        </nav>
+      </div>
       <details className="civ-more">
         <summary className="chip">更多</summary>
         <nav className="filters" aria-label="更多欄目">
@@ -441,28 +443,30 @@ export default function App() {
 
           <CivNav />
           <div className="tab-bar">
-            <button
-              type="button"
-              className={filtersOpen || filtersActive ? 'chip active' : 'chip'}
-              aria-expanded={filtersOpen}
-              aria-controls="filter-panel"
-              onClick={() => setFiltersOpen((open) => !open)}
-            >
-              {t('filter', lang)}
-            </button>
-            <nav className="filters filters-primary" aria-label="time">
-              {TIMES.map((item) => (
-                <button
-                  type="button"
-                  key={item.id}
-                  className={!special && view.time === item.id ? 'chip active' : 'chip'}
-                  aria-pressed={!special && view.time === item.id}
-                  onClick={() => go({ ...view, time: item.id, ...clearSpecial })}
-                >
-                  {TIME_LABEL[item.id][lang]}
-                </button>
-              ))}
-            </nav>
+            <div className="chip-scroller">
+              <button
+                type="button"
+                className={filtersOpen || filtersActive ? 'chip active' : 'chip'}
+                aria-expanded={filtersOpen}
+                aria-controls="filter-panel"
+                onClick={() => setFiltersOpen((open) => !open)}
+              >
+                {t('filter', lang)}
+              </button>
+              <nav className="filters filters-primary" aria-label="time">
+                {TIMES.map((item) => (
+                  <button
+                    type="button"
+                    key={item.id}
+                    className={!special && view.time === item.id ? 'chip active' : 'chip'}
+                    aria-pressed={!special && view.time === item.id}
+                    onClick={() => go({ ...view, time: item.id, ...clearSpecial })}
+                  >
+                    {TIME_LABEL[item.id][lang]}
+                  </button>
+                ))}
+              </nav>
+            </div>
             <SubscribeMenu />
           </div>
 

@@ -155,6 +155,30 @@ describe('shared header wordmark', () => {
     expect(motion).toContain('.logo-word::before');
   });
 
+  it('keeps the narrow header as two scrolling rows', () => {
+    const css = readFileSync('src/App.css', 'utf8');
+    const narrow = css.slice(css.indexOf('@media (max-width: 720px)'));
+    expect(narrow.startsWith('@media (max-width: 720px)')).toBe(true);
+    expect(narrow).toContain('.chip-scroller');
+    expect(narrow).toContain('flex-wrap: nowrap');
+    expect(narrow).toContain('overflow-x: auto');
+    expect(css).toContain('.civ-more:not([open]) > .filters');
+    expect(css).toContain('.subscribe-menu:not([open]) > .subscribe-panel { display: none; }');
+    expect(narrow).toContain('#9a7b4f');
+    expect(narrow).toContain('#161c24');
+    expect(narrow).toContain('#e8e4dc');
+    const app = readFileSync('src/App.tsx', 'utf8');
+    expect(app).toContain('className="chip-scroller"');
+    expect(app).not.toContain('世界頭條');
+    expect(app).not.toContain('logo-live');
+    const page = readFileSync('shared/contentPage.ts', 'utf8');
+    expect(page).toContain('class="chip-scroller"');
+    const html = chrome('digest');
+    expect(html).toContain('chip-scroller');
+    expect(html).toContain('civ-nav');
+    expect(html).not.toContain('世界頭條');
+  });
+
   it('ships ink, paper, and brass marks without the news live colors', () => {
     for (const file of [
       'public/brand/logo.svg',

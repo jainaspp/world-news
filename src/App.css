@@ -850,6 +850,7 @@ body.static .otd-pack[open] .otd-pack-body {
 .subscribe-menu { position: relative; flex: none; }
 .subscribe-menu > summary { list-style: none; cursor: pointer; }
 .subscribe-menu > summary::-webkit-details-marker { display: none; }
+.subscribe-menu:not([open]) > .subscribe-panel { display: none; }
 .subscribe-panel {
   position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; display: grid; gap: 2px; min-width: 148px;
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 6px; box-shadow: var(--shadow);
@@ -1735,9 +1736,14 @@ a.axis-node:hover { color: #f7f1e6; }
 .more-today span { color: #5c6570; font-size: var(--civ-type-meta); }
 .civ-nav-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .civ-nav-row .civ-nav { flex: 1 1 auto; }
+/* Desktop keeps the old flex children. Phones turn this into the horizontal scroller. */
+.chip-scroller { display: contents; }
 .civ-more { position: relative; flex: none; }
 .civ-more > summary { list-style: none; cursor: pointer; }
 .civ-more > summary::-webkit-details-marker { display: none; }
+/* Author display:flex on .filters beats the closed-<details> user-agent rule, so hide it explicitly. */
+.civ-more:not([open]) > .filters,
+.nav-more:not([open]) > .filters { display: none; }
 .civ-more .filters {
   position: absolute;
   right: 0;
@@ -1751,6 +1757,91 @@ a.axis-node:hover { color: #f7f1e6; }
   box-shadow: var(--shadow-md);
 }
 .today-slice .digest-strip { margin-top: 4px; }
+
+/* Narrow chrome: masthead, then one scrolling civ row, then one scrolling filter row.
+   更多 and 訂閱 stay outside the scroller so they stay tappable and their menus are not clipped. */
+@media (max-width: 720px) {
+  .chrome > .civ-nav-row,
+  .chrome > .tab-bar {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 2px 0 4px;
+  }
+  .chrome .chip-scroller {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 2px 0;
+  }
+  .chrome .chip-scroller::-webkit-scrollbar { display: none; }
+  .chrome .chip-scroller .civ-nav,
+  .chrome .chip-scroller .filters-primary {
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    width: max-content;
+    min-width: max-content;
+    overflow: visible;
+    padding: 0;
+    gap: 8px;
+  }
+  .chrome > .civ-nav-row .civ-more,
+  .chrome > .tab-bar .subscribe-menu,
+  .chrome > .tab-bar .nav-more {
+    flex: 0 0 auto;
+    margin-left: 0;
+  }
+  .chrome .civ-nav .chip,
+  .chrome .filters-primary .chip,
+  .chrome .chip-scroller > .chip,
+  .chrome .civ-more > summary,
+  .chrome .subscribe-menu > summary,
+  .chrome .nav-more > summary {
+    min-height: 36px;
+    padding: 4px 12px;
+  }
+  .chrome .nav-more > summary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--chip-border);
+    border-radius: var(--radius-pill);
+    background: var(--card);
+    color: var(--text);
+    font-size: inherit;
+  }
+  .chrome .chip.active:not(.civ-chip) {
+    border-color: transparent;
+    box-shadow: inset 0 -2px 0 #9a7b4f;
+    border-radius: 8px;
+  }
+  html.dark .chrome .chip,
+  html.dark .chrome .nav-more > summary {
+    background: #121820;
+    border-color: #3d4a5c;
+    color: #e8e4dc;
+  }
+  html.dark .chrome .chip.active:not(.civ-chip) {
+    background: transparent;
+    border-color: transparent;
+    color: #f7f1e6;
+    box-shadow: inset 0 -2px 0 #9a7b4f;
+  }
+  html.dark .chrome .chip.civ-chip {
+    background: #161c24;
+    color: #f7f1e6;
+    border-color: #c4a572;
+    box-shadow: none;
+  }
+}
 .coord-chip {
   display: inline-flex;
   align-items: center;
