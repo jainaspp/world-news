@@ -60,6 +60,7 @@ export const JD_TOOL_CARDS: readonly JdToolCard[] = [
 ];
 
 const BY_KEY = new Map(JD_TOOL_CARDS.map((card) => [card.key, card]));
+/** Later pair wins when two rows share an explainer key. One page, one card. */
 const BRIDGE_BY_KEY = new Map(SOFT_BRIDGE_PAIRS.map((pair) => [pair.explainerKey, pair]));
 
 function conceptB(term: string): URLSearchParams {
@@ -76,12 +77,35 @@ export function jdToolHref(slug: string): string {
   return `${JD_REEL}${slug}/?${conceptB(slug).toString()}`;
 }
 
-/** Tool or reel URL for one soft-bridge pair. Query is Concept B. */
+function parseJdUrl(jdUrl: string): URL | null {
+  try {
+    return new URL(jdUrl);
+  } catch {
+    return null;
+  }
+}
+
+/** Empty when every jdUrl parses. A bad jdUrl is `${slug}:jdUrl` and is never thrown. */
+export function softBridgeIssues(pairs: readonly SoftBridgePair[] = SOFT_BRIDGE_PAIRS): string[] {
+  const issues: string[] = [];
+  for (const pair of pairs) {
+    if (!parseJdUrl(pair.jdUrl)) issues.push(`${pair.slug}:jdUrl`);
+  }
+  return issues;
+}
+
+/** Tool or reel URL for one soft-bridge pair. Query is Concept B.
+ * A malformed jdUrl returns '' so server render does not throw. */
 export function softBridgeHref(pair: SoftBridgePair): string {
-  const url = new URL(pair.jdUrl);
-  const params = conceptB(pair.utmTerm);
-  params.forEach((value, key) => url.searchParams.set(key, value));
-  return url.toString();
+  try {
+    if (softBridgeIssues([pair]).length > 0) return '';
+    const url = new URL(pair.jdUrl);
+    const params = conceptB(pair.utmTerm);
+    params.forEach((value, key) => url.searchParams.set(key, value));
+    return url.toString();
+  } catch {
+    return '';
+  }
 }
 
 function esc(value: string): string {
@@ -98,7 +122,11 @@ function cardHtml(cta: string, href: string, disclosure = ''): string {
 /** One compact card, or empty when this explainer is not in either map. */
 export function jdToolCardMarkup(key: string): string {
   const pair = BRIDGE_BY_KEY.get(key);
-  if (pair) return cardHtml(pair.cta, softBridgeHref(pair), pair.disclosure);
+  if (pair) {
+    const href = softBridgeHref(pair);
+    if (!href) return '';
+    return cardHtml(pair.cta, href, pair.disclosure);
+  }
   const card = BY_KEY.get(key);
   if (!card) return '';
   return cardHtml(card.cta, jdToolHref(card.slug));
