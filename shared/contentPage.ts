@@ -1,4 +1,4 @@
-import { feedTitle, siteBrand } from './brand.js';
+import { feedTitle, siteBrand, swCacheName } from './brand.js';
 import { readableSourceTitle } from './search.js';
 import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import { briefingPublic, briefingScopeOf, columnHeroSources, explainerCurrent, leadImage, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
@@ -306,10 +306,10 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
       <div class="masthead-title">
         <a class="logo-link" href="/" aria-label="${esc(siteBrand)}">
           <span class="logo-frame">
-            <img class="logo-full logo-light" src="/brand/logo.svg" alt="" />
-            <img class="logo-full logo-dark" src="/brand/logo-dark.svg" alt="" />
-            <img class="logo-compact logo-light" src="/brand/logo-compact.svg" alt="" />
-            <img class="logo-compact logo-dark" src="/brand/logo-compact-dark.svg" alt="" />
+            <img class="logo-full logo-light" src="/brand/logo.svg?v=${swCacheName}" alt="" />
+            <img class="logo-full logo-dark" src="/brand/logo-dark.svg?v=${swCacheName}" alt="" />
+            <img class="logo-compact logo-light" src="/brand/logo-compact.svg?v=${swCacheName}" alt="" />
+            <img class="logo-compact logo-dark" src="/brand/logo-compact-dark.svg?v=${swCacheName}" alt="" />
           </span>
         </a>
       </div>
