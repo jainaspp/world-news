@@ -169,7 +169,7 @@ describe('cache-only generation and fallback signalling', () => {
   });
 
   it('shows the weekly intro only on a pure region or category page', () => {
-    const base = { region: 'ALL', category: 'all', source: '', q: '', time: 'all', bookmarks: false, following: false };
+    const base = { region: 'ALL', category: 'all', source: '', q: '', time: 'today', bookmarks: false, following: false };
     expect(focusTarget(base)).toBeNull();
     expect(focusTarget({ ...base, region: 'HKG' })).toEqual({ scope: 'region', id: 'hkg' });
     expect(focusTarget({ ...base, category: 'tech' })).toEqual({ scope: 'category', id: 'tech' });

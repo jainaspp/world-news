@@ -7,7 +7,7 @@ import { REGIONS, sourcesForRegion } from '../shared/feeds';
 import { categoryLabelI18n, t } from '../shared/i18n';
 import { clusterStories, sourceCounts } from '../shared/trending';
 import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
-import type { NewsItem, TimeRange } from '../shared/types';
+import type { NewsItem } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
 import { renderBulletinClock } from '../shared/civilization/clock';
 import { renderAxisBand, renderAxisRails, renderHomeChronicle, renderLayerAside, sliceHeadHtml } from '../shared/civilizationPage';
@@ -38,13 +38,6 @@ import { useNews } from './hooks/useNews';
 import { readView, viewHref, type ViewState } from './routing';
 import { scrollBehavior } from './utils/scroll';
 import './App.css';
-
-const TIMES: { id: TimeRange; labelKey: 'all' | 'hour' | 'today' | 'week' }[] = [
-  { id: 'all', labelKey: 'all' },
-  { id: 'hour', labelKey: 'hour' },
-  { id: 'today', labelKey: 'today' },
-  { id: 'week', labelKey: 'week' },
-];
 
 function HomeIntroBody() {
   const columns = useMemo(readHomeColumns, []);
@@ -82,12 +75,7 @@ function HomeIntroFoot() {
   );
 }
 
-const TIME_LABEL: Record<string, Record<UiLang, string>> = {
-  all: { 'zh-HK': '全部', 'zh-CN': '全部', en: 'All' },
-  hour: { 'zh-HK': '1小時', 'zh-CN': '1小时', en: '1h' },
-  today: { 'zh-HK': '今天', 'zh-CN': '今天', en: 'Today' },
-  week: { 'zh-HK': '本週', 'zh-CN': '本周', en: 'Week' },
-};
+const TODAY_LABEL: Record<UiLang, string> = { 'zh-HK': '今天', 'zh-CN': '今天', en: 'Today' };
 
 const PAGE_SIZE = 16;
 
@@ -246,8 +234,20 @@ export default function App() {
   }, [lang]);
 
   useEffect(() => {
-    const onPop = () => setView(readView());
+    const dropRetiredTime = () => {
+      const params = new URLSearchParams(window.location.search);
+      if (!params.has('time')) return;
+      params.delete('time');
+      const search = params.toString();
+      const next = `${window.location.pathname}${search ? `?${search}` : ''}${window.location.hash}`;
+      window.history.replaceState({}, '', next);
+    };
+    const onPop = () => {
+      setView(readView());
+      dropRetiredTime();
+    };
     window.addEventListener('popstate', onPop);
+    dropRetiredTime();
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
@@ -268,7 +268,7 @@ export default function App() {
       source: view.bookmarks || view.following ? '' : view.source,
       category: view.bookmarks || view.following ? 'all' : view.category,
       q: '',
-      time: view.bookmarks || view.following ? 'all' : view.time,
+      time: view.bookmarks || view.following ? undefined : view.time,
     });
     if (view.following) rows = rows.filter((item) => follows.matches(item));
     return rows;
@@ -315,7 +315,7 @@ export default function App() {
     return map;
   }, [items]);
   const special = view.bookmarks || view.following;
-  const poeticAxis = !special && view.region === 'ALL' && view.category === 'all' && !view.q.trim() && !view.source.trim() && view.time === 'all';
+  const poeticAxis = !special && view.region === 'ALL' && view.category === 'all' && !view.q.trim() && !view.source.trim() && view.time === 'today';
   const focusLabel = !focusPage
     ? ''
     : focusPage.scope === 'region'
@@ -332,7 +332,7 @@ export default function App() {
     const query = view.q.trim();
     document.title = query ? `${t('search', lang)}「${query}」 — ${siteBrand}` : siteTitle;
     const canonical = document.querySelector('link[rel="canonical"]');
-    const path = query || view.bookmarks || view.following || view.source || view.time !== 'all' ? '/' : viewHref(view);
+    const path = query || view.bookmarks || view.following || view.source ? '/' : viewHref(view);
     canonical?.setAttribute('href', `${SITE_URL}${path === '' ? '/' : path}`);
     const top = (view.bookmarks || view.following ? visible : items).slice(0, 10);
     const data = {
@@ -373,7 +373,7 @@ export default function App() {
                 aria-label={siteBrand}
                 onClick={(event) => {
                   event.preventDefault();
-                  go({ region: 'ALL', category: 'all', source: '', q: '', time: 'all', ...clearSpecial, list: view.list });
+                  go({ region: 'ALL', category: 'all', source: '', q: '', time: 'today', ...clearSpecial, list: view.list });
                 }}
               >
                 <Logo />
@@ -454,17 +454,14 @@ export default function App() {
                 {t('filter', lang)}
               </button>
               <nav className="filters filters-primary" aria-label="time">
-                {TIMES.map((item) => (
-                  <button
-                    type="button"
-                    key={item.id}
-                    className={!special && view.time === item.id ? 'chip active' : 'chip'}
-                    aria-pressed={!special && view.time === item.id}
-                    onClick={() => go({ ...view, time: item.id, ...clearSpecial })}
-                  >
-                    {TIME_LABEL[item.id][lang]}
-                  </button>
-                ))}
+                <button
+                  type="button"
+                  className={!special ? 'chip active' : 'chip'}
+                  aria-pressed={!special}
+                  onClick={() => go({ ...view, time: 'today', ...clearSpecial })}
+                >
+                  {TODAY_LABEL[lang]}
+                </button>
               </nav>
             </div>
             <SubscribeMenu />

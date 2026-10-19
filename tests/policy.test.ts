@@ -173,13 +173,15 @@ describe('thin pages and original columns', () => {
 
   it('places one homepage ad per eight headlines on each layout, and only on the unfiltered home', () => {
     expect(FEED_AD_EVERY).toBeGreaterThanOrEqual(6);
-    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '', time: 'all' })).toBe(true);
-    expect(homeAllowsAds({ region: 'HKG', category: 'all', source: '', q: '', time: 'all' })).toBe(false);
-    expect(homeAllowsAds({ region: 'ALL', category: 'hk', source: '', q: '', time: 'all' })).toBe(false);
-    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '港鐵', time: 'all' })).toBe(false);
-    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '香港電台', q: '', time: 'all' })).toBe(false);
-    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '', time: 'today' })).toBe(false);
-    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '', time: 'all', bookmarks: true })).toBe(false);
+    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '', time: 'today' })).toBe(true);
+    expect(homeAllowsAds({ region: 'HKG', category: 'all', source: '', q: '', time: 'today' })).toBe(false);
+    expect(homeAllowsAds({ region: 'ALL', category: 'hk', source: '', q: '', time: 'today' })).toBe(false);
+    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '港鐵', time: 'today' })).toBe(false);
+    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '香港電台', q: '', time: 'today' })).toBe(false);
+    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '', time: 'all' })).toBe(false);
+    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '', time: 'hour' })).toBe(false);
+    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '', time: 'week' })).toBe(false);
+    expect(homeAllowsAds({ region: 'ALL', category: 'all', source: '', q: '', time: 'today', bookmarks: true })).toBe(false);
 
     const items = Array.from({ length: 12 }, (_, index) => headline(`a${index}`, `標題${index}`));
     const bare = renderHomeFeed(items);

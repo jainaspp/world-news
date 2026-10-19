@@ -26,14 +26,14 @@ function envSlot(env: Record<string, unknown>): string {
 /** Same list the SPA shows for /region/:code and /category/:slug. */
 export function focusFeedItems(items: Parameters<typeof filterNews>[0], page: FocusPage) {
   return page.scope === 'region'
-    ? filterNews(items, { region: page.id.toUpperCase() })
-    : filterNews(items, { category: page.id.toLowerCase() });
+    ? filterNews(items, { region: page.id.toUpperCase(), time: 'today' })
+    : filterNews(items, { category: page.id.toLowerCase(), time: 'today' });
 }
 
 function focusAdView(page: FocusPage): HomeAdView {
   return page.scope === 'region'
-    ? { region: page.id.toUpperCase(), category: 'all', source: '', q: '', time: 'all' }
-    : { region: 'ALL', category: page.id.toLowerCase(), source: '', q: '', time: 'all' };
+    ? { region: page.id.toUpperCase(), category: 'all', source: '', q: '', time: 'today' }
+    : { region: 'ALL', category: page.id.toLowerCase(), source: '', q: '', time: 'today' };
 }
 
 function retargetShell(html: string, path: string, title: string, noindex: boolean): string {

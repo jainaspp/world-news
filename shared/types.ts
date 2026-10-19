@@ -14,7 +14,8 @@ export interface NewsItem {
   breaking?: boolean;
 }
 
-export type TimeRange = 'all' | 'hour' | 'today' | 'week';
+/** Only public time preset. Retired all/hour/week values are read as today. */
+export type TimeRange = 'today';
 
 export interface FeedErrorSource {
   source: string;

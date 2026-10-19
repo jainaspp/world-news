@@ -28,7 +28,7 @@ function item(partial: Partial<NewsItem> & Pick<NewsItem, 'id' | 'title' | 'cate
     source: '香港電台',
     sourceUrl: 'https://news.rthk.hk',
     regions: partial.category === 'hk' ? ['HKG'] : partial.category === 'china' ? ['ASI'] : ['INT'],
-    pubDate: '2026-10-11T01:00:00Z',
+    pubDate: new Date().toISOString(),
     ...partial,
   };
 }
@@ -44,8 +44,8 @@ describe('AdSense gates', () => {
     expect(focusFeedItems(rows, { scope: 'region', id: 'hkg', label: '香港' }).map((row) => row.id)).toEqual(['hk']);
     expect(focusFeedItems(rows, { scope: 'category', id: 'china', label: '中國' }).map((row) => row.id)).toEqual(['cn']);
     expect(focusFeedItems(rows, { scope: 'region', id: 'twn', label: '台灣' }).map((row) => row.id)).toEqual(['tw']);
-    expect(homeAllowsAds({ region: 'HKG', category: 'all', source: '', q: '', time: 'all' })).toBe(false);
-    expect(homeAllowsAds({ region: 'ALL', category: 'hk', source: '', q: '', time: 'all' })).toBe(false);
+    expect(homeAllowsAds({ region: 'HKG', category: 'all', source: '', q: '', time: 'today' })).toBe(false);
+    expect(homeAllowsAds({ region: 'ALL', category: 'hk', source: '', q: '', time: 'today' })).toBe(false);
 
     const many = Array.from({ length: 12 }, (_, index) => item({ id: `h${index}`, title: `香港標題${index}`, category: 'hk' }));
     const feed = renderHomeFeed(many, new Map(), null, '');
