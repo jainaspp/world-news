@@ -58,12 +58,30 @@ function absolute(path: string): string {
   return `${SITEMAP_ORIGIN}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
-/** /region/twn, story pages, and the empty digest/weekly hubs. */
+/** /region/twn, story pages, the empty digest/weekly hubs, and the noindex /tools/ draft. */
 export function blockedSitemapLoc(loc: string): boolean {
   if (THIN_HUBS.has(loc)) return true;
   if (loc.includes('/region/twn')) return true;
   if (loc.includes('/story/')) return true;
+  if (isToolsDraftLoc(loc)) return true;
   return false;
+}
+
+/**
+ * The prep index stays out of the sitemap, including any child path.
+ * Remove this only in the same change that drops noindex on a written page.
+ * See docs/tools-layer-SCHEMA.md.
+ */
+function isToolsDraftLoc(loc: string): boolean {
+  let path = loc;
+  if (loc.startsWith('http://') || loc.startsWith('https://')) {
+    try {
+      path = new URL(loc).pathname;
+    } catch {
+      path = loc;
+    }
+  }
+  return path === '/tools' || path.startsWith('/tools/');
 }
 
 /**

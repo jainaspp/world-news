@@ -1,6 +1,6 @@
 # 軟橋契約（P0）
 
-新聞站是主軸。本頁只規定懶人包頁尾的一張教學卡。不新增本站 `/tools/` 或 `/reels/` 路由，不改域名，不改廣告開關。
+新聞站是主軸。本頁只規定懶人包頁尾的一張教學卡。不新增可索引的 `/tools/<slug>/` 正文，也不新增 `/reels/` 路由，不改域名，不改廣告開關。`/tools/` 若出現，只可以是 [`tools-layer-SCHEMA.md`](./tools-layer-SCHEMA.md) 所寫的 noindex 草稿索引，而且不進網站地圖。
 
 資料在 `shared/softBridgePairs.ts`。每週追加一筆即可，渲染器不用另開分支。
 
