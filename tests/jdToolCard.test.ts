@@ -141,8 +141,12 @@ describe('JD Tech tool card', () => {
     const briefing = renderContentPage(doc({ kind: 'briefing', key: JD_TOOL_CARDS[0]!.key }), 'https://world-news.xyz/briefing/x');
     expect(briefing).not.toContain('jd-tool-card');
     expect(renderTechPage().html).not.toContain('jd-tool-card');
-    expect(existsSync('functions/tools')).toBe(false);
     expect(existsSync('functions/reels')).toBe(false);
+    expect(existsSync('functions/tools/index.ts')).toBe(true);
+    expect(existsSync('functions/tools/[[path]].ts')).toBe(false);
+    const toolsRoute = readFileSync('functions/tools/index.ts', 'utf8');
+    expect(toolsRoute).toContain('status: 200');
+    expect(toolsRoute).not.toContain('301');
   });
 
   it('uses the site card tokens', () => {
