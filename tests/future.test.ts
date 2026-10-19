@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { civChars } from '../shared/civilization/contract';
 import { CHRONICLE_STAGES } from '../shared/civilization/chronicle';
@@ -34,6 +34,22 @@ describe('civilization future P0', () => {
       '能量宜居', '信息可信', '制度協作', '生物譜系', '技術能力階', '生存風險',
     ]);
     expect(FUTURE_DOMAINS.map((domain) => domain.code)).toEqual(['F1', 'F2', 'F3', 'F4', 'F5', 'F6']);
+    expect(FUTURE_DOMAINS.map((domain) => domain.plate.chip)).toEqual([
+      'F1 功率與宜居帶', 'F2 校驗成本', 'F3 規則與公共品', 'F4 共演化遺產', 'F5 條件帶示意', 'F6 監測與緩解',
+    ]);
+    expect(FUTURE_DOMAINS.map((domain) => domain.plate.cover)).toEqual([
+      '/static/civilization/future-f1-cover',
+      '/static/civilization/future-f2-cover',
+      '/static/civilization/future-f3-cover',
+      '/static/civilization/future-f4-cover',
+      '/static/civilization/future-f5-cover',
+      '/static/civilization/future-f6-cover',
+    ]);
+    const biodiversityPlate = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-biodiversity-services')?.plate;
+    expect(biodiversityPlate?.cover).toBe('/static/civilization/future-horizon-biodiversity-cover');
+    expect(biodiversityPlate?.chip).toBe('H-bio 生態系服務');
+    expect(biodiversityPlate?.alt).toMatch(/紙感/);
+    expect(FUTURE_HORIZONS.filter((horizon) => horizon.id !== 'horizon-biodiversity-services').every((horizon) => !horizon.plate)).toBe(true);
     expect(FUTURE_DOMAINS.filter((domain) => domain.status === '加厚中').map((domain) => domain.id)).toEqual(['f3']);
     expect([...FUTURE_TIERS]).toEqual(['observe', 'pilot', 'infra', 'civ-scale']);
     expect(FUTURE_TIER_ROWS.filter((row) => row.shown)).toHaveLength(3);
@@ -218,6 +234,42 @@ describe('civilization future P0', () => {
     expect(panel).toContain('生物多樣性與生態系服務約束');
     expect(panel).toContain('id="future-countdown-wmo"');
     expect(panel).toContain(FUTURE_COUNTDOWNS[0]?.pending ?? '');
+    expect(panel.match(/class="future-cover"/g)).toHaveLength(7);
+    for (const domain of FUTURE_DOMAINS) {
+      const cardEnd = FUTURE_DOMAINS[FUTURE_DOMAINS.indexOf(domain) + 1]?.anchor;
+      const card = panel.slice(
+        panel.indexOf(`id="${domain.anchor}"`),
+        cardEnd ? panel.indexOf(`id="${cardEnd}"`) : panel.indexOf('class="future-layout"'),
+      );
+      expect(card).toContain(`src="${domain.plate.cover}-640w.webp"`);
+      expect(card).toContain(`${domain.plate.cover}-400w.webp 400w`);
+      expect(card).toContain(`${domain.plate.cover}-1280w.webp 1280w`);
+      expect(card).toContain(`alt="${domain.plate.alt}"`);
+      expect(card).toContain(domain.plate.chip);
+      expect(card).toContain('class="future-cover"');
+      for (const width of [400, 640, 1280]) {
+        const file = `public${domain.plate.cover}-${width}w.webp`;
+        expect(existsSync(file), file).toBe(true);
+        expect(statSync(file).size, file).toBeGreaterThan(10_000);
+      }
+    }
+    const bioCard = panel.slice(panel.indexOf('id="future-horizon-biodiversity"'), panel.indexOf('id="future-horizon-amr"'));
+    expect(bioCard).toContain('src="/static/civilization/future-horizon-biodiversity-cover-640w.webp"');
+    expect(bioCard).toContain('future-horizon-biodiversity-cover-400w.webp 400w');
+    expect(bioCard).toContain('future-horizon-biodiversity-cover-1280w.webp 1280w');
+    expect(bioCard).toContain('H-bio 生態系服務');
+    expect(bioCard).toContain('紙感墨線：葉脈與節點，示意生態系服務彼此相連。');
+    for (const width of [400, 640, 1280]) {
+      const file = `public/static/civilization/future-horizon-biodiversity-cover-${width}w.webp`;
+      expect(existsSync(file), file).toBe(true);
+      expect(statSync(file).size, file).toBeGreaterThan(10_000);
+    }
+    const amrCard = panel.slice(panel.indexOf('id="future-horizon-amr"'), panel.indexOf('id="future-horizon-freshwater"'));
+    expect(amrCard).not.toContain('future-cover');
+    expect(amrCard).toContain('抗微生物藥物耐藥性（AMR）');
+    const freshCard = panel.slice(panel.indexOf('id="future-horizon-freshwater"'), panel.indexOf('id="future-countdown-wmo"'));
+    expect(freshCard).not.toContain('future-cover');
+    expect(freshCard).toContain('淡水可用量與衛生服務壓力');
     expect(panel).toContain('id="future-horizon-biodiversity"');
     expect(panel).toContain('id="future-countdown-cbd"');
     expect(panel).toContain('id="future-horizon-amr"');

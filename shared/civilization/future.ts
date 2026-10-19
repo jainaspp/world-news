@@ -13,6 +13,17 @@ export type FutureDomainId = (typeof FUTURE_DOMAIN_IDS)[number];
 export const FUTURE_DOMAIN_STATUS = ['加厚中', '有卡'] as const;
 export type FutureDomainStatus = (typeof FUTURE_DOMAIN_STATUS)[number];
 
+/**
+ * Paper plate. The file has no readable text.
+ * `chip` is the on-page label. `alt` describes the mood only.
+ */
+export interface FuturePlate {
+  /** Path base without the width suffix, such as `/static/civilization/future-f1-cover`. */
+  cover: string;
+  alt: string;
+  chip: string;
+}
+
 export interface FutureDomain {
   id: FutureDomainId;
   code: 'F1' | 'F2' | 'F3' | 'F4' | 'F5' | 'F6';
@@ -22,6 +33,7 @@ export interface FutureDomain {
   /** Optional CivLine tags. Not a fifth line. */
   lines?: readonly CivLine[];
   anchor: string;
+  plate: FuturePlate;
 }
 
 export const FUTURE_TIERS = ['observe', 'pilot', 'infra', 'civ-scale'] as const;
@@ -92,6 +104,8 @@ export interface FutureHorizon {
   /** YYYY-MM or YYYY-MM-DD. Compilation date, not a catastrophe clock. */
   dataAsOf: string;
   sources: readonly FutureSource[];
+  /** Set only when this horizon has a paper plate. */
+  plate?: FuturePlate;
 }
 
 /**
@@ -180,6 +194,11 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     status: '有卡',
     lines: ['能量'],
     anchor: 'future-f1',
+    plate: {
+      cover: '/static/civilization/future-f1-cover',
+      alt: '紙感墨線：光暈與水平帶，示意功率與宜居窗口。',
+      chip: 'F1 功率與宜居帶',
+    },
   },
   {
     id: 'f2',
@@ -189,6 +208,11 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     status: '有卡',
     lines: ['信息'],
     anchor: 'future-f2',
+    plate: {
+      cover: '/static/civilization/future-f2-cover',
+      alt: '紙感墨線：節點與一處斷開，示意校驗尚未接上。',
+      chip: 'F2 校驗成本',
+    },
   },
   {
     id: 'f3',
@@ -198,6 +222,11 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     status: '加厚中',
     lines: ['制度'],
     anchor: 'future-f3',
+    plate: {
+      cover: '/static/civilization/future-f3-cover',
+      alt: '紙感墨線：同心環與節點，示意規則圍住公共品。',
+      chip: 'F3 規則與公共品',
+    },
   },
   {
     id: 'f4',
@@ -206,6 +235,11 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     blurb: '人類的遺傳多樣性是共享遺產。人類與微生物、作物、生態系一同演化。地外智慧生命仍是開放的科學問題，一律標明尚無確證，不寫人群高下。',
     status: '有卡',
     anchor: 'future-f4',
+    plate: {
+      cover: '/static/civilization/future-f4-cover',
+      alt: '紙感墨線：分枝與節點，示意共演化留下的遺產。',
+      chip: 'F4 共演化遺產',
+    },
   },
   {
     id: 'f5',
@@ -215,6 +249,11 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     status: '有卡',
     lines: ['能量', '信息'],
     anchor: 'future-f5',
+    plate: {
+      cover: '/static/civilization/future-f5-cover',
+      alt: '紙感墨線：三條水平帶，示意條件帶的層次。',
+      chip: 'F5 條件帶示意',
+    },
   },
   {
     id: 'f6',
@@ -223,6 +262,11 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     blurb: '長期風險寫成可更新的地平線卡：區間、信心、機制、緩解與日期戳。盤點只對準機構窗口，過期改為靜態句。這裡寫維修條件，不寫束手無策。',
     status: '有卡',
     anchor: 'future-f6',
+    plate: {
+      cover: '/static/civilization/future-f6-cover',
+      alt: '紙感墨線：弧線與監測點，示意監測與緩解。',
+      chip: 'F6 監測與緩解',
+    },
   },
 ];
 
@@ -351,6 +395,11 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
     mitigation: '依紅色名錄與國家報告追蹤受脅等級；對齊全球生物多樣性框架的目標年進度；把棲地維護、復育與永續利用留成可核對的槓桿。',
     uncertainty: '評估覆蓋仍不均勻，無脊椎動物與真菌的缺口較大。局部復育的成效，不能直接外推成全球結果。',
     dataAsOf: '2026-10-19',
+    plate: {
+      cover: '/static/civilization/future-horizon-biodiversity-cover',
+      alt: '紙感墨線：葉脈與節點，示意生態系服務彼此相連。',
+      chip: 'H-bio 生態系服務',
+    },
     sources: [
       { name: '生物多樣性和生態系服務政府間科學政策平台｜全球評估決策者摘要', url: 'https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf' },
       { name: '國際自然保護聯盟｜受威脅物種紅色名錄', url: 'https://www.iucn.org/resources/conservation-tool/iucn-red-list-threatened-species' },
@@ -519,6 +568,16 @@ export const STAGE10_BRIDGE = '展望・分域把第十階段接到六個閱讀�
 const DOOM_TITLE = /末日|崩潰|滅絕|倒數|災難/;
 const RANK_TITLE = /第[0-9０-９一二三四五六七八九十百]+[級级]文明|文明分數|MiniMax/i;
 const DATE_STAMP = /^\d{4}-\d{2}(?:-\d{2})?$/;
+const PLATE_COVER = /^\/static\/civilization\/[a-z0-9]+(?:-[a-z0-9]+)*-cover$/;
+const PLATE_DOOM = /末日|崩潰|滅絕|倒數|災難|災變/;
+const DOMAIN_PLATE_CHIPS = [
+  'F1 功率與宜居帶',
+  'F2 校驗成本',
+  'F3 規則與公共品',
+  'F4 共演化遺產',
+  'F5 條件帶示意',
+  'F6 監測與緩解',
+] as const;
 const DATE_DAY = /^\d{4}-\d{2}-\d{2}$/;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -560,7 +619,7 @@ function publishedText(): string {
     FUTURE_CLADE.boundary,
     ...FUTURE_CLADE.layers.flatMap((layer) => [layer.title, layer.text]),
     ...FUTURE_CLADE.kinds.map((kind) => CLADE_KIND_LABEL[kind]),
-    ...FUTURE_DOMAINS.flatMap((domain) => [domain.title, domain.blurb, domain.status, ...(domain.lines ?? [])]),
+    ...FUTURE_DOMAINS.flatMap((domain) => [domain.title, domain.blurb, domain.status, domain.plate.alt, domain.plate.chip, ...(domain.lines ?? [])]),
     ...FUTURE_TIER_ROWS.flatMap((row) => [row.label, row.blurb, row.mark ?? '']),
     ...FUTURE_HORIZONS.flatMap((horizon) => [
       horizon.title,
@@ -569,6 +628,8 @@ function publishedText(): string {
       horizon.uncertainty,
       horizon.timeBand ?? '',
       horizon.kind ? HORIZON_KIND_LABEL[horizon.kind] : '',
+      horizon.plate?.alt ?? '',
+      horizon.plate?.chip ?? '',
       ...horizon.sources.map((source) => `${source.name}${source.scope ?? ''}`),
     ]),
     ...FUTURE_INSTANCES.flatMap((card) => [
@@ -625,6 +686,15 @@ export function futureIssues(): string[] {
       for (const line of domain.lines) {
         if (!isCivLine(line)) issues.push(`domain-line:${domain.id}`);
       }
+    }
+    const plate = domain.plate;
+    if (!plate
+      || plate.cover !== `/static/civilization/future-${domain.id}-cover`
+      || !PLATE_COVER.test(plate.cover)
+      || !plate.alt.trim()
+      || PLATE_DOOM.test(plate.alt)
+      || plate.chip !== DOMAIN_PLATE_CHIPS[index]) {
+      issues.push(`domain-plate:${domain.id}`);
     }
   });
 
@@ -732,6 +802,17 @@ export function futureIssues(): string[] {
   }
   const gbf = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-cbd-gbf-checkpoint');
   if (!gbf || gbf.horizonId !== 'horizon-biodiversity-services' || gbf.checkpoint !== '2026-10-30') issues.push('countdown-gbf');
+  if (!biodiversity?.plate
+    || biodiversity.plate.cover !== '/static/civilization/future-horizon-biodiversity-cover'
+    || !PLATE_COVER.test(biodiversity.plate.cover)
+    || biodiversity.plate.chip !== 'H-bio 生態系服務'
+    || !biodiversity.plate.alt.trim()
+    || PLATE_DOOM.test(biodiversity.plate.alt)) {
+    issues.push('horizon-biodiversity-plate');
+  }
+  for (const horizon of FUTURE_HORIZONS) {
+    if (horizon.id !== 'horizon-biodiversity-services' && horizon.plate) issues.push(`horizon-plate:${horizon.id}`);
+  }
   const freshwater = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-freshwater-stress');
   if (!freshwater
     || freshwater.domainId !== 'f6'
@@ -846,6 +927,14 @@ export function countdownSentence(item: CountdownItem, now: Date): string {
   return today >= item.checkpoint ? item.expired : item.pending;
 }
 
+/** 640×400 plate, with 400w and 1280w candidates. A missing file hides the image; the chip stays. */
+function renderPlate(plate: FuturePlate | undefined): string {
+  if (!plate) return '';
+  const base = plate.cover;
+  const srcset = [400, 640, 1280].map((width) => `${esc(base)}-${width}w.webp ${width}w`).join(', ');
+  return `<figure class="future-cover"><img src="${esc(base)}-640w.webp" srcset="${srcset}" sizes="(max-width: 640px) 100vw, 320px" width="640" height="400" alt="${esc(plate.alt)}" loading="lazy" decoding="async" onerror="this.hidden=true" /><figcaption>${esc(plate.chip)}</figcaption></figure>`;
+}
+
 function lineChips(lines: readonly string[] | undefined): string {
   if (!lines?.length) return '';
   return `<p class="line-chips">${lines.map((line) => `<span class="line-chip">${esc(line)}</span>`).join('')}</p>`;
@@ -890,6 +979,7 @@ function renderDomains(): string {
     const links = instancesFor(domain.id).map((card) => `<a href="#${esc(card.anchor)}">${esc(card.title)}</a>`).join('');
     const more = links ? `<p class="stage-links">${links}</p>` : '';
     return `<article class="${domainClass(index)}" id="${esc(domain.anchor)}">
+      ${renderPlate(domain.plate)}
       <p class="future-kicker">${esc(domain.code)}</p>
       <h3>${esc(domain.title)}</h3>
       <p class="future-status">${esc(DOMAIN_STATUS_READER[domain.status])}</p>
@@ -952,6 +1042,7 @@ function renderHorizon(horizon: FutureHorizon): string {
   const kind = horizon.kind ? ` · ${esc(HORIZON_KIND_LABEL[horizon.kind])}` : '';
   const time = horizon.timeBand ? ` · 時間帶 ${esc(horizon.timeBand)}` : '';
   return `<article class="future-card civ-reveal" id="${esc(horizon.anchor)}">
+    ${renderPlate(horizon.plate)}
     <p class="future-kicker">${domainLink}${alsoLink} · ${esc(family)} ${esc(horizon.band)}${kind}${time} · 信心 ${esc(CONFIDENCE_LABEL[horizon.confidence])} · 截至 ${esc(horizon.dataAsOf)}</p>
     <h3>${esc(horizon.title)}</h3>
     <p class="future-label">機制</p>

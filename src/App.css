@@ -2354,6 +2354,39 @@ a.question-line:hover { text-decoration: underline; }
   font-size: 11px;
   font-weight: 700;
 }
+.future-cover {
+  position: relative;
+  margin: 0 0 10px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid #d4cbb8;
+  background: #f7f1e6;
+}
+.future-cover img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.future-cover img[hidden] { display: none; }
+.future-cover figcaption {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  z-index: 1;
+  margin: 0;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #161c24;
+  background: #f7f1e6;
+  color: #161c24;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+}
 .future-mark { color: #9a7b4f; font-weight: 700; }
 .future-tier { margin-top: 8px; padding-top: 8px; border-top: 1px solid #d4cbb8; }
 .future-tier p { margin: 0 0 4px; }
@@ -2870,6 +2903,15 @@ html.dark .future-kicker,
 html.dark .future-kicker a,
 html.dark .future-label,
 html.dark .future-mark { color: #c4a572; }
+html.dark .future-cover {
+  background: #f7f1e6;
+  border-color: #d4cbb8;
+}
+html.dark .future-cover figcaption {
+  background: #f7f1e6;
+  color: #161c24;
+  border-color: #161c24;
+}
 html.dark .future-tier { border-top-color: #5c4a34; }
 html.dark .case-study {
   background: #2a231b;
