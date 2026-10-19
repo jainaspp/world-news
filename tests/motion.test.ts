@@ -32,7 +32,6 @@ describe('reduced motion', () => {
     expect(reduce).toContain('animation: none');
     expect(reduce).toContain('transition: none');
     for (const selector of [
-      '.logo-live',
       '.logo-frame',
       '.refresh-btn.is-refreshing svg',
       '.story-arrive',
@@ -128,12 +127,41 @@ describe('heritage motion', () => {
   });
 });
 
-describe('shared header live dot', () => {
-  it('marks the logo dot on server-rendered pages', () => {
+describe('shared header wordmark', () => {
+  it('does not paint a live pulse on the chronicle mark', () => {
     const html = chrome('digest');
     expect(html).toContain('logo-frame');
-    expect(html).toContain('logo-live');
-    expect(html).toContain('aria-hidden="true"');
+    expect(html).toContain('/brand/logo.svg');
+    expect(html).not.toContain('logo-live');
+    expect(readFileSync('src/App.tsx', 'utf8')).not.toContain('logo-live');
+    const css = readFileSync('src/App.css', 'utf8');
+    const enableAt = css.indexOf('@media (prefers-reduced-motion: no-preference)');
+    const reduceAt = css.indexOf('@media (prefers-reduced-motion: reduce)');
+    const motion = css.slice(enableAt, reduceAt);
+    expect(motion).not.toContain('.logo-live');
+    expect(motion).toContain('.logo-word::before');
+  });
+
+  it('ships ink, paper, and brass marks without the news live colors', () => {
+    for (const file of [
+      'public/brand/logo.svg',
+      'public/brand/logo-dark.svg',
+      'public/brand/logo-compact.svg',
+      'public/brand/logo-compact-dark.svg',
+      'public/brand/logo-mark.svg',
+    ]) {
+      const svg = readFileSync(file, 'utf8');
+      expect(svg).toContain('文明編年史');
+      expect(svg.toLowerCase()).not.toContain('#1d4f91');
+      expect(svg.toLowerCase()).not.toContain('#c8102e');
+    }
+    const light = readFileSync('public/brand/logo.svg', 'utf8');
+    expect(light).toContain('viewBox="0 0 185 68"');
+    expect(light).toContain('#161c24');
+    expect(light).toContain('#9a7b4f');
+    expect(readFileSync('public/brand/logo-dark.svg', 'utf8')).toContain('#E8E4DC');
+    expect(readFileSync('public/brand/logo-compact.svg', 'utf8')).toContain('viewBox="0 0 185 50"');
+    expect(readFileSync('public/brand/logo-mark.svg', 'utf8')).toContain('viewBox="0 0 64 64"');
   });
 });
 

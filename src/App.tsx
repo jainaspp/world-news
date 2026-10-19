@@ -120,7 +120,6 @@ function Logo() {
   if (failed) return <span className="logo-word">{SITE_NAME}</span>;
   return (
     <span className="logo-frame">
-      <span className="logo-live" aria-hidden="true" />
       <img className="logo-full logo-light" src="/brand/logo.svg" alt="" onError={() => setFailed(true)} />
       <img className="logo-full logo-dark" src="/brand/logo-dark.svg" alt="" />
       <img className="logo-compact logo-light" src="/brand/logo-compact.svg" alt="" />
