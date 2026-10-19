@@ -56,7 +56,7 @@ export const FUTURE_CONFIDENCE = ['limited', 'partial', 'steady'] as const;
 export type FutureConfidence = (typeof FUTURE_CONFIDENCE)[number];
 
 /** Horizon kind. Expand only when a card is published. */
-export const FUTURE_HORIZON_KINDS = ['health'] as const;
+export const FUTURE_HORIZON_KINDS = ['biosphere', 'health'] as const;
 export type FutureHorizonKind = (typeof FUTURE_HORIZON_KINDS)[number];
 
 /** Review horizon. Not an onset date and not a clock. */
@@ -81,7 +81,7 @@ export interface FutureHorizon {
   kind?: FutureHorizonKind;
   /** Legend layer. Not a time word. */
   band: LevelBand;
-  /** Review horizon such as 數十年. Not a deadline. */
+  /** Review horizon such as 進行中 or 數十年. Not a deadline. */
   timeBand?: FutureTimeBand;
   confidence: FutureConfidence;
   mechanism: string;
@@ -144,6 +144,7 @@ const CONFIDENCE_LABEL: Record<FutureConfidence, string> = {
 };
 
 const HORIZON_KIND_LABEL: Record<FutureHorizonKind, string> = {
+  biosphere: '生物圈',
   health: '健康',
 };
 
@@ -164,7 +165,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f1',
     code: 'F1',
     title: '能量宜居',
-    blurb: '宜居窗口由能量收支與水循環共同約束。本域收氣候與功率的公共觀測，不把單一年寫成終局。',
+    blurb: '文明可用功率受行星能量收支與碳循環約束。宜居帶是可觀測的熱量、水循環與極端事件邊界，寫在約與綜述的區間，不作國別排名。',
     status: '有卡',
     lines: ['能量'],
     anchor: 'future-f1',
@@ -173,7 +174,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f2',
     code: 'F2',
     title: '信息可信',
-    blurb: '複製變便宜之後，可信仍靠可核對的底本。本域收大規模誤導的機制，不替具體爭議選邊。',
+    blurb: '記錄、複製與出處核對的成本，決定協作半徑。近乎零成本的複製若遇上薄弱校驗，誤導可以規模化。本域追問如何驗證，不寫誰該噤聲。',
     status: '有卡',
     lines: ['信息'],
     anchor: 'future-f2',
@@ -182,7 +183,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f3',
     code: 'F3',
     title: '制度協作',
-    blurb: '跨人群協作靠可執行的規則與可修復的程序。本域仍在加厚，暫不另開卡片。',
+    blurb: '度量、標準、基礎設施與跨代機構，把陌生人的協作半徑拉長。這裡寫機制與維修條件，不寫口號，也不把制度能力寫成文明高下。',
     status: '加厚中',
     lines: ['制度'],
     anchor: 'future-f3',
@@ -191,7 +192,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f4',
     code: 'F4',
     title: '生物譜系',
-    blurb: '只寫工具如何延伸既有能力，以及生態位如何延續。不寫優生，也不寫人群高下。',
+    blurb: '人類的遺傳多樣性是共享遺產。人類與微生物、作物、生態系一同演化。地外智慧生命仍是開放的科學問題，一律標明尚無確證，不寫人群高下。',
     status: '有卡',
     anchor: 'future-f4',
   },
@@ -199,7 +200,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f5',
     code: 'F5',
     title: '技術能力階',
-    blurb: '成熟度只分觀測、試點與基建三檔，皆為約、示意或假說。不排文明高下。',
+    blurb: '能量通量、信息校驗與維修能動，只作條件帶的示意，標明約或假說。成熟度掛在域卡上，不印合成分數，也不印文明等級。卡爾達肖夫尺度僅作文獻對照。',
     status: '有卡',
     lines: ['能量', '信息'],
     anchor: 'future-f5',
@@ -208,7 +209,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f6',
     code: 'F6',
     title: '生存風險',
-    blurb: '近地與空間天氣的監測，把擾動寫成可核對的通報。本域不設災變時鐘。',
+    blurb: '長期風險寫成可更新的地平線卡：區間、信心、機制、緩解與日期戳。盤點只對準機構窗口，過期改為靜態句。這裡寫維修條件，不寫束手無策。',
     status: '有卡',
     anchor: 'future-f6',
   },
@@ -316,6 +317,29 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
     ],
   },
   {
+    id: 'horizon-biodiversity-services',
+    anchor: 'future-horizon-biodiversity',
+    title: '生物多樣性與生態系服務約束',
+    domainId: 'f6',
+    alsoDomainId: 'f4',
+    kind: 'biosphere',
+    band: 'e1',
+    timeBand: '進行中',
+    confidence: 'steady',
+    mechanism: '物種與生態系功能減弱之後，授粉、水質、土壤與災害緩衝等服務跟著變窄。監測靠紅色名錄、指標與評估週期；緩解靠棲地維護、永續利用與目標年盤點。這是可觀測的約束。',
+    mitigation: '依紅色名錄與國家報告追蹤受脅等級；對齊全球生物多樣性框架的目標年進度；把棲地維護、復育與永續利用留成可核對的槓桿。',
+    uncertainty: '評估覆蓋仍不均勻，無脊椎動物與真菌的缺口較大。局部復育的成效，不能直接外推成全球結果。',
+    dataAsOf: '2026-10-19',
+    sources: [
+      { name: '生物多樣性和生態系服務政府間科學政策平台｜全球評估決策者摘要', url: 'https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf' },
+      { name: '國際自然保護聯盟｜受威脅物種紅色名錄', url: 'https://www.iucn.org/resources/conservation-tool/iucn-red-list-threatened-species' },
+      { name: '《生物多樣性公約》｜昆明—蒙特婁全球生物多樣性框架', url: 'https://www.cbd.int/gbf' },
+      { name: '《生物多樣性公約》｜第十五屆締約方大會框架文本', url: 'https://www.cbd.int/article/cop15-final-text-kunming-montreal-gbf-221222' },
+      { name: '《生物多樣性公約》｜框架集體進度全球審議', url: 'https://www.cbd.int/gbf/implementation/globalreview' },
+      { name: '《生物多樣性公約》｜第十七屆締約方大會', url: 'https://www.cbd.int/conferences/2026' },
+    ],
+  },
+  {
     id: 'horizon-antimicrobial-resistance',
     anchor: 'future-horizon-amr',
     title: '抗微生物藥物耐藥性（AMR）',
@@ -391,6 +415,15 @@ export const FUTURE_COUNTDOWNS: readonly CountdownItem[] = [
     title: '年度評估窗口',
     pending: '下一檢查點是世界氣象組織年度全球氣候評估的公開窗口，約在二〇二七年三月。這是核對日期，不是災變時鐘。',
     expired: '該年度評估窗口已過。請改讀世界氣象組織最新的公開評估，本頁不保留倒數。',
+  },
+  {
+    id: 'cd-cbd-gbf-checkpoint',
+    anchor: 'future-countdown-cbd',
+    horizonId: 'horizon-biodiversity-services',
+    checkpoint: '2026-10-30',
+    title: '生物多樣性框架進度窗',
+    pending: '下一檢查點是《生物多樣性公約》秘書處已排定的框架進度盤點，約在二〇二六年十月十九日至三十日。這是生物多樣性盤點窗口，不是災變時鐘。',
+    expired: '這一輪生物多樣性盤點窗口已過。等待下一輪締約方大會或進度報告。本頁不保留倒數。',
   },
   {
     id: 'cd-who-amr-tracss',
@@ -524,7 +557,7 @@ export function futureIssues(): string[] {
     if (domain.id !== FUTURE_DOMAIN_IDS[index]) issues.push(`domain-id:${domain.id}`);
     if (domain.code !== codes[index]) issues.push(`domain-code:${domain.id}`);
     if (domain.title !== titles[index]) issues.push(`domain-title:${domain.id}`);
-    if (!domain.blurb.trim()) issues.push(`domain-blurb:${domain.id}`);
+    if (!domain.blurb.trim() || civChars(domain.blurb) < 40 || civChars(domain.blurb) > 80) issues.push(`domain-blurb:${domain.id}`);
     if (!FUTURE_DOMAIN_STATUS.includes(domain.status)) issues.push(`domain-status:${domain.id}`);
     if (domain.anchor !== `future-${domain.id}`) issues.push(`domain-anchor:${domain.id}`);
     if (anchors.has(domain.anchor)) issues.push(`domain-dup:${domain.id}`);
@@ -567,7 +600,7 @@ export function futureIssues(): string[] {
   }
   if (FUTURE_CLADE.domainId !== 'f4') issues.push('clade-domain');
 
-  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '抗微生物藥物耐藥性（AMR）'];
+  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）'];
   if (FUTURE_HORIZONS.length !== horizonTitles.length) issues.push('horizon-count');
   const horizonIds = new Set<string>();
   for (const [index, horizon] of FUTURE_HORIZONS.entries()) {
@@ -620,6 +653,18 @@ export function futureIssues(): string[] {
     || !tracss.expired.includes('等待下一輪自評')) {
     issues.push('countdown-tracss');
   }
+  const biodiversity = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-biodiversity-services');
+  if (!biodiversity
+    || biodiversity.domainId !== 'f6'
+    || biodiversity.alsoDomainId !== 'f4'
+    || biodiversity.kind !== 'biosphere'
+    || biodiversity.timeBand !== '進行中'
+    || biodiversity.confidence !== 'steady'
+    || biodiversity.dataAsOf !== '2026-10-19') {
+    issues.push('horizon-biodiversity');
+  }
+  const gbf = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-cbd-gbf-checkpoint');
+  if (!gbf || gbf.horizonId !== 'horizon-biodiversity-services' || gbf.checkpoint !== '2026-10-30') issues.push('countdown-gbf');
 
   const instanceIds = new Set<string>();
   for (const card of FUTURE_INSTANCES) {
