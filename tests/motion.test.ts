@@ -162,6 +162,10 @@ describe('shared header wordmark', () => {
     expect(narrow).toContain('.chip-scroller');
     expect(narrow).toContain('flex-wrap: nowrap');
     expect(narrow).toContain('overflow-x: auto');
+    expect(narrow).toContain('flex: 1 1 0%');
+    expect(narrow).toContain('width: 0');
+    expect(narrow).toContain('padding-inline-end: 10px');
+    expect(narrow).toContain('flex: none');
     expect(css).toContain('.civ-more:not([open]) > .filters');
     expect(css).toContain('.subscribe-menu:not([open]) > .subscribe-panel { display: none; }');
     expect(narrow).toContain('#9a7b4f');
