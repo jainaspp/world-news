@@ -100,7 +100,7 @@ describe('civilization future P0', () => {
     expect(panelAt).toBeGreaterThan(hub.html.indexOf('class="chronicle-board"'));
     expect(panelAt).toBeLessThan(hub.html.indexOf('class="civ-article"'));
     const panel = hub.html.slice(panelAt, hub.html.indexOf('class="civ-article"'));
-    expect(panel.match(/class="future-domain"/g)).toHaveLength(6);
+    expect(panel.match(/class="future-domain civ-reveal/g)).toHaveLength(6);
     expect(panel.match(/class="future-tier"/g)).toHaveLength(3);
     expect(panel).not.toContain('data-tier="civ-scale"');
     expect(panel).toContain('約');
@@ -114,7 +114,7 @@ describe('civilization future P0', () => {
       expect(panel).toContain(horizon.title);
       for (const source of horizon.sources) expect(panel).toContain(`href="${source.url}"`);
     }
-    expect(panel.match(/class="future-card future-instance"/g)).toHaveLength(2);
+    expect(panel.match(/class="future-card future-instance civ-reveal"/g)).toHaveLength(2);
     for (const card of FUTURE_INSTANCES) {
       expect(panel).toContain(`id="${card.anchor}"`);
       expect(panel).toContain(card.title);
@@ -205,5 +205,56 @@ describe('civilization future P0', () => {
     expect(futureCss).toContain('#161c24');
     const checkpoint = css.slice(css.indexOf('.future-checkpoint'), css.indexOf('.future-band-row'));
     expect(checkpoint).not.toMatch(/red|#f00|#c00|#b91c1c/i);
+  });
+
+  it('raises future cards with the existing reveal gate', () => {
+    const panel = renderFuturePanel(NOW);
+    const domains = [...panel.matchAll(/<article class="([^"]*future-domain[^"]*)"/g)].map((match) => match[1]);
+    expect(domains).toHaveLength(6);
+    expect(domains.filter((name) => name.includes('civ-reveal--above-fold') && name.includes('is-inview'))).toHaveLength(2);
+    expect(domains.slice(2).every((name) => !name.includes('civ-reveal--above-fold') && !name.includes('is-inview'))).toBe(true);
+    const cards = [...panel.matchAll(/<article class="([^"]*future-card[^"]*)"/g)].map((match) => match[1]);
+    expect(cards.length).toBe(2 + 1 + FUTURE_HORIZONS.length + FUTURE_COUNTDOWNS.length + 1);
+    expect(cards.every((name) => name.split(/\s+/).includes('civ-reveal'))).toBe(true);
+    expect(cards.some((name) => name.includes('above-fold'))).toBe(false);
+    expect(cards.some((name) => name.includes('future-checkpoint'))).toBe(true);
+    expect(panel).toContain('<h2>展望</h2>');
+    expect(panel).toContain('class="future-note"');
+    const nav = panel.slice(panel.indexOf('<nav class="future-domain-nav"'), panel.indexOf('</nav>'));
+    expect(nav).not.toContain('civ-reveal');
+    const legend = panel.slice(panel.indexOf('<aside class="future-legend"'), panel.indexOf('</aside>'));
+    expect(legend).not.toContain('civ-reveal');
+    expect(panel).not.toContain('civ-ink-rule');
+    expect(panel).not.toContain('brass-sweep');
+    expect(panel).not.toMatch(/#(?:f00|c00|b91c1c)\b|color:\s*red/i);
+
+    const css = readFileSync('src/App.css', 'utf8');
+    const motion = css.slice(css.indexOf('Civilization axis motion'));
+    expect(motion).toContain('html.civ-motion body:not(.static) .civ-reveal:not(.is-inview):not(.civ-reveal--above-fold)');
+    expect(motion).toContain('opacity: 0');
+    expect(motion).toContain('translateY(12px)');
+    expect(motion).toContain('.civ-page .future-panel');
+    expect(motion).toContain('.civ-page .future-panel [id^="future"]');
+    expect(motion).toContain('scroll-margin-top: var(--civ-anchor-offset)');
+    expect(motion).toContain('--motion-stagger');
+    expect(motion).toContain('300ms');
+    expect(motion).toContain('body.static .civ-reveal');
+    expect(motion).not.toContain('civ-ink-rule');
+    expect(motion).not.toContain('.future-domain.is-inview::after');
+    expect(motion).not.toContain('@keyframes');
+    const ink = css.slice(css.indexOf('.future-panel {'), css.indexOf('.future-panel h2'));
+    expect(ink).toContain('#161c24');
+
+    const js = readFileSync('public/columns.js', 'utf8');
+    const fold = js.slice(js.indexOf('function revealFutureFold'), js.indexOf('function stopMotion'));
+    expect(fold).toContain('#future .civ-reveal');
+    expect(fold).toContain('civ-reveal--above-fold');
+    expect(fold).toContain('is-inview');
+    expect(fold).toContain('hashchange');
+    expect(fold).toContain('.future-domain-nav');
+    expect(fold).toContain('function forceFutureHash');
+    expect(fold).not.toContain('setInterval');
+    expect(fold).not.toContain('IntersectionObserver');
+    expect(js).toContain('querySelectorAll(\'.civ-reveal\')');
   });
 });
