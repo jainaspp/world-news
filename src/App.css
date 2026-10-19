@@ -1967,34 +1967,68 @@ a.stage-cover { text-decoration: none; }
   line-height: 1;
 }
 /* Hub four-line filter. Ink and paper, same as the label chips.
+   Narrow: five equal columns so 全部 and the four lines stay one row.
+   Wide: a compact row, with the stage count spelled beside the digit.
    Hidden cards use display:none. No height transition. */
 .line-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 12px;
+  display: grid;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+.line-filter-legend {
+  margin: 0;
+  color: #161c24;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.line-filter-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
 }
 .line-filter .chip {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1px;
+  width: 100%;
+  min-width: 0;
   min-height: 44px;
-  padding: 8px 14px;
+  padding: 4px 2px;
   background: #f7f1e6;
   color: #161c24;
   border: 1px solid #9a7b4f;
+  border-radius: 10px;
   font: inherit;
   font-size: 14px;
   font-weight: 700;
+  line-height: 1.15;
+  white-space: normal;
   cursor: pointer;
 }
+.line-filter-count {
+  color: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.line-filter-unit { display: none; }
 .line-filter .chip[aria-pressed="true"] {
   background: #161c24;
   color: #f7f1e6;
   border-color: #161c24;
 }
-.line-filter-empty {
+.line-filter-status,
+.line-filter-echo {
   margin: 0 0 12px;
+  color: #161c24;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.line-filter-status.is-empty {
   padding: 12px 14px;
   border: 1px solid #d4cbb8;
   border-radius: 12px;
@@ -2005,10 +2039,26 @@ a.stage-cover { text-decoration: none; }
   line-height: 1.7;
 }
 .civ-page [data-lines][hidden],
-.line-filter-empty[hidden] {
+.line-filter-echo[hidden] {
   display: none;
   animation: none;
   transition: none;
+}
+@media (min-width: 640px) {
+  .line-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .line-filter .chip {
+    flex-direction: row;
+    gap: 6px;
+    width: auto;
+    padding: 8px 14px;
+    white-space: nowrap;
+  }
+  .line-filter-count { font-size: 13px; }
+  .line-filter-unit { display: inline; }
 }
 .stage-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; font-size: 13px; font-weight: 700; }
 .stage-source { margin: 0 0 8px; font-size: 13px; color: #5c6570; }
@@ -2971,7 +3021,12 @@ html.dark .line-filter .chip[aria-pressed="true"] {
   color: #f7f1e6;
   border-color: #c4a572;
 }
-html.dark .line-filter-empty {
+html.dark .line-filter-legend,
+html.dark .line-filter-status,
+html.dark .line-filter-echo {
+  color: #f3eadc;
+}
+html.dark .line-filter-status.is-empty {
   background: #2a231b;
   color: #f3eadc;
   border-color: #5c4a34;

@@ -3,7 +3,7 @@ import { CIV_LINES, type CivLine } from './contract.js';
 import { milestoneBlockProse, milestoneBlockSources, renderMilestoneBlocks } from './milestoneBlock.js';
 import { caseSourceRows, renderCaseNav, renderCasesBeside } from './cases.js';
 import { lineFilterAttrs, renderLineFilter } from './lineFilter.js';
-import { patternLinksForStage, patternSourceRows, renderPatternCardsForStage, renderPatternNav } from './patterns.js';
+import { PATTERN_CARDS, patternLinksForStage, patternSourceRows, renderPatternCardsForStage, renderPatternNav } from './patterns.js';
 import { renderFutureBridge } from './future.js';
 import { renderSliceReturns } from './renderSlice.js';
 
@@ -254,7 +254,8 @@ export function renderChronicleStrip(): string {
 }
 
 export function renderStageGrid(): string {
-  const cards = chronicleStagesOrdered().map((stage) => {
+  const stages = chronicleStagesOrdered();
+  const cards = stages.map((stage) => {
     const href = chronicleStageHref(stage.n);
     const points = chronicleCardMilestones(stage).map((item) => `<li>${esc(item)}</li>`).join('');
     const origins = stage.origins ? '<a href="/civilization/origins/">詳見起源</a>' : '';
@@ -276,8 +277,8 @@ export function renderStageGrid(): string {
       <a href="/civilization/chronicle/">打開完整編年</a>
     </div>
     <p class="chronicle-board-note">十個階段。每張卡片只標一至兩個界定里程碑、一句意義，以及能量、信息、制度、貨幣中的一至兩條線。</p>
-    ${renderLineFilter()}
-    <div class="stage-grid">${cards}</div>
+    ${renderLineFilter(stages.map((stage) => stage.lines), PATTERN_CARDS.map((card) => card.lines))}
+    <div class="stage-grid" id="stage-grid">${cards}</div>
   </section>`;
 }
 
