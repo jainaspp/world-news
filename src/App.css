@@ -1721,6 +1721,8 @@ a.axis-node:hover { color: #f7f1e6; }
 .civ-slot-year { display: block; font-size: 12px; color: #9a7b4f; }
 .civ-slot-question { margin: 0 0 6px; font-family: var(--font-serif); font-size: 15px; line-height: 1.5; color: #161c24; }
 .civ-near { margin: 16px 0; }
+.civ-near-index { margin: 0 0 8px; font-size: 13px; }
+.civ-near-index a { color: #161c24; }
 .today-slice .civ-near { margin: 4px 0 12px; }
 .civ-near .civ-slice-slots { grid-template-columns: 1fr; }
 .civ-slice-return {
@@ -2208,6 +2210,44 @@ a.stage-cover { text-decoration: none; }
   min-height: 36px;
   white-space: nowrap;
 }
+.question-index {
+  margin: 16px 0 18px;
+  padding: 14px 14px 6px;
+  border: 1px solid #d4cbb8;
+  border-radius: 14px;
+  background: #f7f1e6;
+  color: #161c24;
+  scroll-margin-top: var(--civ-anchor-offset);
+}
+.question-index h2 {
+  margin: 0 0 6px;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: #161c24;
+}
+.question-note { margin: 0 0 10px; color: #5c6570; font-size: 14px; line-height: 1.6; }
+.question-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.question-list li {
+  margin: 0;
+  padding: 8px 0;
+  border-top: 1px solid #d4cbb8;
+  scroll-margin-top: var(--civ-anchor-offset);
+}
+.question-line {
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: #161c24;
+  text-decoration: none;
+}
+a.question-line:hover { text-decoration: underline; }
+.question-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 2px 0 0; }
+.question-precedent { font-size: 12px; font-weight: 700; color: #9a7b4f; }
+.question-near { font-size: 12px; color: #161c24; }
+@media (min-width: 720px) {
+  .question-list { grid-template-columns: 1fr 1fr; column-gap: 18px; }
+  .question-list li { break-inside: avoid; }
+}
 .cosmo-starmap {
   position: relative;
   z-index: 0;
@@ -2543,7 +2583,8 @@ html.dark .civ-slice-return {
   background: #2a231b;
   border-color: #5c4a34;
 }
-html.dark .civ-slice-return a { color: #f7f1e6; }
+html.dark .civ-slice-return a,
+html.dark .civ-near-index a { color: #f7f1e6; }
 html.dark .civ-page-title { color: var(--color-text); }
 html.dark .cosmo-hero,
 html.dark .earth-hero { background: #161c24; color: #f7f1e6; }
@@ -2611,6 +2652,17 @@ html.dark .pattern-ask,
 html.dark .pattern-source-list a { color: #f3eadc; }
 html.dark .pattern-note { color: #d2c4b0; }
 html.dark .pattern-axis .chip { background: #f7f1e6; color: #161c24; border-color: #c4a572; }
+html.dark .question-index {
+  background: #2a231b;
+  color: #f3eadc;
+  border-color: #5c4a34;
+}
+html.dark .question-index h2,
+html.dark .question-line,
+html.dark .question-near { color: #f7f1e6; }
+html.dark .question-note { color: #d2c4b0; }
+html.dark .question-list li { border-top-color: #5c4a34; }
+html.dark .question-precedent { color: #c4a572; }
 html.dark .earth-part h3,
 html.dark .chronicle-board-head h2 { color: #f7f1e6; }
 html.dark .chronicle-board-note,

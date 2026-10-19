@@ -8,6 +8,7 @@ import { renderDeepTimeBoardFromSpine, renderSpineAxis } from './civilization/sp
 import { ORIGINS_BODY, ORIGINS_SOURCES } from './civilization/originsSource.js';
 import { renderTechArticle, techIndexable } from './civilization/tech.js';
 import { renderMildMarkdown } from './civilization/markdown.js';
+import { renderQuestionIndex } from './civilization/questions.js';
 import { renderNearBridge, renderSliceReturns } from './civilization/renderSlice.js';
 import { homeFacts, hktMmdd, labelMmdd, type HeritageFact } from './heritage.js';
 import { landmarkBySlug } from './heritage.js';
@@ -370,6 +371,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
     <h1 class="column-title civ-page-title">人類文明</h1>
     ${renderTodayPin(now)}
     ${renderNearBridge()}
+    ${renderQuestionIndex()}
     ${renderDeepTimeBoard()}
     ${renderStageGrid()}
     <article class="civ-article">

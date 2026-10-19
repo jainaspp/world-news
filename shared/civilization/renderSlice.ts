@@ -59,7 +59,7 @@ export function renderNearBridge(): string {
     </article>`;
   }).filter(Boolean);
   if (!cards.length) return '';
-  return `<section class="civ-near" aria-label="近層先例"><p class="civ-slice-kicker">近層 · 今日問題與軸上先例</p><div class="civ-slice-slots">${cards.join('')}</div></section>`;
+  return `<section class="civ-near" aria-label="近層先例"><p class="civ-slice-kicker">近層 · 今日問題與軸上先例</p><p class="civ-near-index"><a href="/civilization/#question-index">常設問題索引</a></p><div class="civ-slice-slots">${cards.join('')}</div></section>`;
 }
 
 /** Questions that point at this axis, linking back to the home near card. */

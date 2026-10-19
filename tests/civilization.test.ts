@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { renderContentPage, type ContentDoc } from '../shared/content';
 import { cjkChars } from '../shared/contentPage';
 import { coordinateChipHtml, renderCivilizationSlice, renderNearBridge } from '../shared/civilization/renderSlice';
+import { PATTERN_CARDS } from '../shared/civilization/patterns';
+import { CIV_QUESTIONS, questionHrefAllowed, questionIndexIssues, questionTargets, renderQuestionIndex } from '../shared/civilization/questions';
 import { SLICE_THEMES } from '../shared/civilization/slices';
 import { CHRONICLE_STAGES, chronicleCardMilestones, chronicleStagesOrdered } from '../shared/civilization/chronicle';
 import { CHRONICLE_MILESTONE_BLOCKS, milestoneBlockAnchor } from '../shared/civilization/chronicleMilestones';
@@ -1100,5 +1102,88 @@ describe('civilization slice', () => {
     expect(js).not.toContain('scroll-behavior');
     const pkg = readFileSync('package.json', 'utf8');
     expect(pkg).not.toMatch(/gsap|lenis|lottie|three|animejs|motion/i);
+  });
+});
+
+describe('civilization question index', () => {
+  const patternIds = PATTERN_CARDS.map((card) => card.id).join('|');
+  const nearIds = SLICE_THEMES.map((theme) => theme.id).join('|');
+  const allowed = new RegExp(`^(?:/#near-(?:${nearIds})|/civilization/chronicle/#(?:stage-(?:[1-9]|10)|pattern-(?:${patternIds}))|/civilization/#pattern-(?:${patternIds})|/civilization/tech/#tech-(?:[1-9]|10)|/civilization/earth/#earth-[1-8]|/civilization/origins/)$`);
+
+  function rendered(path: string): { status: number; html: string } {
+    const normalized = path.replace(/\/+$/, '') || '/';
+    if (normalized === '/') {
+      return {
+        status: 200,
+        html: renderHomeFeed([], new Map(), null, '', null, '', [], [], new Date('2026-10-17T04:00:00.000Z'), true),
+      };
+    }
+    if (normalized === '/civilization') return renderCivilizationHub();
+    if (normalized === '/civilization/chronicle') return renderChroniclePage();
+    if (normalized === '/civilization/tech') return renderTechPage();
+    if (normalized === '/civilization/earth') return renderEarthPage();
+    if (normalized === '/civilization/origins') return renderOriginsPage();
+    return { status: 404, html: '' };
+  }
+
+  it('lists 8–12 standing questions and only links to anchors that already exist', () => {
+    expect(CIV_QUESTIONS.length).toBeGreaterThanOrEqual(8);
+    expect(CIV_QUESTIONS.length).toBeLessThanOrEqual(12);
+    expect(new Set(CIV_QUESTIONS.map((row) => row.id)).size).toBe(CIV_QUESTIONS.length);
+    expect(new Set(CIV_QUESTIONS.map((row) => row.question)).size).toBe(CIV_QUESTIONS.length);
+    expect(questionIndexIssues()).toEqual([]);
+    expect(questionHrefAllowed('/civilization/methodology/')).toBe(false);
+    expect(questionHrefAllowed('/civilization/vault/')).toBe(false);
+    expect(questionHrefAllowed('/civilization/search/')).toBe(false);
+    expect(questionHrefAllowed('/civilization/chronicle/#pattern-made-up')).toBe(false);
+    expect(questionHrefAllowed('/civilization/chronicle/#stage-99')).toBe(false);
+    expect(questionHrefAllowed('/#near-nope')).toBe(false);
+    const html = renderQuestionIndex();
+    expect(html.match(/class="question-line"/g)).toHaveLength(CIV_QUESTIONS.length);
+    expect(html).not.toMatch(/<input|type="search"|Insight Vault|文明分數/);
+    expect(html).not.toMatch(REDLINE);
+    expect(heritageBlocked(html)).toBe(false);
+    for (const theme of SLICE_THEMES) {
+      const row = CIV_QUESTIONS.find((item) => item.question === theme.civQuestion);
+      expect(row?.nearId).toBe(theme.id);
+      expect(html).toContain(`href="/#near-${theme.id}"`);
+    }
+    for (const row of CIV_QUESTIONS) {
+      expect([...row.question].length).toBeLessThanOrEqual(28);
+      expect(row.question).toMatch(/如何|能否|靠什麼/);
+      expect(row.question).not.toMatch(/誰最|排名|偉人|第一人|最偉大|唔|嘅|咗|喺|點解|點樣/);
+      expect(row.question).not.toMatch(REDLINE);
+      expect(row.precedent).not.toMatch(REDLINE);
+      expect(html).toContain(row.question);
+      expect(html).toContain(`id="question-${row.id}"`);
+      for (const href of questionTargets(row)) {
+        expect(href).toMatch(allowed);
+        expect(questionHrefAllowed(href)).toBe(true);
+        const hashAt = href.indexOf('#');
+        const path = hashAt === -1 ? href : href.slice(0, hashAt);
+        const id = hashAt === -1 ? '' : href.slice(hashAt + 1);
+        const page = rendered(path);
+        expect(page.status, href).toBe(200);
+        if (id) expect(page.html, href).toContain(`id="${id}"`);
+        else expect(page.html.length, href).toBeGreaterThan(500);
+      }
+    }
+    const home = renderHomeFeed([], new Map(), null, '', null, '', [], [], new Date('2026-10-17T04:00:00.000Z'), true);
+    expect(home).toContain('href="/civilization/#question-index"');
+    expect(home).not.toContain('id="question-index"');
+    const hub = renderCivilizationHub();
+    expect(hub.status).toBe(200);
+    expect(hub.html).toContain('id="question-index"');
+    expect(hub.html).toContain('href="/civilization/#question-index"');
+    expect(hub.html).toContain('問題索引');
+    expect(hub.html.indexOf('id="near-energy"')).toBeLessThan(hub.html.indexOf('id="question-index"'));
+    expect(hub.html.match(/class="question-line"/g)).toHaveLength(CIV_QUESTIONS.length);
+    expect(hub.html).not.toMatch(REDLINE);
+    expect(readFileSync('functions/civilization/[[path]].ts', 'utf8')).not.toMatch(/methodology|vault|search/);
+    const css = readFileSync('src/App.css', 'utf8');
+    expect(css).toContain('.question-index {');
+    expect(css).toMatch(/\.question-index \{[^}]*background:\s*#f7f1e6/);
+    expect(css).toMatch(/\.question-index \{[^}]*color:\s*#161c24/);
+    expect(css).toContain('html.dark .question-index');
   });
 });
