@@ -38,7 +38,12 @@
   });
 
   try {
-    document.querySelectorAll('ins.adsbygoogle').forEach(function () { (window.adsbygoogle = window.adsbygoogle || []).push({}); });
+    // 審查凍結期間頁面不會輸出 pagead。沒有載入器就不建立 adsbygoogle，
+    // 避免懶人包、文明頁與其他共用版面在誤植單元時觸發自動廣告、插頁或錨點。
+    var adLoader = document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]');
+    if (adLoader) {
+      document.querySelectorAll('ins.adsbygoogle').forEach(function () { (window.adsbygoogle = window.adsbygoogle || []).push({}); });
+    }
   } catch (e) {}
 
   var civReveals = document.querySelectorAll('.civ-reveal');

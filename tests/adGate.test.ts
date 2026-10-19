@@ -1,10 +1,21 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { homeAllowsAds } from '../shared/adPolicy';
+import { ADS_REVIEW_HOLD, homeAllowsAds } from '../shared/adPolicy';
 import { adSlotMarkup } from '../shared/adSlot';
 import { renderAnalysisIndex, renderContentPage } from '../shared/contentPage';
+import type { ContentDoc } from '../shared/content';
+import {
+  renderChroniclePage,
+  renderCityPage,
+  renderCivilizationHub,
+  renderCivilizationMiss,
+  renderCosmosPage,
+  renderEarthPage,
+  renderOriginsPage,
+  renderTechPage,
+} from '../shared/civilizationPage';
 import { focusFeedItems } from '../functions/focus/page';
-import { gateHomeAds, renderHomeFeed } from '../shared/homePage';
+import { gateHomeAds, injectHomeShell, renderHomeFeed } from '../shared/homePage';
 import { heritagePublicPaths, renderLandmarkHub, renderOnThisDayPage } from '../shared/heritagePage';
 import { renderTopicIndex, topicIndexCards } from '../shared/topicPage';
 import { omitSitemapLocs } from '../shared/sitemap';
@@ -120,5 +131,89 @@ describe('AdSense gates', () => {
     expect(thick.html).toContain('index,follow');
     expect(thick.html).not.toContain('adsbygoogle');
     expect(thick.html).not.toContain('pagead2.googlesyndication.com');
+  });
+
+  it('keeps explainer, civilization and KV shells free of Auto ads before the 2026-10-22 rereview', () => {
+    expect(ADS_REVIEW_HOLD).toBe(true);
+    const line = '公司公布新功能，開發者可以即日核對文件，並按公開步驟試用。';
+    const explainer: ContentDoc = {
+      kind: 'compare',
+      key: '2026-10-19-rereview',
+      title: '新功能上線',
+      description: '多方來源整理的科技新聞。',
+      publishedAt: '2026-10-19T02:00:00.000Z',
+      hkt: '2026-10-19 10:00',
+      mode: 'ai',
+      points: ['公司公布新功能。', '開發者可以即日試用。'],
+      blocks: [
+        {
+          title: '事件經過',
+          sentences: [line.repeat(20)],
+          sources: [{ source: 'The Verge', title: '新功能上線', url: 'https://example.com/story', pubDate: '2026-10-19T01:00:00.000Z' }],
+        },
+        {
+          title: '各方回應',
+          sentences: ['開發者可以即日試用，並核對公開文件。'],
+          sources: [{ source: 'Ars Technica', title: '公開文件', url: 'https://example.com/docs', pubDate: '2026-10-19T01:30:00.000Z' }],
+        },
+      ],
+    };
+    const slotted = renderContentPage(explainer, 'https://world-news.xyz/explainer/2026-10-19-rereview/', {
+      ads: { client: 'ca-pub-8392975944327076', top: '1111111111', mid: '2222222222', bottom: '3333333333' },
+    });
+    expect(slotted).toContain('data-kind="compare"');
+    expect(slotted).toContain('src="/columns.js"');
+    for (const marker of ['adsbygoogle', 'pagead2.googlesyndication.com', 'enable_page_level_ads', 'google_ad_client', 'data-ad-slot']) {
+      expect(slotted).not.toContain(marker);
+    }
+
+    const pages = [
+      renderCivilizationHub(),
+      renderCivilizationMiss(),
+      renderOriginsPage(),
+      renderChroniclePage(),
+      renderTechPage(),
+      renderCityPage(),
+      renderCosmosPage(),
+      renderEarthPage(),
+    ];
+    for (const page of pages) {
+      expect(page.html).toContain('data-kind="civilization"');
+      expect(page.html).not.toContain('adsbygoogle');
+      expect(page.html).not.toContain('pagead2.googlesyndication.com');
+      expect(page.html).not.toContain('enable_page_level_ads');
+      expect(page.html).not.toContain('google_ad_client');
+    }
+
+    const poisoned = `<!doctype html><html><head>
+<script>window.__shell = "keep";</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8392975944327076" crossorigin="anonymous"></script>
+<script async src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8392975944327076'></script>
+<script>(adsbygoogle = window.adsbygoogle || []).push({google_ad_client:"ca-pub-8392975944327076",enable_page_level_ads:true,overlays:{bottom:true}});</script>
+</head><body><div id="root"></div></body></html>`;
+    const rows = Array.from({ length: 12 }, (_, index) => item({ id: `s${index}`, title: `標題${index}`, category: 'hk' }));
+    const shell = injectHomeShell(poisoned, rows, new Map(), null, '1234567890');
+    expect(shell).toContain('window.__shell');
+    expect(shell).toContain('civ-home');
+    expect(shell).not.toContain('pagead2.googlesyndication.com');
+    expect(shell).not.toContain('adsbygoogle');
+    expect(shell).not.toContain('enable_page_level_ads');
+    expect(shell).not.toContain('google_ad_client');
+    expect(shell).not.toContain('ad-slot');
+
+    for (const file of ['index.html', 'public/404.html', 'public/offline.html']) {
+      const text = readFileSync(file, 'utf8');
+      expect(text).not.toContain('pagead');
+      expect(text).not.toContain('adsbygoogle');
+      expect(text).not.toContain('enable_page_level_ads');
+    }
+
+    const columns = readFileSync('public/columns.js', 'utf8');
+    const loaderAt = columns.indexOf('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]');
+    const pushAt = columns.indexOf('ins.adsbygoogle');
+    expect(loaderAt).toBeGreaterThan(-1);
+    expect(pushAt).toBeGreaterThan(loaderAt);
+    expect(columns).toContain('if (adLoader)');
+    expect(columns).not.toMatch(/\.src\s*=\s*['"][^'"]*pagead2\.googlesyndication\.com/);
   });
 });

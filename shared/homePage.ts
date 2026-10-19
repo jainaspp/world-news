@@ -276,13 +276,27 @@ export function injectHomeShell(
 }
 
 const PAGEAD = 'pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+const PAGEAD_SRC = /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js/i;
+/** Inline Auto ads, vignette and anchor bootstraps. Manual units use an external loader plus <ins>, not this push. */
+const AUTO_ADS_BOOT = /enable_page_level_ads|google_ad_client|adsbygoogle\s*=/;
 
-/** Drop any pagead loader. During the review hold, also drop ad units. Otherwise add one loader only when a real manual unit is already in the HTML. */
+/**
+ * 逐個 script 移除 pagead 載入器，以及自動廣告、插頁與錨點的內聯啟動碼。
+ * 不跨標籤匹配，避免誤刪前面的主題或結構化資料腳本。
+ */
+function stripAdScripts(html: string): string {
+  return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, (block) => {
+    const external = /\bsrc\s*=/.test(block);
+    if (external && PAGEAD_SRC.test(block)) return '';
+    if (external) return block;
+    if (AUTO_ADS_BOOT.test(block)) return '';
+    return block;
+  });
+}
+
+/** Drop any pagead loader and Auto ads bootstrap. During the review hold, also drop ad units. Otherwise add one manual loader only when a real unit is already in the HTML. */
 export function gateHomeAds(html: string, client = 'ca-pub-8392975944327076'): string {
-  let stripped = html.replace(
-    new RegExp(`<script[^>]*src="https://${PAGEAD.replace(/\./g, '\\.')}[^"]*"[^>]*>\\s*</script>`, 'g'),
-    '',
-  );
+  let stripped = stripAdScripts(html);
   if (!adsRuntimeEnabled()) {
     stripped = stripped.replace(/<div class="ad-slot[^"]*"[\s\S]*?<\/div>/g, '');
     return stripped.replace(/<ins class="adsbygoogle"[\s\S]*?<\/ins>/g, '');
