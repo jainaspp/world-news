@@ -1,3 +1,4 @@
+import { siteBrand } from './brand.js';
 import { analysisEligible, analysisSlug } from './content.js';
 import { bookmarkButton, catChip, chrome, esc, favicon, footer, head, heatBadge, hkt, listenControls, media, safeHttp, share } from './contentPage.js';
 import { bestImage } from './media.js';
@@ -55,7 +56,7 @@ ${head(item.title, description, canonical, image, 'article', ld, '', false)}
       ${cards ? `<section class="related"><h2 class="section-title">相關頭條</h2><div class="news-grid related-grid">${cards}</div></section>` : ''}
     </main>
     <aside class="sidebar" aria-label="側欄">
-      <section class="side-card"><h2>關於此頁</h2><p>世界頭條只列出標題、來源與原文連結，不轉載內文。全文請到原文網站閱讀。</p></section>
+      <section class="side-card"><h2>關於此頁</h2><p>${esc(siteBrand)}只列出標題、來源與原文連結，不轉載內文。全文請到原文網站閱讀。</p></section>
     </aside>
   </div>
   ${footer()}
@@ -68,7 +69,7 @@ export function renderStoryMissing(canonical: string): string {
   return `<!doctype html>
 <html lang="zh-HK">
 ${head('此則頭條已經下架', '標題只保留一段時間。', canonical, '', 'website', '<meta name="robots" content="noindex" />', '', false)}
-<body><div class="page column-page">${chrome('none')}<main id="content" class="column-index"><div class="status-panel"><h2>此則頭條已經下架</h2><p>世界頭條只保留最近的標題。可以返回首頁查看最新頭條。</p><a class="primary" href="/">返回首頁</a></div></main>${footer()}</div></body></html>`;
+<body><div class="page column-page">${chrome('none')}<main id="content" class="column-index"><div class="status-panel"><h2>此則頭條已經下架</h2><p>${esc(siteBrand)}只保留最近的標題。可以返回首頁查看最新頭條。</p><a class="primary" href="/">返回首頁</a></div></main>${footer()}</div></body></html>`;
 }
 
 /** Same-category headlines first, newest first, excluding the story's own cluster. */

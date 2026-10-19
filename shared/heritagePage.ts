@@ -1,3 +1,4 @@
+import { siteBrand } from './brand.js';
 import { adSlotMarkup, validAdSlot } from './adSlot.js';
 import { AD_BODY_CHARS, cjkChars, chrome, esc, footer, head } from './contentPage.js';
 import {
@@ -20,7 +21,7 @@ const ORIGIN = 'https://world-news.xyz';
 
 /** Indexing and ads share the column body floor. Thinner days are noindex and stay out of the sitemap. */
 
-const GAZETTEER_NOTE = '世界頭條這欄以香港時間的月日編年，收入建築落成、交通通車、公共場館、節慶與體育場地。每條只寫年份、事情與地點，方便讀者對照地圖。頁面不設帳號，也不把紀事改寫成新聞報道。地圖連結通往公開地圖，只為標示位置。若同一日有多於三條，首頁先列最早的三條，其餘在當日編年頁看完。地標頁寫簡介、時間線與到訪方式，讓一頁足以獨立閱讀。種子檔可再加月日，條件是事情本身屬於地理、建築、民生、節慶、交通、體育或公共文化。';
+const GAZETTEER_NOTE = `${siteBrand}這欄以香港時間的月日編年，收入建築落成、交通通車、公共場館、節慶與體育場地。每條只寫年份、事情與地點，方便讀者對照地圖。頁面不設帳號，也不把紀事改寫成新聞報道。地圖連結通往公開地圖，只為標示位置。若同一日有多於三條，首頁先列最早的三條，其餘在當日編年頁看完。地標頁寫簡介、時間線與到訪方式，讓一頁足以獨立閱讀。種子檔可再加月日，條件是事情本身屬於地理、建築、民生、節慶、交通、體育或公共文化。`;
 
 export interface HeritageAds {
   client: string;

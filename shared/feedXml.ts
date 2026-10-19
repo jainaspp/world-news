@@ -1,3 +1,5 @@
+import { feedTitle } from './brand.js';
+
 export interface FeedEntry {
   title: string;
   href: string;
@@ -29,7 +31,7 @@ export function renderFeed(entries: FeedEntry[], now = new Date()): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>世界頭條</title>
+    <title>${xml(feedTitle)}</title>
     <link>https://world-news.xyz/</link>
     <description>每日導讀與新聞懶人包。</description>
     <language>zh-HK</language>

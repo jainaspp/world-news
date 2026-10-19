@@ -1,3 +1,4 @@
+import { siteBrand } from './brand.js';
 import { esc } from './contentPage.js';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from './homeCopy.js';
 
@@ -15,9 +16,9 @@ export function homeIntroBody(hrefFor: IntroHref = (href) => href): string {
 }
 
 export function homeIntroTop(hrefFor?: IntroHref): string {
-  return `<section class="home-intro home-intro-top" aria-label="關於世界頭條"><p class="home-intro-line">${esc(HOME_INTRO_LINE)}</p><details class="home-more"><summary>了解更多</summary>${homeIntroBody(hrefFor)}</details></section>`;
+  return `<section class="home-intro home-intro-top" aria-label="關於${esc(siteBrand)}"><p class="home-intro-line">${esc(HOME_INTRO_LINE)}</p><details class="home-more"><summary>了解更多</summary>${homeIntroBody(hrefFor)}</details></section>`;
 }
 
 export function homeIntroFoot(hrefFor?: IntroHref): string {
-  return `<section class="home-intro home-intro-foot" aria-label="關於世界頭條"><h2>關於世界頭條</h2>${homeIntroBody(hrefFor)}</section>`;
+  return `<section class="home-intro home-intro-foot" aria-label="關於${esc(siteBrand)}"><h2>關於${esc(siteBrand)}</h2>${homeIntroBody(hrefFor)}</section>`;
 }

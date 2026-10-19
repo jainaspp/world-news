@@ -1,3 +1,4 @@
+import { siteBrand } from './brand.js';
 import { hkDateStamp, type HkNow } from './hk.js';
 
 export type DataPageId = 'weather' | 'aqhi' | 'fx' | 'gold' | 'oil';
@@ -28,7 +29,7 @@ export const DATA_PAGES: DataPageSpec[] = [
     id: 'weather',
     path: '/data/weather/',
     title: '香港天氣',
-    description: '香港天文台每日氣溫、濕度與雨量記錄，附 30 日走勢。世界頭條原創新聞數據，並非九日預報。',
+    description: `香港天文台每日氣溫、濕度與雨量記錄，附 30 日走勢。${siteBrand}原創新聞數據，並非九日預報。`,
     kicker: '天文台',
     sourceName: '香港天文台',
     sourceUrl: 'https://www.hko.gov.hk/tc/wxinfo/currwx/current.htm',
@@ -102,7 +103,7 @@ export const DATA_PAGES: DataPageSpec[] = [
 export const DATA_HUB = {
   path: '/data/',
   title: '香港數據',
-  description: '世界頭條每日記錄香港天氣、空氣質素、匯率、金價與油價。原創新聞數據，附 30 日表格與走勢。',
+  description: `${siteBrand}每日記錄香港天氣、空氣質素、匯率、金價與油價。原創新聞數據，附 30 日表格與走勢。`,
 };
 
 export interface DataDay {

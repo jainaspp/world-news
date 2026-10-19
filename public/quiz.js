@@ -27,7 +27,7 @@
     if (share) {
       share.hidden = false;
       share.onclick = function () {
-        var text = '世界頭條每日新聞小測：答對 ' + correct + ' 題，共 ' + questions.length + ' 題。 ' + location.origin + '/quiz/';
+        var text = '文明編年史每日新聞小測：答對 ' + correct + ' 題，共 ' + questions.length + ' 題。 ' + location.origin + '/quiz/';
         if (navigator.share) navigator.share({ title: '每日新聞小測', text: text, url: location.origin + '/quiz/' }).catch(function () {});
         else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { share.textContent = '已複製成績'; });
         else prompt('分享成績', text);

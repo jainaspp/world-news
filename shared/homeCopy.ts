@@ -1,3 +1,5 @@
+import { siteBrand } from './brand.js';
+
 /** Static publisher copy on the homepage, so the first screen is not only headlines. */
 
 export interface HomeSection {
@@ -9,7 +11,7 @@ export interface HomeSection {
 /** One line at the top of the homepage. The full text stays in the HTML, below the news. */
 export const HOME_INTRO_LINE = '人類文明的時間軸。今天是軸上的一刀，只列出公開標題與出處。';
 
-export const HOME_INTRO = '世界頭條站在人類文明的時間軸上。讀者先看從宇宙到今天、再望向未來的尺度，然後才讀今日切片。本站從公開 RSS 收集各地標題、來源與原文連結，不會轉載全文。日報、週報與熱門分析是編輯部以標題及短描述整理的欄目，每篇都標明「AI 整合」，方便讀者先掌握重點。每日導讀整理香港、國際，以及科技與財經的標題。新聞懶人包整合多方報道，並配上時間線。專題懶人包追蹤施政報告、財政預算案等持續題目，有新報道才更新。';
+export const HOME_INTRO = `${siteBrand}站在人類文明的時間軸上。讀者先看從宇宙到今天、再望向未來的尺度，然後才讀今日切片。本站從公開 RSS 收集各地標題、來源與原文連結，不會轉載全文。日報、週報與熱門分析是編輯部以標題及短描述整理的欄目，每篇都標明「AI 整合」，方便讀者先掌握重點。每日導讀整理香港、國際，以及科技與財經的標題。新聞懶人包整合多方報道，並配上時間線。專題懶人包追蹤施政報告、財政預算案等持續題目，有新報道才更新。`;
 
 export const HOME_SECTIONS: readonly HomeSection[] = [
   { name: '頭條', href: '/', text: '最新公開標題，可按地區、分類與時間瀏覽。卡片只顯示標題、來源及前往原文的連結。' },

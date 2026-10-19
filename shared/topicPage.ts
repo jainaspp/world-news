@@ -1,3 +1,4 @@
+import { siteBrand } from './brand.js';
 import { hasManualSlots } from './adSlot.js';
 import type { AdConfig } from './contentPage.js';
 import {
@@ -228,7 +229,7 @@ export function renderTopicPage(model: TopicPageModel, canonical: string, ads?: 
       inLanguage: 'zh-HK',
       mainEntityOfPage: canonical,
       description,
-      author: { '@type': 'Organization', name: '世界頭條' },
+      author: { '@type': 'Organization', name: siteBrand },
       ...(image ? { image: [image] } : {}),
       isBasedOn: shown.sources.map((source) => ({ '@type': 'NewsArticle', headline: source.title, url: source.url })),
     }).replace(/</g, '\\u003c')}</script>`

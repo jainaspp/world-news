@@ -1,3 +1,4 @@
+import { feedTitle, siteBrand } from './brand.js';
 import { readableSourceTitle } from './search.js';
 import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import { briefingPublic, briefingScopeOf, columnHeroSources, explainerCurrent, leadImage, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
@@ -262,14 +263,14 @@ export function head(title: string, description: string, canonical: string, imag
   return `<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${esc(title)} — 世界頭條</title>
+  <title>${esc(title)} — ${siteBrand}</title>
   <meta name="description" content="${esc(description)}" />
   <link rel="canonical" href="${esc(canonical)}" />
   <link rel="alternate" hreflang="zh-HK" href="${esc(canonical)}" />
   <link rel="alternate" hreflang="x-default" href="${esc(canonical)}" />
-  <link rel="alternate" type="application/rss+xml" title="世界頭條" href="/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="${esc(feedTitle)}" href="/feed.xml" />
   <meta name="theme-color" content="#161c24" />
-  <meta property="og:site_name" content="世界頭條" />
+  <meta property="og:site_name" content="${esc(siteBrand)}" />
   <meta property="og:locale" content="zh_HK" />
   <meta property="og:title" content="${esc(title)}" />
   <meta property="og:description" content="${esc(description)}" />
@@ -303,7 +304,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
   <div class="chrome">
     <header class="masthead">
       <div class="masthead-title">
-        <a class="logo-link" href="/" aria-label="世界頭條">
+        <a class="logo-link" href="/" aria-label="${esc(siteBrand)}">
           <span class="logo-frame">
             <span class="logo-live" aria-hidden="true"></span>
             <img class="logo-full logo-light" src="/brand/logo.svg" alt="" />
@@ -350,7 +351,7 @@ export function footer(note = true): string {
     ? '<p class="ai-footnote"><span class="badge">AI 整合</span> 日報、週報、分析、導讀及懶人包由 AI 根據公開標題整理，只供參考。</p>'
     : '';
   return `<footer class="app-footer">
-      <p>世界頭條只列出標題與出處連結，不轉載內文。<a href="https://world-news.xyz">world-news.xyz</a> · <a href="/major/">重大更新</a></p>
+      <p>${esc(siteBrand)}只列出標題與出處連結，不轉載內文。<a href="https://world-news.xyz">world-news.xyz</a> · <a href="/major/">重大更新</a></p>
       <nav class="footer-nav" aria-label="網站資料">${links}<a href="/feed.xml">RSS</a><a class="subscribe-telegram" hidden>Telegram</a></nav>
       ${footnote}
     </footer>`;
@@ -447,7 +448,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
         inLanguage: 'zh-HK',
         mainEntityOfPage: canonical,
         ...(image ? { image: [image] } : {}),
-        author: { '@type': 'Organization', name: '世界頭條' },
+        author: { '@type': 'Organization', name: siteBrand },
         isBasedOn: listed.map((source) => ({ '@type': 'NewsArticle', headline: source.title, url: source.url })),
       },
       { '@type': 'Article', headline: doc.title, datePublished: doc.publishedAt, inLanguage: 'zh-HK', mainEntityOfPage: canonical },
@@ -524,7 +525,7 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
   <div class="layout">
     <main id="content" class="column-main">
       <article class="story story-hero column-hero${doc.kind === 'compare' || doc.kind === 'analysis' ? ' pack-shell' : ''}">
-        <div class="story-media">${media(image, leadCategory, sources[0]?.source || '世界頭條', true)}</div>
+        <div class="story-media">${media(image, leadCategory, sources[0]?.source || siteBrand, true)}</div>
         <div class="story-body">
           <div class="index-title-row">
             <div class="story-kicker">${modelFailed ? '' : '<span class="badge ai-badge">AI 整合</span>'}<span class="kicker-region">${columnName(doc)}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>

@@ -17,6 +17,7 @@ import { renderNearBridge } from '../shared/civilization/renderSlice';
 import { columnHref, type HomeColumnLinks } from '../shared/homePage';
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
+import { siteBrand, siteTitle } from '../shared/brand';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
@@ -38,7 +39,7 @@ import { MustRead } from './components/MustRead';
 import { OnThisDay } from './components/OnThisDay';
 import { TrendingTopics } from './components/TrendingTopics';
 import { trendingTopics } from '../shared/topics';
-import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_NAME, SITE_URL } from './config';
+import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_URL } from './config';
 import { usePopular } from './hooks/useBoard';
 import { useBoardPrefs } from './hooks/useBoardPrefs';
 import { useBookmarks } from './hooks/useBookmarks';
@@ -76,7 +77,7 @@ function HomeIntroBody() {
 
 function HomeIntroTop() {
   return (
-    <section className="home-intro home-intro-top" aria-label="關於世界頭條">
+    <section className="home-intro home-intro-top" aria-label={`關於${siteBrand}`}>
       <p className="home-intro-line">{HOME_INTRO_LINE}</p>
       <details className="home-more">
         <summary>了解更多</summary>
@@ -88,8 +89,8 @@ function HomeIntroTop() {
 
 function HomeIntroFoot() {
   return (
-    <section className="home-intro home-intro-foot" aria-label="關於世界頭條">
-      <h2>關於世界頭條</h2>
+    <section className="home-intro home-intro-foot" aria-label={`關於${siteBrand}`}>
+      <h2>關於{siteBrand}</h2>
       <HomeIntroBody />
     </section>
   );
@@ -117,7 +118,7 @@ function useWide(query: string) {
 
 function Logo() {
   const [failed, setFailed] = useState(false);
-  if (failed) return <span className="logo-word">{SITE_NAME}</span>;
+  if (failed) return <span className="logo-word">{siteBrand}</span>;
   return (
     <span className="logo-frame">
       <span className="logo-live" aria-hidden="true" />
@@ -389,7 +390,7 @@ export default function App() {
 
   useEffect(() => {
     const query = view.q.trim();
-    document.title = query ? `${t('search', lang)}「${query}」 — ${SITE_NAME}` : `${SITE_NAME} — 新聞標題、來源、原文連結`;
+    document.title = query ? `${t('search', lang)}「${query}」 — ${siteBrand}` : siteTitle;
     const canonical = document.querySelector('link[rel="canonical"]');
     const path = query || view.bookmarks || view.following || view.source || view.time !== 'all' ? '/' : viewHref(view);
     canonical?.setAttribute('href', `${SITE_URL}${path === '' ? '/' : path}`);
@@ -397,7 +398,7 @@ export default function App() {
     const data = {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: SITE_NAME,
+      name: siteBrand,
       itemListElement: top.map((item, index) => ({
         '@type': 'ListItem',
         position: index + 1,
@@ -435,7 +436,7 @@ export default function App() {
               <a
                 className="logo-link"
                 href="/"
-                aria-label={SITE_NAME}
+                aria-label={siteBrand}
                 onClick={(event) => {
                   event.preventDefault();
                   go({ region: 'ALL', category: 'all', source: '', q: '', time: 'all', ...clearSpecial, list: view.list });
@@ -868,7 +869,7 @@ export default function App() {
         {allowAds && <HomeIntroFoot />}
         <footer className="app-footer">
           <p>
-            {SITE_NAME} {lang === 'en' ? 'lists headlines and source links only.' : '只列出標題同出處連結，不轉載內文。'}
+            {siteBrand} {lang === 'en' ? 'lists headlines and source links only.' : '只列出標題同出處連結，不轉載內文。'}
             <a href={SITE_URL}> {SITE_URL.replace('https://', '')}</a>
             {' · '}
             <a href="/major/">{lang === 'en' ? 'Major updates' : '重大更新'}</a>
