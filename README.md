@@ -22,18 +22,20 @@
 | `VITE_AD_SLOT_FEED` / `AD_SLOT_FEED` / `AD_SLOT_MID` | 否 | 每 8 則標準卡片之後的資訊流版位。留空不留框，也不載入 `adsbygoogle.js` |
 | `AD_SLOT_TOP` / `AD_SLOT_BOTTOM` | 否 | 欄目頁頂部與底部。頁面中文內文少於 500 字，或目錄頁（`/analysis/`、`/topic/`），不會使用 |
 
-`index.html` 不再無條件載入 AdSense。`pagead/js/adsbygoogle.js` 只在頁面已經有真實 `<ins>` 時出現：版位 ID 已設定，而且該頁允許廣告（未篩選首頁，或內文達到 500 字的欄目／當年今日／地標）。地區、分類、搜尋、分析目錄、專題目錄、失敗的日報殼、以及內文不足的編年頁都沒有廣告 DOM，也沒有這支 script。`/region/twn` 另外 `noindex`，並且不在 sitemap。`VITE_GOOGLE_AD_CLIENT` 可選，預設 `ca-pub-8392975944327076`。
+審查凍結（`shared/adPolicy.ts` 的 `ADS_REVIEW_HOLD`，至 AdSense 再審，約 2026-10-22）期間，任何頁面都不輸出廣告單元，也不載入 `pagead/js/adsbygoogle.js`，即使版位 ID 已設定。新聞懶人包（`/explainer/`）、文明頁（`/civilization/`）與由 KV 資料填入的首頁殼都在此列。自動廣告、插頁與錨點廣告要在 AdSense 帳戶另行確認為停用；本儲存庫會刪掉殼裡的 `enable_page_level_ads` 與 `google_ad_client` 啟動碼。`columns.js` 只有在頁面已經有 pagead 載入器時才會呼叫 `adsbygoogle`。
+
+凍結解除之後，`pagead/js/adsbygoogle.js` 才會在頁面已經有真實 `<ins>` 時出現：版位 ID 已設定，而且該頁允許廣告（未篩選首頁，或內文達到 500 字的欄目／當年今日／地標）。地區、分類、搜尋、分析目錄、專題目錄、失敗的日報殼、以及內文不足的編年頁都沒有廣告 DOM，也沒有這支 script。`/region/twn` 另外 `noindex`，並且不在 sitemap。`VITE_GOOGLE_AD_CLIENT` 可選，預設 `ca-pub-8392975944327076`。
 
 版位留空時可以用下面幾條確認（回應里不應出現 `adsbygoogle` 或 `ad-placeholder`）：
 
 ```bash
-for path in /region/twn /region/hkg /category/hk /category/china /analysis/ /topic/ /on-this-day/01-01/ /hk/landmarks/; do
+for path in / /explainer/ /civilization/ /civilization/origins/ /region/twn /region/hkg /category/hk /category/china /analysis/ /topic/ /on-this-day/01-01/ /hk/landmarks/; do
   echo "== $path"
-  curl -fsS "https://world-news.xyz$path" | grep -E 'adsbygoogle|ad-placeholder|支持世界頭條' || echo "clean"
+  curl -fsS "https://world-news.xyz$path" | grep -E 'adsbygoogle|pagead2|enable_page_level_ads|google_ad_client|ad-placeholder|支持世界頭條' || echo "clean"
 done
 ```
 
-有設定版位、而且內文夠長的 `/explainer/…` 或 `/digest/…` 才可以出現 `adsbygoogle.js` 與 `<ins>`. 不要為了通過審查填假的版位 ID，也不要在這裡按 AdSense 的重新審查。
+凍結期間，`/explainer/…`、`/civilization/…` 與首頁都不應出現 `adsbygoogle.js` 或 `<ins>`。不要為了通過審查填假的版位 ID，也不要在這裡按 AdSense 的重新審查。
 
 `/ads.txt` 由 `public/ads.txt` 以純文字提供，內容是 `google.com, pub-8392975944327076, DIRECT, f08c47fec0942fa0`。專案目前沒有 Content-Security-Policy。如果之後加上，要允許 `pagead2.googlesyndication.com`、`googleads.g.doubleclick.net`、`tpc.googlesyndication.com` 同 `adservice.google.com`。
 
