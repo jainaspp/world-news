@@ -78,3 +78,15 @@
 ## 視覺
 
 沿用墨色 `#161c24` 與紙感 `#f7f1e6`。模式卡使用既有 `.civ-block` 紙卡，只增加 `.pattern-card`。不換皮。
+
+## 問題索引
+
+資料在 `questions.ts` 的 `CIV_QUESTIONS`。總覽在近層之下渲染這份陣列，不另寫死 HTML，也不新增路由。
+
+每條是一句常設問題（不多於 28 字），問機制如何運作，不問人物排名。`href` 只能指向已經上線的錨：
+
+- 模式卡 `/civilization/chronicle/#pattern-{id}`，或總覽上的 `#pattern-{id}`
+- 編年 `#stage-N`、科技 `#tech-N`、地球生命 `#earth-N`、起源長頁 `/civilization/origins/`
+- 首頁近層 `/#near-{主題 id}`
+
+五條近層問句都要出現在索引裡。對得上的列再加一條「今日近層」。`questionIndexIssues` 回傳空陣列才算通過。
