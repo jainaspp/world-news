@@ -273,7 +273,7 @@ export const LEVEL_LEGEND = '能量帶 e0–e4、信息帶 i0–i4、能動帶 a
 
 /** One sentence each, so these layers are not read as civilization ranks. */
 export const BAND_NOTES = [
-  { band: 'e2', text: 'e2 記行星能量收支與宜居窗口正在被監測的這一層，不是文明等級。' },
+  { band: 'e2', text: 'e2 記行星能量收支、宜居窗口與淡水可用量正在被監測的這一層，不是文明等級。' },
   { band: 'i2', text: 'i2 記底本與更正能否被後來的複本認出，不是文明等級。' },
   { band: 'a1', text: 'a1 記擾動或耐藥能否被寫成可核對的維修條件，不是文明等級。' },
 ] as const;

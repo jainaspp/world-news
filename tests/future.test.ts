@@ -181,7 +181,7 @@ describe('civilization future P0', () => {
     expect(panel).toContain('技術能力階回答成熟到哪一檔');
     expect(panel).toContain('生存風險回答如何被事後核對');
     expect(panel).toContain('這裡不另開網址');
-    expect(panel).toContain('e2 記行星能量收支與宜居窗口正在被監測的這一層，不是文明等級。');
+    expect(panel).toContain('e2 記行星能量收支、宜居窗口與淡水可用量正在被監測的這一層，不是文明等級。');
     expect(panel).toContain('i2 記底本與更正能否被後來的複本認出，不是文明等級。');
     expect(panel).toContain('a1 記擾動或耐藥能否被寫成可核對的維修條件，不是文明等級。');
     expect(panel).toContain('成熟度記號');
@@ -255,7 +255,7 @@ describe('civilization future P0', () => {
     expect(section).toContain('id="stage-10-bridge"');
     expect(section).toContain(STAGE10_BRIDGE);
     expect(section).toContain('id="stage-10-bands"');
-    expect(section).toContain('e2 記行星能量收支與宜居窗口正在被監測的這一層，不是文明等級。');
+    expect(section).toContain('e2 記行星能量收支、宜居窗口與淡水可用量正在被監測的這一層，不是文明等級。');
     expect(section).toContain('不是文明等級');
     expect(section).toContain('href="/civilization/#future-f1"');
     expect(section).not.toContain('id="stage-11"');
