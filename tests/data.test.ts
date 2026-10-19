@@ -238,16 +238,16 @@ describe('homepage intro stays in the HTML without leading the screen', () => {
   it('puts a short line and toggle above the news, and the full text above the footer', () => {
     const html = renderHomeFeed([headline('a'), headline('b')]);
     const top = html.indexOf('home-intro-top');
-    const news = html.indexOf('top-stories');
+    const news = html.indexOf('class="home-list"');
     const foot = html.indexOf('home-intro-foot');
     const footer = html.indexOf('app-footer');
     expect(top).toBeGreaterThan(-1);
     expect(top).toBeLessThan(news);
     expect(news).toBeLessThan(foot);
     expect(foot).toBeLessThan(footer);
-    expect(html).toContain('了解更多');
+    expect(html).not.toContain('了解更多');
     expect(html).toContain(HOME_INTRO_LINE);
-    expect(html.split(HOME_INTRO).length - 1).toBe(2);
+    expect(html.split(HOME_INTRO).length - 1).toBe(1);
     expect(html).toContain('href="/briefing/"');
     expect(html).toContain('href="/explainer/"');
     expect(html).toContain('每日香港導讀');

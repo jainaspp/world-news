@@ -15,8 +15,8 @@ export function homeIntroBody(hrefFor: IntroHref = (href) => href): string {
   return `<p>${esc(HOME_INTRO)}</p><ul class="home-sections">${items}</ul>`;
 }
 
-export function homeIntroTop(hrefFor?: IntroHref): string {
-  return `<section class="home-intro home-intro-top" aria-label="關於${esc(siteBrand)}"><p class="home-intro-line">${esc(HOME_INTRO_LINE)}</p><details class="home-more"><summary>了解更多</summary>${homeIntroBody(hrefFor)}</details></section>`;
+export function homeIntroTop(_hrefFor?: IntroHref): string {
+  return `<section class="home-intro home-intro-top" aria-label="關於${esc(siteBrand)}"><p class="home-intro-line">${esc(HOME_INTRO_LINE)}</p></section>`;
 }
 
 export function homeIntroFoot(hrefFor?: IntroHref): string {

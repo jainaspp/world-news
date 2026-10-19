@@ -299,7 +299,7 @@ export function head(title: string, description: string, canonical: string, imag
 export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'learn'): string {
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   const current = (key: typeof active) => active === key ? ' aria-current="page"' : '';
-  const primary = `<nav class="civ-nav" aria-label="主欄目"><a class="chip civ-chip${active === 'civilization' ? ' active' : ''}" href="/civilization/"${current('civilization')}>文明</a><a class="chip${active === 'today' ? ' active' : ''}" href="/#slice"${current('today')}>今天</a><a class="chip${active === 'learn' ? ' active' : ''}" href="/learn/"${current('learn')}>開蒙</a></nav>`;
+  const primary = `<nav class="civ-nav" aria-label="主欄目"><a class="chip civ-chip${active === 'civilization' ? ' active' : ''}" href="/civilization/"${current('civilization')}>文明</a><a class="chip" href="/civilization/chronicle/">編年</a><a class="chip" href="/#slice">今天</a><a class="chip${active === 'learn' ? ' active' : ''}" href="/learn/"${current('learn')}>開蒙</a></nav>`;
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
     <header class="masthead">
@@ -307,10 +307,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
         <a class="logo-link" href="/" aria-label="${esc(siteBrand)}">
           <span class="logo-frame">
             <span class="logo-live" aria-hidden="true"></span>
-            <img class="logo-full logo-light" src="/brand/logo.svg" alt="" />
-            <img class="logo-full logo-dark" src="/brand/logo-dark.svg" alt="" />
-            <img class="logo-compact logo-light" src="/brand/logo-compact.svg" alt="" />
-            <img class="logo-compact logo-dark" src="/brand/logo-compact-dark.svg" alt="" />
+            <span class="logo-word">${esc(siteBrand)}</span>
           </span>
         </a>
       </div>
@@ -333,8 +330,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
       <details class="nav-more">
         <summary>更多</summary>
         <nav class="filters" aria-label="更多欄目">
-          <a class="chip" href="/#slice">頭條</a>
-          ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/"${active === 'today' ? ' aria-current="page"' : ''}>時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a><a class="chip${active === 'quiz' ? ' active' : ''}" href="/quiz/"${active === 'quiz' ? ' aria-current="page"' : ''}>小測</a>
+          ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/" title="多方報道時間線，不是軸上的今天"${current('today')}>多方時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a><a class="chip${active === 'quiz' ? ' active' : ''}" href="/quiz/"${active === 'quiz' ? ' aria-current="page"' : ''}>小測</a>
         </nav>
       </details>
       ${subscribeMenu()}
@@ -351,7 +347,7 @@ export function footer(note = true): string {
     ? '<p class="ai-footnote"><span class="badge">AI 整合</span> 日報、週報、分析、導讀及懶人包由 AI 根據公開標題整理，只供參考。</p>'
     : '';
   return `<footer class="app-footer">
-      <p>${esc(siteBrand)}只列出標題與出處連結，不轉載內文。<a href="https://world-news.xyz">world-news.xyz</a> · <a href="/major/">重大更新</a></p>
+      <p>${esc(siteBrand)}是文明時間軸。新聞是軸上的今天一片，只列出標題與出處連結，不轉載內文。<a href="https://world-news.xyz">world-news.xyz</a> · <a href="/data/">數據</a> · <a href="/major/">重大更新</a></p>
       <nav class="footer-nav" aria-label="網站資料">${links}<a href="/feed.xml">RSS</a><a class="subscribe-telegram" hidden>Telegram</a></nav>
       ${footnote}
     </footer>`;

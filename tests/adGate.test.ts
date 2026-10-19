@@ -50,7 +50,7 @@ describe('AdSense gates', () => {
     const many = Array.from({ length: 12 }, (_, index) => item({ id: `h${index}`, title: `香港標題${index}`, category: 'hk' }));
     const feed = renderHomeFeed(many, new Map(), null, '');
     expect(feed).toContain('香港標題0');
-    expect(feed.match(/<article/g)?.length).toBeGreaterThanOrEqual(8);
+    expect(feed.match(/class="rank-row/g)?.length).toBe(12);
     expect(feed).not.toContain('adsbygoogle');
     expect(feed).not.toContain('ad-slot');
     expect(feed).not.toContain('ad-placeholder');

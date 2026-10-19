@@ -5,43 +5,33 @@ import { CATEGORIES } from '../shared/categories';
 import { filterNews } from '../shared/filter';
 import { REGIONS, sourcesForRegion } from '../shared/feeds';
 import { categoryLabelI18n, t } from '../shared/i18n';
-import type { ClusterMember } from '../shared/angles';
 import { clusterStories, sourceCounts } from '../shared/trending';
 import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem, TimeRange } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
 import { renderBulletinClock } from '../shared/civilization/clock';
-import { renderChronicleStrip } from '../shared/civilization/chronicle';
-import { renderAxisBand, renderLayerAside, sliceHeadHtml } from '../shared/civilizationPage';
+import { renderAxisBand, renderAxisRails, renderHomeChronicle, renderLayerAside, sliceHeadHtml } from '../shared/civilizationPage';
 import { renderNearBridge } from '../shared/civilization/renderSlice';
-import { columnHref, type HomeColumnLinks } from '../shared/homePage';
+import { columnHref, DEFAULT_BRIEFING_LINKS, homeDigestLinks, type HomeColumnLinks } from '../shared/homePage';
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
 import { siteBrand, siteTitle } from '../shared/brand';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
+import { MostRead } from './components/MostRead';
 import { DarkModeToggle } from './components/DarkModeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { LanguageSelector } from './components/LanguageSelector';
-import { NewsCard } from './components/NewsCard';
 import { RankedList } from './components/RankedList';
 import { RegionIcon } from './components/RegionIcon';
-import { SkeletonCard } from './components/SkeletonCard';
 import { BackToTop } from './components/BackToTop';
 import { AlertRow } from './components/AlertRow';
-import { HkInfoStrip } from './components/HkInfoStrip';
 import { MajorBanner } from './components/MajorBanner';
-import { BoardToggles } from './components/BoardToggles';
-import { MostRead } from './components/MostRead';
 import { WeekFocus } from './components/WeekFocus';
-import { MustRead } from './components/MustRead';
 import { OnThisDay } from './components/OnThisDay';
-import { TrendingTopics } from './components/TrendingTopics';
-import { trendingTopics } from '../shared/topics';
-import { AD_SLOT_FEED, AD_SLOT_TOP, SITE_URL } from './config';
+import { AD_SLOT_FEED, SITE_URL } from './config';
 import { usePopular } from './hooks/useBoard';
-import { useBoardPrefs } from './hooks/useBoardPrefs';
 import { useBookmarks } from './hooks/useBookmarks';
 import { useFollows } from './hooks/useFollows';
 import { useNews } from './hooks/useNews';
@@ -79,10 +69,6 @@ function HomeIntroTop() {
   return (
     <section className="home-intro home-intro-top" aria-label={`關於${siteBrand}`}>
       <p className="home-intro-line">{HOME_INTRO_LINE}</p>
-      <details className="home-more">
-        <summary>了解更多</summary>
-        <HomeIntroBody />
-      </details>
     </section>
   );
 }
@@ -103,29 +89,13 @@ const TIME_LABEL: Record<string, Record<UiLang, string>> = {
   week: { 'zh-HK': '本週', 'zh-CN': '本周', en: 'Week' },
 };
 
-const PAGE_SIZE = 12;
-
-function useWide(query: string) {
-  const [wide, setWide] = useState(() => window.matchMedia(query).matches);
-  useEffect(() => {
-    const media = window.matchMedia(query);
-    const onChange = () => setWide(media.matches);
-    media.addEventListener('change', onChange);
-    return () => media.removeEventListener('change', onChange);
-  }, [query]);
-  return wide;
-}
+const PAGE_SIZE = 16;
 
 function Logo() {
-  const [failed, setFailed] = useState(false);
-  if (failed) return <span className="logo-word">{siteBrand}</span>;
   return (
     <span className="logo-frame">
       <span className="logo-live" aria-hidden="true" />
-      <img className="logo-full logo-light" src="/brand/logo.svg" alt="" onError={() => setFailed(true)} />
-      <img className="logo-full logo-dark" src="/brand/logo-dark.svg" alt="" />
-      <img className="logo-compact logo-light" src="/brand/logo-compact.svg" alt="" />
-      <img className="logo-compact logo-dark" src="/brand/logo-compact-dark.svg" alt="" />
+      <span className="logo-word">{siteBrand}</span>
     </span>
   );
 }
@@ -179,19 +149,6 @@ function SubscribeMenu() {
 
 const clearSpecial = { bookmarks: false, following: false };
 
-function TemplateSwitch({ listMode, lang, onPick }: { listMode: boolean; lang: UiLang; onPick: (list: boolean) => void }) {
-  return (
-    <div className="template-switch" role="group" aria-label={t('layout', lang)}>
-      <button type="button" aria-pressed={!listMode} onClick={() => onPick(false)}>
-        {t('layoutCards', lang)}
-      </button>
-      <button type="button" aria-pressed={listMode} onClick={() => onPick(true)}>
-        {t('layoutList', lang)}
-      </button>
-    </div>
-  );
-}
-
 function readHomeColumns(): HomeColumnLinks {
   try {
     const node = document.getElementById('wn-columns');
@@ -204,66 +161,54 @@ function readHomeColumns(): HomeColumnLinks {
 }
 
 function CivNav() {
+  const columns = useMemo(readHomeColumns, []);
   return (
-    <nav className="civ-nav" aria-label="主欄目">
-      <a className="chip civ-chip" href="/civilization/">文明</a>
-      <a className="chip" href="/#slice">今天</a>
-      <a className="chip" href="/learn/">開蒙</a>
-    </nav>
+    <div className="civ-nav-row">
+      <nav className="civ-nav" aria-label="主欄目">
+        <a className="chip civ-chip" href="/civilization/">文明</a>
+        <a className="chip" href="/civilization/chronicle/">編年</a>
+        <a className="chip" href="/#slice">今天</a>
+        <a className="chip" href="/learn/">開蒙</a>
+      </nav>
+      <details className="civ-more">
+        <summary className="chip">更多</summary>
+        <nav className="filters" aria-label="更多欄目">
+          <a className="chip" href="/briefing/">導讀</a>
+          <a className="chip" href="/explainer/">懶人包</a>
+          {columns.topic ? <a className="chip" href="/topic/">專題</a> : null}
+          <a className="chip" href="/data/">數據</a>
+          <a className="chip" href="/today/" title="多方報道時間線，不是軸上的今天">多方時間線</a>
+        </nav>
+      </details>
+    </div>
   );
 }
 
-function DigestStrip({ lang }: { lang: UiLang }) {
+function DigestStrip() {
   const columns = useMemo(readHomeColumns, []);
+  const links = homeDigestLinks(DEFAULT_BRIEFING_LINKS, columns);
   return (
-    <aside className="digest-strip" aria-label="精選欄目">
-      <span className="badge">AI</span>
-      {columns.digestHref ? <a className="chip digest-primary active" href={columns.digestHref}>{t('todayPicks', lang)}</a> : null}
-      <a className="chip digest-keep" href="/briefing/">{t('hkBriefing', lang)}</a>
-      <a className="chip digest-keep" href="/explainer/">{t('multiCompare', lang)}</a>
-      {columns.topic ? <a className="chip digest-keep" href="/topic/">{t('topicPack', lang)}</a> : null}
-      {columns.weeklyHref ? <a className="chip digest-keep" href={columns.weeklyHref}>{t('weekly', lang)}</a> : null}
-      {columns.analysis ? <a className="chip digest-keep" href="/analysis/">{t('hotAnalysis', lang)}</a> : null}
-      <a className="chip" href="/data/">{t('dataHub', lang)}</a>
-      {columns.quiz ? <a className="chip" href="/quiz/">{t('dailyQuiz', lang)}</a> : null}
+    <aside className="digest-strip" aria-label="切片入口">
+      {links.map((link) => (
+        <a key={`${link.href}-${link.label}`} className={link.primary ? 'chip digest-primary active' : 'chip digest-keep'} href={link.href}>{link.label}</a>
+      ))}
     </aside>
   );
 }
 
 export default function App() {
-  const { items, loading, error, partial, stale, refresh, freshCount, showPending, pending, arrived } = useNews();
-  const arrivedSet = useMemo(() => new Set(arrived), [arrived]);
+  const { items, loading, error, partial, stale, refresh, freshCount, showPending, pending } = useNews();
   const [refreshing, spinRefresh] = useSpinOnce();
-  const { items: bookmarks, ids: bookmarkIds, toggle } = useBookmarks();
+  const { items: bookmarks, ids: bookmarkIds } = useBookmarks();
   const follows = useFollows();
   const [view, setView] = useState<ViewState>(readView);
+  const popular = usePopular(!view.bookmarks && !view.following);
   const [lang, setLang] = useState<UiLang>(() => normalizeLang(localStorage.getItem('wn_lang')));
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'));
   const [searchHits, setSearchHits] = useState<Set<string> | null>(null);
-  const [shownState, setShownState] = useState({ key: '', count: PAGE_SIZE });
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [layoutOpen, setLayoutOpen] = useState(false);
-  const board = useBoardPrefs();
-  const wide = useWide('(min-width: 1200px)');
-  const topics = useMemo(() => trendingTopics(items), [items]);
-  const showBlocks = !(view.bookmarks || view.following);
   const focusPage = focusTarget(view);
-  const popular = usePopular(showBlocks && board.prefs.mostRead);
-  const angleMap = useMemo(() => {
-    const map = new Map<string, ClusterMember[]>();
-    for (const cluster of clusterStories(items)) {
-      const members: ClusterMember[] = cluster.items.slice(0, 8).map((row) => ({
-        id: row.id,
-        source: row.source,
-        title: row.title,
-        link: row.link,
-        pubDate: row.pubDate,
-      }));
-      for (const member of members) map.set(member.id, members);
-    }
-    return map;
-  }, [items]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
@@ -352,10 +297,8 @@ export default function App() {
     });
   }, [scoped, searchHits, view.q]);
 
-  const filterKey = `${view.region}|${view.category}|${view.source}|${view.time}|${view.q}|${view.bookmarks}|${view.following}`;
-  const shown = shownState.key === filterKey ? shownState.count : PAGE_SIZE;
   const ordered = useMemo(() => demoteGraphic(visible), [visible]);
-  const listed = useMemo(() => ordered.slice(0, shown), [ordered, shown]);
+  const listed = useMemo(() => ordered.slice(0, PAGE_SIZE), [ordered]);
   const clusters = useMemo(() => (view.bookmarks || view.following ? [] : clusterStories(scoped)), [scoped, view.bookmarks, view.following]);
   const counts = useMemo(() => sourceCounts(clusters.length ? clusters : clusterStories(items)), [clusters, items]);
   const analysisHrefs = useMemo(() => {
@@ -367,11 +310,6 @@ export default function App() {
     }
     return map;
   }, [items]);
-  const hero = listed[0];
-  const rest = listed.slice(1);
-  const deskLead = wide && !view.bookmarks && !view.following;
-  const secondary = deskLead ? rest.slice(0, 4) : [];
-  const gridItems = deskLead ? rest.slice(4) : rest;
   const special = view.bookmarks || view.following;
   const poeticAxis = !special && view.region === 'ALL' && view.category === 'all' && !view.q.trim() && !view.source.trim() && view.time === 'all';
   const focusLabel = !focusPage
@@ -380,9 +318,7 @@ export default function App() {
       ? (REGIONS.find((region) => region.code.toLowerCase() === focusPage.id)?.label ?? '')
       : (CATEGORIES.find((category) => category.id === focusPage.id)?.label ?? '');
   const filtersActive = view.source !== '' || view.region !== 'ALL' || (view.category !== 'all' && !special);
-  const breaking = useMemo(() => breakingIds(hero ? [hero, ...gridItems] : gridItems), [hero, gridItems]);
   const rankBreaking = useMemo(() => breakingIds(listed), [listed]);
-  const listMode = view.list;
   const followFresh = useMemo(() => {
     if (!pending || !follows.count) return 0;
     return pending.filter((item) => follows.matches(item) && !items.some((row) => row.id === item.id)).length;
@@ -416,15 +352,9 @@ export default function App() {
       ? t('emptyFollow', lang)
       : t('emptyFilter', lang);
   const allowAds = homeAllowsAds(view);
-  const showSideAd = allowAds && wide && Boolean(hero);
 
   function titleOf(item: NewsItem): string {
     return displayTitle(item.title, lang);
-  }
-
-  function pickLayout(list: boolean) {
-    if (list === view.list) return;
-    go({ ...view, list }, 'replace');
   }
 
   return (
@@ -508,46 +438,15 @@ export default function App() {
           </header>
 
           <CivNav />
-
-        </div>
-
-        <div className="layout">
-          <main id="news">
-            {!special && <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false }) }} />}
-            {!special && <div dangerouslySetInnerHTML={{ __html: renderBulletinClock() }} />}
-            {!special && <div dangerouslySetInnerHTML={{ __html: renderChronicleStrip() }} />}
-            <div className={special ? undefined : 'civ-frame'}>
-            <div className={special ? undefined : 'civ-main'}>
-            {!special && <OnThisDay />}
-            <section className={special ? undefined : 'today-slice'} id={special ? undefined : 'slice'} aria-label={special ? undefined : '今日切片'}>
-            {!special && focusLabel ? <h1 className="focus-title">{focusLabel}</h1> : null}
-            {!special && <div dangerouslySetInnerHTML={{ __html: sliceHeadHtml() }} />}
-            {!special && <div dangerouslySetInnerHTML={{ __html: renderNearBridge() }} />}
           <div className="tab-bar">
-            <TemplateSwitch listMode={listMode} lang={lang} onPick={pickLayout} />
             <button
               type="button"
               className={filtersOpen || filtersActive ? 'chip active' : 'chip'}
               aria-expanded={filtersOpen}
               aria-controls="filter-panel"
-              onClick={() => {
-                setFiltersOpen((open) => !open);
-                setLayoutOpen(false);
-              }}
+              onClick={() => setFiltersOpen((open) => !open)}
             >
               {t('filter', lang)}
-            </button>
-            <button
-              type="button"
-              className={layoutOpen ? 'chip layout-toggle active' : 'chip layout-toggle'}
-              aria-expanded={layoutOpen}
-              aria-controls="layout-panel"
-              onClick={() => {
-                setLayoutOpen((open) => !open);
-                setFiltersOpen(false);
-              }}
-            >
-              {t('layout', lang)}
             </button>
             <nav className="filters filters-primary" aria-label="time">
               {TIMES.map((item) => (
@@ -561,32 +460,9 @@ export default function App() {
                   {TIME_LABEL[item.id][lang]}
                 </button>
               ))}
-              <button type="button" className={view.following ? 'chip active' : 'chip'} aria-pressed={view.following} onClick={() => go({ ...view, following: !view.following, bookmarks: false })}>
-                {t('following', lang)}
-              </button>
-              <button type="button" className={view.bookmarks ? 'chip active' : 'chip'} aria-pressed={view.bookmarks} onClick={() => go({ ...view, bookmarks: !view.bookmarks, following: false })}>
-                {t('bookmarks', lang)}
-              </button>
-              <a className="chip" href="/saved/">收藏頁</a>
-              <a className="chip" href="/data/">{t('dataHub', lang)}</a>
-              {board.prefs.keywords && (
-                <button
-                  type="button"
-                  className="chip more-topics"
-                  onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: scrollBehavior(), block: 'start' })}
-                >
-                  {t('more', lang)}
-                </button>
-              )}
             </nav>
             <SubscribeMenu />
           </div>
-
-          {layoutOpen && (
-            <div className="layout-panel" id="layout-panel">
-              <BoardToggles prefs={board.prefs} onToggle={board.toggle} lang={lang} />
-            </div>
-          )}
 
           {filtersOpen && !view.bookmarks && (
             <div className="filter-panel" id="filter-panel">
@@ -663,213 +539,110 @@ export default function App() {
                   );
                 })}
               </nav>
-              {board.prefs.keywords && (
-                <button type="button" className="chip more-topics" onClick={() => document.getElementById('hot-search')?.scrollIntoView({ behavior: scrollBehavior(), block: 'start' })}>
-                  {t('more', lang)} · {t('keywords', lang)}
-                </button>
-              )}
             </div>
           )}
-            <MajorBanner />
-            <AlertRow />
-            {allowAds && <HomeIntroTop />}
-            {loading && !special && items.length === 0 ? (
-              <div className="news-grid" aria-busy="true" aria-live="polite">
-                {Array.from({ length: 6 }, (_, index) => (
-                  <SkeletonCard key={index} />
-                ))}
-              </div>
-            ) : error && !special && items.length === 0 ? (
-              <div className="status-panel" role="alert">
-                <h2>{lang === 'en' ? 'No headlines' : '暫時沒有頭條'}</h2>
-                <p>{error}</p>
-                <button type="button" className="primary" onClick={() => void refresh()}>
-                  {t('refresh', lang)}
-                </button>
-              </div>
-            ) : visible.length === 0 ? (
-              <div className="status-panel">
-                <h2>{lang === 'en' ? 'Nothing here' : '沒有符合的頭條'}</h2>
-                <p>{emptyMessage}</p>
-              </div>
-            ) : (
-              <>
-                {(partial || stale) && !special && (
-                  <p className="notice" role="status">
-                    {stale ? (lang === 'en' ? 'Some sources are down; showing a recent cache.' : '部分來源暫時連不上，以下是較早儲存的標題。') : lang === 'en' ? 'Some sources did not reply; other headlines are still available.' : '部分來源暫時沒有回應，其餘頭條仍可閱讀。'}
-                  </p>
-                )}
-                {!special && <DigestStrip lang={lang} />}
-                {!special && <MustRead category={view.category} />}
-                {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
-                {!special && !wide && <HkInfoStrip />}
-                {!special && <p className="feed-divider" role="presentation"><span>最新標題</span></p>}
-                {listMode ? (
-                  <>
-                    {Array.from({ length: Math.ceil(listed.length / FEED_AD_EVERY) }, (_, chunk) => {
-                      const start = chunk * FEED_AD_EVERY;
-                      const slice = listed.slice(start, start + FEED_AD_EVERY);
-                      const tail = slice[slice.length - 1];
-                      return (
-                        <div key={slice[0]?.id ?? chunk} className="rank-chunk">
-                          <RankedList start={start} items={slice} counts={counts} breaking={rankBreaking} explainers={analysisHrefs} titleOf={titleOf} lang={lang} />
-                          {allowAds && slice.length === FEED_AD_EVERY && tail ? <AdSlot slot={AD_SLOT_FEED} variant="feed" /> : null}
+        </div>
+
+        <div className="layout layout-span">
+          <main id="today">
+            {!special && (
+              <div className="civ-home">
+                <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false, rails: false }) }} />
+                <div dangerouslySetInnerHTML={{ __html: renderBulletinClock() }} />
+                <div dangerouslySetInnerHTML={{ __html: renderHomeChronicle() }} />
+                <div dangerouslySetInnerHTML={{ __html: renderAxisRails() }} />
+                <OnThisDay />
+                <section className="today-slice" id="slice" aria-label="今日切片">
+                      {focusLabel ? <h1 className="focus-title">{focusLabel}</h1> : null}
+                      <div dangerouslySetInnerHTML={{ __html: sliceHeadHtml() }} />
+                      <div dangerouslySetInnerHTML={{ __html: renderNearBridge() }} />
+                      <MajorBanner />
+                      <AlertRow />
+                      <HomeIntroTop />
+                      {loading && items.length === 0 ? (
+                        <div className="status-panel" aria-busy="true"><h2>{lang === 'en' ? 'Loading today' : '載入今日切片…'}</h2></div>
+                      ) : error && items.length === 0 ? (
+                        <div className="status-panel" role="alert">
+                          <h2>{lang === 'en' ? 'No titles' : '今日切片暫時沒有標題'}</h2>
+                          <p>{error}</p>
+                          <button type="button" className="primary" onClick={() => void refresh()}>{t('refresh', lang)}</button>
                         </div>
-                      );
-                    })}
-                    {!special && board.prefs.mostRead && <MostRead rows={popular} variant="feed" lang={lang} />}
-                  </>
-                ) : (
-                <>
-                {(hero || secondary.length > 0) && (
-                  <div className="top-stories">
-                    {hero && (
-                      <NewsCard
-                        item={hero}
-                        title={titleOf(hero)}
-                        bookmarked={bookmarkIds.has(hero.id)}
-                        onToggleBookmark={toggle}
-                        sourceCount={counts.get(hero.id) ?? 0}
-                        analysisHref={analysisHrefs.get(hero.id) || ''}
-                        featured
-                        lang={lang}
-                        followedSource={follows.sourceSet.has(hero.source)}
-                        onToggleSource={follows.toggleSource}
-                        breaking={breaking.has(hero.id)}
-                        angles={angleMap.get(hero.id)}
-                        arriving={arrivedSet.has(hero.id)}
-                      />
-                    )}
-                    {secondary.length > 0 && (
-                      <div className="secondary-list">
-                        {secondary.map((item) => (
-                          <NewsCard
-                            key={item.id}
-                            item={item}
-                            title={titleOf(item)}
-                            bookmarked={bookmarkIds.has(item.id)}
-                            onToggleBookmark={toggle}
-                            sourceCount={counts.get(item.id) ?? 0}
-                            analysisHref={analysisHrefs.get(item.id) || ''}
-                            compact
-                            lang={lang}
-                            breaking={breaking.has(item.id)}
-                            angles={angleMap.get(item.id)}
-                            arriving={arrivedSet.has(item.id)}
-                          />
-                        ))}
-                      </div>
-                    )}
+                      ) : visible.length === 0 ? (
+                        <div className="status-panel">
+                          <h2>{lang === 'en' ? 'Nothing here' : '沒有符合的標題'}</h2>
+                          <p>{emptyMessage}</p>
+                        </div>
+                      ) : (
+                        <>
+                          {(partial || stale) && (
+                            <p className="notice" role="status">
+                              {stale ? (lang === 'en' ? 'Some sources are down; showing a recent cache.' : '部分來源暫時連不上，以下是較早儲存的標題。') : lang === 'en' ? 'Some sources did not reply; other headlines are still available.' : '部分來源暫時沒有回應，其餘標題仍可閱讀。'}
+                            </p>
+                          )}
+                          <DigestStrip />
+                          {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
+                          <div className="home-list">
+                            {Array.from({ length: Math.ceil(listed.length / FEED_AD_EVERY) }, (_, chunk) => {
+                              const start = chunk * FEED_AD_EVERY;
+                              const slice = listed.slice(start, start + FEED_AD_EVERY);
+                              const tail = slice[slice.length - 1];
+                              return (
+                                <div key={slice[0]?.id ?? chunk} className="rank-chunk">
+                                  <RankedList start={start} items={slice} counts={counts} breaking={rankBreaking} explainers={analysisHrefs} titleOf={titleOf} lang={lang} />
+                                  {allowAds && slice.length === FEED_AD_EVERY && tail ? <AdSlot slot={AD_SLOT_FEED} variant="feed" /> : null}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </>
+                      )}
+                </section>
+                <p className="more-today"><a href="/today/">更多今日</a><span>全日多方時間線，不是軸上的今天。</span></p>
+                <div dangerouslySetInnerHTML={{ __html: renderLayerAside() }} />
+                <MostRead rows={popular} variant="below" lang={lang} />
+              </div>
+            )}
+            {special && (
+              <section aria-label={view.bookmarks ? t('bookmarks', lang) : t('following', lang)}>
+                {view.following && follows.count > 0 && (
+                  <div className="follow-list">
+                    {follows.regions.map((code) => (
+                      <button key={code} type="button" className="chip follow-chip on" onClick={() => follows.toggleRegion(code)}>
+                        {REGIONS.find((region) => region.code === code)?.label || code} ×
+                      </button>
+                    ))}
+                    {follows.categories.map((id) => (
+                      <button key={id} type="button" className="chip follow-chip on" onClick={() => follows.toggleCategory(id)}>
+                        {categoryLabelI18n(id, lang)} ×
+                      </button>
+                    ))}
+                    {follows.sources.map((name) => (
+                      <button key={name} type="button" className="chip follow-chip on" onClick={() => follows.toggleSource(name)}>
+                        {name} ×
+                      </button>
+                    ))}
                   </div>
                 )}
-                {!special && board.prefs.mostRead && <MostRead rows={popular} variant="feed" lang={lang} />}
-                <div className="news-grid">
-                  {gridItems.flatMap((item: NewsItem, index) => {
-                    const card = (
-                      <NewsCard
-                        key={item.id}
-                        item={item}
-                        title={titleOf(item)}
-                        bookmarked={bookmarkIds.has(item.id)}
-                        onToggleBookmark={toggle}
-                        sourceCount={counts.get(item.id) ?? 0}
-                        analysisHref={analysisHrefs.get(item.id) || ''}
-                        lang={lang}
-                        followedSource={follows.sourceSet.has(item.source)}
-                        onToggleSource={follows.toggleSource}
-                        breaking={breaking.has(item.id)}
-                        angles={angleMap.get(item.id)}
-                        arriving={arrivedSet.has(item.id)}
-                      />
-                    );
-                    const ordinal = secondary.length + index + 1;
-                    if (!allowAds || ordinal % FEED_AD_EVERY !== 0) return [card];
-                    return [card, <AdSlot key={`feed-${item.id}`} slot={AD_SLOT_FEED} variant="feed" />];
-                  })}
-                </div>
-                </>
+                {visible.length === 0 ? (
+                  <div className="status-panel">
+                    <h2>{lang === 'en' ? 'Nothing here' : '沒有符合的標題'}</h2>
+                    <p>{emptyMessage}</p>
+                  </div>
+                ) : (
+                  <div className="home-list">
+                    <RankedList items={listed} counts={counts} breaking={rankBreaking} explainers={analysisHrefs} titleOf={titleOf} lang={lang} />
+                  </div>
                 )}
-                {shown < visible.length && (
-                  <button type="button" className="primary more" onClick={() => setShownState({ key: filterKey, count: shown + PAGE_SIZE })}>
-                    {t('loadMore', lang)} ({visible.length - shown})
-                  </button>
-                )}
-              </>
-            )}
-            </section>
-            </div>
-            {!special && <aside className="civ-side" aria-label="文明層" dangerouslySetInnerHTML={{ __html: renderLayerAside() }} />}
-            </div>
-          </main>
-          <aside className="sidebar" aria-label="sidebar">
-            <div className="board-prefs">
-              <p className="filter-label">{t('layout', lang)}</p>
-              <BoardToggles prefs={board.prefs} onToggle={board.toggle} lang={lang} />
-            </div>
-            {wide && !special && <HkInfoStrip />}
-            {!special && board.prefs.mostRead && <MostRead rows={popular} variant="side" lang={lang} />}
-            {!special && board.prefs.keywords && <TrendingTopics topics={topics} active={view.q} lang={lang} onPick={(term) => go({ ...view, q: term, ...clearSpecial }, 'replace')} />}
-            {showSideAd && <AdSlot slot={AD_SLOT_TOP} variant="sidebar" />}
-            {!special && board.prefs.coverage && !view.q.trim() && clusters.length > 0 && (
-              <section className="trending" aria-label={t('multiCoverage', lang)}>
-                <h2>{t('multiCoverage', lang)}</h2>
-                <ol>
-                  {clusters.slice(0, 5).map((cluster, index) => (
-                    <li key={cluster.id}>
-                      <span className="rank">{index + 1}</span>
-                      <div>
-                        <a href={cluster.lead.link} target="_blank" rel="noopener noreferrer">
-                          {titleOf(cluster.lead)}
-                        </a>
-                        <span className="cluster-badge">
-                          {cluster.count} {t('outlets', lang)}
-                        </span>
-                        {cluster.count >= 3 && (
-                          <a className="analysis-box" href={`/analysis/${analysisSlug(cluster.lead.title)}/`}>
-                            <span className="badge">AI</span>
-                            {t('aiBox', lang)}
-                          </a>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ol>
               </section>
             )}
-            <div className="side-card">
-              <h2>{lang === 'en' ? 'This view' : '今次版面'}</h2>
-              <p>
-                {view.bookmarks ? t('bookmarks', lang) : view.following ? t('following', lang) : categoryLabelI18n(view.category, lang)}
-                {view.region !== 'ALL' ? ` · ${REGIONS.find((region) => region.code === view.region)?.label}` : ''}
-              </p>
-              {view.following && follows.count > 0 && (
-                <div className="follow-list">
-                  {follows.regions.map((code) => (
-                    <button key={code} type="button" className="chip follow-chip on" onClick={() => follows.toggleRegion(code)}>
-                      {REGIONS.find((region) => region.code === code)?.label || code} ×
-                    </button>
-                  ))}
-                  {follows.categories.map((id) => (
-                    <button key={id} type="button" className="chip follow-chip on" onClick={() => follows.toggleCategory(id)}>
-                      {categoryLabelI18n(id, lang)} ×
-                    </button>
-                  ))}
-                  {follows.sources.map((name) => (
-                    <button key={name} type="button" className="chip follow-chip on" onClick={() => follows.toggleSource(name)}>
-                      {name} ×
-                    </button>
-                  ))}
-                </div>
-              )}
-              <p className="card-credit">{lang === 'en' ? 'Headlines and source links only — no full articles.' : '只列標題、來源同原文連結，不轉載內文。'}</p>
-            </div>
-          </aside>
+          </main>
         </div>
+
 
         {allowAds && <HomeIntroFoot />}
         <footer className="app-footer">
           <p>
-            {siteBrand} {lang === 'en' ? 'lists headlines and source links only.' : '只列出標題同出處連結，不轉載內文。'}
+            {siteBrand}{lang === 'en' ? ' is a civilization axis. News is one slice of today: titles and source links only.' : '是文明時間軸。新聞是軸上的今天一片，只列出標題與出處連結，不轉載內文。'}
             <a href={SITE_URL}> {SITE_URL.replace('https://', '')}</a>
             {' · '}
             <a href="/major/">{lang === 'en' ? 'Major updates' : '重大更新'}</a>

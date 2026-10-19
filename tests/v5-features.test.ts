@@ -77,15 +77,17 @@ describe('follow routing', () => {
 describe('SSR homepage feed', () => {
   it('renders hero markup and bootstrap JSON', () => {
     const html = renderHomeFeed([sample, { ...sample, id: 'bbb', title: 'Second' }]);
-    expect(html).toContain('story-hero');
+    expect(html).toContain('class="home-list"');
+    expect(html).not.toContain('story-hero');
     expect(html).toContain('港鐵宣布加價方案');
-    expect(html).toContain('/story/abc123def456/');
+    expect(html).toContain('https://example.com/a');
     const shell = '<html><head></head><body><div id="root"></div></body></html>';
     const injected = injectHomeShell(shell, [{ ...sample, excerpt: 'EXCERPT_SHOULD_NOT_LEAK_INTO_HTML' }]);
     expect(injected).toContain('id="wn-bootstrap"');
     expect(injected).not.toContain('EXCERPT_SHOULD_NOT_LEAK');
     expect(injected).not.toContain('rel="preload" as="image"');
-    expect(injected).toContain('story-hero');
+    expect(injected).toContain('class="home-list"');
+    expect(injected).not.toContain('story-hero');
   });
 });
 
