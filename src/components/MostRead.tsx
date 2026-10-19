@@ -6,7 +6,7 @@ import { trackRead } from '../utils/trackRead';
 
 interface Props {
   rows: PopularRow[];
-  variant: 'feed' | 'side';
+  variant: 'feed' | 'side' | 'below';
   lang?: UiLang;
 }
 

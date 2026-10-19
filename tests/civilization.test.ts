@@ -290,6 +290,15 @@ describe('civilization thick pages', () => {
     expect(deep).toContain('>宇宙<');
     expect(deep).not.toContain('civ-stage-');
     expect(hub.html.indexOf('class="chronicle-strip"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
+    const axisEnd = hub.html.indexOf('</section>', hub.html.indexOf('id="civ"'));
+    expect(hub.html.indexOf('id="hk-info"')).toBeGreaterThan(axisEnd);
+    expect(hub.html.indexOf('id="major-slot"')).toBeGreaterThan(hub.html.indexOf('id="hk-info"'));
+    expect(hub.html.indexOf('id="major-slot"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
+    expect(hub.html.match(/id="major-slot"/g)).toHaveLength(1);
+    const more = hub.html.slice(hub.html.indexOf('aria-label="更多欄目"'), hub.html.indexOf('</nav>', hub.html.indexOf('aria-label="更多欄目"')));
+    expect(more).not.toContain('頭條');
+    expect(more.indexOf('>日報</a>')).toBeGreaterThan(-1);
+    expect(more.indexOf('>日報</a>')).toBeLessThan(more.indexOf('>週報</a>'));
     expect(hub.html).toContain('打開完整編年');
     for (const stage of CHRONICLE_STAGES) {
       expect(hub.html).toContain(`href="/civilization/chronicle/#stage-${stage.n}"`);
@@ -861,11 +870,14 @@ describe('homepage today slice', () => {
     ], new Date('2026-10-17T04:00:00.000Z'));
     expect(html.indexOf('id="civ"')).toBeLessThan(html.indexOf('今日落點'));
     expect(html.indexOf('今日落點')).toBeLessThan(html.indexOf('id="slice"'));
-    expect(html.indexOf('id="slice"')).toBeLessThan(html.indexOf('今日必讀'));
+    expect(html).not.toContain('今日必讀');
+    expect(html).not.toContain('class="home-cards"');
+    expect(html).not.toContain('story-hero');
+    expect(html).not.toContain('civ-side');
+    expect(html).toContain('class="home-list"');
     expect(html).toContain('href="/briefing/2026-10-17-am/"');
-    expect(html).toContain('href="/explainer/unmatched/"');
+    expect(html).not.toContain('href="/explainer/unmatched/"');
     expect(html).toContain('href="/explainer/"');
-    expect(html).toContain('class="home-cards"');
     expect(html).not.toContain('coord-chip');
     expect(html).toContain('<h1 class="axis-title">站在一條很長的時間軸上</h1>');
     expect(html.indexOf('class="axis-vignette"')).toBeLessThan(html.indexOf('class="axis-title"'));
@@ -904,6 +916,8 @@ describe('homepage today slice', () => {
     expect(primary).not.toContain('/briefing/');
     const hero = html.slice(html.indexOf('class="axis-hero"'), html.indexOf('class="bulletin-clock"'));
     expect(hero).not.toContain('/learn/');
+    expect(hero).not.toContain('pattern-axis');
+    expect(hero).not.toContain('case-axis');
     expect(html).toContain('href="/civilization/#future"');
     expect(strip.match(/class="stage-dot"/g)).toHaveLength(10);
     expect(strip).not.toContain('<img');

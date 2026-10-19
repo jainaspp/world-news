@@ -101,7 +101,8 @@ describe('manual ad rhythm', () => {
   it('keeps the hero and the ranked list free of ad units during the review hold', () => {
     const items = Array.from({ length: 12 }, (_, index) => item(String(index).padStart(2, '0'), 90));
     const html = renderHomeFeed(items, new Map(), null, '1234567890');
-    expect(html.indexOf('story-hero')).toBeGreaterThan(-1);
+    expect(html).toContain('class="home-list"');
+    expect(html).not.toContain('story-hero');
     expect(html).not.toContain('ad-slot');
     expect(html).not.toContain('adsbygoogle');
     const list = html.slice(html.indexOf('class="home-list"'));
@@ -120,7 +121,11 @@ describe('title language', () => {
 describe('column navigation', () => {
   it('keeps section tabs and a link home, without the full category row', () => {
     const html = chrome('digest');
-    expect(html).toContain('>頭條</a>');
+    expect(html).not.toContain('>頭條</a>');
+    const more = html.slice(html.indexOf('aria-label="更多欄目"'), html.indexOf('</nav>', html.indexOf('aria-label="更多欄目"')));
+    expect(more.indexOf('>日報</a>')).toBeGreaterThan(-1);
+    expect(more.indexOf('>日報</a>')).toBeLessThan(more.indexOf('>週報</a>'));
+    expect(more).not.toContain('頭條');
     expect(html).toContain('>日報</a>');
     expect(html).toContain('>週報</a>');
     expect(html).toContain('>分析</a>');
