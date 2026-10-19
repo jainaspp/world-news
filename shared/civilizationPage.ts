@@ -1,5 +1,6 @@
 import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPage.js';
 import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderChronicleStrip, renderStageGrid } from './civilization/chronicle.js';
+import { renderPatternAxisLinks, renderPatternBoard } from './civilization/patterns.js';
 import { renderCityArticle, cityIndexable } from './civilization/city.js';
 import { cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
 import { earthIndexable, renderEarthArticle } from './civilization/earth.js';
@@ -213,6 +214,7 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
       <a class="btn btn-ghost" href="${esc(todayHref)}">跳到今日切片</a>
     </div>
     ${renderChronicleStrip()}
+    ${renderPatternAxisLinks()}
   </section>`;
 }
 
@@ -380,6 +382,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
       <p>${esc(HUB_LOCAL)}</p>
       <p><a href="/civilization/tech/">科技與發現</a> · <a href="/civilization/city/">城市・基建・民生</a></p>
       <p><a href="/hk/landmarks/science-museum/">香港科學館</a> · <a href="/hk/landmarks/space-museum/">香港太空館</a></p>
+      ${renderPatternBoard()}
     </article>
     ${renderLayerAside()}`;
   return shell({
