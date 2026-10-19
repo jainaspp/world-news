@@ -328,7 +328,9 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
       </div>
     </header>
     <div class="tab-bar">
-      ${primary}
+      <div class="chip-scroller">
+        ${primary}
+      </div>
       <details class="nav-more">
         <summary>更多</summary>
         <nav class="filters" aria-label="更多欄目">
