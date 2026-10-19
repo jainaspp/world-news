@@ -6,6 +6,13 @@
  */
 export const siteBrand = '文明編年史';
 
+/**
+ * Same string as `CACHE` in public/sw.js.
+ * Header logo URLs carry it so a worker still on the previous cache cannot
+ * keep serving /brand/logo*.svg cache-first.
+ */
+export const swCacheName = 'wn-v18';
+
 /** Homepage document title, og:title, and twitter:title. */
 export const siteTitle = '文明編年史 — 從宇宙到今天';
 

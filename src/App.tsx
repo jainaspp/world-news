@@ -15,7 +15,7 @@ import { renderNearBridge } from '../shared/civilization/renderSlice';
 import { columnHref, DEFAULT_BRIEFING_LINKS, homeDigestLinks, type HomeColumnLinks } from '../shared/homePage';
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
-import { siteBrand, siteTitle } from '../shared/brand';
+import { siteBrand, siteTitle, swCacheName } from '../shared/brand';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
@@ -94,10 +94,10 @@ const PAGE_SIZE = 16;
 function Logo() {
   return (
     <span className="logo-frame">
-      <img className="logo-full logo-light" src="/brand/logo.svg" alt="" />
-      <img className="logo-full logo-dark" src="/brand/logo-dark.svg" alt="" />
-      <img className="logo-compact logo-light" src="/brand/logo-compact.svg" alt="" />
-      <img className="logo-compact logo-dark" src="/brand/logo-compact-dark.svg" alt="" />
+      <img className="logo-full logo-light" src={`/brand/logo.svg?v=${swCacheName}`} alt="" />
+      <img className="logo-full logo-dark" src={`/brand/logo-dark.svg?v=${swCacheName}`} alt="" />
+      <img className="logo-compact logo-light" src={`/brand/logo-compact.svg?v=${swCacheName}`} alt="" />
+      <img className="logo-compact logo-dark" src={`/brand/logo-compact-dark.svg?v=${swCacheName}`} alt="" />
     </span>
   );
 }

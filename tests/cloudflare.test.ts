@@ -30,6 +30,7 @@ describe('Cloudflare Pages', () => {
     expect(headers).toContain('Referrer-Policy: strict-origin-when-cross-origin');
     expect(headers).toContain('Strict-Transport-Security: max-age=63072000; includeSubDomains; preload');
     expect(headers).toMatch(/\/assets\/\*[\s\S]*Cache-Control: public, max-age=31536000, immutable/);
+    expect(headers).toMatch(/\/sw\.js[\s\S]*Cache-Control: no-cache/);
 
     const wrangler = readFileSync('wrangler.toml', 'utf8');
     expect(wrangler).toMatch(/name = "world-news"/);

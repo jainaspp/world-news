@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { hkoIconEmoji } from '../shared/hk';
+import { swCacheName } from '../shared/brand';
 import { chrome } from '../shared/contentPage';
 import { wmoEmoji } from '../shared/wx';
 import { arrivedIds, newItems } from '../src/hooks/useNews';
@@ -131,9 +132,21 @@ describe('shared header wordmark', () => {
   it('does not paint a live pulse on the chronicle mark', () => {
     const html = chrome('digest');
     expect(html).toContain('logo-frame');
-    expect(html).toContain('/brand/logo.svg');
+    expect(html).toContain(`/brand/logo.svg?v=${swCacheName}`);
+    expect(html).toContain(`/brand/logo-dark.svg?v=${swCacheName}`);
+    expect(html).toContain(`/brand/logo-compact.svg?v=${swCacheName}`);
+    expect(html).toContain(`/brand/logo-compact-dark.svg?v=${swCacheName}`);
     expect(html).not.toContain('logo-live');
-    expect(readFileSync('src/App.tsx', 'utf8')).not.toContain('logo-live');
+    expect(html).not.toContain('logo-word');
+    expect(html).not.toContain('世界頭條');
+    const app = readFileSync('src/App.tsx', 'utf8');
+    expect(app).not.toContain('logo-live');
+    expect(app).toContain(`/brand/logo.svg?v=\${swCacheName}`);
+    const sw = readFileSync('public/sw.js', 'utf8');
+    expect(sw).toContain(`const CACHE = '${swCacheName}'`);
+    expect(sw).not.toContain('wn-v17');
+    expect(sw).toContain('self.skipWaiting()');
+    expect(sw).toContain('self.clients.claim()');
     const css = readFileSync('src/App.css', 'utf8');
     const enableAt = css.indexOf('@media (prefers-reduced-motion: no-preference)');
     const reduceAt = css.indexOf('@media (prefers-reduced-motion: reduce)');
