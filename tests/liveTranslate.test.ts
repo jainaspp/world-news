@@ -263,9 +263,11 @@ describe('page wiring', () => {
     expect(client).not.toContain('wn-home-template');
     expect(client).not.toContain('view=list');
     const app = readFileSync('src/App.tsx', 'utf8');
-    expect(app.indexOf('<DigestStrip lang={lang} />')).toBeLessThan(app.indexOf('listMode ?'));
-    expect(app).toContain("t('layoutCards', lang)");
-    expect(app).toContain("t('layoutList', lang)");
+    expect(app).toContain('<DigestStrip />');
+    expect(app).toContain('className="home-list"');
+    expect(app).not.toContain('listMode');
+    expect(app).not.toContain("t('layoutCards', lang)");
+    expect(app).not.toContain("t('layoutList', lang)");
     expect(app).not.toContain('data-wn-template-switch');
     const route = readFileSync('functions/api/translate.ts', 'utf8');
     expect(route).toContain('context.env.AI');

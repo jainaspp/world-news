@@ -1,3 +1,4 @@
+import { siteBrand } from './brand.js';
 import { FEEDS } from './feeds.js';
 import { chrome, esc, footer, head } from './contentPage.js';
 import { homeIntroBody } from './homeIntro.js';
@@ -52,17 +53,17 @@ export function renderAboutPage(): string {
   const body = `
     <header class="index-head">
       <h1 class="column-title">關於我們</h1>
-      <p class="dek">世界頭條（world-news.xyz）是香港繁體中文的新聞標題板，加上由編輯部設定的 AI 整合欄目。</p>
+      <p class="dek">${esc(siteBrand)}（world-news.xyz）是一座文明時間軸。今天的新聞是軸上的切片，加上由編輯部設定的 AI 整合欄目。</p>
     </header>
     ${section('網站簡介', homeIntroBody())}
-    ${section('這個網站做什麼', `<p>世界頭條一次列出各地公開報道的標題、來源名稱、時間，以及前往原文的連結。介面使用繁體中文（香港）。我們不是通訊社，也不轉載其他機構的新聞全文。</p>`)}
+    ${section('這個網站做什麼', `<p>${esc(siteBrand)}把公開報道收成時間軸上的一片：標題、來源名稱、時間，以及前往原文的連結。介面使用繁體中文（香港）。本站不是通訊社，也不轉載其他機構的新聞全文。</p>`)}
     ${section('標題如何收集', `<p>標題來自公開的 RSS。程式只保留標題、來源名稱、時間、分類，以及 RSS 若有提供的縮圖網址。解析時會捨棄內文，不會儲存或顯示全文，也不會把圖片下載到我們的伺服器。</p><p>卡片上的「閱讀原文」會離開本站，前往原來的出版者。標題本身仍可能受版權保護；我們的做法是短標題加出處連結，不是取得轉載授權。</p>`)}
     ${section('AI 整合如何產生', `<p>日報、週報與熱門分析會在頁面標明<span class="badge ai-badge">AI 整合</span>。模型根據已收錄的標題與短摘錄，用繁體中文整理成摘要，並附上原文連結。</p><p>熱門分析針對多間媒體同時報道的同一件事，分成背景、各方說法等小節。一週回顧整理科技與財經標題。</p>`)}
     ${section('編輯原則', `<ul class="points"><li>不轉載新聞全文，也不把標題寫成本站的獨家報道。</li><li>AI 摘要必須標明，並且可以追到出處。</li><li>材料不足就寫短，或者整段不寫，不用空話填篇幅。</li><li>廣告只出現在未篩選首頁，以及有實質內文的欄目（含懶人包、專題、當年今日與地標）。標題頁、搜尋、地區與分類結果不放廣告。版位未設定時不留廣告框。</li><li>個別來源的授權並不一致。若某個來源不允許這種展示，應把它拿掉。</li></ul>`)}
     ${section('來源', `<p>下面的名單由網站現用的公開 RSS 產生。名稱連到該機構的網站，不是轉載許可。</p>${feedList()}`)}
     ${section('更多', `<p>私隱做法見<a href="/privacy/">私隱政策</a>，使用範圍見<a href="/terms/">使用條款</a>。有問題請用<a href="/contact/">聯絡表格</a>，本站沒有公開電郵。</p>`)}
   `;
-  return shell('關於我們', '世界頭條如何收集公開 RSS 標題，以及 AI 整合欄目如何寫成、如何標明。', '/about/', body);
+  return shell('關於我們', `${siteBrand}如何把今天的公開標題放在文明時間軸上，以及 AI 整合欄目如何寫成、如何標明。`, '/about/', body);
 }
 
 export function renderPrivacyPage(): string {

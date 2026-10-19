@@ -207,7 +207,7 @@ describe('trend chart and HK summary', () => {
       days: [day('2026-10-07', { temp: 28, humidity: 75, rain: 0 })],
     };
     const html = renderDataPage(spec, series, { client: 'ca-pub-8392975944327076' });
-    expect(html).toContain('<title>香港天氣 — 世界頭條</title>');
+    expect(html).toContain('<title>香港天氣 — 文明編年史</title>');
     expect(html).toContain('name="description"');
     expect(html).toContain(spec.description);
     expect(html).toContain('rel="canonical" href="https://world-news.xyz/data/weather/"');
@@ -238,16 +238,16 @@ describe('homepage intro stays in the HTML without leading the screen', () => {
   it('puts a short line and toggle above the news, and the full text above the footer', () => {
     const html = renderHomeFeed([headline('a'), headline('b')]);
     const top = html.indexOf('home-intro-top');
-    const news = html.indexOf('top-stories');
+    const news = html.indexOf('class="home-list"');
     const foot = html.indexOf('home-intro-foot');
     const footer = html.indexOf('app-footer');
     expect(top).toBeGreaterThan(-1);
     expect(top).toBeLessThan(news);
     expect(news).toBeLessThan(foot);
     expect(foot).toBeLessThan(footer);
-    expect(html).toContain('了解更多');
+    expect(html).not.toContain('了解更多');
     expect(html).toContain(HOME_INTRO_LINE);
-    expect(html.split(HOME_INTRO).length - 1).toBe(2);
+    expect(html.split(HOME_INTRO).length - 1).toBe(1);
     expect(html).toContain('href="/briefing/"');
     expect(html).toContain('href="/explainer/"');
     expect(html).toContain('每日香港導讀');

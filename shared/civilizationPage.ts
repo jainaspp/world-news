@@ -1,3 +1,4 @@
+import { siteBrand } from './brand.js';
 import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPage.js';
 import { CHRONICLE_STAGES, chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderChronicleStrip, renderStageGrid } from './civilization/chronicle.js';
 import { renderBulletinClock } from './civilization/clock.js';
@@ -32,7 +33,7 @@ const ORIGIN = 'https://world-news.xyz';
  */
 const CIV_MOTION_BOOT = '<script>try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("civ-motion");setTimeout(function(){var root=document.documentElement;if(!root.classList.contains("civ-motion")||root.hasAttribute("data-civ-motion"))return;if(document.querySelector(".civ-reveal:not(.is-inview):not(.civ-reveal--above-fold)"))root.classList.remove("civ-motion")},1500)}}catch(e){}</script>';
 
-const HUB_LEDE = '世界頭條把每日新聞放在人類文明的時間軸上。讀者先看見深時間、技術發現與城市公共生活的尺度，再進入今天的切片。遠史只收溫和題材，用來說明今日切片何以落在這一日。新聞是軸上的今天，不是整站的皮膚。本頁寫明閱讀方法、起源層的實質摘要，以及三則可以核對的里程碑。技術與城市已各有長頁。仍未寫厚的層次不另開網址，也不進入網站地圖。';
+const HUB_LEDE = `${siteBrand}把每日新聞放在人類文明的時間軸上。讀者先看見深時間、技術發現與城市公共生活的尺度，再進入今天的切片。遠史只收溫和題材，用來說明今日切片何以落在這一日。新聞是軸上的今天，不是整站的皮膚。本頁寫明閱讀方法、起源層的實質摘要，以及三則可以核對的里程碑。技術與城市已各有長頁。仍未寫厚的層次不另開網址，也不進入網站地圖。`;
 
 const HUB_ORIGINS = '約三十萬年前，解剖學上的現代人已能在非洲化石中辨認。摩洛哥 Jebel Irhoud 等地點常被公共科普引為重要證據之一，但現代人起源是非洲內部的長期過程，不是單一洞穴的一日事件。約六萬至四萬五千年前的主要擴張，使現代人分布到歐亞等地，並與尼安德特人、丹尼索瓦人發生有限的基因交流。比例與時間仍有學術爭議，本站不作人群比較。約一萬一千七百年前全新世開始之後，農業與定居轉入城市和基建，不放進起源的月日卡。全文見人類起源時間線。';
 
@@ -193,13 +194,22 @@ function originsArticle(body: string): string {
   return html;
 }
 
-/** Primary row only. 導讀、懶人包 and the other news columns stay inside #slice or 更多. */
+/** Primary row: 文明｜編年｜今天｜開蒙. Column links stay in 更多, outside this nav. */
 export function renderCivNav(topic = false): string {
   void topic;
-  return `<nav class="civ-nav" aria-label="主欄目"><a class="chip civ-chip" href="/civilization/">文明</a><a class="chip" href="/#slice">今天</a><a class="chip" href="/learn/">開蒙</a></nav>`;
+  return `<nav class="civ-nav" aria-label="主欄目"><a class="chip civ-chip" href="/civilization/">文明</a><a class="chip" href="/civilization/chronicle/">編年</a><a class="chip" href="/#slice">今天</a><a class="chip" href="/learn/">開蒙</a></nav>`;
 }
 
-export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: string; todayHref?: string; asHeading?: boolean; strip?: boolean } = {}): string {
+/** Pattern and case chips sit below the clock and the chronicle, not inside the hero. */
+export function renderAxisRails(): string {
+  return `<div class="axis-rails" aria-label="模式與案例">${renderPatternAxisLinks()}${renderCaseAxisLinks()}</div>`;
+}
+
+export function renderHomeChronicle(): string {
+  return `<div class="chronicle-band">${renderChronicleStrip()}</div>`;
+}
+
+export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: string; todayHref?: string; asHeading?: boolean; strip?: boolean; rails?: boolean } = {}): string {
   const primaryHref = options.primaryHref ?? '/civilization/';
   const primaryLabel = options.primaryLabel ?? '打開文明總覽';
   const todayHref = options.todayHref ?? '#slice';
@@ -207,7 +217,9 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
     ? '<p class="axis-title">站在一條很長的時間軸上</p>'
     : '<h1 class="axis-title">站在一條很長的時間軸上</h1>';
   const strip = options.strip === false ? '' : renderChronicleStrip();
-  return `<section class="axis-hero" id="civ" aria-label="文明軸">
+  const rails = options.rails === false ? '' : `${renderPatternAxisLinks()}${renderCaseAxisLinks()}`;
+  const slim = options.rails === false ? ' axis-slim' : '';
+  return `<section class="axis-hero${slim}" id="civ" aria-label="文明軸">
     <div class="axis-vignette" aria-hidden="true"></div>
     <p class="kicker">Human span · 溫和史</p>
     ${title}
@@ -221,8 +233,7 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
       <a class="btn btn-ghost" href="${esc(todayHref)}">跳到今日切片</a>
     </div>
     ${strip}
-    ${renderPatternAxisLinks()}
-    ${renderCaseAxisLinks()}
+    ${rails}
   </section>`;
 }
 
@@ -303,7 +314,11 @@ export function renderLayerAside(): string {
 }
 
 export function sliceHeadHtml(): string {
-  return `<div class="slice-head"><h2>今日切片</h2><span class="tag">NEWS ON THE AXIS</span></div><p class="slice-note">導讀、懶人包與最新標題嵌在文明軸之下。有溫和史對照時才顯示層與年代。近層把今日問題連回軸上先例。</p>`;
+  return `<div class="slice-head"><h2>今日切片</h2><span class="tag">ON THE AXIS</span></div><p class="slice-note">軸上的今天。這裡只放標題，不另起一面牆。</p>`;
+}
+
+export function moreTodayHtml(): string {
+  return `<p class="more-today"><a href="/today/">更多今日</a><span>全日多方時間線，不是軸上的今天。</span></p>`;
 }
 
 export function wrapCivilizationHome(inner: string, now = new Date(), topic = false, options: { pageH1?: string } = {}): string {
@@ -311,21 +326,19 @@ export function wrapCivilizationHome(inner: string, now = new Date(), topic = fa
   const heading = pageH1 ? `<h1 class="focus-title">${esc(pageH1)}</h1>` : '';
   return `${renderCivNav(topic)}
   <div class="civ-home">
-    ${renderAxisBand({ asHeading: !pageH1, strip: false })}
+    ${renderAxisBand({ asHeading: !pageH1, strip: false, rails: false })}
     ${renderBulletinClock()}
-    ${renderChronicleStrip()}
-    <div class="civ-frame">
-      <div class="civ-main">
-        ${renderTodayPin(now)}
-        <section class="today-slice" id="slice" aria-label="今日切片">
-          ${heading}
-          ${sliceHeadHtml()}
-          ${renderNearBridge()}
-          ${inner}
-        </section>
-      </div>
-      <aside class="civ-side">${renderLayerAside()}</aside>
-    </div>
+    ${renderHomeChronicle()}
+    ${renderAxisRails()}
+    ${renderTodayPin(now)}
+    <section class="today-slice" id="slice" aria-label="今日切片">
+      ${heading}
+      ${sliceHeadHtml()}
+      ${renderNearBridge()}
+      ${inner}
+    </section>
+    ${moreTodayHtml()}
+    ${renderLayerAside()}
   </div>`;
 }
 
@@ -353,6 +366,36 @@ ${head(options.title, options.description, canonical, '', 'website', `${robots}\
 </body>
 </html>`;
   return { html, status: options.status ?? 200, indexable: options.indexable };
+}
+
+/** Weather ticker and 重大更新 sit under the axis, not in the chrome above it. */
+function moveHubSignalsBelowAxis(html: string): string {
+  const hkRe = /<div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"><\/div>/;
+  const majorRe = /<div id="major-slot"><\/div>/;
+  const hk = html.match(hkRe)?.[0];
+  const major = html.match(majorRe)?.[0];
+  if (!hk || !major) return html;
+  const stripped = html.replace(hkRe, '').replace(majorRe, '');
+  const start = stripped.indexOf('id="civ"');
+  if (start < 0) return html;
+  const open = stripped.lastIndexOf('<section', start);
+  let depth = 0;
+  const re = /<\/?section\b[^>]*>/g;
+  re.lastIndex = open;
+  let match: RegExpExecArray | null;
+  while ((match = re.exec(stripped))) {
+    if (match[0].startsWith('</')) {
+      depth -= 1;
+      if (depth === 0) {
+        const at = match.index + match[0].length;
+        const block = `\n    <div class="civ-hub-signals">${hk}${major}</div>`;
+        return stripped.slice(0, at) + block + stripped.slice(at);
+      }
+    } else {
+      depth += 1;
+    }
+  }
+  return html;
 }
 
 function milestoneList(): string {
@@ -392,13 +435,14 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
       ${renderPatternBoard()}
     </article>
     ${renderLayerAside()}`;
-  return shell({
+  const page = shell({
     title: '人類文明',
     description: '從深時間到今日切片的溫和文明總覽。',
     path: '/civilization/',
     body,
     indexable,
   });
+  return { ...page, html: moveHubSignalsBelowAxis(page.html) };
 }
 
 export function renderCosmosPage(): { html: string; status: number; indexable: boolean } {

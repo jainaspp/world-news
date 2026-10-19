@@ -1,3 +1,4 @@
+import { siteBrand } from './brand.js';
 import { adsRuntimeEnabled } from './adPolicy.js';
 import { hasManualSlots } from './adSlot.js';
 import type { AdConfig } from './contentPage.js';
@@ -119,7 +120,7 @@ function relatedNav(current: string): string {
 function sourceCard(spec: DataPageSpec, days: DataDay[]): string {
   const updated = days[days.length - 1]?.updated || '';
   const when = updated ? `<time datetime="${esc(updated)}">${esc(formatUpdated(updated))}</time>` : '尚無更新時間';
-  return `<section class="side-card" aria-label="來源"><h2>來源</h2><p>數字來自<a href="${esc(spec.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(spec.sourceName)}</a>。世界頭條每日記錄一筆，不經 AI 改寫。</p><p class="data-updated">更新時間：${when}</p></section>`;
+  return `<section class="side-card" aria-label="來源"><h2>來源</h2><p>數字來自<a href="${esc(spec.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(spec.sourceName)}</a>。${esc(siteBrand)}每日記錄一筆，不經 AI 改寫。</p><p class="data-updated">更新時間：${when}</p></section>`;
 }
 
 function jsonLd(name: string, description: string, canonical: string, updated: string): string {
@@ -130,7 +131,7 @@ function jsonLd(name: string, description: string, canonical: string, updated: s
     description,
     url: canonical,
     inLanguage: 'zh-HK',
-    creator: { '@type': 'Organization', name: '世界頭條' },
+    creator: { '@type': 'Organization', name: siteBrand },
     ...(updated ? { dateModified: updated } : {}),
   };
   return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;

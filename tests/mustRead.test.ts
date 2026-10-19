@@ -38,10 +38,10 @@ describe('今日必讀 and fail-page gates', () => {
       item('bad', 'livestream execution filmed overnight', '2026-10-09T01:00:00Z'),
       item('ok', '港鐵公布票價檢討', '2026-10-09T02:00:00Z'),
     ], new Map(), null, '', null, '', [], [{ href: '/explainer/a/', title: '睡蓮新種', description: '雨林發現新品種。' }]);
-    expect(home.indexOf('港鐵公布票價檢討')).toBeGreaterThan(home.indexOf('story-hero'));
+    expect(home).not.toContain('story-hero');
+    expect(home).not.toContain('今日必讀');
+    expect(home).not.toContain('/explainer/a/');
     expect(home.indexOf('港鐵公布票價檢討')).toBeLessThan(home.indexOf('livestream execution'));
-    expect(home).toContain('今日必讀');
-    expect(home).toContain('/explainer/a/');
     expect(demoteGraphic([item('bad', 'execution by firing squad', '2026-10-09T01:00:00Z'), item('ok', '港鐵', '2026-10-09T02:00:00Z')])[0]?.title).toBe('港鐵');
     expect(readFileSync('functions/content/sitemapPublish.ts', 'utf8')).toContain('indexableEntries');
     expect(readFileSync('functions/content/publish.ts', 'utf8')).toContain('indexableEntries');

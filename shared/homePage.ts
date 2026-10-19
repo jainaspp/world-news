@@ -1,14 +1,12 @@
 import { adsRuntimeEnabled, FEED_AD_EVERY } from './adPolicy.js';
-import { demoteGraphic, mustReadBootstrap, renderMustRead, type MustReadLink } from './mustRead.js';
+import { demoteGraphic, mustReadBootstrap, type MustReadLink } from './mustRead.js';
 import { adSlotMarkup } from './adSlot.js';
 import type { MajorEntry } from './angles.js';
 import { breakingIds } from './breaking.js';
-import { categoryLabel } from './categories.js';
 import { analysisSlug } from './content.js';
-import { LAYOUT_CARDS_HK, LAYOUT_LIST_HK, rankHeatCount } from './homeTemplate.js';
-import { esc, favicon, footer, media, safeHttp } from './contentPage.js';
+import { rankHeatCount } from './homeTemplate.js';
+import { esc, footer, safeHttp } from './contentPage.js';
 import { homeIntroFoot, homeIntroTop, type IntroHref } from './homeIntro.js';
-import { renderHkInfo } from './hkInfo.js';
 import { renderMajorBanner } from './majorPage.js';
 import type { HkNow } from './hk.js';
 import type { HsiQuote } from './hsi.js';
@@ -21,7 +19,26 @@ export interface HomeMarket {
   hsi: HsiQuote | null;
 }
 
-const SSR_COUNT = 12;
+const SSR_COUNT = 16;
+
+export interface HomeDigestLink {
+  href: string;
+  label: string;
+  primary?: boolean;
+}
+
+/** At most two slice links: the first briefing, then a digest or the explainer. */
+export function homeDigestLinks(
+  briefingLinks: { href: string; label: string }[],
+  columns: HomeColumnLinks = {},
+): HomeDigestLink[] {
+  const links: HomeDigestLink[] = [];
+  const brief = briefingLinks[0];
+  if (brief) links.push({ href: brief.href, label: brief.label });
+  if (columns.digestHref && links.length < 2) links.push({ href: columns.digestHref, label: '今日精選', primary: true });
+  if (links.length < 2) links.push({ href: '/explainer/', label: '新聞懶人包' });
+  return links.slice(0, 2);
+}
 
 export const DEFAULT_BRIEFING_LINKS = [
   { href: '/briefing/', label: '每日香港導讀' },
@@ -84,19 +101,14 @@ function introHref(columns: HomeColumnLinks): IntroHref {
   return (href) => columnHref(columns, href);
 }
 
-function templateSwitch(): string {
-  return `<div class="template-switch" role="group" aria-label="版面"><button type="button" data-wn-template-switch data-layout="cards" aria-pressed="true">${LAYOUT_CARDS_HK}</button><button type="button" data-wn-template-switch data-layout="list" aria-pressed="false">${LAYOUT_LIST_HK}</button></div><script>try{var on=document.documentElement.classList.contains("wn-list");var box=document.currentScript.previousElementSibling;if(box){var nodes=box.querySelectorAll("[data-wn-template-switch]");for(var i=0;i<nodes.length;i++){var list=nodes[i].getAttribute("data-layout")==="list";nodes[i].setAttribute("aria-pressed",list===on?"true":"false")}}}catch(e){}</script>`;
-}
-
-/** Digest strip weights: 導讀＞懶人包＞專題. Thin digest, weekly, analysis, quiz and topic hubs stay off until they clear the public floor. */
+/** At most two links. Other columns stay in 更多 and the footer. */
 function digestStrip(briefingLinks: { href: string; label: string }[], columns: HomeColumnLinks = {}): string {
-  const briefs = briefingLinks.map((link) => `<a class="chip digest-keep" href="${esc(link.href)}">${esc(link.label)}</a>`).join('');
-  const digest = columns.digestHref ? `<a class="chip digest-primary active" href="${esc(columns.digestHref)}">今日精選</a>` : '';
-  const topic = columns.topic ? '<a class="chip digest-keep" href="/topic/">專題懶人包</a>' : '';
-  const weekly = columns.weeklyHref ? `<a class="chip digest-keep" href="${esc(columns.weeklyHref)}">週報</a>` : '';
-  const analysis = columns.analysis ? '<a class="chip digest-keep" href="/analysis/">熱門分析</a>' : '';
-  const quiz = columns.quiz ? '<a class="chip" href="/quiz/">每日小測</a>' : '';
-  return `<aside class="digest-strip" aria-label="精選欄目"><span class="badge">AI</span>${digest}${briefs}<a class="chip digest-keep" href="/explainer/">新聞懶人包</a>${topic}${weekly}${analysis}<a class="chip" href="/data/">數據</a>${quiz}</aside>`;
+  const links = homeDigestLinks(briefingLinks, columns).map((link) => {
+    const klass = link.primary ? 'chip digest-primary active' : 'chip digest-keep';
+    return `<a class="${klass}" href="${esc(link.href)}">${esc(link.label)}</a>`;
+  }).join('');
+  if (!links) return '';
+  return `<aside class="digest-strip" aria-label="切片入口">${links}</aside>`;
 }
 
 function rankList(items: NewsItem[], counts: Map<string, number>, feedSlot: string): string {
@@ -132,29 +144,6 @@ function rankList(items: NewsItem[], counts: Map<string, number>, feedSlot: stri
   return `<div class="home-list">${parts.join('')}</div>`;
 }
 
-function card(item: NewsItem, featured: boolean, sourceCount: number, showBreaking: boolean): string {
-  const articleUrl = safeHttp(item.link);
-  const sourceUrl = safeHttp(item.sourceUrl);
-  const title = esc(item.title);
-  const lang = titleLang(item.title);
-  const href = articleUrl ? ` href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer"` : '';
-  const mediaHtml = articleUrl
-    ? `<a class="story-media" href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">${media(item.image, item.category, item.source, false)}</a>`
-    : `<div class="story-media">${media(item.image, item.category, item.source, false)}</div>`;
-  const fav = favicon(sourceUrl || articleUrl);
-  const titleClass = lang === 'zh' ? 'story-title' : 'story-title title-sans';
-  return `<article class="story${featured ? ' story-hero' : ''}">
-    ${mediaHtml}
-    <div class="story-body">
-      <div class="story-kicker"><span class="kicker-region">${esc(categoryLabel(item.category ?? 'world'))}</span>${showBreaking ? '<span class="breaking">快訊</span>' : ''}</div>
-      <h2 class="${titleClass}" lang="${lang === 'zh' ? 'zh-HK' : lang}">${articleUrl ? `<a${href}>${title}</a>` : title}</h2>
-      <div class="story-meta">${fav}${sourceUrl ? `<a class="source-tag" href="${esc(sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(item.source)}</a>` : `<span class="source-tag">${esc(item.source)}</span>`}${item.pubDate ? `<time datetime="${esc(item.pubDate)}">${esc(timeAgo(item.pubDate))}</time>` : ''}${sourceCount >= 2 ? `<a class="cluster-badge cluster-link" href="/story/${esc(item.id)}/">${sourceCount} 間媒體報道 →</a>` : ''}</div>
-      ${articleUrl ? `<div class="card-links"><a class="read-original" href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer">閱讀原文</a><a class="read-original story-link" href="/story/${esc(item.id)}/">${sourceCount >= 2 ? '各媒體報道' : '相關頭條'}</a></div>` : ''}
-      <p class="card-credit">標題來自 ${esc(item.source)}。全文請到原文網站閱讀。</p>
-    </div>
-  </article>`;
-}
-
 /** First-page feed HTML so mobile LCP does not wait on React + /api/news. */
 export function renderHomeFeed(
   items: NewsItem[],
@@ -170,44 +159,30 @@ export function renderHomeFeed(
   columns: HomeColumnLinks = {},
   pageH1 = '',
 ): string {
+  void market;
+  void mustRead;
   const frame = (inner: string) => wrapCivilizationHome(inner, now, Boolean(columns.topic), { pageH1 });
   const list = demoteGraphic(items).slice(0, SSR_COUNT);
   if (!list.length) {
     const panel = settled
       ? '<div class="status-panel"><h2>這個範圍暫時沒有標題</h2><p>可以返回首頁，或改看其他地區與分類。</p></div>'
-      : '<div class="status-panel" aria-busy="true"><h2>載入頭條中…</h2><p>正在取得最新標題。</p></div>';
-    const inner = `${digestStrip(briefingLinks, columns)}${renderMustRead(mustRead)}<div class="template-bar">${templateSwitch()}</div>${panel}`;
+      : '<div class="status-panel" aria-busy="true"><h2>載入今日切片…</h2><p>正在取得最新標題。</p></div>';
+    const inner = `${homeIntroTop(introHref(columns))}${digestStrip(briefingLinks, columns)}${panel}`;
     return `<a class="skip-link" href="#slice">跳到今日切片</a>
   <div class="page ssr-home">
     ${frame(inner)}
     ${footer()}
   </div>`;
   }
-  const fresh = breakingIds(list);
-  const [hero, ...rest] = list;
-  const top = hero ? `<div class="top-stories">${card(hero, true, counts.get(hero.id) ?? 0, fresh.has(hero.id))}</div>` : '';
-  const grid = rest.map((item, index) => {
-    const html = card(item, false, counts.get(item.id) ?? 0, fresh.has(item.id));
-    return (index + 1) % FEED_AD_EVERY === 0 ? html + adSlotMarkup('feed', feedSlot) : html;
-  }).join('');
-  const info = renderHkInfo(market?.hk, market?.hsi);
   const major = banner ? `${renderMajorBanner(banner)}<script>try{var n=document.currentScript.previousElementSibling;if(n&&localStorage.getItem('wn-major-dismiss')===n.getAttribute('data-major-id'))n.remove()}catch(e){}</script>` : '';
-  const inner = `<div class="template-bar">${templateSwitch()}</div>
-    ${major}
+  const inner = `${major}
     ${homeIntroTop(introHref(columns))}
     ${digestStrip(briefingLinks, columns)}
-    ${renderMustRead(mustRead)}
     ${focusHtml.trim()}
-    ${info}
-    <p class="feed-divider" role="presentation"><span>最新標題</span></p>
-    <div class="home-cards">
-      ${top}
-      <div class="news-grid">${grid}</div>
-    </div>
     ${rankList(list, counts, feedSlot)}`;
   return `<a class="skip-link" href="#slice">跳到今日切片</a>
   <div class="page ssr-home">
-    <main id="news">
+    <main id="today">
       ${frame(inner)}
     </main>
     ${homeIntroFoot(introHref(columns))}

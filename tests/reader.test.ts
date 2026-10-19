@@ -226,6 +226,7 @@ describe('feed and telegram', () => {
   it('renders an RSS item and skips telegram when secrets are missing', async () => {
     const xml = renderFeed([{ title: '早報', href: 'https://world-news.xyz/briefing/2026-10-08-am/', summary: '三行重點', publishedAt: now.toISOString() }]);
     expect(xml).toContain('<rss version="2.0">');
+    expect(xml).toContain('<title>文明編年史 · 今天切片</title>');
     expect(xml).toContain('https://world-news.xyz/briefing/2026-10-08-am/');
     expect(telegramTarget({})).toBeNull();
     expect(telegramTarget({

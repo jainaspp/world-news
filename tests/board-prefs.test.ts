@@ -60,7 +60,7 @@ describe('board prefs', () => {
       expect(text).not.toContain('熱門排行');
     }
     expect(readFileSync('src/components/TrendingTopics.tsx', 'utf8')).toContain('id="hot-search"');
-    expect(readFileSync('src/App.tsx', 'utf8')).toContain("t('multiCoverage'");
+    expect(readFileSync('src/App.tsx', 'utf8')).toContain('variant="below"');
     expect(readFileSync('src/hooks/useBoard.ts', 'utf8')).toContain('if (!enabled) return');
   });
 });

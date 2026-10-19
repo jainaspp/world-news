@@ -33,7 +33,7 @@ function itemList(items) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: '世界頭條',
+    name: '文明編年史',
     itemListElement: items.map((item, index) => ({
       '@type': 'ListItem',
       position: index + 1,
