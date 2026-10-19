@@ -706,12 +706,23 @@ function instancesFor(domainId: string): readonly FutureInstance[] {
   return FUTURE_INSTANCES.filter((card) => card.domainId === domainId);
 }
 
+/**
+ * 紙卡升起只加 class，不改句子。
+ * 首兩張域卡是桌面首排，標成首屏並帶 is-inview，錨點落地時不先透明。
+ * 其餘域卡交給既有 IntersectionObserver。
+ */
+function domainClass(index: number): string {
+  return index < 2
+    ? 'future-domain civ-reveal civ-reveal--above-fold is-inview'
+    : 'future-domain civ-reveal';
+}
+
 function renderDomains(): string {
   const chips = FUTURE_DOMAINS.map((domain) => `<a href="#${esc(domain.anchor)}">${esc(domain.code)} ${esc(domain.title)}</a>`).join('');
-  const cards = FUTURE_DOMAINS.map((domain) => {
+  const cards = FUTURE_DOMAINS.map((domain, index) => {
     const links = instancesFor(domain.id).map((card) => `<a href="#${esc(card.anchor)}">${esc(card.title)}</a>`).join('');
     const more = links ? `<p class="stage-links">${links}</p>` : '';
-    return `<article class="future-domain" id="${esc(domain.anchor)}">
+    return `<article class="${domainClass(index)}" id="${esc(domain.anchor)}">
       <p class="future-kicker">${esc(domain.code)}</p>
       <h3>${esc(domain.title)}</h3>
       <p class="future-status">${esc(domain.status)}</p>
@@ -736,7 +747,7 @@ function renderInstance(card: FutureInstance): string {
   const mark = tier?.mark ? ` · ${esc(tier.mark)}` : '';
   const bands = card.bands.map((band) => `<span class="future-band">${esc(bandFamily(band))} ${esc(band)}</span>`).join('');
   const bandRow = bands ? `<p class="future-band-row">${bands}</p>` : '';
-  return `<article class="future-card future-instance" id="${esc(card.anchor)}" data-tier="${esc(card.tierId)}">
+  return `<article class="future-card future-instance civ-reveal" id="${esc(card.anchor)}" data-tier="${esc(card.tierId)}">
     <p class="future-kicker">實例 · ${domainLink} · ${esc(tier?.label ?? card.tierId)}${mark} · 截至 <time datetime="${esc(card.dataAsOf)}">${esc(card.dataAsOf)}</time></p>
     <h3>${esc(card.title)}</h3>
     <p>${esc(card.blurb)}</p>
@@ -752,7 +763,7 @@ function renderTierCard(): string {
       <p><span class="future-mark">${esc(row.mark ?? '')}</span> ${esc(row.label)}</p>
       <p>${esc(row.blurb)}</p>
     </div>`).join('');
-  return `<article class="future-card" id="${esc(FUTURE_TIER_CARD.anchor)}">
+  return `<article class="future-card civ-reveal" id="${esc(FUTURE_TIER_CARD.anchor)}">
     <p class="future-kicker"><a href="#future-f5">F5 技術能力階</a> · 約 · 示意 · 假說</p>
     <h3>${esc(FUTURE_TIER_CARD.title)}</h3>
     <p>${esc(FUTURE_TIER_CARD.note)}</p>
@@ -768,7 +779,7 @@ function renderHorizon(horizon: FutureHorizon): string {
   const alsoLink = also ? ` · 並見 <a href="#${esc(also.anchor)}">${esc(also.code)} ${esc(also.title)}</a>` : '';
   const kind = horizon.kind ? ` · ${esc(HORIZON_KIND_LABEL[horizon.kind])}` : '';
   const time = horizon.timeBand ? ` · 時間帶 ${esc(horizon.timeBand)}` : '';
-  return `<article class="future-card" id="${esc(horizon.anchor)}">
+  return `<article class="future-card civ-reveal" id="${esc(horizon.anchor)}">
     <p class="future-kicker">${domainLink}${alsoLink} · ${esc(family)} ${esc(horizon.band)}${kind}${time} · 信心 ${esc(CONFIDENCE_LABEL[horizon.confidence])} · 截至 ${esc(horizon.dataAsOf)}</p>
     <h3>${esc(horizon.title)}</h3>
     <p class="future-label">機制</p>
@@ -784,7 +795,7 @@ function renderHorizon(horizon: FutureHorizon): string {
 function renderCountdown(item: CountdownItem, now: Date): string {
   const horizon = FUTURE_HORIZONS.find((row) => row.id === item.horizonId);
   const back = horizon ? `<p class="stage-links"><a href="#${esc(horizon.anchor)}">${esc(horizon.title)}</a></p>` : '';
-  return `<article class="future-card future-checkpoint" id="${esc(item.anchor)}">
+  return `<article class="future-card future-checkpoint civ-reveal" id="${esc(item.anchor)}">
     <p class="future-kicker">檢查點 · <time datetime="${esc(item.checkpoint)}">${esc(item.checkpoint)}</time></p>
     <h3>${esc(item.title)}</h3>
     <p>${esc(countdownSentence(item, now))}</p>
@@ -795,7 +806,7 @@ function renderCountdown(item: CountdownItem, now: Date): string {
 function renderClade(): string {
   const kinds = FUTURE_CLADE.kinds.map((kind) => esc(CLADE_KIND_LABEL[kind])).join(' · ');
   const layers = FUTURE_CLADE.layers.map((layer) => `<div class="future-layer"><h4>${esc(layer.title)}</h4><p>${esc(layer.text)}</p></div>`).join('');
-  return `<article class="future-card" id="${esc(FUTURE_CLADE.anchor)}">
+  return `<article class="future-card civ-reveal" id="${esc(FUTURE_CLADE.anchor)}">
     <p class="future-kicker"><a href="#future-f4">F4 生物譜系</a> · ${kinds}</p>
     <h3>${esc(FUTURE_CLADE.title)}</h3>
     <p class="future-label">邊界</p>

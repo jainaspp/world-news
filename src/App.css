@@ -2951,7 +2951,9 @@ html.dark .line-filter-empty {
 .civ-page .earth-part,
 .civ-page .milestone-block,
 .civ-page .civ-block,
-.civ-page .civ-block-h {
+.civ-page .civ-block-h,
+.civ-page .future-panel,
+.civ-page .future-panel [id^="future"] {
   scroll-margin-top: var(--civ-anchor-offset);
 }
 .civ-page .stage-frame img,
@@ -3003,6 +3005,18 @@ html.dark .line-filter-empty {
   html.civ-motion body:not(.static) .civ-reveal:not(.is-inview):not(.civ-reveal--above-fold) {
     opacity: 0;
     transform: translateY(12px);
+  }
+  /* 展望六域紙卡錯開升起，沿用 --motion-stagger，封頂 300ms。無新 keyframes。 */
+  html.civ-motion body:not(.static) .future-grid > .civ-reveal.is-inview:nth-child(2) {
+    transition-delay: var(--motion-stagger);
+  }
+  html.civ-motion body:not(.static) .future-grid > .civ-reveal.is-inview:nth-child(3) {
+    transition-delay: calc(var(--motion-stagger) * 2);
+  }
+  html.civ-motion body:not(.static) .future-grid > .civ-reveal.is-inview:nth-child(4),
+  html.civ-motion body:not(.static) .future-grid > .civ-reveal.is-inview:nth-child(5),
+  html.civ-motion body:not(.static) .future-grid > .civ-reveal.is-inview:nth-child(6) {
+    transition-delay: 300ms;
   }
   html.civ-motion body:not(.static) .civ-progress {
     transform: scaleX(var(--civ-progress, 0));

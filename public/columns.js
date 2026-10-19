@@ -232,6 +232,42 @@
     });
     if (location.hash) focusHash(location.hash, false);
 
+    /* 展望面板：視口內紙卡與 #future 錨點立即入場。沿用既有觀察器，不另建。 */
+    function revealFutureFold() {
+      var nodes = document.querySelectorAll('#future .civ-reveal');
+      var domainFold = 0;
+      var i;
+      for (i = 0; i < nodes.length; i++) {
+        var stage = nodes[i];
+        var rect = stage.getBoundingClientRect();
+        var inFold = rect.bottom > 0 && rect.top < window.innerHeight;
+        if (stage.classList.contains('civ-reveal--above-fold')) {
+          stage.classList.add('is-inview');
+          if (stage.classList.contains('future-domain')) domainFold += 1;
+          continue;
+        }
+        if (!inFold) continue;
+        if (stage.classList.contains('future-domain') && domainFold < 2) {
+          stage.classList.add('civ-reveal--above-fold');
+          domainFold += 1;
+        }
+        stage.classList.add('is-inview');
+      }
+    }
+    function forceFutureHash() {
+      var id = String(location.hash || '').replace(/^#/, '');
+      if (id.indexOf('future') !== 0) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+      var stage = el.classList.contains('civ-reveal') ? el : (el.closest ? el.closest('.civ-reveal') : null);
+      if (stage) stage.classList.add('is-inview');
+    }
+    document.querySelectorAll('.future-domain-nav').forEach(bindHashJump);
+    revealFutureFold();
+    forceFutureHash();
+    window.addEventListener('hashchange', forceFutureHash);
+    requestAnimationFrame(revealFutureFold);
+
     function stopMotion() {
       root.classList.remove('civ-motion');
       stages.forEach(function (stage) { stage.classList.add('is-inview'); });
