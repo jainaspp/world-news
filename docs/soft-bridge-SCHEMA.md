@@ -30,6 +30,14 @@
 
 已否決的寫法不再使用：`utm_campaign=mustread_tool`、`utm_source=world-news`。
 
+## 雙向配對故意不對稱
+
+世界頭條的工具卡連到 JD 已公開的工具說明頁（`/tools/…`），`utm_campaign=toolcard`。JD 回連世界頭條時，伴頁落在 Reel（`/reels/…`），活動參數是 `companion`。同一題可以一邊是工具頁、一邊是短片。WN→tools 與 JD→reels 是刻意的不對稱，不是斷鏈。
+
+例：`memory-mem0-copilot-summary` 的卡連到已公開的 `/tools/copilot/`，`utm_term` 仍是 `copilot-summary`。JD 側的 Reel `reels/copilot-summary/` 可以同時存在。兩邊網址不同，仍是同一組伴頁。有已公開工具頁時，本站卡用工具頁，不改回 Reel 來「對齊」JD。
+
+`jdUrl` 若無法被 `new URL` 解析，`softBridgeIssues` 收集 `${slug}:jdUrl`。`softBridgeHref` 回傳空字串，頁面略過該卡。伺服器渲染不得因壞網址中斷。
+
 ## 編輯
 
 - 世界頭條卡面用書面中文。標籤是「教學：JD Tech」。粵語留在 JD 的短片與工具說明頁。
@@ -48,8 +56,20 @@
 | `remember-cognee-notebooklm` | `/explainer/2026-10-19-cognee-mcp-memory-server-9cf986969ef6/` | `/tools/notebooklm/`，`utm_term=notebooklm` |
 | `agreements-docusign-gemini` | `/explainer/2026-10-19-docusign-mcp-server-ga-a0cb3575b879/` | `/tools/gemini/`，`utm_term=gemini` |
 
-前三筆維持原指向。後三筆追加在 2026-10-19 已公開、且尚未掛卡的懶人包上：Firecrawl 的網頁讀取對上 Copilot 的長文網頁重點；Cognee 的 remember／recall 對上 NotebookLM 的一疊文件再問；Docusign 的協議關鍵日期與條款對上 Gemini 的長文件核對。三個 JD 網址均為當日 sitemap 內已公開的工具頁。
+前三筆維持原指向。後三筆追加在 2026-10-19 已公開的懶人包上：Cognee 的 remember／recall 對上 NotebookLM 的一疊文件再問；Docusign 的協議關鍵日期與條款對上 Gemini 的長文件核對。`read-web-firecrawl-copilot` 的欄位仍指向 `/tools/copilot/`，不改指向。Firecrawl 懶人包的頁尾卡改由下方 P1 筆渲染（一頁一卡）。三個 JD 網址均為當日 sitemap 內已公開的工具頁。
 
 n8n、Activepieces、Pipedream、Composio、Windmill 等自動化懶人包當日已上線，JD 沒有已公開的對應工作流工具頁或 Reel，故不配對，也不虛構錄音網址。錄音主題的既有卡仍在 2026-10-17 Nemotron 懶人包，指向 `reels/notta-minutes`。本週沒有第二則可索引、且尚未掛卡的錄音懶人包。
 
 2026-10-17 的七張 Reel 卡仍由 `shared/jdToolCard.ts` 的 `JD_TOOL_CARDS` 提供，與本表的 key 不重疊。
+
+## P1 三筆（2026-10-19）
+
+只追加研究稿裡雙邊已公開、HTTP 200 的三筆。Notta 錄音、Gemini PDF 期限、CapCut 自動字幕沒有已發布懶人包，不寫入。
+
+| slug | 懶人包 | JD |
+|------|--------|----|
+| `verify-firecrawl-perplexity-myth` | `/explainer/2026-10-19-firecrawl-mcp-hosted-oauth-keyless-e245baec4022/`（與鎖定筆同一 key） | `/tools/perplexity/`，`utm_term=perplexity-myth-check` |
+| `memory-mem0-copilot-summary` | `/explainer/2026-10-19-mem0-hosted-mcp-00290c292710/` | `/tools/copilot/`（工具頁已公開），`utm_term=copilot-summary` |
+| `cms-strapi-claude-rewrite` | `/explainer/2026-10-19-strapi-mcp-server-ga-cee6301eb39f/` | `/tools/claude/`，`utm_term=claude-rewrite` |
+
+Firecrawl 懶人包已有鎖定筆 `read-web-firecrawl-copilot`。一頁只渲染一張卡，後寫入的 P1 筆勝出，頁尾改為 Perplexity 謠言核對。鎖定筆的欄位不改，只是不再渲染。Mem0 對上 Copilot 工具頁，不是 Reel。

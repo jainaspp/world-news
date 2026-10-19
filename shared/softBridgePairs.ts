@@ -3,6 +3,9 @@
  * The renderer in jdToolCard.ts reads this list and does not need a code fork.
  * Slugs for the week of 2026-10-19 are locked. Do not retarget them.
  * Automation explainers with no published JD workflow page stay unmapped.
+ * P1 appends three live pairs. verify-firecrawl-perplexity-myth shares the
+ * Firecrawl explainer with read-web-firecrawl-copilot. One page, one card:
+ * the later pair is rendered. The earlier object's URLs stay put.
  */
 
 export interface SoftBridgePair {
@@ -75,6 +78,33 @@ export const SOFT_BRIDGE_PAIRS: readonly SoftBridgePair[] = [
     jdUrl: 'https://jainaspp.github.io/jd-tech-landing/tools/gemini/',
     utmTerm: 'gemini',
     cta: '工具：Gemini——從協議與長文件列出關鍵日期與條款，再回原文核對。',
+    disclosure: '教學落地為粵語短片與工具說明頁。本卡為教學深鏈；聯盟連結批核之前不替換。',
+  },
+  {
+    slug: 'verify-firecrawl-perplexity-myth',
+    explainerKey: '2026-10-19-firecrawl-mcp-hosted-oauth-keyless-e245baec4022',
+    lazyPackUrl: 'https://world-news.xyz/explainer/2026-10-19-firecrawl-mcp-hosted-oauth-keyless-e245baec4022/',
+    jdUrl: 'https://jainaspp.github.io/jd-tech-landing/tools/perplexity/',
+    utmTerm: 'perplexity-myth-check',
+    cta: '工具：Perplexity——網頁抓取之後核對謠言，先帶出處再下結論。',
+    disclosure: '教學落地為粵語短片「出處查資料」與工具說明頁。本卡為教學深鏈；聯盟連結批核之前不替換。',
+  },
+  {
+    slug: 'memory-mem0-copilot-summary',
+    explainerKey: '2026-10-19-mem0-hosted-mcp-00290c292710',
+    lazyPackUrl: 'https://world-news.xyz/explainer/2026-10-19-mem0-hosted-mcp-00290c292710/',
+    jdUrl: 'https://jainaspp.github.io/jd-tech-landing/tools/copilot/',
+    utmTerm: 'copilot-summary',
+    cta: '工具：Copilot——把長文與會議內容整理成可以執行的摘要。',
+    disclosure: '教學落地為粵語三步短片與工具說明頁，不是新聞正文。本卡為教學深鏈；若日後改為聯盟連結，將另行標示。',
+  },
+  {
+    slug: 'cms-strapi-claude-rewrite',
+    explainerKey: '2026-10-19-strapi-mcp-server-ga-cee6301eb39f',
+    lazyPackUrl: 'https://world-news.xyz/explainer/2026-10-19-strapi-mcp-server-ga-cee6301eb39f/',
+    jdUrl: 'https://jainaspp.github.io/jd-tech-landing/tools/claude/',
+    utmTerm: 'claude-rewrite',
+    cta: '工具：Claude——把內容草稿改成可以發布的語氣。',
     disclosure: '教學落地為粵語短片與工具說明頁。本卡為教學深鏈；聯盟連結批核之前不替換。',
   },
 ];

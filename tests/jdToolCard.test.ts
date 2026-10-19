@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { explainerCurrent, renderContentPage, type ContentDoc } from '../shared/content';
 import { renderTechPage } from '../shared/civilizationPage';
 import { cantoneseLeft } from '../shared/prose';
-import { JD_TOOL_CARDS, SOFT_BRIDGE_PAIRS, jdToolCardMarkup, jdToolHref, softBridgeHref } from '../shared/jdToolCard';
+import { JD_TOOL_CARDS, SOFT_BRIDGE_PAIRS, jdToolCardMarkup, jdToolHref, softBridgeHref, softBridgeIssues, type SoftBridgePair } from '../shared/jdToolCard';
 
 function doc(partial: Partial<ContentDoc> & Pick<ContentDoc, 'kind' | 'key'>): ContentDoc {
   return {
@@ -85,10 +85,14 @@ describe('JD Tech tool card', () => {
   });
 
   it('links each soft-bridge pair with Concept B and formal Chinese', () => {
-    expect(SOFT_BRIDGE_PAIRS.length).toBeGreaterThanOrEqual(6);
+    expect(SOFT_BRIDGE_PAIRS.length).toBeGreaterThanOrEqual(9);
     const slugs = SOFT_BRIDGE_PAIRS.map((pair) => pair.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
-    expect(new Set(SOFT_BRIDGE_PAIRS.map((pair) => pair.explainerKey)).size).toBe(SOFT_BRIDGE_PAIRS.length);
+    expect(slugs).not.toContain('record-notta-minutes');
+    expect(slugs).not.toContain('pdf-deadlines-gemini');
+    expect(slugs).not.toContain('caption-capcut-auto');
+    const rendered = new Map<string, SoftBridgePair>();
+    for (const pair of SOFT_BRIDGE_PAIRS) rendered.set(pair.explainerKey, pair);
     expect(slugs).toContain('reread-llamaparse-notebooklm');
     expect(slugs).toContain('verify-redisdocs-perplexity');
     expect(slugs).toContain('read-web-firecrawl-copilot');
@@ -115,6 +119,18 @@ describe('JD Tech tool card', () => {
         slug: 'agreements-docusign-gemini',
         href: 'https://jainaspp.github.io/jd-tech-landing/tools/gemini/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=gemini',
       },
+      {
+        slug: 'verify-firecrawl-perplexity-myth',
+        href: 'https://jainaspp.github.io/jd-tech-landing/tools/perplexity/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=perplexity-myth-check',
+      },
+      {
+        slug: 'memory-mem0-copilot-summary',
+        href: 'https://jainaspp.github.io/jd-tech-landing/tools/copilot/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=copilot-summary',
+      },
+      {
+        slug: 'cms-strapi-claude-rewrite',
+        href: 'https://jainaspp.github.io/jd-tech-landing/tools/claude/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=claude-rewrite',
+      },
     ];
     for (const expected of locked) {
       const pair = SOFT_BRIDGE_PAIRS.find((item) => item.slug === expected.slug);
@@ -122,24 +138,50 @@ describe('JD Tech tool card', () => {
       expect(softBridgeHref(pair!)).toBe(expected.href);
     }
     const reelKeys = new Set(JD_TOOL_CARDS.map((card) => card.key));
+    expect(rendered.get('2026-10-19-firecrawl-mcp-hosted-oauth-keyless-e245baec4022')?.slug).toBe('verify-firecrawl-perplexity-myth');
     for (const pair of SOFT_BRIDGE_PAIRS) {
       expect(reelKeys.has(pair.explainerKey)).toBe(false);
       expect(pair.jdUrl.startsWith('https://jainaspp.github.io/jd-tech-landing/')).toBe(true);
       expect(pair.lazyPackUrl.startsWith('https://world-news.xyz/explainer/')).toBe(true);
       expect(cantoneseLeft(pair.cta)).toBe(false);
       expect(cantoneseLeft(pair.disclosure)).toBe(false);
+      const shown = rendered.get(pair.explainerKey)!;
       const page = published({ kind: 'compare', key: pair.explainerKey });
       expect(explainerCurrent(page)).toBe(true);
       const html = renderContentPage(page, pair.lazyPackUrl);
       expect(html.match(/class="jd-tool-card"/g)).toHaveLength(1);
-      expect(html).toContain(softBridgeHref(pair).replace(/&/g, '&amp;'));
-      expect(html).toContain(`>${pair.cta}</a>`);
-      expect(html).toContain(pair.disclosure);
+      expect(html).toContain(softBridgeHref(shown).replace(/&/g, '&amp;'));
+      expect(html).toContain(`>${shown.cta}</a>`);
+      expect(html).toContain(shown.disclosure);
+      if (shown.slug !== pair.slug) expect(html).not.toContain(`>${pair.cta}</a>`);
       expect(html).toContain('utm_campaign=toolcard');
       expect(html).not.toContain('adsbygoogle');
       expect(html).toContain('name="robots" content="index,follow"');
       expect(html.indexOf('class="jd-tool-card"')).toBeLessThan(html.indexOf('來源（'));
     }
+  });
+
+  it('guards a malformed jdUrl without throwing', () => {
+    expect(softBridgeIssues()).toEqual([]);
+    const bad: SoftBridgePair = {
+      slug: 'broken-jd',
+      explainerKey: 'not-published',
+      lazyPackUrl: 'https://world-news.xyz/explainer/not-published/',
+      jdUrl: 'not a url',
+      utmTerm: 'broken',
+      cta: '工具：測試——壞網址不應中斷頁面。',
+      disclosure: '本卡為教學深鏈。',
+    };
+    expect(softBridgeIssues([bad])).toEqual(['broken-jd:jdUrl']);
+    expect(() => softBridgeHref(bad)).not.toThrow();
+    expect(softBridgeHref(bad)).toBe('');
+    for (const jdUrl of ['', ':::', '/tools/copilot/']) {
+      const pair = { ...bad, jdUrl };
+      expect(softBridgeIssues([pair])).toEqual(['broken-jd:jdUrl']);
+      expect(softBridgeHref(pair)).toBe('');
+    }
+    const page = published({ kind: 'compare', key: '2026-10-19-mem0-hosted-mcp-00290c292710' });
+    expect(() => renderContentPage(page, 'https://world-news.xyz/explainer/2026-10-19-mem0-hosted-mcp-00290c292710/')).not.toThrow();
   });
 
   it('stays off other explainers, thin pages, failed shells, briefings, and the civilization axis', () => {
