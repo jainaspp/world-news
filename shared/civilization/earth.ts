@@ -1,5 +1,6 @@
 import { esc, safeHttp } from '../contentPage.js';
 import { renderReadingBlock, type ReadingBlock } from './blocks.js';
+import { renderSliceReturns } from './renderSlice.js';
 import {
   EARTH_LEDE,
   EARTH_LINES,
@@ -148,6 +149,7 @@ export function renderEarthArticle(): string {
     <p>${esc(HANDOFF_BACK_A)}<a href="/civilization/cosmos/">宇宙長河</a>${esc(HANDOFF_BACK_B)}</p>
     <p>${esc(HANDOFF_FWD_A)}<a href="/civilization/origins/">人類起源時間線</a>${esc(HANDOFF_FWD_B)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_FWD_C)}</p>
     <p class="stage-links"><a href="/civilization/cosmos/">返回宇宙長河</a><a href="/civilization/origins/">約七百萬年前，演化進入人族階段</a><a href="#earth-5">侏羅紀專節</a><a href="#jurassic">侏羅紀</a><a href="/civilization/">返回文明總覽</a></p>
+    ${renderSliceReturns('earth')}
     <h2>來源</h2>
     ${sourceTable()}
     <p class="stage-source">${esc(EARTH_SOURCE_NOTE)}</p>

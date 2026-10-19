@@ -1,4 +1,5 @@
 import { cjkChars, esc, safeHttp } from '../contentPage.js';
+import { renderSliceReturns } from './renderSlice.js';
 
 /** Thick-page floor. Below this the page stays noindex. */
 export const TECH_MIN_CHARS = 1200;
@@ -261,6 +262,7 @@ export function renderTechArticle(): string {
     <h2>交接編年與今日</h2>
     <p>${esc(HANDOFF_A)}<a href="/civilization/origins/">人類起源時間線</a>${esc(HANDOFF_B)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_C)}<a href="/civilization/city/">城市・基建・民生</a>${esc(HANDOFF_D)}<a href="/#slice">今日切片</a>${esc(HANDOFF_E)}</p>
     <p class="stage-links"><a href="/civilization/origins/">人類起源時間線</a><a href="/civilization/chronicle/">文明編年</a><a href="/civilization/city/">城市・基建・民生</a><a href="/civilization/">返回文明總覽</a><a href="/#slice">今日切片</a></p>
+    ${renderSliceReturns('tech')}
     <h2>來源</h2>
     ${sourceTable()}
     <p class="stage-source">${esc(TECH_SOURCE_NOTE)}</p>

@@ -8,6 +8,7 @@ import { renderDeepTimeBoardFromSpine, renderSpineAxis } from './civilization/sp
 import { ORIGINS_BODY, ORIGINS_SOURCES } from './civilization/originsSource.js';
 import { renderTechArticle, techIndexable } from './civilization/tech.js';
 import { renderMildMarkdown } from './civilization/markdown.js';
+import { renderNearBridge, renderSliceReturns } from './civilization/renderSlice.js';
 import { homeFacts, hktMmdd, labelMmdd, type HeritageFact } from './heritage.js';
 import { landmarkBySlug } from './heritage.js';
 
@@ -302,7 +303,7 @@ export function renderLayerAside(): string {
 }
 
 export function sliceHeadHtml(): string {
-  return `<div class="slice-head"><h2>今日切片</h2><span class="tag">NEWS ON THE AXIS</span></div><p class="slice-note">導讀、懶人包與最新標題嵌在文明軸之下。有溫和史對照時才顯示層與年代。</p>`;
+  return `<div class="slice-head"><h2>今日切片</h2><span class="tag">NEWS ON THE AXIS</span></div><p class="slice-note">導讀、懶人包與最新標題嵌在文明軸之下。有溫和史對照時才顯示層與年代。近層把今日問題連回軸上先例。</p>`;
 }
 
 export function wrapCivilizationHome(inner: string, now = new Date(), topic = false, options: { pageH1?: string } = {}): string {
@@ -317,6 +318,7 @@ export function wrapCivilizationHome(inner: string, now = new Date(), topic = fa
         <section class="today-slice" id="slice" aria-label="今日切片">
           ${heading}
           ${sliceHeadHtml()}
+          ${renderNearBridge()}
           ${inner}
         </section>
       </div>
@@ -367,6 +369,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
     ${hubHero()}
     <h1 class="column-title civ-page-title">人類文明</h1>
     ${renderTodayPin(now)}
+    ${renderNearBridge()}
     ${renderDeepTimeBoard()}
     ${renderStageGrid()}
     <article class="civ-article">
@@ -464,6 +467,7 @@ export function renderOriginsPage(): { html: string; status: number; indexable: 
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 人類起源</nav>
     <article class="civ-article">
       ${originsArticle(renderMildMarkdown(ORIGINS_BODY))}
+      ${renderSliceReturns('origins')}
       <p class="civ-ai"><span class="badge">AI 整合</span> 本頁由公開科普與學術綜述入口整理，只供對照深時間。</p>
       ${renderMildMarkdown(ORIGINS_SOURCES)}
       <p class="civ-figure-credit">插圖為深時間示意，年代為約數，並非遷徙路線或政治疆界。圖像說明見<a href="${CIV}/MANIFEST.md">素材目錄</a>。</p>

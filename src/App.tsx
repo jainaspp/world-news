@@ -11,6 +11,7 @@ import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem, TimeRange } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
 import { renderAxisBand, renderLayerAside, sliceHeadHtml } from '../shared/civilizationPage';
+import { renderNearBridge } from '../shared/civilization/renderSlice';
 import { columnHref, type HomeColumnLinks } from '../shared/homePage';
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
@@ -667,6 +668,7 @@ export default function App() {
             <section className={special ? undefined : 'today-slice'} id={special ? undefined : 'slice'} aria-label={special ? undefined : '今日切片'}>
             {!special && focusLabel ? <h1 className="focus-title">{focusLabel}</h1> : null}
             {!special && <div dangerouslySetInnerHTML={{ __html: sliceHeadHtml() }} />}
+            {!special && <div dangerouslySetInnerHTML={{ __html: renderNearBridge() }} />}
             <MajorBanner />
             <AlertRow />
             {allowAds && <HomeIntroTop />}
