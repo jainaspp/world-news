@@ -75,8 +75,6 @@ function HomeIntroFoot() {
   );
 }
 
-const TODAY_LABEL: Record<UiLang, string> = { 'zh-HK': '今天', 'zh-CN': '今天', en: 'Today' };
-
 const PAGE_SIZE = 16;
 
 function Logo() {
@@ -150,7 +148,17 @@ function readHomeColumns(): HomeColumnLinks {
   }
 }
 
-function CivNav() {
+function CivNav({
+  lang,
+  filtersOpen,
+  filtersActive,
+  onToggleFilters,
+}: {
+  lang: UiLang;
+  filtersOpen: boolean;
+  filtersActive: boolean;
+  onToggleFilters: () => void;
+}) {
   const columns = useMemo(readHomeColumns, []);
   return (
     <div className="civ-nav-row">
@@ -163,15 +171,32 @@ function CivNav() {
         </nav>
       </div>
       <details className="civ-more">
-        <summary className="chip">更多</summary>
+        <summary className={filtersActive ? 'chip active' : 'chip'}>更多</summary>
         <nav className="filters" aria-label="更多欄目">
           <a className="chip" href="/briefing/">導讀</a>
           <a className="chip" href="/explainer/">懶人包</a>
           {columns.topic ? <a className="chip" href="/topic/">專題</a> : null}
           <a className="chip" href="/data/">數據</a>
           <a className="chip" href="/today/" title="多方報道時間線，不是軸上的今天">多方時間線</a>
+          <button
+            type="button"
+            className={filtersOpen || filtersActive ? 'chip active' : 'chip'}
+            aria-expanded={filtersOpen}
+            aria-controls="filter-panel"
+            onClick={(event) => {
+              onToggleFilters();
+              const menu = event.currentTarget.closest('details');
+              if (!(menu instanceof HTMLDetailsElement)) return;
+              menu.open = false;
+              const summary = menu.querySelector('summary');
+              if (summary instanceof HTMLElement) summary.focus();
+            }}
+          >
+            {t('filter', lang)}
+          </button>
         </nav>
       </details>
+      <SubscribeMenu />
     </div>
   );
 }
@@ -441,31 +466,12 @@ export default function App() {
             </div>
           </header>
 
-          <CivNav />
-          <div className="tab-bar">
-            <div className="chip-scroller">
-              <button
-                type="button"
-                className={filtersOpen || filtersActive ? 'chip active' : 'chip'}
-                aria-expanded={filtersOpen}
-                aria-controls="filter-panel"
-                onClick={() => setFiltersOpen((open) => !open)}
-              >
-                {t('filter', lang)}
-              </button>
-              <nav className="filters filters-primary" aria-label="time">
-                <button
-                  type="button"
-                  className={!special ? 'chip active' : 'chip'}
-                  aria-pressed={!special}
-                  onClick={() => go({ ...view, time: 'today', ...clearSpecial })}
-                >
-                  {TODAY_LABEL[lang]}
-                </button>
-              </nav>
-            </div>
-            <SubscribeMenu />
-          </div>
+          <CivNav
+            lang={lang}
+            filtersOpen={filtersOpen}
+            filtersActive={filtersActive}
+            onToggleFilters={() => setFiltersOpen((open) => !open)}
+          />
 
           {filtersOpen && !view.bookmarks && (
             <div className="filter-panel" id="filter-panel">

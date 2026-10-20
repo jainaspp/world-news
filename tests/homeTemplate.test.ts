@@ -51,19 +51,22 @@ describe('homepage list choice', () => {
     expect(readView(following).following).toBe(true);
   });
 
-  it('keeps only the today chip on the primary filter row', () => {
+  it('keeps today as the time preset without a homepage time-filter row', () => {
     const app = readFileSync('src/App.tsx', 'utf8');
-    const row = app.slice(app.indexOf('filters-primary'), app.indexOf('<SubscribeMenu />'));
-    expect(row).toContain('TODAY_LABEL');
-    expect(row).not.toContain('全部');
-    expect(row).not.toContain('1小時');
-    expect(row).not.toContain('本週');
+    expect(app).not.toContain('filters-primary');
+    expect(app).not.toContain('aria-label="time"');
+    expect(app).not.toContain('className="tab-bar"');
+    expect(app).not.toContain('TODAY_LABEL');
     expect(app).not.toContain('1小時');
     expect(app).not.toContain('本週');
     expect(app).not.toContain("id: 'all'");
     expect(app).not.toContain("id: 'hour'");
     expect(app).not.toContain("id: 'week'");
     expect(app).toContain("time: 'today'");
+    const row = app.slice(app.indexOf('className="civ-nav-row"'), app.indexOf('function DigestStrip'));
+    expect(row).toContain('href="/#slice"');
+    expect(row).toContain('href="/learn/"');
+    expect(row.indexOf('</details>')).toBeLessThan(row.indexOf('<SubscribeMenu />'));
   });
 
   it('keeps the switch labels short', () => {
