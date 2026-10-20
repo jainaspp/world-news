@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { explainerCurrent, renderContentPage, type ContentDoc } from '../shared/content';
 import { renderTechPage } from '../shared/civilizationPage';
 import { cantoneseLeft } from '../shared/prose';
-import { JD_TOOL_CARDS, SOFT_BRIDGE_PAIRS, jdToolCardMarkup, jdToolHref, softBridgeHref, softBridgeIssues, type SoftBridgePair } from '../shared/jdToolCard';
+import { JD_TOOL_CARDS, SOFT_BRIDGE_PAIRS, jdToolCardMarkup, jdToolHref, softBridgeCardMarkup, softBridgeHref, softBridgeIssues, softBridgeSecondaryHref, type SoftBridgePair } from '../shared/jdToolCard';
 
 function doc(partial: Partial<ContentDoc> & Pick<ContentDoc, 'kind' | 'key'>): ContentDoc {
   return {
@@ -182,6 +182,25 @@ describe('JD Tech tool card', () => {
     }
     const page = published({ kind: 'compare', key: '2026-10-19-mem0-hosted-mcp-00290c292710' });
     expect(() => renderContentPage(page, 'https://world-news.xyz/explainer/2026-10-19-mem0-hosted-mcp-00290c292710/')).not.toThrow();
+    const badSecondary: SoftBridgePair = {
+      ...bad,
+      jdUrl: 'https://jainaspp.github.io/jd-tech-landing/tools/notebooklm/',
+      utmTerm: 'notebooklm',
+      follow: {
+        receipt: '跟住做：厚文件 → 可重聽摘要（JD Tech · NotebookLM）',
+        title: '【跟住做｜90 秒｜NotebookLM】',
+        steps: ['第一步仍可顯示。'],
+        secondary: { label: '粵語 3 步示範', jdUrl: 'not a url', utmTerm: 'notebooklm-pdf-podcast' },
+      },
+    };
+    expect(softBridgeIssues([badSecondary])).toEqual(['broken-jd:secondaryJdUrl']);
+    expect(softBridgeHref(badSecondary)).toBe('https://jainaspp.github.io/jd-tech-landing/tools/notebooklm/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=notebooklm');
+    expect(softBridgeSecondaryHref(badSecondary)).toBe('');
+    const kept = softBridgeCardMarkup(badSecondary);
+    expect(kept.match(/<a /g)).toHaveLength(1);
+    expect(kept).toContain(`>${bad.cta}</a>`);
+    expect(kept).not.toContain('粵語 3 步示範');
+    expect(kept).toContain('第一步仍可顯示。');
   });
 
   it('stays off other explainers, thin pages, failed shells, briefings, and the civilization axis', () => {
@@ -209,5 +228,62 @@ describe('JD Tech tool card', () => {
     expect(css).toContain('.jd-tool-card');
     expect(css).toContain('background: var(--card)');
     expect(css).toContain('html.dark .jd-tool-card');
+    expect(css).toContain('.jd-tool-steps');
+    expect(css).toContain('.jd-tool-actions');
+  });
+
+  it('upgrades only the LlamaParse pair to the NotebookLM 90-second card', () => {
+    const pair = SOFT_BRIDGE_PAIRS.find((item) => item.slug === 'reread-llamaparse-notebooklm');
+    expect(pair?.explainerKey).toBe('2026-10-19-llamaparse-per-product-mcp-c15c091b4276');
+    expect(SOFT_BRIDGE_PAIRS.filter((item) => item.follow).map((item) => item.slug)).toEqual(['reread-llamaparse-notebooklm']);
+    expect(pair?.cta).toBe('打開工具說明');
+    expect(pair?.disclosure).toBe('披露：教學：JD Tech｜本卡為教學深鏈；聯盟連結批核前不替換。');
+    expect(pair?.follow?.title).toBe('【跟住做｜90 秒｜NotebookLM】');
+    expect(pair?.follow?.receipt).toBe('跟住做：厚文件 → 可重聽摘要（JD Tech · NotebookLM）');
+    expect(pair?.follow?.steps).toEqual([
+      '開啟 NotebookLM，新建筆記本，上傳要重讀的 PDF／長文件。',
+      '待索引完成後，選音訊概覽（或同等語音摘要）並生成。',
+      '用耳機重聽重點；需逐步操作見粵語 Reel／工具說明頁。',
+    ]);
+    const written = [
+      pair!.cta,
+      pair!.disclosure,
+      pair!.follow!.title,
+      pair!.follow!.receipt,
+      pair!.follow!.secondary.label,
+      ...pair!.follow!.steps,
+    ];
+    for (const line of written) expect(cantoneseLeft(line)).toBe(false);
+    const primary = 'https://jainaspp.github.io/jd-tech-landing/tools/notebooklm/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=notebooklm';
+    const secondary = 'https://jainaspp.github.io/jd-tech-landing/reels/notebooklm-pdf-podcast/?utm_source=worldnews&utm_medium=referral&utm_campaign=toolcard&utm_content=card-footer&utm_term=notebooklm-pdf-podcast';
+    expect(softBridgeHref(pair!)).toBe(primary);
+    expect(softBridgeSecondaryHref(pair!)).toBe(secondary);
+    const markup = jdToolCardMarkup(pair!.explainerKey);
+    expect(markup.match(/class="jd-tool-card"/g)).toHaveLength(1);
+    expect(markup.match(/<a /g)).toHaveLength(2);
+    expect(markup).toContain(primary.replace(/&/g, '&amp;'));
+    expect(markup).toContain(secondary.replace(/&/g, '&amp;'));
+    expect(markup).toContain('>打開工具說明</a>');
+    expect(markup).toContain('>粵語 3 步示範</a>');
+    expect(markup).toContain('<ol class="jd-tool-steps">');
+    expect(markup).not.toContain('把厚 PDF 與長文件變成可以重聽的語音式摘要');
+    const page = renderContentPage(published({ kind: 'compare', key: pair!.explainerKey }), pair!.lazyPackUrl);
+    expect(page.match(/class="jd-tool-card"/g)).toHaveLength(1);
+    expect(page.indexOf('class="jd-tool-card"')).toBeLessThan(page.indexOf('來源（'));
+    expect(page).toContain('【跟住做｜90 秒｜NotebookLM】');
+    expect(page).toContain(secondary.replace(/&/g, '&amp;'));
+    expect(page).not.toContain('adsbygoogle');
+    const cognee = SOFT_BRIDGE_PAIRS.find((item) => item.slug === 'remember-cognee-notebooklm')!;
+    expect(cognee.follow).toBeUndefined();
+    expect(softBridgeSecondaryHref(cognee)).toBe('');
+    const cogneePage = renderContentPage(published({ kind: 'compare', key: cognee.explainerKey }), cognee.lazyPackUrl);
+    expect(cogneePage.match(/class="jd-tool-card"/g)).toHaveLength(1);
+    expect(cogneePage).toContain(`>${cognee.cta}</a>`);
+    expect(cogneePage).not.toContain('【跟住做｜90 秒｜NotebookLM】');
+    expect(cogneePage).not.toContain('notebooklm-pdf-podcast');
+    const reel = jdToolCardMarkup('2026-10-17-adobe-firefly-audio-studio-396ca03f03bc');
+    expect(reel.match(/<a /g)).toHaveLength(1);
+    expect(reel).toContain('notebooklm-pdf-podcast');
+    expect(reel).not.toContain('jd-tool-steps');
   });
 });

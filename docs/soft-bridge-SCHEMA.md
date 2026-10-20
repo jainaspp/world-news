@@ -13,10 +13,15 @@
 | `lazyPackUrl` | 世界頭條懶人包網址 |
 | `jdUrl` | JD Tech 工具頁或 Reel 頁，不含查詢字串 |
 | `utmTerm` | Concept B 的 `utm_term` |
-| `cta` | 連結文字，書面中文 |
+| `cta` | 主連結文字，書面中文 |
 | `disclosure` | 連結下的說明，書面中文 |
+| `follow` | 可選。只有「跟住做 90 秒」卡才填。沒有就維持一句連結 |
+| `follow.receipt` | 卡內首行收據，書面一句，不重複三步 |
+| `follow.title` | 卡題，書面中文 |
+| `follow.steps` | 步驟，書面中文，不綁過期介面文案。序號由列表產生 |
+| `follow.secondary` | 次鏈：`label`、`jdUrl`（不含查詢字串）、`utmTerm` |
 
-一筆就是一組同題伴頁：懶人包網址 × JD 工具或 Reel 網址 × `slug`。
+一筆就是一組同題伴頁：懶人包網址 × JD 工具或 Reel 網址 × `slug`。`follow` 不另開第二張卡，主鏈仍是該筆的 `jdUrl`。
 
 ## UTM（Concept B）
 
@@ -38,6 +43,8 @@
 
 `jdUrl` 若無法被 `new URL` 解析，`softBridgeIssues` 收集 `${slug}:jdUrl`。`softBridgeHref` 回傳空字串，頁面略過該卡。伺服器渲染不得因壞網址中斷。
 
+次鏈只出現在設了 `follow` 的那一筆。次鏈的 `jdUrl` 解析失敗時，`softBridgeIssues` 另收 `${slug}:secondaryJdUrl`，`softBridgeSecondaryHref` 回傳空字串，卡面略過次鏈，主鏈仍渲染。次鏈壞掉不會把主鏈一併清掉。
+
 ## 編輯
 
 - 世界頭條卡面用書面中文。標籤是「教學：JD Tech」。粵語留在 JD 的短片與工具說明頁。
@@ -49,14 +56,14 @@
 
 | slug | 懶人包 | JD |
 |------|--------|----|
-| `reread-llamaparse-notebooklm` | `/explainer/2026-10-19-llamaparse-per-product-mcp-c15c091b4276/` | `/tools/notebooklm/`，`utm_term=notebooklm` |
+| `reread-llamaparse-notebooklm` | `/explainer/2026-10-19-llamaparse-per-product-mcp-c15c091b4276/` | `/tools/notebooklm/`，`utm_term=notebooklm`。卡面為「跟住做｜90 秒」；次鏈 `/reels/notebooklm-pdf-podcast/`，`utm_term=notebooklm-pdf-podcast` |
 | `verify-redisdocs-perplexity` | `/explainer/2026-10-19-redis-docs-mcp-b586a7879bc8/` | `/tools/perplexity/`，`utm_term=perplexity` |
 | `verify-temporal-kb-perplexity` | `/explainer/2026-10-19-temporal-kb-mcp-server-967e3442e229/` | `/tools/perplexity/`，`utm_term=perplexity` |
 | `read-web-firecrawl-copilot` | `/explainer/2026-10-19-firecrawl-mcp-hosted-oauth-keyless-e245baec4022/` | `/tools/copilot/`，`utm_term=copilot` |
 | `remember-cognee-notebooklm` | `/explainer/2026-10-19-cognee-mcp-memory-server-9cf986969ef6/` | `/tools/notebooklm/`，`utm_term=notebooklm` |
 | `agreements-docusign-gemini` | `/explainer/2026-10-19-docusign-mcp-server-ga-a0cb3575b879/` | `/tools/gemini/`，`utm_term=gemini` |
 
-前三筆維持原指向。後三筆追加在 2026-10-19 已公開的懶人包上：Cognee 的 remember／recall 對上 NotebookLM 的一疊文件再問；Docusign 的協議關鍵日期與條款對上 Gemini 的長文件核對。`read-web-firecrawl-copilot` 的欄位仍指向 `/tools/copilot/`，不改指向。Firecrawl 懶人包的頁尾卡改由下方 P1 筆渲染（一頁一卡）。三個 JD 網址均為當日 sitemap 內已公開的工具頁。
+前三筆維持原指向。`reread-llamaparse-notebooklm` 的主鏈仍是 `/tools/notebooklm/`；卡面改為收據一行、三步、主鏈「打開工具說明」、次鏈 Reel。`remember-cognee-notebooklm` 仍是一句 CTA，不套用這張卡。後三筆追加在 2026-10-19 已公開的懶人包上：Cognee 的 remember／recall 對上 NotebookLM 的一疊文件再問；Docusign 的協議關鍵日期與條款對上 Gemini 的長文件核對。`read-web-firecrawl-copilot` 的欄位仍指向 `/tools/copilot/`，不改指向。Firecrawl 懶人包的頁尾卡改由下方 P1 筆渲染（一頁一卡）。三個 JD 網址均為當日 sitemap 內已公開的工具頁。
 
 n8n、Activepieces、Pipedream、Composio、Windmill 等自動化懶人包當日已上線，JD 沒有已公開的對應工作流工具頁或 Reel，故不配對，也不虛構錄音網址。錄音主題的既有卡仍在 2026-10-17 Nemotron 懶人包，指向 `reels/notta-minutes`。本週沒有第二則可索引、且尚未掛卡的錄音懶人包。
 
