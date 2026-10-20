@@ -1622,6 +1622,7 @@ html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
 }
 a.axis-node:hover { color: #f7f1e6; }
 .axis-node .dot {
+  display: block;
   width: 14px;
   height: 14px;
   margin: 0 auto 8px;
@@ -1871,7 +1872,8 @@ a.axis-node:hover { color: #f7f1e6; }
 .layers { margin-top: var(--civ-stack); }
 .civ-home .layers { margin-top: var(--civ-stack); }
 .most-read-below { margin-top: var(--civ-stack); }
-.civ-hub-signals { display: grid; gap: 8px; margin-top: var(--civ-stack); }
+.civ-hub-signals { display: grid; gap: 8px; margin-top: var(--civ-stack); min-width: 0; max-width: 100%; }
+.civ-hub-signals > * { min-width: 0; max-width: 100%; }
 .civ-hub-signals .hk-info { margin-top: 0; }
 .layers h2 { margin: 0 0 10px; font-family: var(--font-serif); font-size: 1.05rem; }
 .layer-grid { display: grid; gap: 10px; }
@@ -3056,8 +3058,81 @@ a.question-line:hover { text-decoration: underline; }
   .today-slice .story-media,
   .today-slice .thumb-fallback { max-height: 64px; }
 }
+/* Phone hub: the axis hero is a grid item on .column-index. Its min-content
+   (seven spine labels plus nowrap chips) was wider than the viewport, so the
+   hero, chronicle dots, CTAs, and pattern pills shared one overflowing band.
+   min-width: 0 lets the column win. Each band then scrolls or stacks on its own. */
 @media (max-width: 640px) {
+  .column-index,
+  .civ-home { min-width: 0; }
+  .column-index > * { min-width: 0; }
+  .axis-hero { min-width: 0; }
+  .axis-title,
+  .axis-lede { max-width: 100%; overflow-wrap: break-word; }
   .axis-node { font-size: 11px; }
+  .deep-axis {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+  .deep-axis::-webkit-scrollbar { height: 0; display: none; }
+  .deep-axis .rail { display: none; }
+  .milestones {
+    position: relative;
+    width: max-content;
+    min-width: 100%;
+    gap: 12px;
+    padding-bottom: 2px;
+  }
+  .milestones::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 6px;
+    z-index: -1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c4a572, #e8e4dc, #c4a572, transparent);
+    pointer-events: none;
+  }
+  .milestones li {
+    flex: 0 0 auto;
+    min-width: 68px;
+    scroll-snap-align: start;
+  }
+  .chronicle-strip,
+  .chronicle-track,
+  .axis-cta,
+  .axis-rails {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .axis-cta .btn {
+    position: static;
+    max-width: 100%;
+  }
+  .pattern-axis,
+  .case-axis {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    overflow: visible;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .pattern-axis .chip,
+  .case-axis .chip {
+    max-width: 100%;
+    height: auto;
+    white-space: normal;
+    justify-content: flex-start;
+    text-align: left;
+  }
 }
 @media (min-width: 640px) {
   .stage-grid,

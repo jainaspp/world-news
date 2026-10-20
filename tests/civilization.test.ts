@@ -1291,4 +1291,18 @@ describe('civilization question index', () => {
     expect(css).toMatch(/\.question-index \{[^}]*color:\s*#161c24/);
     expect(css).toContain('html.dark .question-index');
   });
+
+  it('keeps the phone hub axis, chronicle, and pattern pills in separate lanes', () => {
+    const css = readFileSync('src/App.css', 'utf8');
+    const narrow = css.slice(css.lastIndexOf('@media (max-width: 640px)'));
+    expect(narrow.startsWith('@media (max-width: 640px)')).toBe(true);
+    expect(narrow).toContain('.column-index > * { min-width: 0; }');
+    expect(narrow).toContain('.axis-hero { min-width: 0; }');
+    expect(narrow).toContain('.deep-axis {');
+    expect(narrow).toContain('overflow-x: auto');
+    expect(narrow).toContain('.milestones li {\n    flex: 0 0 auto;');
+    expect(narrow).toContain('flex-direction: column');
+    expect(narrow).toContain('.pattern-axis .chip');
+    expect(narrow).toContain('white-space: normal');
+  });
 });
