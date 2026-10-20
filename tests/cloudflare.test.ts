@@ -1,5 +1,13 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+
+function walk(dir: string): string[] {
+  return readdirSync(dir).flatMap((name) => {
+    const path = join(dir, name);
+    return statSync(path).isDirectory() ? walk(path) : [path];
+  });
+}
 
 describe('Cloudflare Pages', () => {
   it('keeps static files and the real 404 out of the SPA rewrite', () => {
@@ -36,6 +44,47 @@ describe('Cloudflare Pages', () => {
     expect(wrangler).toMatch(/name = "world-news"/);
     expect(wrangler).toMatch(/pages_build_output_dir = "dist"/);
     expect(wrangler).toContain('nodejs_compat');
+
+    const routes = JSON.parse(readFileSync('public/_routes.json', 'utf8')) as {
+      version: number;
+      include: string[];
+      exclude: string[];
+    };
+    expect(routes.version).toBe(1);
+    expect(routes.include).toEqual(['/*']);
+    for (const rule of [
+      '/assets/*',
+      '/static/*',
+      '/brand/*',
+      '/icons/*',
+      '/index.html',
+      '/404.html',
+      '/offline.html',
+      '/ads.txt',
+      '/robots.txt',
+      '/sitemap.xml',
+      '/sw.js',
+    ]) {
+      expect(routes.exclude).toContain(rule);
+    }
+    expect(routes.exclude.some((rule) => rule.includes('favicon'))).toBe(true);
+    expect(routes.exclude.some((rule) => rule.endsWith('.css'))).toBe(true);
+    expect(routes.exclude.some((rule) => rule.endsWith('.js'))).toBe(true);
+    const blocked = routes.exclude.join('\n');
+    expect(blocked).not.toMatch(/\/civilization|\/explainer|\/learn|\/about|\/feed\.xml|\/api\b/);
+    expect(routes.include.length + routes.exclude.length).toBeLessThanOrEqual(100);
+
+    const nodeImports = walk('functions')
+      .filter((file) => file.endsWith('.ts'))
+      .filter((file) => /(?:from\s+|import\s*\(\s*)['"]node:/.test(readFileSync(file, 'utf8')));
+    expect(nodeImports).toEqual([]);
+    const store = readFileSync('functions/content/store.ts', 'utf8');
+    expect(store).not.toContain('sitemapPublish');
+    expect(store).not.toContain('SITEMAP_FILE');
+    const publisher = readFileSync('functions/content/sitemapPublish.ts', 'utf8');
+    expect(publisher).not.toContain('node:fs');
+    expect(publisher).not.toContain('writeFileSync');
+    expect(readFileSync('server/sitemapFile.ts', 'utf8')).toContain("from 'node:fs'");
   });
 
   it('calls the shared news and crawl builders from both runtimes', () => {

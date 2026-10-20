@@ -6,7 +6,7 @@
 - `robots.txt` 指向同一份 apex sitemap。
 - 靜態檔包含主要入口、法律頁、數據頁、可索引當年今日與地標。略去 `/region/twn`、`/story/`、空的 `/digest/` 與 `/weekly/`。分析目錄與專題目錄在沒有可索引正文時不出現。
 - 建置：`npm run sitemap`（`npm run build` 的 prerender 也會寫 `public/sitemap.xml` 和 `dist/sitemap.xml`）。
-- 單篇導讀、懶人包、分析、日報、週報、已公開專題：發布寫入 index 時，若該次 env 設了 `SITEMAP_FILE`（Node 路徑，不要設在 Pages），`rememberIndexMany` 會呼叫 `writePublishedSitemap` 重寫該檔。寫完要再部署，GSC 才會看到新網址。Pages 上不要把 `/sitemap.xml` 放回 Function。
+- 單篇導讀、懶人包、分析、日報、週報、已公開專題：發布寫入 index 之後，Node 發布器用 `server/sitemapFile.ts` 的 `writePublishedSitemap` 重寫 sitemap 檔。Pages Functions 不會 import 這個模組，`functions/` 裡也沒有 `node:fs`。寫完要再部署，GSC 才會看到新網址。Pages 上不要把 `/sitemap.xml` 放回 Function。
 - 跟直播新聞板走的 `/today/日期/…` 不進靜態檔（`/today/` 目錄仍在）。要併入時把已通過門檻的 path 傳給 `renderPublishedSitemap`。
 - 空殼專題（未 `topicPublic`）唔入 sitemap；樓市未齊料時唔會出現。
 

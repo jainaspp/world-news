@@ -1,4 +1,3 @@
-import { writeFileSync } from 'node:fs';
 import { renderSitemap, sitemapUrls } from '../../shared/sitemap.js';
 import { indexableEntries } from './mustRead.js';
 import { publicTopicPaths } from './topics.js';
@@ -34,10 +33,4 @@ export async function renderPublishedSitemap(env: ContentEnv, todayPaths: string
     topics,
     todayPaths,
   }));
-}
-
-/** Write the publish-time sitemap. `file` is a path on a Node publisher, not a Pages binding. */
-export async function writePublishedSitemap(env: ContentEnv, file: string, todayPaths: string[] = []): Promise<void> {
-  const xml = await renderPublishedSitemap(env, todayPaths);
-  writeFileSync(file, xml);
 }

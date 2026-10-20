@@ -3,7 +3,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { writeDoc, resetKvWriteState, type ContentEnv } from '../functions/content/store';
-import { renderPublishedSitemap, writePublishedSitemap } from '../functions/content/sitemapPublish';
+import { renderPublishedSitemap } from '../functions/content/sitemapPublish';
+import { writePublishedSitemap } from '../server/sitemapFile';
 import { heritagePublicPaths } from '../shared/heritagePage';
 import {
   omitSitemapLocs,
@@ -127,9 +128,11 @@ describe('publish regenerator', () => {
   it('writes indexable urls from the indexes and omits a thin digest', async () => {
     resetKvWriteState();
     const file = join(mkdtempSync(join(tmpdir(), 'sitemap-')), 'sitemap.xml');
-    const env = { SITEMAP_FILE: file } as ContentEnv;
+    const env = {} as ContentEnv;
     await writeDoc(env, publicBriefing());
     await writeDoc(env, thinDigest());
+    expect(existsSync(file)).toBe(false);
+    await writePublishedSitemap(env, file);
     const xml = readFileSync(file, 'utf8');
     expect(xml).toContain('https://world-news.xyz/briefing/2026-10-07-am');
     expect(xml).toContain('<urlset');
