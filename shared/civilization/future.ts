@@ -219,7 +219,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     code: 'F3',
     title: '制度協作',
     blurb: '度量、標準、基礎設施與跨代機構，把陌生人的協作半徑拉長。這裡寫機制與維修條件，不寫口號，也不把制度能力寫成文明高下。',
-    status: '加厚中',
+    status: '有卡',
     lines: ['制度'],
     anchor: 'future-f3',
     plate: {
@@ -454,11 +454,34 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '聯合國教科文組織｜世界水資源發展報告（二〇二五）', url: 'https://www.unesco.org/reports/wwdr/en/2025' },
     ],
   },
+  {
+    id: 'horizon-heat-health',
+    anchor: 'future-horizon-heat-health',
+    title: '極端熱與健康服務壓力',
+    domainId: 'f6',
+    alsoDomainId: 'f1',
+    kind: 'health',
+    band: 'a1',
+    timeBand: '進行中',
+    confidence: 'steady',
+    mechanism: '極端高溫會抬高中暑、心血管與呼吸系統負擔，並擠壓急診、長照與戶外勞動的服務容量。世界衛生組織與世界氣象組織把熱健康預警寫進行動計畫：預報閾值、分級通報、責任分工與事後核對同一條鏈。監測修訂的是閾值與覆蓋，不是把某一年寫成終局。',
+    mitigation: '熱健康行動計畫把預警接到既定措施：高風險人群通知、醫療與社會服務備援、遮蔭與降溫條件、季節後評估。緩解靠機構窗口與可核對的程序，不靠動員口號。',
+    uncertainty: '閾值因地而異，夜間高溫與濕度會改變風險曲線。國家預警覆蓋與衛生系統能力仍不均勻，局部成功不能外推成全球已修復。',
+    dataAsOf: '2026-10-20',
+    sources: [
+      { name: '世界衛生組織／世界氣象組織｜熱浪與健康：預警系統指引', url: 'https://www.who.int/publications/m/item/heatwaves-and-health--guidance-on-warning-system-development' },
+      { name: '世界衛生組織｜熱健康行動計畫指引', url: 'https://www.who.int/publications/i/item/9789289071918' },
+      { name: '世界衛生組織｜氣候變化與健康實況', url: 'https://www.who.int/news-room/fact-sheets/detail/climate-change-and-health' },
+      { name: '世界氣象組織｜熱浪專題', url: 'https://wmo.int/topics/heatwave' },
+      { name: '世界氣象組織｜極端熱風險治理框架與工具包', url: 'https://wmo.int/media/news/new-framework-and-toolkit-strengthens-extreme-heat-governance' },
+      { name: '全球熱健康信息網絡', url: 'https://ghhin.org/' },
+    ],
+  },
 ];
 
 /**
- * W1 domain cards. At most two. `spare-grid` stays inside `energy-budget`
- * rather than becoming a third card.
+ * Domain cards on the hub. `spare-grid` stays inside `energy-budget`
+ * rather than becoming its own card. `pipe-care` is the F3 card.
  */
 export const FUTURE_INSTANCES: readonly FutureInstance[] = [
   {
@@ -496,6 +519,26 @@ export const FUTURE_INSTANCES: readonly FutureInstance[] = [
       { name: 'Crossref｜版本、更正與撤稿', url: 'https://www.crossref.org/documentation/principles-practices/best-practices/versioning/', scope: '撤稿鏈' },
       { name: '聯合國教科文組織｜媒體與信息素養', url: 'https://www.unesco.org/en/media-information-literacy', scope: '不作為撤稿鏈依據' },
       { name: '路透新聞研究所｜數字新聞報告', url: 'https://reutersinstitute.politics.ox.ac.uk/digital-news-report', scope: '不作為撤稿鏈依據' },
+    ],
+  },
+  {
+    id: 'pipe-care',
+    anchor: 'future-pipe-care',
+    domainId: 'f3',
+    title: '標準與公共品維修',
+    blurb: '國際單位制、公開標準與電信建議，把互不相識的人放進同一套可核對的量度與介面。機構辦公室、修訂週期與追溯鏈同時在場，公共品才可能離開單點維修。本卡只寫機制與維修條件，不寫口號動員。',
+    mechanism: '國際計量局把國際單位制的定義與實現留在可公開查閱的小冊子與決議裡；國家計量機構再把實驗室實現接到同一追溯鏈。國際標準化組織與電信聯盟一類機構，把介面、符號與建議寫成可修訂的文本，並保留辦公室與投票週期。度量與標準公共品靠跨代機構維修，不是靠一次性宣言。維修條件是：文本可取得、修訂可追蹤、實驗室或對照實現仍可指認。三者缺一，陌生人的協作半徑就縮回單點。',
+    contingency: '若辦公室停擺、修訂鏈中斷，或實驗室實現無法指回公開底本，同一單位在異地就不再自動可信。此時應先恢復可核對的底本與對照程序，而不是另立口號。本段只寫條件，不把制度能力寫成文明高下。',
+    tierId: 'infra',
+    bands: ['a1'],
+    dataAsOf: '2026-10-20',
+    sources: [
+      { name: '國際計量局｜國際單位制小冊子', url: 'https://www.bipm.org/en/publications/si-brochure' },
+      { name: '國際計量局｜米制公約', url: 'https://www.bipm.org/en/metre-convention' },
+      { name: '國際電信聯盟｜建議 V.430（國際單位制）', url: 'https://www.itu.int/rec/R-REC-V.430-4-201508-I' },
+      { name: '國際法定計量組織', url: 'https://www.oiml.org/en' },
+      { name: '美國國家標準與技術研究院｜物理測量實驗室', url: 'https://www.nist.gov/pml', scope: '國家層級實現與追溯對照，不外推成全球已修好' },
+      { name: '國際標準化組織｜標準是什麼', url: 'https://www.iso.org/standards.html', scope: '公開說明標準如何由專家協議寫成；不支撐單一產品宣稱' },
     ],
   },
 ];
@@ -565,6 +608,9 @@ export const FUTURE_CLADE: FutureClade = {
 /** 80–120 characters. Points at the six domains without renaming stage 10. */
 export const STAGE10_BRIDGE = '展望・分域把第十階段接到六個閱讀入口：能量宜居、信息可信、制度協作、生物譜系、技術能力階與生存風險。各域只在總覽展望面板分頭加厚，本階段不改名，編年帶仍止於第十階，不另立第十一階。';
 
+/** Second sentence beside the bridge. Does not count toward the 80–120 bridge length. */
+export const STAGE10_BRIDGE_EXTRA = '階段名仍是第十階。展望・分域只把目光送到總覽的六個入口，讓制度協作與地平線以可核對的條件句加厚。';
+
 const DOOM_TITLE = /末日|崩潰|滅絕|倒數|災難/;
 const RANK_TITLE = /第[0-9０-９一二三四五六七八九十百]+[級级]文明|文明分數|MiniMax/i;
 const DATE_STAMP = /^\d{4}-\d{2}(?:-\d{2})?$/;
@@ -609,6 +655,7 @@ export function futureHrefAllowed(href: string): boolean {
 function publishedText(): string {
   const parts: string[] = [
     STAGE10_BRIDGE,
+    STAGE10_BRIDGE_EXTRA,
     FUTURE_OPENING,
     LEVEL_LEGEND,
     ...BAND_NOTES.map((note) => note.text),
@@ -737,7 +784,7 @@ export function futureIssues(): string[] {
   }
   if (FUTURE_CLADE.domainId !== 'f4') issues.push('clade-domain');
 
-  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力'];
+  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力'];
   if (FUTURE_HORIZONS.length !== horizonTitles.length) issues.push('horizon-count');
   const horizonIds = new Set<string>();
   for (const [index, horizon] of FUTURE_HORIZONS.entries()) {
@@ -829,6 +876,21 @@ export function futureIssues(): string[] {
   if (!sdg6 || sdg6.horizonId !== 'horizon-freshwater-stress' || sdg6.checkpoint !== '2027-06-30') {
     issues.push('countdown-sdg6');
   }
+  const heat = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-heat-health');
+  if (!heat
+    || heat.title !== '極端熱與健康服務壓力'
+    || heat.anchor !== 'future-horizon-heat-health'
+    || heat.domainId !== 'f6'
+    || heat.alsoDomainId !== 'f1'
+    || heat.kind !== 'health'
+    || heat.band !== 'a1'
+    || heat.timeBand !== '進行中'
+    || heat.confidence !== 'steady'
+    || heat.dataAsOf !== '2026-10-20'
+    || heat.sources.length < 4
+    || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-heat-health')) {
+    issues.push('horizon-heat-health');
+  }
 
   const instanceIds = new Set<string>();
   for (const card of FUTURE_INSTANCES) {
@@ -890,6 +952,19 @@ export function futureIssues(): string[] {
     || flood.sources.some((source) => source.scope !== '撤稿鏈' && source.scope !== '不作為撤稿鏈依據')) {
     issues.push('retraction-sources');
   }
+  const pipe = FUTURE_INSTANCES.find((card) => card.id === 'pipe-care');
+  const f3 = FUTURE_DOMAINS.find((domain) => domain.id === 'f3');
+  if (!pipe
+    || f3?.status !== '有卡'
+    || pipe.title !== '標準與公共品維修'
+    || pipe.anchor !== 'future-pipe-care'
+    || pipe.domainId !== 'f3'
+    || pipe.tierId !== 'infra'
+    || pipe.bands.join() !== 'a1'
+    || pipe.dataAsOf !== '2026-10-20'
+    || pipe.sources.length < 4) {
+    issues.push('instance-pipe-care');
+  }
   const trust = FUTURE_HORIZONS.find((horizon) => horizon.id === 'trust');
   const cern = trust?.sources.find((source) => source.url.includes('home.cern'));
   if (!trust
@@ -904,6 +979,10 @@ export function futureIssues(): string[] {
     if (!STAGE10_BRIDGE.includes(domain.title)) issues.push(`bridge:${domain.id}`);
   }
   if (!STAGE10_BRIDGE.includes('不另立第十一階') || !STAGE10_BRIDGE.includes('不改名')) issues.push('bridge-stage');
+  if (STAGE10_BRIDGE.includes('階段名仍是第十階')) issues.push('bridge-lengthened');
+  if (STAGE10_BRIDGE_EXTRA !== '階段名仍是第十階。展望・分域只把目光送到總覽的六個入口，讓制度協作與地平線以可核對的條件句加厚。') {
+    issues.push('bridge-extra');
+  }
 
   const cardDomains = new Set<string>([
     ...FUTURE_HORIZONS.map((horizon) => horizon.domainId),
@@ -1107,6 +1186,7 @@ export function renderFutureBridge(stageN: number): string {
   return `<aside class="future-bridge" id="stage-10-bridge" aria-label="展望・分域">
     <h3>展望・分域</h3>
     <p>${esc(STAGE10_BRIDGE)}</p>
+    <p>${esc(STAGE10_BRIDGE_EXTRA)}</p>
     <p class="stage-links"><a href="/civilization/#future">總覽展望</a>${links}</p>
     ${renderLevelLegend('stage-10-bands')}
   </aside>`;

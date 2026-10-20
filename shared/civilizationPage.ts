@@ -314,11 +314,11 @@ export function renderLayerAside(): string {
 }
 
 export function sliceHeadHtml(): string {
-  return `<div class="slice-head"><h2>今日切片</h2><span class="tag">ON THE AXIS</span></div><p class="slice-note">軸上的今天。這裡只放標題，不另起一面牆。</p>`;
+  return `<div class="slice-head"><h2>今日切片</h2><span class="tag">軸上今日</span></div><p class="slice-note">軸上今日只列公開標題與出處，方便對照文明編年；不另起一面牆。</p>`;
 }
 
 export function moreTodayHtml(): string {
-  return `<p class="more-today"><a href="/today/">更多今日</a><span>全日多方時間線，不是軸上的今天。</span></p>`;
+  return `<p class="more-today"><a href="/today/">更多今日</a><span>全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。</span></p>`;
 }
 
 export function wrapCivilizationHome(inner: string, now = new Date(), topic = false, options: { pageH1?: string } = {}): string {

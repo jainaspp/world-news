@@ -1208,9 +1208,27 @@ describe('civilization question index', () => {
     return { status: 404, html: '' };
   }
 
-  it('lists 8–12 standing questions and only links to anchors that already exist', () => {
+  it('lists 8–15 standing questions and only links to anchors that already exist', () => {
     expect(CIV_QUESTIONS.length).toBeGreaterThanOrEqual(8);
-    expect(CIV_QUESTIONS.length).toBeLessThanOrEqual(12);
+    expect(CIV_QUESTIONS.length).toBeLessThanOrEqual(15);
+    expect(CIV_QUESTIONS.find((row) => row.id === 'factory-repair-rhythm')).toMatchObject({
+      question: '工廠節奏如何把維修寫進日常？',
+      href: '/civilization/chronicle/#stage-7',
+      precedent: '工業革命',
+    });
+    expect(CIV_QUESTIONS.find((row) => row.id === 'clearing-same-day')).toMatchObject({
+      question: '跨國清算如何對上同一記帳日？',
+      href: '/civilization/chronicle/#stage-8',
+      precedent: '現代金融',
+    });
+    expect(CIV_QUESTIONS.find((row) => row.id === 'packet-bypass-fault')).toMatchObject({
+      question: '分組交換如何繞過單點故障？',
+      href: '/civilization/chronicle/#stage-9',
+      precedent: '信息革命',
+    });
+    for (const id of ['factory-repair-rhythm', 'clearing-same-day', 'packet-bypass-fault']) {
+      expect(CIV_QUESTIONS.find((row) => row.id === id)?.nearId).toBeUndefined();
+    }
     expect(new Set(CIV_QUESTIONS.map((row) => row.id)).size).toBe(CIV_QUESTIONS.length);
     expect(new Set(CIV_QUESTIONS.map((row) => row.question)).size).toBe(CIV_QUESTIONS.length);
     expect(questionIndexIssues()).toEqual([]);
@@ -1253,6 +1271,10 @@ describe('civilization question index', () => {
     }
     const home = renderHomeFeed([], new Map(), null, '', null, '', [], [], new Date('2026-10-17T04:00:00.000Z'), true);
     expect(home).toContain('href="/civilization/#question-index"');
+    expect(home).toContain('<span class="tag">軸上今日</span>');
+    expect(home).toContain('軸上今日只列公開標題與出處，方便對照文明編年；不另起一面牆。');
+    expect(home).toContain('全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。');
+    expect(home).not.toContain('ON THE AXIS');
     expect(home).not.toContain('id="question-index"');
     const hub = renderCivilizationHub();
     expect(hub.status).toBe(200);

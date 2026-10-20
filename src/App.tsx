@@ -10,7 +10,7 @@ import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
 import { renderBulletinClock } from '../shared/civilization/clock';
-import { renderAxisBand, renderAxisRails, renderHomeChronicle, renderLayerAside, sliceHeadHtml } from '../shared/civilizationPage';
+import { moreTodayHtml, renderAxisBand, renderAxisRails, renderHomeChronicle, renderLayerAside, sliceHeadHtml } from '../shared/civilizationPage';
 import { renderNearBridge } from '../shared/civilization/renderSlice';
 import { columnHref, DEFAULT_BRIEFING_LINKS, homeDigestLinks, type HomeColumnLinks } from '../shared/homePage';
 import { demoteGraphic } from '../shared/mustRead';
@@ -606,7 +606,7 @@ export default function App() {
                         </>
                       )}
                 </section>
-                <p className="more-today"><a href="/today/">更多今日</a><span>全日多方時間線，不是軸上的今天。</span></p>
+                <div dangerouslySetInnerHTML={{ __html: moreTodayHtml() }} />
                 <div dangerouslySetInnerHTML={{ __html: renderLayerAside() }} />
                 <MostRead rows={popular} variant="below" lang={lang} />
               </div>
