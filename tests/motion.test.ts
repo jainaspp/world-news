@@ -155,7 +155,7 @@ describe('shared header wordmark', () => {
     expect(motion).toContain('.logo-word::before');
   });
 
-  it('keeps the narrow header as two scrolling rows', () => {
+  it('keeps narrow chrome as one scrolling track with fixed end pins', () => {
     const css = readFileSync('src/App.css', 'utf8');
     const narrow = css.slice(css.indexOf('@media (max-width: 720px)'));
     expect(narrow.startsWith('@media (max-width: 720px)')).toBe(true);
@@ -171,16 +171,34 @@ describe('shared header wordmark', () => {
     expect(narrow).toContain('#9a7b4f');
     expect(narrow).toContain('#161c24');
     expect(narrow).toContain('#e8e4dc');
+    expect(narrow).toContain('.chrome > .civ-nav-row .subscribe-menu');
     const app = readFileSync('src/App.tsx', 'utf8');
     expect(app).toContain('className="chip-scroller"');
     expect(app).not.toContain('世界頭條');
     expect(app).not.toContain('logo-live');
+    expect(app).not.toContain('filters-primary');
+    expect(app).not.toContain('aria-label="time"');
+    expect(app).not.toContain('className="tab-bar"');
+    expect(app).not.toContain('1小時');
+    const row = app.slice(app.indexOf('className="civ-nav-row"'), app.indexOf('function DigestStrip'));
+    expect(row).toContain('href="/#slice"');
+    expect(row).toContain('href="/learn/"');
+    expect(row).toContain('aria-label="更多欄目"');
+    expect(row.indexOf('aria-label="更多欄目"')).toBeLessThan(row.indexOf('aria-controls="filter-panel"'));
+    expect(row.indexOf('</details>')).toBeLessThan(row.indexOf('<SubscribeMenu />'));
     const page = readFileSync('shared/contentPage.ts', 'utf8');
     expect(page).toContain('class="chip-scroller"');
+    expect(page).not.toContain('filters-primary');
+    expect(page).not.toContain('aria-label="time"');
     const html = chrome('digest');
     expect(html).toContain('chip-scroller');
     expect(html).toContain('civ-nav');
+    expect(html).toContain('href="/#slice"');
+    expect(html).toContain('href="/learn/"');
+    expect(html).toContain('>訂閱</summary>');
     expect(html).not.toContain('世界頭條');
+    expect(html).not.toContain('filters-primary');
+    expect(html).not.toContain('>篩選<');
   });
 
   it('ships ink, paper, and brass marks without the news live colors', () => {
