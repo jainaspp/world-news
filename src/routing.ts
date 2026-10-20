@@ -14,8 +14,6 @@ export interface ViewState {
   list: boolean;
 }
 
-const TIMES = new Set<TimeRange>(['all', 'hour', 'today', 'week']);
-
 function regionCode(value: string): string {
   const code = value.toUpperCase();
   return REGIONS.some((region) => region.code === code) ? code : 'ALL';
@@ -35,15 +33,14 @@ export function readView(location: { pathname: string; search: string } = window
   const categoryPath = path.match(/^\/category\/([a-z]+)$/i);
   if (regionPath?.[1]) region = regionCode(regionPath[1]);
   if (categoryPath?.[1]) category = categoryCode(categoryPath[1]);
-  const timeValue = params.get('time') ?? 'all';
-  const time = TIMES.has(timeValue as TimeRange) ? (timeValue as TimeRange) : 'all';
   const view = params.get('view');
   return {
     region,
     category,
     source: params.get('source') ?? '',
     q: params.get('q') ?? '',
-    time,
+    // all / hour / week (and any other ?time=) are the retired presets. Today is the only one.
+    time: 'today',
     bookmarks: view === 'bookmarks',
     following: view === 'following' || view === 'mine',
     list: view === 'list',
@@ -67,12 +64,11 @@ export function viewHref(state: ViewState): string {
   const category = state.category === 'all' ? '' : state.category;
   const source = state.source.trim();
   const q = state.q.trim();
-  const time = state.time === 'all' ? '' : state.time;
-  if (!q && !time && !source && region && !category) {
+  if (!q && !source && region && !category) {
     const path = `/region/${region.toLowerCase()}`;
     return state.list ? `${path}?view=list` : path;
   }
-  if (!q && !time && !source && category && !region) {
+  if (!q && !source && category && !region) {
     const path = `/category/${category}`;
     return state.list ? `${path}?view=list` : path;
   }
@@ -82,7 +78,6 @@ export function viewHref(state: ViewState): string {
   if (category) params.set('category', category);
   if (source) params.set('source', source);
   if (q) params.set('q', q);
-  if (time) params.set('time', time);
   const query = params.toString();
   return query ? `/?${query}` : '/';
 }

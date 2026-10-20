@@ -25,7 +25,7 @@ const home = {
   category: 'all',
   source: '',
   q: '',
-  time: 'all' as const,
+  time: 'today' as const,
   bookmarks: false,
   following: false,
   list: false,
@@ -35,7 +35,12 @@ describe('homepage list choice', () => {
   it('defaults to cards and remembers the list in the query', () => {
     const cards = { pathname: '/', search: '', hash: '' } as Location;
     expect(readView(cards).list).toBe(false);
+    expect(readView(cards).time).toBe('today');
+    expect(readView({ pathname: '/', search: '?time=all', hash: '' } as Location).time).toBe('today');
+    expect(readView({ pathname: '/', search: '?time=hour', hash: '' } as Location).time).toBe('today');
+    expect(readView({ pathname: '/', search: '?time=week', hash: '' } as Location).time).toBe('today');
     expect(viewHref(home)).toBe('/');
+    expect(viewHref({ ...home, time: 'today' })).toBe('/');
     expect(viewHref({ ...home, list: true })).toBe('/?view=list');
     const listed = { pathname: '/', search: '?view=list', hash: '' } as Location;
     expect(readView(listed).list).toBe(true);
@@ -44,6 +49,24 @@ describe('homepage list choice', () => {
     const following = { pathname: '/', search: '?view=following', hash: '' } as Location;
     expect(readView(following).list).toBe(false);
     expect(readView(following).following).toBe(true);
+  });
+
+  it('keeps today as the time preset without a homepage time-filter row', () => {
+    const app = readFileSync('src/App.tsx', 'utf8');
+    expect(app).not.toContain('filters-primary');
+    expect(app).not.toContain('aria-label="time"');
+    expect(app).not.toContain('className="tab-bar"');
+    expect(app).not.toContain('TODAY_LABEL');
+    expect(app).not.toContain('1小時');
+    expect(app).not.toContain('本週');
+    expect(app).not.toContain("id: 'all'");
+    expect(app).not.toContain("id: 'hour'");
+    expect(app).not.toContain("id: 'week'");
+    expect(app).toContain("time: 'today'");
+    const row = app.slice(app.indexOf('className="civ-nav-row"'), app.indexOf('function DigestStrip'));
+    expect(row).toContain('href="/#slice"');
+    expect(row).toContain('href="/learn/"');
+    expect(row.indexOf('</details>')).toBeLessThan(row.indexOf('<SubscribeMenu />'));
   });
 
   it('keeps the switch labels short', () => {

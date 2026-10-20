@@ -259,8 +259,20 @@ export default function App() {
   }, [lang]);
 
   useEffect(() => {
-    const onPop = () => setView(readView());
+    const dropRetiredTime = () => {
+      const params = new URLSearchParams(window.location.search);
+      if (!params.has('time')) return;
+      params.delete('time');
+      const search = params.toString();
+      const next = `${window.location.pathname}${search ? `?${search}` : ''}${window.location.hash}`;
+      window.history.replaceState({}, '', next);
+    };
+    const onPop = () => {
+      setView(readView());
+      dropRetiredTime();
+    };
     window.addEventListener('popstate', onPop);
+    dropRetiredTime();
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
@@ -281,7 +293,7 @@ export default function App() {
       source: view.bookmarks || view.following ? '' : view.source,
       category: view.bookmarks || view.following ? 'all' : view.category,
       q: '',
-      time: view.bookmarks || view.following ? 'all' : view.time,
+      time: view.bookmarks || view.following ? undefined : view.time,
     });
     if (view.following) rows = rows.filter((item) => follows.matches(item));
     return rows;
@@ -328,7 +340,7 @@ export default function App() {
     return map;
   }, [items]);
   const special = view.bookmarks || view.following;
-  const poeticAxis = !special && view.region === 'ALL' && view.category === 'all' && !view.q.trim() && !view.source.trim() && view.time === 'all';
+  const poeticAxis = !special && view.region === 'ALL' && view.category === 'all' && !view.q.trim() && !view.source.trim() && view.time === 'today';
   const focusLabel = !focusPage
     ? ''
     : focusPage.scope === 'region'
@@ -345,7 +357,7 @@ export default function App() {
     const query = view.q.trim();
     document.title = query ? `${t('search', lang)}「${query}」 — ${siteBrand}` : siteTitle;
     const canonical = document.querySelector('link[rel="canonical"]');
-    const path = query || view.bookmarks || view.following || view.source || view.time !== 'all' ? '/' : viewHref(view);
+    const path = query || view.bookmarks || view.following || view.source ? '/' : viewHref(view);
     canonical?.setAttribute('href', `${SITE_URL}${path === '' ? '/' : path}`);
     const top = (view.bookmarks || view.following ? visible : items).slice(0, 10);
     const data = {
@@ -386,7 +398,7 @@ export default function App() {
                 aria-label={siteBrand}
                 onClick={(event) => {
                   event.preventDefault();
-                  go({ region: 'ALL', category: 'all', source: '', q: '', time: 'all', ...clearSpecial, list: view.list });
+                  go({ region: 'ALL', category: 'all', source: '', q: '', time: 'today', ...clearSpecial, list: view.list });
                 }}
               >
                 <Logo />
