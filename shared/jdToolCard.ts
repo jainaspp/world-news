@@ -4,6 +4,7 @@
  * Same-topic soft-bridge pairs live in softBridgePairs.ts so weekly ops
  * can append a row without forking the renderer.
  * UTM follows COMPANION-TRACKING-SPEC Concept B (worldnews / referral / toolcard).
+ * A pair may set follow for one 90-second card. Other pairs stay a single link.
  */
 
 import { SOFT_BRIDGE_PAIRS, type SoftBridgePair } from './softBridgePairs.js';
@@ -85,27 +86,43 @@ function parseJdUrl(jdUrl: string): URL | null {
   }
 }
 
-/** Empty when every jdUrl parses. A bad jdUrl is `${slug}:jdUrl` and is never thrown. */
+/** Empty when every jdUrl parses. A bad primary is `${slug}:jdUrl`.
+ * A bad 90-second secondary is `${slug}:secondaryJdUrl`. Neither is thrown. */
 export function softBridgeIssues(pairs: readonly SoftBridgePair[] = SOFT_BRIDGE_PAIRS): string[] {
   const issues: string[] = [];
   for (const pair of pairs) {
     if (!parseJdUrl(pair.jdUrl)) issues.push(`${pair.slug}:jdUrl`);
+    const secondary = pair.follow?.secondary.jdUrl;
+    if (secondary != null && !parseJdUrl(secondary)) issues.push(`${pair.slug}:secondaryJdUrl`);
   }
   return issues;
 }
 
-/** Tool or reel URL for one soft-bridge pair. Query is Concept B.
- * A malformed jdUrl returns '' so server render does not throw. */
-export function softBridgeHref(pair: SoftBridgePair): string {
+/** Concept B URL, or '' when jdUrl will not parse. Never throws. */
+function conceptBHref(jdUrl: string, utmTerm: string): string {
   try {
-    if (softBridgeIssues([pair]).length > 0) return '';
-    const url = new URL(pair.jdUrl);
-    const params = conceptB(pair.utmTerm);
+    const url = parseJdUrl(jdUrl);
+    if (!url) return '';
+    const params = conceptB(utmTerm);
     params.forEach((value, key) => url.searchParams.set(key, value));
     return url.toString();
   } catch {
     return '';
   }
+}
+
+/** Primary tool or reel URL for one soft-bridge pair. Query is Concept B.
+ * A malformed jdUrl returns '' so server render does not throw.
+ * A bad secondary link does not blank this primary URL. */
+export function softBridgeHref(pair: SoftBridgePair): string {
+  return conceptBHref(pair.jdUrl, pair.utmTerm);
+}
+
+/** Second link on a 90-second card, or '' when the pair has none or the URL will not parse. */
+export function softBridgeSecondaryHref(pair: SoftBridgePair): string {
+  const secondary = pair.follow?.secondary;
+  if (!secondary) return '';
+  return conceptBHref(secondary.jdUrl, secondary.utmTerm);
 }
 
 function esc(value: string): string {
@@ -114,19 +131,44 @@ function esc(value: string): string {
   ));
 }
 
+function linkHtml(label: string, href: string, secondary = false): string {
+  const cls = secondary ? 'jd-tool-link jd-tool-link-secondary' : 'jd-tool-link';
+  return `<a class="${cls}" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`;
+}
+
 function cardHtml(cta: string, href: string, disclosure = ''): string {
   const note = disclosure ? `<p class="jd-tool-note">${esc(disclosure)}</p>` : '';
-  return `<aside class="jd-tool-card" aria-label="教學：JD Tech"><p class="jd-tool-label">教學：JD Tech</p><a class="jd-tool-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(cta)}</a>${note}</aside>`;
+  return `<aside class="jd-tool-card" aria-label="教學：JD Tech"><p class="jd-tool-label">教學：JD Tech</p>${linkHtml(cta, href)}${note}</aside>`;
+}
+
+function block(className: string, text: string): string {
+  const value = text.trim();
+  return value ? `<p class="${className}">${esc(value)}</p>` : '';
+}
+
+/** 90-second card: receipt, heading, steps, primary link, optional reel link. */
+function followCardHtml(pair: SoftBridgePair, href: string): string {
+  const follow = pair.follow;
+  if (!follow) return cardHtml(pair.cta, href, pair.disclosure);
+  const steps = follow.steps.map((step) => step.trim()).filter(Boolean);
+  const list = steps.length ? `<ol class="jd-tool-steps">${steps.map((step) => `<li>${esc(step)}</li>`).join('')}</ol>` : '';
+  const secondaryHref = softBridgeSecondaryHref(pair);
+  const secondary = follow.secondary && secondaryHref ? linkHtml(follow.secondary.label, secondaryHref, true) : '';
+  const note = pair.disclosure ? `<p class="jd-tool-note">${esc(pair.disclosure)}</p>` : '';
+  return `<aside class="jd-tool-card" aria-label="教學：JD Tech"><p class="jd-tool-label">教學：JD Tech</p>${block('jd-tool-receipt', follow.receipt)}${block('jd-tool-title', follow.title)}${list}<p class="jd-tool-actions">${linkHtml(pair.cta, href)}${secondary}</p>${note}</aside>`;
+}
+
+/** One soft-bridge card. Empty when the primary URL will not parse. */
+export function softBridgeCardMarkup(pair: SoftBridgePair): string {
+  const href = softBridgeHref(pair);
+  if (!href) return '';
+  return pair.follow ? followCardHtml(pair, href) : cardHtml(pair.cta, href, pair.disclosure);
 }
 
 /** One compact card, or empty when this explainer is not in either map. */
 export function jdToolCardMarkup(key: string): string {
   const pair = BRIDGE_BY_KEY.get(key);
-  if (pair) {
-    const href = softBridgeHref(pair);
-    if (!href) return '';
-    return cardHtml(pair.cta, href, pair.disclosure);
-  }
+  if (pair) return softBridgeCardMarkup(pair);
   const card = BY_KEY.get(key);
   if (!card) return '';
   return cardHtml(card.cta, jdToolHref(card.slug));
