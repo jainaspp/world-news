@@ -134,6 +134,24 @@ export const CIV_QUESTIONS: readonly CivQuestion[] = [
     href: '/civilization/#future-f6',
     precedent: '生存風險',
   },
+  {
+    id: 'factory-repair-rhythm',
+    question: '工廠節奏如何把維修寫進日常？',
+    href: '/civilization/chronicle/#stage-7',
+    precedent: '工業革命',
+  },
+  {
+    id: 'clearing-same-day',
+    question: '跨國清算如何對上同一記帳日？',
+    href: '/civilization/chronicle/#stage-8',
+    precedent: '現代金融',
+  },
+  {
+    id: 'packet-bypass-fault',
+    question: '分組交換如何繞過單點故障？',
+    href: '/civilization/chronicle/#stage-9',
+    precedent: '信息革命',
+  },
 ];
 
 export function questionTargets(row: CivQuestion): string[] {
@@ -145,7 +163,7 @@ export function questionTargets(row: CivQuestion): string[] {
 /** Empty array means the index satisfies the standing-question contract. */
 export function questionIndexIssues(rows: readonly CivQuestion[] = CIV_QUESTIONS): string[] {
   const issues: string[] = [];
-  if (rows.length < 8 || rows.length > 12) issues.push('count');
+  if (rows.length < 8 || rows.length > 15) issues.push('count');
   const ids = new Set<string>();
   const questions = new Set<string>();
   for (const row of rows) {

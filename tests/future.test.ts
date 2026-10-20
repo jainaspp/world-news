@@ -12,6 +12,7 @@ import {
   FUTURE_TIER_ROWS,
   LEVEL_BANDS,
   STAGE10_BRIDGE,
+  STAGE10_BRIDGE_EXTRA,
   countdownSentence,
   futureHrefAllowed,
   futureIssues,
@@ -50,7 +51,7 @@ describe('civilization future P0', () => {
     expect(biodiversityPlate?.chip).toBe('H-bio 生態系服務');
     expect(biodiversityPlate?.alt).toMatch(/紙感/);
     expect(FUTURE_HORIZONS.filter((horizon) => horizon.id !== 'horizon-biodiversity-services').every((horizon) => !horizon.plate)).toBe(true);
-    expect(FUTURE_DOMAINS.filter((domain) => domain.status === '加厚中').map((domain) => domain.id)).toEqual(['f3']);
+    expect(FUTURE_DOMAINS.filter((domain) => domain.status === '加厚中').map((domain) => domain.id)).toEqual([]);
     expect([...FUTURE_TIERS]).toEqual(['observe', 'pilot', 'infra', 'civ-scale']);
     expect(FUTURE_TIER_ROWS.filter((row) => row.shown)).toHaveLength(3);
     expect(FUTURE_TIER_ROWS.find((row) => row.tier === 'civ-scale')?.shown).toBe(false);
@@ -61,13 +62,13 @@ describe('civilization future P0', () => {
     ]);
     expect(FUTURE_CLADE.kinds).toEqual(['tool-extension', 'niche-continue']);
     expect(FUTURE_CLADE.layers.map((layer) => layer.title)).toEqual(['共享遺產', '共演化', 'SETI尚無確證']);
-    expect(FUTURE_DOMAINS.map((domain) => domain.status)).toEqual(['有卡', '有卡', '加厚中', '有卡', '有卡', '有卡']);
+    expect(FUTURE_DOMAINS.map((domain) => domain.status)).toEqual(['有卡', '有卡', '有卡', '有卡', '有卡', '有卡']);
     for (const domain of FUTURE_DOMAINS) {
       expect(civChars(domain.blurb)).toBeGreaterThanOrEqual(40);
       expect(civChars(domain.blurb)).toBeLessThanOrEqual(80);
     }
     expect(FUTURE_HORIZONS.map((horizon) => horizon.title)).toEqual([
-      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力',
+      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力',
     ]);
     const biodiversity = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-biodiversity-services');
     expect(biodiversity?.domainId).toBe('f6');
@@ -117,24 +118,40 @@ describe('civilization future P0', () => {
     expect(sdg?.checkpoint).toBe('2027-06-30');
     expect(countdownSentence(sdg!, NOW)).toBe(sdg?.pending);
     expect(countdownSentence(sdg!, new Date('2027-07-01T00:00:00.000Z'))).toBe(sdg?.expired);
+    const heat = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-heat-health');
+    expect(heat?.title).toBe('極端熱與健康服務壓力');
+    expect(heat?.domainId).toBe('f6');
+    expect(heat?.alsoDomainId).toBe('f1');
+    expect(heat?.kind).toBe('health');
+    expect(heat?.band).toBe('a1');
+    expect(heat?.timeBand).toBe('進行中');
+    expect(heat?.confidence).toBe('steady');
+    expect(heat?.dataAsOf).toBe('2026-10-20');
+    expect(heat?.sources.length).toBeGreaterThanOrEqual(4);
+    expect(heat?.sources.every((source) => source.url.startsWith('https://'))).toBe(true);
+    expect(FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-heat-health')).toBe(false);
+    expect(futureHrefAllowed('/civilization/#future-horizon-heat-health')).toBe(true);
     expect(civChars(STAGE10_BRIDGE)).toBeGreaterThanOrEqual(80);
     expect(civChars(STAGE10_BRIDGE)).toBeLessThanOrEqual(120);
+    expect(STAGE10_BRIDGE_EXTRA).toBe('階段名仍是第十階。展望・分域只把目光送到總覽的六個入口，讓制度協作與地平線以可核對的條件句加厚。');
+    expect(STAGE10_BRIDGE).not.toContain('階段名仍是第十階');
     expect(futureHrefAllowed('/civilization/#future')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-f1')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-energy-budget')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-verify-flood')).toBe(true);
+    expect(futureHrefAllowed('/civilization/#future-pipe-care')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-horizon-biodiversity')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-countdown-cbd')).toBe(true);
     expect(futureHrefAllowed('/civilization/future/')).toBe(false);
-    expect(FUTURE_INSTANCES.map((card) => card.id)).toEqual(['energy-budget', 'verify-flood']);
-    expect(FUTURE_INSTANCES.map((card) => card.domainId)).toEqual(['f1', 'f2']);
-    expect(FUTURE_INSTANCES.map((card) => card.tierId)).toEqual(['observe', 'pilot']);
+    expect(FUTURE_INSTANCES.map((card) => card.id)).toEqual(['energy-budget', 'verify-flood', 'pipe-care']);
+    expect(FUTURE_INSTANCES.map((card) => card.domainId)).toEqual(['f1', 'f2', 'f3']);
+    expect(FUTURE_INSTANCES.map((card) => card.tierId)).toEqual(['observe', 'pilot', 'infra']);
     expect(FUTURE_INSTANCES.every((card) => card.tierId !== 'civ-scale')).toBe(true);
     for (const card of FUTURE_INSTANCES) {
       expect(civChars(card.blurb)).toBeGreaterThanOrEqual(80);
       expect(civChars(card.blurb)).toBeLessThanOrEqual(120);
       expect(card.mechanism.trim().length).toBeGreaterThan(0);
-      expect(card.dataAsOf).toBe('2026-10-19');
+      expect(card.dataAsOf).toBe(card.id === 'pipe-care' ? '2026-10-20' : '2026-10-19');
       expect(card.sources.length).toBeGreaterThanOrEqual(4);
       expect(card.bands.length).toBeGreaterThan(0);
     }
@@ -166,7 +183,7 @@ describe('civilization future P0', () => {
       expect(panel).toContain(horizon.title);
       for (const source of horizon.sources) expect(panel).toContain(`href="${source.url}"`);
     }
-    expect(panel.match(/class="future-card future-instance civ-reveal"/g)).toHaveLength(2);
+    expect(panel.match(/class="future-card future-instance civ-reveal"/g)).toHaveLength(FUTURE_INSTANCES.length);
     for (const card of FUTURE_INSTANCES) {
       expect(panel).toContain(`id="${card.anchor}"`);
       expect(panel).toContain(card.title);
@@ -182,10 +199,15 @@ describe('civilization future P0', () => {
     expect(panel).not.toContain('id="future-spare-grid"');
     expect(panel).not.toContain('/civilization/future/');
     const f3 = panel.slice(panel.indexOf('id="future-f3"'), panel.indexOf('id="future-f4"'));
-    expect(f3).toContain('尚未寫入卡片');
+    expect(f3).toContain('已有可讀卡片');
+    expect(f3).not.toContain('尚未寫入卡片');
     expect(f3).not.toContain('加厚中');
-    expect(f3).not.toContain('已有可讀卡片');
     expect(f3).not.toContain('future-instance');
+    expect(f3).toContain('href="#future-pipe-care"');
+    expect(f3).toContain('標準與公共品維修');
+    expect(panel).toContain('id="future-pipe-care"');
+    expect(panel).toContain('id="future-horizon-heat-health"');
+    expect(panel).toContain('極端熱與健康服務壓力');
     const f1 = panel.slice(panel.indexOf('id="future-f1"'), panel.indexOf('id="future-f2"'));
     expect(f1).toContain('已有可讀卡片');
     expect(panel).not.toContain('有卡');
@@ -307,6 +329,7 @@ describe('civilization future P0', () => {
     const section = chronicle.html.slice(start, chronicle.html.indexOf('四線總結'));
     expect(section).toContain('id="stage-10-bridge"');
     expect(section).toContain(STAGE10_BRIDGE);
+    expect(section).toContain(STAGE10_BRIDGE_EXTRA);
     expect(section).toContain('id="stage-10-bands"');
     expect(section).toContain('e2 記行星能量收支、宜居窗口與淡水可用量正在被監測的這一層，不是文明等級。');
     expect(section).toContain('不是文明等級');
@@ -356,6 +379,9 @@ describe('civilization future P0', () => {
     expect(schema).toContain('抗微生物藥物耐藥性（AMR）');
     expect(schema).toContain('生物多樣性與生態系服務約束');
     expect(schema).toContain('淡水可用量與衛生服務壓力');
+    expect(schema).toContain('極端熱與健康服務壓力');
+    expect(schema).toContain('pipe-care');
+    expect(schema).toContain('階段名仍是第十階');
     expect(schema).toContain('2026-10-19');
     expect(schema).not.toMatch(REDLINE);
     const sitemap = readFileSync('shared/sitemap.ts', 'utf8');
@@ -383,7 +409,7 @@ describe('civilization future P0', () => {
     expect(domains.filter((name) => name.includes('civ-reveal--above-fold') && name.includes('is-inview'))).toHaveLength(2);
     expect(domains.slice(2).every((name) => !name.includes('civ-reveal--above-fold') && !name.includes('is-inview'))).toBe(true);
     const cards = [...panel.matchAll(/<article class="([^"]*future-card[^"]*)"/g)].map((match) => match[1]);
-    expect(cards.length).toBe(2 + 1 + FUTURE_HORIZONS.length + FUTURE_COUNTDOWNS.length + 1);
+    expect(cards.length).toBe(FUTURE_INSTANCES.length + 1 + FUTURE_HORIZONS.length + FUTURE_COUNTDOWNS.length + 1);
     expect(cards.every((name) => name.split(/\s+/).includes('civ-reveal'))).toBe(true);
     expect(cards.some((name) => name.includes('above-fold'))).toBe(false);
     expect(cards.some((name) => name.includes('future-checkpoint'))).toBe(true);
