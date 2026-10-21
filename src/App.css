@@ -3501,3 +3501,157 @@ html.dark .chronicle-nav .chip.is-current {
   border-color: #c4a572;
 }
 html.dark .civ-progress { background: #c4a572; }
+
+/* ---- 開場 Hero（BBT opening）：墨紙基底上的宇宙敘事。
+   All lines live in normal flow; the reveal is opacity/transform only, so
+   the section never shifts layout and no two text boxes can intersect.
+   Motion is transition + canvas only — this block declares no keyframe
+   animations of its own, and every transition sits behind no-preference. */
+.hero-opening {
+  position: relative;
+  margin: 0 -16px;
+  padding: 60px 20px 44px;
+  min-height: clamp(430px, 84vh, 780px);
+  min-height: clamp(430px, 84svh, 780px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(130% 95% at 50% 38%, #1c2431 0%, #161c24 55%, #121820 100%);
+  color: #e8e4dc;
+  border-bottom: 1px solid rgba(196, 165, 114, 0.35);
+  text-align: center;
+}
+/* The opening hands off to the spine: no gutter between hero and axis band. */
+.hero-opening + .axis-mount > .axis-hero,
+.hero-opening + .axis-hero { margin-top: 0; }
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 620px);
+  margin: 0 auto;
+}
+.hero-kicker {
+  margin: 0 0 10px;
+  font-size: var(--civ-type-kicker);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #c4a572;
+}
+.hero-title {
+  margin: 0 0 26px;
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 6vw, 3rem);
+  line-height: 1.2;
+  font-weight: 700;
+  color: #f7f1e6;
+}
+.hero-lines {
+  margin: 0 auto;
+  max-width: 34em;
+  font-size: clamp(0.98rem, 1.6vw + 0.55rem, 1.16rem);
+  line-height: 1.9;
+}
+.hero-line { margin: 0 0 0.5em; }
+.hero-line .hero-main { display: block; }
+.hero-line .hero-aside {
+  display: block;
+  margin-top: 0.1em;
+  font-size: 0.82em;
+  color: #a8b0ba;
+}
+/* Playing state hides unrevealed lines with opacity only, so the full text
+   stays in the accessibility tree and the reserved space prevents CLS. */
+.hero-opening[data-mode="playing"] .hero-line { opacity: 0; transform: translateY(10px); }
+.hero-opening[data-mode="playing"] .hero-line[data-on="true"] { opacity: 1; transform: none; }
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+.hero-btn-brass { background: #9a7b4f; color: #161c24; }
+.hero-btn-ghost {
+  background: transparent;
+  color: #e8e4dc;
+  border-color: rgba(232, 228, 220, 0.35);
+}
+.hero-hint-row { margin: 22px 0 0; }
+.hero-hint {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 10px;
+  color: #a8b0ba;
+  font-size: 0.8rem;
+  letter-spacing: 0.24em;
+  text-decoration: none;
+}
+.hero-hint::after { content: "↓"; margin-left: 0.6em; letter-spacing: 0; }
+.hero-skip,
+.hero-replay {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  z-index: 2;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(232, 228, 220, 0.28);
+  background: rgba(22, 28, 36, 0.55);
+  color: #c5c0b6;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.hero-opening[data-mode="settled"] .hero-skip { display: none; }
+.hero-opening[data-mode="playing"] .hero-replay { display: none; }
+/* CTAs wait for the handoff beat. visibility keeps them out of the tab order
+   while invisible; opacity runs the fade when the mode flips. */
+.hero-opening[data-mode="playing"] .hero-cta,
+.hero-opening[data-mode="playing"] .hero-hint-row {
+  opacity: 0;
+  transform: translateY(10px);
+  visibility: hidden;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-opening .hero-line,
+  .hero-opening .hero-cta,
+  .hero-opening .hero-hint-row {
+    transition: opacity 880ms var(--motion-ease), transform 880ms var(--motion-ease);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-opening,
+  .hero-opening .hero-line,
+  .hero-opening .hero-cta,
+  .hero-opening .hero-hint-row {
+    animation: none;
+    transition: none;
+  }
+}
+@media (max-width: 480px) {
+  .hero-opening { padding: 56px 16px 40px; }
+  .hero-skip,
+  .hero-replay { right: 12px; }
+}

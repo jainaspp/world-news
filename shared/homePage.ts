@@ -161,7 +161,8 @@ export function renderHomeFeed(
 ): string {
   void market;
   void mustRead;
-  const frame = (inner: string) => wrapCivilizationHome(inner, now, Boolean(columns.topic), { pageH1 });
+  /* The BBT opening belongs to the pure homepage only; focus pages (pageH1) skip it. */
+  const frame = (inner: string) => wrapCivilizationHome(inner, now, Boolean(columns.topic), { pageH1, hero: !pageH1 });
   const list = demoteGraphic(items).slice(0, SSR_COUNT);
   if (!list.length) {
     const panel = settled
