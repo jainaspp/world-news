@@ -674,7 +674,13 @@ a.cluster-link:hover { border-color: var(--accent); }
   .topic-fold,
   .topic-area,
   .otd-pack,
-  .otd-pack[open] .otd-pack-body {
+  .otd-pack[open] .otd-pack-body,
+  .hero-open .hero-line,
+  .hero-open .hero-cta,
+  .hero-open .hero-scroll-hint,
+  .hero-open .hero-hint-dot,
+  .hero-open .btn-brass,
+  .hero-open .btn-ghost {
     animation: none;
     transition: none;
   }
@@ -3058,6 +3064,233 @@ a.question-line:hover { text-decoration: underline; }
   .today-slice .story-media,
   .today-slice .thumb-fallback { max-height: 64px; }
 }
+
+/* ============================================================
+   Hero prologue (序章) — BBT-mild stardust monologue, ink paper.
+   Spec: docs/hero/BBT-HERO-GLM-5.3-SPEC-2026-10-21.md
+   One full-viewport ink band above the axis. The canvas paints the
+   cosmos; all copy lives in the DOM so readers and crawlers see
+   text, not pixels. Beats hide only while html.hero-motion is set
+   (added before first paint by HeroOpen's layout effect, dropped
+   after the last reveal), so reduced motion, body.static and a JS
+   failure all fall back to fully visible copy on ink paper.
+   overflow: hidden is the ≤390 bleed guard; the hero grows with its
+   content so nothing inside is clipped. No fixed widths anywhere.
+   ============================================================ */
+.hero-open {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 16px -16px -12px;
+  padding: clamp(20px, 4vh, 40px) 16px 64px;
+  min-height: 86vh;
+  min-height: 86svh;
+  overflow: hidden;
+  background: #161c24;
+  color: #e8e4dc;
+}
+/* The band below shares this ground; -12px eats the axis hero's own
+   12px top margin so ink meets ink with no paper seam. The sticky
+   chrome must not cover the hand-off target. */
+.civ-home .axis-hero { scroll-margin-top: var(--civ-anchor-offset); }
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(232, 228, 220, 0.05) 0.6px, transparent 0.7px);
+  background-size: 3px 3px;
+}
+.hero-vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(22, 28, 36, 0.5) 0%,
+    rgba(22, 28, 36, 0) 24%,
+    rgba(22, 28, 36, 0) 60%,
+    rgba(22, 28, 36, 0.62) 100%
+  );
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 720px;
+  margin-block: auto;
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.hero-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 0 clamp(14px, 3vh, 30px);
+  font-size: var(--civ-type-kicker);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #c4a572;
+}
+.hero-seal {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  border: 1.5px solid rgba(196, 165, 114, 0.65);
+  background: rgba(243, 234, 220, 0.04);
+  color: #c4a572;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  transform: rotate(-4deg);
+}
+.hero-narration {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85em;
+}
+.hero-line {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(1.125rem, 1.6vw + 0.82rem, 1.6rem);
+  line-height: 1.85;
+  letter-spacing: 0.015em;
+  color: #e8e4dc;
+}
+.hero-aside {
+  font-size: clamp(0.86rem, 1.1vw + 0.62rem, 1.02rem);
+  line-height: 1.8;
+  color: #b7b1a6;
+}
+.hero-line--bang {
+  font-size: clamp(1.5rem, 2.3vw + 1rem, 2.15rem);
+  letter-spacing: 0.04em;
+  color: #f3eadc;
+}
+.hero-bang {
+  padding: 0 0.05em 0.02em;
+  border-bottom: 3px solid rgba(196, 165, 114, 0.55);
+}
+.hero-cta {
+  margin: clamp(12px, 2.6vh, 24px) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.hero-open .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; /* P0-04 touch target, site gate */
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+.hero-open .btn-brass { background: #c4a572; color: #161c24; }
+.hero-open .btn-ghost {
+  background: rgba(22, 28, 36, 0.5);
+  color: #e8e4dc;
+  border-color: rgba(232, 228, 220, 0.38);
+}
+.hero-open .btn:focus-visible { outline: 3px solid #f3eadc; outline-offset: 2px; }
+.hero-scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  z-index: 2;
+  margin: 0;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 900ms var(--motion-ease);
+  pointer-events: none;
+}
+.hero-open.is-settled .hero-scroll-hint { opacity: 1; }
+.hero-hint-track {
+  display: block;
+  position: relative;
+  width: 2px;
+  height: 34px;
+  margin: 0 auto;
+  border-radius: 2px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(196, 165, 114, 0), rgba(196, 165, 114, 0.8));
+}
+.hero-hint-dot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: #f3eadc;
+}
+/* Tablet and up: widen the reading column slightly. */
+@media (min-width: 720px) {
+  .hero-inner { max-width: 760px; }
+}
+/* Hero beats reveal only when the motion machine is armed. Base state
+   is visible, so every fallback path shows the full prologue. */
+@media (prefers-reduced-motion: no-preference) {
+  html.hero-motion .hero-open .hero-line:not(.is-said),
+  html.hero-motion .hero-open .hero-cta:not(.is-said) {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .hero-open .hero-line.is-said,
+  .hero-open .hero-cta.is-said {
+    transition: opacity var(--motion-rise) var(--motion-ease), transform var(--motion-rise) var(--motion-ease);
+  }
+  .hero-open.is-settled .hero-hint-dot {
+    animation: hero-hint-fall 2.6s var(--motion-ease) infinite;
+  }
+  .hero-open .btn-brass { transition: transform 200ms var(--motion-ease), box-shadow 200ms var(--motion-ease); }
+  .hero-open .btn-brass:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(196, 165, 114, 0.28); }
+  .hero-open .btn-ghost { transition: border-color 200ms var(--motion-ease), transform 200ms var(--motion-ease); }
+  .hero-open .btn-ghost:hover { border-color: rgba(232, 228, 220, 0.7); transform: translateY(-1px); }
+}
+@keyframes hero-hint-fall {
+  0% { transform: translateY(0); opacity: 0; }
+  16% { opacity: 0.9; }
+  78% { opacity: 0.9; }
+  100% { transform: translateY(29px); opacity: 0; }
+}
+body.static .hero-line,
+body.static .hero-cta,
+body.static .hero-scroll-hint {
+  opacity: 1;
+  transform: none;
+  transition: none;
+  animation: none;
+}
+html.dark .hero-open {
+  background: #161c24;
+  box-shadow: inset 0 1px 0 rgba(196, 165, 114, 0.55), inset 0 -1px 0 rgba(196, 165, 114, 0.35);
+}
+html.dark .hero-open .btn-brass { background: #c4a572; color: #161c24; }
+
+
 /* Phone hub: the axis hero is a grid item on .column-index. Its min-content
    (seven spine labels plus nowrap chips) was wider than the viewport, so the
    hero, chronicle dots, CTAs, and pattern pills shared one overflowing band.
@@ -3115,6 +3348,16 @@ a.question-line:hover { text-decoration: underline; }
     position: static;
     max-width: 100%;
   }
+  /* Hero prologue phones: same ink band, tighter rhythms. No fixed
+     widths anywhere; min-width guards keep the overflow fix pattern. */
+  .hero-open,
+  .hero-inner { min-width: 0; max-width: 100%; }
+  .hero-line,
+  .hero-aside { max-width: 100%; overflow-wrap: break-word; }
+  .hero-narration { gap: 0.75em; }
+  .hero-kicker { letter-spacing: 0.12em; gap: 10px; }
+  .hero-cta { gap: 10px; }
+  .hero-open .btn { padding: 10px 16px; }
   .pattern-axis,
   .case-axis {
     flex-direction: column;
@@ -3501,3 +3744,4 @@ html.dark .chronicle-nav .chip.is-current {
   border-color: #c4a572;
 }
 html.dark .civ-progress { background: #c4a572; }
+
