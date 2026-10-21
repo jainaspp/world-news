@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 const FILES = [
   'shared/siteNav.ts',
   'shared/sitePages.ts',
+  'shared/toolsDraft.ts',
   'shared/contentPage.ts',
   'shared/prose.ts',
   'shared/homeCopy.ts',
