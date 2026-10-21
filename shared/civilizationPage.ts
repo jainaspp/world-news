@@ -2,6 +2,7 @@ import { siteBrand } from './brand.js';
 import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPage.js';
 import { CHRONICLE_STAGES, chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderChronicleStrip, renderStageGrid } from './civilization/chronicle.js';
 import { renderBulletinClock } from './civilization/clock.js';
+import { renderOpeningHero } from './civilization/openingHero.js';
 import { renderCaseAxisLinks } from './civilization/cases.js';
 import { renderPatternAxisLinks, renderPatternBoard } from './civilization/patterns.js';
 import { renderCityArticle, cityIndexable } from './civilization/city.js';
@@ -326,6 +327,7 @@ export function wrapCivilizationHome(inner: string, now = new Date(), topic = fa
   const heading = pageH1 ? `<h1 class="focus-title">${esc(pageH1)}</h1>` : '';
   return `${renderCivNav(topic)}
   <div class="civ-home">
+    ${renderOpeningHero()}
     ${renderAxisBand({ asHeading: !pageH1, strip: false, rails: false })}
     ${renderBulletinClock()}
     ${renderHomeChronicle()}

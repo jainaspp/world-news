@@ -3501,3 +3501,201 @@ html.dark .chronicle-nav .chip.is-current {
   border-color: #c4a572;
 }
 html.dark .civ-progress { background: #c4a572; }
+
+/* Opening hero. Homepage only. Ink plate, not a second page background.
+   Text sits in its own band under the plate so it cannot collide with the sky.
+   Chapter tokens stay on this plate: 古金 / 今藍 / 未來紫. They do not reskin the site.
+   See docs/hero/BBT-HERO-GROK-4.7-SPEC-2026-10-21.md */
+.bbt-hero-mount { display: contents; }
+.bbt-hero {
+  --era-ancient: #c4a572;
+  --era-ancient-deep: #9a7b4f;
+  --era-now: #4a7fb5;
+  --era-future: #8d7aaa;
+  --era-future-glow: #d5c8ea;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  min-height: calc(100vh - 8.5rem);
+  min-height: calc(100svh - 8.5rem);
+  margin: 4px -16px 0;
+  padding: 18px 16px 20px;
+  overflow: visible;
+  background-color: #161c24;
+  color: #f7f1e6;
+  background-image:
+    radial-gradient(ellipse at 50% 36%, rgba(196, 165, 114, 0.16), transparent 58%),
+    radial-gradient(rgba(247, 241, 230, 0.045) 0.6px, transparent 0.65px);
+  background-size: auto, 3px 3px;
+  box-shadow: inset 0 1px 0 rgba(196, 165, 114, 0.4);
+}
+.bbt-hero > * { min-width: 0; max-width: 100%; }
+#opening,
+.axis-hero#civ {
+  scroll-margin-top: var(--civ-anchor-offset);
+}
+.bbt-hero + .axis-hero,
+.bbt-hero + .axis-mount .axis-hero { margin-top: 0; }
+.bbt-kicker {
+  margin: 0;
+  color: var(--era-ancient);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.bbt-brand {
+  margin: -4px 0 0;
+  color: #f7f1e6;
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.14em;
+  overflow-wrap: anywhere;
+}
+.bbt-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 200px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #161c24;
+  box-shadow: inset 0 0 0 1px var(--era-ancient);
+}
+.bbt-stage[data-beat="earth"] { box-shadow: inset 0 0 0 1px var(--era-now); }
+.bbt-stage[data-beat="handoff"] { box-shadow: inset 0 0 0 1px var(--era-future); }
+.bbt-stage::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 46%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f7f1e6;
+  box-shadow: 0 0 22px 8px rgba(196, 165, 114, 0.55);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.bbt-stage::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(247, 241, 230, 0.08);
+  pointer-events: none;
+}
+.bbt-sky {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.bbt-narration {
+  position: relative;
+  min-height: 4.8em;
+}
+.bbt-line {
+  margin: 0;
+  color: #f7f1e6;
+  font-family: var(--font-serif);
+  font-size: clamp(1.0625rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+.bbt-line-aside { color: #c5c0b6; font-size: 0.94em; }
+/* One sentence in the band. The others leave the layout so their boxes cannot collide. */
+.bbt-hero.is-live .bbt-line:not(.is-on) { display: none; }
+.bbt-beats,
+.bbt-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+}
+.bbt-beat,
+.bbt-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(232, 228, 220, 0.45);
+  background: transparent;
+  color: #f7f1e6;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.bbt-beat.is-on,
+.bbt-btn-brass {
+  background: var(--era-ancient);
+  border-color: var(--era-ancient);
+  color: #161c24;
+}
+.bbt-beat:focus-visible,
+.bbt-btn:focus-visible {
+  outline: 2px solid #f7f1e6;
+  outline-offset: 2px;
+}
+@media (max-width: 390px) {
+  .bbt-hero {
+    gap: 10px;
+    padding: 16px 16px 18px;
+  }
+  .bbt-stage { min-height: 188px; }
+  .bbt-brand { letter-spacing: 0.08em; }
+}
+@media (min-width: 800px) {
+  .bbt-hero { padding: 28px 28px 24px; }
+  .bbt-stage { min-height: 240px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bbt-hero.is-live .bbt-line.is-on { animation: bbt-line-in 480ms var(--motion-ease); }
+}
+@keyframes bbt-line-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bbt-hero,
+  .bbt-hero * {
+    animation: none;
+    transition: none;
+  }
+  .bbt-play-only { display: none; }
+}
+body.static .bbt-hero,
+body.static .bbt-hero * {
+  animation: none;
+  transition: none;
+}
+body.static .bbt-play-only { display: none; }
+html.dark .bbt-hero {
+  background-color: #161c24;
+  color: #f7f1e6;
+}
+html.dark .bbt-brand,
+html.dark .bbt-line { color: #f7f1e6; }
+html.dark .bbt-line-aside { color: #c5c0b6; }
+html.dark .bbt-btn-brass,
+html.dark .bbt-beat.is-on {
+  background: #c4a572;
+  color: #161c24;
+}

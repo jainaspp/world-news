@@ -19,6 +19,7 @@ import { siteBrand, siteTitle, swCacheName } from '../shared/brand';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
+import { OpeningHero } from './components/OpeningHero';
 import { MostRead } from './components/MostRead';
 import { DarkModeToggle } from './components/DarkModeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -556,6 +557,7 @@ export default function App() {
           <main id="today">
             {!special && (
               <div className="civ-home">
+                <OpeningHero />
                 <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false, rails: false }) }} />
                 <div dangerouslySetInnerHTML={{ __html: renderBulletinClock() }} />
                 <div dangerouslySetInnerHTML={{ __html: renderHomeChronicle() }} />
