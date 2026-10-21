@@ -148,6 +148,23 @@ npm run build      # tsc --noEmit && vite build && prerender
 
 視覺核對（本 PR 附截圖於 `docs/hero/shots/`）：360×800、390×844、1280×800，淺色／暗色，播放中／settled／reduced-motion。
 
+### 2026-10-21 實測（headless Chrome，本分支 dev server）
+
+| 視口 | 狀態 | scrollWidth ≤ clientWidth+1 | 碰撞掃描 | data-mode → phase |
+|------|------|------------------------------|----------|-------------------|
+| 360×800 淺色 | playing 2.4s | 360=360 ✓ | 0 碰撞 ✓ | playing → singularity ✓ |
+| 360×800 淺色 | playing 10.4s | ✓ | 0 ✓ | playing → ignition ✓ |
+| 360×800 淺色 | 17s | ✓ | 0 ✓ | settled → handoff ✓ |
+| 360×800 暗色 | playing 7.6s | ✓ | 0 ✓ | playing → ignition ✓ |
+| 390×844 暗色 | 17s | 390=390 ✓ | 0 ✓ | settled ✓ |
+| 390×844 淺色 reduce | 1.5s | ✓ | 0 ✓ | 直接 settled ✓ |
+| 1280×800 淺色 | playing 9.8s | ✓ | 0 ✓ | playing → ignition ✓ |
+| 1280×800 暗色 | 17s | ✓ | 0 ✓ | settled ✓ |
+
+- Hero 實高：703–709px（360/390）、805px（1280），內容無裁字、無重疊。
+- SSR 字串核對：hero 在 axis 之前、boot script 在場、全頁單一 h1、focus 頁無 hero。
+- 已知 dev-only 現象（main 分支相同，非本 PR 引入）：dev server 360px 下新聞卡文字互疊；A/B 對照圖證實 main 完全一致，屬本地假資料／圖片載入的既有現象，不在本 PR 範圍。
+
 ## 9. 站級閘自評（SITE-MAJOR-UPDATE-GATE）
 
 本改動命中 `TRIG-HOME`、`TRIG-ANIM`、`TRIG-TEMPLATE`，屬全站閘候選；以下為構造層面的對應，正式過閘仍需三席投票＋GM 簽字：
