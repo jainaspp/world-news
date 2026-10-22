@@ -1,0 +1,74 @@
+[
+  {
+    "note": "C jump",
+    "point": {
+      "x": 186.0234375,
+      "y": 400.1875,
+      "w": 108.015625,
+      "h": 44,
+      "label": "跳到今日切片"
+    },
+    "landed": {
+      "href": "/#slice",
+      "scrollY": 2077,
+      "h1": "",
+      "clearance": -153,
+      "chromeH": 161
+    },
+    "exceptions": []
+  },
+  {
+    "note": "H jump",
+    "point": {
+      "x": 186,
+      "y": 399.734375,
+      "w": 108,
+      "h": 44,
+      "label": "跳到今日切片"
+    },
+    "landed": {
+      "href": "/#slice",
+      "scrollY": 2077,
+      "h1": "",
+      "clearance": -153,
+      "chromeH": 161
+    },
+    "exceptions": []
+  },
+  {
+    "note": "H primary",
+    "point": {
+      "x": 70,
+      "y": 399.734375,
+      "w": 108,
+      "h": 44,
+      "label": "打開文明總覽"
+    },
+    "landed": {
+      "href": "/civilization/",
+      "scrollY": 0,
+      "h1": "人類文明",
+      "clearance": 919.8,
+      "chromeH": 117
+    },
+    "exceptions": []
+  },
+  {
+    "note": "C primary",
+    "point": {
+      "x": 70.0078125,
+      "y": 400.1875,
+      "w": 108.015625,
+      "h": 44,
+      "label": "閱讀人類起源"
+    },
+    "landed": {
+      "href": "/civilization/origins/",
+      "scrollY": 0,
+      "h1": "人類起源時間線：從深時間到今日切片",
+      "clearance": 118.4,
+      "chromeH": 161
+    },
+    "exceptions": []
+  }
+]

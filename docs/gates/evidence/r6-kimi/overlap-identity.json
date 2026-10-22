@@ -1,0 +1,528 @@
+[
+  {
+    "path": "/",
+    "w": 390,
+    "theme": "light",
+    "ready": true,
+    "sweep": 120,
+    "hits": [
+      {
+        "unionIx": 64,
+        "unionIy": 17,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "world-news.xyz",
+          "href": "https://world-news.xyz",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 6574,
+          "w": 352,
+          "h": 36,
+          "lines": 3,
+          "path": "a < p < footer.app-footer < div.page < div#root < body"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "重大更新",
+          "href": "/major/",
+          "display": "inline",
+          "position": "static",
+          "left": 96,
+          "top": 6593,
+          "w": 64,
+          "h": 17,
+          "lines": 1,
+          "path": "a < p < footer.app-footer < div.page < div#root < body"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/civilization/",
+    "w": 390,
+    "theme": "light",
+    "ready": true,
+    "sweep": 304,
+    "hits": [
+      {
+        "unionIx": 32,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "world-news.xyz",
+          "href": "https://world-news.xyz",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 26846,
+          "w": 353,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "數據",
+          "href": "/data/",
+          "display": "inline",
+          "position": "static",
+          "left": 106,
+          "top": 26870,
+          "w": 32,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html"
+        }
+      },
+      {
+        "unionIx": 64,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "world-news.xyz",
+          "href": "https://world-news.xyz",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 26846,
+          "w": 353,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "重大更新",
+          "href": "/major/",
+          "display": "inline",
+          "position": "static",
+          "left": 161,
+          "top": 26870,
+          "w": 64,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/civilization/chronicle/",
+    "w": 768,
+    "theme": "dark",
+    "ready": true,
+    "sweep": 287,
+    "hits": [
+      {
+        "unionIx": 32,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "world-news.xyz",
+          "href": "https://world-news.xyz",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 32749,
+          "w": 689,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html.dark"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "數據",
+          "href": "/data/",
+          "display": "inline",
+          "position": "static",
+          "left": 106,
+          "top": 32773,
+          "w": 32,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html.dark"
+        }
+      },
+      {
+        "unionIx": 64,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "world-news.xyz",
+          "href": "https://world-news.xyz",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 32749,
+          "w": 689,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html.dark"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "重大更新",
+          "href": "/major/",
+          "display": "inline",
+          "position": "static",
+          "left": 161,
+          "top": 32773,
+          "w": 64,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html.dark"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/learn/",
+    "w": 390,
+    "theme": "dark",
+    "ready": true,
+    "sweep": 42,
+    "hits": [
+      {
+        "unionIx": 32,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "world-news.xyz",
+          "href": "https://world-news.xyz",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 2123,
+          "w": 353,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html.dark"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "數據",
+          "href": "/data/",
+          "display": "inline",
+          "position": "static",
+          "left": 106,
+          "top": 2147,
+          "w": 32,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html.dark"
+        }
+      },
+      {
+        "unionIx": 64,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "world-news.xyz",
+          "href": "https://world-news.xyz",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 2123,
+          "w": 353,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html.dark"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "重大更新",
+          "href": "/major/",
+          "display": "inline",
+          "position": "static",
+          "left": 161,
+          "top": 2147,
+          "w": 64,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html.dark"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/story/long/",
+    "w": 390,
+    "theme": "light",
+    "ready": true,
+    "sweep": 53,
+    "hits": [
+      {
+        "unionIx": 32,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "world-news.xyz",
+          "href": "https://world-news.xyz",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 1659,
+          "w": 353,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "數據",
+          "href": "/data/",
+          "display": "inline",
+          "position": "static",
+          "left": 106,
+          "top": 1683,
+          "w": 32,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html"
+        }
+      },
+      {
+        "unionIx": 64,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "world-news.xyz",
+          "href": "https://world-news.xyz",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 1659,
+          "w": 353,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "重大更新",
+          "href": "/major/",
+          "display": "inline",
+          "position": "static",
+          "left": 161,
+          "top": 1683,
+          "w": 64,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < footer.app-footer < div.page.column-page < body < html"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/civilization/no-such-layer/",
+    "w": 360,
+    "theme": "dark",
+    "ready": true,
+    "sweep": 33,
+    "hits": [
+      {
+        "unionIx": 64,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "文明總覽",
+          "href": "/civilization/",
+          "display": "inline",
+          "position": "static",
+          "left": 64,
+          "top": 361,
+          "w": 64,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < main#content.column-index.civ-main-page < div.page.column-page < body < html.dark"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "科技與發現",
+          "href": "/civilization/tech/",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 361,
+          "w": 320,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < main#content.column-index.civ-main-page < div.page.column-page < body < html.dark"
+        }
+      },
+      {
+        "unionIx": 64,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "人類起源",
+          "href": "/civilization/origins/",
+          "display": "inline",
+          "position": "static",
+          "left": 192,
+          "top": 361,
+          "w": 64,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < main#content.column-index.civ-main-page < div.page.column-page < body < html.dark"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "科技與發現",
+          "href": "/civilization/tech/",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 361,
+          "w": 320,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < main#content.column-index.civ-main-page < div.page.column-page < body < html.dark"
+        }
+      },
+      {
+        "unionIx": 128,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "科技與發現",
+          "href": "/civilization/tech/",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 361,
+          "w": 320,
+          "h": 48,
+          "lines": 2,
+          "path": "a < p < main#content.column-index.civ-main-page < div.page.column-page < body < html.dark"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "城市・基建・民生",
+          "href": "/civilization/city/",
+          "display": "inline",
+          "position": "static",
+          "left": 48,
+          "top": 385,
+          "w": 128,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < main#content.column-index.civ-main-page < div.page.column-page < body < html.dark"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/civilization/tech/",
+    "w": 360,
+    "theme": "dark",
+    "ready": true,
+    "sweep": 164,
+    "hits": [
+      {
+        "unionIx": 128,
+        "unionIy": 24,
+        "lineArea": 0,
+        "a": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "城市・基建・民生",
+          "href": "/civilization/city/",
+          "display": "inline",
+          "position": "static",
+          "left": 80,
+          "top": 25447,
+          "w": 128,
+          "h": 24,
+          "lines": 1,
+          "path": "a < p < article.civ-article.tech-page < main#content.column-index.civ-main-page < div.page.column-page < body"
+        },
+        "b": {
+          "tag": "a",
+          "class": "",
+          "id": "",
+          "text": "今日切片",
+          "href": "/#slice",
+          "display": "inline",
+          "position": "static",
+          "left": 16,
+          "top": 25447,
+          "w": 320,
+          "h": 52,
+          "lines": 2,
+          "path": "a < p < article.civ-article.tech-page < main#content.column-index.civ-main-page < div.page.column-page < body"
+        }
+      }
+    ]
+  },
+  {
+    "path": "/",
+    "w": 360,
+    "theme": "light",
+    "ready": true,
+    "sweep": 120,
+    "hits": []
+  }
+]

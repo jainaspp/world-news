@@ -1,0 +1,1269 @@
+[
+  {
+    "sel": ".bulletin-seconds",
+    "text": "29秒",
+    "color": "#6e675c",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "500",
+    "left": 61.375,
+    "top": 393.734375,
+    "width": 360,
+    "height": 12,
+    "clip": {
+      "x": 57.375,
+      "y": 389.734375,
+      "width": 33,
+      "height": 20
+    },
+    "pixels": {
+      "w": 66,
+      "h": 40,
+      "textPx": 0,
+      "bgPx": 2640,
+      "fg": "#6e675c",
+      "bg": "#f4f6f8",
+      "bright": "#f4f6f8",
+      "ratioMedian": 5.16,
+      "ratioBright": 5.16
+    },
+    "page": "H",
+    "theme": "light"
+  },
+  {
+    "sel": ".bulletin-asof",
+    "text": "資料日期 2025-01-28",
+    "color": "#5c6570",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "400",
+    "left": 228.265625,
+    "top": 392.9375,
+    "width": 360,
+    "height": 14,
+    "clip": {
+      "x": 224.265625,
+      "y": 388.9375,
+      "width": 120.734375,
+      "height": 22
+    },
+    "pixels": {
+      "w": 241,
+      "h": 44,
+      "textPx": 0,
+      "bgPx": 10604,
+      "fg": "#5c6570",
+      "bg": "#f4f6f8",
+      "bright": "#f4f6f8",
+      "ratioMedian": 5.46,
+      "ratioBright": 5.46
+    },
+    "page": "H",
+    "theme": "light"
+  },
+  {
+    "sel": ".more-today span",
+    "text": "全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。",
+    "color": "#5c6570",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "400",
+    "left": 16,
+    "top": 385.671875,
+    "width": 360,
+    "height": 28,
+    "clip": {
+      "x": 12,
+      "y": 381.671875,
+      "width": 336,
+      "height": 36
+    },
+    "pixels": {
+      "w": 672,
+      "h": 72,
+      "textPx": 0,
+      "bgPx": 48384,
+      "fg": "#5c6570",
+      "bg": "#f4f6f8",
+      "bright": "#f4f6f8",
+      "ratioMedian": 5.46,
+      "ratioBright": 5.46
+    },
+    "page": "H",
+    "theme": "light"
+  },
+  {
+    "sel": ".bulletin-seconds",
+    "text": "29秒",
+    "color": "#b7b1a6",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "500",
+    "left": 61.375,
+    "top": 393.734375,
+    "width": 360,
+    "height": 12,
+    "clip": {
+      "x": 57.375,
+      "y": 389.734375,
+      "width": 33,
+      "height": 20
+    },
+    "pixels": {
+      "w": 66,
+      "h": 40,
+      "textPx": 0,
+      "bgPx": 2640,
+      "fg": "#b7b1a6",
+      "bg": "#0e141c",
+      "bright": "#0e141c",
+      "ratioMedian": 8.68,
+      "ratioBright": 8.68
+    },
+    "page": "H",
+    "theme": "dark"
+  },
+  {
+    "sel": ".more-today span",
+    "text": "全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。",
+    "color": "#c9d3df",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "400",
+    "left": 16,
+    "top": 385.671875,
+    "width": 360,
+    "height": 28,
+    "clip": {
+      "x": 12,
+      "y": 381.671875,
+      "width": 336,
+      "height": 36
+    },
+    "pixels": {
+      "w": 672,
+      "h": 72,
+      "textPx": 0,
+      "bgPx": 48384,
+      "fg": "#c9d3df",
+      "bg": "#0e141c",
+      "bright": "#0e141c",
+      "ratioMedian": 12.21,
+      "ratioBright": 12.21
+    },
+    "page": "H",
+    "theme": "dark"
+  },
+  {
+    "sel": ".learn-progress",
+    "text": "本機尚未記下進度。",
+    "color": "#c9d3df",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 16,
+    "top": 350.265625,
+    "width": 360,
+    "height": 24,
+    "clip": {
+      "x": 12,
+      "y": 346.265625,
+      "width": 336,
+      "height": 32
+    },
+    "pixels": {
+      "w": 672,
+      "h": 64,
+      "textPx": 1807,
+      "bgPx": 40960,
+      "fg": "#c9d3df",
+      "bg": "#121820",
+      "bright": "#121820",
+      "ratioMedian": 11.78,
+      "ratioBright": 11.78
+    },
+    "page": "L",
+    "theme": "dark"
+  },
+  {
+    "sel": ".learn-note",
+    "text": "已開的門可以讀。其餘是淡門，只標方位，不假裝已有正文。地圖可以再長，這一版先把已登錄的門畫全。",
+    "color": "#c9d3df",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 16,
+    "top": 364.078125,
+    "width": 360,
+    "height": 72,
+    "clip": {
+      "x": 12,
+      "y": 360.078125,
+      "width": 336,
+      "height": 80
+    },
+    "pixels": {
+      "w": 672,
+      "h": 160,
+      "textPx": 1488,
+      "bgPx": 104860,
+      "fg": "#c9d3df",
+      "bg": "#121820",
+      "bright": "#121820",
+      "ratioMedian": 11.78,
+      "ratioBright": 11.78
+    },
+    "page": "L",
+    "theme": "dark"
+  },
+  {
+    "sel": ".learn-bearings",
+    "text": "符號與語言 抽象結構 物質與自然 世界與人文 感知與身體 跨域工具",
+    "color": "#c9d3df",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "400",
+    "left": 16,
+    "top": 379.078125,
+    "width": 360,
+    "height": 42,
+    "clip": {
+      "x": 12,
+      "y": 375.078125,
+      "width": 336,
+      "height": 50
+    },
+    "pixels": {
+      "w": 672,
+      "h": 100,
+      "textPx": 0,
+      "bgPx": 67200,
+      "fg": "#c9d3df",
+      "bg": "#121820",
+      "bright": "#121820",
+      "ratioMedian": 11.78,
+      "ratioBright": 11.78
+    },
+    "page": "L",
+    "theme": "dark"
+  },
+  {
+    "sel": ".learn-bound",
+    "text": "敘事見文明軸。今日事件見懶人包。此處是能力樹。",
+    "color": "#c9d3df",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 16,
+    "top": 376.078125,
+    "width": 360,
+    "height": 48,
+    "clip": {
+      "x": 12,
+      "y": 372.078125,
+      "width": 336,
+      "height": 56
+    },
+    "pixels": {
+      "w": 672,
+      "h": 112,
+      "textPx": 0,
+      "bgPx": 75264,
+      "fg": "#c9d3df",
+      "bg": "#0e141c",
+      "bright": "#0e141c",
+      "ratioMedian": 12.21,
+      "ratioBright": 12.21
+    },
+    "page": "L",
+    "theme": "dark"
+  },
+  {
+    "sel": ".learn-progress",
+    "text": "本機尚未記下進度。",
+    "color": "#3d4550",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 16,
+    "top": 350.265625,
+    "width": 360,
+    "height": 24,
+    "clip": {
+      "x": 12,
+      "y": 346.265625,
+      "width": 336,
+      "height": 32
+    },
+    "pixels": {
+      "w": 672,
+      "h": 64,
+      "textPx": 1719,
+      "bgPx": 40948,
+      "fg": "#3d4550",
+      "bg": "#f7f1e6",
+      "bright": "#f7f1e6",
+      "ratioMedian": 8.63,
+      "ratioBright": 8.63
+    },
+    "page": "L",
+    "theme": "light"
+  },
+  {
+    "sel": ".learn-note",
+    "text": "已開的門可以讀。其餘是淡門，只標方位，不假裝已有正文。地圖可以再長，這一版先把已登錄的門畫全。",
+    "color": "#3d4550",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 16,
+    "top": 364.078125,
+    "width": 360,
+    "height": 72,
+    "clip": {
+      "x": 12,
+      "y": 360.078125,
+      "width": 336,
+      "height": 80
+    },
+    "pixels": {
+      "w": 672,
+      "h": 160,
+      "textPx": 1369,
+      "bgPx": 104853,
+      "fg": "#3d4550",
+      "bg": "#f7f1e6",
+      "bright": "#f7f1e6",
+      "ratioMedian": 8.63,
+      "ratioBright": 8.63
+    },
+    "page": "L",
+    "theme": "light"
+  },
+  {
+    "sel": ".learn-bearings",
+    "text": "符號與語言 抽象結構 物質與自然 世界與人文 感知與身體 跨域工具",
+    "color": "#5c6570",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "400",
+    "left": 16,
+    "top": 379.078125,
+    "width": 360,
+    "height": 42,
+    "clip": {
+      "x": 12,
+      "y": 375.078125,
+      "width": 336,
+      "height": 50
+    },
+    "pixels": {
+      "w": 672,
+      "h": 100,
+      "textPx": 0,
+      "bgPx": 67200,
+      "fg": "#5c6570",
+      "bg": "#f7f1e6",
+      "bright": "#f7f1e6",
+      "ratioMedian": 5.26,
+      "ratioBright": 5.26
+    },
+    "page": "L",
+    "theme": "light"
+  },
+  {
+    "sel": ".learn-door.is-locked",
+    "text": "物質與自然 物質 尚未開啓之路",
+    "color": "#5c6570",
+    "ownBg": [
+      239,
+      232,
+      218
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 16,
+    "top": 352.078125,
+    "width": 360,
+    "height": 96,
+    "clip": {
+      "x": 12,
+      "y": 348.078125,
+      "width": 336,
+      "height": 104
+    },
+    "pixels": {
+      "w": 672,
+      "h": 208,
+      "textPx": 0,
+      "bgPx": 139776,
+      "fg": "#5c6570",
+      "bg": "#f4f6f8",
+      "bright": "#f4f6f8",
+      "ratioMedian": 5.46,
+      "ratioBright": 5.46
+    },
+    "page": "L",
+    "theme": "light"
+  },
+  {
+    "sel": ".learn-locked",
+    "text": "物質之門在萬有地圖的「物質與自然」。此路尚未開啓。",
+    "color": "#c9d3df",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 16,
+    "top": 337.875,
+    "width": 360,
+    "height": 48,
+    "clip": {
+      "x": 12,
+      "y": 333.875,
+      "width": 336,
+      "height": 56
+    },
+    "pixels": {
+      "w": 672,
+      "h": 112,
+      "textPx": 4963,
+      "bgPx": 69489,
+      "fg": "#c9d3df",
+      "bg": "#121820",
+      "bright": "#172325",
+      "ratioMedian": 11.78,
+      "ratioBright": 10.64
+    },
+    "page": "L2",
+    "theme": "dark"
+  },
+  {
+    "sel": ".learn-locked",
+    "text": "物質之門在萬有地圖的「物質與自然」。此路尚未開啓。",
+    "color": "#3d4550",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 16,
+    "top": 337.875,
+    "width": 360,
+    "height": 48,
+    "clip": {
+      "x": 12,
+      "y": 333.875,
+      "width": 336,
+      "height": 56
+    },
+    "pixels": {
+      "w": 672,
+      "h": 112,
+      "textPx": 4689,
+      "bgPx": 69462,
+      "fg": "#3d4550",
+      "bg": "#f7f1e6",
+      "bright": "#f7f1e6",
+      "ratioMedian": 8.63,
+      "ratioBright": 8.63
+    },
+    "page": "L2",
+    "theme": "light"
+  },
+  {
+    "sel": "#ch-future .stage-links a",
+    "text": "總覽展望",
+    "color": "#9ec0ef",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 13,
+    "weight": "700",
+    "left": 32,
+    "top": 389.921875,
+    "width": 360,
+    "height": 20.796875,
+    "clip": {
+      "x": 28,
+      "y": 385.921875,
+      "width": 60.015625,
+      "height": 28.796875
+    },
+    "pixels": {
+      "w": 120,
+      "h": 58,
+      "textPx": 0,
+      "bgPx": 6960,
+      "fg": "#9ec0ef",
+      "bg": "#f4f6f8",
+      "bright": "#f4f6f8",
+      "ratioMedian": 1.72,
+      "ratioBright": 1.72
+    },
+    "page": "N",
+    "theme": "light"
+  },
+  {
+    "sel": ".chapter-band",
+    "text": "卷一 古 約三百萬年前至約公元一五〇〇年 採集、農業、城市、帝國與商路，在此收成可核對的刻度。本",
+    "color": "#f7f1e6",
+    "ownBg": [
+      22,
+      28,
+      36
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 16,
+    "top": 295.40625,
+    "width": 360,
+    "height": 386.5625,
+    "clip": {
+      "x": 12,
+      "y": 291.40625,
+      "width": 336,
+      "height": 280
+    },
+    "pixels": {
+      "w": 672,
+      "h": 560,
+      "textPx": 376320,
+      "bgPx": 0,
+      "fg": "#f4f6f8",
+      "bg": null,
+      "bright": null,
+      "ratioMedian": null,
+      "ratioBright": null
+    },
+    "page": "N",
+    "theme": "light"
+  },
+  {
+    "sel": "#ch-future .stage-links a",
+    "text": "總覽展望",
+    "color": "#9ec0ef",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 13,
+    "weight": "700",
+    "left": 33,
+    "top": 389.921875,
+    "width": 360,
+    "height": 20.796875,
+    "clip": {
+      "x": 29,
+      "y": 385.921875,
+      "width": 60.015625,
+      "height": 28.796875
+    },
+    "pixels": {
+      "w": 120,
+      "h": 58,
+      "textPx": 0,
+      "bgPx": 6960,
+      "fg": "#9ec0ef",
+      "bg": "#0e141c",
+      "bright": "#0e141c",
+      "ratioMedian": 9.9,
+      "ratioBright": 9.9
+    },
+    "page": "N",
+    "theme": "dark"
+  },
+  {
+    "sel": ".nav-more > summary",
+    "text": "更多",
+    "color": "#c9d3df",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 13,
+    "weight": "400",
+    "left": 414.0625,
+    "top": 56,
+    "width": 1280,
+    "height": 44,
+    "clip": {
+      "x": 410.0625,
+      "y": 52,
+      "width": 52,
+      "height": 52
+    },
+    "pixels": {
+      "w": 104,
+      "h": 104,
+      "textPx": 373,
+      "bgPx": 10352,
+      "fg": "#c9d3df",
+      "bg": "#0e141c",
+      "bright": "#0e141c",
+      "ratioMedian": 12.21,
+      "ratioBright": 12.21
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".nav-more > summary",
+    "text": "更多",
+    "color": "#e8e4dc",
+    "ownBg": [
+      18,
+      24,
+      32
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 241.96875,
+    "top": 56,
+    "width": 360,
+    "height": 44,
+    "clip": {
+      "x": 237.96875,
+      "y": 52,
+      "width": 58.015625,
+      "height": 52
+    },
+    "pixels": {
+      "w": 116,
+      "h": 104,
+      "textPx": 475,
+      "bgPx": 11525,
+      "fg": "#e8e4dc",
+      "bg": "#121820",
+      "bright": "#313b49",
+      "ratioMedian": 14.07,
+      "ratioBright": 8.94
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".axis-title",
+    "text": "站在一條很長的時間軸上",
+    "color": "#f7f1e6",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 27.2,
+    "weight": "700",
+    "left": 16,
+    "top": 243,
+    "width": 360,
+    "height": 34,
+    "clip": {
+      "x": 12,
+      "y": 239,
+      "width": 336,
+      "height": 42
+    },
+    "pixels": {
+      "w": 672,
+      "h": 84,
+      "textPx": 8272,
+      "bgPx": 47214,
+      "fg": "#f7f1e6",
+      "bg": "#25282b",
+      "bright": "#343638",
+      "ratioMedian": 13.18,
+      "ratioBright": 10.79
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".axis-lede",
+    "text": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+    "color": "#c5c0b6",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 14,
+    "weight": "400",
+    "left": 16,
+    "top": 285,
+    "width": 360,
+    "height": 40,
+    "clip": {
+      "x": 12,
+      "y": 281,
+      "width": 336,
+      "height": 48
+    },
+    "pixels": {
+      "w": 672,
+      "h": 96,
+      "textPx": 5451,
+      "bgPx": 58238,
+      "fg": "#c5c0b6",
+      "bg": "#2a2c2e",
+      "bright": "#353837",
+      "ratioMedian": 7.74,
+      "ratioBright": 6.54
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".axis-node .yr",
+    "text": "~138億",
+    "color": "#c4a572",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "700",
+    "left": 24,
+    "top": 390.59375,
+    "width": 360,
+    "height": 15.59375,
+    "clip": {
+      "x": 20,
+      "y": 386.59375,
+      "width": 77,
+      "height": 23.59375
+    },
+    "pixels": {
+      "w": 154,
+      "h": 47,
+      "textPx": 561,
+      "bgPx": 6567,
+      "fg": "#c4a572",
+      "bg": "#3b3835",
+      "bright": "#413f3c",
+      "ratioMedian": 4.98,
+      "ratioBright": 4.48
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".axis-cta a",
+    "text": "閱讀人類起源",
+    "color": "#161c24",
+    "ownBg": [
+      161,
+      130,
+      86
+    ],
+    "size": 13,
+    "weight": "700",
+    "left": 16,
+    "top": 378.1875,
+    "width": 360,
+    "height": 44,
+    "clip": {
+      "x": 12,
+      "y": 374.1875,
+      "width": 116.015625,
+      "height": 52
+    },
+    "pixels": {
+      "w": 232,
+      "h": 104,
+      "textPx": 13453,
+      "bgPx": 1182,
+      "fg": "#373634",
+      "bg": "#c1a572",
+      "bright": "#c5c0b6",
+      "ratioMedian": 5.11,
+      "ratioBright": 6.66
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".civ-block-figure figcaption",
+    "text": "功率的儲存與維修 · 紙感 · 約數",
+    "color": "#d2c4b0",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "400",
+    "left": 29,
+    "top": 391.9375,
+    "width": 360,
+    "height": 17,
+    "clip": {
+      "x": 25,
+      "y": 387.9375,
+      "width": 310,
+      "height": 25
+    },
+    "pixels": {
+      "w": 620,
+      "h": 50,
+      "textPx": 0,
+      "bgPx": 31000,
+      "fg": "#d2c4b0",
+      "bg": "#0e141c",
+      "bright": "#0e141c",
+      "ratioMedian": 10.8,
+      "ratioBright": 10.8
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".axis-title",
+    "text": "站在一條很長的時間軸上",
+    "color": "#f7f1e6",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 27.2,
+    "weight": "700",
+    "left": 16,
+    "top": 243,
+    "width": 390,
+    "height": 34,
+    "clip": {
+      "x": 12,
+      "y": 239,
+      "width": 366,
+      "height": 42
+    },
+    "pixels": {
+      "w": 732,
+      "h": 84,
+      "textPx": 8274,
+      "bgPx": 52256,
+      "fg": "#f7f1e6",
+      "bg": "#25272a",
+      "bright": "#323234",
+      "ratioMedian": 13.32,
+      "ratioBright": 11.38
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".axis-lede",
+    "text": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+    "color": "#c5c0b6",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 14,
+    "weight": "400",
+    "left": 16,
+    "top": 285,
+    "width": 390,
+    "height": 40,
+    "clip": {
+      "x": 12,
+      "y": 281,
+      "width": 366,
+      "height": 48
+    },
+    "pixels": {
+      "w": 732,
+      "h": 96,
+      "textPx": 5448,
+      "bgPx": 64004,
+      "fg": "#c5c0b6",
+      "bg": "#2a2c2e",
+      "bright": "#343636",
+      "ratioMedian": 7.74,
+      "ratioBright": 6.71
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".axis-node .lab",
+    "text": "宇宙",
+    "color": "#c5c0b6",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "400",
+    "left": 24,
+    "top": 373,
+    "width": 390,
+    "height": 15.59375,
+    "clip": {
+      "x": 20,
+      "y": 369,
+      "width": 84.5,
+      "height": 23.59375
+    },
+    "pixels": {
+      "w": 169,
+      "h": 47,
+      "textPx": 210,
+      "bgPx": 7653,
+      "fg": "#c5c0b6",
+      "bg": "#353434",
+      "bright": "#3c3c3b",
+      "ratioMedian": 6.85,
+      "ratioBright": 6.09
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".kicker",
+    "text": "HUMAN SPAN · 溫和史",
+    "color": "#c4a572",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "700",
+    "left": 16,
+    "top": 218,
+    "width": 390,
+    "height": 17,
+    "clip": {
+      "x": 12,
+      "y": 214,
+      "width": 366,
+      "height": 25
+    },
+    "pixels": {
+      "w": 732,
+      "h": 50,
+      "textPx": 1774,
+      "bgPx": 34557,
+      "fg": "#c4a572",
+      "bg": "#222529",
+      "bright": "#2b2d30",
+      "ratioMedian": 6.57,
+      "ratioBright": 5.9
+    },
+    "page": "C",
+    "theme": "dark"
+  },
+  {
+    "sel": ".axis-title",
+    "text": "站在一條很長的時間軸上",
+    "color": "#f7f1e6",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 27.2,
+    "weight": "700",
+    "left": 16,
+    "top": 382.546875,
+    "width": 360,
+    "height": 34,
+    "clip": {
+      "x": 12,
+      "y": 378.546875,
+      "width": 336,
+      "height": 42
+    },
+    "pixels": {
+      "w": 672,
+      "h": 84,
+      "textPx": 0,
+      "bgPx": 56448,
+      "fg": "#f7f1e6",
+      "bg": "#0e141c",
+      "bright": "#0e141c",
+      "ratioMedian": 16.45,
+      "ratioBright": 16.45
+    },
+    "page": "H",
+    "theme": "dark"
+  },
+  {
+    "sel": ".axis-lede",
+    "text": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+    "color": "#c5c0b6",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 14,
+    "weight": "400",
+    "left": 16,
+    "top": 383.546875,
+    "width": 360,
+    "height": 32,
+    "clip": {
+      "x": 12,
+      "y": 379.546875,
+      "width": 336,
+      "height": 40
+    },
+    "pixels": {
+      "w": 672,
+      "h": 80,
+      "textPx": 0,
+      "bgPx": 53760,
+      "fg": "#c5c0b6",
+      "bg": "#0e141c",
+      "bright": "#0e141c",
+      "ratioMedian": 10.21,
+      "ratioBright": 10.21
+    },
+    "page": "H",
+    "theme": "dark"
+  },
+  {
+    "sel": ".nav-more > summary",
+    "missing": true,
+    "page": "H",
+    "theme": "dark",
+    "width": 360
+  },
+  {
+    "sel": ".lang-wrap .icon-btn",
+    "text": "繁",
+    "color": "#f3f6fa",
+    "ownBg": [
+      23,
+      32,
+      43
+    ],
+    "size": 16,
+    "weight": "400",
+    "left": 300,
+    "top": 52,
+    "width": 360,
+    "height": 44,
+    "clip": {
+      "x": 296,
+      "y": 48,
+      "width": 52,
+      "height": 52
+    },
+    "pixels": {
+      "w": 104,
+      "h": 104,
+      "textPx": 0,
+      "bgPx": 10816,
+      "fg": "#f3f6fa",
+      "bg": "#0e141c",
+      "bright": "#0e141c",
+      "ratioMedian": 17.06,
+      "ratioBright": 17.06
+    },
+    "page": "H",
+    "theme": "dark"
+  },
+  {
+    "sel": ".axis-title",
+    "text": "站在一條很長的時間軸上",
+    "color": "#f7f1e6",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 27.2,
+    "weight": "700",
+    "left": 16,
+    "top": 382.546875,
+    "width": 360,
+    "height": 34,
+    "clip": {
+      "x": 12,
+      "y": 378.546875,
+      "width": 336,
+      "height": 42
+    },
+    "pixels": {
+      "w": 672,
+      "h": 84,
+      "textPx": 56448,
+      "bgPx": 0,
+      "fg": "#f4f6f8",
+      "bg": null,
+      "bright": null,
+      "ratioMedian": null,
+      "ratioBright": null
+    },
+    "page": "H",
+    "theme": "light"
+  },
+  {
+    "sel": ".axis-cta a",
+    "text": "打開文明總覽",
+    "color": "#161c24",
+    "ownBg": [
+      161,
+      130,
+      86
+    ],
+    "size": 13,
+    "weight": "700",
+    "left": 16,
+    "top": 377.734375,
+    "width": 360,
+    "height": 44,
+    "clip": {
+      "x": 12,
+      "y": 373.734375,
+      "width": 116,
+      "height": 52
+    },
+    "pixels": {
+      "w": 232,
+      "h": 104,
+      "textPx": 0,
+      "bgPx": 24128,
+      "fg": "#161c24",
+      "bg": "#f4f6f8",
+      "bright": "#f4f6f8",
+      "ratioMedian": 15.82,
+      "ratioBright": 15.82
+    },
+    "page": "H",
+    "theme": "light"
+  },
+  {
+    "sel": ".nav-more > summary",
+    "text": "更多",
+    "color": "#c9d3df",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 13,
+    "weight": "400",
+    "left": 414.0625,
+    "top": 56,
+    "width": 1280,
+    "height": 44,
+    "clip": {
+      "x": 410.0625,
+      "y": 52,
+      "width": 52,
+      "height": 52
+    },
+    "pixels": {
+      "w": 104,
+      "h": 104,
+      "textPx": 373,
+      "bgPx": 10352,
+      "fg": "#c9d3df",
+      "bg": "#0e141c",
+      "bright": "#0e141c",
+      "ratioMedian": 12.21,
+      "ratioBright": 12.21
+    },
+    "page": "L",
+    "theme": "dark"
+  },
+  {
+    "sel": ".learn-bearings",
+    "text": "符號與語言 抽象結構 物質與自然 世界與人文 感知與身體 跨域工具",
+    "color": "#c9d3df",
+    "ownBg": [
+      0,
+      0,
+      0
+    ],
+    "size": 12,
+    "weight": "400",
+    "left": 150,
+    "top": 391.078125,
+    "width": 1280,
+    "height": 17,
+    "clip": {
+      "x": 146,
+      "y": 387.078125,
+      "width": 900,
+      "height": 25
+    },
+    "pixels": {
+      "w": 1800,
+      "h": 50,
+      "textPx": 0,
+      "bgPx": 90000,
+      "fg": "#c9d3df",
+      "bg": "#121820",
+      "bright": "#121820",
+      "ratioMedian": 11.78,
+      "ratioBright": 11.78
+    },
+    "page": "L",
+    "theme": "dark"
+  }
+]

@@ -1,0 +1,350 @@
+{
+  "rows": [
+    {
+      "sel": ".bulletin-seconds",
+      "text": "29秒",
+      "color": "#6e675c",
+      "computedBg": "#f7f1e6",
+      "top": 79.73,
+      "scrollY": 1123,
+      "pixels": {
+        "textPx": 45,
+        "bgPx": 5696,
+        "fg": "#6b7789",
+        "bg": "#f4f6f8",
+        "ratio": 4.19,
+        "w": 80,
+        "h": 72
+      },
+      "theme": "light",
+      "width": 360,
+      "url": "/"
+    },
+    {
+      "sel": ".bulletin-seconds",
+      "text": "29秒",
+      "color": "#b7b1a6",
+      "computedBg": "#161c24",
+      "top": 79.73,
+      "scrollY": 1123,
+      "pixels": {
+        "textPx": 53,
+        "bgPx": 5693,
+        "fg": "#9aabbf",
+        "bg": "#0e141c",
+        "ratio": 7.88,
+        "w": 80,
+        "h": 72
+      },
+      "theme": "dark",
+      "width": 360,
+      "url": "/"
+    },
+    {
+      "sel": ".more-today span",
+      "text": "全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。",
+      "color": "#c9d3df",
+      "computedBg": "#0e141c",
+      "top": 79.67,
+      "scrollY": 4412,
+      "pixels": {
+        "textPx": 371,
+        "bgPx": 52238,
+        "fg": "#d6dbe0",
+        "bg": "#0e141c",
+        "ratio": 13.27,
+        "w": 680,
+        "h": 80
+      },
+      "theme": "dark",
+      "width": 360,
+      "url": "/"
+    },
+    {
+      "sel": ".axis-title",
+      "text": "站在一條很長的時間軸上",
+      "color": "#f7f1e6",
+      "computedBg": "#161c24",
+      "top": 79.55,
+      "scrollY": 825,
+      "pixels": {
+        "textPx": 928,
+        "bgPx": 61515,
+        "fg": "#f3f6fa",
+        "bg": "#0e141c",
+        "ratio": 17.06,
+        "w": 680,
+        "h": 92
+      },
+      "theme": "dark",
+      "width": 360,
+      "url": "/"
+    },
+    {
+      "sel": ".learn-bearings",
+      "text": "符號與語言 抽象結構 物質與自然 世界與人文 感知與身體 跨域工具",
+      "color": "#c9d3df",
+      "computedBg": "#121820",
+      "top": 80.08,
+      "scrollY": 451,
+      "pixels": {
+        "textPx": 2564,
+        "bgPx": 61716,
+        "fg": "#e8e4dc",
+        "bg": "#0e141c",
+        "ratio": 14.59,
+        "w": 680,
+        "h": 96
+      },
+      "theme": "dark",
+      "width": 360,
+      "url": "/learn/"
+    },
+    {
+      "sel": ".learn-bound",
+      "text": "敘事見文明軸。今日事件見懶人包。此處是能力樹。",
+      "color": "#c9d3df",
+      "computedBg": "#121820",
+      "top": 358.08,
+      "scrollY": 1559,
+      "pixels": {
+        "textPx": 4727,
+        "bgPx": 76187,
+        "fg": "#c9d3df",
+        "bg": "#121820",
+        "ratio": 11.78,
+        "w": 680,
+        "h": 120
+      },
+      "theme": "dark",
+      "width": 360,
+      "url": "/learn/"
+    },
+    {
+      "sel": "#ch-future .stage-links a",
+      "text": "總覽展望",
+      "color": "#9ec0ef",
+      "computedBg": "#161c24",
+      "top": 79.92,
+      "scrollY": 32150,
+      "pixels": {
+        "textPx": 1280,
+        "bgPx": 7747,
+        "fg": "#9ec0ef",
+        "bg": "#161c24",
+        "ratio": 9.17,
+        "w": 128,
+        "h": 72
+      },
+      "theme": "light",
+      "width": 360,
+      "url": "/civilization/chronicle/"
+    },
+    {
+      "sel": "#ch-future .stage-links a",
+      "text": "總覽展望",
+      "color": "#9ec0ef",
+      "computedBg": "#161c24",
+      "top": 79.92,
+      "scrollY": 32155,
+      "pixels": {
+        "textPx": 1280,
+        "bgPx": 7747,
+        "fg": "#9ec0ef",
+        "bg": "#161c24",
+        "ratio": 9.17,
+        "w": 128,
+        "h": 72
+      },
+      "theme": "dark",
+      "width": 360,
+      "url": "/civilization/chronicle/"
+    },
+    {
+      "sel": ".civ-block-figure figcaption",
+      "text": "功率的儲存與維修 · 紙感 · 約數",
+      "color": "#d2c4b0",
+      "computedBg": "#2a231b",
+      "top": 79.94,
+      "scrollY": 21039,
+      "pixels": {
+        "textPx": 1408,
+        "bgPx": 43411,
+        "fg": "#d2c4b0",
+        "bg": "#2a231b",
+        "ratio": 9.05,
+        "w": 628,
+        "h": 72
+      },
+      "theme": "dark",
+      "width": 360,
+      "url": "/civilization/"
+    },
+    {
+      "sel": ".axis-node .yr",
+      "text": "~138億",
+      "color": "#c4a572",
+      "computedBg": "#161c24",
+      "top": 79.59,
+      "scrollY": 311,
+      "pixels": {
+        "textPx": 610,
+        "bgPx": 11989,
+        "fg": "#c4a572",
+        "bg": "#3c3935",
+        "ratio": 4.91,
+        "w": 177,
+        "h": 72
+      },
+      "theme": "dark",
+      "width": 390,
+      "url": "/civilization/"
+    }
+  ],
+  "axis": {
+    "overflow": "auto",
+    "rows": [
+      {
+        "text": "宇宙",
+        "state": "full",
+        "left": 46,
+        "right": 71,
+        "railL": 16,
+        "railR": 344,
+        "overlap": 24
+      },
+      {
+        "text": "~138億",
+        "state": "full",
+        "left": 38,
+        "right": 79,
+        "railL": 16,
+        "railR": 344,
+        "overlap": 40
+      },
+      {
+        "text": "地球",
+        "state": "full",
+        "left": 127,
+        "right": 152,
+        "railL": 16,
+        "railR": 344,
+        "overlap": 24
+      },
+      {
+        "text": "~40億",
+        "state": "full",
+        "left": 123,
+        "right": 156,
+        "railL": 16,
+        "railR": 344,
+        "overlap": 33
+      },
+      {
+        "text": "起源",
+        "state": "full",
+        "left": 208,
+        "right": 233,
+        "railL": 16,
+        "railR": 344,
+        "overlap": 24
+      },
+      {
+        "text": "~300ka",
+        "state": "full",
+        "left": 199,
+        "right": 242,
+        "railL": 16,
+        "railR": 344,
+        "overlap": 42
+      },
+      {
+        "text": "技術",
+        "state": "full",
+        "left": 289,
+        "right": 314,
+        "railL": 16,
+        "railR": 344,
+        "overlap": 24
+      },
+      {
+        "text": "發現",
+        "state": "full",
+        "left": 289,
+        "right": 314,
+        "railL": 16,
+        "railR": 344,
+        "overlap": 24
+      },
+      {
+        "text": "城市",
+        "state": "outside",
+        "left": 370,
+        "right": 395,
+        "railL": 16,
+        "railR": 344,
+        "overlap": -26
+      },
+      {
+        "text": "基建",
+        "state": "outside",
+        "left": 370,
+        "right": 395,
+        "railL": 16,
+        "railR": 344,
+        "overlap": -26
+      },
+      {
+        "text": "今天",
+        "state": "outside",
+        "left": 451,
+        "right": 476,
+        "railL": 16,
+        "railR": 344,
+        "overlap": -107
+      },
+      {
+        "text": "切片",
+        "state": "outside",
+        "left": 451,
+        "right": 476,
+        "railL": 16,
+        "railR": 344,
+        "overlap": -107
+      },
+      {
+        "text": "未來",
+        "state": "outside",
+        "left": 532,
+        "right": 557,
+        "railL": 16,
+        "railR": 344,
+        "overlap": -188
+      },
+      {
+        "text": "展望",
+        "state": "outside",
+        "left": 532,
+        "right": 557,
+        "railL": 16,
+        "railR": 344,
+        "overlap": -188
+      }
+    ]
+  },
+  "landed": {
+    "href": "/civilization/origins/",
+    "scrollY": 0,
+    "head": null,
+    "clearance": null,
+    "chromeH": 161,
+    "headTop": null
+  },
+  "point": {
+    "x": 70.0078125,
+    "y": 222.1875,
+    "w": 108.015625,
+    "h": 44,
+    "label": "閱讀人類起源"
+  }
+}
