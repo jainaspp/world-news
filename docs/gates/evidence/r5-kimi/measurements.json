@@ -1,0 +1,8346 @@
+{
+  "sha": "921a6ef8fe0f01d0c1261748c174fcbadd8a959d",
+  "news": [
+    {
+      "id": "b868f2facdb0",
+      "title": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the Musical Genius She Was at ‘Back to Black’ 20th Anniversary Show: Concert Review",
+      "role": "long"
+    },
+    {
+      "id": "cd62c3a2fc48",
+      "title": "二○二六年九月份領取綜援個案數字",
+      "role": "normal"
+    }
+  ],
+  "feedCount": 820,
+  "feedError": "",
+  "summary": [
+    {
+      "page": "home",
+      "viewport": "360x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 9,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "360x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "360x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "360x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "360x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "360x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "390x844",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 9,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "390x844",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "390x844",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "390x844",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "390x844",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "390x844",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "414x896",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 9,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "414x896",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "414x896",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "414x896",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "414x896",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "414x896",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "768x1024",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 9,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "768x1024",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "768x1024",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "768x1024",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "768x1024",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "768x1024",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "1024x768",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 9,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "1024x768",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "1024x768",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "1024x768",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "1024x768",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "1024x768",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 9,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "1440x900",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 9,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "1440x900",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "1440x900",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "1440x900",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "1440x900",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "1440x900",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "640x360",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 9,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "640x360",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": false,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": "#f7f1e6",
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "640x360",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#f7f1e6",
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 4,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "390x844",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "390x844",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "390x844",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "390x844",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 4,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "390x844",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "390x844",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "414x896",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "414x896",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "414x896",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "414x896",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 4,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "414x896",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "414x896",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "768x1024",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "768x1024",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "768x1024",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "768x1024",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 5,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "768x1024",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "768x1024",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "1024x768",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "1024x768",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "1024x768",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "1024x768",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 5,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "1024x768",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "1024x768",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "1280x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "1280x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "1280x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "1280x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 5,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "1280x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "1280x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "1440x900",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "1440x900",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "1440x900",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "learn",
+      "viewport": "1440x900",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 5,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "開蒙 · 森羅"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-long",
+      "viewport": "1440x900",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "Mark Ronson, Jessie Reyez, Jorja Smith and More Celebrate Amy Winehouse for the "
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "news-norm",
+      "viewport": "1440x900",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "二○二六年九月份領取綜援個案數字"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "640x360",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 1,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "slice": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": "#161c24",
+        "pattern": null,
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "civ",
+      "viewport": "640x360",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 6,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 3,
+        "axisCta": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類文明"
+      },
+      "ink": {
+        "dark": true,
+        "axis": "#161c24",
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": "#2a231b",
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "chronicle",
+      "viewport": "640x360",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          true,
+          true,
+          true
+        ],
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "chronicleStrip": 0,
+        "h1": "文明編年：從採集到智能工具"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": "#161c24",
+        "chronicleBand": null,
+        "pattern": "#2a231b",
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "cosmos",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "宇宙長河・深時間"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "earth",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "地球生命・深時間"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "origins",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類起源時間線：從深時間到今日切片"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "tech",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "科技與發現"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "city",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "城市・基建・民生"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "major",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "24小時重大更新"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "otd",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "10月22日"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "today",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "miss",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": true,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 13,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "找不到這一層"
+      },
+      "ink": {
+        "dark": true,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#0e141c"
+      }
+    },
+    {
+      "page": "notfound",
+      "viewport": "360x800",
+      "theme": "dark",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 16,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "",
+      "logoClipped": true,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "找不到這個頁面"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "cosmos",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "宇宙長河・深時間"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "earth",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "地球生命・深時間"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "origins",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "人類起源時間線：從深時間到今日切片"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "tech",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "科技與發現"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "city",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "城市・基建・民生"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "major",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "24小時重大更新"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "otd",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "10月22日"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "today",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 12.8,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": ""
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "miss",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 13,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "文明編年史",
+      "logoClipped": false,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "找不到這一層"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    },
+    {
+      "page": "notfound",
+      "viewport": "1280x800",
+      "theme": "light",
+      "dark": false,
+      "collision": 0,
+      "touch": 0,
+      "gaps": 0,
+      "clip": 0,
+      "hscroll": false,
+      "minFont": 16,
+      "smallFont": 0,
+      "contrastFails": 0,
+      "figFail": 0,
+      "brand": "",
+      "logoClipped": true,
+      "simplified": false,
+      "exceptions": [],
+      "dom": {
+        "volumeCards": 0,
+        "axisCta": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "slice": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "chapters": [
+          false,
+          false,
+          false
+        ],
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "chronicleStrip": 0,
+        "h1": "找不到這個頁面"
+      },
+      "ink": {
+        "dark": false,
+        "axis": null,
+        "chapter": null,
+        "chronicleBand": null,
+        "pattern": null,
+        "volume": null,
+        "body": "#f4f6f8"
+      }
+    }
+  ],
+  "clicks": [
+    {
+      "from": "/civilization/",
+      "theme": "dark",
+      "viewport": "360x800",
+      "text": "跳到今日切片",
+      "found": {
+        "text": "跳到今日切片",
+        "w": 108.015625,
+        "h": 44
+      },
+      "href": "/#slice",
+      "heading": "今日切片",
+      "top": 192.4,
+      "chromeBottom": 161,
+      "clearance": 31.4,
+      "scrollY": 2077
+    },
+    {
+      "from": "/",
+      "theme": "dark",
+      "viewport": "360x800",
+      "text": "跳到今日切片",
+      "found": {
+        "text": "跳到今日切片",
+        "w": 108,
+        "h": 44
+      },
+      "href": "/#slice",
+      "heading": "今日切片",
+      "top": 192.4,
+      "chromeBottom": 161,
+      "clearance": 31.4,
+      "scrollY": 2077
+    },
+    {
+      "from": "/",
+      "theme": "light",
+      "viewport": "1280x800",
+      "text": "打開文明總覽",
+      "found": {
+        "text": "打開文明總覽",
+        "w": 108,
+        "h": 44
+      },
+      "href": "/civilization/",
+      "heading": "人類文明",
+      "top": 1142.2,
+      "chromeBottom": 111,
+      "clearance": 1031.2,
+      "scrollY": 0
+    },
+    {
+      "from": "/civilization/",
+      "theme": "dark",
+      "viewport": "360x800",
+      "text": "閱讀人類起源",
+      "found": {
+        "text": "閱讀人類起源",
+        "w": 108.015625,
+        "h": 44
+      },
+      "href": "/civilization/origins/",
+      "heading": "人類起源時間線：從深時間到今日切片",
+      "top": 279.4,
+      "chromeBottom": 161,
+      "clearance": 118.4,
+      "scrollY": 0
+    },
+    {
+      "from": "/",
+      "theme": "light",
+      "viewport": "360x800",
+      "text": "打開文明總覽",
+      "found": {
+        "text": "打開文明總覽",
+        "w": 108,
+        "h": 44
+      },
+      "href": "/civilization/",
+      "heading": "人類文明",
+      "top": 1036.8,
+      "chromeBottom": 117,
+      "clearance": 919.8,
+      "scrollY": 0
+    },
+    {
+      "from": "/civilization/",
+      "theme": "light",
+      "viewport": "1280x800",
+      "text": "閱讀人類起源",
+      "found": {
+        "text": "閱讀人類起源",
+        "w": 108.015625,
+        "h": 44
+      },
+      "href": "/civilization/origins/",
+      "heading": "人類起源時間線：從深時間到今日切片",
+      "top": 273.4,
+      "chromeBottom": 155,
+      "clearance": 118.4,
+      "scrollY": 0
+    }
+  ],
+  "pixels": [
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "390x844",
+      "band": 218,
+      "sampled": [
+        {
+          "id": "站在一條很長的時間軸上",
+          "bg": [
+            37,
+            40,
+            43
+          ],
+          "text": [
+            247,
+            241,
+            230
+          ],
+          "bgN": 10002,
+          "textN": 1901,
+          "ratio": 13.18,
+          "painted": 13.18
+        },
+        {
+          "id": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+          "bg": [
+            43,
+            44,
+            46
+          ],
+          "text": [
+            176,
+            173,
+            164
+          ],
+          "bgN": 12677,
+          "textN": 1128,
+          "ratio": 7.71,
+          "painted": 6.23
+        },
+        {
+          "id": "宇宙",
+          "bg": [
+            52,
+            52,
+            52
+          ],
+          "text": [
+            166,
+            163,
+            154
+          ],
+          "bgN": 1058,
+          "textN": 63,
+          "ratio": 6.87,
+          "painted": 4.94
+        },
+        {
+          "id": "地球",
+          "bg": [
+            56,
+            55,
+            52
+          ],
+          "text": [
+            165,
+            162,
+            153
+          ],
+          "bgN": 1066,
+          "textN": 64,
+          "ratio": 6.57,
+          "painted": 4.66
+        },
+        {
+          "id": "起源",
+          "bg": [
+            60,
+            57,
+            53
+          ],
+          "text": [
+            167,
+            163,
+            154
+          ],
+          "bgN": 1026,
+          "textN": 85,
+          "ratio": 6.34,
+          "painted": 4.57
+        },
+        {
+          "id": "技術",
+          "bg": [
+            61,
+            58,
+            53
+          ],
+          "text": [
+            169,
+            164,
+            155
+          ],
+          "bgN": 1060,
+          "textN": 46,
+          "ratio": 6.25,
+          "painted": 4.57
+        },
+        {
+          "id": "城市",
+          "bg": [
+            61,
+            57,
+            53
+          ],
+          "text": null,
+          "bgN": 180,
+          "textN": 0,
+          "ratio": 6.32,
+          "painted": null
+        },
+        {
+          "id": "今天",
+          "bg": null,
+          "text": null,
+          "bgN": 0,
+          "textN": 0,
+          "ratio": null,
+          "painted": null
+        },
+        {
+          "id": "未來",
+          "bg": null,
+          "text": null,
+          "bgN": 0,
+          "textN": 0,
+          "ratio": null,
+          "painted": null
+        },
+        {
+          "id": "閱讀人類起源",
+          "bg": [
+            161,
+            130,
+            86
+          ],
+          "text": [
+            51,
+            50,
+            50
+          ],
+          "bgN": 3757,
+          "textN": 828,
+          "ratio": 4.77,
+          "painted": 3.56
+        },
+        {
+          "id": "跳到今日切片",
+          "bg": [
+            66,
+            61,
+            55
+          ],
+          "text": [
+            232,
+            222,
+            214
+          ],
+          "bgN": 4399,
+          "textN": 287,
+          "ratio": 8.47,
+          "painted": 8.11
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "390x844",
+      "band": 994,
+      "sampled": [
+        {
+          "id": "人類文明",
+          "bg": [
+            188,
+            167,
+            137
+          ],
+          "text": [
+            27,
+            43,
+            55
+          ],
+          "bgN": 1934,
+          "textN": 107,
+          "ratio": 7.36,
+          "painted": 6.24
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "390x844",
+      "band": 5567,
+      "sampled": [
+        {
+          "id": "F1 功率與宜居帶",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1790,
+          "textN": 554,
+          "ratio": 15.24,
+          "painted": 15.24
+        },
+        {
+          "id": "F2 校驗成本",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1487,
+          "textN": 303,
+          "ratio": 15.24,
+          "painted": 15.24
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "390x844",
+      "band": 6560,
+      "sampled": [
+        {
+          "id": "F3 規則與公共品",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 2022,
+          "textN": 311,
+          "ratio": 15.24,
+          "painted": 15.24
+        },
+        {
+          "id": "F4 共演化遺產",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1696,
+          "textN": 283,
+          "ratio": 15.24,
+          "painted": 15.24
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "360x800",
+      "band": 218,
+      "sampled": [
+        {
+          "id": "站在一條很長的時間軸上",
+          "bg": [
+            39,
+            41,
+            43
+          ],
+          "text": [
+            247,
+            241,
+            230
+          ],
+          "bgN": 8983,
+          "textN": 1902,
+          "ratio": 12.99,
+          "painted": 12.99
+        },
+        {
+          "id": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+          "bg": [
+            43,
+            45,
+            46
+          ],
+          "text": [
+            176,
+            173,
+            164
+          ],
+          "bgN": 11473,
+          "textN": 1133,
+          "ratio": 7.64,
+          "painted": 6.17
+        },
+        {
+          "id": "宇宙",
+          "bg": [
+            53,
+            53,
+            52
+          ],
+          "text": [
+            165,
+            162,
+            153
+          ],
+          "bgN": 958,
+          "textN": 53,
+          "ratio": 6.78,
+          "painted": 4.81
+        },
+        {
+          "id": "地球",
+          "bg": [
+            57,
+            55,
+            52
+          ],
+          "text": [
+            173,
+            168,
+            159
+          ],
+          "bgN": 946,
+          "textN": 45,
+          "ratio": 6.55,
+          "painted": 5.02
+        },
+        {
+          "id": "起源",
+          "bg": [
+            60,
+            57,
+            53
+          ],
+          "text": [
+            173,
+            168,
+            159
+          ],
+          "bgN": 938,
+          "textN": 67,
+          "ratio": 6.34,
+          "painted": 4.85
+        },
+        {
+          "id": "技術",
+          "bg": [
+            61,
+            58,
+            53
+          ],
+          "text": [
+            172,
+            167,
+            158
+          ],
+          "bgN": 945,
+          "textN": 49,
+          "ratio": 6.25,
+          "painted": 4.73
+        },
+        {
+          "id": "城市",
+          "bg": [
+            61,
+            57,
+            53
+          ],
+          "text": null,
+          "bgN": 180,
+          "textN": 0,
+          "ratio": 6.32,
+          "painted": null
+        },
+        {
+          "id": "今天",
+          "bg": null,
+          "text": null,
+          "bgN": 0,
+          "textN": 0,
+          "ratio": null,
+          "painted": null
+        },
+        {
+          "id": "未來",
+          "bg": null,
+          "text": null,
+          "bgN": 0,
+          "textN": 0,
+          "ratio": null,
+          "painted": null
+        },
+        {
+          "id": "閱讀人類起源",
+          "bg": [
+            161,
+            130,
+            86
+          ],
+          "text": [
+            52,
+            50,
+            50
+          ],
+          "bgN": 3757,
+          "textN": 824,
+          "ratio": 4.77,
+          "painted": 3.54
+        },
+        {
+          "id": "跳到今日切片",
+          "bg": [
+            68,
+            62,
+            55
+          ],
+          "text": [
+            232,
+            222,
+            214
+          ],
+          "bgN": 4397,
+          "textN": 288,
+          "ratio": 8.32,
+          "painted": 7.97
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "360x800",
+      "band": 981,
+      "sampled": [
+        {
+          "id": "人類文明",
+          "bg": [
+            195,
+            176,
+            145
+          ],
+          "text": [
+            27,
+            43,
+            52
+          ],
+          "bgN": 1934,
+          "textN": 110,
+          "ratio": 8.11,
+          "painted": 6.89
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "360x800",
+      "band": 5572,
+      "sampled": [
+        {
+          "id": "F1 功率與宜居帶",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1790,
+          "textN": 554,
+          "ratio": 15.24,
+          "painted": 15.24
+        },
+        {
+          "id": "F2 校驗成本",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1552,
+          "textN": 241,
+          "ratio": 15.24,
+          "painted": 15.24
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "360x800",
+      "band": 6527,
+      "sampled": [
+        {
+          "id": "F3 規則與公共品",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1936,
+          "textN": 395,
+          "ratio": 15.24,
+          "painted": 15.24
+        },
+        {
+          "id": "F4 共演化遺產",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1786,
+          "textN": 286,
+          "ratio": 15.24,
+          "painted": 15.24
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "light",
+      "viewport": "390x844",
+      "band": 218,
+      "sampled": [
+        {
+          "id": "站在一條很長的時間軸上",
+          "bg": [
+            41,
+            43,
+            44
+          ],
+          "text": [
+            247,
+            241,
+            230
+          ],
+          "bgN": 9990,
+          "textN": 1905,
+          "ratio": 12.65,
+          "painted": 12.65
+        },
+        {
+          "id": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+          "bg": [
+            47,
+            48,
+            49
+          ],
+          "text": [
+            174,
+            174,
+            162
+          ],
+          "bgN": 12655,
+          "textN": 1153,
+          "ratio": 7.3,
+          "painted": 5.9
+        },
+        {
+          "id": "宇宙",
+          "bg": [
+            58,
+            57,
+            55
+          ],
+          "text": [
+            167,
+            163,
+            155
+          ],
+          "bgN": 1055,
+          "textN": 63,
+          "ratio": 6.37,
+          "painted": 4.59
+        },
+        {
+          "id": "地球",
+          "bg": [
+            63,
+            60,
+            55
+          ],
+          "text": [
+            166,
+            163,
+            154
+          ],
+          "bgN": 1065,
+          "textN": 66,
+          "ratio": 6.06,
+          "painted": 4.35
+        },
+        {
+          "id": "起源",
+          "bg": [
+            67,
+            62,
+            56
+          ],
+          "text": [
+            168,
+            164,
+            155
+          ],
+          "bgN": 1026,
+          "textN": 88,
+          "ratio": 5.84,
+          "painted": 4.26
+        },
+        {
+          "id": "技術",
+          "bg": [
+            68,
+            63,
+            56
+          ],
+          "text": [
+            170,
+            165,
+            156
+          ],
+          "bgN": 1058,
+          "textN": 48,
+          "ratio": 5.75,
+          "painted": 4.26
+        },
+        {
+          "id": "城市",
+          "bg": [
+            68,
+            63,
+            56
+          ],
+          "text": null,
+          "bgN": 180,
+          "textN": 0,
+          "ratio": 5.75,
+          "painted": null
+        },
+        {
+          "id": "今天",
+          "bg": null,
+          "text": null,
+          "bgN": 0,
+          "textN": 0,
+          "ratio": null,
+          "painted": null
+        },
+        {
+          "id": "未來",
+          "bg": null,
+          "text": null,
+          "bgN": 0,
+          "textN": 0,
+          "ratio": null,
+          "painted": null
+        },
+        {
+          "id": "閱讀人類起源",
+          "bg": [
+            161,
+            130,
+            86
+          ],
+          "text": [
+            54,
+            52,
+            52
+          ],
+          "bgN": 3760,
+          "textN": 817,
+          "ratio": 4.77,
+          "painted": 3.44
+        },
+        {
+          "id": "跳到今日切片",
+          "bg": [
+            72,
+            66,
+            57
+          ],
+          "text": [
+            232,
+            222,
+            214
+          ],
+          "bgN": 4392,
+          "textN": 289,
+          "ratio": 7.83,
+          "painted": 7.5
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "light",
+      "viewport": "390x844",
+      "band": 994,
+      "sampled": [
+        {
+          "id": "人類文明",
+          "bg": [
+            190,
+            170,
+            139
+          ],
+          "text": [
+            27,
+            43,
+            56
+          ],
+          "bgN": 1940,
+          "textN": 107,
+          "ratio": 7.6,
+          "painted": 6.43
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "light",
+      "viewport": "390x844",
+      "band": 5567,
+      "sampled": [
+        {
+          "id": "F1 功率與宜居帶",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1790,
+          "textN": 554,
+          "ratio": 15.24,
+          "painted": 15.24
+        },
+        {
+          "id": "F2 校驗成本",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1487,
+          "textN": 303,
+          "ratio": 15.24,
+          "painted": 15.24
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "light",
+      "viewport": "390x844",
+      "band": 6560,
+      "sampled": [
+        {
+          "id": "F3 規則與公共品",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 2022,
+          "textN": 311,
+          "ratio": 15.24,
+          "painted": 15.24
+        },
+        {
+          "id": "F4 共演化遺產",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1696,
+          "textN": 283,
+          "ratio": 15.24,
+          "painted": 15.24
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "dark",
+      "viewport": "360x800",
+      "band": 2404,
+      "sampled": [
+        {
+          "id": "史前／採集狩獵 · 示意 · 約數",
+          "bg": [
+            23,
+            32,
+            43
+          ],
+          "text": null,
+          "bgN": 6560,
+          "textN": 0,
+          "ratio": 9.6,
+          "painted": null
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "dark",
+      "viewport": "360x800",
+      "band": 2950,
+      "sampled": [
+        {
+          "id": "控制用火 · 示意 · 約數",
+          "bg": [
+            23,
+            32,
+            43
+          ],
+          "text": null,
+          "bgN": 5066,
+          "textN": 0,
+          "ratio": 9.6,
+          "painted": null
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "dark",
+      "viewport": "360x800",
+      "band": 3990,
+      "sampled": [
+        {
+          "id": "農業革命 · 示意 · 約數",
+          "bg": [
+            14,
+            20,
+            28
+          ],
+          "text": [
+            188,
+            177,
+            160
+          ],
+          "bgN": 6142,
+          "textN": 338,
+          "ratio": 10.8,
+          "painted": 8.75
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "dark",
+      "viewport": "360x800",
+      "band": 4819,
+      "sampled": [
+        {
+          "id": "定居農耕的確立 · 示意 · 約數",
+          "bg": [
+            23,
+            32,
+            43
+          ],
+          "text": null,
+          "bgN": 5066,
+          "textN": 0,
+          "ratio": 9.6,
+          "painted": null
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "dark",
+      "viewport": "360x800",
+      "band": 5756,
+      "sampled": [
+        {
+          "id": "城市與文字 · 示意 · 約數",
+          "bg": [
+            14,
+            20,
+            28
+          ],
+          "text": [
+            194,
+            181,
+            164
+          ],
+          "bgN": 6137,
+          "textN": 343,
+          "ratio": 10.8,
+          "painted": 9.19
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "dark",
+      "viewport": "1280x800",
+      "band": 1956,
+      "sampled": [
+        {
+          "id": "史前／採集狩獵 · 示意 · 約數",
+          "bg": [
+            23,
+            32,
+            43
+          ],
+          "text": null,
+          "bgN": 19600,
+          "textN": 0,
+          "ratio": 9.6,
+          "painted": null
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "dark",
+      "viewport": "1280x800",
+      "band": 2670,
+      "sampled": [
+        {
+          "id": "控制用火 · 示意 · 約數",
+          "bg": [
+            23,
+            32,
+            43
+          ],
+          "text": null,
+          "bgN": 16150,
+          "textN": 0,
+          "ratio": 9.6,
+          "painted": null
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "dark",
+      "viewport": "1280x800",
+      "band": 3970,
+      "sampled": [
+        {
+          "id": "農業革命 · 示意 · 約數",
+          "bg": [
+            23,
+            32,
+            43
+          ],
+          "text": null,
+          "bgN": 19600,
+          "textN": 0,
+          "ratio": 9.6,
+          "painted": null
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "dark",
+      "viewport": "1280x800",
+      "band": 4683,
+      "sampled": [
+        {
+          "id": "定居農耕的確立 · 示意 · 約數",
+          "bg": [
+            23,
+            32,
+            43
+          ],
+          "text": null,
+          "bgN": 16150,
+          "textN": 0,
+          "ratio": 9.6,
+          "painted": null
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "light",
+      "viewport": "360x800",
+      "band": 2402,
+      "sampled": [
+        {
+          "id": "史前／採集狩獵 · 示意 · 約數",
+          "bg": [
+            255,
+            255,
+            255
+          ],
+          "text": null,
+          "bgN": 6560,
+          "textN": 0,
+          "ratio": 5.91,
+          "painted": null
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "light",
+      "viewport": "360x800",
+      "band": 2948,
+      "sampled": [
+        {
+          "id": "控制用火 · 示意 · 約數",
+          "bg": [
+            255,
+            255,
+            255
+          ],
+          "text": null,
+          "bgN": 5066,
+          "textN": 0,
+          "ratio": 5.91,
+          "painted": null
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "light",
+      "viewport": "360x800",
+      "band": 3988,
+      "sampled": [
+        {
+          "id": "農業革命 · 示意 · 約數",
+          "bg": [
+            244,
+            246,
+            248
+          ],
+          "text": [
+            114,
+            121,
+            131
+          ],
+          "bgN": 6105,
+          "textN": 361,
+          "ratio": 5.46,
+          "painted": 4.06
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "light",
+      "viewport": "360x800",
+      "band": 4817,
+      "sampled": [
+        {
+          "id": "定居農耕的確立 · 示意 · 約數",
+          "bg": [
+            255,
+            255,
+            255
+          ],
+          "text": null,
+          "bgN": 5066,
+          "textN": 0,
+          "ratio": 5.91,
+          "painted": null
+        }
+      ]
+    },
+    {
+      "kind": "chronicle",
+      "theme": "light",
+      "viewport": "360x800",
+      "band": 5754,
+      "sampled": [
+        {
+          "id": "城市與文字 · 示意 · 約數",
+          "bg": [
+            244,
+            246,
+            248
+          ],
+          "text": [
+            105,
+            114,
+            124
+          ],
+          "bgN": 6102,
+          "textN": 368,
+          "ratio": 5.46,
+          "painted": 4.51
+        }
+      ]
+    },
+    {
+      "kind": "home",
+      "theme": "dark",
+      "viewport": "390x844",
+      "band": 888,
+      "sampled": [
+        {
+          "id": "站在一條很長的時間軸上",
+          "bg": [
+            18,
+            24,
+            32
+          ],
+          "text": [
+            247,
+            241,
+            230
+          ],
+          "bgN": 11073,
+          "textN": 965,
+          "ratio": 15.87,
+          "painted": 15.87
+        },
+        {
+          "id": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+          "bg": [
+            61,
+            58,
+            54
+          ],
+          "text": [
+            192,
+            187,
+            177
+          ],
+          "bgN": 9734,
+          "textN": 1375,
+          "ratio": 6.24,
+          "painted": 5.92
+        },
+        {
+          "id": "宇宙",
+          "bg": [
+            25,
+            31,
+            38
+          ],
+          "text": [
+            175,
+            171,
+            163
+          ],
+          "bgN": 1134,
+          "textN": 69,
+          "ratio": 9.16,
+          "painted": 7.25
+        },
+        {
+          "id": "地球",
+          "bg": [
+            31,
+            35,
+            42
+          ],
+          "text": [
+            175,
+            172,
+            164
+          ],
+          "bgN": 1152,
+          "textN": 64,
+          "ratio": 8.7,
+          "painted": 6.95
+        },
+        {
+          "id": "起源",
+          "bg": [
+            36,
+            39,
+            43
+          ],
+          "text": [
+            172,
+            169,
+            161
+          ],
+          "bgN": 1120,
+          "textN": 81,
+          "ratio": 8.28,
+          "painted": 6.39
+        },
+        {
+          "id": "技術",
+          "bg": [
+            33,
+            37,
+            42
+          ],
+          "text": [
+            174,
+            170,
+            162
+          ],
+          "bgN": 1147,
+          "textN": 63,
+          "ratio": 8.5,
+          "painted": 6.66
+        },
+        {
+          "id": "城市",
+          "bg": [
+            30,
+            34,
+            40
+          ],
+          "text": null,
+          "bgN": 192,
+          "textN": 0,
+          "ratio": 8.82,
+          "painted": null
+        },
+        {
+          "id": "今天",
+          "bg": null,
+          "text": null,
+          "bgN": 0,
+          "textN": 0,
+          "ratio": null,
+          "painted": null
+        },
+        {
+          "id": "未來",
+          "bg": null,
+          "text": null,
+          "bgN": 0,
+          "textN": 0,
+          "ratio": null,
+          "painted": null
+        },
+        {
+          "id": "打開文明總覽",
+          "bg": [
+            161,
+            130,
+            86
+          ],
+          "text": [
+            23,
+            28,
+            36
+          ],
+          "bgN": 3737,
+          "textN": 883,
+          "ratio": 4.77,
+          "painted": 4.76
+        },
+        {
+          "id": "跳到今日切片",
+          "bg": [
+            27,
+            32,
+            39
+          ],
+          "text": [
+            232,
+            228,
+            220
+          ],
+          "bgN": 4428,
+          "textN": 282,
+          "ratio": 12.91,
+          "painted": 12.91
+        }
+      ]
+    },
+    {
+      "kind": "home",
+      "theme": "light",
+      "viewport": "390x844",
+      "band": 888,
+      "sampled": [
+        {
+          "id": "站在一條很長的時間軸上",
+          "bg": [
+            48,
+            50,
+            50
+          ],
+          "text": [
+            244,
+            246,
+            248
+          ],
+          "bgN": 4291,
+          "textN": 7713,
+          "ratio": 11.47,
+          "painted": 11.91
+        },
+        {
+          "id": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+          "bg": [
+            67,
+            63,
+            57
+          ],
+          "text": [
+            192,
+            187,
+            177
+          ],
+          "bgN": 9717,
+          "textN": 1400,
+          "ratio": 5.77,
+          "painted": 5.47
+        },
+        {
+          "id": "宇宙",
+          "bg": [
+            26,
+            31,
+            38
+          ],
+          "text": [
+            175,
+            171,
+            163
+          ],
+          "bgN": 1134,
+          "textN": 70,
+          "ratio": 9.14,
+          "painted": 7.24
+        },
+        {
+          "id": "地球",
+          "bg": [
+            32,
+            37,
+            42
+          ],
+          "text": [
+            175,
+            172,
+            164
+          ],
+          "bgN": 1151,
+          "textN": 64,
+          "ratio": 8.52,
+          "painted": 6.81
+        },
+        {
+          "id": "起源",
+          "bg": [
+            39,
+            41,
+            45
+          ],
+          "text": [
+            173,
+            169,
+            161
+          ],
+          "bgN": 1120,
+          "textN": 81,
+          "ratio": 8.04,
+          "painted": 6.22
+        },
+        {
+          "id": "技術",
+          "bg": [
+            35,
+            39,
+            43
+          ],
+          "text": [
+            174,
+            170,
+            163
+          ],
+          "bgN": 1147,
+          "textN": 64,
+          "ratio": 8.3,
+          "painted": 6.5
+        },
+        {
+          "id": "城市",
+          "bg": [
+            31,
+            36,
+            41
+          ],
+          "text": null,
+          "bgN": 192,
+          "textN": 0,
+          "ratio": 8.63,
+          "painted": null
+        },
+        {
+          "id": "今天",
+          "bg": null,
+          "text": null,
+          "bgN": 0,
+          "textN": 0,
+          "ratio": null,
+          "painted": null
+        },
+        {
+          "id": "未來",
+          "bg": null,
+          "text": null,
+          "bgN": 0,
+          "textN": 0,
+          "ratio": null,
+          "painted": null
+        },
+        {
+          "id": "打開文明總覽",
+          "bg": [
+            161,
+            130,
+            86
+          ],
+          "text": [
+            23,
+            28,
+            36
+          ],
+          "bgN": 3739,
+          "textN": 882,
+          "ratio": 4.77,
+          "painted": 4.76
+        },
+        {
+          "id": "跳到今日切片",
+          "bg": [
+            28,
+            33,
+            39
+          ],
+          "text": [
+            232,
+            228,
+            220
+          ],
+          "bgN": 4428,
+          "textN": 283,
+          "ratio": 12.78,
+          "painted": 12.78
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "1280x800",
+      "band": 212,
+      "sampled": [
+        {
+          "id": "站在一條很長的時間軸上",
+          "bg": [
+            43,
+            45,
+            48
+          ],
+          "text": [
+            247,
+            241,
+            230
+          ],
+          "bgN": 38937,
+          "textN": 3321,
+          "ratio": 12.28,
+          "painted": 12.28
+        },
+        {
+          "id": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+          "bg": [
+            52,
+            52,
+            52
+          ],
+          "text": [
+            175,
+            174,
+            162
+          ],
+          "bgN": 8380,
+          "textN": 1188,
+          "ratio": 6.87,
+          "painted": 5.57
+        },
+        {
+          "id": "宇宙",
+          "bg": [
+            33,
+            39,
+            45
+          ],
+          "text": [
+            171,
+            167,
+            160
+          ],
+          "bgN": 1891,
+          "textN": 51,
+          "ratio": 8.32,
+          "painted": 6.29
+        },
+        {
+          "id": "地球",
+          "bg": [
+            41,
+            45,
+            49
+          ],
+          "text": [
+            172,
+            173,
+            160
+          ],
+          "bgN": 1893,
+          "textN": 41,
+          "ratio": 7.65,
+          "painted": 6.1
+        },
+        {
+          "id": "起源",
+          "bg": [
+            53,
+            54,
+            54
+          ],
+          "text": [
+            174,
+            170,
+            162
+          ],
+          "bgN": 1887,
+          "textN": 55,
+          "ratio": 6.69,
+          "painted": 5.24
+        },
+        {
+          "id": "技術",
+          "bg": [
+            70,
+            65,
+            58
+          ],
+          "text": [
+            168,
+            168,
+            154
+          ],
+          "bgN": 1870,
+          "textN": 45,
+          "ratio": 5.58,
+          "painted": 4.2
+        },
+        {
+          "id": "城市",
+          "bg": [
+            80,
+            72,
+            60
+          ],
+          "text": [
+            175,
+            169,
+            159
+          ],
+          "bgN": 1880,
+          "textN": 46,
+          "ratio": 4.97,
+          "painted": 3.86
+        },
+        {
+          "id": "今天",
+          "bg": [
+            57,
+            55,
+            53
+          ],
+          "text": [
+            174,
+            170,
+            161
+          ],
+          "bgN": 1899,
+          "textN": 44,
+          "ratio": 6.54,
+          "painted": 5.12
+        },
+        {
+          "id": "未來",
+          "bg": [
+            39,
+            41,
+            44
+          ],
+          "text": [
+            182,
+            182,
+            165
+          ],
+          "bgN": 1916,
+          "textN": 50,
+          "ratio": 8.05,
+          "painted": 7.1
+        },
+        {
+          "id": "閱讀人類起源",
+          "bg": [
+            161,
+            130,
+            86
+          ],
+          "text": [
+            26,
+            33,
+            39
+          ],
+          "bgN": 3743,
+          "textN": 842,
+          "ratio": 4.77,
+          "painted": 4.53
+        },
+        {
+          "id": "跳到今日切片",
+          "bg": [
+            30,
+            35,
+            42
+          ],
+          "text": [
+            232,
+            222,
+            214
+          ],
+          "bgN": 4422,
+          "textN": 278,
+          "ratio": 12.46,
+          "painted": 11.93
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "1280x800",
+      "band": 1086,
+      "sampled": [
+        {
+          "id": "人類文明",
+          "bg": [
+            175,
+            150,
+            115
+          ],
+          "text": [
+            26,
+            45,
+            57
+          ],
+          "bgN": 1884,
+          "textN": 145,
+          "ratio": 6.06,
+          "painted": 5.03
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "1280x800",
+      "band": 3730,
+      "sampled": [
+        {
+          "id": "F1 功率與宜居帶",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1828,
+          "textN": 416,
+          "ratio": 15.24,
+          "painted": 15.24
+        },
+        {
+          "id": "F2 校驗成本",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1473,
+          "textN": 238,
+          "ratio": 15.24,
+          "painted": 15.24
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "1280x800",
+      "band": 4291,
+      "sampled": [
+        {
+          "id": "F3 規則與公共品",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1920,
+          "textN": 310,
+          "ratio": 15.24,
+          "painted": 15.24
+        },
+        {
+          "id": "F4 共演化遺產",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1703,
+          "textN": 279,
+          "ratio": 15.24,
+          "painted": 15.24
+        }
+      ]
+    },
+    {
+      "kind": "civ",
+      "theme": "dark",
+      "viewport": "1280x800",
+      "band": 4852,
+      "sampled": [
+        {
+          "id": "F5 條件帶示意",
+          "bg": [
+            247,
+            241,
+            230
+          ],
+          "text": [
+            22,
+            28,
+            36
+          ],
+          "bgN": 1721,
+          "textN": 258,
+          "ratio": 15.24,
+          "painted": 15.24
+        }
+      ]
+    }
+  ]
+}
