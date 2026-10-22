@@ -1,0 +1,1112 @@
+{
+ "capturedAt": "2026-10-22",
+ "harness": "local SSR (functions renderers) + built React shell for /, headless Chrome 25.x via puppeteer-core, no /api data",
+ "combos": 50,
+ "overlapFails": [],
+ "interactiveOverlapFails": [
+  [
+   "civ-390-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-390-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-390-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-390-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-414-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-414-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-414-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-414-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-768-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-768-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-768-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "civ-768-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-390-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-390-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-390-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-390-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-414-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-414-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-414-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-414-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-768-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-768-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-768-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "chronicle-768-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "tech-360-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "tech-360-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "home-390-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "home-390-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "home-414-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "home-414-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "home-768-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "home-768-dark",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "home-1024-light",
+   [
+    "A",
+    "A"
+   ]
+  ],
+  [
+   "home-1024-dark",
+   [
+    "A",
+    "A"
+   ]
+  ]
+ ],
+ "clipFails": [
+  [
+   "civ-360-light",
+   ".axis-node .lab"
+  ],
+  [
+   "civ-360-light",
+   ".axis-node .yr"
+  ],
+  [
+   "civ-360-dark",
+   ".axis-node .lab"
+  ],
+  [
+   "civ-360-dark",
+   ".axis-node .yr"
+  ],
+  [
+   "civ-390-light",
+   ".axis-node .lab"
+  ],
+  [
+   "civ-390-light",
+   ".axis-node .yr"
+  ],
+  [
+   "civ-390-dark",
+   ".axis-node .lab"
+  ],
+  [
+   "civ-390-dark",
+   ".axis-node .yr"
+  ],
+  [
+   "civ-414-light",
+   ".axis-node .lab"
+  ],
+  [
+   "civ-414-light",
+   ".axis-node .yr"
+  ],
+  [
+   "civ-414-dark",
+   ".axis-node .lab"
+  ],
+  [
+   "civ-414-dark",
+   ".axis-node .yr"
+  ],
+  [
+   "chronicle-360-light",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-360-dark",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-390-light",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-390-dark",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-414-light",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-414-dark",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-768-light",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-768-dark",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-1024-light",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-1024-dark",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-1280-light",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-1280-dark",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-1440-light",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "chronicle-1440-dark",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "tech-360-light",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "tech-360-dark",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "tech-1280-light",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "tech-1280-dark",
+   ".chronicle-nav .chip"
+  ],
+  [
+   "home-360-light",
+   ".axis-node .lab"
+  ],
+  [
+   "home-360-light",
+   ".axis-node .yr"
+  ],
+  [
+   "home-360-dark",
+   ".axis-node .lab"
+  ],
+  [
+   "home-360-dark",
+   ".axis-node .yr"
+  ],
+  [
+   "home-390-light",
+   ".axis-node .lab"
+  ],
+  [
+   "home-390-light",
+   ".axis-node .yr"
+  ],
+  [
+   "home-390-dark",
+   ".axis-node .lab"
+  ],
+  [
+   "home-390-dark",
+   ".axis-node .yr"
+  ],
+  [
+   "home-414-light",
+   ".axis-node .lab"
+  ],
+  [
+   "home-414-light",
+   ".axis-node .yr"
+  ],
+  [
+   "home-414-dark",
+   ".axis-node .lab"
+  ],
+  [
+   "home-414-dark",
+   ".axis-node .yr"
+  ]
+ ],
+ "hscrollFails": [],
+ "brandFails": [],
+ "pageErrors": [],
+ "domExpectCiv": {
+  "axisHero": 1,
+  "axisTitle": 1,
+  "deepAxis": 1,
+  "axisCta": 1,
+  "chronicleStrip": 0,
+  "chronicleBand": 0,
+  "axisRails": 0,
+  "slice": 0,
+  "patternAxis": 1,
+  "caseAxis": 1,
+  "volumeCards": 3,
+  "chapterBands": 0,
+  "stageCards": 0,
+  "stageDots": 0,
+  "stageGrid": 0,
+  "stageAnchors": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "chAnchors": [
+   false,
+   false,
+   false
+  ],
+  "futurePanel": 1,
+  "futureF": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "stage11": false
+ },
+ "domExpectHome": {
+  "axisHero": 1,
+  "axisTitle": 1,
+  "deepAxis": 1,
+  "axisCta": 1,
+  "chronicleStrip": 0,
+  "chronicleBand": 1,
+  "axisRails": 1,
+  "slice": 1,
+  "patternAxis": 1,
+  "caseAxis": 1,
+  "volumeCards": 3,
+  "chapterBands": 0,
+  "stageCards": 0,
+  "stageDots": 0,
+  "stageGrid": 0,
+  "stageAnchors": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "chAnchors": [
+   false,
+   false,
+   false
+  ],
+  "futurePanel": 0,
+  "futureF": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "stage11": false
+ },
+ "domExpectChronicle": {
+  "axisHero": 0,
+  "axisTitle": 0,
+  "deepAxis": 0,
+  "axisCta": 0,
+  "chronicleStrip": 0,
+  "chronicleBand": 0,
+  "axisRails": 0,
+  "slice": 0,
+  "patternAxis": 0,
+  "caseAxis": 0,
+  "volumeCards": 0,
+  "chapterBands": 3,
+  "stageCards": 0,
+  "stageDots": 0,
+  "stageGrid": 0,
+  "stageAnchors": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "chAnchors": [
+   true,
+   true,
+   true
+  ],
+  "futurePanel": 0,
+  "futureF": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false
+  ],
+  "stage11": false
+ },
+ "touchUnder44Examples": [
+  [
+   "civ-360-light",
+   ".axis-cta a",
+   "108x37"
+  ],
+  [
+   "civ-360-light",
+   ".pattern-axis .chip",
+   "209x38"
+  ],
+  [
+   "civ-360-light",
+   ".pattern-axis .chip",
+   "161x38"
+  ],
+  [
+   "civ-360-light",
+   ".pattern-axis .chip",
+   "216x38"
+  ],
+  [
+   "civ-360-light",
+   ".case-axis .chip",
+   "177x38"
+  ],
+  [
+   "civ-360-light",
+   ".case-axis .chip",
+   "209x38"
+  ],
+  [
+   "civ-360-light",
+   ".stage-links a",
+   "78x19"
+  ],
+  [
+   "civ-360-light",
+   ".stage-links a",
+   "39x19"
+  ],
+  [
+   "civ-360-light",
+   ".stage-links a",
+   "91x19"
+  ],
+  [
+   "civ-360-light",
+   ".stage-links a",
+   "117x19"
+  ],
+  [
+   "civ-360-light",
+   ".stage-links a",
+   "104x19"
+  ],
+  [
+   "civ-360-light",
+   ".stage-links a",
+   "169x19"
+  ],
+  [
+   "civ-360-light",
+   ".stage-links a",
+   "171x19"
+  ],
+  [
+   "civ-360-light",
+   ".stage-links a",
+   "156x19"
+  ],
+  [
+   "civ-360-light",
+   ".stage-links a",
+   "78x23"
+  ],
+  [
+   "chronicle-360-light",
+   ".stage-links a",
+   "117x23"
+  ],
+  [
+   "chronicle-360-light",
+   ".stage-links a",
+   "52x23"
+  ],
+  [
+   "chronicle-360-light",
+   ".stage-links a",
+   "65x23"
+  ],
+  [
+   "chronicle-360-light",
+   ".stage-links a",
+   "52x21"
+  ],
+  [
+   "chronicle-360-light",
+   ".stage-links a",
+   "70x21"
+  ],
+  [
+   "chronicle-360-light",
+   ".stage-links a",
+   "83x21"
+  ],
+  [
+   "tech-360-light",
+   ".stage-links a",
+   "91x23"
+  ],
+  [
+   "tech-360-light",
+   ".stage-links a",
+   "104x23"
+  ],
+  [
+   "learn-360-light",
+   ".chrome .icon-btn",
+   "44x36"
+  ],
+  [
+   "learn-360-light",
+   ".chrome .icon-btn",
+   "32x32"
+  ],
+  [
+   "learn-360-light",
+   ".chrome .chip",
+   "44x36"
+  ],
+  [
+   "learn-360-light",
+   ".subscribe-menu > summary",
+   "44x36"
+  ],
+  [
+   "learn-1280-light",
+   ".chrome .icon-btn",
+   "44x40"
+  ],
+  [
+   "learn-1280-light",
+   ".chrome .icon-btn",
+   "40x40"
+  ],
+  [
+   "learn-1280-light",
+   ".chrome .chip",
+   "58x38"
+  ],
+  [
+   "learn-1280-light",
+   ".subscribe-menu > summary",
+   "58x38"
+  ],
+  [
+   "home-360-light",
+   ".axis-cta a",
+   "108x36"
+  ],
+  [
+   "home-360-light",
+   ".pattern-axis .chip",
+   "200x36"
+  ],
+  [
+   "home-360-light",
+   ".pattern-axis .chip",
+   "152x36"
+  ],
+  [
+   "home-360-light",
+   ".pattern-axis .chip",
+   "198x36"
+  ],
+  [
+   "home-360-light",
+   ".case-axis .chip",
+   "168x36"
+  ],
+  [
+   "home-360-light",
+   ".case-axis .chip",
+   "200x36"
+  ],
+  [
+   "home-360-light",
+   ".pin-links a",
+   "69x15"
+  ],
+  [
+   "home-360-light",
+   ".civ-more > summary",
+   "44x36"
+  ],
+  [
+   "home-768-light",
+   ".chrome .chip",
+   "58x40"
+  ],
+  [
+   "home-768-light",
+   ".civ-more > summary",
+   "58x40"
+  ],
+  [
+   "home-768-light",
+   ".subscribe-menu > summary",
+   "58x40"
+  ]
+ ],
+ "anchors": [
+  {
+   "id": "ch-ancient",
+   "theme": "light",
+   "top": 164,
+   "chromeBottom": 139,
+   "gap": 25
+  },
+  {
+   "id": "ch-now",
+   "theme": "light",
+   "top": 158,
+   "chromeBottom": 139,
+   "gap": 19
+  },
+  {
+   "id": "ch-future",
+   "theme": "light",
+   "top": 155,
+   "chromeBottom": 139,
+   "gap": 16
+  },
+  {
+   "id": "stage-1",
+   "theme": "light",
+   "top": 161,
+   "chromeBottom": 139,
+   "gap": 22
+  },
+  {
+   "id": "stage-5",
+   "theme": "light",
+   "top": 143,
+   "chromeBottom": 139,
+   "gap": 4
+  },
+  {
+   "id": "stage-8",
+   "theme": "light",
+   "top": 145,
+   "chromeBottom": 139,
+   "gap": 6
+  },
+  {
+   "id": "stage-9",
+   "theme": "light",
+   "top": 143,
+   "chromeBottom": 139,
+   "gap": 4
+  },
+  {
+   "id": "stage-10",
+   "theme": "light",
+   "top": 143,
+   "chromeBottom": 139,
+   "gap": 4
+  },
+  {
+   "id": "ch-ancient",
+   "theme": "dark",
+   "top": 164,
+   "chromeBottom": 139,
+   "gap": 25
+  },
+  {
+   "id": "ch-now",
+   "theme": "dark",
+   "top": 158,
+   "chromeBottom": 139,
+   "gap": 19
+  },
+  {
+   "id": "ch-future",
+   "theme": "dark",
+   "top": 155,
+   "chromeBottom": 139,
+   "gap": 16
+  },
+  {
+   "id": "stage-1",
+   "theme": "dark",
+   "top": 161,
+   "chromeBottom": 139,
+   "gap": 22
+  },
+  {
+   "id": "stage-5",
+   "theme": "dark",
+   "top": 143,
+   "chromeBottom": 139,
+   "gap": 4
+  },
+  {
+   "id": "stage-8",
+   "theme": "dark",
+   "top": 145,
+   "chromeBottom": 139,
+   "gap": 6
+  },
+  {
+   "id": "stage-9",
+   "theme": "dark",
+   "top": 143,
+   "chromeBottom": 139,
+   "gap": 4
+  },
+  {
+   "id": "stage-10",
+   "theme": "dark",
+   "top": 143,
+   "chromeBottom": 139,
+   "gap": 4
+  },
+  {
+   "id": "slice-home",
+   "theme": "light",
+   "top": 120,
+   "titleTop": 135,
+   "chromeBottom": 87,
+   "gap": 33
+  },
+  {
+   "id": "slice-home",
+   "theme": "dark",
+   "top": 120,
+   "titleTop": 135,
+   "chromeBottom": 87,
+   "gap": 33
+  }
+ ],
+ "clicks": [
+  {
+   "desc": "home primary CTA 打開文明總覽",
+   "buttonText": "打開文明總覽",
+   "box": {
+    "w": 108,
+    "h": 36,
+    "inViewport": false
+   },
+   "landedPath": "/civilization/",
+   "landedHash": "",
+   "pathOk": true,
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "home 跳到今日切片",
+   "buttonText": "跳到今日切片",
+   "box": {
+    "w": 108,
+    "h": 36,
+    "inViewport": false
+   },
+   "landedPath": "/",
+   "landedHash": "#slice",
+   "pathOk": true,
+   "landedGap": {
+    "top": 103,
+    "titleTop": 118,
+    "chromeBottom": 87,
+    "gap": 16
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "home volume card 古",
+   "buttonText": "卷一古採集、農業、城市、帝國與商路，在此收成可核對的刻度。本卷維持既有正文，深時間仍交起源長頁。",
+   "box": {
+    "w": 326,
+    "h": 154,
+    "inViewport": false
+   },
+   "landedPath": "/civilization/chronicle/",
+   "landedHash": "#ch-ancient",
+   "pathOk": true,
+   "landedGap": {
+    "top": 164,
+    "titleTop": 212,
+    "chromeBottom": 139,
+    "gap": 25
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "home volume card 今",
+   "buttonText": "卷二今科學方法、工業能量、全球信用、信息網絡與本世紀工具，是仍可對照新聞切片的一章。章名是今。新聞切片在首頁。",
+   "box": {
+    "w": 326,
+    "h": 154,
+    "inViewport": false
+   },
+   "landedPath": "/civilization/chronicle/",
+   "landedHash": "#ch-now",
+   "pathOk": true,
+   "landedGap": {
+    "top": 158,
+    "titleTop": 206,
+    "chromeBottom": 139,
+    "gap": 19
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "home volume card 未來",
+   "buttonText": "卷三未來未來章門只連到總覽既有展望。面板全文留在總覽，本頁不搬移，也不另立第十一階。",
+   "box": {
+    "w": 326,
+    "h": 132,
+    "inViewport": false
+   },
+   "landedPath": "/civilization/chronicle/",
+   "landedHash": "#ch-future",
+   "pathOk": true,
+   "landedGap": {
+    "top": 155,
+    "titleTop": 202,
+    "chromeBottom": 139,
+    "gap": 16
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "hub primary CTA 閱讀人類起源",
+   "buttonText": "閱讀人類起源",
+   "box": {
+    "w": 108,
+    "h": 37,
+    "inViewport": true
+   },
+   "landedPath": "/civilization/origins/",
+   "landedHash": "",
+   "pathOk": true,
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "hub 跳到今日切片",
+   "buttonText": "跳到今日切片",
+   "box": {
+    "w": 108,
+    "h": 37,
+    "inViewport": true
+   },
+   "landedPath": "/",
+   "landedHash": "#slice",
+   "pathOk": true,
+   "landedGap": {
+    "missing": true
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "civ volume card 古",
+   "buttonText": "卷一古採集、農業、城市、帝國與商路，在此收成可核對的刻度。本卷維持既有正文，深時間仍交起源長頁。",
+   "box": {
+    "w": 326,
+    "h": 154,
+    "inViewport": false
+   },
+   "landedPath": "/civilization/chronicle/",
+   "landedHash": "#ch-ancient",
+   "pathOk": true,
+   "landedGap": {
+    "top": 155,
+    "chromeBottom": 139,
+    "gap": 16
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "civ volume card 未來",
+   "buttonText": "卷三未來未來章門只連到總覽既有展望。面板全文留在總覽，本頁不搬移，也不另立第十一階。",
+   "box": {
+    "w": 326,
+    "h": 132,
+    "inViewport": false
+   },
+   "landedPath": "/civilization/chronicle/",
+   "landedHash": "#ch-future",
+   "pathOk": true,
+   "landedGap": {
+    "top": 155,
+    "chromeBottom": 139,
+    "gap": 16
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  }
+ ]
+}

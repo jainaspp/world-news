@@ -1,0 +1,3588 @@
+{
+ "reports": [
+  {
+   "url": "/",
+   "viewport": {
+    "w": 360,
+    "h": 800
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [
+    {
+     "sel": "ol.milestones",
+     "left": 16,
+     "right": 599
+    },
+    {
+     "sel": "li",
+     "left": 356,
+     "right": 429
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 356,
+     "right": 429
+    },
+    {
+     "sel": "span.dot",
+     "left": 386,
+     "right": 400
+    },
+    {
+     "sel": "span.lab",
+     "left": 356,
+     "right": 429
+    },
+    {
+     "sel": "span.yr",
+     "left": 356,
+     "right": 429
+    },
+    {
+     "sel": "li",
+     "left": 441,
+     "right": 514
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 441,
+     "right": 514
+    }
+   ],
+   "hits": [],
+   "interHits": [],
+   "clippedHits": [
+    ".axis-node .lab",
+    ".axis-node .yr"
+   ],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 87,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-360-light",
+   "file": "2026-10-22-home-360-light-full.jpg",
+   "pageHeight": 5603,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 360,
+    "h": 800
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [
+    {
+     "sel": "ol.milestones",
+     "left": 16,
+     "right": 599
+    },
+    {
+     "sel": "li",
+     "left": 356,
+     "right": 429
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 356,
+     "right": 429
+    },
+    {
+     "sel": "span.dot",
+     "left": 386,
+     "right": 400
+    },
+    {
+     "sel": "span.lab",
+     "left": 356,
+     "right": 429
+    },
+    {
+     "sel": "span.yr",
+     "left": 356,
+     "right": 429
+    },
+    {
+     "sel": "li",
+     "left": 441,
+     "right": 514
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 441,
+     "right": 514
+    }
+   ],
+   "hits": [],
+   "interHits": [],
+   "clippedHits": [
+    ".axis-node .lab",
+    ".axis-node .yr"
+   ],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 87,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-360-dark",
+   "file": "2026-10-22-home-360-dark-full.jpg",
+   "pageHeight": 5603,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 390,
+    "h": 844
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [
+    {
+     "sel": "ol.milestones",
+     "left": 16,
+     "right": 652
+    },
+    {
+     "sel": "li",
+     "left": 386,
+     "right": 467
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 386,
+     "right": 467
+    },
+    {
+     "sel": "span.dot",
+     "left": 419,
+     "right": 433
+    },
+    {
+     "sel": "span.lab",
+     "left": 386,
+     "right": 467
+    },
+    {
+     "sel": "span.yr",
+     "left": 386,
+     "right": 467
+    },
+    {
+     "sel": "li",
+     "left": 479,
+     "right": 559
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 479,
+     "right": 559
+    }
+   ],
+   "hits": [],
+   "interHits": [
+    [
+     "A",
+     "A"
+    ]
+   ],
+   "clippedHits": [
+    ".axis-node .lab",
+    ".axis-node .yr"
+   ],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 87,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-390-light",
+   "file": "2026-10-22-home-390-light-full.jpg",
+   "pageHeight": 5514,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 390,
+    "h": 844
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [
+    {
+     "sel": "ol.milestones",
+     "left": 16,
+     "right": 652
+    },
+    {
+     "sel": "li",
+     "left": 386,
+     "right": 467
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 386,
+     "right": 467
+    },
+    {
+     "sel": "span.dot",
+     "left": 419,
+     "right": 433
+    },
+    {
+     "sel": "span.lab",
+     "left": 386,
+     "right": 467
+    },
+    {
+     "sel": "span.yr",
+     "left": 386,
+     "right": 467
+    },
+    {
+     "sel": "li",
+     "left": 479,
+     "right": 559
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 479,
+     "right": 559
+    }
+   ],
+   "hits": [],
+   "interHits": [
+    [
+     "A",
+     "A"
+    ]
+   ],
+   "clippedHits": [
+    ".axis-node .lab",
+    ".axis-node .yr"
+   ],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 87,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-390-dark",
+   "file": "2026-10-22-home-390-dark-full.jpg",
+   "pageHeight": 5514,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 414,
+    "h": 896
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 414,
+    "clientWidth": 414,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [
+    {
+     "sel": "ol.milestones",
+     "left": 16,
+     "right": 694
+    },
+    {
+     "sel": "li",
+     "left": 410,
+     "right": 497
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 410,
+     "right": 497
+    },
+    {
+     "sel": "span.dot",
+     "left": 446,
+     "right": 460
+    },
+    {
+     "sel": "span.lab",
+     "left": 410,
+     "right": 497
+    },
+    {
+     "sel": "span.yr",
+     "left": 410,
+     "right": 497
+    },
+    {
+     "sel": "li",
+     "left": 509,
+     "right": 595
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 509,
+     "right": 595
+    }
+   ],
+   "hits": [],
+   "interHits": [
+    [
+     "A",
+     "A"
+    ]
+   ],
+   "clippedHits": [
+    ".axis-node .lab",
+    ".axis-node .yr"
+   ],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 87,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-414-light",
+   "file": "2026-10-22-home-414-light-full.jpg",
+   "pageHeight": 5566,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 414,
+    "h": 896
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 414,
+    "clientWidth": 414,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [
+    {
+     "sel": "ol.milestones",
+     "left": 16,
+     "right": 694
+    },
+    {
+     "sel": "li",
+     "left": 410,
+     "right": 497
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 410,
+     "right": 497
+    },
+    {
+     "sel": "span.dot",
+     "left": 446,
+     "right": 460
+    },
+    {
+     "sel": "span.lab",
+     "left": 410,
+     "right": 497
+    },
+    {
+     "sel": "span.yr",
+     "left": 410,
+     "right": 497
+    },
+    {
+     "sel": "li",
+     "left": 509,
+     "right": 595
+    },
+    {
+     "sel": "a.axis-node",
+     "left": 509,
+     "right": 595
+    }
+   ],
+   "hits": [],
+   "interHits": [
+    [
+     "A",
+     "A"
+    ]
+   ],
+   "clippedHits": [
+    ".axis-node .lab",
+    ".axis-node .yr"
+   ],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 87,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 32,
+     "h": 32,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 44,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-414-dark",
+   "file": "2026-10-22-home-414-dark-full.jpg",
+   "pageHeight": 5566,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 768,
+    "h": 1024
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [],
+   "hits": [],
+   "interHits": [
+    [
+     "A",
+     "A"
+    ]
+   ],
+   "clippedHits": [],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 105,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-768-light",
+   "file": "2026-10-22-home-768-light-full.jpg",
+   "pageHeight": 5350,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 768,
+    "h": 1024
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [],
+   "hits": [],
+   "interHits": [
+    [
+     "A",
+     "A"
+    ]
+   ],
+   "clippedHits": [],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 105,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-768-dark",
+   "file": "2026-10-22-home-768-dark-full.jpg",
+   "pageHeight": 5350,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 1024,
+    "h": 768
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [],
+   "hits": [],
+   "interHits": [
+    [
+     "A",
+     "A"
+    ]
+   ],
+   "clippedHits": [],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 105,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-1024-light",
+   "file": "2026-10-22-home-1024-light-full.jpg",
+   "pageHeight": 5454,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 1024,
+    "h": 768
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [],
+   "hits": [],
+   "interHits": [
+    [
+     "A",
+     "A"
+    ]
+   ],
+   "clippedHits": [],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 105,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-1024-dark",
+   "file": "2026-10-22-home-1024-dark-full.jpg",
+   "pageHeight": 5454,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 1280,
+    "h": 800
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [],
+   "hits": [],
+   "interHits": [],
+   "clippedHits": [],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 105,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-1280-light",
+   "file": "2026-10-22-home-1280-light-full.jpg",
+   "pageHeight": 5744,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 1280,
+    "h": 800
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [],
+   "hits": [],
+   "interHits": [],
+   "clippedHits": [],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 105,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-1280-dark",
+   "file": "2026-10-22-home-1280-dark-full.jpg",
+   "pageHeight": 5744,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 1440,
+    "h": 900
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [],
+   "hits": [],
+   "interHits": [],
+   "clippedHits": [],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 105,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-1440-light",
+   "file": "2026-10-22-home-1440-light-full.jpg",
+   "pageHeight": 5744,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "url": "/",
+   "viewport": {
+    "w": 1440,
+    "h": 900
+   },
+   "dark": false,
+   "hscroll": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "fail": false,
+    "innerCheck": false
+   },
+   "wide": [],
+   "hits": [],
+   "interHits": [],
+   "clippedHits": [],
+   "brandOk": true,
+   "logoText": null,
+   "domExpect": {
+    "axisHero": 1,
+    "axisTitle": 1,
+    "deepAxis": 1,
+    "axisCta": 1,
+    "chronicleStrip": 0,
+    "chronicleBand": 1,
+    "axisRails": 1,
+    "slice": 1,
+    "patternAxis": 1,
+    "caseAxis": 1,
+    "volumeCards": 3,
+    "chapterBands": 0,
+    "stageCards": 0,
+    "stageDots": 0,
+    "stageGrid": 0,
+    "stageAnchors": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "chAnchors": [
+     false,
+     false,
+     false
+    ],
+    "futurePanel": 0,
+    "futureF": [
+     false,
+     false,
+     false,
+     false,
+     false,
+     false
+    ],
+    "stage11": false
+   },
+   "chromeBottom": 105,
+   "touchUnder44": [
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".axis-cta a",
+     "w": 108,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 152,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pattern-axis .chip",
+     "w": 198,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 168,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".case-axis .chip",
+     "w": 200,
+     "h": 36,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".pin-links a",
+     "w": 69,
+     "h": 15,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 44,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .icon-btn",
+     "w": 40,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".chrome .chip",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".civ-more > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    },
+    {
+     "sel": ".subscribe-menu > summary",
+     "w": 58,
+     "h": 40,
+     "under44": true,
+     "horizontalScrollChild": false
+    }
+   ],
+   "touchCount": 34,
+   "fontsLoaded": [],
+   "label": "home-1440-dark",
+   "file": "2026-10-22-home-1440-dark-full.jpg",
+   "pageHeight": 5744,
+   "consoleErrors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  }
+ ],
+ "anchorReports": [
+  {
+   "id": "slice-home",
+   "theme": "light",
+   "top": 120,
+   "titleTop": 135,
+   "chromeBottom": 87,
+   "gap": 33
+  },
+  {
+   "id": "slice-home",
+   "theme": "dark",
+   "top": 120,
+   "titleTop": 135,
+   "chromeBottom": 87,
+   "gap": 33
+  }
+ ],
+ "clickReports": [
+  {
+   "desc": "home primary CTA 打開文明總覽",
+   "buttonText": "打開文明總覽",
+   "box": {
+    "w": 108,
+    "h": 36,
+    "inViewport": false
+   },
+   "landedPath": "/civilization/",
+   "landedHash": "",
+   "pathOk": true,
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "home 跳到今日切片",
+   "buttonText": "跳到今日切片",
+   "box": {
+    "w": 108,
+    "h": 36,
+    "inViewport": false
+   },
+   "landedPath": "/",
+   "landedHash": "#slice",
+   "pathOk": true,
+   "landedGap": {
+    "top": 103,
+    "titleTop": 118,
+    "chromeBottom": 87,
+    "gap": 16
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "home volume card 古",
+   "buttonText": "卷一古採集、農業、城市、帝國與商路，在此收成可核對的刻度。本卷維持既有正文，深時間仍交起源長頁。",
+   "box": {
+    "w": 326,
+    "h": 154,
+    "inViewport": false
+   },
+   "landedPath": "/civilization/chronicle/",
+   "landedHash": "#ch-ancient",
+   "pathOk": true,
+   "landedGap": {
+    "top": 164,
+    "titleTop": 212,
+    "chromeBottom": 139,
+    "gap": 25
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "home volume card 今",
+   "buttonText": "卷二今科學方法、工業能量、全球信用、信息網絡與本世紀工具，是仍可對照新聞切片的一章。章名是今。新聞切片在首頁。",
+   "box": {
+    "w": 326,
+    "h": 154,
+    "inViewport": false
+   },
+   "landedPath": "/civilization/chronicle/",
+   "landedHash": "#ch-now",
+   "pathOk": true,
+   "landedGap": {
+    "top": 158,
+    "titleTop": 206,
+    "chromeBottom": 139,
+    "gap": 19
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  },
+  {
+   "desc": "home volume card 未來",
+   "buttonText": "卷三未來未來章門只連到總覽既有展望。面板全文留在總覽，本頁不搬移，也不另立第十一階。",
+   "box": {
+    "w": 326,
+    "h": 132,
+    "inViewport": false
+   },
+   "landedPath": "/civilization/chronicle/",
+   "landedHash": "#ch-future",
+   "pathOk": true,
+   "landedGap": {
+    "top": 155,
+    "titleTop": 202,
+    "chromeBottom": 139,
+    "gap": 16
+   },
+   "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  }
+ ]
+}
