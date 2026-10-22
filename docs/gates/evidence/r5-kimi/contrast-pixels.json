@@ -1,0 +1,94 @@
+{
+  "sha": "921a6ef8fe0f01d0c1261748c174fcbadd8a959d",
+  "chrome": "Google Chrome 156.0.8078.47 headless",
+  "method": "production dist/ + Pages Function renderers; pixel median background vs computed foreground",
+  "r4FixConfirmed": {
+    "selector": "html.dark .civ-block-figure figcaption",
+    "sample": "功率的儲存與維修 · 紙感 · 約數",
+    "fg": "#d2c4b0",
+    "bg": "#2a231b",
+    "ratio": 9.05,
+    "chronicleDarkRange": "9.6–10.8",
+    "result": "PASS"
+  },
+  "heroFalseComputed": {
+    "note": "Computed walk saw page #f4f6f8 because the hero background is a gradient. Pixels on the painted hero pass.",
+    "samples": [
+      { "sel": ".hero-kicker", "ratio": 7.09, "bg": "#181f28" },
+      { "sel": ".hero-title", "ratio": 14.74 },
+      { "sel": ".hero-main", "ratio": 12.8 },
+      { "sel": ".hero-aside", "ratio": 7.38 },
+      { "sel": ".hero-btn-ghost", "ratio": 13.31 },
+      { "sel": ".hero-hint", "ratio": 7.74 },
+      { "sel": ".hero-replay", "ratio": 9.45 }
+    ]
+  },
+  "fails": [
+    {
+      "id": "P0-CONTRAST",
+      "where": "H light, .bulletin-seconds",
+      "text": "29秒",
+      "fg": "#8a8175",
+      "bg": "#f7f1e6",
+      "ratio": 3.41,
+      "shot": "2026-10-22-home-360-light-bulletin.png"
+    },
+    {
+      "id": "P0-CONTRAST",
+      "where": "H dark, .more-today span",
+      "text": "全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。",
+      "fg": "#5c6570",
+      "bg": "#0e141c",
+      "ratio": 3.13,
+      "shot": "2026-10-22-home-360-dark-more-today.png"
+    },
+    {
+      "id": "P0-CONTRAST",
+      "where": "L dark, .learn-progress / .learn-note / .learn-bound",
+      "text": "本機尚未記下進度。",
+      "fg": "#3d4550",
+      "bg": "#121820",
+      "ratio": 1.84,
+      "shot": "2026-10-22-learn-360-dark-fullviewport.png"
+    },
+    {
+      "id": "P0-CONTRAST",
+      "where": "L dark, .learn-bearings",
+      "fg": "#5c6570",
+      "bg": "#121820",
+      "ratio": 3.02,
+      "shot": "2026-10-22-learn-360-dark-fullviewport.png"
+    },
+    {
+      "id": "P0-CONTRAST",
+      "where": "N light, #ch-future .stage-links a on .chapter-band",
+      "text": "總覽展望",
+      "fg": "#1d4f91",
+      "bg": "#161c24",
+      "ratio": 2.1,
+      "shot": "2026-10-22-chronicle-360-light-future-links.png"
+    },
+    {
+      "id": "P0-CONTRAST",
+      "where": "C/N/A dark, width≥768, .nav-more > summary",
+      "text": "更多",
+      "fg": "#5c6570",
+      "bg": "#0e141c",
+      "ratio": 3.13,
+      "shot": "2026-10-22-civ-1280-dark-masthead.png"
+    }
+  ],
+  "axisRest": {
+    "viewport": "360 light home",
+    "portRight": 344,
+    "cityLeft": 348,
+    "cityVisiblePx": -4,
+    "note": "城市 starts 4px outside the scrollport. The glyph is not half-cut. 今天 and 未來 are further outside."
+  },
+  "clicks": {
+    "sliceFromCiv360Dark": { "clearancePx": 31.4, "scrollY": 2077, "href": "/#slice" },
+    "sliceFromHome360Dark": { "clearancePx": 31.4, "scrollY": 2077, "href": "/#slice" },
+    "openCiv": { "href": "/civilization/", "h1": "人類文明" },
+    "readOrigins": { "href": "/civilization/origins/", "clearancePx": 118.4 }
+  }
+}
