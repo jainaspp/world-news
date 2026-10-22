@@ -1,0 +1,656 @@
+{
+  "geometry": [
+    {
+      "page": "home",
+      "vp": 360,
+      "theme": "light",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": true,
+        "axisTitle": 1,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "chronicleBand": 1,
+        "deepAxis": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      }
+    },
+    {
+      "page": "civ",
+      "vp": 360,
+      "theme": "light",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": true,
+        "axisTitle": 1,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "chronicleBand": 0,
+        "deepAxis": 1,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": false,
+        "title": "人類文明 — 文明編年史"
+      }
+    },
+    {
+      "page": "home",
+      "vp": 360,
+      "theme": "dark",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": true,
+        "axisTitle": 1,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "chronicleBand": 1,
+        "deepAxis": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      }
+    },
+    {
+      "page": "civ",
+      "vp": 360,
+      "theme": "dark",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": true,
+        "axisTitle": 1,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "chronicleBand": 0,
+        "deepAxis": 1,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": true,
+        "title": "人類文明 — 文明編年史"
+      }
+    },
+    {
+      "page": "home",
+      "vp": 390,
+      "theme": "light",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": true,
+        "axisTitle": 1,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "chronicleBand": 1,
+        "deepAxis": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      }
+    },
+    {
+      "page": "civ",
+      "vp": 390,
+      "theme": "light",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": true,
+        "axisTitle": 1,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "chronicleBand": 0,
+        "deepAxis": 1,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": false,
+        "title": "人類文明 — 文明編年史"
+      }
+    },
+    {
+      "page": "home",
+      "vp": 390,
+      "theme": "dark",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": true,
+        "axisTitle": 1,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "chronicleBand": 1,
+        "deepAxis": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      }
+    },
+    {
+      "page": "civ",
+      "vp": 390,
+      "theme": "dark",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": true,
+        "axisTitle": 1,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "chronicleBand": 0,
+        "deepAxis": 1,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": true,
+        "title": "人類文明 — 文明編年史"
+      }
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "vp": 360,
+      "theme": "light",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": false,
+        "axisTitle": 0,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "chronicleBand": 0,
+        "deepAxis": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": true,
+        "chNow": true,
+        "chFuture": true,
+        "stages": 10,
+        "dark": false,
+        "title": "文明編年 — 文明編年史"
+      },
+      "logs": []
+    },
+    {
+      "page": "learn",
+      "path": "/learn/",
+      "vp": 360,
+      "theme": "light",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": false,
+        "axisTitle": 0,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "chronicleBand": 0,
+        "deepAxis": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": false,
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "logs": []
+    },
+    {
+      "page": "slice",
+      "path": "/#slice",
+      "vp": 360,
+      "theme": "light",
+      "hits": [
+        [
+          ".chrome",
+          ".case-axis",
+          {
+            "top": 2077,
+            "bottom": 2004
+          }
+        ]
+      ],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": true,
+        "axisTitle": 1,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "chronicleBand": 1,
+        "deepAxis": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "logs": []
+    },
+    {
+      "page": "slice",
+      "path": "/#slice",
+      "vp": 360,
+      "theme": "dark",
+      "hits": [
+        [
+          ".chrome",
+          ".case-axis",
+          {
+            "top": 2077,
+            "bottom": 2004
+          }
+        ]
+      ],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": true,
+        "axisTitle": 1,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "chronicleBand": 1,
+        "deepAxis": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "logs": []
+    },
+    {
+      "page": "news-long",
+      "path": "/story/91e9bae258cd/",
+      "vp": 360,
+      "theme": "light",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": false,
+        "axisTitle": 0,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "chronicleBand": 0,
+        "deepAxis": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": false,
+        "title": "‘Ali G: Who Iz I?’ Review: Sacha Baron Cohen Brings Back His Cretinous Fake OG Talk-Show Host, Only Now Ali G Is the Film’s ‘Political’ Subject. A Mistake, Innit? — 文明編年史"
+      },
+      "logs": []
+    },
+    {
+      "page": "news-long",
+      "path": "/story/91e9bae258cd/",
+      "vp": 360,
+      "theme": "dark",
+      "hits": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "pageOverflow": false
+      },
+      "touch": [],
+      "dom": {
+        "homeAxis": false,
+        "axisTitle": 0,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "chronicleBand": 0,
+        "deepAxis": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "dark": true,
+        "title": "‘Ali G: Who Iz I?’ Review: Sacha Baron Cohen Brings Back His Cretinous Fake OG Talk-Show Host, Only Now Ali G Is the Film’s ‘Political’ Subject. A Mistake, Innit? — 文明編年史"
+      },
+      "logs": []
+    }
+  ],
+  "clicks": [
+    {
+      "tag": "home-360-dark-open-civ",
+      "button": {
+        "text": "打開文明總覽",
+        "w": 108,
+        "h": 44
+      },
+      "url": "http://127.0.0.1:4173/civilization/",
+      "ok": true,
+      "clearance": null
+    },
+    {
+      "tag": "civ-360-light-read-origins",
+      "button": {
+        "text": "閱讀人類起源",
+        "w": 108,
+        "h": 44
+      },
+      "url": "http://127.0.0.1:4173/civilization/origins/",
+      "ok": true,
+      "clearance": null
+    },
+    {
+      "tag": "civ-360-dark-jump-slice",
+      "button": {
+        "text": "跳到今日切片",
+        "w": 108,
+        "h": 44
+      },
+      "url": "http://127.0.0.1:4173/#slice",
+      "ok": true,
+      "clearance": {
+        "headingTop": 182,
+        "chromeBottom": 161,
+        "gap": 21
+      }
+    }
+  ],
+  "console": [
+    {
+      "tag": "home-360-light",
+      "brand": {
+        "simplifiedBrand": false,
+        "wordmark": false,
+        "logoImg": {
+          "complete": true,
+          "naturalWidth": 185
+        },
+        "ariaLabel": "文明編年史",
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "pageerrors": [],
+      "consoleErrors": []
+    },
+    {
+      "tag": "home-360-dark",
+      "brand": {
+        "simplifiedBrand": false,
+        "wordmark": false,
+        "logoImg": {
+          "complete": true,
+          "naturalWidth": 185
+        },
+        "ariaLabel": "文明編年史",
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "pageerrors": [],
+      "consoleErrors": []
+    },
+    {
+      "tag": "civ-360-light",
+      "brand": {
+        "simplifiedBrand": false,
+        "wordmark": false,
+        "logoImg": {
+          "complete": true,
+          "naturalWidth": 185
+        },
+        "ariaLabel": "文明編年史",
+        "title": "人類文明 — 文明編年史"
+      },
+      "pageerrors": [],
+      "consoleErrors": []
+    },
+    {
+      "tag": "civ-360-dark",
+      "brand": {
+        "simplifiedBrand": false,
+        "wordmark": false,
+        "logoImg": {
+          "complete": true,
+          "naturalWidth": 185
+        },
+        "ariaLabel": "文明編年史",
+        "title": "人類文明 — 文明編年史"
+      },
+      "pageerrors": [],
+      "consoleErrors": []
+    },
+    {
+      "tag": "chronicle-360-light",
+      "brand": {
+        "simplifiedBrand": false,
+        "wordmark": false,
+        "logoImg": {
+          "complete": true,
+          "naturalWidth": 185
+        },
+        "ariaLabel": "文明編年史",
+        "title": "文明編年 — 文明編年史"
+      },
+      "pageerrors": [],
+      "consoleErrors": []
+    },
+    {
+      "tag": "chronicle-360-dark",
+      "brand": {
+        "simplifiedBrand": false,
+        "wordmark": false,
+        "logoImg": {
+          "complete": true,
+          "naturalWidth": 185
+        },
+        "ariaLabel": "文明編年史",
+        "title": "文明編年 — 文明編年史"
+      },
+      "pageerrors": [],
+      "consoleErrors": []
+    },
+    {
+      "tag": "learn-360-light",
+      "brand": {
+        "simplifiedBrand": false,
+        "wordmark": false,
+        "logoImg": {
+          "complete": true,
+          "naturalWidth": 185
+        },
+        "ariaLabel": "文明編年史",
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "pageerrors": [],
+      "consoleErrors": []
+    },
+    {
+      "tag": "learn-360-dark",
+      "brand": {
+        "simplifiedBrand": false,
+        "wordmark": false,
+        "logoImg": {
+          "complete": true,
+          "naturalWidth": 185
+        },
+        "ariaLabel": "文明編年史",
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "pageerrors": [],
+      "consoleErrors": []
+    },
+    {
+      "tag": "news-360-light",
+      "brand": {
+        "simplifiedBrand": false,
+        "wordmark": false,
+        "logoImg": {
+          "complete": true,
+          "naturalWidth": 185
+        },
+        "ariaLabel": "文明編年史",
+        "title": "‘Ali G: Who Iz I?’ Review: Sacha Baron Cohen Brings Back His Cretinous Fake OG Talk-Show Host, Only Now Ali G Is the Film’s ‘Political’ Subject. A Mistake, Innit? — 文明編年史"
+      },
+      "pageerrors": [],
+      "consoleErrors": []
+    },
+    {
+      "tag": "news-360-dark",
+      "brand": {
+        "simplifiedBrand": false,
+        "wordmark": false,
+        "logoImg": {
+          "complete": true,
+          "naturalWidth": 185
+        },
+        "ariaLabel": "文明編年史",
+        "title": "‘Ali G: Who Iz I?’ Review: Sacha Baron Cohen Brings Back His Cretinous Fake OG Talk-Show Host, Only Now Ali G Is the Film’s ‘Political’ Subject. A Mistake, Innit? — 文明編年史"
+      },
+      "pageerrors": [],
+      "consoleErrors": []
+    }
+  ],
+  "shots": [
+    "2026-10-22-home-360-light-full.png",
+    "2026-10-22-civ-360-light-full.png",
+    "2026-10-22-home-360-dark-full.png",
+    "2026-10-22-civ-360-dark-full.png",
+    "2026-10-22-civ-360-dark-sameframe.png",
+    "2026-10-22-civ-360-dark-click-slice.png",
+    "2026-10-22-civ-360-light-click-slice.png",
+    "2026-10-22-civ-360-dark-click-slice.png",
+    "2026-10-22-home-360-dark-wordmark.png"
+  ]
+}
