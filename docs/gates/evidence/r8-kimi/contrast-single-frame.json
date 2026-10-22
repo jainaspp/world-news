@@ -1,0 +1,290 @@
+[
+  {
+    "page": "home",
+    "theme": "light",
+    "stable": true,
+    "node": "技術",
+    "yr": {
+      "textPx": 56,
+      "bgPx": 452,
+      "bg": "#161c24",
+      "ratio": 7.32
+    },
+    "lab": {
+      "textPx": 37,
+      "bgPx": 1175,
+      "bg": "#1a1f26",
+      "ratio": 9.14
+    }
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "stable": true,
+    "node": "城市",
+    "yr": {
+      "textPx": 60,
+      "bgPx": 443,
+      "bg": "#161c24",
+      "ratio": 7.32
+    },
+    "lab": {
+      "textPx": 46,
+      "bgPx": 1178,
+      "bg": "#20242a",
+      "ratio": 8.6
+    }
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "stable": true,
+    "node": "今天",
+    "yr": {
+      "textPx": 83,
+      "bgPx": 419,
+      "bg": "#1e2228",
+      "ratio": 6.82
+    },
+    "lab": {
+      "textPx": 40,
+      "bgPx": 1181,
+      "bg": "#26282c",
+      "ratio": 8.15
+    }
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "stable": true,
+    "node": "未來",
+    "yr": {
+      "textPx": 96,
+      "bgPx": 403,
+      "bg": "#191f26",
+      "ratio": 7.09
+    },
+    "lab": {
+      "textPx": 40,
+      "bgPx": 1187,
+      "bg": "#22262a",
+      "ratio": 8.41
+    }
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "stable": true,
+    "node": "技術",
+    "yr": {
+      "textPx": 56,
+      "bgPx": 452,
+      "bg": "#161c24",
+      "ratio": 7.32
+    },
+    "lab": {
+      "textPx": 37,
+      "bgPx": 1175,
+      "bg": "#191f26",
+      "ratio": 9.16
+    }
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "stable": true,
+    "node": "城市",
+    "yr": {
+      "textPx": 60,
+      "bgPx": 443,
+      "bg": "#161c24",
+      "ratio": 7.32
+    },
+    "lab": {
+      "textPx": 46,
+      "bgPx": 1178,
+      "bg": "#1e2329",
+      "ratio": 8.73
+    }
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "stable": true,
+    "node": "今天",
+    "yr": {
+      "textPx": 83,
+      "bgPx": 419,
+      "bg": "#1c2127",
+      "ratio": 6.92
+    },
+    "lab": {
+      "textPx": 39,
+      "bgPx": 1181,
+      "bg": "#23272b",
+      "ratio": 8.3
+    }
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "stable": true,
+    "node": "未來",
+    "yr": {
+      "textPx": 96,
+      "bgPx": 403,
+      "bg": "#191e25",
+      "ratio": 7.16
+    },
+    "lab": {
+      "textPx": 41,
+      "bgPx": 1186,
+      "bg": "#202429",
+      "ratio": 8.61
+    }
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "stable": true,
+    "node": "技術",
+    "yr": {
+      "textPx": 8,
+      "bgPx": 502,
+      "bg": "#3e3b37",
+      "ratio": 4.76
+    },
+    "lab": {
+      "textPx": 25,
+      "bgPx": 1187,
+      "bg": "#3a3937",
+      "ratio": 6.37
+    }
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "stable": true,
+    "node": "城市",
+    "yr": {
+      "textPx": 22,
+      "bgPx": 488,
+      "bg": "#423e37",
+      "ratio": 4.54
+    },
+    "lab": {
+      "textPx": 31,
+      "bgPx": 1157,
+      "bg": "#3e3b37",
+      "ratio": 6.15
+    }
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "stable": true,
+    "node": "今天",
+    "yr": {
+      "textPx": 17,
+      "bgPx": 493,
+      "bg": "#49423a",
+      "ratio": 4.22
+    },
+    "lab": {
+      "textPx": 17,
+      "bgPx": 1191,
+      "bg": "#433e38",
+      "ratio": 5.84
+    }
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "stable": true,
+    "node": "未來",
+    "yr": {
+      "textPx": 16,
+      "bgPx": 491,
+      "bg": "#4b443a",
+      "ratio": 4.1
+    },
+    "lab": {
+      "textPx": 23,
+      "bgPx": 1179,
+      "bg": "#443f38",
+      "ratio": 5.75
+    }
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "stable": true,
+    "node": "技術",
+    "yr": {
+      "textPx": 8,
+      "bgPx": 502,
+      "bg": "#383734",
+      "ratio": 5.09
+    },
+    "lab": {
+      "textPx": 23,
+      "bgPx": 1187,
+      "bg": "#353534",
+      "ratio": 6.78
+    }
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "stable": true,
+    "node": "城市",
+    "yr": {
+      "textPx": 22,
+      "bgPx": 488,
+      "bg": "#3b3934",
+      "ratio": 4.93
+    },
+    "lab": {
+      "textPx": 28,
+      "bgPx": 1162,
+      "bg": "#383734",
+      "ratio": 6.57
+    }
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "stable": true,
+    "node": "今天",
+    "yr": {
+      "textPx": 17,
+      "bgPx": 493,
+      "bg": "#413d37",
+      "ratio": 4.61
+    },
+    "lab": {
+      "textPx": 16,
+      "bgPx": 1192,
+      "bg": "#3c3935",
+      "ratio": 6.34
+    }
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "stable": true,
+    "node": "未來",
+    "yr": {
+      "textPx": 16,
+      "bgPx": 491,
+      "bg": "#443e37",
+      "ratio": 4.51
+    },
+    "lab": {
+      "textPx": 23,
+      "bgPx": 1179,
+      "bg": "#3d3a35",
+      "ratio": 6.25
+    }
+  }
+]

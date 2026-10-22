@@ -1,0 +1,618 @@
+[
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "start",
+    "node": "宇宙",
+    "textPx": 119,
+    "bgPx": 637,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "start",
+    "node": "地球",
+    "textPx": 107,
+    "bgPx": 534,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "start",
+    "node": "起源",
+    "textPx": 94,
+    "bgPx": 678,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "start",
+    "node": "技術",
+    "textPx": 100,
+    "bgPx": 398,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "start",
+    "node": "城市",
+    "textPx": 0,
+    "bgPx": 512,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "start",
+    "node": "今天",
+    "textPx": 0,
+    "bgPx": 512,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "start",
+    "node": "未來",
+    "textPx": 0,
+    "bgPx": 512,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "end",
+    "node": "宇宙",
+    "textPx": 0,
+    "bgPx": 768,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "end",
+    "node": "地球",
+    "textPx": 107,
+    "bgPx": 534,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "end",
+    "node": "起源",
+    "textPx": 94,
+    "bgPx": 678,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "end",
+    "node": "技術",
+    "textPx": 100,
+    "bgPx": 398,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "end",
+    "node": "城市",
+    "textPx": 128,
+    "bgPx": 365,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "end",
+    "node": "今天",
+    "textPx": 0,
+    "bgPx": 512,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "pos": "end",
+    "node": "未來",
+    "textPx": 0,
+    "bgPx": 512,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "start",
+    "node": "宇宙",
+    "textPx": 119,
+    "bgPx": 637,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "start",
+    "node": "地球",
+    "textPx": 107,
+    "bgPx": 534,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "start",
+    "node": "起源",
+    "textPx": 94,
+    "bgPx": 678,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "start",
+    "node": "技術",
+    "textPx": 100,
+    "bgPx": 398,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "start",
+    "node": "城市",
+    "textPx": 0,
+    "bgPx": 512,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "start",
+    "node": "今天",
+    "textPx": 0,
+    "bgPx": 512,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "start",
+    "node": "未來",
+    "textPx": 0,
+    "bgPx": 512,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "end",
+    "node": "宇宙",
+    "textPx": 0,
+    "bgPx": 768,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "end",
+    "node": "地球",
+    "textPx": 107,
+    "bgPx": 534,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "end",
+    "node": "起源",
+    "textPx": 94,
+    "bgPx": 678,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "end",
+    "node": "技術",
+    "textPx": 100,
+    "bgPx": 398,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "end",
+    "node": "城市",
+    "textPx": 128,
+    "bgPx": 365,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "end",
+    "node": "今天",
+    "textPx": 0,
+    "bgPx": 512,
+    "ratio": null
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "pos": "end",
+    "node": "未來",
+    "textPx": 0,
+    "bgPx": 512,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "start",
+    "node": "宇宙",
+    "textPx": 100,
+    "bgPx": 656,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "start",
+    "node": "地球",
+    "textPx": 77,
+    "bgPx": 565,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "start",
+    "node": "起源",
+    "textPx": 106,
+    "bgPx": 697,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "start",
+    "node": "技術",
+    "textPx": 87,
+    "bgPx": 428,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "start",
+    "node": "城市",
+    "textPx": 0,
+    "bgPx": 528,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "start",
+    "node": "今天",
+    "textPx": 0,
+    "bgPx": 528,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "start",
+    "node": "未來",
+    "textPx": 0,
+    "bgPx": 528,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "end",
+    "node": "宇宙",
+    "textPx": 0,
+    "bgPx": 784,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "end",
+    "node": "地球",
+    "textPx": 77,
+    "bgPx": 565,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "end",
+    "node": "起源",
+    "textPx": 106,
+    "bgPx": 697,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "end",
+    "node": "技術",
+    "textPx": 87,
+    "bgPx": 428,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "end",
+    "node": "城市",
+    "textPx": 83,
+    "bgPx": 411,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "end",
+    "node": "今天",
+    "textPx": 0,
+    "bgPx": 528,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "pos": "end",
+    "node": "未來",
+    "textPx": 0,
+    "bgPx": 528,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "start",
+    "node": "宇宙",
+    "textPx": 100,
+    "bgPx": 656,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "start",
+    "node": "地球",
+    "textPx": 77,
+    "bgPx": 565,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "start",
+    "node": "起源",
+    "textPx": 106,
+    "bgPx": 697,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "start",
+    "node": "技術",
+    "textPx": 87,
+    "bgPx": 428,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "start",
+    "node": "城市",
+    "textPx": 0,
+    "bgPx": 528,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "start",
+    "node": "今天",
+    "textPx": 0,
+    "bgPx": 528,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "start",
+    "node": "未來",
+    "textPx": 0,
+    "bgPx": 528,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "end",
+    "node": "宇宙",
+    "textPx": 0,
+    "bgPx": 784,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "end",
+    "node": "地球",
+    "textPx": 77,
+    "bgPx": 565,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "end",
+    "node": "起源",
+    "textPx": 106,
+    "bgPx": 697,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "end",
+    "node": "技術",
+    "textPx": 87,
+    "bgPx": 428,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "end",
+    "node": "城市",
+    "textPx": 83,
+    "bgPx": 411,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "end",
+    "node": "今天",
+    "textPx": 0,
+    "bgPx": 528,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "pos": "end",
+    "node": "未來",
+    "textPx": 0,
+    "bgPx": 528,
+    "ratio": null
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "cta": "閱讀人類起源",
+    "fg": "#161c24",
+    "textPx": 219,
+    "bgPx": 4389,
+    "bg": "#a18256",
+    "ratio": 4.77
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "cta": "閱讀人類起源",
+    "fg": "#161c24",
+    "textPx": 219,
+    "bgPx": 4255,
+    "bg": "#a18256",
+    "ratio": 4.77
+  },
+  {
+    "page": "civ",
+    "theme": "light",
+    "cta": "跳到今日切片",
+    "fg": "#e8e4dc",
+    "textPx": 143,
+    "bgPx": 4573,
+    "bg": "#49423a",
+    "ratio": 7.8
+  },
+  {
+    "page": "civ",
+    "theme": "dark",
+    "cta": "跳到今日切片",
+    "fg": "#e8e4dc",
+    "textPx": 142,
+    "bgPx": 4574,
+    "bg": "#423d37",
+    "ratio": 8.47
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "cta": "打開文明總覽",
+    "fg": "#161c24",
+    "textPx": 715,
+    "bgPx": 3972,
+    "bg": "#a18256",
+    "ratio": 4.77
+  },
+  {
+    "page": "home",
+    "theme": "light",
+    "cta": "跳到今日切片",
+    "fg": "#e8e4dc",
+    "textPx": 245,
+    "bgPx": 4482,
+    "bg": "#1c2127",
+    "ratio": 12.78
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "cta": "打開文明總覽",
+    "fg": "#161c24",
+    "textPx": 717,
+    "bgPx": 3972,
+    "bg": "#a18256",
+    "ratio": 4.77
+  },
+  {
+    "page": "home",
+    "theme": "dark",
+    "cta": "跳到今日切片",
+    "fg": "#e8e4dc",
+    "textPx": 245,
+    "bgPx": 4482,
+    "bg": "#1b2027",
+    "ratio": 12.91
+  }
+]

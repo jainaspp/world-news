@@ -1,0 +1,105 @@
+{
+  "clicks": {
+    "civSlice": {
+      "before": {
+        "text": "跳到今日切片",
+        "w": 108.015625,
+        "h": 44
+      },
+      "after": {
+        "href": "/#slice",
+        "scrollY": 2077,
+        "chromeH": 161,
+        "gap": 31.4,
+        "heading": "今日切片"
+      }
+    },
+    "homeToCiv": {
+      "cta": {
+        "text": "打開文明總覽",
+        "w": 108,
+        "h": 44,
+        "visible": true
+      },
+      "land": {
+        "href": "/civilization/",
+        "h1": "人類文明"
+      }
+    },
+    "civToOrigins": {
+      "cta": {
+        "text": "閱讀人類起源",
+        "w": 108,
+        "h": 44
+      },
+      "land": {
+        "href": "/civilization/origins/",
+        "h1": "人類起源時間線：從深時間到今日切片",
+        "h1Gap": 118.4
+      }
+    }
+  },
+  "brand": {
+    "title": "文明編年史 — 從宇宙到今天",
+    "aria": "文明編年史",
+    "og": "文明編年史",
+    "img": {
+      "src": "logo.svg?v=wn-v18",
+      "natural": 185,
+      "w": 185,
+      "h": 68,
+      "broken": false
+    },
+    "hasFull": true,
+    "hasSimplified": false,
+    "mastheadText": "搜尋 繁"
+  },
+  "navMore": {
+    "sel": ".civ-more summary",
+    "color": "rgb(243, 246, 250)",
+    "x": 1006,
+    "y": 57,
+    "w": 58,
+    "h": 44,
+    "text": "更多",
+    "fg": "#f3f6fa",
+    "textPx": 91,
+    "bgPx": 2879,
+    "bg": "#17202b",
+    "ratio": 15.16
+  },
+  "anchors": {
+    "home-360-light": {
+      "id": "slice",
+      "gap": 31.4
+    },
+    "home-768-light": {
+      "id": "slice",
+      "gap": 32.6
+    },
+    "home-360-dark": {
+      "id": "slice",
+      "gap": 31.4
+    },
+    "home-768-dark": {
+      "id": "slice",
+      "gap": 32.6
+    },
+    "civ-360-light": {
+      "id": "future",
+      "gap": 37.1
+    },
+    "civ-768-light": {
+      "id": "future",
+      "gap": 31.2
+    },
+    "civ-360-dark": {
+      "id": "future",
+      "gap": 37.1
+    },
+    "civ-768-dark": {
+      "id": "future",
+      "gap": 37.2
+    }
+  }
+}
