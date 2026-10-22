@@ -3420,6 +3420,7 @@ html.dark .chronicle-stage h2,
 html.dark .civ-block { background: #2a231b; color: #f3eadc; border-color: #5c4a34; }
 html.dark .civ-block-h,
 html.dark .civ-block-kicker { color: #c4a572; }
+html.dark .civ-block-figure figcaption { color: #d2c4b0; }
 html.dark .civ-block-frame,
 html.dark .civ-block-seal { background: #3a3126; color: #f7f1e6; border-color: #c4a572; }
 html.dark .pattern-card { background: #2a231b; color: #f3eadc; border-color: #5c4a34; }

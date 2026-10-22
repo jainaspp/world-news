@@ -148,6 +148,48 @@ describe('R1 critical union in CSS', () => {
   });
 });
 
+describe('R4 dark figcaption contrast', () => {
+  const css = readFileSync('src/App.css', 'utf8');
+  const split = css.indexOf('/* Dark civ surfaces');
+  const light = css.slice(0, split);
+  const dark = css.slice(split);
+
+  function rule(source: string, selector: string): string {
+    const at = source.indexOf(selector);
+    expect(at, selector).toBeGreaterThanOrEqual(0);
+    return source.slice(at, source.indexOf('}', at));
+  }
+
+  function declaredColor(block: string): string {
+    const color = block.match(/color:\s*(#[0-9a-fA-F]{6})/)?.[1]?.toLowerCase();
+    expect(color, block).toBeTruthy();
+    return color!;
+  }
+
+  it('keeps muted figcaptions at 4.5:1 on dark paper and ink', () => {
+    const selectors = [
+      '.civ-figure figcaption',
+      '.civ-figure-credit',
+      '.milestone-figure figcaption',
+      '.civ-block-figure figcaption',
+      '.civ-node-hero figcaption',
+    ];
+    for (const selector of selectors) {
+      expect(declaredColor(rule(light, selector)), selector).toBe('#5c6570');
+      expect(contrast('#5c6570', '#f7f1e6'), `${selector} light paper`).toBeGreaterThanOrEqual(4.5);
+      const darkColor = declaredColor(rule(dark, selector));
+      expect(contrast(darkColor, '#2a231b'), `${selector} on #2a231b`).toBeGreaterThanOrEqual(4.5);
+      expect(contrast(darkColor, '#161c24'), `${selector} on #161c24`).toBeGreaterThanOrEqual(4.5);
+    }
+    expect(contrast('#5c6570', '#2a231b')).toBeLessThan(4.5);
+    expect(rule(light, '.civ-block-figure figcaption')).toContain('font-size: 12px');
+    const chip = rule(dark, 'html.dark .future-cover figcaption');
+    expect(declaredColor(chip)).toBe('#161c24');
+    expect(chip).toContain('background: #f7f1e6');
+    expect(contrast('#161c24', '#f7f1e6')).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
 describe('three volume skeleton still renders', () => {
   it('puts three volume cards on home and hub, and the chapter plus stage anchors on the chronicle', () => {
     const home = renderHomeFeed([], new Map(), null, '', null, '', [], [], new Date('2026-10-17T04:00:00.000Z'), true);
