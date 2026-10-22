@@ -1,0 +1,22 @@
+{
+  "note": "Not a Lighthouse audit. Lighthouse 12.8.2 navigation mode does not emit interaction-to-next-paint. These are one CDP click each under approximate Slow 4G (RTT 150ms, 1.6 Mbps down, 750 Kbps up) and 4× CPU, viewport 360×800, light theme, hero settled via sessionStorage wn_hero_seen. Event duration is the PerformanceEventTiming duration, not a field INP p98.",
+  "home": {
+    "url": "http://127.0.0.1:4173/",
+    "target": ".search-toggle",
+    "events": [
+      { "name": "pointerdown", "durationMs": 24 },
+      { "name": "pointerup", "durationMs": 24 }
+    ],
+    "under200ms": true
+  },
+  "civ": {
+    "url": "http://127.0.0.1:4173/civilization/",
+    "target": ".theme-toggle",
+    "events": [
+      { "name": "pointerdown", "durationMs": 88 },
+      { "name": "pointerup", "durationMs": 88 },
+      { "name": "click", "durationMs": 88 }
+    ],
+    "under200ms": true
+  }
+}

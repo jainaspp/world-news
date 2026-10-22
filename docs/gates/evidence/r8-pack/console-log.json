@@ -1,0 +1,78 @@
+{
+  "exceptions": [],
+  "warnings": [],
+  "pages": [
+    {
+      "page": "home",
+      "theme": "light",
+      "href": "/",
+      "logCount": 0
+    },
+    {
+      "page": "civ",
+      "theme": "light",
+      "href": "/civilization/",
+      "logCount": 0
+    },
+    {
+      "page": "chronicle",
+      "theme": "light",
+      "href": "/civilization/chronicle/",
+      "logCount": 0
+    },
+    {
+      "page": "learn",
+      "theme": "light",
+      "href": "/learn/",
+      "logCount": 0
+    },
+    {
+      "page": "slice",
+      "theme": "light",
+      "href": "/#slice",
+      "logCount": 0
+    },
+    {
+      "page": "news",
+      "theme": "light",
+      "href": "/story/91e9bae258cd/",
+      "logCount": 0
+    },
+    {
+      "page": "home",
+      "theme": "dark",
+      "href": "/",
+      "logCount": 0
+    },
+    {
+      "page": "civ",
+      "theme": "dark",
+      "href": "/civilization/",
+      "logCount": 0
+    },
+    {
+      "page": "chronicle",
+      "theme": "dark",
+      "href": "/civilization/chronicle/",
+      "logCount": 0
+    },
+    {
+      "page": "learn",
+      "theme": "dark",
+      "href": "/learn/",
+      "logCount": 0
+    },
+    {
+      "page": "slice",
+      "theme": "dark",
+      "href": "/#slice",
+      "logCount": 0
+    },
+    {
+      "page": "news",
+      "theme": "dark",
+      "href": "/story/91e9bae258cd/",
+      "logCount": 0
+    }
+  ]
+}
