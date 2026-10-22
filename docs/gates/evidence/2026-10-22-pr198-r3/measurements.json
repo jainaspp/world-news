@@ -1,0 +1,8561 @@
+{
+  "measuredAt": "2026-10-22T08:10:29.947Z",
+  "commit": "484c28b",
+  "side": {
+    "longest": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher",
+    "longestLen": 155,
+    "normal": "深圳試點騎手“安全激勵金” 騎手不闖紅燈最高獎勵近千元",
+    "normalLen": 27,
+    "newsCount": 828
+  },
+  "shots": [
+    {
+      "name": "2026-10-22-home-360-light-viewport.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 7119
+    },
+    {
+      "name": "2026-10-22-home-360-light-full.png",
+      "width": 360,
+      "height": 7119,
+      "contentH": 7119
+    },
+    {
+      "name": "2026-10-22-home-360-dark-viewport.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 7119
+    },
+    {
+      "name": "2026-10-22-home-360-dark-brand.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 7119
+    },
+    {
+      "name": "2026-10-22-home-360-dark-volumes.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 7119
+    },
+    {
+      "name": "2026-10-22-civ-360-light-viewport.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 27760
+    },
+    {
+      "name": "2026-10-22-civ-360-light-linefilter.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 27760
+    },
+    {
+      "name": "2026-10-22-civ-360-dark-viewport.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 27760
+    },
+    {
+      "name": "2026-10-22-civ-360-dark-volumes.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 27760
+    },
+    {
+      "name": "2026-10-22-home-768-light-axis.png",
+      "width": 768,
+      "height": 1024,
+      "contentH": 6471
+    },
+    {
+      "name": "2026-10-22-home-1024-light-axis.png",
+      "width": 1024,
+      "height": 800,
+      "contentH": 6554
+    },
+    {
+      "name": "2026-10-22-chronicle-360-dark-future.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 41057
+    },
+    {
+      "name": "2026-10-22-chronicle-360-dark-viewport.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 41057
+    },
+    {
+      "name": "2026-10-22-chronicle-360-dark-pattern.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 41057
+    },
+    {
+      "name": "2026-10-22-learn-360-dark-viewport.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 2399
+    },
+    {
+      "name": "2026-10-22-news-360-dark-long.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 2029
+    },
+    {
+      "name": "2026-10-22-news-1280-light-short.png",
+      "width": 1280,
+      "height": 800,
+      "contentH": 1349
+    },
+    {
+      "name": "2026-10-22-home-640x360-dark-axis.png",
+      "width": 640,
+      "height": 360,
+      "contentH": 6832
+    },
+    {
+      "name": "2026-10-22-civ-640x360-dark-axis.png",
+      "width": 640,
+      "height": 360,
+      "contentH": 24751
+    },
+    {
+      "name": "2026-10-22-civ-360-dark-slice-landing.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 7119
+    },
+    {
+      "name": "2026-10-22-civ-1280-light-slice-landing.png",
+      "width": 1280,
+      "height": 800,
+      "contentH": 6844
+    },
+    {
+      "name": "2026-10-22-home-360-dark-slice-direct.png",
+      "width": 360,
+      "height": 800,
+      "contentH": 7119
+    }
+  ],
+  "landings": {
+    "civ-click-360-dark": {
+      "scrollY": 2073,
+      "hash": "#slice",
+      "href": "/#slice",
+      "heading": "今日切片",
+      "headingTop": 191.8,
+      "headingBottom": 212.8,
+      "chromeBottom": 161,
+      "chromeH": 161,
+      "clearance": 30.8,
+      "firstGood": {
+        "scrollY": 2073,
+        "hash": "#slice",
+        "href": "/#slice",
+        "heading": "今日切片",
+        "headingTop": 191.8,
+        "headingBottom": 212.8,
+        "chromeBottom": 161,
+        "chromeH": 161,
+        "clearance": 30.8,
+        "ms": 146
+      },
+      "elapsed": 2550
+    },
+    "civ-click-1280-light": {
+      "scrollY": 1727,
+      "hash": "#slice",
+      "href": "/#slice",
+      "heading": "今日切片",
+      "headingTop": 142.3,
+      "headingBottom": 163.3,
+      "chromeBottom": 109,
+      "chromeH": 109,
+      "clearance": 33.3,
+      "firstGood": {
+        "scrollY": 1727,
+        "hash": "#slice",
+        "href": "/#slice",
+        "heading": "今日切片",
+        "headingTop": 142.3,
+        "headingBottom": 163.3,
+        "chromeBottom": 109,
+        "chromeH": 109,
+        "clearance": 33.3,
+        "ms": 141
+      }
+    },
+    "direct-slice-360-dark": {
+      "scrollY": 2073,
+      "hash": "#slice",
+      "href": "/#slice",
+      "heading": "今日切片",
+      "headingTop": 191.8,
+      "headingBottom": 212.8,
+      "chromeBottom": 161,
+      "chromeH": 161,
+      "clearance": 30.8,
+      "firstGood": {
+        "scrollY": 2073,
+        "hash": "#slice",
+        "href": "/#slice",
+        "heading": "今日切片",
+        "headingTop": 191.8,
+        "headingBottom": 212.8,
+        "chromeBottom": 161,
+        "chromeH": 161,
+        "clearance": 30.8,
+        "ms": 1
+      }
+    },
+    "direct-slice-1280-light": {
+      "scrollY": 1727,
+      "hash": "#slice",
+      "href": "/#slice",
+      "heading": "今日切片",
+      "headingTop": 142.3,
+      "headingBottom": 163.3,
+      "chromeBottom": 109,
+      "chromeH": 109,
+      "clearance": 33.3,
+      "firstGood": {
+        "scrollY": 1727,
+        "hash": "#slice",
+        "href": "/#slice",
+        "heading": "今日切片",
+        "headingTop": 142.3,
+        "headingBottom": 163.3,
+        "chromeBottom": 109,
+        "chromeH": 109,
+        "clearance": 33.3,
+        "ms": 1
+      }
+    },
+    "home-click-360-light": {
+      "scrollY": 2073,
+      "hash": "#slice",
+      "href": "/#slice",
+      "heading": "今日切片",
+      "headingTop": 191.8,
+      "headingBottom": 212.8,
+      "chromeBottom": 161,
+      "chromeH": 161,
+      "clearance": 30.8,
+      "firstGood": {
+        "scrollY": 2073,
+        "hash": "#slice",
+        "href": "/#slice",
+        "heading": "今日切片",
+        "headingTop": 191.8,
+        "headingBottom": 212.8,
+        "chromeBottom": 161,
+        "chromeH": 161,
+        "clearance": 30.8,
+        "ms": 11
+      }
+    },
+    "homeOverview": {
+      "href": "/civilization/",
+      "h1": "人類文明",
+      "chrome": 117,
+      "h1Top": 1074.15625
+    },
+    "origins": {
+      "href": "/civilization/origins/",
+      "h1": "人類起源時間線：從深時間到今日切片",
+      "clearance": 118.4375
+    },
+    "homeOverview1280": {
+      "href": "/civilization/",
+      "h1": "人類文明"
+    }
+  },
+  "anchors": {
+    "ch-ancient": {
+      "scrollY": 1537,
+      "top": 267,
+      "chrome": 202,
+      "clearance": 64.6,
+      "text": "古"
+    },
+    "ch-now": {
+      "scrollY": 16650,
+      "top": 267,
+      "chrome": 202,
+      "clearance": 64.5,
+      "text": "今"
+    },
+    "ch-future": {
+      "scrollY": 31822,
+      "top": 266,
+      "chrome": 202,
+      "clearance": 64,
+      "text": "未來"
+    },
+    "stage-1": {
+      "scrollY": 1944,
+      "top": 243,
+      "chrome": 202,
+      "clearance": 41,
+      "text": "史前／採集狩獵"
+    },
+    "stage-10": {
+      "scrollY": 28064,
+      "top": 232,
+      "chrome": 202,
+      "clearance": 29.9,
+      "text": "本世紀／當代"
+    }
+  },
+  "search": {
+    "700": {
+      "input": {
+        "d": "none",
+        "h": 0,
+        "w": 0
+      },
+      "toggle": {
+        "d": "flex",
+        "h": 44,
+        "w": 44
+      }
+    },
+    "701": {
+      "input": {
+        "d": "block",
+        "h": 44,
+        "w": 101
+      },
+      "toggle": {
+        "d": "none",
+        "h": 0,
+        "w": 0
+      }
+    },
+    "768": {
+      "input": {
+        "d": "block",
+        "h": 44,
+        "w": 370.1
+      },
+      "toggle": {
+        "d": "none",
+        "h": 0,
+        "w": 0
+      }
+    },
+    "1024": {
+      "input": {
+        "d": "block",
+        "h": 44,
+        "w": 446.1
+      },
+      "toggle": {
+        "d": "none",
+        "h": 0,
+        "w": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "page": "home",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 348,
+          "rgt": 417,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 429,
+          "rgt": 498,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 510,
+          "rgt": 579,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 105,
+          "rgt": 174,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 186,
+          "rgt": 255,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 267,
+          "rgt": 336,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 348,
+          "rgt": 417,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 429,
+          "rgt": 498,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 510,
+          "rgt": 579,
+          "w": 69
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 266,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "home",
+      "vp": "390",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 378,
+          "rgt": 455,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 467,
+          "rgt": 543,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 555,
+          "rgt": 632,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 113,
+          "rgt": 189,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 201,
+          "rgt": 278,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 290,
+          "rgt": 366,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 378,
+          "rgt": 455,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 467,
+          "rgt": 543,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 555,
+          "rgt": 632,
+          "w": 77
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 266,
+      "errors": [],
+      "scrollW": 390,
+      "clientW": 390
+    },
+    {
+      "page": "home",
+      "vp": "414",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 402,
+          "rgt": 485,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 497,
+          "rgt": 579,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 591,
+          "rgt": 674,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 119,
+          "rgt": 201,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 213,
+          "rgt": 296,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 308,
+          "rgt": 390,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 402,
+          "rgt": 485,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 497,
+          "rgt": 579,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 591,
+          "rgt": 674,
+          "w": 83
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 266,
+      "errors": [],
+      "scrollW": 414,
+      "clientW": 414
+    },
+    {
+      "page": "home",
+      "vp": "land",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 628,
+          "rgt": 767,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 779,
+          "rgt": 918,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 930,
+          "rgt": 1069,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 175,
+          "rgt": 314,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 326,
+          "rgt": 465,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 477,
+          "rgt": 616,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 628,
+          "rgt": 767,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 779,
+          "rgt": 918,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 930,
+          "rgt": 1069,
+          "w": 139
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 109
+      },
+      "fonts": true,
+      "hero": 250,
+      "errors": [],
+      "scrollW": 640,
+      "clientW": 640
+    },
+    {
+      "page": "home",
+      "vp": "768",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 16
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 109
+      },
+      "fonts": true,
+      "hero": 278,
+      "errors": [],
+      "scrollW": 768,
+      "clientW": 768
+    },
+    {
+      "page": "home",
+      "vp": "1024",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 106
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 109
+      },
+      "fonts": true,
+      "hero": 283,
+      "errors": [],
+      "scrollW": 1024,
+      "clientW": 1024
+    },
+    {
+      "page": "home",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 109
+      },
+      "fonts": true,
+      "hero": 288,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "home",
+      "vp": "1440",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 230
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 109
+      },
+      "fonts": true,
+      "hero": 288,
+      "errors": [],
+      "scrollW": 1440,
+      "clientW": 1440
+    },
+    {
+      "page": "civ",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 348,
+          "rgt": 417,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 429,
+          "rgt": 498,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 510,
+          "rgt": 579,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 186,
+          "rgt": 255,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 267,
+          "rgt": 336,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 348,
+          "rgt": 417,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 429,
+          "rgt": 498,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 510,
+          "rgt": 579,
+          "w": 69
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "133px",
+        "chromeH": 117
+      },
+      "fonts": true,
+      "hero": 567,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "civ",
+      "vp": "390",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 378,
+          "rgt": 455,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 467,
+          "rgt": 543,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 555,
+          "rgt": 632,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~138億",
+          "l": 24,
+          "rgt": 101,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 113,
+          "rgt": 189,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 201,
+          "rgt": 278,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 290,
+          "rgt": 366,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 378,
+          "rgt": 455,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 467,
+          "rgt": 543,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 555,
+          "rgt": 632,
+          "w": 77
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "133px",
+        "chromeH": 117
+      },
+      "fonts": true,
+      "hero": 567,
+      "errors": [],
+      "scrollW": 390,
+      "clientW": 390
+    },
+    {
+      "page": "civ",
+      "vp": "414",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 402,
+          "rgt": 485,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 497,
+          "rgt": 579,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 591,
+          "rgt": 674,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~138億",
+          "l": 24,
+          "rgt": 107,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 119,
+          "rgt": 201,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 213,
+          "rgt": 296,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 308,
+          "rgt": 390,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 402,
+          "rgt": 485,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 497,
+          "rgt": 579,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 591,
+          "rgt": 674,
+          "w": 83
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "133px",
+        "chromeH": 117
+      },
+      "fonts": true,
+      "hero": 567,
+      "errors": [],
+      "scrollW": 414,
+      "clientW": 414
+    },
+    {
+      "page": "civ",
+      "vp": "land",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 628,
+          "rgt": 767,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 779,
+          "rgt": 918,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 930,
+          "rgt": 1069,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~138億",
+          "l": 24,
+          "rgt": 163,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 175,
+          "rgt": 314,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 326,
+          "rgt": 465,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 477,
+          "rgt": 616,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 628,
+          "rgt": 767,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 779,
+          "rgt": 918,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 930,
+          "rgt": 1069,
+          "w": 139
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "133px",
+        "chromeH": 117
+      },
+      "fonts": true,
+      "hero": 547,
+      "errors": [],
+      "scrollW": 640,
+      "clientW": 640
+    },
+    {
+      "page": "civ",
+      "vp": "768",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 16
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "127px",
+        "chromeH": 111
+      },
+      "fonts": true,
+      "hero": 391,
+      "errors": [],
+      "scrollW": 768,
+      "clientW": 768
+    },
+    {
+      "page": "civ",
+      "vp": "1024",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 106
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "127px",
+        "chromeH": 111
+      },
+      "fonts": true,
+      "hero": 396,
+      "errors": [],
+      "scrollW": 1024,
+      "clientW": 1024
+    },
+    {
+      "page": "civ",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "127px",
+        "chromeH": 111
+      },
+      "fonts": true,
+      "hero": 401,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "civ",
+      "vp": "1440",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 230
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(247, 241, 230)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "127px",
+        "chromeH": 111
+      },
+      "fonts": true,
+      "hero": 401,
+      "errors": [],
+      "scrollW": 1440,
+      "clientW": 1440
+    },
+    {
+      "page": "chronicle",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "218px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "chronicle",
+      "vp": "390",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "193px",
+        "chromeH": 177
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 390,
+      "clientW": 390
+    },
+    {
+      "page": "chronicle",
+      "vp": "414",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "193px",
+        "chromeH": 177
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 414,
+      "clientW": 414
+    },
+    {
+      "page": "chronicle",
+      "vp": "land",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "193px",
+        "chromeH": 177
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 640,
+      "clientW": 640
+    },
+    {
+      "page": "chronicle",
+      "vp": "768",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 16
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 768,
+      "clientW": 768
+    },
+    {
+      "page": "chronicle",
+      "vp": "1024",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 106
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1024,
+      "clientW": 1024
+    },
+    {
+      "page": "chronicle",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "chronicle",
+      "vp": "1440",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 230
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1440,
+      "clientW": 1440
+    },
+    {
+      "page": "learn",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "learn",
+      "vp": "390",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 390,
+      "clientW": 390
+    },
+    {
+      "page": "learn",
+      "vp": "414",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 414,
+      "clientW": 414
+    },
+    {
+      "page": "learn",
+      "vp": "land",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 640,
+      "clientW": 640
+    },
+    {
+      "page": "learn",
+      "vp": "768",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 16
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 768,
+      "clientW": 768
+    },
+    {
+      "page": "learn",
+      "vp": "1024",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 106
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1024,
+      "clientW": 1024
+    },
+    {
+      "page": "learn",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "learn",
+      "vp": "1440",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 230
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1440,
+      "clientW": 1440
+    },
+    {
+      "page": "news-long",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "news-long",
+      "vp": "390",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 390,
+      "clientW": 390
+    },
+    {
+      "page": "news-long",
+      "vp": "414",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 414,
+      "clientW": 414
+    },
+    {
+      "page": "news-long",
+      "vp": "land",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 640,
+      "clientW": 640
+    },
+    {
+      "page": "news-long",
+      "vp": "768",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 16
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 768,
+      "clientW": 768
+    },
+    {
+      "page": "news-long",
+      "vp": "1024",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 106
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1024,
+      "clientW": 1024
+    },
+    {
+      "page": "news-long",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 72
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "news-long",
+      "vp": "1440",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 152
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1440,
+      "clientW": 1440
+    },
+    {
+      "page": "news-short",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "深圳試點騎手“安全激勵金” 騎手不闖紅燈最高獎勵近千元 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "news-short",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "深圳試點騎手“安全激勵金” 騎手不闖紅燈最高獎勵近千元 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 72
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "briefing",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "每日導讀 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "briefing",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "每日導讀 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "major",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "24小時重大更新 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "major",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "24小時重大更新 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 72
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "cosmos",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "宇宙長河・深時間 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "218px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "cosmos",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "宇宙長河・深時間 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "earth",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "地球生命・深時間 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "218px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "earth",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "地球生命・深時間 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "origins",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "人類起源時間線 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "origins",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "人類起源時間線 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "tech",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "科技與發現 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "218px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "tech",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "科技與發現 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "city",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "城市・基建・民生 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "218px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "city",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "城市・基建・民生 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "otd",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "10月22日 當年今日 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "otd",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "10月22日 當年今日 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "l": 150
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "missing",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "找不到頁面 — 文明編年史",
+        "og": "",
+        "aria": "",
+        "word": "",
+        "simplified": false,
+        "logo": null
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "",
+        "civ": "",
+        "chromeH": 0
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "missing",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "找不到頁面 — 文明編年史",
+        "og": "",
+        "aria": "",
+        "word": "",
+        "simplified": false,
+        "logo": null
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "",
+        "civ": "",
+        "chromeH": 0
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "offline",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "暫時離線 — 文明編年史",
+        "og": "",
+        "aria": "",
+        "word": "",
+        "simplified": false,
+        "logo": null
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgba(0, 0, 0, 0)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "",
+        "civ": "",
+        "chromeH": 0
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "offline",
+      "vp": "1280",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "暫時離線 — 文明編年史",
+        "og": "",
+        "aria": "",
+        "word": "",
+        "simplified": false,
+        "logo": null
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgba(0, 0, 0, 0)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "",
+        "civ": "",
+        "chromeH": 0
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "home",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 348,
+          "rgt": 417,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 429,
+          "rgt": 498,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 510,
+          "rgt": 579,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 105,
+          "rgt": 174,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 186,
+          "rgt": 255,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 267,
+          "rgt": 336,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 348,
+          "rgt": 417,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 429,
+          "rgt": 498,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 510,
+          "rgt": 579,
+          "w": 69
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 266,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "home",
+      "vp": "390",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 378,
+          "rgt": 455,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 467,
+          "rgt": 543,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 555,
+          "rgt": 632,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 113,
+          "rgt": 189,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 201,
+          "rgt": 278,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 290,
+          "rgt": 366,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 378,
+          "rgt": 455,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 467,
+          "rgt": 543,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 555,
+          "rgt": 632,
+          "w": 77
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 266,
+      "errors": [],
+      "scrollW": 390,
+      "clientW": 390
+    },
+    {
+      "page": "home",
+      "vp": "414",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 402,
+          "rgt": 485,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 497,
+          "rgt": 579,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 591,
+          "rgt": 674,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 119,
+          "rgt": 201,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 213,
+          "rgt": 296,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 308,
+          "rgt": 390,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 402,
+          "rgt": 485,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 497,
+          "rgt": 579,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 591,
+          "rgt": 674,
+          "w": 83
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 266,
+      "errors": [],
+      "scrollW": 414,
+      "clientW": 414
+    },
+    {
+      "page": "home",
+      "vp": "land",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 628,
+          "rgt": 767,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 779,
+          "rgt": 918,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 930,
+          "rgt": 1069,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 175,
+          "rgt": 314,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 326,
+          "rgt": 465,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 477,
+          "rgt": 616,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 628,
+          "rgt": 767,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 779,
+          "rgt": 918,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 930,
+          "rgt": 1069,
+          "w": 139
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 109
+      },
+      "fonts": true,
+      "hero": 250,
+      "errors": [],
+      "scrollW": 640,
+      "clientW": 640
+    },
+    {
+      "page": "home",
+      "vp": "768",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 109
+      },
+      "fonts": true,
+      "hero": 278,
+      "errors": [],
+      "scrollW": 768,
+      "clientW": 768
+    },
+    {
+      "page": "home",
+      "vp": "1024",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 109
+      },
+      "fonts": true,
+      "hero": 283,
+      "errors": [],
+      "scrollW": 1024,
+      "clientW": 1024
+    },
+    {
+      "page": "home",
+      "vp": "1280",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 109
+      },
+      "fonts": true,
+      "hero": 288,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "home",
+      "vp": "1440",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 3,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "打開文明總覽 -> /civilization/",
+          "跳到今日切片 -> #slice"
+        ]
+      },
+      "brand": {
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": "rgb(22, 28, 36)",
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 109
+      },
+      "fonts": true,
+      "hero": 288,
+      "errors": [],
+      "scrollW": 1440,
+      "clientW": 1440
+    },
+    {
+      "page": "civ",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 348,
+          "rgt": 417,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 429,
+          "rgt": 498,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 510,
+          "rgt": 579,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~138億",
+          "l": 24,
+          "rgt": 93,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 105,
+          "rgt": 174,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 186,
+          "rgt": 255,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 267,
+          "rgt": 336,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 348,
+          "rgt": 417,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 429,
+          "rgt": 498,
+          "w": 69
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 510,
+          "rgt": 579,
+          "w": 69
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "133px",
+        "chromeH": 117
+      },
+      "fonts": true,
+      "hero": 567,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "civ",
+      "vp": "390",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 378,
+          "rgt": 455,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 467,
+          "rgt": 543,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 555,
+          "rgt": 632,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 113,
+          "rgt": 189,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 201,
+          "rgt": 278,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 290,
+          "rgt": 366,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 378,
+          "rgt": 455,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 467,
+          "rgt": 543,
+          "w": 77
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 555,
+          "rgt": 632,
+          "w": 77
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "133px",
+        "chromeH": 117
+      },
+      "fonts": true,
+      "hero": 567,
+      "errors": [],
+      "scrollW": 390,
+      "clientW": 390
+    },
+    {
+      "page": "civ",
+      "vp": "414",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 402,
+          "rgt": 485,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 497,
+          "rgt": 579,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 591,
+          "rgt": 674,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 119,
+          "rgt": 201,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 213,
+          "rgt": 296,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 308,
+          "rgt": 390,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 402,
+          "rgt": 485,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 497,
+          "rgt": 579,
+          "w": 83
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 591,
+          "rgt": 674,
+          "w": 83
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "133px",
+        "chromeH": 117
+      },
+      "fonts": true,
+      "hero": 567,
+      "errors": [],
+      "scrollW": 414,
+      "clientW": 414
+    },
+    {
+      "page": "civ",
+      "vp": "land",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "t": "城市",
+          "l": 628,
+          "rgt": 767,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "今天",
+          "l": 779,
+          "rgt": 918,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .lab",
+          "t": "未來",
+          "l": 930,
+          "rgt": 1069,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~138億",
+          "l": 24,
+          "rgt": 163,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~40億",
+          "l": 175,
+          "rgt": 314,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "~300ka",
+          "l": 326,
+          "rgt": 465,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "發現",
+          "l": 477,
+          "rgt": 616,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "基建",
+          "l": 628,
+          "rgt": 767,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "切片",
+          "l": 779,
+          "rgt": 918,
+          "w": 139
+        },
+        {
+          "sel": ".axis-node .yr",
+          "t": "展望",
+          "l": 930,
+          "rgt": 1069,
+          "w": 139
+        }
+      ],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "133px",
+        "chromeH": 117
+      },
+      "fonts": true,
+      "hero": 547,
+      "errors": [],
+      "scrollW": 640,
+      "clientW": 640
+    },
+    {
+      "page": "civ",
+      "vp": "768",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "127px",
+        "chromeH": 111
+      },
+      "fonts": true,
+      "hero": 391,
+      "errors": [],
+      "scrollW": 768,
+      "clientW": 768
+    },
+    {
+      "page": "civ",
+      "vp": "1024",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "127px",
+        "chromeH": 111
+      },
+      "fonts": true,
+      "hero": 396,
+      "errors": [],
+      "scrollW": 1024,
+      "clientW": 1024
+    },
+    {
+      "page": "civ",
+      "vp": "1280",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "127px",
+        "chromeH": 111
+      },
+      "fonts": true,
+      "hero": 401,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "civ",
+      "vp": "1440",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 3,
+        "volumeBoard": 3,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 1,
+        "rails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "title": true,
+        "deep": true,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": [
+          "閱讀人類起源 -> /civilization/origins/",
+          "跳到今日切片 -> /#slice"
+        ]
+      },
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": "rgb(22, 28, 36)",
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": "rgb(42, 35, 27)",
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "127px",
+        "chromeH": 111
+      },
+      "fonts": true,
+      "hero": 401,
+      "errors": [],
+      "scrollW": 1440,
+      "clientW": 1440
+    },
+    {
+      "page": "chronicle",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "218px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "chronicle",
+      "vp": "390",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "193px",
+        "chromeH": 177
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 390,
+      "clientW": 390
+    },
+    {
+      "page": "chronicle",
+      "vp": "414",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "193px",
+        "chromeH": 177
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 414,
+      "clientW": 414
+    },
+    {
+      "page": "chronicle",
+      "vp": "land",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "193px",
+        "chromeH": 177
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 640,
+      "clientW": 640
+    },
+    {
+      "page": "chronicle",
+      "vp": "768",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 768,
+      "clientW": 768
+    },
+    {
+      "page": "chronicle",
+      "vp": "1024",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1024,
+      "clientW": 1024
+    },
+    {
+      "page": "chronicle",
+      "vp": "1280",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "chronicle",
+      "vp": "1440",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "stages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": "rgb(22, 28, 36)",
+        "future": "rgb(22, 28, 36)",
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "171px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1440,
+      "clientW": 1440
+    },
+    {
+      "page": "learn",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "learn",
+      "vp": "390",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 390,
+      "clientW": 390
+    },
+    {
+      "page": "learn",
+      "vp": "414",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 414,
+      "clientW": 414
+    },
+    {
+      "page": "learn",
+      "vp": "land",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 640,
+      "clientW": 640
+    },
+    {
+      "page": "learn",
+      "vp": "768",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 768,
+      "clientW": 768
+    },
+    {
+      "page": "learn",
+      "vp": "1024",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1024,
+      "clientW": 1024
+    },
+    {
+      "page": "learn",
+      "vp": "1280",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "learn",
+      "vp": "1440",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "開蒙 · 森羅 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1440,
+      "clientW": 1440
+    },
+    {
+      "page": "news-long",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "news-long",
+      "vp": "390",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 390,
+      "clientW": 390
+    },
+    {
+      "page": "news-long",
+      "vp": "414",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 414,
+      "clientW": 414
+    },
+    {
+      "page": "news-long",
+      "vp": "land",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 640,
+      "clientW": 640
+    },
+    {
+      "page": "news-long",
+      "vp": "768",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 768,
+      "clientW": 768
+    },
+    {
+      "page": "news-long",
+      "vp": "1024",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1024,
+      "clientW": 1024
+    },
+    {
+      "page": "news-long",
+      "vp": "1280",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1280,
+      "clientW": 1280
+    },
+    {
+      "page": "news-long",
+      "vp": "1440",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "Labor and the Coalition are poised to take a reckless gamble on AI. Haven’t they realised community support has collapsed? | Edward Santow and Sarah Sacher — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "127px",
+        "civ": "220px",
+        "chromeH": 155
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 1440,
+      "clientW": 1440
+    },
+    {
+      "page": "news-short",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "深圳試點騎手“安全激勵金” 騎手不闖紅燈最高獎勵近千元 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "briefing",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "每日導讀 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "major",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "24小時重大更新 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "cosmos",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "宇宙長河・深時間 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "218px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "earth",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "地球生命・深時間 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "218px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "origins",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "人類起源時間線 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "tech",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "科技與發現 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "218px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "city",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "城市・基建・民生 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "218px",
+        "chromeH": 202
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "otd",
+      "vp": "360",
+      "dark": true,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "10月22日 當年今日 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "word": "",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "l": 0
+        }
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(14, 20, 28)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "177px",
+        "civ": "220px",
+        "chromeH": 161
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "missing",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "找不到頁面 — 文明編年史",
+        "og": "",
+        "aria": "",
+        "word": "",
+        "simplified": false,
+        "logo": null
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgb(244, 246, 248)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "",
+        "civ": "",
+        "chromeH": 0
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    },
+    {
+      "page": "offline",
+      "vp": "360",
+      "dark": false,
+      "hscroll": false,
+      "overlap": [],
+      "clips": [],
+      "small": [],
+      "edge": [],
+      "contrast": [],
+      "dom": {
+        "volume": 0,
+        "volumeBoard": 0,
+        "bandCards": 0,
+        "strip": 0,
+        "axisCta": 0,
+        "rails": 0,
+        "pattern": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "title": false,
+        "deep": false,
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "stages": [],
+        "ctaText": []
+      },
+      "brand": {
+        "title": "暫時離線 — 文明編年史",
+        "og": "",
+        "aria": "",
+        "word": "",
+        "simplified": false,
+        "logo": null
+      },
+      "ink": {
+        "axis": null,
+        "band": null,
+        "chapter": null,
+        "future": null,
+        "volume": null,
+        "html": "rgba(0, 0, 0, 0)",
+        "body": "rgba(0, 0, 0, 0)"
+      },
+      "wide": [],
+      "offset": {
+        "home": "",
+        "civ": "",
+        "chromeH": 0
+      },
+      "fonts": true,
+      "hero": 0,
+      "errors": [],
+      "scrollW": 360,
+      "clientW": 360
+    }
+  ],
+  "navErrors": []
+}
