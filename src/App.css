@@ -50,6 +50,12 @@
   /* Civ hash targets clear sticky .chrome before JS measures it.
      220px covers a ~188px mobile chrome (masthead, tabs, wrapped market row). */
   --civ-anchor-offset: 220px;
+  /* Homepage #slice / #civ only. Not the civ-page 220px fallback.
+     Desktop sticky .chrome measured 105px (mast 52 + nav row 50 + border). */
+  --home-anchor-offset: 121px;
+  /* #161c24 on this fill is 4.77:1. Hero and axis brass buttons share it.
+     Other brass marks stay #9a7b4f. */
+  --brass-ink-fill: #a18256;
   --civ-stack: 20px;
   --civ-type-kicker: 0.6875rem;
   --civ-type-meta: 0.75rem;
@@ -1649,7 +1655,7 @@ a.axis-node:hover { color: #f7f1e6; }
   text-decoration: none;
   border: 1px solid transparent;
 }
-.axis-hero .btn-brass { background: #9a7b4f; color: #161c24; }
+.axis-hero .btn-brass { background: var(--brass-ink-fill); color: #161c24; }
 .axis-hero .btn-ghost { background: transparent; color: #e8e4dc; border-color: rgba(232, 228, 220, 0.35); }
 .today-pin {
   position: relative;
@@ -1702,6 +1708,16 @@ a.axis-node:hover { color: #f7f1e6; }
   border-radius: 14px;
   background: #f3f5f8;
   color: #161c24;
+}
+/* Phone chrome measured 87px at 360 and 390 (mast 40 + nav row 46 + border).
+   103px is that height plus 16px. The h2 sits another ~15px down
+   (1px border + 4px slice padding + 10px slice-head padding). */
+@media (max-width: 700px) {
+  :root { --home-anchor-offset: 103px; }
+}
+.civ-home #slice,
+.civ-home #civ {
+  scroll-margin-top: var(--home-anchor-offset);
 }
 .slice-head {
   display: flex;
@@ -3077,7 +3093,8 @@ a.question-line:hover { text-decoration: underline; }
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    scroll-snap-type: x proximity;
+    scroll-snap-type: x mandatory;
+    container-type: inline-size;
   }
   .deep-axis::-webkit-scrollbar { height: 0; display: none; }
   .deep-axis .rail { display: none; }
@@ -3101,7 +3118,10 @@ a.question-line:hover { text-decoration: underline; }
   }
   .milestones li {
     flex: 0 0 auto;
-    min-width: 68px;
+    /* 4 slots + 3 gaps of 12px fill the scrollport, so a resting view
+       ends on a boundary. 城市 is the 5th node and starts just off-screen. */
+    width: calc((100cqi - 36px) / 4);
+    min-width: 0;
     scroll-snap-align: start;
   }
   .chronicle-strip,
@@ -3508,6 +3528,9 @@ html.dark .civ-progress { background: #c4a572; }
    Motion is transition + canvas only — this block declares no keyframe
    animations of its own, and every transition sits behind no-preference. */
 .hero-opening {
+  --era-ancient: #c4a572; /* 古暖金 */
+  --era-now: #9ec0ef; /* 今冷藍 */
+  --era-future: #2a2140; /* 未來紫黑 */
   position: relative;
   margin: 0 -16px;
   padding: 60px 20px 44px;
@@ -3519,7 +3542,7 @@ html.dark .civ-progress { background: #c4a572; }
   overflow: hidden;
   background: radial-gradient(130% 95% at 50% 38%, #1c2431 0%, #161c24 55%, #121820 100%);
   color: #e8e4dc;
-  border-bottom: 1px solid rgba(196, 165, 114, 0.35);
+  border-bottom: 1px solid color-mix(in srgb, var(--era-ancient) 35%, transparent);
   text-align: center;
 }
 /* The opening hands off to the spine: no gutter between hero and axis band. */
@@ -3543,7 +3566,7 @@ html.dark .civ-progress { background: #c4a572; }
   font-size: var(--civ-type-kicker);
   font-weight: 700;
   letter-spacing: 0.22em;
-  color: #c4a572;
+  color: var(--era-ancient);
 }
 .hero-title {
   margin: 0 0 26px;
@@ -3590,7 +3613,7 @@ html.dark .civ-progress { background: #c4a572; }
   text-decoration: none;
   border: 1px solid transparent;
 }
-.hero-btn-brass { background: #9a7b4f; color: #161c24; }
+.hero-btn-brass { background: var(--brass-ink-fill); color: #161c24; }
 .hero-btn-ghost {
   background: transparent;
   color: #e8e4dc;

@@ -1,5 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { HERO_BEATS, HERO_SEEN_KEY, HERO_SETTLE_AT, type HeroPhase } from '../../shared/heroOpening';
+import {
+  HERO_BEATS,
+  HERO_HINT,
+  HERO_PRIMARY,
+  HERO_SECONDARY,
+  HERO_SEEN_KEY,
+  HERO_SETTLE_AT,
+  heroPlaybackAt,
+  type HeroPhase,
+} from '../../shared/heroOpening';
+import { cssColorToRgb, heroStarPoint, syncHeroStarField, type HeroStar, type StarField } from '../../shared/heroStars';
 import { prefersReducedMotion } from '../utils/scroll';
 
 /**
@@ -29,31 +39,39 @@ const PHASE_TARGETS: Record<HeroPhase, HeroLevels> = {
   handoff: { glow: 0, stars: 1, earth: 1, line: 1 },
 };
 
-interface Star {
-  x: number;
-  y: number;
-  r: number;
-  born: number;
-  speed: number;
-  phase: number;
-  gold: boolean;
+/**
+ * createRoot replaces the SSR node, so this is not a hydrate.
+ * The boot script stamps window.__WN_HERO_T0 and heroPlaybackAt resumes that
+ * timeline, which removes the full-text flash and the replay-from-zero.
+ * A single frame of DOM swap can remain (residual P1).
+ */
+function readHeroBootElapsed(): number {
+  if (typeof window === 'undefined') return 0;
+  const stamp = (window as unknown as { __WN_HERO_T0?: unknown }).__WN_HERO_T0;
+  if (typeof stamp !== 'number' || !Number.isFinite(stamp)) return 0;
+  return Math.max(0, Date.now() - stamp);
 }
 
-function buildStars(width: number, height: number): Star[] {
-  const count = Math.max(90, Math.min(210, Math.round((width * height) / 8500)));
-  const stars: Star[] = [];
-  for (let index = 0; index < count; index += 1) {
-    stars.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      r: Math.random() * 1.1 + 0.35,
-      born: Math.random(),
-      speed: 0.4 + Math.random() * 1.1,
-      phase: Math.random() * Math.PI * 2,
-      gold: Math.random() < 0.16,
-    });
+function initialHero(): { mode: 'playing' | 'settled'; revealed: number; phase: HeroPhase; elapsed: number } {
+  if (prefersReducedMotion()) {
+    return { mode: 'settled', revealed: HERO_BEATS.length, phase: 'handoff', elapsed: 0 };
   }
-  return stars;
+  try {
+    if (window.sessionStorage.getItem(HERO_SEEN_KEY)) {
+      return { mode: 'settled', revealed: HERO_BEATS.length, phase: 'handoff', elapsed: 0 };
+    }
+  } catch {
+    /* private mode: play */
+  }
+  const elapsed = readHeroBootElapsed();
+  const playback = heroPlaybackAt(elapsed);
+  if (playback.settled) return { mode: 'settled', revealed: HERO_BEATS.length, phase: 'handoff', elapsed };
+  return { mode: 'playing', revealed: playback.revealed, phase: playback.phase, elapsed };
+}
+
+function eraRgb(section: HTMLElement, name: string, fallback: string): string {
+  const raw = getComputedStyle(section).getPropertyValue(name).trim();
+  return cssColorToRgb(raw) ?? cssColorToRgb(fallback) ?? fallback;
 }
 
 function softGlow(ctx: CanvasRenderingContext2D, x: number, y: number, radius: number, rgb: string, alpha: number) {
@@ -72,17 +90,11 @@ export function HeroOpening() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const bloomAtRef = useRef(0);
   const [reduced] = useState(prefersReducedMotion);
-  const [mode, setMode] = useState<'playing' | 'settled'>(() => {
-    if (prefersReducedMotion()) return 'settled';
-    try {
-      if (window.sessionStorage.getItem(HERO_SEEN_KEY)) return 'settled';
-    } catch {
-      /* private mode: play */
-    }
-    return 'playing';
-  });
-  const [revealed, setRevealed] = useState(mode === 'settled' ? HERO_BEATS.length : 0);
-  const [phase, setPhase] = useState<HeroPhase>(mode === 'settled' ? 'handoff' : 'singularity');
+  const [boot] = useState(initialHero);
+  const elapsedRef = useRef(boot.elapsed);
+  const [mode, setMode] = useState<'playing' | 'settled'>(boot.mode);
+  const [revealed, setRevealed] = useState(boot.revealed);
+  const [phase, setPhase] = useState<HeroPhase>(boot.phase);
   const [runId, setRunId] = useState(0);
   const phaseRef = useRef<HeroPhase>(phase);
 
@@ -102,6 +114,7 @@ export function HeroOpening() {
   const skip = useCallback(() => finish(true), [finish]);
 
   const replay = useCallback(() => {
+    elapsedRef.current = 0;
     bloomAtRef.current = 0;
     setRevealed(0);
     setPhase('singularity');
@@ -121,13 +134,14 @@ export function HeroOpening() {
 
   useEffect(() => {
     if (mode !== 'playing') return undefined;
+    const elapsed = elapsedRef.current;
     const timers = HERO_BEATS.map((beat, index) =>
       window.setTimeout(() => {
         setRevealed(index + 1);
         setPhase(beat.phase);
-      }, beat.at),
+      }, Math.max(0, beat.at - elapsed)),
     );
-    const done = window.setTimeout(() => finish(true), HERO_SETTLE_AT);
+    const done = window.setTimeout(() => finish(true), Math.max(0, HERO_SETTLE_AT - elapsed));
     return () => {
       for (const timer of timers) window.clearTimeout(timer);
       window.clearTimeout(done);
@@ -145,7 +159,11 @@ export function HeroOpening() {
     if (!ctx) return undefined;
 
     const levels: HeroLevels = { ...PHASE_TARGETS[phaseRef.current] };
-    let stars: Star[] = [];
+    const ancient = eraRgb(section, '--era-ancient', '#c4a572');
+    const nowBlue = eraRgb(section, '--era-now', '#9ec0ef');
+    const future = eraRgb(section, '--era-future', '#2a2140');
+    let field: StarField | null = null;
+    let stars: readonly HeroStar[] = [];
     let width = 0;
     let height = 0;
     let raf = 0;
@@ -195,17 +213,18 @@ export function HeroOpening() {
         if (gate <= 0) continue;
         const twinkle = 0.66 + 0.34 * Math.sin(t * 0.0011 * star.speed + star.phase);
         const alpha = gate * twinkle * (star.gold ? 0.95 : 0.8);
-        ctx.fillStyle = star.gold ? `rgba(196,165,114,${alpha})` : `rgba(224,229,238,${alpha})`;
+        const point = heroStarPoint(star, width, height);
+        ctx.fillStyle = star.gold ? `rgba(${ancient},${alpha})` : `rgba(224,229,238,${alpha})`;
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.arc(point.x, point.y, star.r, 0, Math.PI * 2);
         ctx.fill();
       }
 
       if (levels.earth > 0.01) {
         const ex = width * 0.74;
         const ey = height * 0.6;
-        softGlow(ctx, ex, ey, 26, '158,192,239', 0.5 * levels.earth);
-        ctx.fillStyle = `rgba(158,192,239,${0.95 * levels.earth})`;
+        softGlow(ctx, ex, ey, 26, nowBlue, 0.5 * levels.earth);
+        ctx.fillStyle = `rgba(${nowBlue},${0.95 * levels.earth})`;
         ctx.beginPath();
         ctx.arc(ex, ey, 2.6, 0, Math.PI * 2);
         ctx.fill();
@@ -216,12 +235,13 @@ export function HeroOpening() {
       }
 
       if (levels.line > 0.01) {
+        softGlow(ctx, width * 0.5, height * 0.92, Math.min(width, height) * 0.45, future, 0.28 * levels.line);
         const lineWidth = width * levels.line;
         const left = (width - lineWidth) / 2;
         const gradient = ctx.createLinearGradient(left, 0, left + lineWidth, 0);
-        gradient.addColorStop(0, 'rgba(196,165,114,0)');
-        gradient.addColorStop(0.5, `rgba(196,165,114,${0.85 * levels.line})`);
-        gradient.addColorStop(1, 'rgba(196,165,114,0)');
+        gradient.addColorStop(0, `rgba(${ancient},0)`);
+        gradient.addColorStop(0.5, `rgba(${ancient},${0.85 * levels.line})`);
+        gradient.addColorStop(1, `rgba(${ancient},0)`);
         ctx.fillStyle = gradient;
         ctx.fillRect(left, height - 1.5, lineWidth, 1.5);
       }
@@ -235,7 +255,9 @@ export function HeroOpening() {
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      stars = buildStars(width, height);
+      const next = syncHeroStarField(field, width, height);
+      field = next.field;
+      stars = field.stars;
       if (reduced) draw(4000);
     };
 
@@ -296,14 +318,14 @@ export function HeroOpening() {
           ))}
         </div>
         <div className="hero-cta">
-          <a className="hero-btn hero-btn-brass" href="#slice">進入今日切片</a>
-          <a className="hero-btn hero-btn-ghost" href="/civilization/">打開文明總覽</a>
+          <a className="hero-btn hero-btn-brass" href={HERO_PRIMARY.href}>{HERO_PRIMARY.label}</a>
+          <a className="hero-btn hero-btn-ghost" href={HERO_SECONDARY.href}>{HERO_SECONDARY.label}</a>
         </div>
         <p className="hero-hint-row">
-          <a className="hero-hint" href="#slice">向下滾動，開始編年</a>
+          <a className="hero-hint" href={HERO_HINT.href}>{HERO_HINT.label}</a>
         </p>
       </div>
-      <button className="hero-skip" type="button" onClick={skip}>跳過開場</button>
+      <button className="hero-skip" type="button" data-hero-skip onClick={skip}>跳過開場</button>
       <button className="hero-replay" type="button" onClick={replay}>重播開場</button>
     </section>
   );

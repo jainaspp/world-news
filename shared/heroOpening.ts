@@ -87,12 +87,42 @@ export const HERO_SETTLE_AT = 15600;
 export const HERO_SEEN_KEY = 'wn_hero_seen';
 
 /**
- * Pre-paint boot, inlined right after the SSR section. A first-time visitor
- * with motion allowed flips to data-mode="playing" before first paint, so the
- * settled text never flashes. The 4s fallback force-settles if the React
- * runtime never claims the section (data-hero-boot), e.g. script blocked.
+ * Spine handoff is #civ (古→今→未來). The slice stays a secondary control.
+ * Copy matches the destination: 開始編年 does not point at today's slice.
  */
-const HERO_BOOT = `<script>(function(){try{var h=document.getElementById('hero-opening');if(!h)return;var seen=false;try{seen=!!sessionStorage.getItem('${HERO_SEEN_KEY}')}catch(e){}if(seen)return;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;h.dataset.mode='playing';h.dataset.phase='singularity';setTimeout(function(){if(h.dataset.mode==='playing'&&!h.dataset.heroBoot){h.dataset.mode='settled';h.dataset.phase='handoff'}},4000)}catch(e){}})();</script>`;
+export const HERO_PRIMARY = { href: '#civ', label: '開始編年' } as const;
+export const HERO_SECONDARY = { href: '#slice', label: '進入今日切片' } as const;
+export const HERO_HINT = { href: '#civ', label: '向下滾動，開始編年' } as const;
+
+/** Where the opening is on the timeline `elapsedMs` after boot. */
+export function heroPlaybackAt(elapsedMs: number): { revealed: number; phase: HeroPhase; settled: boolean } {
+  if (elapsedMs >= HERO_SETTLE_AT) {
+    return { revealed: HERO_BEATS.length, phase: 'handoff', settled: true };
+  }
+  let revealed = 0;
+  let phase: HeroPhase = 'singularity';
+  for (const beat of HERO_BEATS) {
+    if (elapsedMs >= beat.at) {
+      revealed += 1;
+      phase = beat.phase;
+    }
+  }
+  return { revealed, phase, settled: false };
+}
+
+/**
+ * Pre-paint boot, inlined right after the SSR section.
+ * Lines are marked data-on=false BEFORE data-mode=playing, in the same
+ * synchronous turn, so first paint cannot show every line with the CTA hidden.
+ * [data-hero-skip] settles and writes wn_hero_seen, the same end state React uses.
+ * The 4s fallback force-settles only if React never claims the section
+ * (data-hero-boot). It does not write the seen flag.
+ * window.__WN_HERO_T0 lets createRoot resume this timeline instead of replaying
+ * from line 0. createRoot still replaces the node (residual P1; not a hydrate).
+ */
+export function heroBootScript(): string {
+  return `(function(){try{var h=document.getElementById('hero-opening');if(!h)return;var seen=false;try{seen=!!sessionStorage.getItem('${HERO_SEEN_KEY}')}catch(e){}var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}function paint(on){var list=h.querySelectorAll('.hero-line');for(var i=0;i<list.length;i++)list[i].setAttribute('data-on',on?'true':'false')}function settle(){paint(true);h.dataset.mode='settled';h.dataset.phase='handoff';try{sessionStorage.setItem('${HERO_SEEN_KEY}','1')}catch(e){}}var skip=h.querySelector('[data-hero-skip]');if(skip)skip.addEventListener('click',function(){settle()});if(seen||reduce)return;paint(false);h.dataset.mode='playing';h.dataset.phase='singularity';try{window.__WN_HERO_T0=Date.now()}catch(e){}setTimeout(function(){if(h.dataset.mode==='playing'&&!h.dataset.heroBoot){paint(true);h.dataset.mode='settled';h.dataset.phase='handoff'}},4000)}catch(e){}})();`;
+}
 
 /**
  * Static markup for the SSR homepage. Default state is settled (every line
@@ -112,12 +142,12 @@ export function renderHeroOpening(): string {
     <h2 class="hero-title">從宇宙到今天</h2>
     <div class="hero-lines">${lines}</div>
     <div class="hero-cta">
-      <a class="hero-btn hero-btn-brass" href="#slice">進入今日切片</a>
-      <a class="hero-btn hero-btn-ghost" href="/civilization/">打開文明總覽</a>
+      <a class="hero-btn hero-btn-brass" href="${HERO_PRIMARY.href}">${esc(HERO_PRIMARY.label)}</a>
+      <a class="hero-btn hero-btn-ghost" href="${HERO_SECONDARY.href}">${esc(HERO_SECONDARY.label)}</a>
     </div>
-    <p class="hero-hint-row"><a class="hero-hint" href="#slice">向下滾動，開始編年</a></p>
+    <p class="hero-hint-row"><a class="hero-hint" href="${HERO_HINT.href}">${esc(HERO_HINT.label)}</a></p>
   </div>
   <button class="hero-skip" type="button" data-hero-skip>跳過開場</button>
   <button class="hero-replay" type="button" data-hero-replay>重播開場</button>
-</section>${HERO_BOOT}`;
+</section><script>${heroBootScript()}</script>`;
 }
