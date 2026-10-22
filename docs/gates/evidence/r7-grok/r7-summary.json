@@ -1,0 +1,31 @@
+{
+  "sha": "37f7a67803e7ef95b4a4c737f16ad59d7ab9055e",
+  "chrome": "Chrome/156.0.8078.47",
+  "npmTest": "67 files, 409 passed",
+  "feed": { "count": 754, "errors": 5, "longHref": "/story/660dcafc1ea7/", "longChars": 137, "plainHref": "/story/59ea14528b06/", "plainChars": 36 },
+  "verdict": "FAIL",
+  "critical": 0,
+  "trapV08": "DEFERRED",
+  "p1Perf": {
+    "homeLcpMs": 5351,
+    "homeCls": 0,
+    "homeScore": 0.72,
+    "civLcpMs": 5701,
+    "civCls": 0.015,
+    "civScore": 0.75,
+    "inp": null,
+    "lighthouse": "12.8.2"
+  },
+  "yearPlate": {
+    "text": "rgb(196,165,114)",
+    "tokenRatioOn161c24": 7.32,
+    "home390DarkMode": "7.32-7.40",
+    "civMode": "7.16-7.40",
+    "civWeakestMedian": { "text": "~40億", "ratio": 4.83, "theme": "light", "vp": 390 },
+    "labWeakestMedian": { "text": "未來", "ratio": 5.75, "theme": "light", "vp": 390, "page": "C" }
+  },
+  "rows": 76,
+  "fullShotsRequired": 58,
+  "fullShotsMissing": 0,
+  "exceptions": 0
+}
