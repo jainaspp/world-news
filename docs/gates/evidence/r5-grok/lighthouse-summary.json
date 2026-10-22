@@ -1,0 +1,25 @@
+{
+  "tool": "Lighthouse 12.8.2",
+  "formFactor": "mobile",
+  "throttlingMethod": "simulate",
+  "sha": "921a6ef8fe0f01d0c1261748c174fcbadd8a959d",
+  "note": "Navigation mode has no interaction-to-next-paint audit. INP is unmeasured, not a pass.",
+  "home": {
+    "url": "http://127.0.0.1:8766/",
+    "score": 0.74,
+    "lcpMs": 5285.86,
+    "lcpDisplay": "5.3 s",
+    "cls": 0,
+    "tbtMs": 8,
+    "inp": null
+  },
+  "civ": {
+    "url": "http://127.0.0.1:8766/civilization/",
+    "score": 0.75,
+    "lcpMs": 5626.38,
+    "lcpDisplay": "5.6 s",
+    "cls": 0.01545,
+    "tbtMs": 188,
+    "inp": null
+  }
+}
