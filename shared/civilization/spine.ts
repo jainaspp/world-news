@@ -160,7 +160,7 @@ export function renderDeepTimeBoardFromSpine(): string {
     <div class="chronicle-board-head">
       <h2>深時間</h2>
     </div>
-    <p class="chronicle-board-note">宇宙長河接到地球生命，再交接入類起源。約七百萬年前，演化進入人族階段。下方編年仍是文明十階段。</p>
+    <p class="chronicle-board-note">宇宙長河接到地球生命，再交接入類起源。約七百萬年前，演化進入人族階段。下方編年分作古、今、未來三卷。</p>
     <div class="deep-time-grid">
       ${cards}
     </div>

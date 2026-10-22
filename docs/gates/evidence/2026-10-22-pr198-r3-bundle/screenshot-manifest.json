@@ -1,0 +1,362 @@
+[
+  {
+    "file": "2026-10-22-home-360-light-full.png",
+    "url": "http://127.0.0.1:4173/?evidence-theme=light",
+    "theme": "light",
+    "viewport": "360",
+    "scrollHeight": 7159,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "dark": false,
+    "title": "文明編年史 — 從宇宙到今天",
+    "pixels": "360x7159",
+    "slices": 2,
+    "settled": {
+      "ready": "complete",
+      "text": 3091,
+      "images": 3,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-civ-360-light-full.png",
+    "url": "http://127.0.0.1:4173/civilization/?evidence-theme=light",
+    "theme": "light",
+    "viewport": "360",
+    "scrollHeight": 27680,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "dark": false,
+    "title": "人類文明 — 文明編年史",
+    "pixels": "360x27680",
+    "slices": 5,
+    "settled": {
+      "ready": "complete",
+      "text": 11144,
+      "images": 10,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-chronicle-360-light-full.png",
+    "url": "http://127.0.0.1:4173/civilization/chronicle/?evidence-theme=light",
+    "theme": "light",
+    "viewport": "360",
+    "scrollHeight": 40995,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "dark": false,
+    "title": "文明編年 — 文明編年史",
+    "pixels": "360x40995",
+    "slices": 7,
+    "settled": {
+      "ready": "complete",
+      "text": 16782,
+      "images": 19,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-home-768-light-full.png",
+    "url": "http://127.0.0.1:4173/?evidence-theme=light",
+    "theme": "light",
+    "viewport": "768",
+    "scrollHeight": 6529,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "dark": false,
+    "title": "文明編年史 — 從宇宙到今天",
+    "pixels": "768x6529",
+    "slices": 2,
+    "settled": {
+      "ready": "complete",
+      "text": 3092,
+      "images": 3,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-civ-768-light-full.png",
+    "url": "http://127.0.0.1:4173/civilization/?evidence-theme=light",
+    "theme": "light",
+    "viewport": "768",
+    "scrollHeight": 21957,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "dark": false,
+    "title": "人類文明 — 文明編年史",
+    "pixels": "768x21957",
+    "slices": 4,
+    "settled": {
+      "ready": "complete",
+      "text": 11159,
+      "images": 10,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-chronicle-768-light-full.png",
+    "url": "http://127.0.0.1:4173/civilization/chronicle/?evidence-theme=light",
+    "theme": "light",
+    "viewport": "768",
+    "scrollHeight": 32939,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "dark": false,
+    "title": "文明編年 — 文明編年史",
+    "pixels": "768x32939",
+    "slices": 6,
+    "settled": {
+      "ready": "complete",
+      "text": 16782,
+      "images": 18,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-home-1280-light-full.png",
+    "url": "http://127.0.0.1:4173/?evidence-theme=light",
+    "theme": "light",
+    "viewport": "1280",
+    "scrollHeight": 6796,
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "dark": false,
+    "title": "文明編年史 — 從宇宙到今天",
+    "pixels": "1280x6796",
+    "slices": 2,
+    "settled": {
+      "ready": "complete",
+      "text": 3092,
+      "images": 3,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-civ-1280-light-full.png",
+    "url": "http://127.0.0.1:4173/civilization/?evidence-theme=light",
+    "theme": "light",
+    "viewport": "1280",
+    "scrollHeight": 21514,
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "dark": false,
+    "title": "人類文明 — 文明編年史",
+    "pixels": "1280x21514",
+    "slices": 4,
+    "settled": {
+      "ready": "complete",
+      "text": 11159,
+      "images": 10,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-chronicle-1280-light-full.png",
+    "url": "http://127.0.0.1:4173/civilization/chronicle/?evidence-theme=light",
+    "theme": "light",
+    "viewport": "1280",
+    "scrollHeight": 33340,
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "dark": false,
+    "title": "文明編年 — 文明編年史",
+    "pixels": "1280x33340",
+    "slices": 6,
+    "settled": {
+      "ready": "complete",
+      "text": 16782,
+      "images": 19,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-home-360-dark-full.png",
+    "url": "http://127.0.0.1:4173/?evidence-theme=dark",
+    "theme": "dark",
+    "viewport": "360",
+    "scrollHeight": 7159,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "dark": true,
+    "title": "文明編年史 — 從宇宙到今天",
+    "pixels": "360x7159",
+    "slices": 2,
+    "settled": {
+      "ready": "complete",
+      "text": 3092,
+      "images": 3,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-civ-360-dark-full.png",
+    "url": "http://127.0.0.1:4173/civilization/?evidence-theme=dark",
+    "theme": "dark",
+    "viewport": "360",
+    "scrollHeight": 27680,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "dark": true,
+    "title": "人類文明 — 文明編年史",
+    "pixels": "360x27680",
+    "slices": 5,
+    "settled": {
+      "ready": "complete",
+      "text": 11144,
+      "images": 10,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-chronicle-360-dark-full.png",
+    "url": "http://127.0.0.1:4173/civilization/chronicle/?evidence-theme=dark",
+    "theme": "dark",
+    "viewport": "360",
+    "scrollHeight": 41001,
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "dark": true,
+    "title": "文明編年 — 文明編年史",
+    "pixels": "360x41001",
+    "slices": 7,
+    "settled": {
+      "ready": "complete",
+      "text": 16782,
+      "images": 19,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-home-768-dark-full.png",
+    "url": "http://127.0.0.1:4173/?evidence-theme=dark",
+    "theme": "dark",
+    "viewport": "768",
+    "scrollHeight": 6529,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "dark": true,
+    "title": "文明編年史 — 從宇宙到今天",
+    "pixels": "768x6529",
+    "slices": 2,
+    "settled": {
+      "ready": "complete",
+      "text": 3092,
+      "images": 3,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-civ-768-dark-full.png",
+    "url": "http://127.0.0.1:4173/civilization/?evidence-theme=dark",
+    "theme": "dark",
+    "viewport": "768",
+    "scrollHeight": 21957,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "dark": true,
+    "title": "人類文明 — 文明編年史",
+    "pixels": "768x21957",
+    "slices": 4,
+    "settled": {
+      "ready": "complete",
+      "text": 11159,
+      "images": 10,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-chronicle-768-dark-full.png",
+    "url": "http://127.0.0.1:4173/civilization/chronicle/?evidence-theme=dark",
+    "theme": "dark",
+    "viewport": "768",
+    "scrollHeight": 32945,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "dark": true,
+    "title": "文明編年 — 文明編年史",
+    "pixels": "768x32945",
+    "slices": 6,
+    "settled": {
+      "ready": "complete",
+      "text": 16782,
+      "images": 18,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-home-1280-dark-full.png",
+    "url": "http://127.0.0.1:4173/?evidence-theme=dark",
+    "theme": "dark",
+    "viewport": "1280",
+    "scrollHeight": 6796,
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "dark": true,
+    "title": "文明編年史 — 從宇宙到今天",
+    "pixels": "1280x6796",
+    "slices": 2,
+    "settled": {
+      "ready": "complete",
+      "text": 3092,
+      "images": 3,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-civ-1280-dark-full.png",
+    "url": "http://127.0.0.1:4173/civilization/?evidence-theme=dark",
+    "theme": "dark",
+    "viewport": "1280",
+    "scrollHeight": 21514,
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "dark": true,
+    "title": "人類文明 — 文明編年史",
+    "pixels": "1280x21514",
+    "slices": 4,
+    "settled": {
+      "ready": "complete",
+      "text": 11159,
+      "images": 10,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  },
+  {
+    "file": "2026-10-22-chronicle-1280-dark-full.png",
+    "url": "http://127.0.0.1:4173/civilization/chronicle/?evidence-theme=dark",
+    "theme": "dark",
+    "viewport": "1280",
+    "scrollHeight": 33346,
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "dark": true,
+    "title": "文明編年 — 文明編年史",
+    "pixels": "1280x33346",
+    "slices": 6,
+    "settled": {
+      "ready": "complete",
+      "text": 16782,
+      "images": 19,
+      "fonts": "loaded"
+    },
+    "status": "shot"
+  }
+]

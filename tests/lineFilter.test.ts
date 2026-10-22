@@ -61,15 +61,17 @@ describe('civilization hub four-line filter', () => {
     const hub = renderCivilizationHub(new Date('2026-10-17T04:00:00.000Z'));
     const filterAt = hub.html.indexOf('class="line-filter"');
     const statusAt = hub.html.indexOf('id="line-filter-status"');
-    const gridAt = hub.html.indexOf('id="stage-grid"');
+    const gridAt = hub.html.indexOf('class="volume-grid"');
     expect(filterAt).toBeGreaterThan(hub.html.indexOf('class="chronicle-board"'));
     expect(statusAt).toBeGreaterThan(filterAt);
     expect(gridAt).toBeGreaterThan(statusAt);
     const filter = hub.html.slice(filterAt, statusAt);
     expect(filter.match(/<button /g)).toHaveLength(5);
     expect(filter).toContain('aria-labelledby="line-filter-legend"');
-    expect(filter).toContain('按四線篩選階段與模式卡');
-    expect(filter).toContain('aria-controls="stage-grid pattern-board"');
+    expect(filter).toContain('按四線篩選模式卡');
+    expect(filter).toContain('aria-controls="pattern-board"');
+    expect(hub.html).not.toContain('id="stage-grid"');
+    expect(hub.html).not.toContain('class="stage-card"');
     expect(filter).not.toMatch(/energy|institution|money|能源|資訊/i);
     const stageGroups = CHRONICLE_STAGES.map((stage) => stage.lines);
     const patternGroups = PATTERN_CARDS.map((card) => card.lines);
@@ -108,13 +110,8 @@ describe('civilization hub four-line filter', () => {
       ...PATTERN_CARDS.map((card) => card.lines),
     ];
     for (const line of CIV_LINES) expect(lineFilterEmpty(groups, line)).toBe(false);
-    expect(hub.html.match(/data-lines="/g)).toHaveLength(groups.length);
+    expect(hub.html.match(/data-lines="/g)).toHaveLength(PATTERN_CARDS.length);
 
-    for (const stage of CHRONICLE_STAGES) {
-      const card = hub.html.slice(hub.html.indexOf(`<article class="stage-card" data-stage="${stage.n}"`));
-      const end = card.indexOf('</article>');
-      expect(card.slice(0, end)).toContain(lineFilterAttrs(stage.lines).trim());
-    }
     for (const card of PATTERN_CARDS) {
       const at = hub.html.indexOf(`id="pattern-${card.id}"`);
       const body = hub.html.slice(at, hub.html.indexOf('</details>', at));

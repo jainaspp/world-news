@@ -1,7 +1,8 @@
 /**
  * Phone spine geometry. CSS mirrors this with
- * `width: calc((100cqi - gap*(visible-1)) / visible)` inside the scrollport,
- * so a resting scroll of 0 ends on a slot boundary instead of through a label.
+ * `width: calc((100cqi - gap*(visible-1)) / visible)` inside the content box,
+ * plus an optional inline inset on the scrollport. A resting scroll of 0
+ * ends in the gap before the next label, not through a glyph.
  */
 
 export interface SpineSlot {
@@ -10,13 +11,14 @@ export interface SpineSlot {
   right: number;
 }
 
-export function phoneSpineSlots(scrollport: number, visible: number, gap: number, count = 7): SpineSlot[] {
-  const width = (scrollport - (visible - 1) * gap) / visible;
+export function phoneSpineSlots(scrollport: number, visible: number, gap: number, count = 7, inset = 0): SpineSlot[] {
+  const inner = scrollport - inset * 2;
+  const width = (inner - (visible - 1) * gap) / visible;
   const stride = width + gap;
   return Array.from({ length: count }, (_, index) => ({
     index,
-    left: index * stride,
-    right: index * stride + width,
+    left: inset + index * stride,
+    right: inset + index * stride + width,
   }));
 }
 

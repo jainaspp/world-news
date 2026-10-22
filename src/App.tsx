@@ -37,6 +37,7 @@ import { useBookmarks } from './hooks/useBookmarks';
 import { useFollows } from './hooks/useFollows';
 import { useNews } from './hooks/useNews';
 import { readView, viewHref, type ViewState } from './routing';
+import { bindHomeHashScroll } from './homeHash';
 import { scrollBehavior } from './utils/scroll';
 import './App.css';
 
@@ -258,6 +259,8 @@ export default function App() {
     document.documentElement.lang = lang === 'en' ? 'en' : lang === 'zh-CN' ? 'zh-CN' : 'zh-HK';
     (window as Window & { __wnApplyLive?: () => void }).__wnApplyLive?.();
   }, [lang]);
+
+  useLayoutEffect(() => bindHomeHashScroll(), []);
 
   useEffect(() => {
     const dropRetiredTime = () => {

@@ -1,6 +1,6 @@
 import { siteBrand } from './brand.js';
 import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPage.js';
-import { CHRONICLE_STAGES, chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderChronicleStrip, renderStageGrid } from './civilization/chronicle.js';
+import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderVolumeBoard, renderVolumeCards } from './civilization/chronicle.js';
 import { renderBulletinClock } from './civilization/clock.js';
 import { renderCaseAxisLinks } from './civilization/cases.js';
 import { renderPatternAxisLinks, renderPatternBoard } from './civilization/patterns.js';
@@ -56,7 +56,7 @@ export const HUB_MILESTONES: { era: string; title: string; text: string }[] = [
   },
 ];
 
-const HUB_READ = '閱讀時先看軸上的位置：最左是宇宙，其後為地球生命、起源、技術、城市、今天、未來。今天的新聞是軸上的切片。沒有溫和史對照的電訊不強加年代座標。宇宙、地球生命、起源、技術與城市都已寫成獨立長頁。未來停在本頁的展望面板，不另開網址。地球生命頁寫大氧化到侏羅紀、白堊紀與哺乳動物輻射。技術頁記工具、能源、媒介與知識；城市頁記聚落、公共工程與日常公共生活，香港地標只作其中的本地案例。軸下編年帶仍列出十個文明階段，點進階段可讀完整編年。宇宙十階與地球生命各階都不掛在這條編年帶上。';
+const HUB_READ = '閱讀時先看軸上的位置：最左是宇宙，其後為地球生命、起源、技術、城市、今天、未來。今天的新聞是軸上的切片，入口在今日切片。沒有溫和史對照的電訊不強加年代座標。宇宙、地球生命、起源、技術與城市都已寫成獨立長頁。未來停在本頁的展望面板，不另開網址。地球生命頁寫大氧化到侏羅紀、白堊紀與哺乳動物輻射。技術頁記工具、能源、媒介與知識；城市頁記聚落、公共工程與日常公共生活，香港地標只作其中的本地案例。編年以古、今、未來三卷閱讀，卷內刻度仍從編年頁進入。宇宙長河與地球生命各階都不掛在這條編年帶上。';
 
 const HUB_LOCAL = '香港科學館於一九九一年開幕，以常設展覽介紹日常科學與自然現象，可作為城市向公眾講解深時間的節點。香港太空館於一九八〇年開幕，天象廳介紹星空與太陽系，方便把宇宙尺度和人族年表放在一起對照。兩館都是既有地標頁，在科技與發現、城市・基建・民生的長頁裡作為本地錨，而不代替這兩頁。';
 
@@ -207,7 +207,7 @@ export function renderAxisRails(): string {
 }
 
 export function renderHomeChronicle(): string {
-  return `<div class="chronicle-band">${renderChronicleStrip()}</div>`;
+  return `<div class="chronicle-band"><section class="volume-board" aria-label="三卷入口">${renderVolumeCards()}</section></div>`;
 }
 
 export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: string; todayHref?: string; asHeading?: boolean; strip?: boolean; rails?: boolean } = {}): string {
@@ -217,7 +217,7 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
   const title = options.asHeading === false
     ? '<p class="axis-title">站在一條很長的時間軸上</p>'
     : '<h1 class="axis-title">站在一條很長的時間軸上</h1>';
-  const strip = options.strip === false ? '' : renderChronicleStrip();
+  const strip = options.strip ? renderVolumeCards() : '';
   const rails = options.rails === false ? '' : `${renderPatternAxisLinks()}${renderCaseAxisLinks()}`;
   const slim = options.rails === false ? ' axis-slim' : '';
   return `<section class="axis-hero${slim}" id="civ" aria-label="文明軸">
@@ -250,26 +250,13 @@ function pinFact(fact: HeritageFact): string {
   </div>`;
 }
 
-/** Empty calendar days use chronicle stage 9, not a deep-time origins milestone. */
-function pinChronicleFallback(): string {
-  const stage = CHRONICLE_STAGES.find((item) => item.n === 9);
-  if (!stage) return '';
-  return `<div class="pin-fact">
-    <span class="pin-seal"><span class="pin-seal-year">第九階</span><span class="pin-seal-cat">${esc(stage.short)}</span></span>
-    <div>
-      <p>${esc(stage.name)}。${esc(stage.meaning)}</p>
-      <p class="cap">${esc(stage.era)} · 文明編年</p>
-    </div>
-  </div>`;
-}
-
-/** Paper card pinned on the axis. An empty calendar day stays on stage 9. */
+/** Paper card pinned on the axis. An empty calendar day says so, and does not borrow a chronicle stage. */
 export function renderTodayPin(now = new Date()): string {
   const mmdd = hktMmdd(now);
   const fact = homeFacts(now, 1)[0];
-  const body = fact ? pinFact(fact) : pinChronicleFallback();
-  const stageLink = fact ? '' : '<a href="/civilization/chronicle/#stage-9">信息革命 →</a>';
-  const meta = fact ? '當年今日 · 溫和史紀事' : '編年 · 信息革命';
+  const body = fact ? pinFact(fact) : '<p class="pin-empty">此日沒有收錄紀事。</p>';
+  const slice = fact ? '' : '<a href="/#slice">今日切片 →</a>';
+  const meta = fact ? '當年今日 · 溫和史紀事' : '當年今日 · 此日沒有收錄紀事';
   return `<section class="today-pin" aria-label="今日落點">
     <h2>今日落點 · ${esc(labelMmdd(mmdd))}</h2>
     <p class="meta">${meta}</p>
@@ -277,7 +264,7 @@ export function renderTodayPin(now = new Date()): string {
     <div class="pin-links">
       <a href="/on-this-day/${esc(mmdd)}/">全日編年 →</a>
       <a href="/hk/landmarks/">香港地標 →</a>
-      ${stageLink}
+      ${slice}
     </div>
   </section>`;
 }
@@ -413,11 +400,11 @@ function renderDeepTimeBoard(): string {
 export function renderCivilizationHub(now = new Date()): { html: string; status: number; indexable: boolean } {
   const indexable = hubIndexable();
   const body = `<nav class="crumb"><a href="/">首頁</a> · 文明</nav>
-    ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice' })}
+    ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice', strip: false })}
     ${hubHero()}
     <h1 class="column-title civ-page-title">人類文明</h1>
     ${renderDeepTimeBoard()}
-    ${renderStageGrid()}
+    ${renderVolumeBoard()}
     ${renderTodayPin(now)}
     ${renderNearBridge()}
     ${renderQuestionIndex()}
@@ -480,7 +467,7 @@ export function renderChroniclePage(): { html: string; status: number; indexable
     ${renderChronicleArticle()}`;
   return shell({
     title: '文明編年',
-    description: '從史前採集到智能工具的十階段編年，以能量、信息、制度、貨幣四線標出界定里程碑。',
+    description: '編年分作古、今、未來三卷，以能量、信息、制度、貨幣四線標出界定里程碑。',
     path: '/civilization/chronicle/',
     body,
     indexable,

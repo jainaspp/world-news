@@ -331,14 +331,14 @@ describe('homepage anchor and brass', () => {
   it('clears the slice heading under the measured chrome, not the 220px civ offset', () => {
     const css = readFileSync('src/App.css', 'utf8');
     expect(css).toMatch(/--civ-anchor-offset:\s*220px/);
-    expect(css).toMatch(/--home-anchor-offset:\s*121px/);
-    expect(css).toMatch(/@media \(max-width: 700px\) \{\s*:root \{ --home-anchor-offset: 103px; \}/);
+    expect(css).toMatch(/--home-anchor-offset:\s*127px/);
+    expect(css).toMatch(/@media \(max-width: 700px\) \{\s*:root \{ --home-anchor-offset: 177px; \}/);
     expect(css).toMatch(/\.civ-home #slice,\s*\.civ-home #civ \{\s*scroll-margin-top: var\(--home-anchor-offset\);/);
     const h2Inset = 1 + 4 + 10;
-    expect(103 + h2Inset - 87).toBeGreaterThanOrEqual(8);
-    expect(121 + h2Inset - 105).toBeGreaterThanOrEqual(8);
-    expect(103).toBe(87 + 16);
-    expect(121).toBe(105 + 16);
+    expect(177 + h2Inset - 161).toBeGreaterThanOrEqual(8);
+    expect(127 + h2Inset - 111).toBeGreaterThanOrEqual(8);
+    expect(177).toBe(161 + 16);
+    expect(127).toBe(111 + 16);
   });
 
   it('keeps ink on a brass fill that clears 4.5:1', () => {
@@ -356,16 +356,21 @@ describe('homepage anchor and brass', () => {
     const narrow = css.slice(css.lastIndexOf('@media (max-width: 640px)'));
     const rule = narrow.match(/width:\s*calc\(\(100cqi - (\d+)px\) \/ (\d+)\)/);
     expect(rule).toBeTruthy();
-    expect(narrow).toContain('scroll-snap-type: x mandatory');
+    const deep = narrow.slice(narrow.indexOf('.deep-axis {'), narrow.indexOf('.deep-axis::-webkit-scrollbar'));
+    expect(deep).toContain('scroll-snap-type: x mandatory');
+    expect(deep).toContain('scroll-padding-inline: 8px');
     expect(narrow).toContain('container-type: inline-size');
+    const inset = Number(deep.match(/padding-inline:\s*(\d+)px/)?.[1]);
+    expect(inset).toBe(8);
     const gapTotal = Number(rule?.[1]);
     const visible = Number(rule?.[2]);
     const gap = gapTotal / (visible - 1);
+    expect(gap).toBeGreaterThan(inset);
     const base = css.slice(css.indexOf('.milestones {'), css.indexOf('@media (max-width: 640px)'));
     expect(base).toContain('.milestones li { flex: 1; min-width: 0; text-align: center; }');
     for (const viewport of [360, 390]) {
       const scrollport = viewport - 32;
-      const slots = phoneSpineSlots(scrollport, visible, gap);
+      const slots = phoneSpineSlots(scrollport, visible, gap, 7, inset);
       expect(restingPartialSlots(scrollport, slots)).toEqual([]);
       expect(slots[4]!.left).toBeGreaterThanOrEqual(scrollport);
       for (let index = 0; index < slots.length; index += 1) {
