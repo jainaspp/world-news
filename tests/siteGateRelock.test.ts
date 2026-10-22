@@ -228,6 +228,33 @@ describe('R5 P0-CONTRAST muted text', () => {
   });
 });
 
+describe('R6 P0-CONTRAST axis year labels', () => {
+  const css = readFileSync('src/App.css', 'utf8');
+  const photoMedian = '#453f38';
+
+  it('plates .axis-node .yr on ink so brass clears the bright axis photo', () => {
+    const at = css.lastIndexOf('.axis-node .yr {');
+    expect(at).toBeGreaterThan(css.indexOf('.axis-node .lab, .axis-node .yr {'));
+    const rule = css.slice(at, css.indexOf('}', at));
+    expect(rule).toContain('color: #c4a572');
+    expect(rule).toContain('background: #161c24');
+    expect(rule).toContain('width: max-content');
+    expect(rule).toContain('max-width: 100%');
+    expect(contrast('#c4a572', '#161c24')).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#c4a572', photoMedian)).toBeLessThan(4.5);
+    const lab = css.slice(css.indexOf('.axis-node {'), css.indexOf('a.axis-node:hover'));
+    expect(lab).toContain('color: #c5c0b6');
+    expect(contrast('#c5c0b6', photoMedian)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#c5c0b6', '#161c24')).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#c4a572', '#161c24')).toBeGreaterThanOrEqual(4.5);
+    expect(css).toContain('--brass-on-paper: #7a5a32');
+    expect(css).toContain('--civ-clock-seconds: #6e675c');
+    expect(css).toContain('--civ-link-on-ink: #9ec0ef');
+    expect(css).toMatch(/html\.dark \{[^}]*--color-muted:\s*#c9d3df/);
+    expect(css).toContain('html.dark .civ-block-figure figcaption { color: #d2c4b0; }');
+  });
+});
+
 describe('three volume skeleton still renders', () => {
   it('puts three volume cards on home and hub, and the chapter plus stage anchors on the chronicle', () => {
     const home = renderHomeFeed([], new Map(), null, '', null, '', [], [], new Date('2026-10-17T04:00:00.000Z'), true);

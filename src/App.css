@@ -1678,7 +1678,21 @@ a.axis-node:hover { color: #f7f1e6; }
   box-shadow: 0 0 0 2px #fff, 0 0 12px rgba(255, 255, 255, 0.55);
 }
 .axis-node .lab, .axis-node .yr { display: block; line-height: 1.3; }
-.axis-node .yr { color: #c4a572; font-weight: 700; margin-top: 2px; }
+/* R6: 發現／基建／切片 sit on the bright axis photo. #c4a572 against that
+   median (#453f38) is 4.44:1. The plate is the same ink #161c24 used to
+   separate photo-overlaid type; brass on the plate is 7.32:1. A shadow
+   does not move the median of the wide label crop. */
+.axis-node .yr {
+  color: #c4a572;
+  font-weight: 700;
+  margin-top: 2px;
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 0 4px;
+  border-radius: 3px;
+  background: #161c24;
+}
 .axis-cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .axis-hero .btn {
   display: inline-flex;
