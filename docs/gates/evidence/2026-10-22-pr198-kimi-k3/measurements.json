@@ -1,0 +1,5043 @@
+{
+  "_note": "Kimi K3 gate measurements for PR #198, captured 2026-10-22 with headless Chrome against a local static build (dist/). Harness caveat: tabs shared one browser profile, so rows labelled light after the first dark row rendered with html.dark; geometry is theme-independent in this CSS (dark changes color only), and the collision/clip/touch/scrollWidth numbers are unaffected. Genuine light screenshots were retaken in isolated contexts.",
+  "data": {
+    "home-360-light": {
+      "metrics": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "seScrollWidth": 360,
+        "innerWidth": 360,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "打開文明總覽",
+            108,
+            36
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            200,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            152,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            198,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            168,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            200,
+            36
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            69,
+            16
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            344,
+            328
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "DIV.layout",
+            344,
+            328
+          ],
+          [
+            "MAIN.",
+            344,
+            328
+          ],
+          [
+            "DIV.civ-home",
+            344,
+            328
+          ],
+          [
+            "DIV.axis-mount",
+            344,
+            328
+          ],
+          [
+            "DIV.deep-axis",
+            583,
+            328
+          ],
+          [
+            "DIV.",
+            344,
+            328
+          ],
+          [
+            "DIV.",
+            344,
+            328
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 1,
+          "axisRails": 1,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 1,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "home-360-dark": {
+      "metrics": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "seScrollWidth": 360,
+        "innerWidth": 360,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "打開文明總覽",
+            108,
+            36
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            200,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            152,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            198,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            168,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            200,
+            36
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            69,
+            16
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            344,
+            328
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "DIV.layout",
+            344,
+            328
+          ],
+          [
+            "MAIN.",
+            344,
+            328
+          ],
+          [
+            "DIV.civ-home",
+            344,
+            328
+          ],
+          [
+            "DIV.axis-mount",
+            344,
+            328
+          ],
+          [
+            "DIV.deep-axis",
+            583,
+            328
+          ],
+          [
+            "DIV.",
+            344,
+            328
+          ],
+          [
+            "DIV.",
+            344,
+            328
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 1,
+          "axisRails": 1,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 1,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "TypeError: Cannot read properties of null (reading 'classList')",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "home-390-light": {
+      "metrics": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "seScrollWidth": 390,
+        "innerWidth": 390,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "打開文明總覽",
+            108,
+            36
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            200,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            152,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            198,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            168,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            200,
+            36
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            69,
+            16
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            374,
+            358
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "DIV.layout",
+            374,
+            358
+          ],
+          [
+            "MAIN.",
+            374,
+            358
+          ],
+          [
+            "DIV.civ-home",
+            374,
+            358
+          ],
+          [
+            "DIV.axis-mount",
+            374,
+            358
+          ],
+          [
+            "DIV.deep-axis",
+            636,
+            358
+          ],
+          [
+            "DIV.",
+            374,
+            358
+          ],
+          [
+            "DIV.",
+            374,
+            358
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 1,
+          "axisRails": 1,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 1,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "home-390-dark": {
+      "metrics": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "seScrollWidth": 390,
+        "innerWidth": 390,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "打開文明總覽",
+            108,
+            36
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            200,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            152,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            198,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            168,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            200,
+            36
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            69,
+            16
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            374,
+            358
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "DIV.layout",
+            374,
+            358
+          ],
+          [
+            "MAIN.",
+            374,
+            358
+          ],
+          [
+            "DIV.civ-home",
+            374,
+            358
+          ],
+          [
+            "DIV.axis-mount",
+            374,
+            358
+          ],
+          [
+            "DIV.deep-axis",
+            636,
+            358
+          ],
+          [
+            "DIV.",
+            374,
+            358
+          ],
+          [
+            "DIV.",
+            374,
+            358
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 1,
+          "axisRails": 1,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 1,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "TypeError: Cannot read properties of null (reading 'classList')",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "home-1280-light": {
+      "metrics": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "seScrollWidth": 1280,
+        "innerWidth": 1280,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 150,
+          "right": 248,
+          "width": 98
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "打開文明總覽",
+            108,
+            36
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            58,
+            40
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            58,
+            40
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            58,
+            40
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            58,
+            40
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            200,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            152,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            198,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            168,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            200,
+            36
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            69,
+            16
+          ],
+          [
+            ".chrome a",
+            "",
+            98,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "繁",
+            40,
+            40
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            996,
+            980
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "DIV.layout",
+            996,
+            980
+          ],
+          [
+            "MAIN.",
+            996,
+            980
+          ],
+          [
+            "DIV.civ-home",
+            996,
+            980
+          ],
+          [
+            "DIV.axis-mount",
+            996,
+            980
+          ],
+          [
+            "DIV.",
+            996,
+            980
+          ],
+          [
+            "DIV.",
+            996,
+            980
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 1,
+          "axisRails": 1,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 1,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "home-1280-dark": {
+      "metrics": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "seScrollWidth": 1280,
+        "innerWidth": 1280,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 150,
+          "right": 248,
+          "width": 98
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "打開文明總覽",
+            108,
+            36
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            58,
+            40
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            58,
+            40
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            58,
+            40
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            58,
+            40
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            200,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            152,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            198,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            168,
+            36
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            200,
+            36
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            69,
+            16
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            69,
+            16
+          ],
+          [
+            ".chrome a",
+            "",
+            98,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "繁",
+            40,
+            40
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            996,
+            980
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "DIV.layout",
+            996,
+            980
+          ],
+          [
+            "MAIN.",
+            996,
+            980
+          ],
+          [
+            "DIV.civ-home",
+            996,
+            980
+          ],
+          [
+            "DIV.axis-mount",
+            996,
+            980
+          ],
+          [
+            "DIV.",
+            996,
+            980
+          ],
+          [
+            "DIV.",
+            996,
+            980
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 1,
+          "axisRails": 1,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 1,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "TypeError: Cannot read properties of null (reading 'classList')",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "civ-360-light": {
+      "metrics": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "seScrollWidth": 360,
+        "innerWidth": 360,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "閱讀人類起源",
+            108,
+            37
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            209,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            161,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            216,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            177,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            68,
+            19
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            344,
+            328
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "MAIN.column-index",
+            344,
+            328
+          ],
+          [
+            "DIV.deep-axis",
+            583,
+            328
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 0,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "civ-360-dark": {
+      "metrics": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "seScrollWidth": 360,
+        "innerWidth": 360,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "閱讀人類起源",
+            108,
+            37
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            209,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            161,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            216,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            177,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            68,
+            19
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            344,
+            328
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "MAIN.column-index",
+            344,
+            328
+          ],
+          [
+            "DIV.deep-axis",
+            583,
+            328
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 0,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "TypeError: Cannot read properties of null (reading 'classList')",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "civ-390-light": {
+      "metrics": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "seScrollWidth": 390,
+        "innerWidth": 390,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "閱讀人類起源",
+            108,
+            37
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            209,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            161,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            216,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            177,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            68,
+            19
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            374,
+            358
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "MAIN.column-index",
+            374,
+            358
+          ],
+          [
+            "DIV.deep-axis",
+            636,
+            358
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 0,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "civ-390-dark": {
+      "metrics": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "seScrollWidth": 390,
+        "innerWidth": 390,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "閱讀人類起源",
+            108,
+            37
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            209,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            161,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            216,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            177,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            68,
+            19
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            374,
+            358
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "MAIN.column-index",
+            374,
+            358
+          ],
+          [
+            "DIV.deep-axis",
+            636,
+            358
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 0,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "TypeError: Cannot read properties of null (reading 'classList')",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "civ-1280-light": {
+      "metrics": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "seScrollWidth": 1280,
+        "innerWidth": 1280,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 150,
+          "right": 248,
+          "width": 98
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "閱讀人類起源",
+            108,
+            37
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            58,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            209,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            161,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            216,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            177,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            68,
+            19
+          ],
+          [
+            ".chrome a",
+            "",
+            98,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "繁",
+            40,
+            40
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            996,
+            980
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "MAIN.column-index",
+            996,
+            980
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 0,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "civ-1280-dark": {
+      "metrics": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "seScrollWidth": 1280,
+        "innerWidth": 1280,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 150,
+          "right": 248,
+          "width": 98
+        },
+        "touch": [
+          [
+            ".axis-cta a",
+            "閱讀人類起源",
+            108,
+            37
+          ],
+          [
+            ".axis-cta a",
+            "跳到今日切片",
+            108,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            58,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "能量 · 功率的儲存與維修",
+            209,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "信息 · 複製與校驗",
+            161,
+            37
+          ],
+          [
+            ".pattern-axis .chip",
+            "制度 · 貨幣 · 度量的互通",
+            216,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "成 · 印刷與知識成本",
+            177,
+            37
+          ],
+          [
+            ".case-axis .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".pin-links a",
+            "全日編年 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "香港地標 →",
+            68,
+            19
+          ],
+          [
+            ".pin-links a",
+            "今日切片 →",
+            68,
+            19
+          ],
+          [
+            ".chrome a",
+            "",
+            98,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "繁",
+            40,
+            40
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            996,
+            980
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "MAIN.column-index",
+            996,
+            980
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "axisTitle": 1,
+          "deepAxis": 1,
+          "axisCta": 1,
+          "slice": 0,
+          "volumeCard": 3,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 0,
+          "stageAnchors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "chAncient": 0,
+          "chNow": 0,
+          "chFuture": 0
+        }
+      },
+      "collisions": [],
+      "clips": [],
+      "errors": [
+        "TypeError: Cannot read properties of null (reading 'classList')",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "chronicle-360-light": {
+      "metrics": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "seScrollWidth": 360,
+        "innerWidth": 360,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".chronicle-nav .chip",
+            "卷一 古",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷二 今",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷三 未來",
+            94,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "功率的儲存與維修",
+            154,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "複製與校驗",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "度量的互通",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".chapter-band a",
+            "總覽展望",
+            52,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F1 能量宜居",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F2 信息可信",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F3 制度協作",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F4 生物譜系",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F5 技術能力階",
+            83,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F6 生存風險",
+            70,
+            21
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            330,
+            328
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "ARTICLE.civ-article",
+            546,
+            328
+          ],
+          [
+            "NAV.chronicle-nav",
+            1154,
+            328
+          ],
+          [
+            "NAV.chronicle-nav",
+            382,
+            328
+          ],
+          [
+            "NAV.chronicle-nav",
+            573,
+            296
+          ],
+          [
+            "NAV.chronicle-nav",
+            573,
+            296
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 0,
+          "caseAxis": 0,
+          "axisTitle": 0,
+          "deepAxis": 0,
+          "axisCta": 0,
+          "slice": 0,
+          "volumeCard": 0,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 3,
+          "stageAnchors": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "chAncient": 1,
+          "chNow": 1,
+          "chFuture": 1
+        }
+      },
+      "collisions": [],
+      "clips": [
+        [
+          ".chronicle-nav .chip",
+          "03 城市與文字",
+          223,
+          350,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "04 古典帝國",
+          358,
+          469,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "05 跨區交流",
+          477,
+          589,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "06 科學啟蒙",
+          597,
+          708,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "07 工業革命",
+          716,
+          827,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "08 現代金融",
+          835,
+          947,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "09 信息革命",
+          955,
+          1066,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "10 本世紀",
+          1074,
+          1170,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "度量的互通",
+          292,
+          398,
+          1267,
+          1304
+        ],
+        [
+          ".chronicle-nav .chip",
+          "03 城市與文字",
+          239,
+          366,
+          1599,
+          1636
+        ],
+        [
+          ".chronicle-nav .chip",
+          "04 古典帝國",
+          374,
+          485,
+          1599,
+          1636
+        ],
+        [
+          ".chronicle-nav .chip",
+          "05 跨區交流",
+          493,
+          605,
+          1599,
+          1636
+        ],
+        [
+          ".chronicle-nav .chip",
+          "08 現代金融",
+          271,
+          382,
+          16609,
+          16646
+        ],
+        [
+          ".chronicle-nav .chip",
+          "09 信息革命",
+          390,
+          501,
+          16609,
+          16646
+        ],
+        [
+          ".chronicle-nav .chip",
+          "10 本世紀",
+          509,
+          605,
+          16609,
+          16646
+        ]
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "chronicle-360-dark": {
+      "metrics": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "seScrollWidth": 360,
+        "innerWidth": 360,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".chronicle-nav .chip",
+            "卷一 古",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷二 今",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷三 未來",
+            94,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "功率的儲存與維修",
+            154,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "複製與校驗",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "度量的互通",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".chapter-band a",
+            "總覽展望",
+            52,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F1 能量宜居",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F2 信息可信",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F3 制度協作",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F4 生物譜系",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F5 技術能力階",
+            83,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F6 生存風險",
+            70,
+            21
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            330,
+            328
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "ARTICLE.civ-article",
+            546,
+            328
+          ],
+          [
+            "NAV.chronicle-nav",
+            1154,
+            328
+          ],
+          [
+            "NAV.chronicle-nav",
+            382,
+            328
+          ],
+          [
+            "NAV.chronicle-nav",
+            573,
+            294
+          ],
+          [
+            "NAV.chronicle-nav",
+            573,
+            294
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 0,
+          "caseAxis": 0,
+          "axisTitle": 0,
+          "deepAxis": 0,
+          "axisCta": 0,
+          "slice": 0,
+          "volumeCard": 0,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 3,
+          "stageAnchors": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "chAncient": 1,
+          "chNow": 1,
+          "chFuture": 1
+        }
+      },
+      "collisions": [],
+      "clips": [
+        [
+          ".chronicle-nav .chip",
+          "03 城市與文字",
+          223,
+          350,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "04 古典帝國",
+          358,
+          469,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "05 跨區交流",
+          477,
+          589,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "06 科學啟蒙",
+          597,
+          708,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "07 工業革命",
+          716,
+          827,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "08 現代金融",
+          835,
+          947,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "09 信息革命",
+          955,
+          1066,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "10 本世紀",
+          1074,
+          1170,
+          1220,
+          1257
+        ],
+        [
+          ".chronicle-nav .chip",
+          "度量的互通",
+          292,
+          398,
+          1267,
+          1304
+        ],
+        [
+          ".chronicle-nav .chip",
+          "03 城市與文字",
+          240,
+          367,
+          1600,
+          1637
+        ],
+        [
+          ".chronicle-nav .chip",
+          "04 古典帝國",
+          375,
+          486,
+          1600,
+          1637
+        ],
+        [
+          ".chronicle-nav .chip",
+          "05 跨區交流",
+          494,
+          606,
+          1600,
+          1637
+        ],
+        [
+          ".chronicle-nav .chip",
+          "08 現代金融",
+          272,
+          383,
+          16612,
+          16649
+        ],
+        [
+          ".chronicle-nav .chip",
+          "09 信息革命",
+          391,
+          502,
+          16612,
+          16649
+        ],
+        [
+          ".chronicle-nav .chip",
+          "10 本世紀",
+          510,
+          606,
+          16612,
+          16649
+        ]
+      ],
+      "errors": [
+        "TypeError: Cannot read properties of null (reading 'classList')",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "chronicle-390-light": {
+      "metrics": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "seScrollWidth": 390,
+        "innerWidth": 390,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".chronicle-nav .chip",
+            "卷一 古",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷二 今",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷三 未來",
+            94,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "功率的儲存與維修",
+            154,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "複製與校驗",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "度量的互通",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".chapter-band a",
+            "總覽展望",
+            52,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F1 能量宜居",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F2 信息可信",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F3 制度協作",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F4 生物譜系",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F5 技術能力階",
+            83,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F6 生存風險",
+            70,
+            21
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            360,
+            358
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "ARTICLE.civ-article",
+            546,
+            358
+          ],
+          [
+            "NAV.chronicle-nav",
+            1154,
+            358
+          ],
+          [
+            "NAV.chronicle-nav",
+            382,
+            358
+          ],
+          [
+            "NAV.chronicle-nav",
+            573,
+            326
+          ],
+          [
+            "NAV.chronicle-nav",
+            573,
+            326
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 0,
+          "caseAxis": 0,
+          "axisTitle": 0,
+          "deepAxis": 0,
+          "axisCta": 0,
+          "slice": 0,
+          "volumeCard": 0,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 3,
+          "stageAnchors": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "chAncient": 1,
+          "chNow": 1,
+          "chFuture": 1
+        }
+      },
+      "collisions": [],
+      "clips": [
+        [
+          ".chronicle-nav .chip",
+          "04 古典帝國",
+          358,
+          469,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "05 跨區交流",
+          477,
+          589,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "06 科學啟蒙",
+          597,
+          708,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "07 工業革命",
+          716,
+          827,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "08 現代金融",
+          835,
+          947,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "09 信息革命",
+          955,
+          1066,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "10 本世紀",
+          1074,
+          1170,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "度量的互通",
+          292,
+          398,
+          1211,
+          1248
+        ],
+        [
+          ".chronicle-nav .chip",
+          "03 城市與文字",
+          239,
+          366,
+          1543,
+          1580
+        ],
+        [
+          ".chronicle-nav .chip",
+          "04 古典帝國",
+          374,
+          485,
+          1543,
+          1580
+        ],
+        [
+          ".chronicle-nav .chip",
+          "05 跨區交流",
+          493,
+          605,
+          1543,
+          1580
+        ],
+        [
+          ".chronicle-nav .chip",
+          "08 現代金融",
+          271,
+          382,
+          16189,
+          16226
+        ],
+        [
+          ".chronicle-nav .chip",
+          "09 信息革命",
+          390,
+          501,
+          16189,
+          16226
+        ],
+        [
+          ".chronicle-nav .chip",
+          "10 本世紀",
+          509,
+          605,
+          16189,
+          16226
+        ]
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "chronicle-390-dark": {
+      "metrics": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "seScrollWidth": 390,
+        "innerWidth": 390,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 16,
+          "right": 120,
+          "width": 104
+        },
+        "touch": [
+          [
+            ".chronicle-nav .chip",
+            "卷一 古",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷二 今",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷三 未來",
+            94,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "功率的儲存與維修",
+            154,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "複製與校驗",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "度量的互通",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            44,
+            36
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            44,
+            36
+          ],
+          [
+            ".chapter-band a",
+            "總覽展望",
+            52,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F1 能量宜居",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F2 信息可信",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F3 制度協作",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F4 生物譜系",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F5 技術能力階",
+            83,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F6 生存風險",
+            70,
+            21
+          ],
+          [
+            ".chrome a",
+            "",
+            104,
+            28
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            36
+          ],
+          [
+            ".chrome button",
+            "",
+            32,
+            32
+          ],
+          [
+            ".chrome button",
+            "繁",
+            32,
+            32
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            360,
+            358
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "ARTICLE.civ-article",
+            546,
+            358
+          ],
+          [
+            "NAV.chronicle-nav",
+            1154,
+            358
+          ],
+          [
+            "NAV.chronicle-nav",
+            382,
+            358
+          ],
+          [
+            "NAV.chronicle-nav",
+            573,
+            324
+          ],
+          [
+            "NAV.chronicle-nav",
+            573,
+            324
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 0,
+          "caseAxis": 0,
+          "axisTitle": 0,
+          "deepAxis": 0,
+          "axisCta": 0,
+          "slice": 0,
+          "volumeCard": 0,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 3,
+          "stageAnchors": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "chAncient": 1,
+          "chNow": 1,
+          "chFuture": 1
+        }
+      },
+      "collisions": [],
+      "clips": [
+        [
+          ".chronicle-nav .chip",
+          "04 古典帝國",
+          358,
+          469,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "05 跨區交流",
+          477,
+          589,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "06 科學啟蒙",
+          597,
+          708,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "07 工業革命",
+          716,
+          827,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "08 現代金融",
+          835,
+          947,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "09 信息革命",
+          955,
+          1066,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "10 本世紀",
+          1074,
+          1170,
+          1164,
+          1201
+        ],
+        [
+          ".chronicle-nav .chip",
+          "度量的互通",
+          292,
+          398,
+          1211,
+          1248
+        ],
+        [
+          ".chronicle-nav .chip",
+          "03 城市與文字",
+          240,
+          367,
+          1544,
+          1581
+        ],
+        [
+          ".chronicle-nav .chip",
+          "04 古典帝國",
+          375,
+          486,
+          1544,
+          1581
+        ],
+        [
+          ".chronicle-nav .chip",
+          "05 跨區交流",
+          494,
+          606,
+          1544,
+          1581
+        ],
+        [
+          ".chronicle-nav .chip",
+          "08 現代金融",
+          272,
+          383,
+          16192,
+          16229
+        ],
+        [
+          ".chronicle-nav .chip",
+          "09 信息革命",
+          391,
+          502,
+          16192,
+          16229
+        ],
+        [
+          ".chronicle-nav .chip",
+          "10 本世紀",
+          510,
+          606,
+          16192,
+          16229
+        ]
+      ],
+      "errors": [
+        "TypeError: Cannot read properties of null (reading 'classList')",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "chronicle-1280-light": {
+      "metrics": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "seScrollWidth": 1280,
+        "innerWidth": 1280,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 150,
+          "right": 248,
+          "width": 98
+        },
+        "touch": [
+          [
+            ".chronicle-nav .chip",
+            "卷一 古",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷二 今",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷三 未來",
+            94,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "功率的儲存與維修",
+            154,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "複製與校驗",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "度量的互通",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            58,
+            37
+          ],
+          [
+            ".chapter-band a",
+            "總覽展望",
+            52,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F1 能量宜居",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F2 信息可信",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F3 制度協作",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F4 生物譜系",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F5 技術能力階",
+            83,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F6 生存風險",
+            70,
+            21
+          ],
+          [
+            ".chrome a",
+            "",
+            98,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "繁",
+            40,
+            40
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            982,
+            980
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "NAV.chronicle-nav",
+            1154,
+            980
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 0,
+          "caseAxis": 0,
+          "axisTitle": 0,
+          "deepAxis": 0,
+          "axisCta": 0,
+          "slice": 0,
+          "volumeCard": 0,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 3,
+          "stageAnchors": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "chAncient": 1,
+          "chNow": 1,
+          "chFuture": 1
+        }
+      },
+      "collisions": [],
+      "clips": [
+        [
+          ".chronicle-nav .chip",
+          "09 信息革命",
+          1089,
+          1200,
+          742,
+          779
+        ],
+        [
+          ".chronicle-nav .chip",
+          "10 本世紀",
+          1208,
+          1304,
+          742,
+          779
+        ]
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    },
+    "chronicle-1280-dark": {
+      "metrics": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "seScrollWidth": 1280,
+        "innerWidth": 1280,
+        "hscroll": false,
+        "brandText": "",
+        "brandRect": {
+          "left": 150,
+          "right": 248,
+          "width": 98
+        },
+        "touch": [
+          [
+            ".chronicle-nav .chip",
+            "卷一 古",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷二 今",
+            78,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "卷三 未來",
+            94,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "功率的儲存與維修",
+            154,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "複製與校驗",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "度量的互通",
+            106,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "敗 · 齒輪裝置的中斷條件",
+            209,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "01 史前",
+            79,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "02 農業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "03 城市與文字",
+            127,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "04 古典帝國",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "05 跨區交流",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "06 科學啟蒙",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "07 工業革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "08 現代金融",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "09 信息革命",
+            111,
+            37
+          ],
+          [
+            ".chronicle-nav .chip",
+            "10 本世紀",
+            95,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "文明",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "編年",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "今天",
+            58,
+            37
+          ],
+          [
+            ".civ-nav .chip",
+            "開蒙",
+            58,
+            37
+          ],
+          [
+            ".chapter-band a",
+            "總覽展望",
+            52,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F1 能量宜居",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F2 信息可信",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F3 制度協作",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F4 生物譜系",
+            70,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F5 技術能力階",
+            83,
+            21
+          ],
+          [
+            ".chapter-band a",
+            "F6 生存風險",
+            70,
+            21
+          ],
+          [
+            ".chrome a",
+            "",
+            98,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            44,
+            40
+          ],
+          [
+            ".chrome button",
+            "",
+            40,
+            40
+          ],
+          [
+            ".chrome button",
+            "繁",
+            40,
+            40
+          ]
+        ],
+        "wide": [
+          [
+            "DIV.page",
+            982,
+            980
+          ],
+          [
+            "LABEL.sr-only",
+            32,
+            1
+          ],
+          [
+            "NAV.chronicle-nav",
+            1154,
+            980
+          ]
+        ],
+        "dom": {
+          "chronicleStrip": 0,
+          "chronicleBand": 0,
+          "axisRails": 0,
+          "patternAxis": 0,
+          "caseAxis": 0,
+          "axisTitle": 0,
+          "deepAxis": 0,
+          "axisCta": 0,
+          "slice": 0,
+          "volumeCard": 0,
+          "stageDot": 0,
+          "stageCard": 0,
+          "stageGrid": 0,
+          "chapterBand": 3,
+          "stageAnchors": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "chAncient": 1,
+          "chNow": 1,
+          "chFuture": 1
+        }
+      },
+      "collisions": [],
+      "clips": [
+        [
+          ".chronicle-nav .chip",
+          "09 信息革命",
+          1089,
+          1200,
+          742,
+          779
+        ],
+        [
+          ".chronicle-nav .chip",
+          "10 本世紀",
+          1208,
+          1304,
+          742,
+          779
+        ]
+      ],
+      "errors": [
+        "TypeError: Cannot read properties of null (reading 'classList')",
+        "Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST'))",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ]
+    }
+  }
+}
