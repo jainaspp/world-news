@@ -30,6 +30,7 @@ import { AlertRow } from './components/AlertRow';
 import { MajorBanner } from './components/MajorBanner';
 import { WeekFocus } from './components/WeekFocus';
 import { OnThisDay } from './components/OnThisDay';
+import { HeroOpening } from './components/HeroOpening';
 import { AD_SLOT_FEED, SITE_URL } from './config';
 import { usePopular } from './hooks/useBoard';
 import { useBookmarks } from './hooks/useBookmarks';
@@ -556,6 +557,7 @@ export default function App() {
           <main id="today">
             {!special && (
               <div className="civ-home">
+                {poeticAxis && <HeroOpening />}
                 <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false, rails: false }) }} />
                 <div dangerouslySetInnerHTML={{ __html: renderBulletinClock() }} />
                 <div dangerouslySetInnerHTML={{ __html: renderHomeChronicle() }} />

@@ -16,6 +16,7 @@ import { renderQuestionIndex } from './civilization/questions.js';
 import { renderNearBridge, renderSliceReturns } from './civilization/renderSlice.js';
 import { homeFacts, hktMmdd, labelMmdd, type HeritageFact } from './heritage.js';
 import { landmarkBySlug } from './heritage.js';
+import { renderHeroOpening } from './heroOpening.js';
 
 export { chronicleIndexable, chronicleProse } from './civilization/chronicle.js';
 export { cityIndexable, cityProse } from './civilization/city.js';
@@ -321,11 +322,13 @@ export function moreTodayHtml(): string {
   return `<p class="more-today"><a href="/today/">更多今日</a><span>全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。</span></p>`;
 }
 
-export function wrapCivilizationHome(inner: string, now = new Date(), topic = false, options: { pageH1?: string } = {}): string {
+export function wrapCivilizationHome(inner: string, now = new Date(), topic = false, options: { pageH1?: string; hero?: boolean } = {}): string {
   const pageH1 = options.pageH1?.trim() ?? '';
   const heading = pageH1 ? `<h1 class="focus-title">${esc(pageH1)}</h1>` : '';
+  const opening = options.hero ? renderHeroOpening() : '';
   return `${renderCivNav(topic)}
   <div class="civ-home">
+    ${opening}
     ${renderAxisBand({ asHeading: !pageH1, strip: false, rails: false })}
     ${renderBulletinClock()}
     ${renderHomeChronicle()}
