@@ -1,0 +1,56 @@
+{
+  "measuredAt": "2026-10-22",
+  "target": "production build (npm run build) served with the same homepage and civilization renderers as the Pages Functions. Not the Vite dev server.",
+  "host": "http://127.0.0.1:4173",
+  "lighthouse": {
+    "version": "12.8.2",
+    "formFactor": "mobile",
+    "throttlingMethod": "simulate",
+    "theme": "light (headless default; darkMode was not set)",
+    "inpAudit": "absent — Lighthouse 12 navigation mode does not emit interaction-to-next-paint"
+  },
+  "pages": {
+    "H": {
+      "url": "http://127.0.0.1:4173/",
+      "performanceScore": 0.63,
+      "lcpMs": 16036,
+      "lcpDisplay": "16.0 s",
+      "lcpElement": "span.hero-main",
+      "lcpNote": "97% render delay. The opening hero keeps lines at opacity 0 until the reveal.",
+      "cls": 0.003,
+      "inpMs": null,
+      "inpSource": "not in the Lighthouse navigation report",
+      "labClick": {
+        "inpMs": 40,
+        "event": "pointerdown",
+        "target": ".search-toggle",
+        "conditions": "360x800, CPU 4x, approximate Slow 4G, one trusted click"
+      },
+      "reports": [
+        "lighthouse-home-mobile.report.json",
+        "lighthouse-home-mobile.report.html"
+      ]
+    },
+    "C": {
+      "url": "http://127.0.0.1:4173/civilization/",
+      "performanceScore": 0.75,
+      "lcpMs": 5627,
+      "lcpDisplay": "5.6 s",
+      "lcpElement": "div.axis-vignette",
+      "lcpNote": "83% render delay on the axis background layer.",
+      "cls": 0.015,
+      "inpMs": null,
+      "inpSource": "not in the Lighthouse navigation report",
+      "labClick": {
+        "inpMs": 56,
+        "event": "pointerup",
+        "target": ".line-filter .chip",
+        "conditions": "360x800, CPU 4x, approximate Slow 4G, one trusted click"
+      },
+      "reports": [
+        "lighthouse-civ-mobile.report.json",
+        "lighthouse-civ-mobile.report.html"
+      ]
+    }
+  }
+}

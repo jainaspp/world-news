@@ -60,7 +60,8 @@
   --brass-ink-fill: #a18256;
   --brass-on-paper: #7a5a32;
   --civ-stack: 20px;
-  --civ-type-kicker: 0.6875rem;
+  /* P1-MIN-FONT: non-decorative text floors at 12px. */
+  --civ-type-kicker: 0.75rem;
   --civ-type-meta: 0.75rem;
   --civ-type-body: 0.875rem;
   --civ-type-title: 1.05rem;
@@ -179,7 +180,7 @@ a.chip { color: inherit; text-decoration: none; }
 .icon-btn:disabled { opacity: 0.6; cursor: progress; }
 .count-badge {
   position: absolute; top: 2px; right: 2px; min-width: 16px; height: 16px; padding: 0 4px;
-  border-radius: var(--radius-pill); background: var(--color-breaking); color: #fff; font-size: 10px; line-height: 16px;
+  border-radius: var(--radius-pill); background: var(--color-breaking); color: #fff; font-size: 12px; line-height: 16px;
 }
 
 .tab-bar { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); min-width: 0; }
@@ -250,7 +251,7 @@ a.chip { color: inherit; text-decoration: none; }
 .story-compact .story-media { flex: none; width: 112px; }
 .story-compact .story-media { max-height: 72px; aspect-ratio: 16 / 9; }
 .story-compact .thumb, .story-compact .thumb-fallback { width: 112px; height: 100%; max-height: 72px; min-height: 0; }
-.story-compact .thumb-source { font-size: 0.68rem; }
+.story-compact .thumb-source { font-size: 0.75rem; }
 .story-compact .story-body { padding: 8px 10px; gap: 4px; }
 .story-compact .story-title { font-size: 15px; line-height: 1.45; -webkit-line-clamp: 2; }
 .story-compact .region-icon-lg { width: 28px; height: 28px; }
@@ -282,7 +283,7 @@ a.chip { color: inherit; text-decoration: none; }
 .ad-slot-banner { min-height: 90px; }
 .ad-slot-feed { min-height: 280px; grid-column: 1 / -1; }
 .ad-slot-sidebar { width: 300px; max-width: 100%; min-height: 600px; height: 600px; }
-.ad-label { position: absolute; top: 8px; left: 10px; z-index: 1; font-size: 11px; line-height: 1.2; color: var(--muted); }
+.ad-label { position: absolute; top: 8px; left: 10px; z-index: 1; font-size: 12px; line-height: 1.2; color: var(--muted); }
 .ad-placeholder { margin: 0; font-size: 0.95rem; color: var(--muted); }
 .ad-slot .adsbygoogle { display: block; position: absolute; inset: 0; width: 100%; min-height: inherit; }
 .page:has(.install-banner) .ad-slot { position: relative; bottom: auto; }
@@ -378,7 +379,7 @@ a.chip { color: inherit; text-decoration: none; }
   .news-grid:not(.related-grid) .thumb-fallback {
     width: 112px; height: 112px; max-width: 112px; max-height: 112px; min-height: 0; object-fit: cover;
   }
-  .news-grid .thumb-source { font-size: 0.68rem; }
+  .news-grid .thumb-source { font-size: 0.75rem; }
   .news-grid .story-body { padding: 8px 10px; gap: 4px; min-width: 0; }
   .news-grid .story-title { font-size: 16px; line-height: 1.45; -webkit-line-clamp: 3; }
   .news-grid .region-icon-lg { width: 28px; height: 28px; }
@@ -610,7 +611,7 @@ a.cluster-link:hover { border-color: var(--accent); }
 .follow-chip { font-size: 0.85rem; }
 .chip-badge {
   margin-left: 4px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: var(--radius-pill);
-  background: var(--color-breaking); color: #fff; font-size: 10px; line-height: 16px;
+  background: var(--color-breaking); color: #fff; font-size: 12px; line-height: 16px;
 }
 .column-weather, .column-hsi { margin: 8px 0 0; }
 .ssr-home { padding-top: var(--space-3); }
@@ -1247,7 +1248,7 @@ html.dark .year-seal {
 .otd-caption { margin: 0; font-family: var(--font-serif); font-size: 13px; color: var(--otd-muted); line-height: 1.45; }
 .otd-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: auto; }
 .tag-cat {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--otd-muted);
   padding: 3px 8px;
@@ -1267,7 +1268,7 @@ html.dark .year-seal {
   border: 1px solid color-mix(in srgb, var(--otd-line) 65%, var(--color-primary) 35%);
   text-decoration: none;
 }
-.landmark-chip::before { content: "⌖"; font-size: 11px; }
+.landmark-chip::before { content: "⌖"; font-size: 12px; }
 .heritage-page .crumb { font-size: 13px; color: var(--otd-muted); margin: 14px 0; }
 .heritage-page .crumb a { font-weight: 600; }
 .day-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 16px 0; }
@@ -1718,7 +1719,7 @@ a.axis-node:hover { color: #f7f1e6; }
   place-items: center;
   text-align: center;
   line-height: 1.1;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
 }
 .pin-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; font-size: 13px; font-weight: 700; }
@@ -1906,7 +1907,7 @@ a.axis-node:hover { color: #f7f1e6; }
   border: 1px solid #9a7b4f;
   background: #f7f1e6;
   color: #161c24;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1;
 }
@@ -2326,7 +2327,7 @@ a.stage-cover { text-decoration: none; }
   border: 1px solid #9a7b4f;
   background: #f7f1e6;
   color: #161c24;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1;
 }
@@ -2374,7 +2375,7 @@ a.stage-cover { text-decoration: none; }
 }
 .line-filter-count {
   color: inherit;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   line-height: 1.2;
@@ -2511,7 +2512,7 @@ a.stage-cover { text-decoration: none; }
   border: 1px solid #9a7b4f;
   background: #f7f1e6;
   color: #161c24;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   vertical-align: 1px;
 }
@@ -2584,7 +2585,7 @@ a.stage-cover { text-decoration: none; }
 .cosmo-hero .kicker,
 .earth-hero .kicker {
   margin: 0 0 6px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -2781,7 +2782,7 @@ a.question-line:hover { text-decoration: underline; }
   border-radius: 999px;
   border: 1px solid #161c24;
   color: #161c24;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
 }
 .future-cover {
@@ -2813,7 +2814,7 @@ a.question-line:hover { text-decoration: underline; }
   border: 1px solid #161c24;
   background: #f7f1e6;
   color: #161c24;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1.4;
 }
@@ -2835,7 +2836,7 @@ a.question-line:hover { text-decoration: underline; }
   border-radius: 999px;
   border: 1px solid #161c24;
   color: #161c24;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
 }
 @media (min-width: 720px) {
@@ -2978,7 +2979,7 @@ a.question-line:hover { text-decoration: underline; }
   align-items: center;
   width: max-content;
   max-width: 5em;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.15;
   font-weight: 700;
   text-align: center;
@@ -3120,7 +3121,7 @@ a.question-line:hover { text-decoration: underline; }
 .tech-hero .kicker,
 .city-hero .kicker {
   margin: 0 0 6px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -3197,7 +3198,7 @@ a.question-line:hover { text-decoration: underline; }
   .axis-hero { min-width: 0; }
   .axis-title,
   .axis-lede { max-width: 100%; overflow-wrap: break-word; }
-  .axis-node { font-size: 11px; }
+  .axis-node { font-size: 12px; }
   .deep-axis {
     max-width: 100%;
     overflow-x: auto;
@@ -3722,7 +3723,7 @@ html.dark .civ-progress { background: #c4a572; }
 .hero-line .hero-aside {
   display: block;
   margin-top: 0.1em;
-  font-size: 0.82em;
+  font-size: max(12px, 0.82em);
   color: #a8b0ba;
 }
 /* Playing state hides unrevealed lines with opacity only, so the full text

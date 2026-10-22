@@ -1,0 +1,132 @@
+{
+  "note": "One trusted click (CDP Input) on the production SSR server after npm run build. CPU 4x and an approximate Slow 4G pipe. This is a lab proxy for INP, not a field 98th percentile and not a real device. Lighthouse navigation JSON is separate and is the source for the simulated mobile LCP/CLS score.",
+  "measuredAt": "2026-10-22",
+  "pages": [
+    {
+      "page": "H",
+      "url": "http://127.0.0.1:4173/",
+      "theme": "light",
+      "viewport": "360x800 mobile emulation",
+      "cpuThrottle": 4,
+      "network": "approximate Slow 4G: latency 150ms, down 1.6Mbps, up 750Kbps",
+      "lcpMs": 2512,
+      "cls": 0.3296,
+      "inpMs": 40,
+      "inpEvent": "pointerdown",
+      "click": "icon-btn search-toggle",
+      "events": [
+        {
+          "name": "pointerover",
+          "duration": 24
+        },
+        {
+          "name": "pointerenter",
+          "duration": 24
+        },
+        {
+          "name": "pointerenter",
+          "duration": 24
+        },
+        {
+          "name": "pointerenter",
+          "duration": 24
+        },
+        {
+          "name": "pointerenter",
+          "duration": 24
+        },
+        {
+          "name": "pointerenter",
+          "duration": 24
+        },
+        {
+          "name": "pointerenter",
+          "duration": 24
+        },
+        {
+          "name": "pointerenter",
+          "duration": 24
+        },
+        {
+          "name": "pointerenter",
+          "duration": 24
+        },
+        {
+          "name": "pointerenter",
+          "duration": 24
+        },
+        {
+          "name": "pointerenter",
+          "duration": 24
+        },
+        {
+          "name": "mouseover",
+          "duration": 24
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "url": "http://127.0.0.1:4173/civilization/",
+      "theme": "light",
+      "viewport": "360x800 mobile emulation",
+      "cpuThrottle": 4,
+      "network": "approximate Slow 4G: latency 150ms, down 1.6Mbps, up 750Kbps",
+      "lcpMs": 560,
+      "cls": 0,
+      "inpMs": 56,
+      "inpEvent": "pointerup",
+      "click": "chip",
+      "events": [
+        {
+          "name": "pointerover",
+          "duration": 48
+        },
+        {
+          "name": "pointerenter",
+          "duration": 48
+        },
+        {
+          "name": "pointerenter",
+          "duration": 48
+        },
+        {
+          "name": "pointerenter",
+          "duration": 48
+        },
+        {
+          "name": "pointerenter",
+          "duration": 48
+        },
+        {
+          "name": "pointerenter",
+          "duration": 48
+        },
+        {
+          "name": "pointerenter",
+          "duration": 48
+        },
+        {
+          "name": "pointerenter",
+          "duration": 48
+        },
+        {
+          "name": "pointerenter",
+          "duration": 48
+        },
+        {
+          "name": "pointerenter",
+          "duration": 48
+        },
+        {
+          "name": "pointerenter",
+          "duration": 48
+        },
+        {
+          "name": "mouseover",
+          "duration": 48
+        }
+      ]
+    }
+  ]
+}
