@@ -1,0 +1,795 @@
+{
+  "method": "Specified #c4a572 or computed color against the median of crop pixels farther than 45 from that color. Year labels were re-cropped from the viewport after scrollIntoView because a document-space clip missed nested horizontal scroll.",
+  "rows": [
+    {
+      "id": "yr-civ-~138億",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "~138億",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-civ-390-dark-yr-live-0.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-civ-~40億",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "~40億",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-civ-390-dark-yr-live-1.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-civ-~300ka",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "~300ka",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-civ-390-dark-yr-live-2.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-civ-發現",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "發現",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-civ-390-dark-yr-live-3.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-civ-基建",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "基建",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-civ-390-dark-yr-live-4.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-civ-切片",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "切片",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-civ-390-dark-yr-live-5.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-civ-展望",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "展望",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-civ-390-dark-yr-live-6.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-home-~138億",
+      "page": "H",
+      "vp": 390,
+      "theme": "dark",
+      "label": "~138億",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-390-dark-yr-live-0.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-home-~40億",
+      "page": "H",
+      "vp": 390,
+      "theme": "dark",
+      "label": "~40億",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-390-dark-yr-live-1.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-home-~300ka",
+      "page": "H",
+      "vp": 390,
+      "theme": "dark",
+      "label": "~300ka",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-390-dark-yr-live-2.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-home-發現",
+      "page": "H",
+      "vp": 390,
+      "theme": "dark",
+      "label": "發現",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-390-dark-yr-live-3.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-home-基建",
+      "page": "H",
+      "vp": 390,
+      "theme": "dark",
+      "label": "基建",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-390-dark-yr-live-4.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-home-切片",
+      "page": "H",
+      "vp": 390,
+      "theme": "dark",
+      "label": "切片",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-390-dark-yr-live-5.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "yr-home-展望",
+      "page": "H",
+      "vp": 390,
+      "theme": "dark",
+      "label": "展望",
+      "fg": "#c4a572",
+      "bgMedian": "#161c24",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 7.32,
+      "pad": [
+        22,
+        28,
+        36
+      ],
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-390-dark-yr-live-6.png",
+      "method": "viewport crop after scrollIntoView; median of pixels >45 from #c4a572"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark-lab-0",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "宇宙",
+      "fg": "rgb(197, 192, 182)",
+      "bg": [
+        53,
+        53,
+        52
+      ],
+      "ratio": 6.78,
+      "ratio80": 6.78,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark-lab-0.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark-lab-1",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "地球",
+      "fg": "rgb(197, 192, 182)",
+      "bg": [
+        57,
+        55,
+        52
+      ],
+      "ratio": 6.55,
+      "ratio80": 6.55,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark-lab-1.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark-lab-2",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "起源",
+      "fg": "rgb(197, 192, 182)",
+      "bg": [
+        60,
+        57,
+        53
+      ],
+      "ratio": 6.34,
+      "ratio80": 6.34,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark-lab-2.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark-lab-3",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "技術",
+      "fg": "rgb(197, 192, 182)",
+      "bg": [
+        56,
+        55,
+        52
+      ],
+      "ratio": 6.57,
+      "ratio80": 6.57,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark-lab-3.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark-lab-4",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "城市",
+      "fg": "rgb(197, 192, 182)",
+      "bg": [
+        60,
+        57,
+        53
+      ],
+      "ratio": 6.34,
+      "ratio80": 6.34,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark-lab-4.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark-lab-5",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "今天",
+      "fg": "rgb(197, 192, 182)",
+      "bg": [
+        60,
+        57,
+        53
+      ],
+      "ratio": 6.34,
+      "ratio80": 6.34,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark-lab-5.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark-lab-6",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "未來",
+      "fg": "rgb(197, 192, 182)",
+      "bg": [
+        61,
+        58,
+        53
+      ],
+      "ratio": 6.25,
+      "ratio80": 6.25,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark-lab-6.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark--axis-title",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "站在一條很長的時間軸上",
+      "fg": "rgb(247, 241, 230)",
+      "bg": [
+        38,
+        40,
+        43
+      ],
+      "ratio": 13.15,
+      "ratio80": 13.15,
+      "need": 3.0,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark--axis-title.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark--axis-lede",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀",
+      "fg": "rgb(197, 192, 182)",
+      "bg": [
+        43,
+        45,
+        46
+      ],
+      "ratio": 7.64,
+      "ratio80": 7.71,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark--axis-lede.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark--axis-hero-kicker",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "Human span · 溫和史",
+      "fg": "rgb(196, 165, 114)",
+      "bg": [
+        35,
+        38,
+        41
+      ],
+      "ratio": 6.5,
+      "ratio80": 6.5,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark--axis-hero-kicker.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark--axis-cta-btn-brass",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "閱讀人類起源",
+      "fg": "rgb(22, 28, 36)",
+      "bg": [
+        161,
+        130,
+        86
+      ],
+      "ratio": 4.77,
+      "ratio80": 4.77,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark--axis-cta-btn-brass.png"
+    },
+    {
+      "id": "2026-10-22-civ-390-dark--axis-cta-btn-ghost",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "label": "跳到今日切片",
+      "fg": "rgb(232, 228, 220)",
+      "bg": [
+        66,
+        61,
+        55
+      ],
+      "ratio": 8.47,
+      "ratio80": 8.47,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-390-dark--axis-cta-btn-ghost.png"
+    },
+    {
+      "id": "2026-10-22-home-360-dark-clock-seconds",
+      "page": "H",
+      "vp": 360,
+      "theme": "dark",
+      "label": "29秒",
+      "fg": "rgb(183, 177, 166)",
+      "bg": [
+        27,
+        37,
+        40
+      ],
+      "ratio": 7.34,
+      "ratio80": 8.04,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-home-360-dark-clock-seconds.png"
+    },
+    {
+      "id": "2026-10-22-home-360-light-clock-seconds",
+      "page": "H",
+      "vp": 360,
+      "theme": "light",
+      "label": "29秒",
+      "fg": "rgb(110, 103, 92)",
+      "bg": [
+        242,
+        234,
+        225
+      ],
+      "ratio": 4.69,
+      "ratio80": 4.97,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-home-360-light-clock-seconds.png"
+    },
+    {
+      "id": "2026-10-22-home-360-dark-more-today",
+      "page": "H",
+      "vp": 360,
+      "theme": "dark",
+      "label": "全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。",
+      "fg": "rgb(201, 211, 223)",
+      "bg": [
+        14,
+        20,
+        28
+      ],
+      "ratio": 12.21,
+      "ratio80": 12.21,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-home-360-dark-more-today.png"
+    },
+    {
+      "id": "2026-10-22-civ-360-dark-figcaption",
+      "page": "C",
+      "vp": 360,
+      "theme": "dark",
+      "label": "功率的儲存與維修 · 紙感 · 約數",
+      "fg": "rgb(210, 196, 176)",
+      "bg": [
+        42,
+        35,
+        27
+      ],
+      "ratio": 9.05,
+      "ratio80": 9.05,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-360-dark-figcaption.png"
+    },
+    {
+      "id": "2026-10-22-learn-360-dark-learn-bearings",
+      "page": "L",
+      "vp": 360,
+      "theme": "dark",
+      "label": "符號與語言抽象結構物質與自然世界與人文感知與身體跨域工具",
+      "fg": "rgb(201, 211, 223)",
+      "bg": [
+        18,
+        24,
+        32
+      ],
+      "ratio": 11.78,
+      "ratio80": 11.78,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-learn-360-dark-learn-bearings.png"
+    },
+    {
+      "id": "2026-10-22-learn-360-dark-learn-progress",
+      "page": "L",
+      "vp": 360,
+      "theme": "dark",
+      "label": "本機尚未記下進度。",
+      "fg": "rgb(201, 211, 223)",
+      "bg": [
+        18,
+        24,
+        32
+      ],
+      "ratio": 11.78,
+      "ratio80": 11.78,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-learn-360-dark-learn-progress.png"
+    },
+    {
+      "id": "2026-10-22-learn-360-dark-learn-bound",
+      "page": "L",
+      "vp": 360,
+      "theme": "dark",
+      "label": "敘事見文明軸。今日事件見懶人包。此處是能力樹。",
+      "fg": "rgb(201, 211, 223)",
+      "bg": [
+        18,
+        24,
+        32
+      ],
+      "ratio": 11.78,
+      "ratio80": 11.78,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-learn-360-dark-learn-bound.png"
+    },
+    {
+      "id": "2026-10-22-learn-locked-360-dark-learn-locked",
+      "page": "Lk",
+      "vp": 360,
+      "theme": "dark",
+      "label": "物質之門在萬有地圖的「物質與自然」。此路尚未開啓。",
+      "fg": "rgb(201, 211, 223)",
+      "bg": [
+        18,
+        24,
+        32
+      ],
+      "ratio": 11.78,
+      "ratio80": 11.78,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-learn-locked-360-dark-learn-locked.png"
+    },
+    {
+      "id": "2026-10-22-learn-360-dark-nav-more",
+      "page": "L",
+      "vp": 360,
+      "theme": "dark",
+      "label": "更多",
+      "fg": "rgb(232, 228, 220)",
+      "bg": [
+        18,
+        24,
+        32
+      ],
+      "ratio": 14.07,
+      "ratio80": 14.07,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-learn-360-dark-nav-more.png"
+    },
+    {
+      "id": "2026-10-22-learn-768-dark-nav-more",
+      "page": "L",
+      "vp": 768,
+      "theme": "dark",
+      "label": "更多",
+      "fg": "rgb(201, 211, 223)",
+      "bg": [
+        14,
+        19,
+        28
+      ],
+      "ratio": 12.29,
+      "ratio80": 12.29,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-learn-768-dark-nav-more.png"
+    },
+    {
+      "id": "2026-10-22-chronicle-360-light-future-link",
+      "page": "N",
+      "vp": 360,
+      "theme": "light",
+      "label": "總覽展望",
+      "fg": "rgb(158, 192, 239)",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 9.17,
+      "ratio80": 9.17,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-chronicle-360-light-future-link.png"
+    },
+    {
+      "id": "2026-10-22-chronicle-360-dark-future-link",
+      "page": "N",
+      "vp": 360,
+      "theme": "dark",
+      "label": "總覽展望",
+      "fg": "rgb(158, 192, 239)",
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "ratio": 9.17,
+      "ratio80": 9.17,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-chronicle-360-dark-future-link.png"
+    },
+    {
+      "id": "2026-10-22-home-360-dark-brand",
+      "page": "H",
+      "vp": 360,
+      "theme": "dark",
+      "label": "brand",
+      "fg": "rgb(243, 246, 250)",
+      "bg": [
+        14,
+        19,
+        28
+      ],
+      "ratio": 17.17,
+      "ratio80": 17.17,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-home-360-dark-brand.png"
+    },
+    {
+      "id": "2026-10-22-civ-360-dark-brand",
+      "page": "C",
+      "vp": 360,
+      "theme": "dark",
+      "label": "brand",
+      "fg": "rgb(243, 246, 250)",
+      "bg": [
+        14,
+        19,
+        28
+      ],
+      "ratio": 17.17,
+      "ratio80": 17.17,
+      "need": 4.5,
+      "pass": true,
+      "file": "shots/2026-10-22-civ-360-dark-brand.png"
+    }
+  ]
+}

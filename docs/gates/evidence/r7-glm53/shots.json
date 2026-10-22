@@ -1,0 +1,882 @@
+[
+  {
+    "base": "2026-10-22-home-360-light",
+    "mode": "full",
+    "height": 6873,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-home-360-light-full-p1.png",
+        "bytes": 829684,
+        "width": 360,
+        "height": 6873
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-home-360-light",
+    "mode": "mid",
+    "file": "shots/2026-10-22-home-360-light-mid.png",
+    "bytes": 84328,
+    "width": 360,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-360-light",
+    "mode": "tail",
+    "file": "shots/2026-10-22-home-360-light-tail.png",
+    "bytes": 111011,
+    "width": 360,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-390-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-390-light-top.png",
+    "bytes": 129177,
+    "width": 390,
+    "height": 844
+  },
+  {
+    "base": "2026-10-22-home-414-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-414-light-top.png",
+    "bytes": 132438,
+    "width": 414,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-768-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-768-light-top.png",
+    "bytes": 338029,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-home-768-light",
+    "mode": "mid",
+    "file": "shots/2026-10-22-home-768-light-mid.png",
+    "bytes": 160304,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-home-768-light",
+    "mode": "tail",
+    "file": "shots/2026-10-22-home-768-light-tail.png",
+    "bytes": 192245,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-home-1024-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-1024-light-top.png",
+    "bytes": 254301,
+    "width": 1024,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-1280-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-1280-light-top.png",
+    "bytes": 293231,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-1280-light",
+    "mode": "mid",
+    "file": "shots/2026-10-22-home-1280-light-mid.png",
+    "bytes": 106403,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-1280-light",
+    "mode": "tail",
+    "file": "shots/2026-10-22-home-1280-light-tail.png",
+    "bytes": 192590,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-1440-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-1440-light-top.png",
+    "bytes": 316676,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "base": "2026-10-22-civ-360-light",
+    "mode": "full",
+    "height": 27680,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-civ-360-light-full-p1.png",
+        "bytes": 1070977,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-civ-360-light-full-p2.png",
+        "bytes": 20859,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-civ-360-light-full-p3.png",
+        "bytes": 424644,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-civ-360-light-full-p4.png",
+        "bytes": 801223,
+        "width": 360,
+        "height": 6680
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-civ-360-light",
+    "mode": "mid",
+    "file": "shots/2026-10-22-civ-360-light-mid.png",
+    "bytes": 2534,
+    "width": 360,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-360-light",
+    "mode": "tail",
+    "file": "shots/2026-10-22-civ-360-light-tail.png",
+    "bytes": 58066,
+    "width": 360,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-390-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-390-light-top.png",
+    "bytes": 242536,
+    "width": 390,
+    "height": 844
+  },
+  {
+    "base": "2026-10-22-civ-414-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-414-light-top.png",
+    "bytes": 253791,
+    "width": 414,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-768-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-768-light-top.png",
+    "bytes": 647522,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-civ-768-light",
+    "mode": "mid",
+    "file": "shots/2026-10-22-civ-768-light-mid.png",
+    "bytes": 4627,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-civ-768-light",
+    "mode": "tail",
+    "file": "shots/2026-10-22-civ-768-light-tail.png",
+    "bytes": 67930,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-civ-1024-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-1024-light-top.png",
+    "bytes": 487095,
+    "width": 1024,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-1280-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-1280-light-top.png",
+    "bytes": 591797,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-1280-light",
+    "mode": "mid",
+    "file": "shots/2026-10-22-civ-1280-light-mid.png",
+    "bytes": 4746,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-1280-light",
+    "mode": "tail",
+    "file": "shots/2026-10-22-civ-1280-light-tail.png",
+    "bytes": 60909,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-1440-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-1440-light-top.png",
+    "bytes": 709055,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "base": "2026-10-22-chronicle-360-light",
+    "mode": "full",
+    "height": 40995,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-chronicle-360-light-full-p1.png",
+        "bytes": 622906,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-chronicle-360-light-full-p2.png",
+        "bytes": 20294,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-chronicle-360-light-full-p3.png",
+        "bytes": 58899,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-chronicle-360-light-full-p4.png",
+        "bytes": 20294,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-chronicle-360-light-full-p5.png",
+        "bytes": 271345,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-chronicle-360-light-full-p6.png",
+        "bytes": 395333,
+        "width": 360,
+        "height": 5995
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-chronicle-390-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-chronicle-390-light-top.png",
+    "bytes": 121916,
+    "width": 390,
+    "height": 844
+  },
+  {
+    "base": "2026-10-22-chronicle-768-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-chronicle-768-light-top.png",
+    "bytes": 222475,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-chronicle-1280-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-chronicle-1280-light-top.png",
+    "bytes": 206484,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-chronicle-1440-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-chronicle-1440-light-top.png",
+    "bytes": 220348,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "base": "2026-10-22-learn-360-light",
+    "mode": "full",
+    "height": 2359,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-learn-360-light-full-p1.png",
+        "bytes": 168457,
+        "width": 360,
+        "height": 2359
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-learn-390-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-learn-390-light-top.png",
+    "bytes": 66922,
+    "width": 390,
+    "height": 844
+  },
+  {
+    "base": "2026-10-22-learn-768-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-learn-768-light-top.png",
+    "bytes": 121268,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-learn-1280-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-learn-1280-light-top.png",
+    "bytes": 87522,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-learn-1440-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-learn-1440-light-top.png",
+    "bytes": 98158,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "base": "2026-10-22-news-360-light",
+    "mode": "full",
+    "height": 1936,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-news-360-light-full-p1.png",
+        "bytes": 277564,
+        "width": 360,
+        "height": 1936
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-news-390-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-390-light-top.png",
+    "bytes": 160921,
+    "width": 390,
+    "height": 844
+  },
+  {
+    "base": "2026-10-22-news-768-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-768-light-top.png",
+    "bytes": 278841,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-news-1280-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-1280-light-top.png",
+    "bytes": 295376,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-news-1440-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-1440-light-top.png",
+    "bytes": 304439,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "base": "2026-10-22-news-plain-360-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-plain-360-light-top.png",
+    "bytes": 95961,
+    "width": 360,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-news-plain-1280-light",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-plain-1280-light-top.png",
+    "bytes": 178895,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-360-dark",
+    "mode": "full",
+    "height": 6873,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-home-360-dark-full-p1.png",
+        "bytes": 829114,
+        "width": 360,
+        "height": 6873
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-home-360-dark",
+    "mode": "mid",
+    "file": "shots/2026-10-22-home-360-dark-mid.png",
+    "bytes": 84652,
+    "width": 360,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-360-dark",
+    "mode": "tail",
+    "file": "shots/2026-10-22-home-360-dark-tail.png",
+    "bytes": 112841,
+    "width": 360,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-390-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-390-dark-top.png",
+    "bytes": 129546,
+    "width": 390,
+    "height": 844
+  },
+  {
+    "base": "2026-10-22-home-414-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-414-dark-top.png",
+    "bytes": 132965,
+    "width": 414,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-768-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-768-dark-top.png",
+    "bytes": 332135,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-home-768-dark",
+    "mode": "mid",
+    "file": "shots/2026-10-22-home-768-dark-mid.png",
+    "bytes": 160976,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-home-768-dark",
+    "mode": "tail",
+    "file": "shots/2026-10-22-home-768-dark-tail.png",
+    "bytes": 195501,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-home-1024-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-1024-dark-top.png",
+    "bytes": 256205,
+    "width": 1024,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-1280-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-1280-dark-top.png",
+    "bytes": 286895,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-1280-dark",
+    "mode": "mid",
+    "file": "shots/2026-10-22-home-1280-dark-mid.png",
+    "bytes": 106512,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-1280-dark",
+    "mode": "tail",
+    "file": "shots/2026-10-22-home-1280-dark-tail.png",
+    "bytes": 195882,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-home-1440-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-home-1440-dark-top.png",
+    "bytes": 318676,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "base": "H",
+    "mode": "land",
+    "file": "shots/2026-10-22-home-640x360-dark-land.png",
+    "bytes": 90629,
+    "width": 640,
+    "height": 360
+  },
+  {
+    "base": "2026-10-22-civ-360-dark",
+    "mode": "full",
+    "height": 27680,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-civ-360-dark-full-p1.png",
+        "bytes": 1054178,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-civ-360-dark-full-p2.png",
+        "bytes": 20859,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-civ-360-dark-full-p3.png",
+        "bytes": 425150,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-civ-360-dark-full-p4.png",
+        "bytes": 794452,
+        "width": 360,
+        "height": 6680
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-civ-360-dark",
+    "mode": "mid",
+    "file": "shots/2026-10-22-civ-360-dark-mid.png",
+    "bytes": 2533,
+    "width": 360,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-360-dark",
+    "mode": "tail",
+    "file": "shots/2026-10-22-civ-360-dark-tail.png",
+    "bytes": 57986,
+    "width": 360,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-390-dark",
+    "mode": "full",
+    "height": 27082,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-civ-390-dark-full-p1.png",
+        "bytes": 1121030,
+        "width": 390,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-civ-390-dark-full-p2.png",
+        "bytes": 22610,
+        "width": 390,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-civ-390-dark-full-p3.png",
+        "bytes": 502114,
+        "width": 390,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-civ-390-dark-full-p4.png",
+        "bytes": 749100,
+        "width": 390,
+        "height": 6082
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-civ-414-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-414-dark-top.png",
+    "bytes": 244582,
+    "width": 414,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-768-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-768-dark-top.png",
+    "bytes": 626801,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-civ-768-dark",
+    "mode": "mid",
+    "file": "shots/2026-10-22-civ-768-dark-mid.png",
+    "bytes": 4626,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-civ-768-dark",
+    "mode": "tail",
+    "file": "shots/2026-10-22-civ-768-dark-tail.png",
+    "bytes": 67784,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-civ-1024-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-1024-dark-top.png",
+    "bytes": 459894,
+    "width": 1024,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-1280-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-1280-dark-top.png",
+    "bytes": 555433,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-1280-dark",
+    "mode": "mid",
+    "file": "shots/2026-10-22-civ-1280-dark-mid.png",
+    "bytes": 4746,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-1280-dark",
+    "mode": "tail",
+    "file": "shots/2026-10-22-civ-1280-dark-tail.png",
+    "bytes": 60769,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-civ-1440-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-civ-1440-dark-top.png",
+    "bytes": 672529,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "base": "C",
+    "mode": "land",
+    "file": "shots/2026-10-22-civ-640x360-dark-land.png",
+    "bytes": 117823,
+    "width": 640,
+    "height": 360
+  },
+  {
+    "base": "2026-10-22-chronicle-360-dark",
+    "mode": "full",
+    "height": 41001,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-chronicle-360-dark-full-p1.png",
+        "bytes": 604966,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-chronicle-360-dark-full-p2.png",
+        "bytes": 20295,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-chronicle-360-dark-full-p3.png",
+        "bytes": 58498,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-chronicle-360-dark-full-p4.png",
+        "bytes": 20295,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-chronicle-360-dark-full-p5.png",
+        "bytes": 273975,
+        "width": 360,
+        "height": 7000
+      },
+      {
+        "file": "shots/2026-10-22-chronicle-360-dark-full-p6.png",
+        "bytes": 402969,
+        "width": 360,
+        "height": 6001
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-chronicle-390-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-chronicle-390-dark-top.png",
+    "bytes": 122400,
+    "width": 390,
+    "height": 844
+  },
+  {
+    "base": "2026-10-22-chronicle-768-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-chronicle-768-dark-top.png",
+    "bytes": 223740,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-chronicle-1280-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-chronicle-1280-dark-top.png",
+    "bytes": 208001,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-chronicle-1440-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-chronicle-1440-dark-top.png",
+    "bytes": 221429,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "base": "2026-10-22-learn-360-dark",
+    "mode": "full",
+    "height": 2359,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-learn-360-dark-full-p1.png",
+        "bytes": 169897,
+        "width": 360,
+        "height": 2359
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-learn-390-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-learn-390-dark-top.png",
+    "bytes": 67283,
+    "width": 390,
+    "height": 844
+  },
+  {
+    "base": "2026-10-22-learn-768-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-learn-768-dark-top.png",
+    "bytes": 122210,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-learn-1280-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-learn-1280-dark-top.png",
+    "bytes": 88305,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-learn-1440-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-learn-1440-dark-top.png",
+    "bytes": 99010,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "base": "2026-10-22-news-360-dark",
+    "mode": "full",
+    "height": 1936,
+    "parts": [
+      {
+        "file": "shots/2026-10-22-news-360-dark-full-p1.png",
+        "bytes": 276201,
+        "width": 360,
+        "height": 1936
+      }
+    ]
+  },
+  {
+    "base": "2026-10-22-news-390-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-390-dark-top.png",
+    "bytes": 161576,
+    "width": 390,
+    "height": 844
+  },
+  {
+    "base": "2026-10-22-news-768-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-768-dark-top.png",
+    "bytes": 278451,
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "base": "2026-10-22-news-1280-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-1280-dark-top.png",
+    "bytes": 296161,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-news-1440-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-1440-dark-top.png",
+    "bytes": 304918,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "base": "2026-10-22-news-plain-360-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-plain-360-dark-top.png",
+    "bytes": 96518,
+    "width": 360,
+    "height": 800
+  },
+  {
+    "base": "2026-10-22-news-plain-1280-dark",
+    "mode": "top",
+    "file": "shots/2026-10-22-news-plain-1280-dark-top.png",
+    "bytes": 176604,
+    "width": 1280,
+    "height": 800
+  },
+  {
+    "mode": "slice",
+    "file": "shots/2026-10-22-home-360-dark-slice-land.png",
+    "bytes": 98153,
+    "width": 360,
+    "height": 800
+  }
+]

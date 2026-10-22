@@ -1,0 +1,1498 @@
+[
+  {
+    "file": "shots/2026-10-22-civ-390-dark-yr-0.png",
+    "fg": "rgb(196, 165, 114)",
+    "fs": "12px",
+    "fw": "700",
+    "label": "~138億",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgb(22, 28, 36)",
+    "fgRgb": [
+      196,
+      165,
+      114
+    ],
+    "png": [
+      49,
+      16
+    ],
+    "pixels": 784,
+    "far": 686,
+    "bgMedian": [
+      22,
+      28,
+      36
+    ],
+    "bgMedian80": [
+      22,
+      28,
+      36
+    ],
+    "glyphMedian": [
+      196,
+      165,
+      114
+    ],
+    "ratio": 7.32,
+    "ratio80": 7.32,
+    "ratioGlyph": 7.32,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.691
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-yr-1.png",
+    "fg": "rgb(196, 165, 114)",
+    "fs": "12px",
+    "fw": "700",
+    "label": "~40億",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgb(22, 28, 36)",
+    "fgRgb": [
+      196,
+      165,
+      114
+    ],
+    "png": [
+      42,
+      16
+    ],
+    "pixels": 672,
+    "far": 595,
+    "bgMedian": [
+      22,
+      28,
+      36
+    ],
+    "bgMedian80": [
+      22,
+      28,
+      36
+    ],
+    "glyphMedian": [
+      196,
+      165,
+      114
+    ],
+    "ratio": 7.32,
+    "ratio80": 7.32,
+    "ratioGlyph": 7.32,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.676
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-yr-2.png",
+    "fg": "rgb(196, 165, 114)",
+    "fs": "12px",
+    "fw": "700",
+    "label": "~300ka",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgb(22, 28, 36)",
+    "fgRgb": [
+      196,
+      165,
+      114
+    ],
+    "png": [
+      51,
+      16
+    ],
+    "pixels": 816,
+    "far": 711,
+    "bgMedian": [
+      22,
+      28,
+      36
+    ],
+    "bgMedian80": [
+      22,
+      28,
+      36
+    ],
+    "glyphMedian": [
+      194,
+      162,
+      112
+    ],
+    "ratio": 7.32,
+    "ratio80": 7.32,
+    "ratioGlyph": 7.09,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.709
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-yr-3.png",
+    "fg": "rgb(196, 165, 114)",
+    "fs": "12px",
+    "fw": "700",
+    "label": "發現",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgb(22, 28, 36)",
+    "fgRgb": [
+      196,
+      165,
+      114
+    ],
+    "png": [
+      33,
+      16
+    ],
+    "pixels": 528,
+    "far": 501,
+    "bgMedian": [
+      58,
+      56,
+      52
+    ],
+    "bgMedian80": [
+      58,
+      56,
+      52
+    ],
+    "glyphMedian": [
+      195,
+      164,
+      113
+    ],
+    "ratio": 5.0,
+    "ratio80": 5.0,
+    "ratioGlyph": 4.94,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.443
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-yr-4.png",
+    "fg": "rgb(196, 165, 114)",
+    "fs": "12px",
+    "fw": "700",
+    "label": "基建",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgb(22, 28, 36)",
+    "fgRgb": [
+      196,
+      165,
+      114
+    ],
+    "png": [
+      33,
+      16
+    ],
+    "pixels": 528,
+    "far": 511,
+    "bgMedian": [
+      65,
+      61,
+      55
+    ],
+    "bgMedian80": [
+      65,
+      61,
+      55
+    ],
+    "glyphMedian": [
+      196,
+      165,
+      114
+    ],
+    "ratio": 4.61,
+    "ratio80": 4.61,
+    "ratioGlyph": 4.61,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.18
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-yr-5.png",
+    "fg": "rgb(196, 165, 114)",
+    "fs": "12px",
+    "fw": "700",
+    "label": "切片",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgb(22, 28, 36)",
+    "fgRgb": [
+      196,
+      165,
+      114
+    ],
+    "png": [
+      33,
+      16
+    ],
+    "pixels": 528,
+    "far": 511,
+    "bgMedian": [
+      65,
+      61,
+      55
+    ],
+    "bgMedian80": [
+      65,
+      61,
+      55
+    ],
+    "glyphMedian": [
+      196,
+      165,
+      114
+    ],
+    "ratio": 4.61,
+    "ratio80": 4.61,
+    "ratioGlyph": 4.61,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.18
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-yr-6.png",
+    "fg": "rgb(196, 165, 114)",
+    "fs": "12px",
+    "fw": "700",
+    "label": "展望",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgb(22, 28, 36)",
+    "fgRgb": [
+      196,
+      165,
+      114
+    ],
+    "png": [
+      33,
+      16
+    ],
+    "pixels": 528,
+    "far": 509,
+    "bgMedian": [
+      68,
+      62,
+      55
+    ],
+    "bgMedian80": [
+      68,
+      62,
+      55
+    ],
+    "glyphMedian": [
+      196,
+      165,
+      114
+    ],
+    "ratio": 4.51,
+    "ratio80": 4.51,
+    "ratioGlyph": 4.51,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.171
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-lab-0.png",
+    "fg": "rgb(197, 192, 182)",
+    "fs": "12px",
+    "fw": "400",
+    "label": "宇宙",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      197,
+      192,
+      182
+    ],
+    "png": [
+      77,
+      16
+    ],
+    "pixels": 1232,
+    "far": 1213,
+    "bgMedian": [
+      53,
+      53,
+      52
+    ],
+    "bgMedian80": [
+      53,
+      53,
+      52
+    ],
+    "glyphMedian": [
+      183,
+      179,
+      169
+    ],
+    "ratio": 6.78,
+    "ratio80": 6.78,
+    "ratioGlyph": 5.87,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-lab-1.png",
+    "fg": "rgb(197, 192, 182)",
+    "fs": "12px",
+    "fw": "400",
+    "label": "地球",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      197,
+      192,
+      182
+    ],
+    "png": [
+      77,
+      16
+    ],
+    "pixels": 1232,
+    "far": 1204,
+    "bgMedian": [
+      57,
+      55,
+      52
+    ],
+    "bgMedian80": [
+      57,
+      55,
+      52
+    ],
+    "glyphMedian": [
+      190,
+      185,
+      176
+    ],
+    "ratio": 6.55,
+    "ratio80": 6.55,
+    "ratioGlyph": 6.08,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-lab-2.png",
+    "fg": "rgb(197, 192, 182)",
+    "fs": "12px",
+    "fw": "400",
+    "label": "起源",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      197,
+      192,
+      182
+    ],
+    "png": [
+      77,
+      16
+    ],
+    "pixels": 1232,
+    "far": 1199,
+    "bgMedian": [
+      60,
+      57,
+      53
+    ],
+    "bgMedian80": [
+      60,
+      57,
+      53
+    ],
+    "glyphMedian": [
+      189,
+      184,
+      175
+    ],
+    "ratio": 6.34,
+    "ratio80": 6.34,
+    "ratioGlyph": 5.82,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-lab-3.png",
+    "fg": "rgb(197, 192, 182)",
+    "fs": "12px",
+    "fw": "400",
+    "label": "技術",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      197,
+      192,
+      182
+    ],
+    "png": [
+      77,
+      16
+    ],
+    "pixels": 1232,
+    "far": 1201,
+    "bgMedian": [
+      56,
+      55,
+      52
+    ],
+    "bgMedian80": [
+      56,
+      55,
+      52
+    ],
+    "glyphMedian": [
+      189,
+      185,
+      175
+    ],
+    "ratio": 6.57,
+    "ratio80": 6.57,
+    "ratioGlyph": 6.08,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-lab-4.png",
+    "fg": "rgb(197, 192, 182)",
+    "fs": "12px",
+    "fw": "400",
+    "label": "城市",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      197,
+      192,
+      182
+    ],
+    "png": [
+      77,
+      16
+    ],
+    "pixels": 1232,
+    "far": 1212,
+    "bgMedian": [
+      60,
+      57,
+      53
+    ],
+    "bgMedian80": [
+      60,
+      57,
+      53
+    ],
+    "glyphMedian": [
+      184,
+      178,
+      168
+    ],
+    "ratio": 6.34,
+    "ratio80": 6.34,
+    "ratioGlyph": 5.45,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-lab-5.png",
+    "fg": "rgb(197, 192, 182)",
+    "fs": "12px",
+    "fw": "400",
+    "label": "今天",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      197,
+      192,
+      182
+    ],
+    "png": [
+      77,
+      16
+    ],
+    "pixels": 1232,
+    "far": 1212,
+    "bgMedian": [
+      60,
+      57,
+      53
+    ],
+    "bgMedian80": [
+      60,
+      57,
+      53
+    ],
+    "glyphMedian": [
+      184,
+      178,
+      168
+    ],
+    "ratio": 6.34,
+    "ratio80": 6.34,
+    "ratioGlyph": 5.45,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark-lab-6.png",
+    "fg": "rgb(197, 192, 182)",
+    "fs": "12px",
+    "fw": "400",
+    "label": "未來",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      197,
+      192,
+      182
+    ],
+    "png": [
+      77,
+      16
+    ],
+    "pixels": 1232,
+    "far": 1209,
+    "bgMedian": [
+      61,
+      58,
+      53
+    ],
+    "bgMedian80": [
+      61,
+      58,
+      53
+    ],
+    "glyphMedian": [
+      185,
+      181,
+      171
+    ],
+    "ratio": 6.25,
+    "ratio80": 6.25,
+    "ratioGlyph": 5.53,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark--axis-title.png",
+    "fg": "rgb(247, 241, 230)",
+    "fs": "27.2px",
+    "fw": "700",
+    "label": "站在一條很長的時間軸上",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      247,
+      241,
+      230
+    ],
+    "png": [
+      358,
+      34
+    ],
+    "pixels": 12172,
+    "far": 10712,
+    "bgMedian": [
+      38,
+      40,
+      43
+    ],
+    "bgMedian80": [
+      38,
+      40,
+      43
+    ],
+    "glyphMedian": [
+      247,
+      241,
+      230
+    ],
+    "ratio": 13.15,
+    "ratio80": 13.15,
+    "ratioGlyph": 13.15,
+    "need": 3.0,
+    "large": true,
+    "pass": true,
+    "plateShare": 0.372
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark--axis-lede.png",
+    "fg": "rgb(197, 192, 182)",
+    "fs": "14px",
+    "fw": "400",
+    "label": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      197,
+      192,
+      182
+    ],
+    "png": [
+      358,
+      40
+    ],
+    "pixels": 14320,
+    "far": 13526,
+    "bgMedian": [
+      43,
+      45,
+      46
+    ],
+    "bgMedian80": [
+      43,
+      44,
+      46
+    ],
+    "glyphMedian": [
+      197,
+      192,
+      182
+    ],
+    "ratio": 7.64,
+    "ratio80": 7.71,
+    "ratioGlyph": 7.64,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.032
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark--axis-hero-kicker.png",
+    "fg": "rgb(196, 165, 114)",
+    "fs": "12px",
+    "fw": "700",
+    "label": "Human span · 溫和史",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      196,
+      165,
+      114
+    ],
+    "png": [
+      358,
+      17
+    ],
+    "pixels": 6086,
+    "far": 5751,
+    "bgMedian": [
+      35,
+      38,
+      41
+    ],
+    "bgMedian80": [
+      35,
+      38,
+      41
+    ],
+    "glyphMedian": [
+      196,
+      165,
+      114
+    ],
+    "ratio": 6.5,
+    "ratio80": 6.5,
+    "ratioGlyph": 6.5,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.495
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark--axis-cta-btn-brass.png",
+    "fg": "rgb(22, 28, 36)",
+    "fs": "13px",
+    "fw": "700",
+    "label": "閱讀人類起源",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgb(161, 130, 86)",
+    "fgRgb": [
+      22,
+      28,
+      36
+    ],
+    "png": [
+      109,
+      44
+    ],
+    "pixels": 4796,
+    "far": 4255,
+    "bgMedian": [
+      161,
+      130,
+      86
+    ],
+    "bgMedian80": [
+      161,
+      130,
+      86
+    ],
+    "glyphMedian": [
+      22,
+      28,
+      37
+    ],
+    "ratio": 4.77,
+    "ratio80": 4.77,
+    "ratioGlyph": 4.76,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-civ-390-dark--axis-cta-btn-ghost.png",
+    "fg": "rgb(232, 228, 220)",
+    "fs": "13px",
+    "fw": "700",
+    "label": "跳到今日切片",
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      232,
+      228,
+      220
+    ],
+    "png": [
+      109,
+      44
+    ],
+    "pixels": 4796,
+    "far": 4574,
+    "bgMedian": [
+      66,
+      61,
+      55
+    ],
+    "bgMedian80": [
+      66,
+      61,
+      55
+    ],
+    "glyphMedian": [
+      232,
+      228,
+      220
+    ],
+    "ratio": 8.47,
+    "ratio80": 8.47,
+    "ratioGlyph": 8.47,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-home-390-dark-yr-0.png",
+    "fg": "rgb(196, 165, 114)",
+    "fs": "12px",
+    "fw": "700",
+    "label": "發現",
+    "page": "H",
+    "vp": 390,
+    "theme": "dark",
+    "bg": "rgb(22, 28, 36)",
+    "fgRgb": [
+      196,
+      165,
+      114
+    ],
+    "png": [
+      32,
+      16
+    ],
+    "pixels": 512,
+    "far": 453,
+    "bgMedian": [
+      22,
+      28,
+      36
+    ],
+    "bgMedian80": [
+      22,
+      28,
+      36
+    ],
+    "glyphMedian": [
+      192,
+      161,
+      111
+    ],
+    "ratio": 7.32,
+    "ratio80": 7.32,
+    "ratioGlyph": 6.99,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.799
+  },
+  {
+    "file": "shots/2026-10-22-home-360-dark-clock-seconds.png",
+    "fg": "rgb(183, 177, 166)",
+    "fs": "12px",
+    "fw": "500",
+    "label": "29秒",
+    "page": "H",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      183,
+      177,
+      166
+    ],
+    "png": [
+      25,
+      12
+    ],
+    "pixels": 300,
+    "far": 289,
+    "bgMedian": [
+      27,
+      37,
+      40
+    ],
+    "bgMedian80": [
+      22,
+      28,
+      36
+    ],
+    "glyphMedian": [
+      183,
+      177,
+      166
+    ],
+    "ratio": 7.34,
+    "ratio80": 8.04,
+    "ratioGlyph": 7.34,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.464
+  },
+  {
+    "file": "shots/2026-10-22-home-360-light-clock-seconds.png",
+    "fg": "rgb(110, 103, 92)",
+    "fs": "12px",
+    "fw": "500",
+    "label": "29秒",
+    "page": "H",
+    "vp": 360,
+    "theme": "light",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      110,
+      103,
+      92
+    ],
+    "png": [
+      25,
+      12
+    ],
+    "pixels": 300,
+    "far": 288,
+    "bgMedian": [
+      242,
+      234,
+      225
+    ],
+    "bgMedian80": [
+      247,
+      241,
+      230
+    ],
+    "glyphMedian": [
+      110,
+      103,
+      92
+    ],
+    "ratio": 4.69,
+    "ratio80": 4.97,
+    "ratioGlyph": 4.69,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-home-360-dark-more-today.png",
+    "fg": "rgb(201, 211, 223)",
+    "fs": "12px",
+    "fw": "400",
+    "label": "全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。",
+    "page": "H",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      201,
+      211,
+      223
+    ],
+    "png": [
+      328,
+      28
+    ],
+    "pixels": 9184,
+    "far": 8897,
+    "bgMedian": [
+      14,
+      20,
+      28
+    ],
+    "bgMedian80": [
+      14,
+      20,
+      28
+    ],
+    "glyphMedian": [
+      201,
+      211,
+      223
+    ],
+    "ratio": 12.21,
+    "ratio80": 12.21,
+    "ratioGlyph": 12.21,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.779
+  },
+  {
+    "file": "shots/2026-10-22-civ-360-dark-figcaption.png",
+    "fg": "rgb(210, 196, 176)",
+    "fs": "12px",
+    "fw": "400",
+    "label": "功率的儲存與維修 · 紙感 · 約數",
+    "page": "C",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      210,
+      196,
+      176
+    ],
+    "png": [
+      302,
+      17
+    ],
+    "pixels": 5134,
+    "far": 4959,
+    "bgMedian": [
+      42,
+      35,
+      27
+    ],
+    "bgMedian80": [
+      42,
+      35,
+      27
+    ],
+    "glyphMedian": [
+      199,
+      190,
+      171
+    ],
+    "ratio": 9.05,
+    "ratio80": 9.05,
+    "ratioGlyph": 8.4,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.0
+  },
+  {
+    "file": "shots/2026-10-22-learn-360-dark-learn-bearings.png",
+    "fg": "rgb(201, 211, 223)",
+    "fs": "12px",
+    "fw": "400",
+    "label": "符號與語言抽象結構物質與自然世界與人文感知與身體跨域工具",
+    "page": "L",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      201,
+      211,
+      223
+    ],
+    "png": [
+      328,
+      42
+    ],
+    "pixels": 13776,
+    "far": 13535,
+    "bgMedian": [
+      18,
+      24,
+      32
+    ],
+    "bgMedian80": [
+      18,
+      24,
+      32
+    ],
+    "glyphMedian": [
+      201,
+      211,
+      223
+    ],
+    "ratio": 11.78,
+    "ratio80": 11.78,
+    "ratioGlyph": 11.78,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.817
+  },
+  {
+    "file": "shots/2026-10-22-learn-360-dark-learn-progress.png",
+    "fg": "rgb(201, 211, 223)",
+    "fs": "16px",
+    "fw": "400",
+    "label": "本機尚未記下進度。",
+    "page": "L",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      201,
+      211,
+      223
+    ],
+    "png": [
+      328,
+      24
+    ],
+    "pixels": 7872,
+    "far": 7644,
+    "bgMedian": [
+      18,
+      24,
+      32
+    ],
+    "bgMedian80": [
+      18,
+      24,
+      32
+    ],
+    "glyphMedian": [
+      201,
+      211,
+      223
+    ],
+    "ratio": 11.78,
+    "ratio80": 11.78,
+    "ratioGlyph": 11.78,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.876
+  },
+  {
+    "file": "shots/2026-10-22-learn-360-dark-learn-bound.png",
+    "fg": "rgb(201, 211, 223)",
+    "fs": "16px",
+    "fw": "400",
+    "label": "敘事見文明軸。今日事件見懶人包。此處是能力樹。",
+    "page": "L",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      201,
+      211,
+      223
+    ],
+    "png": [
+      328,
+      48
+    ],
+    "pixels": 15744,
+    "far": 15209,
+    "bgMedian": [
+      18,
+      24,
+      32
+    ],
+    "bgMedian80": [
+      18,
+      24,
+      32
+    ],
+    "glyphMedian": [
+      201,
+      211,
+      223
+    ],
+    "ratio": 11.78,
+    "ratio80": 11.78,
+    "ratioGlyph": 11.78,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.842
+  },
+  {
+    "file": "shots/2026-10-22-learn-locked-360-dark-learn-locked.png",
+    "fg": "rgb(201, 211, 223)",
+    "fs": "16px",
+    "fw": "400",
+    "label": "物質之門在萬有地圖的「物質與自然」。此路尚未開啓。",
+    "page": "Lk",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      201,
+      211,
+      223
+    ],
+    "png": [
+      328,
+      48
+    ],
+    "pixels": 15744,
+    "far": 15211,
+    "bgMedian": [
+      18,
+      24,
+      32
+    ],
+    "bgMedian80": [
+      18,
+      24,
+      32
+    ],
+    "glyphMedian": [
+      201,
+      211,
+      223
+    ],
+    "ratio": 11.78,
+    "ratio80": 11.78,
+    "ratioGlyph": 11.78,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.815
+  },
+  {
+    "file": "shots/2026-10-22-learn-360-dark-nav-more.png",
+    "fg": "rgb(232, 228, 220)",
+    "fs": "16px",
+    "fw": "400",
+    "label": "更多",
+    "page": "L",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgb(18, 24, 32)",
+    "fgRgb": [
+      232,
+      228,
+      220
+    ],
+    "png": [
+      51,
+      44
+    ],
+    "pixels": 2244,
+    "far": 2162,
+    "bgMedian": [
+      18,
+      24,
+      32
+    ],
+    "bgMedian80": [
+      18,
+      24,
+      32
+    ],
+    "glyphMedian": [
+      232,
+      228,
+      220
+    ],
+    "ratio": 14.07,
+    "ratio80": 14.07,
+    "ratioGlyph": 14.07,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.829
+  },
+  {
+    "file": "shots/2026-10-22-learn-768-dark-nav-more.png",
+    "fg": "rgb(201, 211, 223)",
+    "fs": "13px",
+    "fw": "400",
+    "label": "更多",
+    "page": "L",
+    "vp": 768,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      201,
+      211,
+      223
+    ],
+    "png": [
+      44,
+      44
+    ],
+    "pixels": 1936,
+    "far": 1883,
+    "bgMedian": [
+      14,
+      19,
+      28
+    ],
+    "bgMedian80": [
+      14,
+      19,
+      28
+    ],
+    "glyphMedian": [
+      195,
+      205,
+      216
+    ],
+    "ratio": 12.29,
+    "ratio80": 12.29,
+    "ratioGlyph": 11.56,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.923
+  },
+  {
+    "file": "shots/2026-10-22-chronicle-360-light-future-link.png",
+    "fg": "rgb(158, 192, 239)",
+    "fs": "13px",
+    "fw": "700",
+    "label": "總覽展望",
+    "page": "N",
+    "vp": 360,
+    "theme": "light",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      158,
+      192,
+      239
+    ],
+    "png": [
+      53,
+      21
+    ],
+    "pixels": 1113,
+    "far": 870,
+    "bgMedian": [
+      22,
+      28,
+      36
+    ],
+    "bgMedian80": [
+      22,
+      28,
+      36
+    ],
+    "glyphMedian": [
+      158,
+      192,
+      239
+    ],
+    "ratio": 9.17,
+    "ratio80": 9.17,
+    "ratioGlyph": 9.17,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.567
+  },
+  {
+    "file": "shots/2026-10-22-chronicle-360-dark-future-link.png",
+    "fg": "rgb(158, 192, 239)",
+    "fs": "13px",
+    "fw": "700",
+    "label": "總覽展望",
+    "page": "N",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      158,
+      192,
+      239
+    ],
+    "png": [
+      53,
+      21
+    ],
+    "pixels": 1113,
+    "far": 870,
+    "bgMedian": [
+      22,
+      28,
+      36
+    ],
+    "bgMedian80": [
+      22,
+      28,
+      36
+    ],
+    "glyphMedian": [
+      158,
+      192,
+      239
+    ],
+    "ratio": 9.17,
+    "ratio80": 9.17,
+    "ratioGlyph": 9.17,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.567
+  },
+  {
+    "file": "shots/2026-10-22-home-360-dark-brand.png",
+    "fg": "rgb(243, 246, 250)",
+    "fs": "16px",
+    "fw": "400",
+    "label": "brand",
+    "page": "H",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      243,
+      246,
+      250
+    ],
+    "png": [
+      276,
+      28
+    ],
+    "pixels": 7728,
+    "far": 7460,
+    "bgMedian": [
+      14,
+      19,
+      28
+    ],
+    "bgMedian80": [
+      14,
+      19,
+      28
+    ],
+    "glyphMedian": [
+      243,
+      246,
+      250
+    ],
+    "ratio": 17.17,
+    "ratio80": 17.17,
+    "ratioGlyph": 17.17,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.905
+  },
+  {
+    "file": "shots/2026-10-22-civ-360-dark-brand.png",
+    "fg": "rgb(243, 246, 250)",
+    "fs": "16px",
+    "fw": "400",
+    "label": "brand",
+    "page": "C",
+    "vp": 360,
+    "theme": "dark",
+    "bg": "rgba(0, 0, 0, 0)",
+    "fgRgb": [
+      243,
+      246,
+      250
+    ],
+    "png": [
+      138,
+      28
+    ],
+    "pixels": 3864,
+    "far": 3596,
+    "bgMedian": [
+      14,
+      19,
+      28
+    ],
+    "bgMedian80": [
+      14,
+      19,
+      28
+    ],
+    "glyphMedian": [
+      243,
+      246,
+      250
+    ],
+    "ratio": 17.17,
+    "ratio80": 17.17,
+    "ratioGlyph": 17.17,
+    "need": 4.5,
+    "large": false,
+    "pass": true,
+    "plateShare": 0.804
+  }
+]
