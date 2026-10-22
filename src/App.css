@@ -128,6 +128,9 @@ html.dark .logo-link .logo-full.logo-dark { display: block; }
   width: 100%; border: 1px solid var(--line); background: var(--card); border-radius: var(--radius-pill);
   padding: 8px 14px; min-height: 40px; font-size: 16px;
 }
+@media (min-width: 701px) {
+  .search-bar input { min-height: 44px; }
+}
 .header-actions { display: flex; align-items: center; gap: 8px; flex: none; }
 a.chip { color: inherit; text-decoration: none; }
 .digest-strip {
@@ -158,6 +161,8 @@ a.chip { color: inherit; text-decoration: none; }
   display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex: 0 0 auto;
   white-space: nowrap;
 }
+/* News-page primary (P0-NEWS-CHROME). The shared row above stays 40 for chips. */
+.primary { min-height: 44px; min-width: 44px; }
 /* After .icon-btn's display, so the desktop search field stays the control. */
 .search-bar > .search-toggle { display: none; }
 .header-actions .icon-btn { min-width: 44px; min-height: 44px; padding: 6px; position: relative; }
@@ -1628,7 +1633,7 @@ html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
 .milestones {
   display: flex;
   justify-content: space-between;
-  gap: 4px;
+  gap: 8px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -2344,7 +2349,7 @@ a.stage-cover { text-decoration: none; }
 .line-filter-row {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 6px;
+  gap: 8px;
 }
 .line-filter .chip {
   display: inline-flex;

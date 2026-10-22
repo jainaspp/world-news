@@ -37,6 +37,9 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap" /></noscript>
   <script>
     try {
+      if ((location.hash === '#slice' || location.hash === '#civ') && 'scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
       var saved = localStorage.getItem('darkMode');
       var dark = saved === 'true' || (saved !== 'false' && matchMedia('(prefers-color-scheme: dark)').matches);
       if (dark) document.documentElement.classList.add('dark');
