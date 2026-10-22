@@ -1,0 +1,7391 @@
+{
+  "rows": [
+    {
+      "key": "home-360-light",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": {
+        "maxH": "300px",
+        "overflow": "hidden",
+        "clientH": 266,
+        "scrollH": 266,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 69,
+          "vh": 14,
+          "rh": 14,
+          "left": 348,
+          "right": 417,
+          "pr": 360,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 69,
+          "vh": 14,
+          "rh": 14,
+          "left": 348,
+          "right": 417,
+          "pr": 360,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "civ-360-light",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 117,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 567,
+        "scrollH": 567,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "全部 10",
+          "tb": "能量 3",
+          "edge": 6,
+          "center": 66.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "能量 3",
+          "tb": "信息 7",
+          "edge": 6,
+          "center": 66.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "信息 7",
+          "tb": "制度 5",
+          "edge": 6,
+          "center": 66.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "制度 5",
+          "tb": "貨幣 5",
+          "edge": 6,
+          "center": 66.8,
+          "axis": "x"
+        }
+      ],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 69,
+          "vh": 14,
+          "rh": 14,
+          "left": 348,
+          "right": 417,
+          "pr": 360,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 69,
+          "vh": 14,
+          "rh": 14,
+          "left": 348,
+          "right": 417,
+          "pr": 360,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "chronicle-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "origins-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "cosmos-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "earth-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "tech-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "city-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "learn-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "story-long-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".primary",
+          "text": "閱讀 示例通訊社 原文 →",
+          "w": 196.8,
+          "h": 40,
+          "x": 33,
+          "y": 642
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "story-short-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".primary",
+          "text": "閱讀 示例通訊社 原文 →",
+          "w": 196.8,
+          "h": 40,
+          "x": 33,
+          "y": 500
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "missing-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 0,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": false,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "offline-360-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 344
+      },
+      "chromeH": 0,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": false,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-390-light",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 390,
+        "cw": 390,
+        "iw": 390,
+        "body": 390
+      },
+      "chromeH": 161,
+      "hero": {
+        "maxH": "300px",
+        "overflow": "hidden",
+        "clientH": 266,
+        "scrollH": 266,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 106,
+          "h": 36,
+          "x": 38,
+          "y": 3118
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 92,
+          "h": 36,
+          "x": 152,
+          "y": 3118
+        }
+      ],
+      "gaps": [],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 77,
+          "vh": 14,
+          "rh": 14,
+          "left": 378,
+          "right": 455,
+          "pr": 390,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 77,
+          "vh": 14,
+          "rh": 14,
+          "left": 378,
+          "right": 455,
+          "pr": 390,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "civ-390-light",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 390,
+        "cw": 390,
+        "iw": 390,
+        "body": 390
+      },
+      "chromeH": 117,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 567,
+        "scrollH": 567,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "全部 10",
+          "tb": "能量 3",
+          "edge": 6,
+          "center": 72.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "能量 3",
+          "tb": "信息 7",
+          "edge": 6,
+          "center": 72.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "信息 7",
+          "tb": "制度 5",
+          "edge": 6,
+          "center": 72.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "制度 5",
+          "tb": "貨幣 5",
+          "edge": 6,
+          "center": 72.8,
+          "axis": "x"
+        }
+      ],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 77,
+          "vh": 14,
+          "rh": 14,
+          "left": 378,
+          "right": 455,
+          "pr": 390,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 77,
+          "vh": 14,
+          "rh": 14,
+          "left": 378,
+          "right": 455,
+          "pr": 390,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "chronicle-390-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 390,
+        "cw": 390,
+        "iw": 390,
+        "body": 390
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-414-light",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 414,
+        "cw": 414,
+        "iw": 414,
+        "body": 414
+      },
+      "chromeH": 161,
+      "hero": {
+        "maxH": "300px",
+        "overflow": "hidden",
+        "clientH": 266,
+        "scrollH": 266,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 106,
+          "h": 36,
+          "x": 38,
+          "y": 3226
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 92,
+          "h": 36,
+          "x": 152,
+          "y": 3226
+        }
+      ],
+      "gaps": [],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 83,
+          "vh": 14,
+          "rh": 14,
+          "left": 402,
+          "right": 485,
+          "pr": 414,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 83,
+          "vh": 14,
+          "rh": 14,
+          "left": 402,
+          "right": 485,
+          "pr": 414,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "civ-414-light",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 414,
+        "cw": 414,
+        "iw": 414,
+        "body": 414
+      },
+      "chromeH": 117,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 567,
+        "scrollH": 567,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "全部 10",
+          "tb": "能量 3",
+          "edge": 6,
+          "center": 77.6,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "能量 3",
+          "tb": "信息 7",
+          "edge": 6,
+          "center": 77.6,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "信息 7",
+          "tb": "制度 5",
+          "edge": 6,
+          "center": 77.6,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "制度 5",
+          "tb": "貨幣 5",
+          "edge": 6,
+          "center": 77.6,
+          "axis": "x"
+        }
+      ],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 83,
+          "vh": 14,
+          "rh": 14,
+          "left": 402,
+          "right": 485,
+          "pr": 414,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 83,
+          "vh": 14,
+          "rh": 14,
+          "left": 402,
+          "right": 485,
+          "pr": 414,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "chronicle-414-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 414,
+        "cw": 414,
+        "iw": 414,
+        "body": 414
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-land-light",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 640,
+        "cw": 640,
+        "iw": 640,
+        "body": 640
+      },
+      "chromeH": 109,
+      "hero": {
+        "maxH": "300px",
+        "overflow": "hidden",
+        "clientH": 250,
+        "scrollH": 250,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 106,
+          "h": 36,
+          "x": 38,
+          "y": 3055
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 92,
+          "h": 36,
+          "x": 152,
+          "y": 3055
+        }
+      ],
+      "gaps": [],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 139,
+          "vh": 14,
+          "rh": 14,
+          "left": 628,
+          "right": 767,
+          "pr": 640,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 139,
+          "vh": 14,
+          "rh": 14,
+          "left": 628,
+          "right": 767,
+          "pr": 640,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "civ-land-light",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 640,
+        "cw": 640,
+        "iw": 640,
+        "body": 640
+      },
+      "chromeH": 117,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 547,
+        "scrollH": 547,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 139,
+          "vh": 14,
+          "rh": 14,
+          "left": 628,
+          "right": 767,
+          "pr": 640,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 139,
+          "vh": 14,
+          "rh": 14,
+          "left": 628,
+          "right": 767,
+          "pr": 640,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "chronicle-land-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 640,
+        "cw": 640,
+        "iw": 640,
+        "body": 640
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-768-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 768,
+        "cw": 768,
+        "iw": 768,
+        "body": 768
+      },
+      "chromeH": 109,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 278,
+        "scrollH": 278,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 370.1,
+          "h": 40,
+          "x": 122,
+          "y": 6
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 122,
+          "h": 40,
+          "x": 42,
+          "y": 2524
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 106,
+          "h": 40,
+          "x": 172,
+          "y": 2524
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "civ-768-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 768,
+        "cw": 768,
+        "iw": 768,
+        "body": 768
+      },
+      "chromeH": 111,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 391,
+        "scrollH": 391,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 526.1,
+          "h": 42,
+          "x": 122,
+          "y": 5
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "chronicle-768-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 768,
+        "cw": 768,
+        "iw": 768,
+        "body": 768
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 526.1,
+          "h": 42,
+          "x": 122,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-1024-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1024,
+        "cw": 1024,
+        "iw": 1024,
+        "body": 1024
+      },
+      "chromeH": 109,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 283,
+        "scrollH": 283,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 446.1,
+          "h": 40,
+          "x": 212,
+          "y": 6
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 122,
+          "h": 40,
+          "x": 132,
+          "y": 2519
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 106,
+          "h": 40,
+          "x": 262,
+          "y": 2519
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "civ-1024-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1024,
+        "cw": 1024,
+        "iw": 1024,
+        "body": 1024
+      },
+      "chromeH": 111,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 396,
+        "scrollH": 396,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 602.1,
+          "h": 42,
+          "x": 212,
+          "y": 5
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "chronicle-1024-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1024,
+        "cw": 1024,
+        "iw": 1024,
+        "body": 1024
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 602.1,
+          "h": 42,
+          "x": 212,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-1280-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 109,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 288,
+        "scrollH": 288,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 614.1,
+          "h": 40,
+          "x": 256,
+          "y": 6
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 122,
+          "h": 40,
+          "x": 176,
+          "y": 2478
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 106,
+          "h": 40,
+          "x": 306,
+          "y": 2478
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "civ-1280-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 111,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 401,
+        "scrollH": 401,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 256,
+          "y": 5
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "chronicle-1280-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 256,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "origins-1280-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 256,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "learn-1280-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 256,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "story-long-1280-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 926.1,
+          "h": 42,
+          "x": 178,
+          "y": 5
+        },
+        {
+          "sel": ".primary",
+          "text": "閱讀 示例通訊社 原文 →",
+          "w": 196.8,
+          "h": 40,
+          "x": 89,
+          "y": 666
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "story-short-1280-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 926.1,
+          "h": 42,
+          "x": 178,
+          "y": 5
+        },
+        {
+          "sel": ".primary",
+          "text": "閱讀 示例通訊社 原文 →",
+          "w": 196.8,
+          "h": 40,
+          "x": 89,
+          "y": 588
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-1440-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1440,
+        "cw": 1440,
+        "iw": 1440,
+        "body": 1440
+      },
+      "chromeH": 109,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 288,
+        "scrollH": 288,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 614.1,
+          "h": 40,
+          "x": 336,
+          "y": 6
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 122,
+          "h": 40,
+          "x": 256,
+          "y": 2478
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 106,
+          "h": 40,
+          "x": 386,
+          "y": 2478
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "civ-1440-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1440,
+        "cw": 1440,
+        "iw": 1440,
+        "body": 1440
+      },
+      "chromeH": 111,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 401,
+        "scrollH": 401,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 336,
+          "y": 5
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "chronicle-1440-light",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1440,
+        "cw": 1440,
+        "iw": 1440,
+        "body": 1440
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 336,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-360-dark",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": {
+        "maxH": "300px",
+        "overflow": "hidden",
+        "clientH": 266,
+        "scrollH": 266,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 106,
+          "h": 36,
+          "x": 38,
+          "y": 3248
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 92,
+          "h": 36,
+          "x": 152,
+          "y": 3248
+        }
+      ],
+      "gaps": [],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 69,
+          "vh": 14,
+          "rh": 14,
+          "left": 348,
+          "right": 417,
+          "pr": 360,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 69,
+          "vh": 14,
+          "rh": 14,
+          "left": 348,
+          "right": 417,
+          "pr": 360,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "civ-360-dark",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 117,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 567,
+        "scrollH": 567,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "全部 10",
+          "tb": "能量 3",
+          "edge": 6,
+          "center": 66.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "能量 3",
+          "tb": "信息 7",
+          "edge": 6,
+          "center": 66.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "信息 7",
+          "tb": "制度 5",
+          "edge": 6,
+          "center": 66.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "制度 5",
+          "tb": "貨幣 5",
+          "edge": 6,
+          "center": 66.8,
+          "axis": "x"
+        }
+      ],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 69,
+          "vh": 14,
+          "rh": 14,
+          "left": 348,
+          "right": 417,
+          "pr": 360,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 69,
+          "vh": 14,
+          "rh": 14,
+          "left": 348,
+          "right": 417,
+          "pr": 360,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "chronicle-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "origins-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "cosmos-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "earth-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "tech-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "city-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 202,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "learn-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 202,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "story-long-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 202,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".primary",
+          "text": "閱讀 示例通訊社 原文 →",
+          "w": 196.8,
+          "h": 40,
+          "x": 33,
+          "y": 683
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "story-short-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 202,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".primary",
+          "text": "閱讀 示例通訊社 原文 →",
+          "w": 196.8,
+          "h": 40,
+          "x": 33,
+          "y": 541
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "missing-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 360
+      },
+      "chromeH": 0,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": false,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "offline-360-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 360,
+        "cw": 360,
+        "iw": 360,
+        "body": 344
+      },
+      "chromeH": 0,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": false,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-390-dark",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 390,
+        "cw": 390,
+        "iw": 390,
+        "body": 390
+      },
+      "chromeH": 161,
+      "hero": {
+        "maxH": "300px",
+        "overflow": "hidden",
+        "clientH": 266,
+        "scrollH": 266,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 106,
+          "h": 36,
+          "x": 38,
+          "y": 3218
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 92,
+          "h": 36,
+          "x": 152,
+          "y": 3218
+        }
+      ],
+      "gaps": [],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 77,
+          "vh": 14,
+          "rh": 14,
+          "left": 378,
+          "right": 455,
+          "pr": 390,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 77,
+          "vh": 14,
+          "rh": 14,
+          "left": 378,
+          "right": 455,
+          "pr": 390,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "civ-390-dark",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 390,
+        "cw": 390,
+        "iw": 390,
+        "body": 390
+      },
+      "chromeH": 117,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 567,
+        "scrollH": 567,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "全部 10",
+          "tb": "能量 3",
+          "edge": 6,
+          "center": 72.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "能量 3",
+          "tb": "信息 7",
+          "edge": 6,
+          "center": 72.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "信息 7",
+          "tb": "制度 5",
+          "edge": 6,
+          "center": 72.8,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "制度 5",
+          "tb": "貨幣 5",
+          "edge": 6,
+          "center": 72.8,
+          "axis": "x"
+        }
+      ],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 77,
+          "vh": 14,
+          "rh": 14,
+          "left": 378,
+          "right": 455,
+          "pr": 390,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 77,
+          "vh": 14,
+          "rh": 14,
+          "left": 378,
+          "right": 455,
+          "pr": 390,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "chronicle-390-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 390,
+        "cw": 390,
+        "iw": 390,
+        "body": 390
+      },
+      "chromeH": 177,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-414-dark",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 414,
+        "cw": 414,
+        "iw": 414,
+        "body": 414
+      },
+      "chromeH": 161,
+      "hero": {
+        "maxH": "300px",
+        "overflow": "hidden",
+        "clientH": 266,
+        "scrollH": 266,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 106,
+          "h": 36,
+          "x": 38,
+          "y": 3226
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 92,
+          "h": 36,
+          "x": 152,
+          "y": 3226
+        }
+      ],
+      "gaps": [],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 83,
+          "vh": 14,
+          "rh": 14,
+          "left": 402,
+          "right": 485,
+          "pr": 414,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 83,
+          "vh": 14,
+          "rh": 14,
+          "left": 402,
+          "right": 485,
+          "pr": 414,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "civ-414-dark",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 414,
+        "cw": 414,
+        "iw": 414,
+        "body": 414
+      },
+      "chromeH": 117,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 567,
+        "scrollH": 567,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "全部 10",
+          "tb": "能量 3",
+          "edge": 6,
+          "center": 77.6,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "能量 3",
+          "tb": "信息 7",
+          "edge": 6,
+          "center": 77.6,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "信息 7",
+          "tb": "制度 5",
+          "edge": 6,
+          "center": 77.6,
+          "axis": "x"
+        },
+        {
+          "a": ".line-filter .chip",
+          "b": ".line-filter .chip",
+          "ta": "制度 5",
+          "tb": "貨幣 5",
+          "edge": 6,
+          "center": 77.6,
+          "axis": "x"
+        }
+      ],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 83,
+          "vh": 14,
+          "rh": 14,
+          "left": 402,
+          "right": 485,
+          "pr": 414,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 83,
+          "vh": 14,
+          "rh": 14,
+          "left": 402,
+          "right": 485,
+          "pr": 414,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "chronicle-414-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 414,
+        "cw": 414,
+        "iw": 414,
+        "body": 414
+      },
+      "chromeH": 177,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-land-dark",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 640,
+        "cw": 640,
+        "iw": 640,
+        "body": 640
+      },
+      "chromeH": 109,
+      "hero": {
+        "maxH": "300px",
+        "overflow": "hidden",
+        "clientH": 250,
+        "scrollH": 250,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 106,
+          "h": 36,
+          "x": 38,
+          "y": 3055
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 92,
+          "h": 36,
+          "x": 152,
+          "y": 3055
+        }
+      ],
+      "gaps": [],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 139,
+          "vh": 14,
+          "rh": 14,
+          "left": 628,
+          "right": 767,
+          "pr": 640,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 139,
+          "vh": 14,
+          "rh": 14,
+          "left": 628,
+          "right": 767,
+          "pr": 640,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "civ-land-dark",
+      "overlapN": 0,
+      "clipN": 6,
+      "partialN": 2,
+      "scroll": {
+        "sw": 640,
+        "cw": 640,
+        "iw": 640,
+        "body": 640
+      },
+      "chromeH": 117,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 547,
+        "scrollH": 547,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "vw": 12,
+          "rw": 139,
+          "vh": 14,
+          "rh": 14,
+          "left": 628,
+          "right": 767,
+          "pr": 640,
+          "pl": 0
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "vw": 12,
+          "rw": 139,
+          "vh": 14,
+          "rh": 14,
+          "left": 628,
+          "right": 767,
+          "pr": 640,
+          "pl": 0
+        }
+      ]
+    },
+    {
+      "key": "chronicle-land-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 640,
+        "cw": 640,
+        "iw": 640,
+        "body": 640
+      },
+      "chromeH": 161,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-768-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 768,
+        "cw": 768,
+        "iw": 768,
+        "body": 768
+      },
+      "chromeH": 109,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 278,
+        "scrollH": 278,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 370.1,
+          "h": 40,
+          "x": 122,
+          "y": 6
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 122,
+          "h": 40,
+          "x": 42,
+          "y": 2524
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 106,
+          "h": 40,
+          "x": 172,
+          "y": 2524
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "civ-768-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 768,
+        "cw": 768,
+        "iw": 768,
+        "body": 768
+      },
+      "chromeH": 111,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 391,
+        "scrollH": 391,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 526.1,
+          "h": 42,
+          "x": 122,
+          "y": 5
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 105.7,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "chronicle-768-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 768,
+        "cw": 768,
+        "iw": 768,
+        "body": 768
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 526.1,
+          "h": 42,
+          "x": 122,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-1024-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1024,
+        "cw": 1024,
+        "iw": 1024,
+        "body": 1024
+      },
+      "chromeH": 109,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 283,
+        "scrollH": 283,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 446.1,
+          "h": 40,
+          "x": 212,
+          "y": 6
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 122,
+          "h": 40,
+          "x": 132,
+          "y": 2519
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 106,
+          "h": 40,
+          "x": 262,
+          "y": 2519
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "civ-1024-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1024,
+        "cw": 1024,
+        "iw": 1024,
+        "body": 1024
+      },
+      "chromeH": 111,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 396,
+        "scrollH": 396,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 602.1,
+          "h": 42,
+          "x": 212,
+          "y": 5
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 114.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "chronicle-1024-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1024,
+        "cw": 1024,
+        "iw": 1024,
+        "body": 1024
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 602.1,
+          "h": 42,
+          "x": 212,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-1280-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 109,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 288,
+        "scrollH": 288,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 614.1,
+          "h": 40,
+          "x": 256,
+          "y": 6
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 122,
+          "h": 40,
+          "x": 176,
+          "y": 2478
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 106,
+          "h": 40,
+          "x": 306,
+          "y": 2478
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "civ-1280-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 111,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 401,
+        "scrollH": 401,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 256,
+          "y": 5
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "chronicle-1280-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 256,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "origins-1280-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 256,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "learn-1280-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 256,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "story-long-1280-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 926.1,
+          "h": 42,
+          "x": 178,
+          "y": 5
+        },
+        {
+          "sel": ".primary",
+          "text": "閱讀 示例通訊社 原文 →",
+          "w": 196.8,
+          "h": 40,
+          "x": 89,
+          "y": 666
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "story-short-1280-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1280,
+        "cw": 1280,
+        "iw": 1280,
+        "body": 1280
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 926.1,
+          "h": 42,
+          "x": 178,
+          "y": 5
+        },
+        {
+          "sel": ".primary",
+          "text": "閱讀 示例通訊社 原文 →",
+          "w": 196.8,
+          "h": 40,
+          "x": 89,
+          "y": 588
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    },
+    {
+      "key": "home-1440-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1440,
+        "cw": 1440,
+        "iw": 1440,
+        "body": 1440
+      },
+      "chromeH": 109,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 288,
+        "scrollH": 288,
+        "cls": "axis-hero axis-slim"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": true,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 614.1,
+          "h": 40,
+          "x": 336,
+          "y": 6
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "每日香港導讀",
+          "w": 122,
+          "h": 40,
+          "x": 256,
+          "y": 2478
+        },
+        {
+          "sel": ".digest-strip .chip",
+          "text": "新聞懶人包",
+          "w": 106,
+          "h": 40,
+          "x": 386,
+          "y": 2478
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "civ-1440-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1440,
+        "cw": 1440,
+        "iw": 1440,
+        "body": 1440
+      },
+      "chromeH": 111,
+      "hero": {
+        "maxH": "none",
+        "overflow": "hidden",
+        "clientH": 401,
+        "scrollH": 401,
+        "cls": "axis-hero"
+      },
+      "bands": [],
+      "dom": {
+        "volume": 3,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": false,
+          "ch-now": false,
+          "ch-future": false
+        },
+        "stages": {
+          "stage-1": false,
+          "stage-2": false,
+          "stage-3": false,
+          "stage-4": false,
+          "stage-5": false,
+          "stage-6": false,
+          "stage-7": false,
+          "stage-8": false,
+          "stage-9": false,
+          "stage-10": false
+        },
+        "slice": false,
+        "future": true,
+        "futureF": {
+          "future-f1": true,
+          "future-f2": true,
+          "future-f3": true,
+          "future-f4": true,
+          "future-f5": true,
+          "future-f6": true
+        },
+        "axis": true,
+        "pattern": true,
+        "cases": true
+      },
+      "brandOk": true,
+      "cta": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ],
+      "stage10": "",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 336,
+          "y": 5
+        }
+      ],
+      "gaps": [
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "宇宙 ~138億",
+          "tb": "地球 ~40億",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "地球 ~40億",
+          "tb": "起源 ~300ka",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "起源 ~300ka",
+          "tb": "技術 發現",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "技術 發現",
+          "tb": "城市 基建",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "城市 基建",
+          "tb": "今天 切片",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        },
+        {
+          "a": "a.axis-node",
+          "b": "a.axis-node",
+          "ta": "今天 切片",
+          "tb": "未來 展望",
+          "edge": 4,
+          "center": 138.9,
+          "axis": "x"
+        }
+      ],
+      "partials": []
+    },
+    {
+      "key": "chronicle-1440-dark",
+      "overlapN": 0,
+      "clipN": 0,
+      "partialN": 0,
+      "scroll": {
+        "sw": 1440,
+        "cw": 1440,
+        "iw": 1440,
+        "body": 1440
+      },
+      "chromeH": 155,
+      "hero": null,
+      "bands": [
+        {
+          "id": "ch-ancient",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-now",
+          "bg": "rgb(22, 28, 36)"
+        },
+        {
+          "id": "ch-future",
+          "bg": "rgb(22, 28, 36)"
+        }
+      ],
+      "dom": {
+        "volume": 0,
+        "strip": 0,
+        "dots": 0,
+        "stageCards": 0,
+        "chapters": {
+          "ch-ancient": true,
+          "ch-now": true,
+          "ch-future": true
+        },
+        "stages": {
+          "stage-1": true,
+          "stage-2": true,
+          "stage-3": true,
+          "stage-4": true,
+          "stage-5": true,
+          "stage-6": true,
+          "stage-7": true,
+          "stage-8": true,
+          "stage-9": true,
+          "stage-10": true
+        },
+        "slice": false,
+        "future": false,
+        "futureF": {
+          "future-f1": false,
+          "future-f2": false,
+          "future-f3": false,
+          "future-f4": false,
+          "future-f5": false,
+          "future-f6": false
+        },
+        "axis": false,
+        "pattern": false,
+        "cases": false
+      },
+      "brandOk": true,
+      "cta": [],
+      "stage10": "本世紀／當代",
+      "eraToday": [],
+      "touch": [
+        {
+          "sel": ".masthead .search-bar input",
+          "text": "",
+          "w": 770.1,
+          "h": 42,
+          "x": 336,
+          "y": 5
+        }
+      ],
+      "gaps": [],
+      "partials": []
+    }
+  ],
+  "glyph": [
+    {
+      "text": "宇宙",
+      "yr": "~138億",
+      "node": {
+        "l": 24,
+        "r": 93,
+        "t": 1003,
+        "b": 1055,
+        "w": 69,
+        "h": 53
+      },
+      "textBox": {
+        "l": 48,
+        "r": 70,
+        "w": 22
+      },
+      "port": {
+        "l": 16,
+        "r": 344
+      },
+      "textPast": -296,
+      "textShown": 22
+    },
+    {
+      "text": "地球",
+      "yr": "~40億",
+      "node": {
+        "l": 105,
+        "r": 174,
+        "t": 1003,
+        "b": 1055,
+        "w": 69,
+        "h": 53
+      },
+      "textBox": {
+        "l": 129,
+        "r": 151,
+        "w": 22
+      },
+      "port": {
+        "l": 16,
+        "r": 344
+      },
+      "textPast": -215,
+      "textShown": 22
+    },
+    {
+      "text": "起源",
+      "yr": "~300ka",
+      "node": {
+        "l": 186,
+        "r": 255,
+        "t": 1003,
+        "b": 1055,
+        "w": 69,
+        "h": 53
+      },
+      "textBox": {
+        "l": 210,
+        "r": 232,
+        "w": 22
+      },
+      "port": {
+        "l": 16,
+        "r": 344
+      },
+      "textPast": -134,
+      "textShown": 22
+    },
+    {
+      "text": "技術",
+      "yr": "發現",
+      "node": {
+        "l": 267,
+        "r": 336,
+        "t": 1003,
+        "b": 1055,
+        "w": 69,
+        "h": 53
+      },
+      "textBox": {
+        "l": 291,
+        "r": 313,
+        "w": 22
+      },
+      "port": {
+        "l": 16,
+        "r": 344
+      },
+      "textPast": -53,
+      "textShown": 22
+    },
+    {
+      "text": "城市",
+      "yr": "基建",
+      "node": {
+        "l": 348,
+        "r": 417,
+        "t": 1003,
+        "b": 1055,
+        "w": 69,
+        "h": 53
+      },
+      "textBox": {
+        "l": 372,
+        "r": 394,
+        "w": 22
+      },
+      "port": {
+        "l": 16,
+        "r": 344
+      },
+      "textPast": 28,
+      "textShown": -27
+    },
+    {
+      "text": "今天",
+      "yr": "切片",
+      "node": {
+        "l": 429,
+        "r": 498,
+        "t": 1003,
+        "b": 1055,
+        "w": 69,
+        "h": 53
+      },
+      "textBox": {
+        "l": 453,
+        "r": 475,
+        "w": 22
+      },
+      "port": {
+        "l": 16,
+        "r": 344
+      },
+      "textPast": 109,
+      "textShown": -108
+    },
+    {
+      "text": "未來",
+      "yr": "展望",
+      "node": {
+        "l": 510,
+        "r": 579,
+        "t": 1003,
+        "b": 1055,
+        "w": 69,
+        "h": 53
+      },
+      "textBox": {
+        "l": 534,
+        "r": 556,
+        "w": 22
+      },
+      "port": {
+        "l": 16,
+        "r": 344
+      },
+      "textPast": 190,
+      "textShown": -189
+    }
+  ],
+  "hashesSpa": [
+    {
+      "id": "slice",
+      "path": "/#slice",
+      "scrollY": 0,
+      "gap": 2103.8,
+      "head": "今日切片"
+    },
+    {
+      "id": "ch-now",
+      "path": "/civilization/chronicle/#ch-now",
+      "scrollY": 16647,
+      "gap": 67.5,
+      "head": "今"
+    },
+    {
+      "id": "stage-10",
+      "path": "/civilization/chronicle/#stage-10",
+      "scrollY": 28052,
+      "gap": 41.2,
+      "head": "本世紀／當代"
+    }
+  ],
+  "ssrSlice": {
+    "early": {
+      "scrollY": 0,
+      "has": true
+    },
+    "late": {
+      "scrollY": 0,
+      "gap": 2103.8,
+      "head": "今日切片"
+    }
+  },
+  "clicks": [
+    {
+      "start": "http://127.0.0.1:5173/",
+      "sel": ".axis-cta .btn-brass",
+      "landed": "/civilization/",
+      "expectPath": "/civilization/",
+      "gap": null,
+      "ok": true
+    },
+    {
+      "start": "http://127.0.0.1:5173/civilization/",
+      "sel": ".axis-cta .btn-brass",
+      "landed": "/civilization/origins/",
+      "expectPath": "/civilization/origins/",
+      "gap": null,
+      "ok": true
+    },
+    {
+      "start": "http://127.0.0.1:5173/",
+      "sel": ".axis-cta .btn-ghost",
+      "landed": "/#slice",
+      "expectPath": "/#slice",
+      "gap": 30.8,
+      "ok": true
+    },
+    {
+      "start": "http://127.0.0.1:5173/civilization/",
+      "sel": ".axis-cta .btn-ghost",
+      "landed": "/#slice",
+      "expectPath": "/#slice",
+      "gap": 2103.8,
+      "ok": true
+    },
+    {
+      "start": "http://127.0.0.1:5173/",
+      "sel": ".volume-card a",
+      "landed": "/civilization/chronicle/#ch-ancient",
+      "expectPath": "/civilization/chronicle/#ch-",
+      "gap": 68.6,
+      "ok": true
+    },
+    {
+      "start": "http://127.0.0.1:5173/civilization/chronicle/#ch-future",
+      "sel": ".chapter-band-future .stage-links a",
+      "landed": "/civilization/#future",
+      "expectPath": "/civilization/#future",
+      "gap": 30.5,
+      "ok": true
+    }
+  ],
+  "anchorRows": [
+    {
+      "id": "slice",
+      "gap": 2103.8,
+      "head": "今日切片",
+      "chromeH": 161
+    },
+    {
+      "id": "ch-ancient",
+      "gap": 68.6,
+      "head": "古",
+      "chromeH": 161
+    },
+    {
+      "id": "ch-now",
+      "gap": 64.5,
+      "head": "今",
+      "chromeH": 161
+    },
+    {
+      "id": "ch-future",
+      "gap": 64,
+      "head": "未來",
+      "chromeH": 161
+    },
+    {
+      "id": "stage-1",
+      "gap": 41,
+      "head": "史前／採集狩獵",
+      "chromeH": 161
+    },
+    {
+      "id": "stage-2",
+      "gap": 41.2,
+      "head": "農業革命",
+      "chromeH": 161
+    },
+    {
+      "id": "stage-3",
+      "gap": 41.1,
+      "head": "城市與文字",
+      "chromeH": 161
+    },
+    {
+      "id": "stage-4",
+      "gap": 41.5,
+      "head": "古典帝國與軸心時代",
+      "chromeH": 161
+    },
+    {
+      "id": "stage-5",
+      "gap": 40.7,
+      "head": "中世紀與跨區域交流",
+      "chromeH": 161
+    },
+    {
+      "id": "stage-6",
+      "gap": 40.9,
+      "head": "科學革命與啟蒙",
+      "chromeH": 161
+    },
+    {
+      "id": "stage-7",
+      "gap": 40.5,
+      "head": "工業革命",
+      "chromeH": 161
+    },
+    {
+      "id": "stage-8",
+      "gap": 41.3,
+      "head": "現代金融與全球體系",
+      "chromeH": 161
+    },
+    {
+      "id": "stage-9",
+      "gap": 41,
+      "head": "信息革命",
+      "chromeH": 161
+    },
+    {
+      "id": "stage-10",
+      "gap": 41.2,
+      "head": "本世紀／當代",
+      "chromeH": 161
+    },
+    {
+      "id": "future",
+      "gap": 30.5,
+      "head": "展望",
+      "chromeH": 117
+    },
+    {
+      "id": "future-f1",
+      "gap": 230.5,
+      "head": "能量宜居",
+      "chromeH": 117
+    }
+  ],
+  "paperEra": {
+    "theme": "light",
+    "url": "http://127.0.0.1:5173/civilization/chronicle/",
+    "sel": ".chronicle-stage .era",
+    "text": "01 · 約 300 萬年前至約 1.2",
+    "color": "rgb(122, 90, 50)",
+    "bg": "rgb(244, 246, 248)",
+    "fontSize": "12px",
+    "weight": "700",
+    "large": false,
+    "need": 4.5,
+    "fg": [
+      122,
+      90,
+      50
+    ],
+    "p95": {
+      "rgb": [
+        244,
+        246,
+        248
+      ],
+      "contrast": 5.81
+    },
+    "max": {
+      "rgb": [
+        244,
+        246,
+        248
+      ],
+      "contrast": 5.81
+    }
+  }
+}
