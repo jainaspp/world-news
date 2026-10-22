@@ -1,0 +1,4 @@
+{
+  "note": "The first viewport-clip sampler returned ratio 1 because scrolled viewport screenshots were a flat #0e141c. Those numbers are discarded. Authoritative pixel ratios are in contrast-pixels.json.",
+  "authoritative": "contrast-pixels.json"
+}

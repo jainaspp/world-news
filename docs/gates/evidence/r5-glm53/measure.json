@@ -1,0 +1,6761 @@
+{
+  "sha": "921a6ef8fe0f01d0c1261748c174fcbadd8a959d",
+  "meta": {
+    "feedCount": 16,
+    "feedError": "",
+    "longTitle": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+    "plainTitle": "The Atari VCS saga will come to an end next year when its software store closes"
+  },
+  "results": [
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=light",
+      "width": 360,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 348,
+          "right": 417,
+          "top": 1045,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 429,
+          "right": 498,
+          "top": 1045,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 510,
+          "right": 579,
+          "top": 1028,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "left": 186,
+          "right": 255,
+          "top": 1056,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "left": 267,
+          "right": 336,
+          "top": 1062,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 348,
+          "right": 417,
+          "top": 1062,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 429,
+          "right": 498,
+          "top": 1062,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 510,
+          "right": 579,
+          "top": 1046,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "light",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=light",
+      "width": 390,
+      "height": 844,
+      "dark": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingWidth": 390,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 378,
+          "right": 455,
+          "top": 1032,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 467,
+          "right": 543,
+          "top": 1033,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 555,
+          "right": 632,
+          "top": 1032,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 378,
+          "right": 455,
+          "top": 1050,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 467,
+          "right": 543,
+          "top": 1051,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 555,
+          "right": 632,
+          "top": 1050,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "light",
+      "vp": "390",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=light",
+      "width": 414,
+      "height": 896,
+      "dark": false,
+      "scrollWidth": 414,
+      "clientWidth": 414,
+      "scrollingWidth": 414,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 402,
+          "right": 485,
+          "top": 1076,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 497,
+          "right": 579,
+          "top": 1076,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 591,
+          "right": 674,
+          "top": 1076,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 402,
+          "right": 485,
+          "top": 1093,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 497,
+          "right": 579,
+          "top": 1093,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 591,
+          "right": 674,
+          "top": 1093,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "light",
+      "vp": "414",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=light",
+      "width": 768,
+      "height": 1024,
+      "dark": false,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingWidth": 768,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "light",
+      "vp": "768",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=light",
+      "width": 1280,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "light",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=light",
+      "width": 1440,
+      "height": 900,
+      "dark": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollingWidth": 1440,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "light",
+      "vp": "1440",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=light",
+      "width": 1024,
+      "height": 768,
+      "dark": false,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingWidth": 1024,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "light",
+      "vp": "1024",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=dark",
+      "width": 360,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 348,
+          "right": 417,
+          "top": 1045,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 429,
+          "right": 498,
+          "top": 1045,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 510,
+          "right": 579,
+          "top": 1028,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "left": 186,
+          "right": 255,
+          "top": 1054,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "left": 267,
+          "right": 336,
+          "top": 1062,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 348,
+          "right": 417,
+          "top": 1062,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 429,
+          "right": 498,
+          "top": 1062,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 510,
+          "right": 579,
+          "top": 1045,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "dark",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=dark",
+      "width": 390,
+      "height": 844,
+      "dark": true,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingWidth": 390,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 378,
+          "right": 455,
+          "top": 1032,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 467,
+          "right": 543,
+          "top": 1032,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 555,
+          "right": 632,
+          "top": 1032,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 378,
+          "right": 455,
+          "top": 1050,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 467,
+          "right": 543,
+          "top": 1050,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 555,
+          "right": 632,
+          "top": 1050,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "dark",
+      "vp": "390",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=dark",
+      "width": 414,
+      "height": 896,
+      "dark": true,
+      "scrollWidth": 414,
+      "clientWidth": 414,
+      "scrollingWidth": 414,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 402,
+          "right": 485,
+          "top": 1076,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 497,
+          "right": 579,
+          "top": 1076,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 591,
+          "right": 674,
+          "top": 1076,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 402,
+          "right": 485,
+          "top": 1093,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 497,
+          "right": 579,
+          "top": 1093,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 591,
+          "right": 674,
+          "top": 1093,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "dark",
+      "vp": "414",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=dark",
+      "width": 768,
+      "height": 1024,
+      "dark": true,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingWidth": 768,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "dark",
+      "vp": "768",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=dark",
+      "width": 1280,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "dark",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=dark",
+      "width": 1440,
+      "height": 900,
+      "dark": true,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollingWidth": 1440,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "dark",
+      "vp": "1440",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=dark",
+      "width": 1024,
+      "height": 768,
+      "dark": true,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingWidth": 1024,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "dark",
+      "vp": "1024",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=light",
+      "width": 360,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 348,
+          "right": 417,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 429,
+          "right": 498,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 510,
+          "right": 579,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 348,
+          "right": 417,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 429,
+          "right": 498,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 510,
+          "right": 579,
+          "top": 391,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "light",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=light",
+      "width": 390,
+      "height": 844,
+      "dark": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingWidth": 390,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 378,
+          "right": 455,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 467,
+          "right": 543,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 555,
+          "right": 632,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 378,
+          "right": 455,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 467,
+          "right": 543,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 555,
+          "right": 632,
+          "top": 391,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "light",
+      "vp": "390",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=light",
+      "width": 414,
+      "height": 896,
+      "dark": false,
+      "scrollWidth": 414,
+      "clientWidth": 414,
+      "scrollingWidth": 414,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 402,
+          "right": 485,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 497,
+          "right": 579,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 591,
+          "right": 674,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 402,
+          "right": 485,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 497,
+          "right": 579,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 591,
+          "right": 674,
+          "top": 391,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "light",
+      "vp": "414",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=light",
+      "width": 768,
+      "height": 1024,
+      "dark": false,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingWidth": 768,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "light",
+      "vp": "768",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=light",
+      "width": 1280,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "light",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=light",
+      "width": 1440,
+      "height": 900,
+      "dark": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollingWidth": 1440,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "light",
+      "vp": "1440",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=light",
+      "width": 1024,
+      "height": 768,
+      "dark": false,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingWidth": 1024,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "light",
+      "vp": "1024",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=dark",
+      "width": 360,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 348,
+          "right": 417,
+          "top": 374,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 429,
+          "right": 498,
+          "top": 374,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 510,
+          "right": 579,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 348,
+          "right": 417,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 429,
+          "right": 498,
+          "top": 392,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 510,
+          "right": 579,
+          "top": 391,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "dark",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=dark",
+      "width": 390,
+      "height": 844,
+      "dark": true,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingWidth": 390,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 378,
+          "right": 455,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 467,
+          "right": 543,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 555,
+          "right": 632,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 378,
+          "right": 455,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 467,
+          "right": 543,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 555,
+          "right": 632,
+          "top": 391,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "dark",
+      "vp": "390",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=dark",
+      "width": 414,
+      "height": 896,
+      "dark": true,
+      "scrollWidth": 414,
+      "clientWidth": 414,
+      "scrollingWidth": 414,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 402,
+          "right": 485,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 497,
+          "right": 579,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 591,
+          "right": 674,
+          "top": 373,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 402,
+          "right": 485,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 497,
+          "right": 579,
+          "top": 391,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 591,
+          "right": 674,
+          "top": 391,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "dark",
+      "vp": "414",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=dark",
+      "width": 768,
+      "height": 1024,
+      "dark": true,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingWidth": 768,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "dark",
+      "vp": "768",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=dark",
+      "width": 1280,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "dark",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=dark",
+      "width": 1440,
+      "height": 900,
+      "dark": true,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollingWidth": 1440,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "dark",
+      "vp": "1440",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=dark",
+      "width": 1024,
+      "height": 768,
+      "dark": true,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingWidth": 1024,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "dark",
+      "vp": "1024",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/chronicle/?r5theme=light",
+      "width": 360,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "future": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "文明編年：從採集到智能工具",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "N",
+      "theme": "light",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/chronicle/?r5theme=light",
+      "width": 390,
+      "height": 844,
+      "dark": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingWidth": 390,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "future": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "文明編年：從採集到智能工具",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "N",
+      "theme": "light",
+      "vp": "390",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/chronicle/?r5theme=light",
+      "width": 768,
+      "height": 1024,
+      "dark": false,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingWidth": 768,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "future": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "文明編年：從採集到智能工具",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "N",
+      "theme": "light",
+      "vp": "768",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/chronicle/?r5theme=light",
+      "width": 1280,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "future": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "文明編年：從採集到智能工具",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "N",
+      "theme": "light",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/chronicle/?r5theme=light",
+      "width": 1440,
+      "height": 900,
+      "dark": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollingWidth": 1440,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "future": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "pattern": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": {
+          "background": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "文明編年：從採集到智能工具",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "N",
+      "theme": "light",
+      "vp": "1440",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/chronicle/?r5theme=dark",
+      "width": 360,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "future": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "文明編年：從採集到智能工具",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "N",
+      "theme": "dark",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/chronicle/?r5theme=dark",
+      "width": 390,
+      "height": 844,
+      "dark": true,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingWidth": 390,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "future": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "文明編年：從採集到智能工具",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "N",
+      "theme": "dark",
+      "vp": "390",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/chronicle/?r5theme=dark",
+      "width": 768,
+      "height": 1024,
+      "dark": true,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingWidth": 768,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "future": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "文明編年：從採集到智能工具",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "N",
+      "theme": "dark",
+      "vp": "768",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/chronicle/?r5theme=dark",
+      "width": 1280,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "future": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "文明編年：從採集到智能工具",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "N",
+      "theme": "dark",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/chronicle/?r5theme=dark",
+      "width": 1440,
+      "height": 900,
+      "dark": true,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollingWidth": 1440,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "future": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "ancient": true,
+        "now": true,
+        "future": true,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "文明編年：從採集到智能工具",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "N",
+      "theme": "dark",
+      "vp": "1440",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/learn/?r5theme=light",
+      "width": 360,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "開蒙 · 森羅",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "L",
+      "theme": "light",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/learn/?r5theme=light",
+      "width": 390,
+      "height": 844,
+      "dark": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingWidth": 390,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "開蒙 · 森羅",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "L",
+      "theme": "light",
+      "vp": "390",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/learn/?r5theme=light",
+      "width": 768,
+      "height": 1024,
+      "dark": false,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingWidth": 768,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "開蒙 · 森羅",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "L",
+      "theme": "light",
+      "vp": "768",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/learn/?r5theme=light",
+      "width": 1280,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "開蒙 · 森羅",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "L",
+      "theme": "light",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/learn/?r5theme=light",
+      "width": 1440,
+      "height": 900,
+      "dark": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollingWidth": 1440,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(22, 28, 36)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "開蒙 · 森羅",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "L",
+      "theme": "light",
+      "vp": "1440",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/learn/?r5theme=dark",
+      "width": 360,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "開蒙 · 森羅",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "L",
+      "theme": "dark",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/learn/?r5theme=dark",
+      "width": 390,
+      "height": 844,
+      "dark": true,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingWidth": 390,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "開蒙 · 森羅",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "L",
+      "theme": "dark",
+      "vp": "390",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/learn/?r5theme=dark",
+      "width": 768,
+      "height": 1024,
+      "dark": true,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingWidth": 768,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "開蒙 · 森羅",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "L",
+      "theme": "dark",
+      "vp": "768",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/learn/?r5theme=dark",
+      "width": 1280,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "開蒙 · 森羅",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "L",
+      "theme": "dark",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/learn/?r5theme=dark",
+      "width": 1440,
+      "height": 900,
+      "dark": true,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollingWidth": 1440,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(247, 241, 230)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "開蒙 · 森羅",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "L",
+      "theme": "dark",
+      "vp": "1440",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-long/?r5theme=light",
+      "width": 360,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A",
+      "theme": "light",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-long/?r5theme=light",
+      "width": 390,
+      "height": 844,
+      "dark": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingWidth": 390,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A",
+      "theme": "light",
+      "vp": "390",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-long/?r5theme=light",
+      "width": 768,
+      "height": 1024,
+      "dark": false,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingWidth": 768,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12.8,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A",
+      "theme": "light",
+      "vp": "768",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-long/?r5theme=light",
+      "width": 1280,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12.8,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A",
+      "theme": "light",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-long/?r5theme=light",
+      "width": 1440,
+      "height": 900,
+      "dark": false,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollingWidth": 1440,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12.8,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A",
+      "theme": "light",
+      "vp": "1440",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-long/?r5theme=dark",
+      "width": 360,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A",
+      "theme": "dark",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-long/?r5theme=dark",
+      "width": 390,
+      "height": 844,
+      "dark": true,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingWidth": 390,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A",
+      "theme": "dark",
+      "vp": "390",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-long/?r5theme=dark",
+      "width": 768,
+      "height": 1024,
+      "dark": true,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingWidth": 768,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12.8,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A",
+      "theme": "dark",
+      "vp": "768",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-long/?r5theme=dark",
+      "width": 1280,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12.8,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A",
+      "theme": "dark",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-long/?r5theme=dark",
+      "width": 1440,
+      "height": 900,
+      "dark": true,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollingWidth": 1440,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12.8,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "England v Sri Lanka: Brook makes history in men’s tri-series cricket ODI – live",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A",
+      "theme": "dark",
+      "vp": "1440",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-plain/?r5theme=light",
+      "width": 360,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "The Atari VCS saga will come to an end next year when its software store closes",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A2",
+      "theme": "light",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-plain/?r5theme=light",
+      "width": 1280,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12.8,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+          "color": "rgb(20, 32, 51)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 98,
+          "h": 36,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "The Atari VCS saga will come to an end next year when its software store closes",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A2",
+      "theme": "light",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-plain/?r5theme=dark",
+      "width": 360,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingWidth": 360,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "The Atari VCS saga will come to an end next year when its software store closes",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A2",
+      "theme": "dark",
+      "vp": "360",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/story/r5-plain/?r5theme=dark",
+      "width": 1280,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingWidth": 1280,
+      "overlap": [],
+      "clipped": [],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "INPUT",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12.8,
+        "bad": []
+      },
+      "ink": {
+        "axis": null,
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 0,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": false,
+        "axisCta": false,
+        "chronicleBand": false,
+        "volumeBoard": false,
+        "axisRails": false,
+        "patternAxis": false,
+        "caseAxis": false,
+        "slice": false,
+        "deep": false,
+        "axisTitle": false,
+        "h1": "The Atari VCS saga will come to an end next year when its software store closes",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "",
+        "ghost": "",
+        "primaryHref": "",
+        "ghostHref": ""
+      },
+      "page": "A2",
+      "theme": "dark",
+      "vp": "1280",
+      "exceptions": [],
+      "consoleErrors": []
+    },
+    {
+      "href": "http://127.0.0.1:46013/?r5theme=dark",
+      "width": 640,
+      "height": 360,
+      "dark": true,
+      "scrollWidth": 640,
+      "clientWidth": 640,
+      "scrollingWidth": 640,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 628,
+          "right": 767,
+          "top": 1065,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 779,
+          "right": 918,
+          "top": 1065,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 930,
+          "right": 1069,
+          "top": 1049,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "left": 175,
+          "right": 314,
+          "top": 1072,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "left": 326,
+          "right": 465,
+          "top": 1082,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "left": 477,
+          "right": 616,
+          "top": 1082,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 628,
+          "right": 767,
+          "top": 1082,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 779,
+          "right": 918,
+          "top": 1082,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 930,
+          "right": 1069,
+          "top": 1067,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": null,
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": null
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": true,
+        "volumeBoard": true,
+        "axisRails": true,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": true,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "打開文明總覽",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/",
+        "ghostHref": "#slice"
+      },
+      "page": "H",
+      "theme": "dark",
+      "vp": "640x360"
+    },
+    {
+      "href": "http://127.0.0.1:46013/civilization/?r5theme=dark",
+      "width": 640,
+      "height": 360,
+      "dark": true,
+      "scrollWidth": 640,
+      "clientWidth": 640,
+      "scrollingWidth": 640,
+      "overlap": [],
+      "clipped": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "left": 628,
+          "right": 767,
+          "top": 371,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "left": 779,
+          "right": 918,
+          "top": 371,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "left": 930,
+          "right": 1069,
+          "top": 355,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "left": 326,
+          "right": 465,
+          "top": 388,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "left": 477,
+          "right": 616,
+          "top": 389,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "left": 628,
+          "right": 767,
+          "top": 389,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "left": 779,
+          "right": 918,
+          "top": 389,
+          "partial": true
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "left": 930,
+          "right": 1069,
+          "top": 373,
+          "partial": true
+        }
+      ],
+      "touch": [],
+      "gaps": [],
+      "centers": [],
+      "textOverlap": [
+        {
+          "control": "icon-btn search-toggle",
+          "text": "搜尋"
+        }
+      ],
+      "fonts": {
+        "min": 12,
+        "bad": []
+      },
+      "ink": {
+        "axis": {
+          "background": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)"
+        },
+        "chapter": null,
+        "future": null,
+        "pattern": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        },
+        "chrome": {
+          "background": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+          "color": "rgb(243, 246, 250)"
+        },
+        "block": {
+          "background": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)"
+        }
+      },
+      "brand": {
+        "aria": "文明編年史",
+        "simplified": false,
+        "logo": {
+          "w": 0,
+          "h": 0,
+          "complete": true,
+          "natural": 185,
+          "src": "/brand/logo.svg?v=wn-v18",
+          "clipped": false
+        }
+      },
+      "dom": {
+        "volume": 3,
+        "stages": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "ancient": false,
+        "now": false,
+        "future": false,
+        "axis": true,
+        "axisCta": true,
+        "chronicleBand": false,
+        "volumeBoard": true,
+        "axisRails": false,
+        "patternAxis": true,
+        "caseAxis": true,
+        "slice": false,
+        "deep": true,
+        "axisTitle": true,
+        "h1": "人類文明",
+        "react": true,
+        "ssr": false
+      },
+      "cta": {
+        "primary": "閱讀人類起源",
+        "ghost": "跳到今日切片",
+        "primaryHref": "/civilization/origins/",
+        "ghostHref": "/#slice"
+      },
+      "page": "C",
+      "theme": "dark",
+      "vp": "640x360"
+    }
+  ]
+}
