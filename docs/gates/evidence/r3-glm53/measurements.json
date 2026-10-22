@@ -1,0 +1,81 @@
+{
+  "seat": "GLM 5.3",
+  "round": "R3",
+  "pr": 198,
+  "branch": "cursor/chronicle-three-volumes-p0-d5bd",
+  "commit": "484c28b9f0bda4ac9f612b27cc8d9cec8a152d91",
+  "verdict": "FAIL",
+  "critical": 0,
+  "fullGate": true,
+  "triggers": ["TRIG-HOME", "TRIG-CIV", "TRIG-GLOBAL-CSS", "TRIG-TEMPLATE", "TRIG-ROUTE", "TRIG-NAV", "TRIG-BRAND"],
+  "diffVsMain": { "base": "511162f", "files": 23, "insertions": 1417, "deletions": 237 },
+  "npmTest": { "files": 66, "tests": 402, "failed": 0, "note": "r2Critical headless fixture is not a substitute for the live pages below" },
+  "method": "Headless Chrome against local Vite. Home is the React SPA. Civilization and chronicle are the SSR templates. Learn and the two story fixtures were injected on the dev server because Vite middleware does not serve /learn or /story. Theme via localStorage darkMode plus emulated prefers-color-scheme. prefers-reduced-motion: reduce. Not a physical phone.",
+  "matrix": {
+    "pageRows": 107,
+    "touchFails": 0,
+    "gapFails": 0,
+    "overlap": 0,
+    "fixedHits": 0,
+    "consoleErrors": 0,
+    "pageHscroll": 0,
+    "pages": ["home", "civ", "chronicle", "learn", "news-long", "news-plain", "briefing", "cosmos", "earth", "origins", "tech", "city", "major", "topic"],
+    "widths": [360, 390, 414, 640, 768, 1024, 1280, 1440]
+  },
+  "r2Retest": {
+    "axisEdgeGapPx": {
+      "lte640": [12, 12, 12, 12, 12, 12],
+      "gte768": [8, 8, 8, 8, 8, 8]
+    },
+    "lineFilterEdgeGapPx": [8, 8, 8, 8],
+    "axisNodeMin": { "w360": [69, 52.6], "w768": [98.3, 55.2], "w1024": [107.4, 55.2] },
+    "searchInputHeightAt1280": 44,
+    "newsPrimary": { "w": 164.8, "h": 44, "covers": "long and plain, 360 and 1280, light and dark" }
+  },
+  "sliceClearancePx": [
+    { "kind": "direct", "w": 360, "theme": "dark", "scrollY": 2073, "clearance": 30.8125, "text": "今日切片" },
+    { "kind": "direct", "w": 1280, "theme": "light", "scrollY": 1727, "clearance": 33.265625, "text": "今日切片" },
+    { "kind": "direct", "w": 390, "theme": "light", "scrollY": 2081, "clearance": 46.53125, "text": "今日切片" },
+    { "kind": "hub", "w": 360, "theme": "dark", "scrollY": 2073, "clearance": 30.8125, "text": "今日切片" },
+    { "kind": "hub", "w": 1280, "theme": "light", "scrollY": 1727, "clearance": 33.265625, "text": "今日切片" },
+    { "kind": "hub", "w": 390, "theme": "dark", "scrollY": 2058, "clearance": 30.53125, "text": "今日切片" },
+    { "kind": "hub", "w": 768, "theme": "light", "scrollY": 1729, "clearance": 32.640625, "text": "今日切片" },
+    { "kind": "same", "w": 360, "theme": "dark", "scrollY": 2073, "clearance": 30.8125, "text": "今日切片" },
+    { "kind": "same", "w": 1280, "theme": "light", "scrollY": 1727, "clearance": 33.265625, "text": "今日切片" }
+  ],
+  "chronicleAnchors360Dark": [
+    { "id": "ch-now", "scrollY": 16650, "clearance": 64.546875, "text": "今" },
+    { "id": "stage-1", "scrollY": 1944, "clearance": 40.96875, "text": "史前／採集狩獵" },
+    { "id": "stage-10", "scrollY": 28052, "clearance": 41.15625, "text": "本世紀／當代" },
+    { "id": "ch-future", "scrollY": 31822, "clearance": 64.046875, "text": "未來" }
+  ],
+  "contrast390Dark": [
+    { "name": "title", "min": 10.13, "p05": 11.56, "median": 12.89, "need": 3, "pass": true },
+    { "name": "lede", "min": 4.38, "p05": 5.32, "median": 6.46, "belowNeed": 5, "n": 11456, "need": 4.5, "pass": true, "note": "five edge pixels; fill passes" },
+    { "name": "kicker", "min": 5.33, "median": 6.92, "need": 4.5, "pass": true },
+    { "name": "yr", "min": 6.11, "median": 6.94, "need": 4.5, "pass": true },
+    { "name": "lab", "min": 8.18, "median": 9.16, "need": 4.5, "pass": true },
+    { "name": "brass-cta", "min": 1.0, "median": 4.77, "need": 4.5, "pass": true, "note": "min is leftover glyph ink; fill median is the button" },
+    { "name": "volume-era", "min": 13.0, "median": 13.0, "need": 4.5, "pass": true },
+    { "name": "pattern-chip", "min": 1.04, "median": 15.24, "need": 4.5, "pass": true, "note": "min is leftover glyph ink" },
+    { "name": "slice-h2", "min": 14.79, "median": 14.79, "need": 4.5, "pass": true },
+    { "name": "layer-h3", "min": 13.79, "median": 13.79, "need": 4.5, "pass": true }
+  ],
+  "p1MinFont": {
+    "id": "P1-MIN-FONT",
+    "waived": false,
+    "samples": ["line-chip 11", "kicker 11", "hero-kicker 11", "lab 11", "yr 11", "product-kind 11", "future-status 11", "tag 11", "figcaption 11", "thumb-source 10.9", "cosmo-star-ord 10", "cosmo-star-name 10"]
+  },
+  "lighthouseMobileDev": {
+    "url": "http://127.0.0.1:4174/",
+    "performance": 0.54,
+    "lcpMs": 25223,
+    "ttiMs": 27123,
+    "tbtMs": 134.5,
+    "cls": 0,
+    "maxPotentialFidMs": 169,
+    "inp": null,
+    "production": false
+  },
+  "shareChips": { "height": 36, "edgeGap": 8, "countedAsCritical": false }
+}
