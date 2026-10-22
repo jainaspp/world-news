@@ -1,0 +1,54 @@
+[
+  {
+    "id": "slice",
+    "from": {
+      "x": 186.0234375,
+      "y": 400.1875,
+      "w": 108.015625,
+      "h": 44,
+      "text": "跳到今日切片",
+      "href": "/#slice"
+    },
+    "landed": {
+      "href": "/#slice",
+      "scrollY": 2077,
+      "chromeH": 161,
+      "chromeBottom": 161,
+      "headingTop": 177.40625,
+      "headingText": "今日切片 軸上今日 軸上今日只列公開標題與出處，方便對照文明編年；不另起一面牆。",
+      "clearance": 16.40625
+    }
+  },
+  {
+    "id": "overview",
+    "from": {
+      "x": 70,
+      "y": 399.734375,
+      "w": 108,
+      "h": 44,
+      "text": "打開文明總覽",
+      "href": "/civilization/"
+    },
+    "landed": {
+      "href": "/civilization/",
+      "h1": "人類文明",
+      "clearance": 919.75
+    }
+  },
+  {
+    "id": "origins",
+    "from": {
+      "x": 210.0078125,
+      "y": 400.1875,
+      "w": 108.015625,
+      "h": 44,
+      "text": "閱讀人類起源",
+      "href": "/civilization/origins/"
+    },
+    "landed": {
+      "href": "/civilization/origins/",
+      "h1": "人類起源時間線：從深時間到今日切片",
+      "clearance": 118.4375
+    }
+  }
+]
