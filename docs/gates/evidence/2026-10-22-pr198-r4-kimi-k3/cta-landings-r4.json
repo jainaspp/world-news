@@ -1,0 +1,117 @@
+{
+  "railEnd-H": {
+    "scrollLeft": 243,
+    "maxScroll": 243,
+    "railVisL": 16,
+    "railVisR": 344,
+    "last": {
+      "text": "未來展望",
+      "l": 267,
+      "r": 336,
+      "glyph": {
+        "l": 289.5,
+        "r": 313.5
+      }
+    },
+    "lastWhole": true,
+    "partialGlyphs": []
+  },
+  "railMid-H": {
+    "scrollLeft": 162,
+    "partialGlyphs": []
+  },
+  "railEnd-C": {
+    "scrollLeft": 243,
+    "maxScroll": 243,
+    "railVisL": 16,
+    "railVisR": 344,
+    "last": {
+      "text": "未來展望",
+      "l": 267,
+      "r": 336,
+      "glyph": {
+        "l": 289.5,
+        "r": 313.5
+      }
+    },
+    "lastWhole": true,
+    "partialGlyphs": []
+  },
+  "railMid-C": {
+    "scrollLeft": 162,
+    "partialGlyphs": []
+  },
+  "homeGhost": {
+    "href": "#slice",
+    "cls": "btn btn-ghost",
+    "w": 108,
+    "h": 44,
+    "x": 186,
+    "y": 400,
+    "inViewport": true
+  },
+  "homeGhostLanding": {
+    "url": "/#slice",
+    "scrollY": 2077,
+    "chromeBottom": 161,
+    "headingTop": 182,
+    "gap": 21.4
+  },
+  "homePrimary": {
+    "href": "/civilization/",
+    "text": "打開文明總覽",
+    "w": 108,
+    "h": 44,
+    "x": 70,
+    "y": 400,
+    "inViewport": true,
+    "fullTextVisible": true
+  },
+  "homePrimaryLanding": {
+    "url": "/civilization/",
+    "h1": "人類文明"
+  },
+  "civPrimary": {
+    "href": "/civilization/origins/",
+    "text": "閱讀人類起源",
+    "w": 108,
+    "h": 44,
+    "x": 70,
+    "y": 400,
+    "inViewport": true,
+    "fullTextVisible": true
+  },
+  "civPrimaryLanding": {
+    "url": "/civilization/origins/",
+    "h1": "人類起源時間線：從深時間到今日切片"
+  },
+  "fragH390": [],
+  "fragA360": [
+    {
+      "a": "政務司司長出席香港女工商及專業人員聯",
+      "b": "香港01"
+    },
+    {
+      "a": "政務司司長出席香港女工商及專業人員聯",
+      "b": "香港01"
+    },
+    {
+      "a": "Sri Lanka chasing ",
+      "b": "Guardian 體育"
+    },
+    {
+      "a": "Sri Lanka chasing ",
+      "b": "Guardian 體育"
+    }
+  ],
+  "fragC360": [],
+  "nestH": {
+    "volInBand": 3,
+    "patternInRails": 1,
+    "caseInRails": 1
+  },
+  "nestC": {
+    "volInBoard": 3
+  },
+  "viewportMeta": "width=device-width, initial-scale=1"
+}

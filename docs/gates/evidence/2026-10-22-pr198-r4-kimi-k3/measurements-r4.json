@@ -1,0 +1,10141 @@
+[
+  {
+    "page": "H",
+    "viewport": "360x800",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [
+      ".axis-node .lab @348,1041 \"城市\"",
+      ".axis-node .lab @429,1041 \"今天\"",
+      ".axis-node .lab @510,1041 \"未來\"",
+      ".axis-node .yr @348,1058 \"基建\"",
+      ".axis-node .yr @429,1058 \"切片\"",
+      ".axis-node .yr @510,1058 \"展望\""
+    ],
+    "scrollW": 360,
+    "clientW": 360,
+    "seW": 360,
+    "innerW": 360,
+    "scrollH": 7180,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 25,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 276,
+          "h": 28,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 276,
+        "h": 28,
+        "vw": 360
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          243,
+          245,
+          248
+        ],
+        "ratio": 5.42,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 346,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "360x800",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [
+      ".axis-node .lab @348,1041 \"城市\"",
+      ".axis-node .lab @429,1041 \"今天\"",
+      ".axis-node .lab @510,1041 \"未來\"",
+      ".axis-node .yr @348,1058 \"基建\"",
+      ".axis-node .yr @429,1058 \"切片\"",
+      ".axis-node .yr @510,1058 \"展望\""
+    ],
+    "scrollW": 360,
+    "clientW": 360,
+    "seW": 360,
+    "innerW": 360,
+    "scrollH": 7180,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 25,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 276,
+          "h": 28,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 276,
+        "h": 28,
+        "vw": 360
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          201,
+          211,
+          223
+        ],
+        "bg": [
+          24,
+          34,
+          48
+        ],
+        "ratio": 10.58,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 346,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "390x844",
+    "theme": "light",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [
+      ".axis-node .lab @378,1043 \"城市\"",
+      ".axis-node .lab @467,1043 \"今天\"",
+      ".axis-node .lab @555,1043 \"未來\"",
+      ".axis-node .yr @378,1061 \"基建\"",
+      ".axis-node .yr @467,1061 \"切片\"",
+      ".axis-node .yr @555,1061 \"展望\""
+    ],
+    "scrollW": 390,
+    "clientW": 390,
+    "seW": 390,
+    "innerW": 390,
+    "scrollH": 7073,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 25,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 306,
+          "h": 28,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 306,
+        "h": 28,
+        "vw": 390
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          243,
+          245,
+          248
+        ],
+        "ratio": 5.42,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 376,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "390x844",
+    "theme": "dark",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [
+      ".axis-node .lab @378,1043 \"城市\"",
+      ".axis-node .lab @467,1043 \"今天\"",
+      ".axis-node .lab @555,1043 \"未來\"",
+      ".axis-node .yr @378,1061 \"基建\"",
+      ".axis-node .yr @467,1061 \"切片\"",
+      ".axis-node .yr @555,1061 \"展望\""
+    ],
+    "scrollW": 390,
+    "clientW": 390,
+    "seW": 390,
+    "innerW": 390,
+    "scrollH": 7073,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 25,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 306,
+          "h": 28,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 306,
+        "h": 28,
+        "vw": 390
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          201,
+          211,
+          223
+        ],
+        "bg": [
+          24,
+          34,
+          48
+        ],
+        "ratio": 10.58,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 376,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "414x896",
+    "theme": "light",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [
+      ".axis-node .lab @402,1087 \"城市\"",
+      ".axis-node .lab @497,1087 \"今天\"",
+      ".axis-node .lab @591,1087 \"未來\"",
+      ".axis-node .yr @402,1104 \"基建\"",
+      ".axis-node .yr @497,1104 \"切片\"",
+      ".axis-node .yr @591,1104 \"展望\""
+    ],
+    "scrollW": 414,
+    "clientW": 414,
+    "seW": 414,
+    "innerW": 414,
+    "scrollH": 7113,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 25,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 330,
+          "h": 28,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 330,
+        "h": 28,
+        "vw": 414
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          243,
+          245,
+          248
+        ],
+        "ratio": 5.42,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 400,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "414x896",
+    "theme": "dark",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [
+      ".axis-node .lab @402,1087 \"城市\"",
+      ".axis-node .lab @497,1087 \"今天\"",
+      ".axis-node .lab @591,1087 \"未來\"",
+      ".axis-node .yr @402,1104 \"基建\"",
+      ".axis-node .yr @497,1104 \"切片\"",
+      ".axis-node .yr @591,1104 \"展望\""
+    ],
+    "scrollW": 414,
+    "clientW": 414,
+    "seW": 414,
+    "innerW": 414,
+    "scrollH": 7113,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 25,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 330,
+          "h": 28,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 330,
+        "h": 28,
+        "vw": 414
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          201,
+          211,
+          223
+        ],
+        "bg": [
+          24,
+          34,
+          48
+        ],
+        "ratio": 10.58,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 400,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "768x1024",
+    "theme": "light",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [],
+    "scrollW": 768,
+    "clientW": 768,
+    "seW": 768,
+    "innerW": 768,
+    "scrollH": 6508,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 24,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 768
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          243,
+          245,
+          248
+        ],
+        "ratio": 5.42,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 754,
+          "b": 109
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "768x1024",
+    "theme": "dark",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [],
+    "scrollW": 768,
+    "clientW": 768,
+    "seW": 768,
+    "innerW": 768,
+    "scrollH": 6508,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 24,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 768
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          201,
+          211,
+          223
+        ],
+        "bg": [
+          24,
+          34,
+          48
+        ],
+        "ratio": 10.58,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 754,
+          "b": 109
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "1024x768",
+    "theme": "light",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [],
+    "scrollW": 1024,
+    "clientW": 1024,
+    "seW": 1024,
+    "innerW": 1024,
+    "scrollH": 6582,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 24,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 106,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1024
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "30.72px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          243,
+          245,
+          248
+        ],
+        "ratio": 5.42,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 104,
+          "t": 0,
+          "r": 920,
+          "b": 109
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "1024x768",
+    "theme": "dark",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [],
+    "scrollW": 1024,
+    "clientW": 1024,
+    "seW": 1024,
+    "innerW": 1024,
+    "scrollH": 6582,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 24,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 106,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1024
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "30.72px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          201,
+          211,
+          223
+        ],
+        "bg": [
+          24,
+          34,
+          48
+        ],
+        "ratio": 10.58,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 104,
+          "t": 0,
+          "r": 920,
+          "b": 109
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "1280x800",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1280,
+    "clientW": 1280,
+    "seW": 1280,
+    "innerW": 1280,
+    "scrollH": 6817,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 24,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 150,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1280
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "35.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          243,
+          245,
+          248
+        ],
+        "ratio": 5.42,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 148,
+          "t": 0,
+          "r": 1132,
+          "b": 109
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "1280x800",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1280,
+    "clientW": 1280,
+    "seW": 1280,
+    "innerW": 1280,
+    "scrollH": 6817,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 24,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 150,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1280
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "35.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          201,
+          211,
+          223
+        ],
+        "bg": [
+          24,
+          34,
+          48
+        ],
+        "ratio": 10.58,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 148,
+          "t": 0,
+          "r": 1132,
+          "b": 109
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "1440x900",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1440,
+    "clientW": 1440,
+    "seW": 1440,
+    "innerW": 1440,
+    "scrollH": 6817,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 24,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 230,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1440
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "35.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          243,
+          245,
+          248
+        ],
+        "ratio": 5.42,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 228,
+          "t": 0,
+          "r": 1212,
+          "b": 109
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1440,
+    "clientW": 1440,
+    "seW": 1440,
+    "innerW": 1440,
+    "scrollH": 6817,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 24,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 230,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1440
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "35.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          201,
+          211,
+          223
+        ],
+        "bg": [
+          24,
+          34,
+          48
+        ],
+        "ratio": 10.58,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 228,
+          "t": 0,
+          "r": 1212,
+          "b": 109
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "640x360",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [
+      ".axis-node .lab @628,1057 \"城市\"",
+      ".axis-node .lab @779,1057 \"今天\"",
+      ".axis-node .lab @930,1057 \"未來\"",
+      ".axis-node .yr @628,1074 \"基建\"",
+      ".axis-node .yr @779,1074 \"切片\"",
+      ".axis-node .yr @930,1074 \"展望\""
+    ],
+    "scrollW": 640,
+    "clientW": 640,
+    "seW": 640,
+    "innerW": 640,
+    "scrollH": 6929,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 25,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 199.8,
+          "h": 28,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 200,
+        "h": 28,
+        "vw": 640
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          243,
+          245,
+          248
+        ],
+        "ratio": 5.42,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 626,
+          "b": 109
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "H",
+    "viewport": "640x360",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [
+      ".axis-node .lab @628,1057 \"城市\"",
+      ".axis-node .lab @779,1057 \"今天\"",
+      ".axis-node .lab @930,1057 \"未來\"",
+      ".axis-node .yr @628,1074 \"基建\"",
+      ".axis-node .yr @779,1074 \"切片\"",
+      ".axis-node .yr @930,1074 \"展望\""
+    ],
+    "scrollW": 640,
+    "clientW": 640,
+    "seW": 640,
+    "innerW": 640,
+    "scrollH": 6929,
+    "dom": {
+      "path": "/",
+      "H": {
+        "axisCta": 1,
+        "chronicleBand": 1,
+        "volumeCard": 3,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": 1,
+        "chronicleStrip": 0,
+        "deepAxis": 1
+      }
+    },
+    "touch": {
+      "total": 25,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 199.8,
+          "h": 28,
+          "text": ""
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 200,
+        "h": 28,
+        "vw": 640
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "sliceTag": {
+        "sel": ".slice-head .tag",
+        "fg": [
+          201,
+          211,
+          223
+        ],
+        "bg": [
+          24,
+          34,
+          48
+        ],
+        "ratio": 10.58,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 222,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 626,
+          "b": 109
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "360x800",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [
+      ".axis-node .lab @348,373 \"城市\"",
+      ".axis-node .lab @429,373 \"今天\"",
+      ".axis-node .lab @510,373 \"未來\"",
+      ".axis-node .yr @348,391 \"基建\"",
+      ".axis-node .yr @429,391 \"切片\"",
+      ".axis-node .yr @510,391 \"展望\""
+    ],
+    "scrollW": 360,
+    "clientW": 360,
+    "seW": 360,
+    "innerW": 360,
+    "scrollH": 27680,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 28,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 137.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 138,
+        "h": 28,
+        "vw": 360
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 600,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 346,
+          "b": 117
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "360x800",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [
+      ".axis-node .lab @348,373 \"城市\"",
+      ".axis-node .lab @429,373 \"今天\"",
+      ".axis-node .lab @510,373 \"未來\"",
+      ".axis-node .yr @348,391 \"基建\"",
+      ".axis-node .yr @429,391 \"切片\"",
+      ".axis-node .yr @510,391 \"展望\""
+    ],
+    "scrollW": 360,
+    "clientW": 360,
+    "seW": 360,
+    "innerW": 360,
+    "scrollH": 27680,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 28,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 137.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 138,
+        "h": 28,
+        "vw": 360
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 600,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 69,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 346,
+          "b": 117
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "390x844",
+    "theme": "light",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ],
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [
+      ".axis-node .lab @378,373 \"城市\"",
+      ".axis-node .lab @467,373 \"今天\"",
+      ".axis-node .lab @555,373 \"未來\"",
+      ".axis-node .yr @378,391 \"基建\"",
+      ".axis-node .yr @467,391 \"切片\"",
+      ".axis-node .yr @555,391 \"展望\""
+    ],
+    "scrollW": 390,
+    "clientW": 390,
+    "seW": 390,
+    "innerW": 390,
+    "scrollH": 27082,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 28,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 152.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 153,
+        "h": 28,
+        "vw": 390
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 600,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 376,
+          "b": 117
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "390x844",
+    "theme": "dark",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ],
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [
+      ".axis-node .lab @378,373 \"城市\"",
+      ".axis-node .lab @467,373 \"今天\"",
+      ".axis-node .lab @555,373 \"未來\"",
+      ".axis-node .yr @378,391 \"基建\"",
+      ".axis-node .yr @467,391 \"切片\"",
+      ".axis-node .yr @555,391 \"展望\""
+    ],
+    "scrollW": 390,
+    "clientW": 390,
+    "seW": 390,
+    "innerW": 390,
+    "scrollH": 27082,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 28,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 152.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 153,
+        "h": 28,
+        "vw": 390
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 600,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 77,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 376,
+          "b": 117
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "414x896",
+    "theme": "light",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ],
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [
+      ".axis-node .lab @402,373 \"城市\"",
+      ".axis-node .lab @497,373 \"今天\"",
+      ".axis-node .lab @591,373 \"未來\"",
+      ".axis-node .yr @402,391 \"基建\"",
+      ".axis-node .yr @497,391 \"切片\"",
+      ".axis-node .yr @591,391 \"展望\""
+    ],
+    "scrollW": 414,
+    "clientW": 414,
+    "seW": 414,
+    "innerW": 414,
+    "scrollH": 26322,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 28,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 164.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 165,
+        "h": 28,
+        "vw": 414
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 600,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 400,
+          "b": 117
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "414x896",
+    "theme": "dark",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ],
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [
+      ".axis-node .lab @402,373 \"城市\"",
+      ".axis-node .lab @497,373 \"今天\"",
+      ".axis-node .lab @591,373 \"未來\"",
+      ".axis-node .yr @402,391 \"基建\"",
+      ".axis-node .yr @497,391 \"切片\"",
+      ".axis-node .yr @591,391 \"展望\""
+    ],
+    "scrollW": 414,
+    "clientW": 414,
+    "seW": 414,
+    "innerW": 414,
+    "scrollH": 26322,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 28,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 164.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 165,
+        "h": 28,
+        "vw": 414
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 600,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 83,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 400,
+          "b": 117
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "768x1024",
+    "theme": "light",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ],
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [],
+    "scrollW": 768,
+    "clientW": 768,
+    "seW": 768,
+    "innerW": 768,
+    "scrollH": 21957,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 27,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 768
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 605,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 754,
+          "b": 111
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "768x1024",
+    "theme": "dark",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ],
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [],
+    "scrollW": 768,
+    "clientW": 768,
+    "seW": 768,
+    "innerW": 768,
+    "scrollH": 21957,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 27,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 768
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 605,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 98,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 754,
+          "b": 111
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "1024x768",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1024,
+    "clientW": 1024,
+    "seW": 1024,
+    "innerW": 1024,
+    "scrollH": 21454,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 27,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 106,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1024
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "30.72px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 605,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 104,
+          "t": 0,
+          "r": 920,
+          "b": 111
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "1024x768",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1024,
+    "clientW": 1024,
+    "seW": 1024,
+    "innerW": 1024,
+    "scrollH": 21454,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 27,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 106,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1024
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "30.72px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 605,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 107,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 104,
+          "t": 0,
+          "r": 920,
+          "b": 111
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "1280x800",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1280,
+    "clientW": 1280,
+    "seW": 1280,
+    "innerW": 1280,
+    "scrollH": 21514,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 27,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 150,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1280
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "35.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 605,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 148,
+          "t": 0,
+          "r": 1132,
+          "b": 111
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "1280x800",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1280,
+    "clientW": 1280,
+    "seW": 1280,
+    "innerW": 1280,
+    "scrollH": 21514,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 27,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 150,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1280
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "35.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 605,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 148,
+          "t": 0,
+          "r": 1132,
+          "b": 111
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "1440x900",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1440,
+    "clientW": 1440,
+    "seW": 1440,
+    "innerW": 1440,
+    "scrollH": 21514,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 27,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 230,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1440
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "35.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 605,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 228,
+          "t": 0,
+          "r": 1212,
+          "b": 111
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1440,
+    "clientW": 1440,
+    "seW": 1440,
+    "innerW": 1440,
+    "scrollH": 21514,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 27,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 230,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1440
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "35.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 605,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 131,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 228,
+          "t": 0,
+          "r": 1212,
+          "b": 111
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "640x360",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [
+      ".axis-node .lab @628,353 \"城市\"",
+      ".axis-node .lab @779,353 \"今天\"",
+      ".axis-node .lab @930,353 \"未來\"",
+      ".axis-node .yr @628,371 \"基建\"",
+      ".axis-node .yr @779,371 \"切片\"",
+      ".axis-node .yr @930,371 \"展望\""
+    ],
+    "scrollW": 640,
+    "clientW": 640,
+    "seW": 640,
+    "innerW": 640,
+    "scrollH": 24735,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 28,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 277.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 278,
+        "h": 28,
+        "vw": 640
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          92,
+          101,
+          112
+        ],
+        "bg": [
+          247,
+          241,
+          230
+        ],
+        "ratio": 5.26,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 605,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 626,
+          "b": 117
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "C",
+    "viewport": "640x360",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [
+      ".axis-node .lab @628,353 \"城市\"",
+      ".axis-node .lab @779,353 \"今天\"",
+      ".axis-node .lab @930,353 \"未來\"",
+      ".axis-node .yr @628,371 \"基建\"",
+      ".axis-node .yr @779,371 \"切片\"",
+      ".axis-node .yr @930,371 \"展望\""
+    ],
+    "scrollW": 640,
+    "clientW": 640,
+    "seW": 640,
+    "innerW": 640,
+    "scrollH": 24735,
+    "dom": {
+      "path": "/civilization/",
+      "C": {
+        "axisTitle": 1,
+        "deepAxis": 1,
+        "axisCta": 1,
+        "volumeCard": 3,
+        "volumeBoard": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "chronicleStrip": 0,
+        "patternChip": 3,
+        "caseChip": 2
+      }
+    },
+    "touch": {
+      "total": 28,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 277.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 278,
+        "h": 28,
+        "vw": 640
+      }
+    },
+    "contrast": {
+      "axisTitle": {
+        "sel": ".axis-title",
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 15.24,
+        "fontSize": "27.2px",
+        "fontWeight": "700"
+      },
+      "axisLede": {
+        "sel": ".axis-lede",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "axisYr": {
+        "sel": ".axis-node .yr",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "kicker": {
+        "sel": ".kicker",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 7.32,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "ctaPrimary": {
+        "sel": ".axis-cta .btn, .axis-cta a",
+        "fg": [
+          22,
+          28,
+          36
+        ],
+        "bg": [
+          161,
+          130,
+          86
+        ],
+        "ratio": 4.77,
+        "fontSize": "13px",
+        "fontWeight": "700"
+      },
+      "volEra": {
+        "sel": ".volume-card .era, .volume-card .vol-era",
+        "fg": [
+          243,
+          234,
+          220
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 13,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          197,
+          192,
+          182
+        ],
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "ratio": 9.46,
+        "fontSize": "12px",
+        "fontWeight": "400"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 605,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 7,
+      "labelHits": [],
+      "sizes": [
+        {
+          "text": "宇宙~138億",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "地球~40億",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "起源~300ka",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "技術發現",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "城市基建",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "今天切片",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        },
+        {
+          "text": "未來展望",
+          "w": 139,
+          "h": 55,
+          "clickable": true
+        }
+      ]
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 626,
+          "b": 117
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "N",
+    "viewport": "360x800",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 360,
+    "clientW": 360,
+    "seW": 360,
+    "innerW": 360,
+    "scrollH": 40995,
+    "dom": {
+      "path": "/civilization/chronicle/",
+      "N": {
+        "chAncient": 1,
+        "chNow": 1,
+        "chFuture": 1,
+        "stages": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "touch": {
+      "total": 9,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 137.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 138,
+        "h": 28,
+        "vw": 360
+      }
+    },
+    "contrast": {
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          122,
+          90,
+          50
+        ],
+        "bg": [
+          251,
+          247,
+          238
+        ],
+        "ratio": 5.89,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 856,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 346,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "N",
+    "viewport": "360x800",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 360,
+    "clientW": 360,
+    "seW": 360,
+    "innerW": 360,
+    "scrollH": 41001,
+    "dom": {
+      "path": "/civilization/chronicle/",
+      "N": {
+        "chAncient": 1,
+        "chNow": 1,
+        "chFuture": 1,
+        "stages": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "touch": {
+      "total": 9,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 137.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 138,
+        "h": 28,
+        "vw": 360
+      }
+    },
+    "contrast": {
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 6.62,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 856,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 346,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "N",
+    "viewport": "768x1024",
+    "theme": "light",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ],
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [],
+    "scrollW": 768,
+    "clientW": 768,
+    "seW": 768,
+    "innerW": 768,
+    "scrollH": 32939,
+    "dom": {
+      "path": "/civilization/chronicle/",
+      "N": {
+        "chAncient": 1,
+        "chNow": 1,
+        "chFuture": 1,
+        "stages": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "touch": {
+      "total": 8,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 768
+      }
+    },
+    "contrast": {
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          122,
+          90,
+          50
+        ],
+        "bg": [
+          251,
+          247,
+          238
+        ],
+        "ratio": 5.89,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 856,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 754,
+          "b": 155
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "N",
+    "viewport": "768x1024",
+    "theme": "dark",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a."
+      ],
+      [
+        "a.",
+        "a."
+      ]
+    ],
+    "clips": [],
+    "scrollW": 768,
+    "clientW": 768,
+    "seW": 768,
+    "innerW": 768,
+    "scrollH": 32945,
+    "dom": {
+      "path": "/civilization/chronicle/",
+      "N": {
+        "chAncient": 1,
+        "chNow": 1,
+        "chFuture": 1,
+        "stages": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "touch": {
+      "total": 8,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 768
+      }
+    },
+    "contrast": {
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 6.62,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 856,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 754,
+          "b": 155
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "N",
+    "viewport": "1280x800",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1280,
+    "clientW": 1280,
+    "seW": 1280,
+    "innerW": 1280,
+    "scrollH": 33340,
+    "dom": {
+      "path": "/civilization/chronicle/",
+      "N": {
+        "chAncient": 1,
+        "chNow": 1,
+        "chFuture": 1,
+        "stages": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "touch": {
+      "total": 8,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 150,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1280
+      }
+    },
+    "contrast": {
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          122,
+          90,
+          50
+        ],
+        "bg": [
+          251,
+          247,
+          238
+        ],
+        "ratio": 5.89,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "light",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 856,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 148,
+          "t": 0,
+          "r": 1132,
+          "b": 155
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "N",
+    "viewport": "1280x800",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1280,
+    "clientW": 1280,
+    "seW": 1280,
+    "innerW": 1280,
+    "scrollH": 33346,
+    "dom": {
+      "path": "/civilization/chronicle/",
+      "N": {
+        "chAncient": 1,
+        "chNow": 1,
+        "chFuture": 1,
+        "stages": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "touch": {
+      "total": 8,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "文明編年 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 150,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1280
+      }
+    },
+    "contrast": {
+      "milestoneH": {
+        "sel": ".milestone-h, .milestones .lab",
+        "fg": [
+          196,
+          165,
+          114
+        ],
+        "bg": [
+          42,
+          35,
+          27
+        ],
+        "ratio": 6.62,
+        "fontSize": "12px",
+        "fontWeight": "700"
+      },
+      "theme": "dark",
+      "bandBg": "rgb(22, 28, 36)",
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 856,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 148,
+          "t": 0,
+          "r": 1132,
+          "b": 155
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "L",
+    "viewport": "360x800",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 360,
+    "clientW": 360,
+    "seW": 360,
+    "innerW": 360,
+    "scrollH": 2359,
+    "dom": {
+      "path": "/learn/"
+    },
+    "touch": {
+      "total": 9,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 137.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "開蒙 · 森羅 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 138,
+        "h": 28,
+        "vw": 360
+      }
+    },
+    "contrast": {
+      "theme": "light",
+      "bandBg": null,
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 78,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 346,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "L",
+    "viewport": "360x800",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 360,
+    "clientW": 360,
+    "seW": 360,
+    "innerW": 360,
+    "scrollH": 2359,
+    "dom": {
+      "path": "/learn/"
+    },
+    "touch": {
+      "total": 9,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 137.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "開蒙 · 森羅 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 138,
+        "h": 28,
+        "vw": 360
+      }
+    },
+    "contrast": {
+      "theme": "dark",
+      "bandBg": null,
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 78,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 346,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "L",
+    "viewport": "1280x800",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1280,
+    "clientW": 1280,
+    "seW": 1280,
+    "innerW": 1280,
+    "scrollH": 1280,
+    "dom": {
+      "path": "/learn/"
+    },
+    "touch": {
+      "total": 8,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "開蒙 · 森羅 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 150,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1280
+      }
+    },
+    "contrast": {
+      "theme": "light",
+      "bandBg": null,
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 78,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 148,
+          "t": 0,
+          "r": 1132,
+          "b": 155
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "L",
+    "viewport": "1280x800",
+    "theme": "dark",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1280,
+    "clientW": 1280,
+    "seW": 1280,
+    "innerW": 1280,
+    "scrollH": 1280,
+    "dom": {
+      "path": "/learn/"
+    },
+    "touch": {
+      "total": 8,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "開蒙 · 森羅 — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 150,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1280
+      }
+    },
+    "contrast": {
+      "theme": "dark",
+      "bandBg": null,
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 78,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 148,
+          "t": 0,
+          "r": 1132,
+          "b": 155
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "A",
+    "viewport": "360x800",
+    "theme": "dark",
+    "hit": [],
+    "inner": [
+      [
+        "a.",
+        "a.story-media"
+      ]
+    ],
+    "clips": [],
+    "scrollW": 360,
+    "clientW": 360,
+    "seW": 360,
+    "innerW": 360,
+    "scrollH": 2099,
+    "dom": {
+      "path": "/story/r4/"
+    },
+    "touch": {
+      "total": 9,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 137.8,
+          "h": 28,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "Brilliant Brook hits England's first 200 in an ODI — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 16,
+        "t": 8,
+        "w": 138,
+        "h": 28,
+        "vw": 360
+      }
+    },
+    "contrast": {
+      "theme": "dark",
+      "bandBg": null,
+      "bodyBg": "rgb(14, 20, 28)"
+    },
+    "minFont": {
+      "seen": 62,
+      "min": 12,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 14,
+          "t": 0,
+          "r": 346,
+          "b": 161
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  },
+  {
+    "page": "A",
+    "viewport": "1280x800",
+    "theme": "light",
+    "hit": [],
+    "inner": [],
+    "clips": [],
+    "scrollW": 1280,
+    "clientW": 1280,
+    "seW": 1280,
+    "innerW": 1280,
+    "scrollH": 1678,
+    "dom": {
+      "path": "/story/r4/"
+    },
+    "touch": {
+      "total": 8,
+      "small": [
+        {
+          "sel": ".chrome a",
+          "w": 97.9,
+          "h": 40,
+          "text": ""
+        },
+        {
+          "sel": ".skip-link",
+          "w": 88,
+          "h": 40,
+          "text": "跳到內容"
+        }
+      ],
+      "pairs": []
+    },
+    "brand": {
+      "title": "Brilliant Brook hits England's first 200 in an ODI — 文明編年史",
+      "ogSite": "文明編年史",
+      "aria": "文明編年史",
+      "logoText": "",
+      "hasFullBrand": true,
+      "hasSimplified": false,
+      "logoBox": {
+        "l": 72,
+        "t": 6,
+        "w": 98,
+        "h": 40,
+        "vw": 1280
+      }
+    },
+    "contrast": {
+      "theme": "light",
+      "bandBg": null,
+      "bodyBg": "rgb(244, 246, 248)"
+    },
+    "minFont": {
+      "seen": 62,
+      "min": 12.8,
+      "bad": []
+    },
+    "axis": {
+      "count": 0,
+      "labelHits": [],
+      "sizes": []
+    },
+    "fixed": {
+      "fixed": [
+        {
+          "cls": "chrome",
+          "pos": "sticky",
+          "l": 70,
+          "t": 0,
+          "r": 1210,
+          "b": 155
+        }
+      ],
+      "covers": [
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        },
+        {
+          "fixed": "chrome",
+          "control": "A.chip"
+        }
+      ]
+    },
+    "consoleErrors": [],
+    "exceptions": []
+  }
+]

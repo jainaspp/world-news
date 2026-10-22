@@ -1,0 +1,245 @@
+{
+ "/": {
+  "axis": {
+   "overflowX": "auto",
+   "scrollW": 1061,
+   "clientW": 608,
+   "heroH": 253.2,
+   "heroMaxH": "300px",
+   "heroClass": "axis-hero axis-slim",
+   "nodes": [
+    {
+     "text": "宇宙~138億",
+     "w": 139,
+     "h": 55.2,
+     "labL": 24,
+     "labR": 163
+    },
+    {
+     "text": "地球~40億",
+     "w": 139,
+     "h": 55.2,
+     "labL": 175,
+     "labR": 314
+    },
+    {
+     "text": "起源~300ka",
+     "w": 139,
+     "h": 55.2,
+     "labL": 326,
+     "labR": 465
+    },
+    {
+     "text": "技術發現",
+     "w": 139,
+     "h": 55.2,
+     "labL": 477,
+     "labR": 616
+    },
+    {
+     "text": "城市基建",
+     "w": 139,
+     "h": 55.2,
+     "labL": 628,
+     "labR": 767
+    },
+    {
+     "text": "今天切片",
+     "w": 139,
+     "h": 55.2,
+     "labL": 779,
+     "labR": 918
+    },
+    {
+     "text": "未來展望",
+     "w": 139,
+     "h": 55.2,
+     "labL": 930,
+     "labR": 1069
+    }
+   ]
+  },
+  "cta": {
+   "w": 108,
+   "h": 44,
+   "insideHero": true
+  },
+  "stageCount": 0,
+  "stageSample": [],
+  "dotEls": [
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot now",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   }
+  ],
+  "hscroll": false
+ },
+ "/civilization/": {
+  "axis": {
+   "overflowX": "auto",
+   "scrollW": 1061,
+   "clientW": 608,
+   "heroH": 550.2,
+   "heroMaxH": "none",
+   "heroClass": "axis-hero",
+   "nodes": [
+    {
+     "text": "宇宙~138億",
+     "w": 139,
+     "h": 55.2,
+     "labL": 24,
+     "labR": 163
+    },
+    {
+     "text": "地球~40億",
+     "w": 139,
+     "h": 55.2,
+     "labL": 175,
+     "labR": 314
+    },
+    {
+     "text": "起源~300ka",
+     "w": 139,
+     "h": 55.2,
+     "labL": 326,
+     "labR": 465
+    },
+    {
+     "text": "技術發現",
+     "w": 139,
+     "h": 55.2,
+     "labL": 477,
+     "labR": 616
+    },
+    {
+     "text": "城市基建",
+     "w": 139,
+     "h": 55.2,
+     "labL": 628,
+     "labR": 767
+    },
+    {
+     "text": "今天切片",
+     "w": 139,
+     "h": 55.2,
+     "labL": 779,
+     "labR": 918
+    },
+    {
+     "text": "未來展望",
+     "w": 139,
+     "h": 55.2,
+     "labL": 930,
+     "labR": 1069
+    }
+   ]
+  },
+  "cta": {
+   "w": 108,
+   "h": 44,
+   "insideHero": true
+  },
+  "stageCount": 0,
+  "stageSample": [],
+  "dotEls": [
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot now",
+    "w": 14,
+    "h": 14
+   },
+   {
+    "cls": "dot",
+    "w": 14,
+    "h": 14
+   }
+  ],
+  "hscroll": false
+ },
+ "/civilization/chronicle/": {
+  "stageCount": 22,
+  "stageSample": [
+   {
+    "id": "stage-1",
+    "cls": "chronicle-stage civ-reveal civ-reveal--above-fold is-inview",
+    "tag": "SECTION",
+    "linkTag": "A",
+    "w": 195,
+    "h": 19
+   },
+   {
+    "id": "stage-1-product",
+    "cls": "milestone-block",
+    "tag": "DETAILS",
+    "linkTag": "DETAILS",
+    "w": 608,
+    "h": 955.2
+   },
+   {
+    "id": "stage-2",
+    "cls": "chronicle-stage civ-reveal is-inview",
+    "tag": "SECTION",
+    "linkTag": "A",
+    "w": 312,
+    "h": 19
+   }
+  ],
+  "dotEls": [],
+  "hscroll": false
+ }
+}

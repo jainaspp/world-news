@@ -1,0 +1,772 @@
+[
+ {
+  "card": [
+   16,
+   165,
+   344,
+   765
+  ],
+  "html": "<article class=\"story story-hero column-hero\" data-story-id=\"f6880f2af4cc\">\n        <div class=\"story-media\"><div class=\"thumb thumb-fallback\" style=\"--ph:#C8102E\" aria-hidden=\"true\"><span class=\"region-icon region-icon-lg\" style=\"mask-image:url('/icons/hkg.svg');-webkit-mask-image:url('/icons/hkg.svg')\"></span><span class=\"thumb-source\">新聞公報</span></div></div>\n        <div class=\"story-body\">\n          <div class=\"story-kicker\"><a class=\"chip cat-chip\" style=\"--ph:#C8102E\" href=\"/category/hk\">香港</a></div>\n          <h1 class=\"story-title column-title\">政務司司長出席香港女工商及專業人員聯會30周年暨2026傑出專業女性及女企業家選舉頒獎典禮致辭（只有中文）</h1>\n          <div class=\"story-meta\"><img class=\"favicon\" src=\"https://www.google.com",
+  "parts": [
+   {
+    "sel": "div.story-media",
+    "vis": true,
+    "rect": [
+     17,
+     166,
+     343,
+     349
+    ],
+    "text": ""
+   },
+   {
+    "sel": "div.thumb.thumb-fallback",
+    "vis": true,
+    "rect": [
+     17,
+     166,
+     343,
+     349
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.region-icon.region-icon-lg",
+    "vis": true,
+    "rect": [
+     148,
+     214,
+     212,
+     278
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.thumb-source",
+    "vis": true,
+    "rect": [
+     154,
+     286,
+     206,
+     302
+    ],
+    "text": "新聞公報"
+   },
+   {
+    "sel": "div.story-body",
+    "vis": true,
+    "rect": [
+     17,
+     349,
+     343,
+     764
+    ],
+    "text": ""
+   },
+   {
+    "sel": "div.story-kicker",
+    "vis": true,
+    "rect": [
+     33,
+     361,
+     327,
+     397
+    ],
+    "text": ""
+   },
+   {
+    "sel": "a.chip.cat-chip",
+    "vis": true,
+    "rect": [
+     33,
+     361,
+     81,
+     397
+    ],
+    "text": "香港"
+   },
+   {
+    "sel": "h1.story-title.column-title",
+    "vis": true,
+    "rect": [
+     33,
+     407,
+     327,
+     521
+    ],
+    "text": "政務司司長出席香港女工商及專業人員聯會30周年暨20"
+   },
+   {
+    "sel": "div.story-meta",
+    "vis": true,
+    "rect": [
+     33,
+     531,
+     327,
+     550
+    ],
+    "text": ""
+   },
+   {
+    "sel": "img.favicon",
+    "vis": true,
+    "rect": [
+     33,
+     533,
+     49,
+     549
+    ],
+    "text": ""
+   },
+   {
+    "sel": "strong.",
+    "vis": true,
+    "rect": [
+     57,
+     531,
+     109,
+     550
+    ],
+    "text": "新聞公報"
+   },
+   {
+    "sel": "time.",
+    "vis": true,
+    "rect": [
+     117,
+     531,
+     320,
+     550
+    ],
+    "text": "· 2026年10月22日 20:15 香港時間"
+   },
+   {
+    "sel": "div.story-actions",
+    "vis": true,
+    "rect": [
+     33,
+     560,
+     327,
+     604
+    ],
+    "text": ""
+   },
+   {
+    "sel": "a.primary",
+    "vis": true,
+    "rect": [
+     33,
+     560,
+     214,
+     604
+    ],
+    "text": "閱讀 新聞公報 原文 →"
+   },
+   {
+    "sel": "div.share-buttons",
+    "vis": true,
+    "rect": [
+     33,
+     614,
+     327,
+     650
+    ],
+    "text": ""
+   },
+   {
+    "sel": "button.chip.share-copy",
+    "vis": true,
+    "rect": [
+     33,
+     614,
+     117,
+     650
+    ],
+    "text": "複製連結"
+   },
+   {
+    "sel": "a.chip.share-wa",
+    "vis": true,
+    "rect": [
+     125,
+     614,
+     218,
+     650
+    ],
+    "text": "WhatsApp"
+   },
+   {
+    "sel": "button.chip.share-native",
+    "vis": true,
+    "rect": [
+     226,
+     614,
+     281,
+     650
+    ],
+    "text": "分享"
+   },
+   {
+    "sel": "div.listen",
+    "vis": true,
+    "rect": [
+     33,
+     660,
+     327,
+     700
+    ],
+    "text": ""
+   },
+   {
+    "sel": "button.chip.listen-play",
+    "vis": true,
+    "rect": [
+     33,
+     661,
+     91,
+     699
+    ],
+    "text": "收聽"
+   },
+   {
+    "sel": "button.chip.listen-stop",
+    "vis": true,
+    "rect": [
+     99,
+     661,
+     157,
+     699
+    ],
+    "text": "停止"
+   },
+   {
+    "sel": "label.listen-rate",
+    "vis": true,
+    "rect": [
+     165,
+     660,
+     271,
+     700
+    ],
+    "text": ""
+   },
+   {
+    "sel": "select.listen-rate-select",
+    "vis": true,
+    "rect": [
+     200,
+     660,
+     271,
+     700
+    ],
+    "text": ""
+   },
+   {
+    "sel": "option.",
+    "vis": false,
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "text": "較慢"
+   },
+   {
+    "sel": "option.",
+    "vis": false,
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "text": "正常"
+   },
+   {
+    "sel": "option.",
+    "vis": false,
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "text": "較快"
+   },
+   {
+    "sel": "option.",
+    "vis": false,
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "text": "快速"
+   },
+   {
+    "sel": "button.chip.bookmark-article",
+    "vis": true,
+    "rect": [
+     33,
+     710,
+     327,
+     748
+    ],
+    "text": "收藏"
+   }
+  ]
+ },
+ {
+  "card": [
+   16,
+   815,
+   174,
+   1052
+  ],
+  "html": "<article class=\"story\">\n          <a class=\"story-media\" href=\"/story/f6880f2af4cc/\" tabindex=\"-1\" aria-hidden=\"true\"><div class=\"thumb thumb-fallback\" style=\"--ph:#C8102E\" aria-hidden=\"true\"><span class=\"region-icon region-icon-lg\" style=\"mask-image:url('/icons/hkg.svg');-webkit-mask-image:url('/icons/hkg.svg')\"></span><span class=\"thumb-source\">新聞公報</span></div></a>\n          <div class=\"story-body\">\n            <div class=\"story-kicker\"><a class=\"chip cat-chip\" style=\"--ph:#C8102E\" href=\"/category/hk\">香港</a></div>\n            <h3 class=\"story-title\"><a href=\"/story/f6880f2af4cc/\">政務司司長出席香港女工商及專業人員聯會30周年暨2026傑出專業女性及女企業家選舉頒獎典禮致辭（只有中文）</a></h3>\n            <div class=\"story-meta\"><img class=",
+  "parts": [
+   {
+    "sel": "a.story-media",
+    "vis": true,
+    "rect": [
+     17,
+     816,
+     173,
+     904
+    ],
+    "text": ""
+   },
+   {
+    "sel": "div.thumb.thumb-fallback",
+    "vis": true,
+    "rect": [
+     17,
+     816,
+     173,
+     904
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.region-icon.region-icon-lg",
+    "vis": true,
+    "rect": [
+     79,
+     833,
+     111,
+     865
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.thumb-source",
+    "vis": true,
+    "rect": [
+     71,
+     873,
+     119,
+     888
+    ],
+    "text": "新聞公報"
+   },
+   {
+    "sel": "div.story-body",
+    "vis": true,
+    "rect": [
+     17,
+     904,
+     173,
+     1051
+    ],
+    "text": ""
+   },
+   {
+    "sel": "div.story-kicker",
+    "vis": true,
+    "rect": [
+     27,
+     912,
+     163,
+     948
+    ],
+    "text": ""
+   },
+   {
+    "sel": "a.chip.cat-chip",
+    "vis": true,
+    "rect": [
+     27,
+     912,
+     75,
+     948
+    ],
+    "text": "香港"
+   },
+   {
+    "sel": "h3.story-title",
+    "vis": true,
+    "rect": [
+     27,
+     952,
+     163,
+     1018
+    ],
+    "text": ""
+   },
+   {
+    "sel": "a.",
+    "vis": true,
+    "rect": [
+     27,
+     952,
+     154,
+     1105
+    ],
+    "text": "政務司司長出席香港女工商及專業人員聯會30周年暨20"
+   },
+   {
+    "sel": "div.story-meta",
+    "vis": true,
+    "rect": [
+     27,
+     1022,
+     163,
+     1041
+    ],
+    "text": ""
+   },
+   {
+    "sel": "img.favicon",
+    "vis": true,
+    "rect": [
+     27,
+     1024,
+     43,
+     1040
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.source-tag",
+    "vis": true,
+    "rect": [
+     51,
+     1022,
+     103,
+     1041
+    ],
+    "text": "新聞公報"
+   }
+  ]
+ },
+ {
+  "card": [
+   186,
+   815,
+   344,
+   1052
+  ],
+  "html": "<article class=\"story\">\n          <a class=\"story-media\" href=\"/story/74e73a6dbf6f/\" tabindex=\"-1\" aria-hidden=\"true\"><img class=\"thumb\" src=\"https://i.guim.co.uk/img/media/c17650b0b1b1a81af75655536b8a8313e321e113/284_0_2582_2066/master/2582.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=dcb7909eeac8b63cab6730588a7a793c\" alt=\"\" width=\"640\" height=\"360\" loading=\"lazy\" decoding=\"async\" referrerpolicy=\"no-referrer\" onerror=\"this.hidden=true;this.nextElementSibling.hidden=false\"><div class=\"thumb thumb-fallback\" style=\"--ph:#8E1B2C\" aria-hidden=\"true\" hidden=\"\"><span class=\"region-icon region-icon-lg\" style=\"mask-image:url('/icons/all.svg');-webkit-mask-image:url('/icons/all.svg'",
+  "parts": [
+   {
+    "sel": "a.story-media",
+    "vis": true,
+    "rect": [
+     187,
+     816,
+     343,
+     904
+    ],
+    "text": ""
+   },
+   {
+    "sel": "img.thumb",
+    "vis": true,
+    "rect": [
+     187,
+     816,
+     343,
+     904
+    ],
+    "text": ""
+   },
+   {
+    "sel": "div.thumb.thumb-fallback",
+    "vis": false,
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.region-icon.region-icon-lg",
+    "vis": false,
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.thumb-source",
+    "vis": false,
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "text": "Guardian 體育"
+   },
+   {
+    "sel": "div.story-body",
+    "vis": true,
+    "rect": [
+     187,
+     904,
+     343,
+     1051
+    ],
+    "text": ""
+   },
+   {
+    "sel": "div.story-kicker",
+    "vis": true,
+    "rect": [
+     197,
+     912,
+     333,
+     948
+    ],
+    "text": ""
+   },
+   {
+    "sel": "a.chip.cat-chip",
+    "vis": true,
+    "rect": [
+     197,
+     912,
+     245,
+     948
+    ],
+    "text": "體育"
+   },
+   {
+    "sel": "h3.story-title",
+    "vis": true,
+    "rect": [
+     197,
+     952,
+     333,
+     1018
+    ],
+    "text": ""
+   },
+   {
+    "sel": "a.",
+    "vis": true,
+    "rect": [
+     197,
+     952,
+     328,
+     1105
+    ],
+    "text": "Sri Lanka chasing 430 to b"
+   },
+   {
+    "sel": "div.story-meta",
+    "vis": true,
+    "rect": [
+     197,
+     1022,
+     333,
+     1041
+    ],
+    "text": ""
+   },
+   {
+    "sel": "img.favicon",
+    "vis": true,
+    "rect": [
+     197,
+     1024,
+     213,
+     1040
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.source-tag",
+    "vis": true,
+    "rect": [
+     221,
+     1022,
+     309,
+     1041
+    ],
+    "text": "Guardian 體育"
+   }
+  ]
+ },
+ {
+  "card": [
+   16,
+   1064,
+   174,
+   1301
+  ],
+  "html": "<article class=\"story\">\n          <a class=\"story-media\" href=\"/story/e89bfc30a2ce/\" tabindex=\"-1\" aria-hidden=\"true\"><img class=\"thumb\" src=\"https://cdn.hk01.com/di/media/images/dw/20260213/1099114637883871232359617.jpeg/cM3gMHbWFXT7UC0ywvc1sM06HHMzqqc5m2WmeZtlpnk\" alt=\"\" width=\"640\" height=\"360\" loading=\"lazy\" decoding=\"async\" referrerpolicy=\"no-referrer\" onerror=\"this.hidden=true;this.nextElementSibling.hidden=false\"><div class=\"thumb thumb-fallback\" style=\"--ph:#C8102E\" aria-hidden=\"true\" hidden=\"\"><span class=\"region-icon region-icon-lg\" style=\"mask-image:url('/icons/hkg.svg');-webkit-mask-image:url('/icons/hkg.svg')\"></span><span class=\"thumb-source\">香港01</span></div></a>\n          <di",
+  "parts": [
+   {
+    "sel": "a.story-media",
+    "vis": true,
+    "rect": [
+     17,
+     1065,
+     173,
+     1153
+    ],
+    "text": ""
+   },
+   {
+    "sel": "img.thumb",
+    "vis": true,
+    "rect": [
+     17,
+     1065,
+     173,
+     1153
+    ],
+    "text": ""
+   },
+   {
+    "sel": "div.thumb.thumb-fallback",
+    "vis": false,
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.region-icon.region-icon-lg",
+    "vis": false,
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.thumb-source",
+    "vis": false,
+    "rect": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "text": "香港01"
+   },
+   {
+    "sel": "div.story-body",
+    "vis": true,
+    "rect": [
+     17,
+     1153,
+     173,
+     1300
+    ],
+    "text": ""
+   },
+   {
+    "sel": "div.story-kicker",
+    "vis": true,
+    "rect": [
+     27,
+     1161,
+     163,
+     1197
+    ],
+    "text": ""
+   },
+   {
+    "sel": "a.chip.cat-chip",
+    "vis": true,
+    "rect": [
+     27,
+     1161,
+     75,
+     1197
+    ],
+    "text": "香港"
+   },
+   {
+    "sel": "h3.story-title",
+    "vis": true,
+    "rect": [
+     27,
+     1201,
+     163,
+     1267
+    ],
+    "text": ""
+   },
+   {
+    "sel": "a.",
+    "vis": true,
+    "rect": [
+     27,
+     1201,
+     152,
+     1288
+    ],
+    "text": "藍鰭吞拿魚樣本檢出孔雀石綠 食安中心跟進追查來源、分"
+   },
+   {
+    "sel": "div.story-meta",
+    "vis": true,
+    "rect": [
+     27,
+     1271,
+     163,
+     1290
+    ],
+    "text": ""
+   },
+   {
+    "sel": "img.favicon",
+    "vis": true,
+    "rect": [
+     27,
+     1273,
+     43,
+     1289
+    ],
+    "text": ""
+   },
+   {
+    "sel": "span.source-tag",
+    "vis": true,
+    "rect": [
+     51,
+     1271,
+     92,
+     1290
+    ],
+    "text": "香港01"
+   }
+  ]
+ }
+]
