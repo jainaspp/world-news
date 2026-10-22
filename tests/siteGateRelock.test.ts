@@ -35,6 +35,20 @@ describe('2026-10-22 gate relock', () => {
     expect(gate).toContain('R1 三席');
   });
 
+  it('defers TRAP-V08 for PR 198 only and leaves other P0 rules in force', () => {
+    expect(gate).toContain('LOCK 2026-10-22 晚（HKT，約 20:04）');
+    expect(gate).toContain('只限');
+    expect(gate).toContain('DEFERRED');
+    expect(gate).toContain('不得記 **FAIL**');
+    expect(gate).toContain('下一次站級重大更新');
+    expect(gate).toContain('桌面 DevTools 仍然不算通過');
+    expect(gate).toContain('P0 不可由投票豁免，也不可由 GM 豁免');
+    const evening = gate.slice(gate.indexOf('LOCK 2026-10-22 晚'), gate.indexOf('來源 PR'));
+    expect(evening).toContain('TRAP-V08');
+    expect(evening).toContain('§7.3 第 8 項');
+    expect(evening).toContain('Critical 必須仍為 0');
+  });
+
   it('requires three volume cards and drops chronicle-strip from the C skeleton', () => {
     const section = block(gate, '### 2.2 頁面', '### 2.3 主題');
     expect(section).toContain('三張 `.volume-card`');

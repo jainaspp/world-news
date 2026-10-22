@@ -2,6 +2,7 @@
 
 - 狀態：**LOCKED 2026-10-20 by GM after three-model input**
 - **LOCK 2026-10-22：** GM 依 [#198](https://github.com/jainaspp/world-news/pull/198) 採納稿＋R1 三席（[#199](https://github.com/jainaspp/world-news/pull/199) Kimi、[#200](https://github.com/jainaspp/world-news/pull/200) Grok、[#201](https://github.com/jainaspp/world-news/pull/201) GLM）指出契約落後而重鎖（唔係豁免 Critical）。重鎖範圍係 §2.2 必有骨架、`P0-DOM-EXPECT` 的對應句，以及 §2.3 對齊暗色章扉墨色與紙上小銅金對比的句子；其餘 P0 閾值不變。
+- **LOCK 2026-10-22 晚（HKT，約 20:04）：** Bad Bot／GROK-GM 代 PP O，**只限** [#198](https://github.com/jainaspp/world-news/pull/198) 三卷疊十階 P0（PP O 無真機，答「我唔知」；GM 選路徑 A）。`TRAP-V08`（iOS Safari 與 Android Chrome 真機或雲端真機短片，滑完 H `/` 與 C `/civilization/`）以及 §7.3 第 8 項、連同只依賴該兩支短片的檢查，**延後（DEFERRED）**到下一次站級重大更新。審稿人對本 PR 缺 `TRAP-V08` 必須記 **DEFERRED**，不得記 **FAIL**。桌面 DevTools 仍然不算通過；本鎖是延期，不是宣稱 `TRAP-V08` 已過。P0／Critical 其餘條目不豁免、不可由投票或 GM 豁免，Critical 必須仍為 0。下一次站級重大更新起本延期失效。裁決：`docs/gates/reviews/2026-10-22-pr198-GM-TRAP-V08-DEFER.md`。
 - 來源 PR：[#180](https://github.com/jainaspp/world-news/pull/180)（Kimi K3）、[#181](https://github.com/jainaspp/world-news/pull/181)（GLM 5.3）、[#182](https://github.com/jainaspp/world-news/pull/182)（Grok 4.7）
 - 文件 ID：`SITE-MAJOR-UPDATE-GATE`
 - 適用站：[world-news.xyz](https://world-news.xyz)（本倉 `jainaspp/world-news`）
@@ -300,6 +301,8 @@ P2 不擋上線，不需豁免。記入本閘備註，下一次重大更新再�
 | `TRAP-V09` | 所有 `100vh`／`100dvh` 在網址列展開與收合兩態各看一次 | 只量展開態 |
 | `TRAP-V10` | 瀏海與手勢條機型核對固定 CTA 與頁尾的 safe-area | 把瀏覽器外框的裁切記成網頁裁字，或相反 |
 
+**只限 #198（2026-10-22 晚 HKT LOCK）：** 缺 `TRAP-V08` 記 **DEFERRED**，不得記 **FAIL**。短片要求延到下一次站級重大更新。桌面 DevTools 仍然不能當通過。其餘陷阱與全部 P0 不變。見文首該 LOCK。
+
 `TRAP-V01`、`TRAP-V02`、`TRAP-V04` 要自動化結果加上人工覆核，放進證據包。
 
 ---
@@ -318,7 +321,7 @@ P2 不擋上線，不需豁免。記入本閘備註，下一次重大更新再�
 2. **3/3 PASS**。沒有 2/3 通道。任一席 FAIL，整閘 FAIL。另外兩席的 PASS 不覆蓋它。
 3. **Critical＝0，硬條件。** 任一 P0 為 FAIL，Critical 即不為 0。品牌字樣錯誤、大面積不可讀或不可點、首頁或文明 hub 白屏，同樣使 Critical 不為 0。
 4. **P0 不可由投票豁免，也不可由 GM 豁免。** 票不能把 P0 改寫成 P1 或 P2。任一席用截圖指出一條 P0，該條維持 FAIL，直到新截圖顯示它在同一頁、同一視口、同一主題消失。
-5. 第 7.3 節證據齊全。寫「已看過」而不附圖，該條視為未測，整閘不得 PASS。
+5. 第 7.3 節證據齊全。寫「已看過」而不附圖，該條視為未測，整閘不得 PASS。**只限 #198（2026-10-22 晚 HKT LOCK）：** 第 8 項缺片記 DEFERRED，不因該項單獨 FAIL；第 7.3 其餘缺件仍然算未測。
 6. **GM 是唯一上線簽字人。** 三席在證據表用模型名留下 PASS／FAIL。那是投票紀錄，不是第二把上線鑰匙。沒有 GM 簽字的部署，視同未過閘。
 
 三席都 PASS 而 Critical 仍大於 0，結果是 FAIL。
@@ -352,7 +355,7 @@ P2 不擋上線，不需豁免。記入本閘備註，下一次重大更新再�
 5. 間距小於 8px 的兩層，加一張帶盒子邊線的開發者工具圖，或在證據表寫下四邊座標。P0 失敗時另附一張失敗區域近拍。
 6. console 無阻斷錯誤的截圖或錄影（`P0-RENDER-ERR`）。
 7. Lighthouse 行動端截圖，含 LCP、INP、CLS（`P1-PERF`、`P1-CLS`）。
-8. iOS Safari 與 Android Chrome 短片各一支，滑完 H 與 C（`TRAP-V08`）。雲端真機可以。
+8. iOS Safari 與 Android Chrome 短片各一支，滑完 H 與 C（`TRAP-V08`）。雲端真機可以。**只限 #198（2026-10-22 晚 HKT LOCK）：** 本項，以及只依賴這兩支短片的檢查，延後到下一次站級重大更新；缺片記 DEFERRED，不記 FAIL。不是通過。桌面 DevTools 仍然不算。
 9. 證據表欄位：ID、頁、視口、主題、結果（PASS／FAIL／N/A）、檔名、檢測席。
 
 檔名：`{日期}-{page}-{viewport}-{light|dark}[-state][-ID].png`。頁簡稱用 `home`、`civ`、`chronicle`、`learn`、`slice`、`news`。可集中放在 `docs/gates/evidence/`。PR 裡要打得開。
@@ -416,4 +419,4 @@ P2 不擋上線，不需豁免。記入本閘備註，下一次重大更新再�
 | 證據包 | evidence bundle | 第 7.3 節的截圖、報告、錄影、投票紀錄 |
 | 碰撞掃描 | bounding-box scan | `TRAP-V02` |
 
-— 正典閘。來源是 PR #180、#181、#182。2026-10-22 依 #198 採納稿同 R1 #199／#200／#201 重鎖 §2.2、`P0-DOM-EXPECT` 與 §2.3 章扉墨色／紙上小銅金句（唔係豁免 Critical）。不包含程式碼或 CSS 變更。
+— 正典閘。來源是 PR #180、#181、#182。2026-10-22 依 #198 採納稿同 R1 #199／#200／#201 重鎖 §2.2、`P0-DOM-EXPECT` 與 §2.3 章扉墨色／紙上小銅金句（唔係豁免 Critical）。2026-10-22 晚（HKT，約 20:04）只限 #198 將 `TRAP-V08` 與 §7.3 第 8 項延後到下一次站級重大更新（缺片記 DEFERRED，不是 PASS，不是豁免 Critical）。不包含程式碼或 CSS 變更。
