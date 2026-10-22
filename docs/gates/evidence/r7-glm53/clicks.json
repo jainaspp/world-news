@@ -1,0 +1,222 @@
+[
+  {
+    "from": "http://127.0.0.1:4173/",
+    "theme": "light",
+    "width": 360,
+    "before": {
+      "text": "打開文明總覽",
+      "href": "/civilization/",
+      "w": 108,
+      "h": 44,
+      "x": 70,
+      "y": 1103.734375
+    },
+    "landed": {
+      "href": "/civilization/",
+      "scrollY": 0,
+      "heading": "",
+      "headingTop": null,
+      "chromeBottom": null
+    }
+  },
+  {
+    "from": "http://127.0.0.1:4173/civilization/",
+    "theme": "light",
+    "width": 360,
+    "before": {
+      "text": "閱讀人類起源",
+      "href": "/civilization/origins/",
+      "w": 108.015625,
+      "h": 44,
+      "x": 70.0078125,
+      "y": 450.1875
+    },
+    "landed": {
+      "href": "/civilization/origins/",
+      "scrollY": 0,
+      "heading": "",
+      "headingTop": null,
+      "chromeBottom": null
+    }
+  },
+  {
+    "from": "http://127.0.0.1:4173/",
+    "theme": "light",
+    "width": 1280,
+    "before": {
+      "text": "打開文明總覽",
+      "href": "/civilization/",
+      "w": 108,
+      "h": 44,
+      "x": 210,
+      "y": 1163.34375
+    },
+    "landed": {
+      "href": "/civilization/",
+      "scrollY": 0,
+      "heading": "站在一條很長的時間軸上",
+      "headingTop": 230,
+      "chromeBottom": 111
+    }
+  },
+  {
+    "from": "http://127.0.0.1:4173/civilization/",
+    "theme": "light",
+    "width": 1280,
+    "before": {
+      "text": "閱讀人類起源",
+      "href": "/civilization/origins/",
+      "w": 108.015625,
+      "h": 44,
+      "x": 210.0078125,
+      "y": 432.1875
+    },
+    "landed": {
+      "href": "/civilization/origins/",
+      "scrollY": 0,
+      "heading": "人類起源時間線：從深時間到今日切片",
+      "headingTop": 269.4375,
+      "chromeBottom": 155
+    }
+  },
+  {
+    "from": "http://127.0.0.1:4173/",
+    "theme": "dark",
+    "width": 360,
+    "before": {
+      "text": "打開文明總覽",
+      "href": "/civilization/",
+      "w": 108,
+      "h": 44,
+      "x": 70,
+      "y": 1103.734375
+    },
+    "landed": {
+      "href": "/civilization/",
+      "scrollY": 0,
+      "heading": "",
+      "headingTop": null,
+      "chromeBottom": null
+    }
+  },
+  {
+    "from": "http://127.0.0.1:4173/civilization/",
+    "theme": "dark",
+    "width": 360,
+    "before": {
+      "text": "閱讀人類起源",
+      "href": "/civilization/origins/",
+      "w": 108.015625,
+      "h": 44,
+      "x": 70.0078125,
+      "y": 450.1875
+    },
+    "landed": {
+      "href": "/civilization/origins/",
+      "scrollY": 0,
+      "heading": "人類起源時間線：從深時間到今日切片",
+      "headingTop": 275.4375,
+      "chromeBottom": 161
+    }
+  },
+  {
+    "from": "http://127.0.0.1:4173/",
+    "theme": "dark",
+    "width": 1280,
+    "before": {
+      "text": "打開文明總覽",
+      "href": "/civilization/",
+      "w": 108,
+      "h": 44,
+      "x": 210,
+      "y": 1163.34375
+    },
+    "landed": {
+      "href": "/civilization/",
+      "scrollY": 0,
+      "heading": "站在一條很長的時間軸上",
+      "headingTop": 230,
+      "chromeBottom": 111
+    }
+  },
+  {
+    "from": "http://127.0.0.1:4173/civilization/",
+    "theme": "dark",
+    "width": 1280,
+    "before": {
+      "text": "閱讀人類起源",
+      "href": "/civilization/origins/",
+      "w": 108.015625,
+      "h": 44,
+      "x": 210.0078125,
+      "y": 432.1875
+    },
+    "landed": {
+      "href": "/civilization/origins/",
+      "scrollY": 0,
+      "heading": "",
+      "headingTop": null,
+      "chromeBottom": null
+    }
+  },
+  {
+    "kind": "slice",
+    "theme": "light",
+    "width": 360,
+    "landed": {
+      "href": "/#slice",
+      "scrollY": 2077,
+      "heading": "今日切片軸上今日軸上今日只列公開標題與出處，方便對照文明編年；不另起一面牆。近層 · 今日問題與",
+      "headingTop": 177.40625,
+      "chromeBottom": 161,
+      "dark": false
+    }
+  },
+  {
+    "kind": "slice",
+    "theme": "light",
+    "width": 1280,
+    "landed": {
+      "href": "/#slice",
+      "scrollY": 1729,
+      "heading": "今日切片軸上今日軸上今日只列公開標題與出處，方便對照文明編年；不另起一面牆。近層 · 今日問題與",
+      "headingTop": 127.265625,
+      "chromeBottom": 109,
+      "dark": false
+    }
+  },
+  {
+    "kind": "slice",
+    "theme": "dark",
+    "width": 360,
+    "landed": {
+      "href": "/#slice",
+      "scrollY": 2077,
+      "heading": "今日切片軸上今日軸上今日只列公開標題與出處，方便對照文明編年；不另起一面牆。近層 · 今日問題與",
+      "headingTop": 177.40625,
+      "chromeBottom": 161,
+      "dark": true
+    }
+  },
+  {
+    "kind": "slice",
+    "theme": "dark",
+    "width": 1280,
+    "landed": {
+      "href": "/#slice",
+      "scrollY": 1729,
+      "heading": "今日切片軸上今日軸上今日只列公開標題與出處，方便對照文明編年；不另起一面牆。近層 · 今日問題與",
+      "headingTop": 127.265625,
+      "chromeBottom": 109,
+      "dark": true
+    }
+  },
+  {
+    "kind": "stage-1",
+    "stage": {
+      "top": 176.96875,
+      "chrome": 161,
+      "text": "01 · 約 300 萬年前至約 1.2"
+    }
+  }
+]

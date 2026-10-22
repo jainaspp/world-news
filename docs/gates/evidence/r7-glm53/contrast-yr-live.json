@@ -1,0 +1,464 @@
+[
+  {
+    "page": "civ",
+    "text": "~138億",
+    "png": [
+      48,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.707,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-civ-390-dark-yr-live-0.png"
+  },
+  {
+    "page": "civ",
+    "text": "~40億",
+    "png": [
+      41,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.694,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-civ-390-dark-yr-live-1.png"
+  },
+  {
+    "page": "civ",
+    "text": "~300ka",
+    "png": [
+      50,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.725,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-civ-390-dark-yr-live-2.png"
+  },
+  {
+    "page": "civ",
+    "text": "發現",
+    "png": [
+      33,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.577,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-civ-390-dark-yr-live-3.png"
+  },
+  {
+    "page": "civ",
+    "text": "基建",
+    "png": [
+      32,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.552,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-civ-390-dark-yr-live-4.png"
+  },
+  {
+    "page": "civ",
+    "text": "切片",
+    "png": [
+      33,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.66,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-civ-390-dark-yr-live-5.png"
+  },
+  {
+    "page": "civ",
+    "text": "展望",
+    "png": [
+      32,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.577,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-civ-390-dark-yr-live-6.png"
+  },
+  {
+    "page": "home",
+    "text": "~138億",
+    "png": [
+      48,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.76,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-home-390-dark-yr-live-0.png"
+  },
+  {
+    "page": "home",
+    "text": "~40億",
+    "png": [
+      41,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.787,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-home-390-dark-yr-live-1.png"
+  },
+  {
+    "page": "home",
+    "text": "~300ka",
+    "png": [
+      48,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.784,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-home-390-dark-yr-live-2.png"
+  },
+  {
+    "page": "home",
+    "text": "發現",
+    "png": [
+      33,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.654,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-home-390-dark-yr-live-3.png"
+  },
+  {
+    "page": "home",
+    "text": "基建",
+    "png": [
+      32,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.626,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-home-390-dark-yr-live-4.png"
+  },
+  {
+    "page": "home",
+    "text": "切片",
+    "png": [
+      33,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.725,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-home-390-dark-yr-live-5.png"
+  },
+  {
+    "page": "home",
+    "text": "展望",
+    "png": [
+      32,
+      16
+    ],
+    "viewport": [
+      390,
+      844
+    ],
+    "bg": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "bg80": [
+      22,
+      28,
+      36
+    ],
+    "ratio80": 7.32,
+    "pad": [
+      22,
+      28,
+      36
+    ],
+    "padRatio": 7.32,
+    "plateShare": 0.644,
+    "computedBg": "rgb(22, 28, 36)",
+    "file": "2026-10-22-home-390-dark-yr-live-6.png"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "seat": "GLM 5.3",
+  "round": "R7",
+  "pr": 198,
+  "sha": "37f7a67803e7ef95b4a4c737f16ad59d7ab9055e",
+  "verdict": "FAIL",
+  "critical": 0,
+  "trapV08": "DEFERRED",
+  "reason": "P0-CONTRAST on C 390 dark .axis-node .yr is 7.32:1 against #161c24. Section 7.3 is incomplete, so the gate cannot PASS.",
+  "yearLabels": {
+    "page": "C",
+    "viewport": "390x844",
+    "theme": "dark",
+    "ratio": 7.32,
+    "background": "#161c24",
+    "foreground": "#c4a572",
+    "labels": ["~138億", "~40億", "~300ka", "發現", "基建", "切片", "展望"]
+  },
+  "npmTest": "67 files, 409 tests, passed",
+  "chrome": "Chrome/156.0.8078.47",
+  "cells": 66,
+  "uncaughtExceptions": 0
+}
