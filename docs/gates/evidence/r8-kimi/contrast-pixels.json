@@ -1,0 +1,519 @@
+[
+  {
+    "name": "home-360-light-yr-all-railed",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 366,
+    "bgPx": 11757,
+    "bg": "#20242a",
+    "ratio": 6.66
+  },
+  {
+    "name": "home-360-light-lab-railed",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 117,
+    "bgPx": 11592,
+    "bg": "#2a2c2f",
+    "ratio": 7.73
+  },
+  {
+    "name": "home-360-light-yr-start",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 416,
+    "bgPx": 10115,
+    "bg": "#23282d",
+    "ratio": 6.35
+  },
+  {
+    "name": "home-360-light-lab-start",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 141,
+    "bgPx": 11015,
+    "bg": "#2d2f32",
+    "ratio": 7.41
+  },
+  {
+    "name": "home-390-light-yr-all-railed",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 376,
+    "bgPx": 12798,
+    "bg": "#20242a",
+    "ratio": 6.66
+  },
+  {
+    "name": "home-390-light-lab-railed",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 130,
+    "bgPx": 13282,
+    "bg": "#282b2f",
+    "ratio": 7.85
+  },
+  {
+    "name": "home-390-light-yr-start",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 420,
+    "bgPx": 11027,
+    "bg": "#24292e",
+    "ratio": 6.27
+  },
+  {
+    "name": "home-390-light-lab-start",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 165,
+    "bgPx": 12037,
+    "bg": "#2c2e31",
+    "ratio": 7.51
+  },
+  {
+    "name": "home-360-dark-yr-all-railed",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 368,
+    "bgPx": 11736,
+    "bg": "#181d25",
+    "ratio": 7.23
+  },
+  {
+    "name": "home-360-dark-lab-railed",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 100,
+    "bgPx": 12167,
+    "bg": "#1a1f26",
+    "ratio": 9.14
+  },
+  {
+    "name": "home-360-dark-yr-start",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 416,
+    "bgPx": 10115,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "name": "home-360-dark-lab-start",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 140,
+    "bgPx": 11018,
+    "bg": "#1a1f26",
+    "ratio": 9.14
+  },
+  {
+    "name": "home-390-dark-yr-all-railed",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 376,
+    "bgPx": 12798,
+    "bg": "#181d25",
+    "ratio": 7.23
+  },
+  {
+    "name": "home-390-dark-lab-railed",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 123,
+    "bgPx": 13293,
+    "bg": "#191f26",
+    "ratio": 9.16
+  },
+  {
+    "name": "home-390-dark-yr-start",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 420,
+    "bgPx": 11027,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "name": "home-390-dark-lab-start",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 163,
+    "bgPx": 12041,
+    "bg": "#1a1f26",
+    "ratio": 9.14
+  },
+  {
+    "name": "civ-360-light-yr-all-railed",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 335,
+    "bgPx": 10200,
+    "bg": "#4b443b",
+    "ratio": 4.1
+  },
+  {
+    "name": "civ-360-light-lab-railed",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 104,
+    "bgPx": 11001,
+    "bg": "#45403a",
+    "ratio": 5.66
+  },
+  {
+    "name": "civ-360-light-yr-start",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 354,
+    "bgPx": 10184,
+    "bg": "#4d463c",
+    "ratio": 3.98
+  },
+  {
+    "name": "civ-360-light-lab-start",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 98,
+    "bgPx": 10990,
+    "bg": "#46413d",
+    "ratio": 5.56
+  },
+  {
+    "name": "civ-390-light-yr-all-railed",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 353,
+    "bgPx": 11077,
+    "bg": "#4b443b",
+    "ratio": 4.1
+  },
+  {
+    "name": "civ-390-light-lab-railed",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 96,
+    "bgPx": 12026,
+    "bg": "#45403a",
+    "ratio": 5.66
+  },
+  {
+    "name": "civ-390-light-yr-start",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 370,
+    "bgPx": 11066,
+    "bg": "#4d463c",
+    "ratio": 3.98
+  },
+  {
+    "name": "civ-390-light-lab-start",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 90,
+    "bgPx": 12021,
+    "bg": "#46413d",
+    "ratio": 5.56
+  },
+  {
+    "name": "civ-360-dark-yr-all-railed",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 341,
+    "bgPx": 10185,
+    "bg": "#363533",
+    "ratio": 5.23
+  },
+  {
+    "name": "civ-360-dark-lab-railed",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 102,
+    "bgPx": 11003,
+    "bg": "#363534",
+    "ratio": 6.75
+  },
+  {
+    "name": "civ-360-dark-yr-start",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 354,
+    "bgPx": 10184,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "name": "civ-360-dark-lab-start",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 94,
+    "bgPx": 10995,
+    "bg": "#363533",
+    "ratio": 6.76
+  },
+  {
+    "name": "civ-390-dark-yr-all-railed",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 353,
+    "bgPx": 11077,
+    "bg": "#363634",
+    "ratio": 5.17
+  },
+  {
+    "name": "civ-390-dark-lab-railed",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 90,
+    "bgPx": 12032,
+    "bg": "#353534",
+    "ratio": 6.78
+  },
+  {
+    "name": "civ-390-dark-yr-start",
+    "selectors": [
+      ".axis-node .yr"
+    ],
+    "fg": "#c4a572",
+    "textPx": 370,
+    "bgPx": 11066,
+    "bg": "#161c24",
+    "ratio": 7.32
+  },
+  {
+    "name": "civ-390-dark-lab-start",
+    "selectors": [
+      ".axis-node .lab"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 87,
+    "bgPx": 12027,
+    "bg": "#353533",
+    "ratio": 6.78
+  },
+  {
+    "name": "civ-390-dark-figcaption",
+    "selectors": [
+      ".civ-block-figure figcaption"
+    ],
+    "fg": "#d2c4b0",
+    "textPx": 31065,
+    "bgPx": 1137157,
+    "bg": "#2a231b",
+    "ratio": 9.05
+  },
+  {
+    "name": "chronicle-360-dark-figcaption",
+    "selectors": [
+      ".civ-block-figure figcaption"
+    ],
+    "fg": "#d2c4b0",
+    "textPx": 1923,
+    "bgPx": 4604385,
+    "bg": "#0e141c",
+    "ratio": 10.8
+  },
+  {
+    "name": "chronicle-360-dark-future-links",
+    "selectors": [
+      "#ch-future .stage-links a"
+    ],
+    "fg": "#9ec0ef",
+    "textPx": 2016,
+    "bgPx": 20733,
+    "bg": "#161c24",
+    "ratio": 9.17
+  },
+  {
+    "name": "chronicle-360-light-future-links",
+    "selectors": [
+      "#ch-future .stage-links a"
+    ],
+    "fg": "#9ec0ef",
+    "textPx": 2016,
+    "bgPx": 20733,
+    "bg": "#161c24",
+    "ratio": 9.17
+  },
+  {
+    "name": "home-360-light-bulletin-seconds",
+    "selectors": [
+      ".bulletin-seconds"
+    ],
+    "fg": "#6e675c",
+    "textPx": 13,
+    "bgPx": 444,
+    "bg": "#f7f1e6",
+    "ratio": 4.97
+  },
+  {
+    "name": "home-360-dark-bulletin-seconds",
+    "selectors": [
+      ".bulletin-seconds"
+    ],
+    "fg": "#b7b1a6",
+    "textPx": 12,
+    "bgPx": 444,
+    "bg": "#161c24",
+    "ratio": 8.04
+  },
+  {
+    "name": "home-360-dark-more-today",
+    "selectors": [
+      ".more-today span"
+    ],
+    "fg": "#c9d3df",
+    "textPx": 304,
+    "bgPx": 10132,
+    "bg": "#0e141c",
+    "ratio": 12.21
+  },
+  {
+    "name": "learn-360-dark-learn-bearings",
+    "selectors": [
+      ".learn-bearings"
+    ],
+    "fg": "#c9d3df",
+    "textPx": 260,
+    "bgPx": 14791,
+    "bg": "#121820",
+    "ratio": 11.78
+  },
+  {
+    "name": "learn-360-dark-learn-progress",
+    "selectors": [
+      ".learn-progress"
+    ],
+    "fg": "#c9d3df",
+    "textPx": 238,
+    "bgPx": 8979,
+    "bg": "#121820",
+    "ratio": 11.78
+  },
+  {
+    "name": "learn-360-dark-learn-note",
+    "selectors": [
+      ".learn-note"
+    ],
+    "fg": "#c9d3df",
+    "textPx": 1073,
+    "bgPx": 23623,
+    "bg": "#121820",
+    "ratio": 11.78
+  },
+  {
+    "name": "learn-360-dark-learn-bound",
+    "selectors": [
+      ".learn-bound"
+    ],
+    "fg": "#c9d3df",
+    "textPx": 561,
+    "bgPx": 16471,
+    "bg": "#121820",
+    "ratio": 11.78
+  },
+  {
+    "name": "news-360-light-story-meta",
+    "selectors": [
+      ".story-meta"
+    ],
+    "fg": "#5c6570",
+    "textPx": 11289,
+    "bgPx": 298173,
+    "bg": "#ffffff",
+    "ratio": 5.91
+  },
+  {
+    "name": "civ-390-dark-axis-title",
+    "selectors": [
+      ".axis-title"
+    ],
+    "fg": "#f7f1e6",
+    "textPx": 1830,
+    "bgPx": 11874,
+    "bg": "#26282b",
+    "ratio": 13.15
+  },
+  {
+    "name": "civ-390-dark-axis-lede",
+    "selectors": [
+      ".axis-lede"
+    ],
+    "fg": "#c5c0b6",
+    "textPx": 765,
+    "bgPx": 15040,
+    "bg": "#2b2d2e",
+    "ratio": 7.64
+  },
+  {
+    "name": "civ-390-dark-cta-brass",
+    "selectors": [
+      ".axis-cta a"
+    ],
+    "fg": "#161c24",
+    "textPx": 219,
+    "bgPx": 9727,
+    "bg": "#504a3e",
+    "ratio": 1.95
+  }
+]

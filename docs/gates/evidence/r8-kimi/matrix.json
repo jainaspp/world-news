@@ -1,0 +1,4635 @@
+{
+  "meta": {
+    "feedCount": 757,
+    "homeCount": 16,
+    "feedErrors": 4,
+    "longest": {
+      "id": "91e9bae258cd",
+      "title": "‘Ali G: Who Iz I?’ Review: Sacha Baron Cohen Brings Back His Cretinous Fake OG Talk-Show Host, Only Now Ali G Is the Film’s ‘Political’ Subject. A Mistake, Innit?",
+      "href": "/story/91e9bae258cd/",
+      "chars": 162
+    },
+    "general": {
+      "id": "082f59cb8ea9",
+      "title": "Evergrande liquidators recover US$435m in asset sales",
+      "href": "/story/082f59cb8ea9/",
+      "chars": 53
+    }
+  },
+  "rows": [
+    {
+      "page": "home",
+      "path": "/",
+      "vp": "360",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".axis-hero": {
+          "top": 869,
+          "bottom": 1138,
+          "vTop": 869,
+          "vBottom": 1138,
+          "h": 269
+        },
+        ".axis-title": {
+          "top": 905,
+          "bottom": 939,
+          "vTop": 905,
+          "vBottom": 939,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 997,
+          "bottom": 1066,
+          "vTop": 997,
+          "vBottom": 1066,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 1082,
+          "bottom": 1126,
+          "vTop": 1082,
+          "vBottom": 1126,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1327,
+          "bottom": 1796,
+          "vTop": 1327,
+          "vBottom": 1796,
+          "h": 469
+        },
+        ".chronicle-band": {
+          "top": 1315,
+          "bottom": 1810,
+          "vTop": 1315,
+          "vBottom": 1810,
+          "h": 495
+        },
+        ".pattern-axis": {
+          "top": 1840,
+          "bottom": 1988,
+          "vTop": 1840,
+          "vBottom": 1988,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 2004,
+          "bottom": 2100,
+          "vTop": 2004,
+          "vBottom": 2100,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 106,
+          "bottom": 150,
+          "vTop": 106,
+          "vBottom": 150,
+          "h": 44
+        },
+        "#slice": {
+          "top": 2254,
+          "bottom": 4443,
+          "vTop": 2254,
+          "vBottom": 4443,
+          "h": 2188
+        },
+        ".today-pin": {
+          "top": 2120,
+          "bottom": 2234,
+          "vTop": 2120,
+          "vBottom": 2234,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "home",
+      "path": "/",
+      "vp": "390",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a"
+      ],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".axis-hero": {
+          "top": 874,
+          "bottom": 1143,
+          "vTop": 874,
+          "vBottom": 1143,
+          "h": 269
+        },
+        ".axis-title": {
+          "top": 910,
+          "bottom": 944,
+          "vTop": 910,
+          "vBottom": 944,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 1002,
+          "bottom": 1071,
+          "vTop": 1002,
+          "vBottom": 1071,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 1087,
+          "bottom": 1131,
+          "vTop": 1087,
+          "vBottom": 1131,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1332,
+          "bottom": 1780,
+          "vTop": 1332,
+          "vBottom": 1780,
+          "h": 448
+        },
+        ".chronicle-band": {
+          "top": 1320,
+          "bottom": 1794,
+          "vTop": 1320,
+          "vBottom": 1794,
+          "h": 474
+        },
+        ".pattern-axis": {
+          "top": 1824,
+          "bottom": 1972,
+          "vTop": 1824,
+          "vBottom": 1972,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 1988,
+          "bottom": 2084,
+          "vTop": 1988,
+          "vBottom": 2084,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 106,
+          "bottom": 150,
+          "vTop": 106,
+          "vBottom": 150,
+          "h": 44
+        },
+        "#slice": {
+          "top": 2238,
+          "bottom": 4411,
+          "vTop": 2238,
+          "vBottom": 4411,
+          "h": 2173
+        },
+        ".today-pin": {
+          "top": 2104,
+          "bottom": 2218,
+          "vTop": 2104,
+          "vBottom": 2218,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "home",
+      "path": "/",
+      "vp": "768",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 109,
+          "vTop": 0,
+          "vBottom": 109,
+          "h": 109
+        },
+        ".axis-hero": {
+          "top": 926,
+          "bottom": 1205,
+          "vTop": 926,
+          "vBottom": 1205,
+          "h": 279
+        },
+        ".axis-title": {
+          "top": 970,
+          "bottom": 1004,
+          "vTop": 970,
+          "vBottom": 1004,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 1046,
+          "bottom": 1113,
+          "vTop": 1046,
+          "vBottom": 1113,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 1129,
+          "bottom": 1173,
+          "vTop": 1129,
+          "vBottom": 1173,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1378,
+          "bottom": 1556,
+          "vTop": 1378,
+          "vBottom": 1556,
+          "h": 177
+        },
+        ".chronicle-band": {
+          "top": 1366,
+          "bottom": 1570,
+          "vTop": 1366,
+          "vBottom": 1570,
+          "h": 203
+        },
+        ".pattern-axis": {
+          "top": 1600,
+          "bottom": 1644,
+          "vTop": 1600,
+          "vBottom": 1644,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 1660,
+          "bottom": 1704,
+          "vTop": 1660,
+          "vBottom": 1704,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 52,
+          "bottom": 106,
+          "vTop": 52,
+          "vBottom": 106,
+          "h": 54
+        },
+        "#slice": {
+          "top": 1858,
+          "bottom": 3531,
+          "vTop": 1858,
+          "vBottom": 3531,
+          "h": 1674
+        },
+        ".today-pin": {
+          "top": 1724,
+          "bottom": 1838,
+          "vTop": 1724,
+          "vBottom": 1838,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollingScrollWidth": 768,
+        "innerWidth": 768,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "home",
+      "path": "/",
+      "vp": "1280",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 109,
+          "vTop": 0,
+          "vBottom": 109,
+          "h": 109
+        },
+        ".axis-hero": {
+          "top": 928,
+          "bottom": 1217,
+          "vTop": 928,
+          "vBottom": 1217,
+          "h": 289
+        },
+        ".axis-title": {
+          "top": 972,
+          "bottom": 1016,
+          "vTop": 972,
+          "vBottom": 1016,
+          "h": 44
+        },
+        ".deep-axis": {
+          "top": 1058,
+          "bottom": 1125,
+          "vTop": 1058,
+          "vBottom": 1125,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 1141,
+          "bottom": 1185,
+          "vTop": 1141,
+          "vBottom": 1185,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1399,
+          "bottom": 1554,
+          "vTop": 1399,
+          "vBottom": 1554,
+          "h": 156
+        },
+        ".chronicle-band": {
+          "top": 1387,
+          "bottom": 1568,
+          "vTop": 1387,
+          "vBottom": 1568,
+          "h": 182
+        },
+        ".pattern-axis": {
+          "top": 1598,
+          "bottom": 1642,
+          "vTop": 1598,
+          "vBottom": 1642,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 1658,
+          "bottom": 1702,
+          "vTop": 1658,
+          "vBottom": 1702,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 52,
+          "bottom": 106,
+          "vTop": 52,
+          "vBottom": 106,
+          "h": 54
+        },
+        "#slice": {
+          "top": 1856,
+          "bottom": 3401,
+          "vTop": 1856,
+          "vBottom": 3401,
+          "h": 1545
+        },
+        ".today-pin": {
+          "top": 1722,
+          "bottom": 1836,
+          "vTop": 1722,
+          "vBottom": 1836,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "home",
+      "path": "/",
+      "vp": "360",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".axis-hero": {
+          "top": 869,
+          "bottom": 1138,
+          "vTop": 869,
+          "vBottom": 1138,
+          "h": 269
+        },
+        ".axis-title": {
+          "top": 905,
+          "bottom": 939,
+          "vTop": 905,
+          "vBottom": 939,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 997,
+          "bottom": 1066,
+          "vTop": 997,
+          "vBottom": 1066,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 1082,
+          "bottom": 1126,
+          "vTop": 1082,
+          "vBottom": 1126,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1327,
+          "bottom": 1796,
+          "vTop": 1327,
+          "vBottom": 1796,
+          "h": 469
+        },
+        ".chronicle-band": {
+          "top": 1315,
+          "bottom": 1810,
+          "vTop": 1315,
+          "vBottom": 1810,
+          "h": 495
+        },
+        ".pattern-axis": {
+          "top": 1840,
+          "bottom": 1988,
+          "vTop": 1840,
+          "vBottom": 1988,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 2004,
+          "bottom": 2100,
+          "vTop": 2004,
+          "vBottom": 2100,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 106,
+          "bottom": 150,
+          "vTop": 106,
+          "vBottom": 150,
+          "h": 44
+        },
+        "#slice": {
+          "top": 2254,
+          "bottom": 4443,
+          "vTop": 2254,
+          "vBottom": 4443,
+          "h": 2188
+        },
+        ".today-pin": {
+          "top": 2120,
+          "bottom": 2234,
+          "vTop": 2120,
+          "vBottom": 2234,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "home",
+      "path": "/",
+      "vp": "390",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a"
+      ],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".axis-hero": {
+          "top": 874,
+          "bottom": 1143,
+          "vTop": 874,
+          "vBottom": 1143,
+          "h": 269
+        },
+        ".axis-title": {
+          "top": 910,
+          "bottom": 944,
+          "vTop": 910,
+          "vBottom": 944,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 1002,
+          "bottom": 1071,
+          "vTop": 1002,
+          "vBottom": 1071,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 1087,
+          "bottom": 1131,
+          "vTop": 1087,
+          "vBottom": 1131,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1332,
+          "bottom": 1780,
+          "vTop": 1332,
+          "vBottom": 1780,
+          "h": 448
+        },
+        ".chronicle-band": {
+          "top": 1320,
+          "bottom": 1794,
+          "vTop": 1320,
+          "vBottom": 1794,
+          "h": 474
+        },
+        ".pattern-axis": {
+          "top": 1824,
+          "bottom": 1972,
+          "vTop": 1824,
+          "vBottom": 1972,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 1988,
+          "bottom": 2084,
+          "vTop": 1988,
+          "vBottom": 2084,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 106,
+          "bottom": 150,
+          "vTop": 106,
+          "vBottom": 150,
+          "h": 44
+        },
+        "#slice": {
+          "top": 2238,
+          "bottom": 4411,
+          "vTop": 2238,
+          "vBottom": 4411,
+          "h": 2173
+        },
+        ".today-pin": {
+          "top": 2104,
+          "bottom": 2218,
+          "vTop": 2104,
+          "vBottom": 2218,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "home",
+      "path": "/",
+      "vp": "768",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 109,
+          "vTop": 0,
+          "vBottom": 109,
+          "h": 109
+        },
+        ".axis-hero": {
+          "top": 926,
+          "bottom": 1205,
+          "vTop": 926,
+          "vBottom": 1205,
+          "h": 279
+        },
+        ".axis-title": {
+          "top": 970,
+          "bottom": 1004,
+          "vTop": 970,
+          "vBottom": 1004,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 1046,
+          "bottom": 1113,
+          "vTop": 1046,
+          "vBottom": 1113,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 1129,
+          "bottom": 1173,
+          "vTop": 1129,
+          "vBottom": 1173,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1378,
+          "bottom": 1556,
+          "vTop": 1378,
+          "vBottom": 1556,
+          "h": 177
+        },
+        ".chronicle-band": {
+          "top": 1366,
+          "bottom": 1570,
+          "vTop": 1366,
+          "vBottom": 1570,
+          "h": 203
+        },
+        ".pattern-axis": {
+          "top": 1600,
+          "bottom": 1644,
+          "vTop": 1600,
+          "vBottom": 1644,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 1660,
+          "bottom": 1704,
+          "vTop": 1660,
+          "vBottom": 1704,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 52,
+          "bottom": 106,
+          "vTop": 52,
+          "vBottom": 106,
+          "h": 54
+        },
+        "#slice": {
+          "top": 1858,
+          "bottom": 3531,
+          "vTop": 1858,
+          "vBottom": 3531,
+          "h": 1674
+        },
+        ".today-pin": {
+          "top": 1724,
+          "bottom": 1838,
+          "vTop": 1724,
+          "vBottom": 1838,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollingScrollWidth": 768,
+        "innerWidth": 768,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "home",
+      "path": "/",
+      "vp": "1280",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 109,
+          "vTop": 0,
+          "vBottom": 109,
+          "h": 109
+        },
+        ".axis-hero": {
+          "top": 928,
+          "bottom": 1217,
+          "vTop": 928,
+          "vBottom": 1217,
+          "h": 289
+        },
+        ".axis-title": {
+          "top": 972,
+          "bottom": 1016,
+          "vTop": 972,
+          "vBottom": 1016,
+          "h": 44
+        },
+        ".deep-axis": {
+          "top": 1058,
+          "bottom": 1125,
+          "vTop": 1058,
+          "vBottom": 1125,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 1141,
+          "bottom": 1185,
+          "vTop": 1141,
+          "vBottom": 1185,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1399,
+          "bottom": 1554,
+          "vTop": 1399,
+          "vBottom": 1554,
+          "h": 156
+        },
+        ".chronicle-band": {
+          "top": 1387,
+          "bottom": 1568,
+          "vTop": 1387,
+          "vBottom": 1568,
+          "h": 182
+        },
+        ".pattern-axis": {
+          "top": 1598,
+          "bottom": 1642,
+          "vTop": 1598,
+          "vBottom": 1642,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 1658,
+          "bottom": 1702,
+          "vTop": 1658,
+          "vBottom": 1702,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 52,
+          "bottom": 106,
+          "vTop": 52,
+          "vBottom": 106,
+          "h": 54
+        },
+        "#slice": {
+          "top": 1856,
+          "bottom": 3401,
+          "vTop": 1856,
+          "vBottom": 3401,
+          "h": 1545
+        },
+        ".today-pin": {
+          "top": 1722,
+          "bottom": 1836,
+          "vTop": 1722,
+          "vBottom": 1836,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "vp": "360",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 117,
+          "vTop": 0,
+          "vBottom": 117,
+          "h": 117
+        },
+        ".axis-hero": {
+          "top": 196,
+          "bottom": 766,
+          "vTop": 196,
+          "vBottom": 766,
+          "h": 570
+        },
+        ".axis-title": {
+          "top": 243,
+          "bottom": 277,
+          "vTop": 243,
+          "vBottom": 277,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 343,
+          "bottom": 412,
+          "vTop": 343,
+          "vBottom": 412,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 428,
+          "bottom": 472,
+          "vTop": 428,
+          "vBottom": 472,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 2497,
+          "bottom": 2967,
+          "vTop": 2497,
+          "vBottom": 2967,
+          "h": 469
+        },
+        ".pattern-axis": {
+          "top": 482,
+          "bottom": 630,
+          "vTop": 482,
+          "vBottom": 630,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 638,
+          "bottom": 734,
+          "vTop": 638,
+          "vBottom": 734,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        },
+        ".today-pin": {
+          "top": 2999,
+          "bottom": 3126,
+          "vTop": 2999,
+          "vBottom": 3126,
+          "h": 127
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "人類文明 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "vp": "390",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 117,
+          "vTop": 0,
+          "vBottom": 117,
+          "h": 117
+        },
+        ".axis-hero": {
+          "top": 196,
+          "bottom": 766,
+          "vTop": 196,
+          "vBottom": 766,
+          "h": 570
+        },
+        ".axis-title": {
+          "top": 243,
+          "bottom": 277,
+          "vTop": 243,
+          "vBottom": 277,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 343,
+          "bottom": 412,
+          "vTop": 343,
+          "vBottom": 412,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 428,
+          "bottom": 472,
+          "vTop": 428,
+          "vBottom": 472,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 2547,
+          "bottom": 2995,
+          "vTop": 2547,
+          "vBottom": 2995,
+          "h": 448
+        },
+        ".pattern-axis": {
+          "top": 482,
+          "bottom": 630,
+          "vTop": 482,
+          "vBottom": 630,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 638,
+          "bottom": 734,
+          "vTop": 638,
+          "vBottom": 734,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        },
+        ".today-pin": {
+          "top": 3027,
+          "bottom": 3154,
+          "vTop": 3027,
+          "vBottom": 3154,
+          "h": 127
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "人類文明 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "vp": "768",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node",
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 111,
+          "vTop": 0,
+          "vBottom": 111,
+          "h": 111
+        },
+        ".axis-hero": {
+          "top": 190,
+          "bottom": 582,
+          "vTop": 190,
+          "vBottom": 582,
+          "h": 392
+        },
+        ".axis-title": {
+          "top": 237,
+          "bottom": 271,
+          "vTop": 237,
+          "vBottom": 271,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 317,
+          "bottom": 384,
+          "vTop": 317,
+          "vBottom": 384,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 400,
+          "bottom": 444,
+          "vTop": 400,
+          "vBottom": 444,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 2109,
+          "bottom": 2287,
+          "vTop": 2109,
+          "vBottom": 2287,
+          "h": 177
+        },
+        ".pattern-axis": {
+          "top": 454,
+          "bottom": 498,
+          "vTop": 454,
+          "vBottom": 498,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 506,
+          "bottom": 550,
+          "vTop": 506,
+          "vBottom": 550,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        },
+        ".today-pin": {
+          "top": 2319,
+          "bottom": 2446,
+          "vTop": 2319,
+          "vBottom": 2446,
+          "h": 127
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "人類文明 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollingScrollWidth": 768,
+        "innerWidth": 768,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "vp": "1280",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 111,
+          "vTop": 0,
+          "vBottom": 111,
+          "h": 111
+        },
+        ".axis-hero": {
+          "top": 190,
+          "bottom": 592,
+          "vTop": 190,
+          "vBottom": 592,
+          "h": 402
+        },
+        ".axis-title": {
+          "top": 237,
+          "bottom": 281,
+          "vTop": 237,
+          "vBottom": 281,
+          "h": 44
+        },
+        ".deep-axis": {
+          "top": 327,
+          "bottom": 394,
+          "vTop": 327,
+          "vBottom": 394,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 410,
+          "bottom": 454,
+          "vTop": 410,
+          "vBottom": 454,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1833,
+          "bottom": 1989,
+          "vTop": 1833,
+          "vBottom": 1989,
+          "h": 156
+        },
+        ".pattern-axis": {
+          "top": 464,
+          "bottom": 508,
+          "vTop": 464,
+          "vBottom": 508,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 516,
+          "bottom": 560,
+          "vTop": 516,
+          "vBottom": 560,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        },
+        ".today-pin": {
+          "top": 2021,
+          "bottom": 2148,
+          "vTop": 2021,
+          "vBottom": 2148,
+          "h": 127
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "人類文明 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "vp": "360",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 117,
+          "vTop": 0,
+          "vBottom": 117,
+          "h": 117
+        },
+        ".axis-hero": {
+          "top": 196,
+          "bottom": 766,
+          "vTop": 196,
+          "vBottom": 766,
+          "h": 570
+        },
+        ".axis-title": {
+          "top": 243,
+          "bottom": 277,
+          "vTop": 243,
+          "vBottom": 277,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 343,
+          "bottom": 412,
+          "vTop": 343,
+          "vBottom": 412,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 428,
+          "bottom": 472,
+          "vTop": 428,
+          "vBottom": 472,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 2497,
+          "bottom": 2967,
+          "vTop": 2497,
+          "vBottom": 2967,
+          "h": 469
+        },
+        ".pattern-axis": {
+          "top": 482,
+          "bottom": 630,
+          "vTop": 482,
+          "vBottom": 630,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 638,
+          "bottom": 734,
+          "vTop": 638,
+          "vBottom": 734,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        },
+        ".today-pin": {
+          "top": 2999,
+          "bottom": 3126,
+          "vTop": 2999,
+          "vBottom": 3126,
+          "h": 127
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "人類文明 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "vp": "390",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 117,
+          "vTop": 0,
+          "vBottom": 117,
+          "h": 117
+        },
+        ".axis-hero": {
+          "top": 196,
+          "bottom": 766,
+          "vTop": 196,
+          "vBottom": 766,
+          "h": 570
+        },
+        ".axis-title": {
+          "top": 243,
+          "bottom": 277,
+          "vTop": 243,
+          "vBottom": 277,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 343,
+          "bottom": 412,
+          "vTop": 343,
+          "vBottom": 412,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 428,
+          "bottom": 472,
+          "vTop": 428,
+          "vBottom": 472,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 2547,
+          "bottom": 2995,
+          "vTop": 2547,
+          "vBottom": 2995,
+          "h": 448
+        },
+        ".pattern-axis": {
+          "top": 482,
+          "bottom": 630,
+          "vTop": 482,
+          "vBottom": 630,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 638,
+          "bottom": 734,
+          "vTop": 638,
+          "vBottom": 734,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        },
+        ".today-pin": {
+          "top": 3027,
+          "bottom": 3154,
+          "vTop": 3027,
+          "vBottom": 3154,
+          "h": 127
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "人類文明 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "vp": "768",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node",
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 111,
+          "vTop": 0,
+          "vBottom": 111,
+          "h": 111
+        },
+        ".axis-hero": {
+          "top": 190,
+          "bottom": 582,
+          "vTop": 190,
+          "vBottom": 582,
+          "h": 392
+        },
+        ".axis-title": {
+          "top": 237,
+          "bottom": 271,
+          "vTop": 237,
+          "vBottom": 271,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 317,
+          "bottom": 384,
+          "vTop": 317,
+          "vBottom": 384,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 400,
+          "bottom": 444,
+          "vTop": 400,
+          "vBottom": 444,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 2109,
+          "bottom": 2287,
+          "vTop": 2109,
+          "vBottom": 2287,
+          "h": 177
+        },
+        ".pattern-axis": {
+          "top": 454,
+          "bottom": 498,
+          "vTop": 454,
+          "vBottom": 498,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 506,
+          "bottom": 550,
+          "vTop": 506,
+          "vBottom": 550,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        },
+        ".today-pin": {
+          "top": 2319,
+          "bottom": 2446,
+          "vTop": 2319,
+          "vBottom": 2446,
+          "h": 127
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "人類文明 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollingScrollWidth": 768,
+        "innerWidth": 768,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "vp": "1280",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 111,
+          "vTop": 0,
+          "vBottom": 111,
+          "h": 111
+        },
+        ".axis-hero": {
+          "top": 190,
+          "bottom": 592,
+          "vTop": 190,
+          "vBottom": 592,
+          "h": 402
+        },
+        ".axis-title": {
+          "top": 237,
+          "bottom": 281,
+          "vTop": 237,
+          "vBottom": 281,
+          "h": 44
+        },
+        ".deep-axis": {
+          "top": 327,
+          "bottom": 394,
+          "vTop": 327,
+          "vBottom": 394,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 410,
+          "bottom": 454,
+          "vTop": 410,
+          "vBottom": 454,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1833,
+          "bottom": 1989,
+          "vTop": 1833,
+          "vBottom": 1989,
+          "h": 156
+        },
+        ".pattern-axis": {
+          "top": 464,
+          "bottom": 508,
+          "vTop": 464,
+          "vBottom": 508,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 516,
+          "bottom": 560,
+          "vTop": 516,
+          "vBottom": 560,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        },
+        ".today-pin": {
+          "top": 2021,
+          "bottom": 2148,
+          "vTop": 2021,
+          "vBottom": 2148,
+          "h": 127
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "人類文明 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "vp": "360",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": true,
+        "chNow": true,
+        "chFuture": true,
+        "stages": 10,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "vp": "390",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": true,
+        "chNow": true,
+        "chFuture": true,
+        "stages": 10,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "vp": "768",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": true,
+        "chNow": true,
+        "chFuture": true,
+        "stages": 10,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollingScrollWidth": 768,
+        "innerWidth": 768,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "vp": "1280",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": true,
+        "chNow": true,
+        "chFuture": true,
+        "stages": 10,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "vp": "360",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": true,
+        "chNow": true,
+        "chFuture": true,
+        "stages": 10,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "vp": "390",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": true,
+        "chNow": true,
+        "chFuture": true,
+        "stages": 10,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "vp": "768",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": true,
+        "chNow": true,
+        "chFuture": true,
+        "stages": 10,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollingScrollWidth": 768,
+        "innerWidth": 768,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "vp": "1280",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": true,
+        "chNow": true,
+        "chFuture": true,
+        "stages": 10,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "learn",
+      "path": "/learn/",
+      "vp": "360",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "learn",
+      "path": "/learn/",
+      "vp": "390",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "learn",
+      "path": "/learn/",
+      "vp": "768",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollingScrollWidth": 768,
+        "innerWidth": 768,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "learn",
+      "path": "/learn/",
+      "vp": "1280",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "learn",
+      "path": "/learn/",
+      "vp": "360",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "learn",
+      "path": "/learn/",
+      "vp": "390",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "learn",
+      "path": "/learn/",
+      "vp": "768",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollingScrollWidth": 768,
+        "innerWidth": 768,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "learn",
+      "path": "/learn/",
+      "vp": "1280",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "開蒙 · 森羅 — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "slice",
+      "path": "/#slice",
+      "vp": "360",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".axis-hero": {
+          "top": 869,
+          "bottom": 1138,
+          "vTop": 869,
+          "vBottom": 1138,
+          "h": 269
+        },
+        ".axis-title": {
+          "top": 905,
+          "bottom": 939,
+          "vTop": 905,
+          "vBottom": 939,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 997,
+          "bottom": 1066,
+          "vTop": 997,
+          "vBottom": 1066,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 1082,
+          "bottom": 1126,
+          "vTop": 1082,
+          "vBottom": 1126,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1327,
+          "bottom": 1796,
+          "vTop": 1327,
+          "vBottom": 1796,
+          "h": 469
+        },
+        ".chronicle-band": {
+          "top": 1315,
+          "bottom": 1810,
+          "vTop": 1315,
+          "vBottom": 1810,
+          "h": 495
+        },
+        ".pattern-axis": {
+          "top": 1840,
+          "bottom": 1988,
+          "vTop": 1840,
+          "vBottom": 1988,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 2004,
+          "bottom": 2100,
+          "vTop": 2004,
+          "vBottom": 2100,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 106,
+          "bottom": 150,
+          "vTop": 106,
+          "vBottom": 150,
+          "h": 44
+        },
+        "#slice": {
+          "top": 2254,
+          "bottom": 4443,
+          "vTop": 2254,
+          "vBottom": 4443,
+          "h": 2188
+        },
+        ".today-pin": {
+          "top": 2120,
+          "bottom": 2234,
+          "vTop": 2120,
+          "vBottom": 2234,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "slice",
+      "path": "/#slice",
+      "vp": "390",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a"
+      ],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".axis-hero": {
+          "top": 874,
+          "bottom": 1143,
+          "vTop": 874,
+          "vBottom": 1143,
+          "h": 269
+        },
+        ".axis-title": {
+          "top": 910,
+          "bottom": 944,
+          "vTop": 910,
+          "vBottom": 944,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 1002,
+          "bottom": 1071,
+          "vTop": 1002,
+          "vBottom": 1071,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 1087,
+          "bottom": 1131,
+          "vTop": 1087,
+          "vBottom": 1131,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1332,
+          "bottom": 1780,
+          "vTop": 1332,
+          "vBottom": 1780,
+          "h": 448
+        },
+        ".chronicle-band": {
+          "top": 1320,
+          "bottom": 1794,
+          "vTop": 1320,
+          "vBottom": 1794,
+          "h": 474
+        },
+        ".pattern-axis": {
+          "top": 1824,
+          "bottom": 1972,
+          "vTop": 1824,
+          "vBottom": 1972,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 1988,
+          "bottom": 2084,
+          "vTop": 1988,
+          "vBottom": 2084,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 106,
+          "bottom": 150,
+          "vTop": 106,
+          "vBottom": 150,
+          "h": 44
+        },
+        "#slice": {
+          "top": 2238,
+          "bottom": 4411,
+          "vTop": 2238,
+          "vBottom": 4411,
+          "h": 2173
+        },
+        ".today-pin": {
+          "top": 2104,
+          "bottom": 2218,
+          "vTop": 2104,
+          "vBottom": 2218,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "slice",
+      "path": "/#slice",
+      "vp": "768",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 109,
+          "vTop": 0,
+          "vBottom": 109,
+          "h": 109
+        },
+        ".axis-hero": {
+          "top": 926,
+          "bottom": 1205,
+          "vTop": 926,
+          "vBottom": 1205,
+          "h": 279
+        },
+        ".axis-title": {
+          "top": 970,
+          "bottom": 1004,
+          "vTop": 970,
+          "vBottom": 1004,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 1046,
+          "bottom": 1113,
+          "vTop": 1046,
+          "vBottom": 1113,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 1129,
+          "bottom": 1173,
+          "vTop": 1129,
+          "vBottom": 1173,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1378,
+          "bottom": 1556,
+          "vTop": 1378,
+          "vBottom": 1556,
+          "h": 177
+        },
+        ".chronicle-band": {
+          "top": 1366,
+          "bottom": 1570,
+          "vTop": 1366,
+          "vBottom": 1570,
+          "h": 203
+        },
+        ".pattern-axis": {
+          "top": 1600,
+          "bottom": 1644,
+          "vTop": 1600,
+          "vBottom": 1644,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 1660,
+          "bottom": 1704,
+          "vTop": 1660,
+          "vBottom": 1704,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 52,
+          "bottom": 106,
+          "vTop": 52,
+          "vBottom": 106,
+          "h": 54
+        },
+        "#slice": {
+          "top": 1858,
+          "bottom": 3531,
+          "vTop": 1858,
+          "vBottom": 3531,
+          "h": 1674
+        },
+        ".today-pin": {
+          "top": 1724,
+          "bottom": 1838,
+          "vTop": 1724,
+          "vBottom": 1838,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollingScrollWidth": 768,
+        "innerWidth": 768,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "slice",
+      "path": "/#slice",
+      "vp": "1280",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 109,
+          "vTop": 0,
+          "vBottom": 109,
+          "h": 109
+        },
+        ".axis-hero": {
+          "top": 928,
+          "bottom": 1217,
+          "vTop": 928,
+          "vBottom": 1217,
+          "h": 289
+        },
+        ".axis-title": {
+          "top": 972,
+          "bottom": 1016,
+          "vTop": 972,
+          "vBottom": 1016,
+          "h": 44
+        },
+        ".deep-axis": {
+          "top": 1058,
+          "bottom": 1125,
+          "vTop": 1058,
+          "vBottom": 1125,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 1141,
+          "bottom": 1185,
+          "vTop": 1141,
+          "vBottom": 1185,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1399,
+          "bottom": 1554,
+          "vTop": 1399,
+          "vBottom": 1554,
+          "h": 156
+        },
+        ".chronicle-band": {
+          "top": 1387,
+          "bottom": 1568,
+          "vTop": 1387,
+          "vBottom": 1568,
+          "h": 182
+        },
+        ".pattern-axis": {
+          "top": 1598,
+          "bottom": 1642,
+          "vTop": 1598,
+          "vBottom": 1642,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 1658,
+          "bottom": 1702,
+          "vTop": 1658,
+          "vBottom": 1702,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 52,
+          "bottom": 106,
+          "vTop": 52,
+          "vBottom": 106,
+          "h": 54
+        },
+        "#slice": {
+          "top": 1856,
+          "bottom": 3401,
+          "vTop": 1856,
+          "vBottom": 3401,
+          "h": 1545
+        },
+        ".today-pin": {
+          "top": 1722,
+          "bottom": 1836,
+          "vTop": 1722,
+          "vBottom": 1836,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "slice",
+      "path": "/#slice",
+      "vp": "360",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".axis-hero": {
+          "top": 869,
+          "bottom": 1138,
+          "vTop": 869,
+          "vBottom": 1138,
+          "h": 269
+        },
+        ".axis-title": {
+          "top": 905,
+          "bottom": 939,
+          "vTop": 905,
+          "vBottom": 939,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 997,
+          "bottom": 1066,
+          "vTop": 997,
+          "vBottom": 1066,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 1082,
+          "bottom": 1126,
+          "vTop": 1082,
+          "vBottom": 1126,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1327,
+          "bottom": 1796,
+          "vTop": 1327,
+          "vBottom": 1796,
+          "h": 469
+        },
+        ".chronicle-band": {
+          "top": 1315,
+          "bottom": 1810,
+          "vTop": 1315,
+          "vBottom": 1810,
+          "h": 495
+        },
+        ".pattern-axis": {
+          "top": 1840,
+          "bottom": 1988,
+          "vTop": 1840,
+          "vBottom": 1988,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 2004,
+          "bottom": 2100,
+          "vTop": 2004,
+          "vBottom": 2100,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 106,
+          "bottom": 150,
+          "vTop": 106,
+          "vBottom": 150,
+          "h": 44
+        },
+        "#slice": {
+          "top": 2254,
+          "bottom": 4443,
+          "vTop": 2254,
+          "vBottom": 4443,
+          "h": 2188
+        },
+        ".today-pin": {
+          "top": 2120,
+          "bottom": 2234,
+          "vTop": 2120,
+          "vBottom": 2234,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "slice",
+      "path": "/#slice",
+      "vp": "390",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|a"
+      ],
+      "clippedEls": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天"
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片"
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望"
+        }
+      ],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".axis-hero": {
+          "top": 874,
+          "bottom": 1143,
+          "vTop": 874,
+          "vBottom": 1143,
+          "h": 269
+        },
+        ".axis-title": {
+          "top": 910,
+          "bottom": 944,
+          "vTop": 910,
+          "vBottom": 944,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 1002,
+          "bottom": 1071,
+          "vTop": 1002,
+          "vBottom": 1071,
+          "h": 69
+        },
+        ".axis-cta": {
+          "top": 1087,
+          "bottom": 1131,
+          "vTop": 1087,
+          "vBottom": 1131,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1332,
+          "bottom": 1780,
+          "vTop": 1332,
+          "vBottom": 1780,
+          "h": 448
+        },
+        ".chronicle-band": {
+          "top": 1320,
+          "bottom": 1794,
+          "vTop": 1320,
+          "vBottom": 1794,
+          "h": 474
+        },
+        ".pattern-axis": {
+          "top": 1824,
+          "bottom": 1972,
+          "vTop": 1824,
+          "vBottom": 1972,
+          "h": 148
+        },
+        ".case-axis": {
+          "top": 1988,
+          "bottom": 2084,
+          "vTop": 1988,
+          "vBottom": 2084,
+          "h": 96
+        },
+        ".civ-nav": {
+          "top": 106,
+          "bottom": 150,
+          "vTop": 106,
+          "vBottom": 150,
+          "h": 44
+        },
+        "#slice": {
+          "top": 2238,
+          "bottom": 4411,
+          "vTop": 2238,
+          "vBottom": 4411,
+          "h": 2173
+        },
+        ".today-pin": {
+          "top": 2104,
+          "bottom": 2218,
+          "vTop": 2104,
+          "vBottom": 2218,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "slice",
+      "path": "/#slice",
+      "vp": "768",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node",
+        "a|a"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 109,
+          "vTop": 0,
+          "vBottom": 109,
+          "h": 109
+        },
+        ".axis-hero": {
+          "top": 926,
+          "bottom": 1205,
+          "vTop": 926,
+          "vBottom": 1205,
+          "h": 279
+        },
+        ".axis-title": {
+          "top": 970,
+          "bottom": 1004,
+          "vTop": 970,
+          "vBottom": 1004,
+          "h": 34
+        },
+        ".deep-axis": {
+          "top": 1046,
+          "bottom": 1113,
+          "vTop": 1046,
+          "vBottom": 1113,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 1129,
+          "bottom": 1173,
+          "vTop": 1129,
+          "vBottom": 1173,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1378,
+          "bottom": 1556,
+          "vTop": 1378,
+          "vBottom": 1556,
+          "h": 177
+        },
+        ".chronicle-band": {
+          "top": 1366,
+          "bottom": 1570,
+          "vTop": 1366,
+          "vBottom": 1570,
+          "h": 203
+        },
+        ".pattern-axis": {
+          "top": 1600,
+          "bottom": 1644,
+          "vTop": 1600,
+          "vBottom": 1644,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 1660,
+          "bottom": 1704,
+          "vTop": 1660,
+          "vBottom": 1704,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 52,
+          "bottom": 106,
+          "vTop": 52,
+          "vBottom": 106,
+          "h": 54
+        },
+        "#slice": {
+          "top": 1858,
+          "bottom": 3531,
+          "vTop": 1858,
+          "vBottom": 3531,
+          "h": 1674
+        },
+        ".today-pin": {
+          "top": 1724,
+          "bottom": 1838,
+          "vTop": 1724,
+          "vBottom": 1838,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollingScrollWidth": 768,
+        "innerWidth": 768,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "slice",
+      "path": "/#slice",
+      "vp": "1280",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node",
+        "rail|axis-node.axis-now",
+        "rail|axis-node"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 109,
+          "vTop": 0,
+          "vBottom": 109,
+          "h": 109
+        },
+        ".axis-hero": {
+          "top": 928,
+          "bottom": 1217,
+          "vTop": 928,
+          "vBottom": 1217,
+          "h": 289
+        },
+        ".axis-title": {
+          "top": 972,
+          "bottom": 1016,
+          "vTop": 972,
+          "vBottom": 1016,
+          "h": 44
+        },
+        ".deep-axis": {
+          "top": 1058,
+          "bottom": 1125,
+          "vTop": 1058,
+          "vBottom": 1125,
+          "h": 67
+        },
+        ".axis-cta": {
+          "top": 1141,
+          "bottom": 1185,
+          "vTop": 1141,
+          "vBottom": 1185,
+          "h": 44
+        },
+        ".volume-board": {
+          "top": 1399,
+          "bottom": 1554,
+          "vTop": 1399,
+          "vBottom": 1554,
+          "h": 156
+        },
+        ".chronicle-band": {
+          "top": 1387,
+          "bottom": 1568,
+          "vTop": 1387,
+          "vBottom": 1568,
+          "h": 182
+        },
+        ".pattern-axis": {
+          "top": 1598,
+          "bottom": 1642,
+          "vTop": 1598,
+          "vBottom": 1642,
+          "h": 44
+        },
+        ".case-axis": {
+          "top": 1658,
+          "bottom": 1702,
+          "vTop": 1658,
+          "vBottom": 1702,
+          "h": 44
+        },
+        ".civ-nav": {
+          "top": 52,
+          "bottom": 106,
+          "vTop": 52,
+          "vBottom": 106,
+          "h": 54
+        },
+        "#slice": {
+          "top": 1856,
+          "bottom": 3401,
+          "vTop": 1856,
+          "vBottom": 3401,
+          "h": 1545
+        },
+        ".today-pin": {
+          "top": 1722,
+          "bottom": 1836,
+          "vTop": 1722,
+          "vBottom": 1836,
+          "h": 114
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "volumeCards": 3,
+        "volumeBoard": 1,
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "news-longest",
+      "path": "/story/91e9bae258cd/",
+      "vp": "360",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|story-media",
+        "a|story-media"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "‘Ali G: Who Iz I?’ Review: Sacha Baron Cohen Brings Back His Cretinous Fake OG Talk-Show Host, Only Now Ali G Is the Film’s ‘Political’ Subject. A Mistake, Innit? — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "news-longest",
+      "path": "/story/91e9bae258cd/",
+      "vp": "1280",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "‘Ali G: Who Iz I?’ Review: Sacha Baron Cohen Brings Back His Cretinous Fake OG Talk-Show Host, Only Now Ali G Is the Film’s ‘Political’ Subject. A Mistake, Innit? — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "news-longest",
+      "path": "/story/91e9bae258cd/",
+      "vp": "360",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|story-media",
+        "a|story-media"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "‘Ali G: Who Iz I?’ Review: Sacha Baron Cohen Brings Back His Cretinous Fake OG Talk-Show Host, Only Now Ali G Is the Film’s ‘Political’ Subject. A Mistake, Innit? — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "news-longest",
+      "path": "/story/91e9bae258cd/",
+      "vp": "1280",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "‘Ali G: Who Iz I?’ Review: Sacha Baron Cohen Brings Back His Cretinous Fake OG Talk-Show Host, Only Now Ali G Is the Film’s ‘Political’ Subject. A Mistake, Innit? — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "news-general",
+      "path": "/story/082f59cb8ea9/",
+      "vp": "360",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|story-media",
+        "a|story-media"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "Evergrande liquidators recover US$435m in asset sales — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "news-general",
+      "path": "/story/082f59cb8ea9/",
+      "vp": "1280",
+      "theme": "light",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": false,
+        "title": "Evergrande liquidators recover US$435m in asset sales — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "news-general",
+      "path": "/story/082f59cb8ea9/",
+      "vp": "360",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [
+        "a|story-media",
+        "a|story-media"
+      ],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 161,
+          "vTop": 0,
+          "vBottom": 161,
+          "h": 161
+        },
+        ".civ-nav": {
+          "top": 58,
+          "bottom": 102,
+          "vTop": 58,
+          "vBottom": 102,
+          "h": 44
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "Evergrande liquidators recover US$435m in asset sales — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "pageOverflow": false
+      }
+    },
+    {
+      "page": "news-general",
+      "path": "/story/082f59cb8ea9/",
+      "vp": "1280",
+      "theme": "dark",
+      "errors": [],
+      "hit": [],
+      "hit2": [],
+      "clippedEls": [],
+      "geo": {
+        ".chrome": {
+          "top": 0,
+          "bottom": 155,
+          "vTop": 0,
+          "vBottom": 155,
+          "h": 155
+        },
+        ".civ-nav": {
+          "top": 53,
+          "bottom": 107,
+          "vTop": 53,
+          "vBottom": 107,
+          "h": 54
+        }
+      },
+      "touchBad": [],
+      "dom": {
+        "axisHero": false,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": 0,
+        "volumeCards": 0,
+        "volumeBoard": 0,
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "patternAxis": 0,
+        "caseAxis": 0,
+        "slice": false,
+        "chAncient": false,
+        "chNow": false,
+        "chFuture": false,
+        "stages": 0,
+        "chronicleStrip": 0,
+        "dark": true,
+        "title": "Evergrande liquidators recover US$435m in asset sales — 文明編年史"
+      },
+      "scroll": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollingScrollWidth": 1280,
+        "innerWidth": 1280,
+        "pageOverflow": false
+      }
+    }
+  ]
+}
