@@ -2,9 +2,9 @@ import { cjkChars, esc, safeHttp } from '../contentPage.js';
 import { CIV_LINES, type CivLine } from './contract.js';
 import { milestoneBlockProse, milestoneBlockSources, renderMilestoneBlocks } from './milestoneBlock.js';
 import { caseSourceRows, renderCaseNav, renderCasesBeside } from './cases.js';
-import { lineFilterAttrs, renderLineFilter } from './lineFilter.js';
-import { PATTERN_CARDS, patternLinksForStage, patternSourceRows, renderPatternCardsForStage, renderPatternNav } from './patterns.js';
-import { renderFutureBridge } from './future.js';
+import { renderLineFilter } from './lineFilter.js';
+import { PATTERN_CARDS, patternSourceRows, renderPatternCardsForStage, renderPatternNav } from './patterns.js';
+import { FUTURE_DOMAINS, renderFutureBridge } from './future.js';
 import { renderSliceReturns } from './renderSlice.js';
 
 export type { CivLine };
@@ -28,6 +28,10 @@ export interface ChronicleStage {
   origins?: boolean;
   sourceName: string;
   sourceUrl: string;
+  /** Volume 2 only. Shown when the stage has no pattern-card ask. */
+  mechanismAsk?: string;
+  /** Extra https sources rendered on the stage and merged into the table. */
+  moreSources?: { name: string; url: string }[];
 }
 
 export interface ChronicleSource {
@@ -39,11 +43,49 @@ export interface ChronicleSource {
 export const CHRONICLE_TITLE = '文明編年：從採集到智能工具';
 
 export const CHRONICLE_LEDE = [
-  '人類文明不是一夜之間出現的城市燈光，而是一條可被分段閱讀的長河。本頁以十個階段勾勒主流綜述中的粗線：從史前採集與用火，經農業、城市與文字，再到工業能量、全球金融與信息網絡。每一階段標出一至兩個界定性里程碑——沒有它們，其後的社會形態很難想像——並用「能量 · 信息 · 制度 · 貨幣」四線標籤，提示讀者該節點主要改寫了哪一類基礎設施。',
-  '年代一律寫作「約」或「主流綜述」：考古測年、文獻與基因組證據持續更新，精確到年往往並無意義。階段一與階段二的深時間細節，另見本站人類起源時間線長頁；本頁只保留銜接所需的約略窗口。本頁只提供溫和的科技、經濟與文化史觀察，方便今日新聞切片掛回從前到今的連續故事。',
+  '人類文明不是一夜之間出現的城市燈光，而是一條可被分段閱讀的長河。本頁分作三卷：卷一古，寫採集到商路的積累；卷二今，寫科學方法到本世紀的工具；卷三未來，只留章門，展望全文仍在總覽。卷內刻度標出一至兩個界定性里程碑——沒有它們，其後的社會形態很難想像——並用「能量 · 信息 · 制度 · 貨幣」四線標籤，提示讀者該節點主要改寫了哪一類基礎設施。',
+  '年代一律寫作「約」或「主流綜述」：考古測年、文獻與基因組證據持續更新，精確到年往往並無意義。階段一與階段二的深時間細節，另見本站人類起源時間線長頁；本頁只保留銜接所需的約略窗口。本頁只提供溫和的科技、經濟與文化史觀察，方便讀者把首頁的今日切片掛回從前到今的連續故事。',
 ].join('\n');
 
-export const CHRONICLE_HOW = '第一，先掃十階段標題，建立時間尺度感。第二，留意每節的四線標籤：例如工業革命同時拉高「能量」與「信息」速度，而紙幣與電子支付主要落在「貨幣」線。第三，需要核對時，翻至頁底來源表；博物館與國際組織的公共頁面是本站優先引用的入口。本地讀者亦可把香港科學館、太空館等地標，理解為城市向公眾講解自然史與技術史的溫和節點，而非替代學術年表。';
+export const CHRONICLE_HOW = '第一，先看三卷扉頁，確認自己在古、今或未來。第二，留意每節的四線標籤：例如工業革命同時拉高「能量」與「信息」速度，而紙幣與跨國清算主要落在「貨幣」線。第三，需要核對時，翻至頁底來源表；博物館與國際組織的公共頁面是本站優先引用的入口。本地讀者亦可把香港科學館、太空館等地標，理解為城市向公眾講解自然史與技術史的溫和節點，而非替代學術年表。';
+
+export interface ChronicleChapter {
+  id: 'ch-ancient' | 'ch-now' | 'ch-future';
+  volume: string;
+  name: string;
+  era: string;
+  lede: string;
+  /** Stages that belong to the chapter. Future is a door and has none. */
+  stages: readonly number[];
+}
+
+/** Three volumes over the ten anchors. Stage numbers stay the in-volume scale. */
+export const CHRONICLE_CHAPTERS: readonly ChronicleChapter[] = [
+  {
+    id: 'ch-ancient',
+    volume: '卷一',
+    name: '古',
+    era: '約三百萬年前至約公元一五〇〇年',
+    lede: '採集、農業、城市、帝國與商路，在此收成可核對的刻度。本卷維持既有正文，深時間仍交起源長頁。',
+    stages: [1, 2, 3, 4, 5],
+  },
+  {
+    id: 'ch-now',
+    volume: '卷二',
+    name: '今',
+    era: '約公元一五〇〇年起',
+    lede: '科學方法、工業能量、全球信用、信息網絡與本世紀工具，是仍可對照新聞切片的一章。章名是今。新聞切片在首頁。',
+    stages: [6, 7, 8, 9, 10],
+  },
+  {
+    id: 'ch-future',
+    volume: '卷三',
+    name: '未來',
+    era: '章門 · 不設年代',
+    lede: '未來章門只連到總覽既有展望。面板全文留在總覽，本頁不搬移，也不另立第十一階。',
+    stages: [],
+  },
+];
 
 export const CHRONICLE_SUMMARY = '若把文明史壓縮成四條平行軌道：能量線從用火、畜力走到蒸汽與電力；信息線從語言、文字、印刷走到電報、互聯網與人工智能；制度線從聚落規範、城市行政走到跨區域國家組織與多邊金融安排；貨幣線從物物交換、金屬鑄幣、交子紙幣走到電子支付與數字形態。任一今日切片——通車、場館開幕、支付產品或科學發現——通常只觸及其中一至兩條線。編年頁的作用，是讓讀者在片刻間感到自己站在長河上，再決定要不要點進單一階段或起源長頁。';
 
@@ -140,37 +182,63 @@ export const CHRONICLE_STAGES: ChronicleStage[] = [
     n: 8,
     name: '現代金融與全球體系',
     short: '現代金融',
-    era: '約公元 1870–2000 年',
-    milestones: ['金本位', '布雷頓森林體系', '電子支付'],
+    era: '約公元 1870 年至 1969 年',
+    milestones: ['金本位', '布雷頓森林體系', '多邊清算'],
     meaning: '貨幣與信用在全球尺度上被重新編排。',
     lines: ['貨幣', '制度'],
     sourceName: '國際貨幣基金組織｜機構年表',
     sourceUrl: 'https://www.imf.org/external/about/timeline/index.htm',
-    prose: '金本位、戰後布雷頓森林安排，以及其後的銀行卡與電子支付，把貨幣與信用編排到全球尺度。國際貨幣基金組織等機構的公開年表，可核對多邊匯率與合作框架的演進節點。此節只作文具與制度說明，不作投資建議。',
+    mechanismAsk: '遠距結算如何維持可核對的信用？',
+    moreSources: [
+      { name: '美國聯邦儲備史｜布雷頓森林的創立', url: 'https://www.federalreservehistory.org/essays/bretton-woods-created' },
+      { name: '世界銀行檔案｜機構史', url: 'https://www.worldbank.org/en/archive/history' },
+      { name: '美國聯邦儲備｜關於聯邦儲備', url: 'https://www.federalreserve.gov/aboutthefed.htm' },
+    ],
+    prose: '金本位與戰後布雷頓森林安排，把貨幣與信用編排到跨國尺度。本節年代收到約公元一九六九年，不與隨後的信息網絡重疊。國際貨幣基金組織的公開年表，可核對多邊匯率與合作框架的節點。世界銀行與美國聯邦儲備的公共史頁，補充同一窗口的機構沿革。日常電子錢包改在本世紀一節閱讀。此節只作文具與制度說明，不作投資建議。',
   },
   {
     n: 9,
     name: '信息革命',
     short: '信息革命',
-    era: '約公元 1960 年代至今',
-    milestones: ['互聯網', '移動支付', '人工智能'],
+    era: '約公元 1970 年至 2009 年',
+    milestones: ['互聯網', '萬維網', '在線支付'],
     meaning: '信息處理與遠距協作成本驟降。',
     lines: ['信息', '貨幣'],
     sourceName: '歐洲核子研究組織｜萬維網簡史',
     sourceUrl: 'https://home.cern/science/computing/the-birth-of-the-web/short-history-web/',
-    prose: '分組交換網絡與互聯網，尤其是約 1990 年前後公開的萬維網，使知識與服務近乎即時可達。移動支付把結算嵌進日常終端。人工智能作為通用工具，改變檢索、翻譯與內容生產。歐洲核子研究組織保存的萬維網簡史，是可核對的技術史入口。',
+    mechanismAsk: '分組交換如何繞過單點故障？',
+    moreSources: [
+      { name: '萬維網聯盟｜網頁史', url: 'https://www.w3.org/History.html' },
+      { name: '互聯網工程任務組｜互聯網協議說明', url: 'https://www.rfc-editor.org/info/rfc791/' },
+      { name: '互聯網協會｜互聯網簡史', url: 'https://www.internetsociety.org/internet/history-internet/brief-history-internet/' },
+    ],
+    prose: '分組交換與互聯網，以及約一九九零年前後公開的萬維網，使知識與服務近乎即時可達。本節年代由約公元一九七零年收到約公元二零零九年，不與前一節的貨幣安排相交，也不把二零一零年以後的通用智能工具算進本節。歐洲核子研究組織保存的萬維網簡史，是可核對的技術史入口。早期在線支付屬於這一窗口的結算實驗。',
   },
   {
     n: 10,
-    name: '當代／近未來',
-    short: '近未來',
-    era: '約公元 2000 年代至今',
-    milestones: ['數字貨幣形態', '生命科學工具', 'AI 通用化'],
-    meaning: '貨幣、生命與智能的技術形態同時改寫（溫和科技敘事）。',
+    name: '本世紀／當代',
+    short: '本世紀',
+    era: '約公元 2010 年起',
+    milestones: ['數字貨幣形態', '生命科學工具', '智能工具通用化'],
+    meaning: '貨幣、生命與智能的工具形態在本世紀同時改寫（溫和科技敘事）。',
     lines: ['貨幣', '信息'],
-    sourceName: '中國錢幣博物館｜官網公共教育入口',
-    sourceUrl: 'http://www.cnm.com.cn/',
-    prose: '數字貨幣形態（含電子錢包與央行相關實驗）、生命科學工具（測序與編輯等實驗方法），以及人工智能的通用化，使貨幣、生命與智能的技術形態同時改寫。敘事保持溫和：只寫工具與形態，不做投資建議。今日新聞中的科技、基建與民生切片，可掛回本軸末端。',
+    sourceName: '美國國家標準與技術研究院｜物理測量實驗室',
+    sourceUrl: 'https://www.nist.gov/pml',
+    mechanismAsk: '公開工具改寫之後，出處如何被核對？',
+    moreSources: [
+      { name: '美國國家人類基因組研究所｜測序成本數據', url: 'https://www.genome.gov/about-genomics/fact-sheets/DNA-Sequencing-Costs-Data' },
+      { name: '政府間氣候變化專門委員會｜第六次評估綜合報告', url: 'https://www.ipcc.ch/report/ar6/syr/' },
+      { name: '世界衛生組織｜氣候變化與健康實況', url: 'https://www.who.int/news-room/fact-sheets/detail/climate-change-and-health' },
+      { name: '國際貨幣基金組織｜機構年表', url: 'https://www.imf.org/external/about/timeline/index.htm' },
+    ],
+    prose: [
+      '數字貨幣形態、生命科學工具與人工智能的通用化，是本世紀已經進入公共機構頁面的工具事實，不是對以後世紀的預測。本節把年代收到約公元二零一零年起，只寫可核對的形態，不把展望六域的條件句混進階段正文。',
+      '其一，測量與智能工具。公開模型可以檢索、翻譯與起草，個人終端與機構流程都已接上。工具是否可核對，先要有公共的尺。美國國家標準與技術研究院的物理測量實驗室，維持可追溯的測量標準。本站只記工具如何改寫檢索與草稿，不把模型輸出當成已經核對的事實。',
+      '其二，貨幣形態。電子錢包已進入日常小額場景。跨國貨幣合作的公開節點，仍可對照國際貨幣基金組織的機構年表。本節不作投資建議，也不比較任何一種代幣的收益。',
+      '其三，生命科學工具。測序成本長期下降之後，基因組資訊進入實驗室與公共衛生的問答。美國國家人類基因組研究所公開說明人類基因組測序成本的下降軌跡。這裡只寫工具進入實驗流程，不寫人群高下，也不把編輯技術寫成已經完成的社會改造。',
+      '其四，行星約束進入當代日程。政府間氣候變化專門委員會第六次評估的綜合報告，把升溫、極端事件與適應窗口寫成可核對的綜述。世界衛生組織的氣候變化與健康實況頁，說明熱壓力與衛生服務如何被放進同一張公共說明。本節不另造時鐘，也不把監測讀數寫進展望正文。',
+      '讀者若要看能量宜居、信息可信、制度協作、生物譜系、技術能力階與生存風險的條件句，應走未來章門，進入總覽既有分域。今日切片仍在首頁。一則關於支付、測序、模型或極端天氣的標題，可以掛回貨幣、信息或能量中的一至兩條線，再決定要不要打開條件門。本階段名為本世紀／當代。編年在此止步，不另立第十一階。',
+    ].join(''),
   },
 ];
 
@@ -248,37 +316,27 @@ function stageCoverImg(stage: ChronicleStage, eager: boolean): string {
   return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w, ${base}-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
 }
 
-export function renderChronicleStrip(): string {
-  const items = chronicleStagesOrdered().map((stage) => `<li><a class="stage-dot" href="${chronicleStageHref(stage.n)}"><span class="thumb" data-stage="${stage.n}">${paperSeal(stage.n)}</span><span class="name">${esc(stage.short)}</span></a></li>`).join('');
-  return `<nav class="chronicle-strip" aria-label="文明編年"><ol class="chronicle-track">${items}</ol></nav>`;
+export function chronicleChapterHref(id: ChronicleChapter['id']): string {
+  return `/civilization/chronicle/#${id}`;
 }
 
-export function renderStageGrid(): string {
+/** Same three entry cards on the home band and the hub. No stage dots, no stage cards. */
+export function renderVolumeCards(): string {
+  const cards = CHRONICLE_CHAPTERS.map((chapter) => `<article class="volume-card"><a href="${chronicleChapterHref(chapter.id)}"><p class="era">${esc(chapter.volume)}</p><h3>${esc(chapter.name)}</h3><p>${esc(chapter.lede)}</p></a></article>`).join('');
+  return `<div class="volume-grid">${cards}</div>`;
+}
+
+/** Hub board. The four-line filter stays for pattern cards; stage cards are not repeated here. */
+export function renderVolumeBoard(): string {
   const stages = chronicleStagesOrdered();
-  const cards = stages.map((stage) => {
-    const href = chronicleStageHref(stage.n);
-    const points = chronicleCardMilestones(stage).map((item) => `<li>${esc(item)}</li>`).join('');
-    const origins = stage.origins ? '<a href="/civilization/origins/">詳見起源</a>' : '';
-    return `<article class="stage-card" data-stage="${stage.n}"${lineFilterAttrs(stage.lines)}>
-      <a class="stage-cover" href="${href}" aria-label="${esc(`${ordinal(stage.n)} ${stage.name}`)}">${stageCoverImg(stage, stage.n <= 2)}${paperSeal(stage.n)}</a>
-      <div class="stage-body">
-        <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
-        <h3><a href="${href}">${esc(stage.name)}</a></h3>
-        <ul class="stage-milestones">${points}</ul>
-        <p class="stage-meaning">${esc(stage.meaning)}</p>
-        ${lineChips(stage.lines)}
-        <p class="stage-links"><a href="${href}">閱讀本階段</a>${origins}${patternLinksForStage(stage.n)}</p>
-      </div>
-    </article>`;
-  }).join('');
-  return `<section class="chronicle-board" aria-label="文明編年">
+  return `<section class="chronicle-board" aria-label="三卷入口">
     <div class="chronicle-board-head">
       <h2>文明編年</h2>
       <a href="/civilization/chronicle/">打開完整編年</a>
     </div>
-    <p class="chronicle-board-note">十個階段。每張卡片只標一至兩個界定里程碑、一句意義，以及能量、信息、制度、貨幣中的一至兩條線。</p>
+    <p class="chronicle-board-note">三卷入口。古、今、未來各進編年扉頁；卷內刻度只在編年頁展開。</p>
     ${renderLineFilter(stages.map((stage) => stage.lines), PATTERN_CARDS.map((card) => card.lines))}
-    <div class="stage-grid" id="stage-grid">${cards}</div>
+    <div class="volume-board">${renderVolumeCards()}</div>
   </section>`;
 }
 
@@ -291,6 +349,12 @@ function stageSection(stage: ChronicleStage): string {
   const points = stage.milestones.map((item) => `<li>${esc(item)}</li>`).join('');
   const href = sourceHref(stage.sourceUrl);
   const source = href ? `<p class="stage-source">來源：<a href="${href}">${esc(stage.sourceName)}</a></p>` : '';
+  const more = (stage.moreSources ?? []).map((item) => {
+    const itemHref = sourceHref(item.url);
+    return itemHref ? `<li><a href="${itemHref}">${esc(item.name)}</a></li>` : '';
+  }).join('');
+  const moreSources = more ? `<ul class="stage-sources">${more}</ul>` : '';
+  const ask = stage.mechanismAsk ? `<p class="stage-ask">機制問題：${esc(stage.mechanismAsk)}</p>` : '';
   const origins = stage.origins ? '<p class="stage-links"><a href="/civilization/origins/">詳見人類起源時間線</a></p>' : '';
   const reveal = stage.n === 1 ? ' civ-reveal civ-reveal--above-fold is-inview' : ' civ-reveal';
   return `<section class="chronicle-stage${reveal}" id="stage-${stage.n}" data-stage="${stage.n}">
@@ -301,19 +365,49 @@ function stageSection(stage: ChronicleStage): string {
     <p>${esc(stage.prose)}</p>
     <p class="stage-meaning">${esc(stage.meaning)}</p>
     ${lineChips(stage.lines)}
+    ${ask}
     ${renderFutureBridge(stage.n)}
     ${renderMilestoneBlocks(stage)}
     ${renderPatternCardsForStage(stage.n)}
     ${renderCasesBeside('/civilization/chronicle/', `stage-${stage.n}`)}
     ${source}
+    ${moreSources}
     ${origins}
   </section>`;
+}
+
+function renderChapterBand(chapter: ChronicleChapter): string {
+  const stages = chronicleStagesOrdered().filter((stage) => chapter.stages.includes(stage.n));
+  const chips = stages.map((stage) => `<a class="chip" href="#stage-${stage.n}">${ordinal(stage.n)} ${esc(stage.short)}</a>`).join('');
+  const nav = chips ? `<nav class="chronicle-nav" aria-label="${esc(`${chapter.name}卷刻度`)}">${chips}</nav>` : '';
+  return `<header class="chapter-band" id="${chapter.id}">
+    <p class="chapter-kicker">${esc(chapter.volume)}</p>
+    <h2>${esc(chapter.name)}</h2>
+    <p class="era">${esc(chapter.era)}</p>
+    <p>${esc(chapter.lede)}</p>
+    ${nav}
+  </header>`;
+}
+
+function renderFutureChapter(): string {
+  const chapter = CHRONICLE_CHAPTERS.find((item) => item.id === 'ch-future');
+  const links = FUTURE_DOMAINS.map((domain) => `<a href="/civilization/#${esc(domain.anchor)}">${esc(domain.code)} ${esc(domain.title)}</a>`).join('');
+  return `<header class="chapter-band chapter-band-future" id="ch-future">
+    <p class="chapter-kicker">${esc(chapter?.volume ?? '卷三')}</p>
+    <h2>${esc(chapter?.name ?? '未來')}</h2>
+    <p class="era">${esc(chapter?.era ?? '章門')}</p>
+    <p>${esc(chapter?.lede ?? '')}</p>
+    <p class="stage-links"><a href="/civilization/#future">總覽展望</a>${links}</p>
+  </header>`;
 }
 
 function sourceTable(): string {
   const seen = new Set<string>();
   const rows: ChronicleSource[] = [
-    ...chronicleStagesOrdered().map((stage) => ({ stage: String(stage.n), name: stage.sourceName, url: stage.sourceUrl })),
+    ...chronicleStagesOrdered().flatMap((stage) => [
+      { stage: String(stage.n), name: stage.sourceName, url: stage.sourceUrl },
+      ...(stage.moreSources ?? []).map((item) => ({ stage: String(stage.n), name: item.name, url: item.url })),
+    ]),
     ...milestoneBlockSources(),
     ...patternSourceRows(),
     ...caseSourceRows('/civilization/chronicle/'),
@@ -333,19 +427,26 @@ function sourceTable(): string {
 
 export function renderChronicleArticle(): string {
   const stages = chronicleStagesOrdered();
+  const chapters = CHRONICLE_CHAPTERS.map((chapter) => `<a class="chip" href="#${chapter.id}">${esc(chapter.volume)} ${esc(chapter.name)}</a>`).join('');
   const nav = stages.map((stage) => `<a class="chip" href="#stage-${stage.n}">${ordinal(stage.n)} ${esc(stage.short)}</a>`).join('');
   const lede = CHRONICLE_LEDE.split('\n').map((paragraph) => `<p>${esc(paragraph)}</p>`).join('');
+  const body = stages.flatMap((stage) => {
+    const chapter = CHRONICLE_CHAPTERS.find((item) => item.stages[0] === stage.n);
+    return [chapter ? renderChapterBand(chapter) : '', stageSection(stage)];
+  }).join('');
   return `<article class="civ-article chronicle-page">
     <h1 class="column-title civ-page-title">${esc(CHRONICLE_TITLE)}</h1>
     ${lede}
     ${lineChips(CIV_LINES)}
     <h2>如何閱讀本編年</h2>
     <p>${esc(CHRONICLE_HOW)}</p>
+    <nav class="chronicle-nav" aria-label="跳到卷">${chapters}</nav>
     <nav class="chronicle-nav" aria-label="跳到階段">${nav}</nav>
     ${renderPatternNav()}
     ${renderCaseNav('/civilization/chronicle/')}
     <div class="civ-progress" aria-hidden="true"></div>
-    ${stages.map(stageSection).join('')}
+    ${body}
+    ${renderFutureChapter()}
     <h2>四線總結</h2>
     <p>${esc(CHRONICLE_SUMMARY)}</p>
     <h2>與今日新聞的銜接</h2>

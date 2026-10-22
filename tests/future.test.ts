@@ -133,8 +133,9 @@ describe('civilization future P0', () => {
     expect(futureHrefAllowed('/civilization/#future-horizon-heat-health')).toBe(true);
     expect(civChars(STAGE10_BRIDGE)).toBeGreaterThanOrEqual(80);
     expect(civChars(STAGE10_BRIDGE)).toBeLessThanOrEqual(120);
-    expect(STAGE10_BRIDGE_EXTRA).toBe('階段名仍是第十階。展望・分域只把目光送到總覽的六個入口，讓制度協作與地平線以可核對的條件句加厚。');
-    expect(STAGE10_BRIDGE).not.toContain('階段名仍是第十階');
+    expect(STAGE10_BRIDGE_EXTRA).toBe('第十階名為本世紀／當代。展望・分域只把目光送到總覽的六個入口，讓條件句留在總覽面板。');
+    expect(STAGE10_BRIDGE).not.toContain('只把目光送到');
+    expect(STAGE10_BRIDGE).not.toContain('近未來');
     expect(futureHrefAllowed('/civilization/#future')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-f1')).toBe(true);
     expect(futureHrefAllowed('/civilization/#future-energy-budget')).toBe(true);
@@ -323,7 +324,8 @@ describe('civilization future P0', () => {
     expect(heritageBlocked(panel)).toBe(false);
 
     const stage10 = CHRONICLE_STAGES.find((stage) => stage.n === 10);
-    expect(stage10?.name).toBe('當代／近未來');
+    expect(stage10?.name).toBe('本世紀／當代');
+    expect(stage10?.name).not.toContain('近未來');
     expect(CHRONICLE_STAGES).toHaveLength(10);
     const start = chronicle.html.indexOf('id="stage-10"');
     const section = chronicle.html.slice(start, chronicle.html.indexOf('四線總結'));
@@ -335,9 +337,10 @@ describe('civilization future P0', () => {
     expect(section).toContain('不是文明等級');
     expect(section).toContain('href="/civilization/#future-f1"');
     expect(section).not.toContain('id="stage-11"');
-    const strip = hub.html.slice(hub.html.indexOf('class="chronicle-strip"'), hub.html.indexOf('</nav>', hub.html.indexOf('class="chronicle-strip"')));
-    expect(strip.match(/class="stage-dot"/g)).toHaveLength(10);
-    expect(strip).not.toContain('#future');
+    const strip = hub.html.slice(hub.html.indexOf('class="volume-board"'), hub.html.indexOf('class="today-pin"'));
+    expect(strip.match(/class="volume-card"/g)).toHaveLength(3);
+    expect(strip).not.toContain('class="stage-dot"');
+    expect(hub.html).toContain('id="future"');
     expect(renderFutureBridge(9)).toBe('');
     expect(renderFutureBridge(11)).toBe('');
     expect(chronicle.html).not.toMatch(REDLINE);

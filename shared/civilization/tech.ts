@@ -36,14 +36,14 @@ export const TECH_LINES: readonly TechLine[] = ['工具', '能源', '媒介', '�
 
 export const TECH_TITLE = '科技與發現';
 
-const LEDE_BEFORE = '人類把身體以外的能力一層層做出來：先是石器與用火，再是可以傳給下一代的口傳與文字，其後是把觀察固定下來的科學儀器、把熱與電引入生產的工業能量，以及把消息送到遠處的印刷、電波與網絡。本頁以十階段勾勒這條發現弧，標以「工具 · 能源 · 媒介 · 知識」。年代一律寫作「約」或「主流綜述」。文明編年用能量、信息、制度與貨幣重讀同一條長河；本頁不重寫那十個階段，只沿工具、能源、媒介與知識把節點收緊，並在末端交回';
+const LEDE_BEFORE = '人類把身體以外的能力一層層做出來：先是石器與用火，再是可以傳給下一代的口傳與文字，其後是把觀察固定下來的科學儀器、把熱與電引入生產的工業能量，以及把消息送到遠處的印刷、電波與網絡。本頁以十階段勾勒這條發現弧，標以「工具 · 能源 · 媒介 · 知識」。年代一律寫作「約」或「主流綜述」。文明編年用能量、信息、制度與貨幣重讀同一條長河；本頁不重寫編年三卷的刻度，只沿工具、能源、媒介與知識把節點收緊，並在末端交回';
 const LEDE_LINK = '今日的新聞切片';
 const LEDE_AFTER = '。';
 export const TECH_LEDE = `${LEDE_BEFORE}${LEDE_LINK}${LEDE_AFTER}`;
 
 const HANDOFF_A = '石器以前的深時間化石與譜系，請讀';
 const HANDOFF_B = '。若要改以能量、信息、制度與貨幣重讀同一條長河，請讀';
-const HANDOFF_C = '；本頁不重寫那十個階段。技術如何落到街道、場館與日常往來，請讀';
+const HANDOFF_C = '；本頁不重寫編年三卷。技術如何落到街道、場館與日常往來，請讀';
 const HANDOFF_D = '。今日的標題在';
 const HANDOFF_E = '。';
 export const TECH_HANDOFF = `${HANDOFF_A}人類起源時間線${HANDOFF_B}文明編年${HANDOFF_C}城市・基建・民生${HANDOFF_D}今日切片${HANDOFF_E}`;

@@ -6,7 +6,7 @@ import { coordinateChipHtml, renderCivilizationSlice, renderNearBridge } from '.
 import { PATTERN_CARDS } from '../shared/civilization/patterns';
 import { CIV_QUESTIONS, questionHrefAllowed, questionIndexIssues, questionTargets, renderQuestionIndex } from '../shared/civilization/questions';
 import { SLICE_THEMES } from '../shared/civilization/slices';
-import { CHRONICLE_STAGES, chronicleCardMilestones, chronicleStagesOrdered } from '../shared/civilization/chronicle';
+import { CHRONICLE_STAGES, chronicleStagesOrdered } from '../shared/civilization/chronicle';
 import { CHRONICLE_MILESTONE_BLOCKS, milestoneBlockAnchor } from '../shared/civilization/chronicleMilestones';
 import { milestoneBlockProse, milestoneBlocksFor } from '../shared/civilization/milestoneBlock';
 import { axisReadingIssues } from '../shared/civilization/axisReading';
@@ -192,8 +192,9 @@ describe('civilization thick pages', () => {
     expect(hub.html).not.toContain('尚未收錄');
     const pinStart = hub.html.indexOf('class="today-pin"');
     const pin = hub.html.slice(pinStart, hub.html.indexOf('</section>', pinStart));
-    expect(pin).toContain('編年 · 信息革命');
-    expect(pin).toContain('href="/civilization/chronicle/#stage-9"');
+    expect(pin).toContain('此日沒有收錄紀事');
+    expect(pin).not.toContain('href="/civilization/chronicle/#stage-9"');
+    expect(pin).toContain('href="/#slice"');
     expect(pin).not.toContain('深時間 · 起源里程碑');
     expect(pin).not.toContain('href="/civilization/origins/"');
     expect(hub.html.indexOf('class="deep-time"')).toBeLessThan(pinStart);
@@ -276,7 +277,10 @@ describe('civilization thick pages', () => {
     expect(vignette).not.toContain('invert');
     expect(css).toContain('html.dark .axis-vignette::after');
     expect(css).toContain('html.dark .layer-cover img');
-    expect(hub.html.match(/class="stage-card"/g)).toHaveLength(10);
+    expect(hub.html).not.toContain('class="stage-card"');
+    expect(hub.html).not.toContain('id="stage-grid"');
+    expect(hub.html).not.toContain('class="stage-dot"');
+    expect(hub.html.match(/class="volume-card"/g)).toHaveLength(3);
     expect(hub.html.indexOf('class="deep-time"')).toBeLessThan(hub.html.indexOf('class="chronicle-board"'));
     expect(hub.html.indexOf('class="chronicle-board"')).toBeLessThan(hub.html.indexOf('class="civ-article"'));
     const deep = hub.html.slice(hub.html.indexOf('class="deep-time"'), hub.html.indexOf('class="chronicle-board"'));
@@ -289,7 +293,8 @@ describe('civilization thick pages', () => {
     expect(deep).toContain('cosmo-stage-1-cover-1280w.webp 1280w');
     expect(deep).toContain('>宇宙<');
     expect(deep).not.toContain('civ-stage-');
-    expect(hub.html.indexOf('class="chronicle-strip"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
+    expect(hub.html).not.toContain('class="chronicle-strip"');
+    expect(hub.html.indexOf('class="volume-board"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
     const axisEnd = hub.html.indexOf('</section>', hub.html.indexOf('id="civ"'));
     expect(hub.html.indexOf('id="hk-info"')).toBeGreaterThan(axisEnd);
     expect(hub.html.indexOf('id="major-slot"')).toBeGreaterThan(hub.html.indexOf('id="hk-info"'));
@@ -300,37 +305,19 @@ describe('civilization thick pages', () => {
     expect(more.indexOf('>日報</a>')).toBeGreaterThan(-1);
     expect(more.indexOf('>日報</a>')).toBeLessThan(more.indexOf('>週報</a>'));
     expect(hub.html).toContain('打開完整編年');
-    for (const stage of CHRONICLE_STAGES) {
-      expect(hub.html).toContain(`href="/civilization/chronicle/#stage-${stage.n}"`);
-      expect(hub.html).toContain(stage.name);
-      expect(hub.html).toContain(stage.meaning);
-      const card = hub.html.slice(hub.html.indexOf(`<article class="stage-card" data-stage="${stage.n}"`));
-      const next = card.indexOf('<article class="stage-card"', 1);
-      const body = next === -1 ? card.slice(0, card.indexOf('class="civ-article"')) : card.slice(0, next);
-      expect(body.match(/<li>/g)).toHaveLength(chronicleCardMilestones(stage).length);
-      for (const line of stage.lines) expect(body).toContain(`>${line}<`);
-      if (stage.origins) expect(body).toContain('href="/civilization/origins/"');
-      else expect(body).not.toContain('詳見起源');
+    for (const id of ['ch-ancient', 'ch-now', 'ch-future']) {
+      expect(hub.html).toContain(`href="/civilization/chronicle/#${id}"`);
     }
+    expect(hub.html).not.toContain('href="/civilization/chronicle/#stage-1"');
+    expect(hub.html).not.toContain('十個階段');
     expect(hub.html).not.toMatch(REDLINE);
-    for (let n = 1; n <= 10; n += 1) {
-      expect(existsSync(`public/static/civilization/civ-stage-${n}-cover-1280w.webp`), `stage ${n} 1280`).toBe(true);
-      expect(existsSync(`public/static/civilization/civ-stage-${n}-cover-640w.webp`), `stage ${n} 640`).toBe(true);
-      expect(existsSync(`public/static/civilization/civ-stage-${n}-cover-400w.webp`), `stage ${n} 400`).toBe(true);
-      expect(hub.html).toContain(`src="/static/civilization/civ-stage-${n}-cover-640w.webp"`);
-      expect(hub.html).toContain(`civ-stage-${n}-cover-400w.webp 400w`);
-      expect(hub.html).toContain(`civ-stage-${n}-cover-1280w.webp 1280w`);
-    }
-    expect(hub.html).toContain('onerror="this.hidden=true"');
-    const firstCard = hub.html.slice(hub.html.indexOf('<article class="stage-card" data-stage="1"'), hub.html.indexOf('<article class="stage-card" data-stage="2"'));
-    const thirdCard = hub.html.slice(hub.html.indexOf('<article class="stage-card" data-stage="3"'), hub.html.indexOf('<article class="stage-card" data-stage="4"'));
-    expect(firstCard).toContain('loading="eager"');
-    expect(thirdCard).toContain('loading="lazy"');
-    const stripOnly = hub.html.slice(hub.html.indexOf('class="chronicle-strip"'), hub.html.indexOf('</nav>', hub.html.indexOf('class="chronicle-strip"')));
-    expect(stripOnly).not.toContain('<img');
-    expect(stripOnly).not.toContain('civ-stage-');
-    expect(stripOnly).not.toContain('/civilization/cosmos/');
-    expect(stripOnly).not.toContain('#cosmo-');
+    const volumes = hub.html.slice(hub.html.indexOf('class="volume-board"'), hub.html.indexOf('class="today-pin"'));
+    expect(volumes.match(/class="volume-card"/g)).toHaveLength(3);
+    expect(volumes).toContain('>古<');
+    expect(volumes).toContain('>今<');
+    expect(volumes).toContain('>未來<');
+    expect(volumes).not.toContain('civ-stage-');
+    expect(volumes).not.toContain('<img');
   });
 
   it('publishes an indexable ten-stage chronicle and keeps the copy inside the red lines', () => {
@@ -883,7 +870,7 @@ describe('homepage today slice', () => {
     expect(html.indexOf('class="axis-vignette"')).toBeLessThan(html.indexOf('class="axis-title"'));
     expect(html).toContain('class="axis-node"');
     expect(html).toContain('class="layer-cover"');
-    const axis = html.slice(html.indexOf('class="milestones"'), html.indexOf('class="chronicle-strip"'));
+    const axis = html.slice(html.indexOf('class="milestones"'), html.indexOf('class="volume-board"'));
     expect(axis.match(/class="axis-node/g)).toHaveLength(7);
     expect(axis.indexOf('>宇宙<')).toBeGreaterThan(-1);
     expect(axis.indexOf('>宇宙<')).toBeLessThan(axis.indexOf('>地球<'));
@@ -901,11 +888,13 @@ describe('homepage today slice', () => {
     expect(axis).not.toContain('/civilization/future/');
     expect(axis).not.toContain('href="/hk/landmarks/"');
     expect(axis).toContain('>今天<');
-    const strip = html.slice(html.indexOf('class="chronicle-strip"'), html.indexOf('class="today-pin"'));
-    expect(html.indexOf('class="chronicle-strip"')).toBeGreaterThan(html.indexOf('id="civ"'));
+    const strip = html.slice(html.indexOf('class="volume-board"'), html.indexOf('class="today-pin"'));
+    expect(html.indexOf('class="volume-board"')).toBeGreaterThan(html.indexOf('id="civ"'));
     expect(html.indexOf('class="bulletin-clock"')).toBeGreaterThan(html.indexOf('id="civ"'));
-    expect(html.indexOf('class="bulletin-clock"')).toBeLessThan(html.indexOf('class="chronicle-strip"'));
-    expect(html.indexOf('class="chronicle-strip"')).toBeLessThan(html.indexOf('今日落點'));
+    expect(html.indexOf('class="bulletin-clock"')).toBeLessThan(html.indexOf('class="volume-board"'));
+    expect(html.indexOf('class="volume-board"')).toBeLessThan(html.indexOf('今日落點'));
+    expect(html).not.toContain('class="chronicle-strip"');
+    expect(html).not.toContain('class="stage-dot"');
     expect(html.indexOf('今日落點')).toBeLessThan(html.indexOf('id="slice"'));
     expect(html.indexOf('id="slice"')).toBeLessThan(html.indexOf('aria-label="文明層"'));
     const primary = html.slice(html.indexOf('aria-label="主欄目"'), html.indexOf('</nav>'));
@@ -919,12 +908,13 @@ describe('homepage today slice', () => {
     expect(hero).not.toContain('pattern-axis');
     expect(hero).not.toContain('case-axis');
     expect(html).toContain('href="/civilization/#future"');
-    expect(strip.match(/class="stage-dot"/g)).toHaveLength(10);
+    expect(strip.match(/class="volume-card"/g)).toHaveLength(3);
     expect(strip).not.toContain('<img');
-    expect(strip).toContain('>01<');
-    expect(strip).toContain('>10<');
-    expect(strip).toContain('href="/civilization/chronicle/#stage-1"');
-    expect(strip).toContain('href="/civilization/chronicle/#stage-10"');
+    expect(strip).toContain('href="/civilization/chronicle/#ch-ancient"');
+    expect(strip).toContain('href="/civilization/chronicle/#ch-now"');
+    expect(strip).toContain('href="/civilization/chronicle/#ch-future"');
+    expect(strip).not.toContain('href="/civilization/chronicle/#stage-1"');
+    expect(strip).not.toContain('href="/civilization/chronicle/#stage-10"');
     expect(strip).not.toContain('/civilization/cosmos/');
     expect(strip).not.toContain('/civilization/earth/');
     expect(strip).not.toContain('#cosmo-');
@@ -941,18 +931,21 @@ describe('homepage today slice', () => {
     expect(pin).not.toContain('起源里程碑');
   });
 
-  it('uses chronicle stage 9 when the calendar day has no heritage fact', () => {
+  it('says the calendar day has no chronicle when it has no heritage fact', () => {
     const empty = renderTodayPin(new Date('2026-02-03T04:00:00.000Z'));
     const later = renderTodayPin(new Date('2026-10-17T04:00:00.000Z'));
     const blockedDay = renderTodayPin(new Date('2026-06-04T04:00:00.000Z'));
     for (const pin of [empty, later, blockedDay]) {
       expect(pin).not.toContain('尚未收錄');
-      expect(pin).toContain('編年 · 信息革命');
-      expect(pin).toContain('href="/civilization/chronicle/#stage-9"');
+      expect(pin).toContain('此日沒有收錄紀事');
+      expect(pin).not.toContain('信息革命');
+      expect(pin).not.toContain('href="/civilization/chronicle/#stage-9"');
+      expect(pin).toContain('href="/#slice"');
       expect(pin).not.toContain('深時間 · 起源里程碑');
       expect(pin).not.toContain('href="/civilization/origins/"');
-      expect(pin).toContain('class="pin-fact"');
-      const fact = pin.slice(pin.indexOf('pin-fact'), pin.indexOf('pin-links'));
+      expect(pin).not.toContain('class="pin-fact"');
+      expect(pin).toContain('class="pin-empty"');
+      const fact = pin.slice(pin.indexOf('pin-empty'), pin.indexOf('pin-links'));
       expect(heritageBlocked(fact)).toBe(false);
       expect(fact).not.toMatch(/台灣|臺灣|台湾|Taiwan|六四|主權|示威|06-04|07-01/);
     }

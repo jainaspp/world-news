@@ -605,11 +605,11 @@ export const FUTURE_CLADE: FutureClade = {
   ],
 };
 
-/** 80–120 characters. Points at the six domains without renaming stage 10. */
-export const STAGE10_BRIDGE = '展望・分域把第十階段接到六個閱讀入口：能量宜居、信息可信、制度協作、生物譜系、技術能力階與生存風險。各域只在總覽展望面板分頭加厚，本階段不改名，編年帶仍止於第十階，不另立第十一階。';
+/** 80–120 characters. Points at the six domains. Stage 10 is 本世紀／當代, not an eleventh stage. */
+export const STAGE10_BRIDGE = '展望章門把第十階「本世紀／當代」接到六個閱讀入口：能量宜居、信息可信、制度協作、生物譜系、技術能力階與生存風險。各域全文仍在總覽面板，編年不搬移，不另立第十一階。';
 
 /** Second sentence beside the bridge. Does not count toward the 80–120 bridge length. */
-export const STAGE10_BRIDGE_EXTRA = '階段名仍是第十階。展望・分域只把目光送到總覽的六個入口，讓制度協作與地平線以可核對的條件句加厚。';
+export const STAGE10_BRIDGE_EXTRA = '第十階名為本世紀／當代。展望・分域只把目光送到總覽的六個入口，讓條件句留在總覽面板。';
 
 const DOOM_TITLE = /末日|崩潰|滅絕|倒數|災難/;
 const RANK_TITLE = /第[0-9０-９一二三四五六七八九十百]+[級级]文明|文明分數|MiniMax/i;
@@ -978,9 +978,9 @@ export function futureIssues(): string[] {
   for (const domain of FUTURE_DOMAINS) {
     if (!STAGE10_BRIDGE.includes(domain.title)) issues.push(`bridge:${domain.id}`);
   }
-  if (!STAGE10_BRIDGE.includes('不另立第十一階') || !STAGE10_BRIDGE.includes('不改名')) issues.push('bridge-stage');
-  if (STAGE10_BRIDGE.includes('階段名仍是第十階')) issues.push('bridge-lengthened');
-  if (STAGE10_BRIDGE_EXTRA !== '階段名仍是第十階。展望・分域只把目光送到總覽的六個入口，讓制度協作與地平線以可核對的條件句加厚。') {
+  if (!STAGE10_BRIDGE.includes('不另立第十一階') || !STAGE10_BRIDGE.includes('本世紀')) issues.push('bridge-stage');
+  if (STAGE10_BRIDGE.includes('近未來') || STAGE10_BRIDGE.includes('不改名') || STAGE10_BRIDGE.includes('只把目光送到')) issues.push('bridge-lengthened');
+  if (STAGE10_BRIDGE_EXTRA !== '第十階名為本世紀／當代。展望・分域只把目光送到總覽的六個入口，讓條件句留在總覽面板。') {
     issues.push('bridge-extra');
   }
 

@@ -84,5 +84,5 @@ export function renderLineFilter(stageGroups: readonly (readonly string[])[], pa
   const empty = tally.stages === 0 ? ' is-empty' : '';
   const all = filterChip(stageGroups, patternGroups, '', true);
   const chips = CIV_LINES.map((line) => filterChip(stageGroups, patternGroups, line, false)).join('');
-  return `<div class="line-filter" role="group" aria-labelledby="line-filter-legend" aria-controls="stage-grid pattern-board"><p class="line-filter-legend" id="line-filter-legend">按四線篩選階段與模式卡</p><div class="line-filter-row">${all}${chips}</div></div><p class="line-filter-status${empty}" id="line-filter-status" role="status">${esc(status)}</p>`;
+  return `<div class="line-filter" role="group" aria-labelledby="line-filter-legend" aria-controls="pattern-board"><p class="line-filter-legend" id="line-filter-legend">按四線篩選模式卡</p><div class="line-filter-row">${all}${chips}</div></div><p class="line-filter-status${empty}" id="line-filter-status" role="status">${esc(status)}</p>`;
 }
