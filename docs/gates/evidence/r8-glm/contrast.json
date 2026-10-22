@@ -1,0 +1,1348 @@
+[
+  {
+    "tag": "civ-390-dark-yr-0",
+    "file": "2026-10-22-civ-390-dark-yr-0.png",
+    "text": "~138億",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 98,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-0",
+    "text": "宇宙",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 19,
+    "median": [
+      52,
+      53,
+      52
+    ],
+    "ratio": 6.8,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-yr-1",
+    "file": "2026-10-22-civ-390-dark-yr-1.png",
+    "text": "~40億",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 77,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-1",
+    "text": "地球",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 26,
+    "median": [
+      52,
+      53,
+      52
+    ],
+    "ratio": 6.8,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-yr-2",
+    "file": "2026-10-22-civ-390-dark-yr-2.png",
+    "text": "~300ka",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 105,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-2",
+    "text": "起源",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 31,
+    "median": [
+      54,
+      52,
+      52
+    ],
+    "ratio": 6.83,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-yr-3",
+    "file": "2026-10-22-civ-390-dark-yr-3.png",
+    "text": "發現",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 86,
+    "median": [
+      30,
+      33,
+      39
+    ],
+    "ratio": 6.89,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-3",
+    "text": "技術",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 18,
+    "median": [
+      52,
+      53,
+      52
+    ],
+    "ratio": 6.8,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-yr-4",
+    "file": "2026-10-22-civ-390-dark-yr-4.png",
+    "text": "基建",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 83,
+    "median": [
+      38,
+      40,
+      42
+    ],
+    "ratio": 6.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-4",
+    "text": "城市",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 23,
+    "median": [
+      57,
+      55,
+      52
+    ],
+    "ratio": 6.55,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-yr-5",
+    "file": "2026-10-22-civ-390-dark-yr-5.png",
+    "text": "切片",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 60,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-5",
+    "text": "今天",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 28,
+    "median": [
+      59,
+      57,
+      54
+    ],
+    "ratio": 6.35,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-yr-6",
+    "file": "2026-10-22-civ-390-dark-yr-6.png",
+    "text": "展望",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 98,
+    "median": [
+      37,
+      38,
+      41
+    ],
+    "ratio": 6.46,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-6",
+    "text": "未來",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 37,
+    "median": [
+      61,
+      58,
+      53
+    ],
+    "ratio": 6.25,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-yr-0",
+    "file": "2026-10-22-home-390-dark-yr-0.png",
+    "text": "~138億",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 98,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-lab-0",
+    "text": "宇宙",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 16,
+    "median": [
+      26,
+      32,
+      38
+    ],
+    "ratio": 9.06,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-yr-1",
+    "file": "2026-10-22-home-390-dark-yr-1.png",
+    "text": "~40億",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 77,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-lab-1",
+    "text": "地球",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 22,
+    "median": [
+      26,
+      32,
+      38
+    ],
+    "ratio": 9.06,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-yr-2",
+    "file": "2026-10-22-home-390-dark-yr-2.png",
+    "text": "~300ka",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 105,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-lab-2",
+    "text": "起源",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 27,
+    "median": [
+      26,
+      32,
+      38
+    ],
+    "ratio": 9.06,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-yr-3",
+    "file": "2026-10-22-home-390-dark-yr-3.png",
+    "text": "發現",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 86,
+    "median": [
+      24,
+      29,
+      37
+    ],
+    "ratio": 7.23,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-lab-3",
+    "text": "技術",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 11,
+    "invalid": "no glyphs"
+  },
+  {
+    "tag": "home-390-dark-yr-4",
+    "file": "2026-10-22-home-390-dark-yr-4.png",
+    "text": "基建",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 83,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-lab-4",
+    "text": "城市",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 20,
+    "median": [
+      31,
+      37,
+      43
+    ],
+    "ratio": 8.54,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-yr-5",
+    "file": "2026-10-22-home-390-dark-yr-5.png",
+    "text": "切片",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 60,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-lab-5",
+    "text": "今天",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 24,
+    "median": [
+      33,
+      38,
+      42
+    ],
+    "ratio": 8.43,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-yr-6",
+    "file": "2026-10-22-home-390-dark-yr-6.png",
+    "text": "展望",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 98,
+    "median": [
+      23,
+      28,
+      36
+    ],
+    "ratio": 7.31,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-dark-lab-6",
+    "text": "未來",
+    "color": "rgb(197, 192, 182)",
+    "glyphPx": 31,
+    "median": [
+      31,
+      35,
+      40
+    ],
+    "ratio": 8.72,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-light-yr-0",
+    "file": "2026-10-22-home-390-light-yr-0.png",
+    "text": "~138億",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 98,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-light-yr-1",
+    "file": "2026-10-22-home-390-light-yr-1.png",
+    "text": "~40億",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 77,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-light-yr-2",
+    "file": "2026-10-22-home-390-light-yr-2.png",
+    "text": "~300ka",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 105,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-light-yr-3",
+    "file": "2026-10-22-home-390-light-yr-3.png",
+    "text": "發現",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 86,
+    "median": [
+      24,
+      30,
+      37
+    ],
+    "ratio": 7.17,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-light-yr-4",
+    "file": "2026-10-22-home-390-light-yr-4.png",
+    "text": "基建",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 83,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-light-yr-5",
+    "file": "2026-10-22-home-390-light-yr-5.png",
+    "text": "切片",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 60,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "home-390-light-yr-6",
+    "file": "2026-10-22-home-390-light-yr-6.png",
+    "text": "展望",
+    "color": "rgb(196, 165, 114)",
+    "glyphPx": 98,
+    "median": [
+      24,
+      28,
+      36
+    ],
+    "ratio": 7.29,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-yr-0",
+    "file": "2026-10-22-civ-390-dark-yr-0.png",
+    "text": "~138億",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 98,
+    "median": [
+      22,
+      28,
+      36
+    ],
+    "ratio": 7.32,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-0",
+    "file": null,
+    "text": "宇宙",
+    "color": "rgb(197, 192, 182)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 19,
+    "median": [
+      52,
+      53,
+      52
+    ],
+    "ratio": 6.8,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 373
+  },
+  {
+    "tag": "civ-390-dark-yr-1",
+    "file": "2026-10-22-civ-390-dark-yr-1.png",
+    "text": "~40億",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 23,
+    "median": [
+      56,
+      55,
+      51
+    ],
+    "ratio": 5.09,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-1",
+    "file": null,
+    "text": "地球",
+    "color": "rgb(197, 192, 182)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 28,
+    "median": [
+      57,
+      55,
+      52
+    ],
+    "ratio": 6.55,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 373
+  },
+  {
+    "tag": "civ-390-dark-yr-2",
+    "file": "2026-10-22-civ-390-dark-yr-2.png",
+    "text": "~300ka",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 42,
+    "median": [
+      55,
+      54,
+      52
+    ],
+    "ratio": 5.16,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-2",
+    "file": null,
+    "text": "起源",
+    "color": "rgb(197, 192, 182)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 33,
+    "median": [
+      60,
+      58,
+      53
+    ],
+    "ratio": 6.27,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 373
+  },
+  {
+    "tag": "civ-390-dark-yr-3",
+    "file": "2026-10-22-civ-390-dark-yr-3.png",
+    "text": "發現",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 10,
+    "invalid": "no glyphs"
+  },
+  {
+    "tag": "civ-390-dark-lab-3",
+    "file": null,
+    "text": "技術",
+    "color": "rgb(197, 192, 182)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 31,
+    "median": [
+      56,
+      54,
+      53
+    ],
+    "ratio": 6.63,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 373
+  },
+  {
+    "tag": "civ-390-dark-yr-4",
+    "file": "2026-10-22-civ-390-dark-yr-4.png",
+    "text": "基建",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 22,
+    "median": [
+      59,
+      56,
+      53
+    ],
+    "ratio": 4.98,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-4",
+    "file": null,
+    "text": "城市",
+    "color": "rgb(197, 192, 182)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 20,
+    "median": [
+      60,
+      57,
+      53
+    ],
+    "ratio": 6.34,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 373
+  },
+  {
+    "tag": "civ-390-dark-yr-5",
+    "file": "2026-10-22-civ-390-dark-yr-5.png",
+    "text": "切片",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 17,
+    "median": [
+      65,
+      60,
+      55
+    ],
+    "ratio": 4.66,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-5",
+    "file": null,
+    "text": "今天",
+    "color": "rgb(197, 192, 182)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 20,
+    "median": [
+      60,
+      57,
+      53
+    ],
+    "ratio": 6.34,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 373
+  },
+  {
+    "tag": "civ-390-dark-yr-6",
+    "file": "2026-10-22-civ-390-dark-yr-6.png",
+    "text": "展望",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 19,
+    "median": [
+      67,
+      62,
+      55
+    ],
+    "ratio": 4.52,
+    "threshold": 4.5,
+    "pass": true
+  },
+  {
+    "tag": "civ-390-dark-lab-6",
+    "file": "2026-10-22-civ-390-dark-lab-6.png",
+    "text": "未來",
+    "color": "rgb(197, 192, 182)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 23,
+    "median": [
+      61,
+      58,
+      53
+    ],
+    "ratio": 6.25,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 373
+  },
+  {
+    "tag": "civ-390-dark-axistitle",
+    "file": "2026-10-22-civ-390-dark-axistitle.png",
+    "text": "站在一條很長的時間軸上",
+    "color": "rgb(247, 241, 230)",
+    "fs": 27.2,
+    "fw": "700",
+    "glyphPx": 1460,
+    "median": [
+      39,
+      40,
+      43
+    ],
+    "ratio": 13.11,
+    "threshold": 3,
+    "pass": true,
+    "scrollY": 243
+  },
+  {
+    "tag": "civ-390-dark-axislede",
+    "file": "2026-10-22-civ-390-dark-axislede.png",
+    "text": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。",
+    "color": "rgb(197, 192, 182)",
+    "fs": 14,
+    "fw": "400",
+    "glyphPx": 793,
+    "median": [
+      44,
+      45,
+      46
+    ],
+    "ratio": 7.62,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 285
+  },
+  {
+    "tag": "civ-390-dark-kicker",
+    "file": "2026-10-22-civ-390-dark-kicker.png",
+    "text": "Human span · 溫和史",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 335,
+    "median": [
+      36,
+      38,
+      41
+    ],
+    "ratio": 6.48,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 218
+  },
+  {
+    "tag": "civ-390-dark-cta-brass",
+    "file": "2026-10-22-civ-390-dark-cta-brass.png",
+    "text": "閱讀人類起源",
+    "color": "rgb(22, 28, 36)",
+    "fs": 13,
+    "fw": "700",
+    "glyphPx": 767,
+    "median": [
+      161,
+      130,
+      86
+    ],
+    "ratio": 4.77,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 400.1875
+  },
+  {
+    "tag": "civ-390-dark-cta-ghost",
+    "file": "2026-10-22-civ-390-dark-cta-ghost.png",
+    "text": "跳到今日切片",
+    "color": "rgb(232, 228, 220)",
+    "fs": 13,
+    "fw": "700",
+    "glyphPx": 222,
+    "median": [
+      68,
+      61,
+      54
+    ],
+    "ratio": 8.42,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 400.1875
+  },
+  {
+    "tag": "home-390-dark-yr-0",
+    "text": "~138億",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 38.078125,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 48.328125
+    }
+  },
+  {
+    "tag": "home-390-dark-yr-1",
+    "text": "~40億",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 41.125,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 41.25
+    }
+  },
+  {
+    "tag": "home-390-dark-yr-2",
+    "text": "~300ka",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 37.015625,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 50.46875
+    }
+  },
+  {
+    "tag": "home-390-dark-yr-3",
+    "text": "發現",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 45.734375,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 32.015625
+    }
+  },
+  {
+    "tag": "home-390-dark-yr-4",
+    "text": "基建",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 134.234375,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 32.015625
+    }
+  },
+  {
+    "tag": "home-390-dark-yr-5",
+    "text": "切片",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 222.734375,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 32.015625
+    }
+  },
+  {
+    "tag": "home-390-dark-yr-6",
+    "text": "展望",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 311.234375,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 32.015625
+    }
+  },
+  {
+    "tag": "home-390-light-yr-0",
+    "text": "~138億",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 38.078125,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 48.328125
+    }
+  },
+  {
+    "tag": "home-390-light-yr-1",
+    "text": "~40億",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 41.125,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 41.25
+    }
+  },
+  {
+    "tag": "home-390-light-yr-2",
+    "text": "~300ka",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 37.015625,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 50.46875
+    }
+  },
+  {
+    "tag": "home-390-light-yr-3",
+    "text": "發現",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 45.734375,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 32.015625
+    }
+  },
+  {
+    "tag": "home-390-light-yr-4",
+    "text": "基建",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 134.234375,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 32.015625
+    }
+  },
+  {
+    "tag": "home-390-light-yr-5",
+    "text": "切片",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 222.734375,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 32.015625
+    }
+  },
+  {
+    "tag": "home-390-light-yr-6",
+    "text": "展望",
+    "error": "chip not fully visible",
+    "box": {
+      "x": 311.234375,
+      "y": 1060.546875,
+      "height": 15.59375,
+      "width": 32.015625
+    }
+  },
+  {
+    "tag": "civ-360-dark-hubfigcaption-0",
+    "file": "2026-10-22-civ-360-dark-hubfigcaption-0.png",
+    "text": "人類文明",
+    "color": "rgb(22, 28, 36)",
+    "fs": 14,
+    "fw": "700",
+    "glyphPx": 58,
+    "median": [
+      184,
+      165,
+      136
+    ],
+    "ratio": 7.16,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 1024.75
+  },
+  {
+    "tag": "civ-360-dark-blockfigcaption-0",
+    "file": "2026-10-22-civ-360-dark-blockfigcaption-0.png",
+    "text": "功率的儲存與維修 · 紙感 · 約數",
+    "color": "rgb(210, 196, 176)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 175,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 9.05,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 21162.9375
+  },
+  {
+    "tag": "civ-360-dark-blockfigcaption-1",
+    "file": null,
+    "text": "複製與校驗 · 紙感 · 約數",
+    "color": "rgb(210, 196, 176)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 127,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 9.05,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 23002.21875
+  },
+  {
+    "tag": "civ-360-dark-blockfigcaption-2",
+    "file": null,
+    "text": "度量的互通 · 紙感 · 約數",
+    "color": "rgb(210, 196, 176)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 151,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 9.05,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 24710.609375
+  },
+  {
+    "tag": "civ-360-dark-patternnote-0",
+    "file": "2026-10-22-civ-360-dark-patternnote-0.png",
+    "text": "三張模式卡掛在既有編年階段上。新卡只追加資料，不",
+    "color": "rgb(210, 196, 176)",
+    "fs": 14,
+    "fw": "400",
+    "glyphPx": 495,
+    "median": [
+      14,
+      20,
+      28
+    ],
+    "ratio": 10.8,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 20829.6875
+  },
+  {
+    "tag": "civ-360-dark-layerera-0",
+    "file": "2026-10-22-civ-360-dark-layerera-0.png",
+    "text": "深時間",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 136,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 6.62,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 26475.75
+  },
+  {
+    "tag": "civ-360-dark-layerera-1",
+    "file": null,
+    "text": "發現",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 91,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 6.62,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 26840.25
+  },
+  {
+    "tag": "civ-360-dark-layerera-2",
+    "file": null,
+    "text": "公共生活",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 140,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 6.62,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 27204.75
+  },
+  {
+    "tag": "civ-360-dark-layerera-3",
+    "file": null,
+    "text": "展望",
+    "color": "rgb(196, 165, 114)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 111,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 6.62,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 27280.75
+  },
+  {
+    "tag": "civ-360-dark-volumeera-0",
+    "file": "2026-10-22-civ-360-dark-volumeera-0.png",
+    "text": "卷一",
+    "color": "rgb(243, 234, 220)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 28,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 13,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 2556.328125
+  },
+  {
+    "tag": "civ-360-dark-volumeera-1",
+    "file": null,
+    "text": "卷二",
+    "color": "rgb(243, 234, 220)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 28,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 13,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 2724.046875
+  },
+  {
+    "tag": "civ-360-dark-volumeera-2",
+    "file": null,
+    "text": "卷三",
+    "color": "rgb(243, 234, 220)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 42,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 13,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 2891.765625
+  },
+  {
+    "tag": "civ-360-light-hubfigcaption-0",
+    "file": "2026-10-22-civ-360-light-hubfigcaption-0.png",
+    "text": "人類文明",
+    "color": "rgb(22, 28, 36)",
+    "fs": 14,
+    "fw": "700",
+    "glyphPx": 57,
+    "median": [
+      206,
+      174,
+      126
+    ],
+    "ratio": 8.14,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 1024.75
+  },
+  {
+    "tag": "home-360-light-clockseconds-0",
+    "file": "2026-10-22-home-360-light-clockseconds-0.png",
+    "text": "29秒",
+    "color": "rgb(110, 103, 92)",
+    "fs": 12,
+    "fw": "500",
+    "glyphPx": 31,
+    "median": [
+      242,
+      241,
+      230
+    ],
+    "ratio": 4.92,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 1229.734375
+  },
+  {
+    "tag": "home-360-light-clockkicker-0",
+    "file": "2026-10-22-home-360-light-clockkicker-0.png",
+    "text": "監測",
+    "color": "rgb(122, 90, 50)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 79,
+    "median": [
+      247,
+      241,
+      230
+    ],
+    "ratio": 5.6,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 1194.734375
+  },
+  {
+    "tag": "home-360-light-todaymeta-0",
+    "file": "2026-10-22-home-360-light-todaymeta-0.png",
+    "text": "當年今日 · 此日沒有收錄紀事",
+    "color": "rgb(92, 101, 112)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 187,
+    "median": [
+      247,
+      241,
+      230
+    ],
+    "ratio": 5.26,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 2198.40625
+  },
+  {
+    "tag": "home-360-light-moretoday-0",
+    "file": "2026-10-22-home-360-light-moretoday-0.png",
+    "text": "全日多方時間線在此；軸上今日仍是標題切片，不是整",
+    "color": "rgb(92, 101, 112)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 304,
+    "median": [
+      244,
+      246,
+      248
+    ],
+    "ratio": 5.46,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 4698.671875
+  },
+  {
+    "tag": "home-360-light-slicetag-0",
+    "file": "2026-10-22-home-360-light-slicetag-0.png",
+    "text": "軸上今日",
+    "color": "rgb(92, 101, 112)",
+    "fs": 12,
+    "fw": "700",
+    "glyphPx": 132,
+    "median": [
+      243,
+      245,
+      248
+    ],
+    "ratio": 5.42,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 2324.40625
+  },
+  {
+    "tag": "home-360-dark-clockseconds-0",
+    "file": "2026-10-22-home-360-dark-clockseconds-0.png",
+    "text": "29秒",
+    "color": "rgb(183, 177, 166)",
+    "fs": 12,
+    "fw": "500",
+    "glyphPx": 31,
+    "median": [
+      32,
+      28,
+      36
+    ],
+    "ratio": 7.86,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 1229.734375
+  },
+  {
+    "tag": "home-360-dark-todaymeta-0",
+    "file": "2026-10-22-home-360-dark-todaymeta-0.png",
+    "text": "當年今日 · 此日沒有收錄紀事",
+    "color": "rgb(210, 196, 176)",
+    "fs": 12,
+    "fw": "400",
+    "glyphPx": 150,
+    "median": [
+      42,
+      35,
+      27
+    ],
+    "ratio": 9.05,
+    "threshold": 4.5,
+    "pass": true,
+    "scrollY": 2198.40625
+  }
+]
