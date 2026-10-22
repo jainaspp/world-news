@@ -1,0 +1,2011 @@
+{
+  "samples": [
+    {
+      "page": "H",
+      "vp": "360",
+      "theme": "light",
+      "sel": ".axis-title",
+      "text": "站在一條很長的時間軸上",
+      "size": 27.2,
+      "large": true,
+      "need": 3,
+      "n": 1,
+      "rect": {
+        "x": 16,
+        "y": 383,
+        "w": 328,
+        "h": 34,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 16,
+        "y": 383,
+        "w": 328,
+        "h": 34
+      },
+      "worst": 1.04,
+      "p05": 1.04,
+      "median": 1.04,
+      "meanBg": "rgb(244,246,248)",
+      "file": "crop-H-360-light--axis-title.png"
+    },
+    {
+      "page": "H",
+      "vp": "360",
+      "theme": "light",
+      "sel": ".axis-lede",
+      "text": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+      "size": 14,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 16,
+        "y": 384,
+        "w": 328,
+        "h": 32,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 16,
+        "y": 384,
+        "w": 328,
+        "h": 32
+      },
+      "worst": 1.67,
+      "p05": 1.67,
+      "median": 1.67,
+      "meanBg": "rgb(244,246,248)",
+      "file": "crop-H-360-light--axis-lede.png"
+    },
+    {
+      "page": "H",
+      "vp": "360",
+      "theme": "light",
+      "sel": ".axis-hero .kicker",
+      "text": "HUMAN SPAN · 溫和史",
+      "size": 12,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 16,
+        "y": 393,
+        "w": 328,
+        "h": 14,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 16,
+        "y": 393,
+        "w": 328,
+        "h": 14
+      },
+      "worst": 2.16,
+      "p05": 2.16,
+      "median": 2.16,
+      "meanBg": "rgb(244,246,248)",
+      "file": "crop-H-360-light--axis-hero-kicker.png"
+    },
+    {
+      "page": "H",
+      "vp": "360",
+      "theme": "light",
+      "sel": ".axis-cta .btn-ghost",
+      "text": "跳到今日切片",
+      "size": 13,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 132,
+        "y": 378,
+        "w": 108,
+        "h": 44,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 132,
+        "y": 378,
+        "w": 108,
+        "h": 44
+      },
+      "worst": 1.17,
+      "p05": 1.17,
+      "median": 1.17,
+      "meanBg": "rgb(244,246,248)",
+      "file": "crop-H-360-light--axis-cta-btn-ghost.png"
+    },
+    {
+      "page": "H",
+      "vp": "360",
+      "theme": "light",
+      "sel": ".axis-cta .btn-brass",
+      "text": "打開文明總覽",
+      "size": 13,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 16,
+        "y": 378,
+        "w": 108,
+        "h": 44,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 16,
+        "y": 378,
+        "w": 108,
+        "h": 44
+      },
+      "worst": 15.82,
+      "p05": 15.82,
+      "median": 15.82,
+      "meanBg": "rgb(244,246,248)",
+      "file": "crop-H-360-light--axis-cta-btn-brass.png"
+    },
+    {
+      "page": "H",
+      "vp": "360",
+      "theme": "light",
+      "sel": ".bulletin-seconds",
+      "text": "29秒",
+      "size": 12,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 61,
+        "y": 394,
+        "w": 25,
+        "h": 12,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 61,
+        "y": 394,
+        "w": 25,
+        "h": 12
+      },
+      "worst": 5.16,
+      "p05": 5.16,
+      "median": 5.16,
+      "meanBg": "rgb(244,246,248)",
+      "file": "crop-H-360-light--bulletin-seconds.png"
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "dark",
+      "sel": ".axis-title",
+      "text": "站在一條很長的時間軸上",
+      "size": 27.2,
+      "large": true,
+      "need": 3,
+      "n": 1,
+      "rect": {
+        "x": 16,
+        "y": 405,
+        "w": 358,
+        "h": 34,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 16,
+        "y": 405,
+        "w": 358,
+        "h": 34
+      },
+      "worst": 16.45,
+      "p05": 16.45,
+      "median": 16.45,
+      "meanBg": "rgb(14,20,28)",
+      "file": "crop-H-390-dark--axis-title.png"
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "dark",
+      "sel": ".axis-lede",
+      "text": "軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。",
+      "size": 14,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 16,
+        "y": 406,
+        "w": 358,
+        "h": 32,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 16,
+        "y": 406,
+        "w": 358,
+        "h": 32
+      },
+      "worst": 10.21,
+      "p05": 10.21,
+      "median": 10.21,
+      "meanBg": "rgb(14,20,28)",
+      "file": "crop-H-390-dark--axis-lede.png"
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "dark",
+      "sel": ".axis-hero .kicker",
+      "text": "HUMAN SPAN · 溫和史",
+      "size": 12,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 16,
+        "y": 415,
+        "w": 358,
+        "h": 14,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 16,
+        "y": 415,
+        "w": 358,
+        "h": 14
+      },
+      "worst": 7.9,
+      "p05": 7.9,
+      "median": 7.9,
+      "meanBg": "rgb(14,20,28)",
+      "file": "crop-H-390-dark--axis-hero-kicker.png"
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "dark",
+      "sel": ".axis-cta .btn-ghost",
+      "text": "跳到今日切片",
+      "size": 13,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 132,
+        "y": 400,
+        "w": 108,
+        "h": 44,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 132,
+        "y": 400,
+        "w": 108,
+        "h": 44
+      },
+      "worst": 14.59,
+      "p05": 14.59,
+      "median": 14.59,
+      "meanBg": "rgb(14,20,28)",
+      "file": "crop-H-390-dark--axis-cta-btn-ghost.png"
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "dark",
+      "sel": ".axis-node .lab",
+      "text": "宇宙",
+      "size": 12,
+      "large": false,
+      "need": 4.5,
+      "n": 7,
+      "rect": {
+        "x": 24,
+        "y": 414,
+        "w": 77,
+        "h": 16,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 24,
+        "y": 414,
+        "w": 77,
+        "h": 16
+      },
+      "worst": 10.21,
+      "p05": 10.21,
+      "median": 10.21,
+      "meanBg": "rgb(14,20,28)",
+      "file": "crop-H-390-dark--axis-node-lab.png"
+    },
+    {
+      "page": "C",
+      "vp": "360",
+      "theme": "dark",
+      "sel": ".axis-title",
+      "text": "站在一條很長的時間軸上",
+      "size": 27.2,
+      "large": true,
+      "need": 3,
+      "n": 1,
+      "rect": {
+        "x": 16,
+        "y": 243,
+        "w": 328,
+        "h": 34,
+        "chrome": 117
+      },
+      "shot": {
+        "x": 16,
+        "y": 243,
+        "w": 328,
+        "h": 34
+      },
+      "worst": 11.06,
+      "p05": 11.91,
+      "median": 13,
+      "meanBg": "rgb(39,41,43)",
+      "file": "crop-C-360-dark--axis-title.png"
+    },
+    {
+      "page": "C",
+      "vp": "360",
+      "theme": "dark",
+      "sel": ".axis-cta .btn-ghost",
+      "text": "跳到今日切片",
+      "size": 13,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 132,
+        "y": 378,
+        "w": 108,
+        "h": 44,
+        "chrome": 117
+      },
+      "shot": {
+        "x": 132,
+        "y": 378,
+        "w": 108,
+        "h": 44
+      },
+      "worst": 1.92,
+      "p05": 2.89,
+      "median": 8.35,
+      "meanBg": "rgb(76,70,61)",
+      "file": "crop-C-360-dark--axis-cta-btn-ghost.png"
+    },
+    {
+      "page": "C",
+      "vp": "360",
+      "theme": "dark",
+      "sel": ".axis-hero .kicker",
+      "text": "HUMAN SPAN · 溫和史",
+      "size": 12,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 16,
+        "y": 218,
+        "w": 328,
+        "h": 17,
+        "chrome": 117
+      },
+      "shot": {
+        "x": 16,
+        "y": 218,
+        "w": 328,
+        "h": 17
+      },
+      "worst": 5.39,
+      "p05": 5.9,
+      "median": 6.46,
+      "meanBg": "rgb(36,39,42)",
+      "file": "crop-C-360-dark--axis-hero-kicker.png"
+    },
+    {
+      "page": "C",
+      "vp": "360",
+      "theme": "dark",
+      "sel": ".civ-block-figure figcaption",
+      "text": "功率的儲存與維修 · 紙感 · 約數",
+      "size": 12,
+      "large": false,
+      "need": 4.5,
+      "n": 3,
+      "rect": {
+        "x": 29,
+        "y": 392,
+        "w": 302,
+        "h": 17,
+        "chrome": 117
+      },
+      "shot": {
+        "x": 29,
+        "y": 392,
+        "w": 302,
+        "h": 17
+      },
+      "worst": 10.8,
+      "p05": 10.8,
+      "median": 10.8,
+      "meanBg": "rgb(14,20,28)",
+      "file": "crop-C-360-dark--civ-block-figure-figcaption.png"
+    },
+    {
+      "page": "N",
+      "vp": "360",
+      "theme": "light",
+      "sel": "#ch-future .stage-links a",
+      "text": "總覽展望",
+      "size": 13,
+      "large": false,
+      "need": 4.5,
+      "n": 7,
+      "rect": {
+        "x": 32,
+        "y": 390,
+        "w": 52,
+        "h": 21,
+        "chrome": 161
+      },
+      "shot": {
+        "x": 32,
+        "y": 390,
+        "w": 52,
+        "h": 21
+      },
+      "worst": 1.72,
+      "p05": 1.72,
+      "median": 1.72,
+      "meanBg": "rgb(244,246,248)",
+      "file": "crop-N-360-light-stage-link.png"
+    },
+    {
+      "page": "H",
+      "vp": "768",
+      "theme": "dark",
+      "sel": ".civ-more > summary",
+      "text": "更多",
+      "size": 16,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 628,
+        "y": 57,
+        "w": 58,
+        "h": 44,
+        "chrome": 109
+      },
+      "shot": {
+        "x": 628,
+        "y": 57,
+        "w": 58,
+        "h": 44
+      },
+      "worst": 2.43,
+      "p05": 15.16,
+      "median": 15.16,
+      "meanBg": "rgb(24,33,44)",
+      "file": "crop-H-768-dark-more.png"
+    },
+    {
+      "page": "C",
+      "vp": "1280",
+      "theme": "dark",
+      "sel": ".nav-more > summary",
+      "text": "更多",
+      "size": 13,
+      "large": false,
+      "need": 4.5,
+      "n": 1,
+      "rect": {
+        "x": 414,
+        "y": 56,
+        "w": 44,
+        "h": 44,
+        "chrome": 111
+      },
+      "shot": {
+        "x": 414,
+        "y": 56,
+        "w": 44,
+        "h": 44
+      },
+      "worst": 12.29,
+      "p05": 12.29,
+      "median": 12.29,
+      "meanBg": "rgb(14,19,28)",
+      "file": "crop-C-1280-dark-nav-more.png"
+    }
+  ],
+  "gaps": [
+    {
+      "page": "H",
+      "vp": "360",
+      "mode": "light",
+      "low": [
+        {
+          "a": "打開文明總覽",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 24,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 105,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 186,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 267,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "城市",
+          "x": 348,
+          "w": 69,
+          "viewCut": true,
+          "overflowCut": false,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 348,
+          "w": 69,
+          "viewCut": true,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 429,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 510,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "H",
+      "vp": "360",
+      "mode": "dark",
+      "low": [
+        {
+          "a": "打開文明總覽",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 24,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 105,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 186,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 267,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "城市",
+          "x": 348,
+          "w": 69,
+          "viewCut": true,
+          "overflowCut": false,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 348,
+          "w": 69,
+          "viewCut": true,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 429,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 510,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "mode": "light",
+      "low": [
+        {
+          "a": "打開文明總覽",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 24,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 113,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 201,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 290,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "城市",
+          "x": 378,
+          "w": 77,
+          "viewCut": true,
+          "overflowCut": false,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 378,
+          "w": 77,
+          "viewCut": true,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 467,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 555,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "mode": "dark",
+      "low": [
+        {
+          "a": "打開文明總覽",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 24,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 113,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 201,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 290,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "城市",
+          "x": 378,
+          "w": 77,
+          "viewCut": true,
+          "overflowCut": false,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 378,
+          "w": 77,
+          "viewCut": true,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 467,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 555,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.187469482421875
+    },
+    {
+      "page": "H",
+      "vp": "768",
+      "mode": "light",
+      "low": [
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 2,
+          "nw": 98,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 2,
+          "nw": 98,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 16,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 122,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 229,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 335,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 441,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 547,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 654,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "H",
+      "vp": "768",
+      "mode": "dark",
+      "low": [
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 2,
+          "nw": 98,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 2,
+          "nw": 98,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 16,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 122,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 229,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 335,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 441,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 547,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 654,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.187469482421875
+    },
+    {
+      "page": "H",
+      "vp": "1280",
+      "mode": "light",
+      "low": [
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 2,
+          "nw": 131,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 156,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 295,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 435,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 574,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 714,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 853,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 993,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "H",
+      "vp": "1280",
+      "mode": "dark",
+      "low": [
+        {
+          "a": "打開文明總覽",
+          "n": "宇宙\n~138億",
+          "gap": 7.2,
+          "nw": 131,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "宇宙\n~138億",
+          "gap": 7.2,
+          "nw": 131,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 2,
+          "nw": 131,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 156,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 295,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 435,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 574,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 714,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 853,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 993,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.187469482421875
+    },
+    {
+      "page": "C",
+      "vp": "360",
+      "mode": "light",
+      "low": [
+        {
+          "a": "閱讀人類起源",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 24,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 105,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 186,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 267,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "城市",
+          "x": 348,
+          "w": 69,
+          "viewCut": true,
+          "overflowCut": false,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 348,
+          "w": 69,
+          "viewCut": true,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 429,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 510,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "C",
+      "vp": "360",
+      "mode": "dark",
+      "low": [
+        {
+          "a": "閱讀人類起源",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 4,
+          "nw": 69,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 24,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 105,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 186,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 267,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "城市",
+          "x": 348,
+          "w": 69,
+          "viewCut": true,
+          "overflowCut": false,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 348,
+          "w": 69,
+          "viewCut": true,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 429,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 510,
+          "w": 69,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "C",
+      "vp": "390",
+      "mode": "light",
+      "low": [
+        {
+          "a": "閱讀人類起源",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 24,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 113,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 201,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 290,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "城市",
+          "x": 378,
+          "w": 77,
+          "viewCut": true,
+          "overflowCut": false,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 378,
+          "w": 77,
+          "viewCut": true,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 467,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 555,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "C",
+      "vp": "390",
+      "mode": "dark",
+      "low": [
+        {
+          "a": "閱讀人類起源",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 4,
+          "nw": 77,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 24,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 113,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 201,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 290,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "城市",
+          "x": 378,
+          "w": 77,
+          "viewCut": true,
+          "overflowCut": false,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 378,
+          "w": 77,
+          "viewCut": true,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 467,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 555,
+          "w": 77,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "C",
+      "vp": "768",
+      "mode": "light",
+      "low": [
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 2,
+          "nw": 98,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 2,
+          "nw": 98,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 16,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 122,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 229,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 335,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 441,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 547,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 654,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "C",
+      "vp": "768",
+      "mode": "dark",
+      "low": [
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 2,
+          "nw": 98,
+          "nh": 55
+        },
+        {
+          "a": "跳到今日切片",
+          "n": "起源\n~300ka",
+          "gap": 2,
+          "nw": 98,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 16,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 122,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 229,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 335,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 441,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 547,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 654,
+          "w": 98,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "C",
+      "vp": "1280",
+      "mode": "light",
+      "low": [
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 2,
+          "nw": 131,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 156,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 295,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 435,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 574,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 714,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 853,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 993,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    },
+    {
+      "page": "C",
+      "vp": "1280",
+      "mode": "dark",
+      "low": [
+        {
+          "a": "跳到今日切片",
+          "n": "地球\n~40億",
+          "gap": 2,
+          "nw": 131,
+          "nh": 55
+        }
+      ],
+      "small": [],
+      "labs": [
+        {
+          "t": "~138億",
+          "x": 156,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~40億",
+          "x": 295,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "~300ka",
+          "x": 435,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "發現",
+          "x": 574,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "基建",
+          "x": 714,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "切片",
+          "x": 853,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        },
+        {
+          "t": "展望",
+          "x": 993,
+          "w": 131,
+          "viewCut": false,
+          "overflowCut": true,
+          "inView": true
+        }
+      ],
+      "nodeMin": 55.1875
+    }
+  ],
+  "ctas": [
+    {
+      "name": "C360 dark slice",
+      "href": "/#slice",
+      "scrollY": 2077,
+      "chrome": 161,
+      "text": "今日切片",
+      "gap": 31.4
+    },
+    {
+      "name": "H360 dark slice",
+      "href": "/#slice",
+      "scrollY": 2077,
+      "chrome": 161,
+      "text": "今日切片",
+      "gap": 31.4
+    },
+    {
+      "name": "H1280 light slice",
+      "href": "/#slice",
+      "scrollY": 1729,
+      "chrome": 109,
+      "text": "今日切片",
+      "gap": 33.3
+    },
+    {
+      "name": "C360 light origins",
+      "href": "/civilization/origins/",
+      "scrollY": 0,
+      "chrome": 161,
+      "text": "人類起源時間線：從深時間到今日切片",
+      "gap": 118.4
+    },
+    {
+      "name": "C1280 dark origins",
+      "href": "/civilization/origins/",
+      "scrollY": 0,
+      "chrome": 155,
+      "text": "人類起源時間線：從深時間到今日切片",
+      "gap": 118.4
+    },
+    {
+      "name": "N future",
+      "href": "/civilization/chronicle/#ch-future",
+      "scrollY": 31846,
+      "chrome": 161,
+      "text": "未來",
+      "gap": 64.5
+    },
+    {
+      "name": "N stage1",
+      "href": "/civilization/chronicle/#stage-1",
+      "scrollY": 1944,
+      "chrome": 161,
+      "text": "史前／採集狩獵",
+      "gap": 41
+    },
+    {
+      "name": "N stage10",
+      "href": "/civilization/chronicle/#stage-10",
+      "scrollY": 28089,
+      "chrome": 161,
+      "text": "本世紀／當代",
+      "gap": 28.8
+    }
+  ],
+  "moreBox": {
+    "x": 4,
+    "y": 156,
+    "right": 292,
+    "bottom": 262,
+    "iw": 360,
+    "ih": 800
+  },
+  "locked": {
+    "text": "物質與自然\n物質\n尚未開啓之路",
+    "fg": "rgb(183, 177, 166)",
+    "bg": "rgb(23, 29, 38)",
+    "ratio": 7.94,
+    "size": "16px"
+  }
+}
