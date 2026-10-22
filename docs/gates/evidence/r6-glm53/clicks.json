@@ -1,0 +1,146 @@
+[
+  {
+    "from": "H",
+    "theme": "light",
+    "vp": "360",
+    "text": "打開文明總覽",
+    "found": true,
+    "w": 108,
+    "h": 44,
+    "landed": "/civilization/ true"
+  },
+  {
+    "from": "C",
+    "theme": "light",
+    "vp": "360",
+    "text": "閱讀人類起源",
+    "found": true,
+    "w": 108.015625,
+    "h": 44,
+    "landed": "/civilization/origins/"
+  },
+  {
+    "from": "C-slice",
+    "theme": "light",
+    "vp": "360",
+    "found": true,
+    "w": 108.015625,
+    "h": 44,
+    "text": "跳到今日切片",
+    "gap": {
+      "path": "/#slice",
+      "top": 182.40625,
+      "chromeBottom": 161,
+      "gap": 21.40625,
+      "text": "今日切片\n軸上今日"
+    }
+  },
+  {
+    "from": "H",
+    "theme": "light",
+    "vp": "1280",
+    "text": "打開文明總覽",
+    "found": true,
+    "w": 108,
+    "h": 44,
+    "landed": "/civilization/ true"
+  },
+  {
+    "from": "C",
+    "theme": "light",
+    "vp": "1280",
+    "text": "閱讀人類起源",
+    "found": true,
+    "w": 108.015625,
+    "h": 44,
+    "landed": "/civilization/origins/"
+  },
+  {
+    "from": "C-slice",
+    "theme": "light",
+    "vp": "1280",
+    "found": true,
+    "w": 108.015625,
+    "h": 44,
+    "text": "跳到今日切片",
+    "gap": {
+      "path": "/#slice",
+      "top": 132.265625,
+      "chromeBottom": 109,
+      "gap": 23.265625,
+      "text": "今日切片\n軸上今日"
+    }
+  },
+  {
+    "from": "H",
+    "theme": "dark",
+    "vp": "360",
+    "text": "打開文明總覽",
+    "found": true,
+    "w": 108,
+    "h": 44,
+    "landed": "/civilization/ true"
+  },
+  {
+    "from": "C",
+    "theme": "dark",
+    "vp": "360",
+    "text": "閱讀人類起源",
+    "found": true,
+    "w": 108.015625,
+    "h": 44,
+    "landed": "/civilization/origins/"
+  },
+  {
+    "from": "C-slice",
+    "theme": "dark",
+    "vp": "360",
+    "found": true,
+    "w": 108.015625,
+    "h": 44,
+    "text": "跳到今日切片",
+    "gap": {
+      "path": "/#slice",
+      "top": 182.40625,
+      "chromeBottom": 161,
+      "gap": 21.40625,
+      "text": "今日切片\n軸上今日"
+    }
+  },
+  {
+    "from": "H",
+    "theme": "dark",
+    "vp": "1280",
+    "text": "打開文明總覽",
+    "found": true,
+    "w": 108,
+    "h": 44,
+    "landed": "/civilization/ true"
+  },
+  {
+    "from": "C",
+    "theme": "dark",
+    "vp": "1280",
+    "text": "閱讀人類起源",
+    "found": true,
+    "w": 108.015625,
+    "h": 44,
+    "landed": "/civilization/origins/"
+  },
+  {
+    "from": "C-slice",
+    "theme": "dark",
+    "vp": "1280",
+    "found": true,
+    "w": 108.015625,
+    "h": 44,
+    "text": "跳到今日切片",
+    "gap": {
+      "path": "/#slice",
+      "top": 132.265625,
+      "chromeBottom": 109,
+      "gap": 23.265625,
+      "text": "今日切片\n軸上今日"
+    }
+  }
+]
