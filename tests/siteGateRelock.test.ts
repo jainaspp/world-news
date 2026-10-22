@@ -190,6 +190,44 @@ describe('R4 dark figcaption contrast', () => {
   });
 });
 
+describe('R5 P0-CONTRAST muted text', () => {
+  const css = readFileSync('src/App.css', 'utf8');
+
+  it('darkens light clock seconds and lifts dark muted text without touching figcaptions', () => {
+    const seconds = css.match(/--civ-clock-seconds:\s*(#[0-9a-fA-F]{6})/)?.[1]?.toLowerCase();
+    expect(seconds).toBe('#6e675c');
+    expect(contrast(seconds!, '#f7f1e6')).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#8a8175', '#f7f1e6')).toBeLessThan(4.5);
+    expect(css).toContain('color: var(--civ-clock-seconds)');
+    expect(css).toContain('html.dark .bulletin-clock .bulletin-seconds,\nhtml.dark .bulletin-clock .bulletin-asof { color: #b7b1a6; }');
+    expect(contrast('#b7b1a6', '#161c24')).toBeGreaterThanOrEqual(4.5);
+
+    const link = css.match(/--civ-link-on-ink:\s*(#[0-9a-fA-F]{6})/)?.[1]?.toLowerCase();
+    expect(link).toBe('#9ec0ef');
+    expect(contrast(link!, '#161c24')).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#1d4f91', '#161c24')).toBeLessThan(4.5);
+    expect(css).toContain('.chapter-band .stage-links a { color: var(--civ-link-on-ink); }');
+
+    const muted = css.match(/html\.dark \{[^}]*--color-muted:\s*(#[0-9a-fA-F]{6})/)?.[1]?.toLowerCase();
+    expect(muted).toBe('#c9d3df');
+    expect(contrast(muted!, '#121820')).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(muted!, '#0e141c')).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#3d4550', '#121820')).toBeLessThan(4.5);
+    expect(contrast('#5c6570', '#121820')).toBeLessThan(4.5);
+    expect(contrast('#5c6570', '#0e141c')).toBeLessThan(4.5);
+    expect(css).toContain([
+      'html.dark .learn-progress,',
+      'html.dark .learn-note,',
+      'html.dark .learn-bound,',
+      'html.dark .learn-locked,',
+      'html.dark .learn-bearings { color: var(--color-muted); }',
+    ].join('\n'));
+    expect(css).toContain('html.dark .more-today span { color: var(--color-muted); }');
+    expect(css).toContain('html.dark .nav-more summary { color: var(--color-muted); }');
+    expect(css).toContain('html.dark .civ-block-figure figcaption { color: #d2c4b0; }');
+  });
+});
+
 describe('three volume skeleton still renders', () => {
   it('puts three volume cards on home and hub, and the chapter plus stage anchors on the chronicle', () => {
     const home = renderHomeFeed([], new Map(), null, '', null, '', [], [], new Date('2026-10-17T04:00:00.000Z'), true);

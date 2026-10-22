@@ -59,6 +59,12 @@
      Rails, borders, and the #9a7b4f brand mark stay put. */
   --brass-ink-fill: #a18256;
   --brass-on-paper: #7a5a32;
+  /* Light monitor-clock seconds on paper #f7f1e6. #8a8175 was 3.41:1; #6e675c is 4.97:1.
+     Dark seconds stay #b7b1a6 (8.04:1 on the ink face #161c24). */
+  --civ-clock-seconds: #6e675c;
+  /* Cool blue for links on the ink chapter door. Light --accent #1d4f91 on #161c24 is 2.10:1.
+     Same hue as dark --color-primary. #9ec0ef on #161c24 is 9.17:1. */
+  --civ-link-on-ink: #9ec0ef;
   --civ-stack: 20px;
   /* P1-MIN-FONT: non-decorative text floors at 12px. */
   --civ-type-kicker: 0.75rem;
@@ -1395,6 +1401,9 @@ html.dark .detail-hero { box-shadow: none; }
 }
 .nav-more { margin: 4px 0 8px; }
 .nav-more summary { cursor: pointer; color: #5c6570; font-size: 13px; }
+/* ≥768 the summary sits on the page, not the ≤720 chip. Dark #5c6570 on #0e141c was 3.13:1
+   (3.02:1 on the learn ground #121820). --color-muted is #c9d3df: 12.21:1 and 11.78:1. */
+html.dark .nav-more summary { color: var(--color-muted); }
 .nav-more .filters { margin-top: 6px; }
 .bulletin-clock {
   display: grid;
@@ -1442,7 +1451,7 @@ html.dark .detail-hero { box-shadow: none; }
   color: #161c24;
 }
 .bulletin-clock .bulletin-seconds {
-  color: #8a8175;
+  color: var(--civ-clock-seconds);
   font-size: var(--civ-type-meta);
   font-weight: 500;
 }
@@ -1512,6 +1521,13 @@ html.dark .bulletin-clock .bulletin-kicker { color: #c4a572; }
 html.dark .bulletin-clock .bulletin-seconds,
 html.dark .bulletin-clock .bulletin-asof { color: #b7b1a6; }
 html.dark .learn-page { background: #121820; color: #f7f1e6; }
+/* These set an explicit ink that beat the page color. #3d4550 on #121820 was 1.84:1;
+   bearings #5c6570 on #121820 were 3.02:1. Dark --color-muted #c9d3df is 11.78:1. */
+html.dark .learn-progress,
+html.dark .learn-note,
+html.dark .learn-bound,
+html.dark .learn-locked,
+html.dark .learn-bearings { color: var(--color-muted); }
 html.dark .learn-door { background: #1c2430; color: #f7f1e6; }
 html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
 @media (min-width: 720px) {
@@ -1773,6 +1789,9 @@ a.axis-node:hover { color: #f7f1e6; }
 }
 .more-today a { font-weight: 700; }
 .more-today span { color: #5c6570; font-size: var(--civ-type-meta); }
+/* Supplement line sits on the page, outside .today-slice. Dark #5c6570 on #0e141c was 3.13:1.
+   .slice-note already uses --color-muted (#c9d3df, 12.21:1 on #0e141c). */
+html.dark .more-today span { color: var(--color-muted); }
 .civ-nav-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .civ-nav-row .civ-nav { flex: 1 1 auto; }
 /* Desktop keeps the old flex children. Phones turn this into the horizontal scroller. */
@@ -2426,6 +2445,8 @@ a.stage-cover { text-decoration: none; }
   .line-filter-unit { display: inline; }
 }
 .stage-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; font-size: 13px; font-weight: 700; }
+/* Ink door stays #161c24 in both themes. Light --accent would paint #1d4f91 here (2.10:1). */
+.chapter-band .stage-links a { color: var(--civ-link-on-ink); }
 .stage-source { margin: 0 0 8px; font-size: 13px; color: #5c6570; }
 /* 里程碑深讀：產物｜推動力 block. Paper card on the ink-and-paper scale. */
 .milestone-block {
