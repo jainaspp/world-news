@@ -1,6 +1,7 @@
 # 站級重大更新閘（正典）
 
 - 狀態：**LOCKED 2026-10-20 by GM after three-model input**
+- **LOCK 2026-10-22：** GM 依 [#198](https://github.com/jainaspp/world-news/pull/198) 採納稿＋R1 三席（[#199](https://github.com/jainaspp/world-news/pull/199) Kimi、[#200](https://github.com/jainaspp/world-news/pull/200) Grok、[#201](https://github.com/jainaspp/world-news/pull/201) GLM）指出契約落後而重鎖（唔係豁免 Critical）。重鎖範圍係 §2.2 必有骨架、`P0-DOM-EXPECT` 的對應句，以及 §2.3 對齊暗色章扉墨色與紙上小銅金對比的句子；其餘 P0 閾值不變。
 - 來源 PR：[#180](https://github.com/jainaspp/world-news/pull/180)（Kimi K3）、[#181](https://github.com/jainaspp/world-news/pull/181)（GLM 5.3）、[#182](https://github.com/jainaspp/world-news/pull/182)（Grok 4.7）
 - 文件 ID：`SITE-MAJOR-UPDATE-GATE`
 - 適用站：[world-news.xyz](https://world-news.xyz)（本倉 `jainaspp/world-news`）
@@ -34,8 +35,8 @@
 
 合併或部署前，把下列證據附在 PR。缺一項就停。全站閘只靠本卡、沒有第 7.3 節其餘證據，不得判 PASS。
 
-1. **手機全長截圖**：寬 ≤640。至少 H（`/`）與 C（`/civilization/`）。整頁全長，不得只截首屏。淺色與暗色各一。同一張圖要同時看見軸、主 CTA、編年圓點、模式卡與案例晶片。
-2. **零重疊**：軸、編年圓點、「跳到今日切片」、模式卡、案例晶片，彼此不相交。相交超過 1px 即失敗。父子包含、以及圓點壓住 2px 軸軌，不算。
+1. **手機全長截圖**：寬 ≤640。至少 H（`/`）與 C（`/civilization/`）。整頁全長，不得只截首屏。淺色與暗色各一。同一張全長圖要同時看見軸、主 CTA、三卷入口卡（`.volume-card`）、模式卡與案例晶片。
+2. **零重疊**：軸、三卷入口卡、「跳到今日切片」、模式卡、案例晶片，彼此不相交。相交超過 1px 即失敗。父子包含、以及圓點壓住 2px 軸軌，不算。若頁上仍有舊編年圓點，圓點同樣不得與上述主控相交。
 3. **品牌「文明編年史」**：五字完整、可讀、無簡體（例如不得寫成「编年史」）、無裁切、無破圖。位址列可以截短，版頭不可以。
 4. **無橫向溢出**：整頁沒有橫向捲軸。`document.documentElement.scrollWidth` 不得大於 `clientWidth + 1`。軸軌等內部橫滑可以存在，不得把 `body` 帶著左右晃。
 5. **CI**：全站閘與免閘都要 CI 綠。免閘另附一張符合第 1–4 點的手機 smoke 全長截圖（至少首頁）。
@@ -128,13 +129,15 @@ CSS 像素，直向為主。寬度分界三份清單不完全相同：641–1024
 
 元件本來不該出現在該頁（新聞頁沒有深時間軸）：證據表寫 `N/A`。該頁應該有、DOM 卻消失：`FAIL`。
 
-`H` 必須同時有軸、`.axis-cta`、`.chronicle-band`、`.axis-rails`（內含模式軌與案例軌）、`#slice`。`C` 必須同時有 `.axis-title`、`.deep-axis`、`.axis-cta`、`.chronicle-strip`、`.pattern-axis`、`.case-axis`。
+`H` 必須同時有軸、`.axis-cta`、`.chronicle-band`（內含三張 `.volume-card`）、`.axis-rails`（內含模式軌與案例軌）、`#slice`。`C` 必須同時有 `.axis-title`、`.deep-axis`、`.axis-cta`、三張 `.volume-card`（在 `.volume-board` 或 `.chronicle-band`）、`.pattern-axis`、`.case-axis`。`N`（`/civilization/chronicle/`）必須同時有 `#ch-ancient`、`#ch-now`、`#ch-future`，以及 `#stage-1` 至 `#stage-10` 每一個錨。
 
-首頁用 `.axis-hero.axis-slim`：編年與模式軌在英雄區外；≤720px 有 `max-height: 300px` 與 `overflow: hidden`。總覽把編年帶與兩條晶片軌放在同一個 `.axis-hero` 裡。兩套都測。事故截圖是總覽這一組。
+自 2026-10-22 三卷 P0 起，文明總覽與首頁的必有入口是三卷卡，不再是十圓點帶或 `.chronicle-strip`。`C` 頁缺 `.chronicle-strip` **唔再**計 `P0-DOM-EXPECT` FAIL；缺三張 `.volume-card` 先計 FAIL。`N` 缺任一卷錨或 `#stage-1`…`#stage-10` 亦計 FAIL。`.chronicle-strip` 若仍出現，照其他 P0 量，但不再是總覽必有件。
+
+首頁用 `.axis-hero.axis-slim`：三卷卡與模式軌在英雄區外；≤720px 有 `max-height: 300px` 與 `overflow: hidden`。總覽的三卷卡在深時間板之後的 `.volume-board`，不在 `.axis-hero` 裡。兩套都測。事故截圖是總覽舊十圓點那一組；新骨架以三卷卡為準。
 
 ### 2.3 主題
 
-淺色與 `html.dark`。暗色頁底可以是 `#0E141C`；軸帶與編年帶仍須是墨 `#161c24`。淺色紙卡是 `#f7f1e6` 上的 `#161c24`。
+淺色與 `html.dark`。暗色頁底可以是 `#0E141C`；軸帶、編年帶與 `.chapter-band`（含未來章扉）仍須是墨 `#161c24`，不用 `#10151b`。淺色紙卡是 `#f7f1e6` 上的 `#161c24`。紙上小銅金（年代、kicker）對比須 ≥ 4.5:1；軌線、飾邊與主按鈕仍用 `#c4a572`／`#9a7b4f`／`--brass-ink-fill`。
 
 ### 2.4 量測
 
@@ -143,7 +146,7 @@ CSS 像素，直向為主。寬度分界三份清單不完全相同：641–1024
 重疊：回傳的每一對都是 FAIL。允許 1px 抗鋸齒。父子包含略過。
 
 ```js
-const sels = ['.chrome','.axis-title','.axis-lede','.deep-axis','.axis-cta','.chronicle-strip','.chronicle-band','.pattern-axis','.case-axis','.civ-nav'];
+const sels = ['.chrome','.axis-title','.axis-lede','.deep-axis','.axis-cta','.volume-card','.chronicle-band','.pattern-axis','.case-axis','.civ-nav'];
 const nodes = sels.flatMap((sel) => [...document.querySelectorAll(sel)].map((el) => ({ sel, el, r: el.getBoundingClientRect() }))).filter((n) => n.r.width > 0 && n.r.height > 0);
 const hit = [];
 for (let i = 0; i < nodes.length; i++) {
@@ -195,7 +198,7 @@ function clipped(el) {
 
 | ID | 項目 | FAIL 條件（任一成立） | 覆蓋 |
 | --- | --- | --- | --- |
-| `P0-OVERLAP` | 主層零重疊 | 文字或互動元素的盒子相交超過 1px。軸、編年圓點、CTA、模式卡、案例晶片、導航、卡片、裝飾層之間非允許相交。`.axis-title`、`.axis-lede`、`.deep-axis`、`.axis-cta`、`.chronicle-strip` 或首頁 `.chronicle-band`、`.pattern-axis`、`.case-axis`、`.civ-nav`、`.chrome` 之中任何兩個沒有包含關係的盒子相交超過 1px。廣告框與上述主控相交。固定 CTA 與黏性 CTA 同屏雙重覆蓋 | 全。H、C、S 為重災區 |
+| `P0-OVERLAP` | 主層零重疊 | 文字或互動元素的盒子相交超過 1px。軸、三卷入口卡、CTA、模式卡、案例晶片、導航、卡片、裝飾層之間非允許相交。`.axis-title`、`.axis-lede`、`.deep-axis`、`.axis-cta`、`.volume-card` 或首頁 `.chronicle-band`、`.pattern-axis`、`.case-axis`、`.civ-nav`、`.chrome` 之中任何兩個沒有包含關係的盒子相交超過 1px。舊 `.chronicle-strip` 若仍在，同樣不得與上述盒子相交。廣告框與上述主控相交。固定 CTA 與黏性 CTA 同屏雙重覆蓋 | 全。H、C、S 為重災區 |
 | `P0-CLIP` | 可讀字不被視窗或 overflow 切開 | 字標、主欄目、h1、`.axis-title`、`.axis-lede`、`.axis-node` 的 `.lab`／`.yr`、`.axis-cta`、`.stage-dot .name`、`.pattern-axis .chip`、`.case-axis .chip`、pill、圓點標籤，任一 `clipped()` 為真，或肉眼可見半個字。品牌、標題、CTA、晶片、圓點名、主欄目不得以省略號放行。≤720px 的 `.axis-hero.axis-slim`（`max-height: 300px`）把標題、導語首字、任一軸節點或 CTA 裁出盒子。編年 01 號或最後一號圓／卡不可見或被裁。各行裁切量可以不同，不得用「整頁有沒有同一位移」放行。開蒙與新聞頁改量該頁 h1、主按鈕、導航晶片。導語可以兩行截成完整的詞；截到半個字即 FAIL | 全。M 與當日最長標題、最長 pill 必測 |
 | `P0-HSCROLL` | 頁面本身不橫向滾動 | `scrollWidth` 比 `clientWidth` 或 `innerWidth` 大超過 1px。body 出現橫向捲軸。整頁可用雙指或滑鼠水平拖動（刻意設計的單列橫滑容器本身除外）。負 margin（`.axis-hero`、`.chronicle-band`、`.bulletin-clock` 的 −16px）把內容推出視窗。`overflow: hidden` 只是把溢出藏住、元素仍然 `clipped()` | 全 |
 | `P0-HSCROLL-COLLIDE` | 橫滑軌不撞其他層，也不劫走直滑 | `.chronicle-track`、`.chrome .chip-scroller`、`.pattern-axis`、`.case-axis` 可以橫滑。FAIL 若：橫滑軌與另一主區塊相交；滑動中晶片畫進貼頂列、CTA 或圓點；停住時晶片被切成半個字（軌的內緣 padding 裡必須是完整晶片）；≤720px 的 `flex-wrap: wrap` 加上父層 `overflow: hidden`，使晶片疊進上一列或被裁；手指橫滑時頁面跟著左右晃；斜向或快速滑動時 `touch-action` 與巢狀捲動劫走頁面捲動或回彈卡死 | H、C 的 360 與 390，暗色必測。編年長頁的階段內模式卡另在 360 看一次，並把圓點軌從 01 滑到末顆 |
@@ -211,7 +214,7 @@ function clipped(el) {
 | `P0-INK-TOKEN` | 墨色與紙感 token 沒有漏網 | 改動 token 之後，軸、CTA、模式卡、頁首、頁尾的 computed style 仍落在舊色，或亮暗混色。未改 token 的全站閘仍抽這五處 | 全 |
 | `P0-AXIS-NODES` | 時間軸節點可讀、在軌、可點 | 任兩個軸節點標籤碰撞、重疊或擠到不可讀。六點（地球、起源、技術、城市、今天、未來）標籤盒相交，或標籤被壓成中間省略號。允許換行，不允許疊字。「今天／切片」白點與鄰點中心距 < 24px。節點圓點脫離金色軌線。節點不可點，或可點盒 < 44px（併計 `P0-TOUCH-44`） | M × H、C、N，含 `VP-LAND`。T、D 抽查。暗色必測 |
 | `P0-ROUTE` | 路由與深鏈健全 | H、C、N、L、S、A 任一直連 404、白屏、ErrorBoundary，或 `#slice` 失效。觸發抽測集時，抽測頁或 404、離線頁白屏或站名錯誤，同樣 FAIL | 必測六頁直連。抽測條件見第 2.2 節 |
-| `P0-DOM-EXPECT` | 應有骨架不得消失 | `H` 或 `C` 缺少第 2.2 節列出的必有元件 | 每一次全站閘的 H 與 C |
+| `P0-DOM-EXPECT` | 應有骨架不得消失 | `H` 或 `C` 缺少第 2.2 節列出的必有元件（含三張 `.volume-card`）。`N` 缺 `#ch-ancient`、`#ch-now`、`#ch-future` 或任一 `#stage-1`…`#stage-10`。自 2026-10-22 三卷 P0 起，`C` 缺 `.chronicle-strip` 唔再計本條 FAIL | 每一次全站閘的 H、C、N |
 | `P0-RENDER-ERR` | 無阻斷性腳本錯誤 | 載入後 console 出現未捕捉 exception 或 unhandled rejection，並且任一區塊沒有渲染或互動失效 | 全 |
 | `P0-NEWS-CHROME` | 新聞頁沿用同一版頭，且不自相覆蓋 | 所選新聞頁：字標不完整、主欄目不能點、標題被貼頂列遮住、整頁橫向滾動、主按鈕或圖示 < 44px、正文與固定鈕重疊。頁面若出現軸帶，軸帶仍要過 `P0-OVERLAP` | A。360 與 1280。淺色與暗色。兩篇都測（最長標題＋一般） |
 | `P0-LEARN-STACK` | 開蒙不繼承軸的重疊 | `/learn/` 的門、鎖狀態、列表與版頭兩兩相交；標題或主連結被裁；貼頂列蓋住第一條目。開蒙若嵌入軸帶，軸帶項目照 P0 執行 | L。360 與 1280。淺色與暗色 |
@@ -280,7 +283,7 @@ P2 不擋上線，不需豁免。記入本閘備註，下一次重大更新再�
 | 模式卡與案例晶片疊成多列，左緣切字 | 每個晶片完整，列與列、列與圓點不相交 | `P0-OVERLAP`、`P0-HSCROLL-COLLIDE`、`P0-CLIP` |
 | 軸 CTA 約 36px、軸圓點約 14px | 整顆可點盒 ≥ 44px | `P0-TOUCH-44` |
 
-`.axis-hero` 由上到下應是：眉題、標題、導語、深時間軸、CTA、編年圓點、模式軌、案例軌。首頁則是英雄區結束後才接時鐘、編年帶、模式軌與案例軌。
+`.axis-hero` 由上到下應是：眉題、標題、導語、深時間軸、CTA。三卷入口卡在英雄區外：首頁在 `.chronicle-band`，總覽在 `.volume-board`。首頁英雄區結束後才接時鐘、三卷帶、模式軌與案例軌。總覽的模式軌與案例軌仍在同頁，不與三卷卡叠在軸帶裡。
 
 全站閘必跑：
 
@@ -334,8 +337,8 @@ P2 不擋上線，不需豁免。記入本閘備註，下一次重大更新再�
 
 1. **全長截圖**：六頁 × 淺色與暗色 × 寬 360、390、768、1280、1440。H 與 C 再加寬 414，以及寬 1024 各一張（亮暗各一）。H 與 C 另附頁中、頁尾、錨點直達，視口等級至少 M、T、D。
 2. **事故同框與點擊**（不得用靜止全長代替）：
-   - C，360 與 390，淺色與暗色，首屏同框看見軸、兩顆主 CTA、編年圓點、模式卡與案例晶片
-   - H，同樣四個組合，看見瘦軸，以及區外的編年帶與模式軌
+   - C，360 與 390，淺色與暗色，首屏同框看見軸、兩顆主 CTA、模式卡與案例晶片；全長圖另見三張 `.volume-card`
+   - H，同樣四個組合，看見瘦軸，以及區外的三卷帶與模式軌
    - C，360，暗色，點「跳到今日切片」之後的落點
    - N，360，暗色，含一張模式卡
    - L，360，暗色，首屏
@@ -413,4 +416,4 @@ P2 不擋上線，不需豁免。記入本閘備註，下一次重大更新再�
 | 證據包 | evidence bundle | 第 7.3 節的截圖、報告、錄影、投票紀錄 |
 | 碰撞掃描 | bounding-box scan | `TRAP-V02` |
 
-— 正典閘。來源是 PR #180、#181、#182。不包含程式碼或 CSS 變更。
+— 正典閘。來源是 PR #180、#181、#182。2026-10-22 依 #198 採納稿同 R1 #199／#200／#201 重鎖 §2.2、`P0-DOM-EXPECT` 與 §2.3 章扉墨色／紙上小銅金句（唔係豁免 Critical）。不包含程式碼或 CSS 變更。
