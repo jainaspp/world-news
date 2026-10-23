@@ -558,6 +558,18 @@ export default function App() {
 
         <div className="layout layout-span">
           <main id="today">
+            {freshCount > 0 && (
+              <button
+                type="button"
+                className="new-items"
+                onClick={() => {
+                  showPending();
+                  window.scrollTo({ top: 0, behavior: scrollBehavior() });
+                }}
+              >
+                {lang === 'en' ? `${freshCount} ${t('newHeadlines', lang)}` : `有 ${freshCount} ${t('newHeadlines', lang)}`}
+              </button>
+            )}
             {!special && (
               <div className="civ-home">
                 {poeticAxis && <HeroOpening />}
@@ -668,18 +680,6 @@ export default function App() {
           </nav>
         </footer>
         <BackToTop />
-        {freshCount > 0 && (
-          <button
-            type="button"
-            className="new-items"
-            onClick={() => {
-              showPending();
-              window.scrollTo({ top: 0, behavior: scrollBehavior() });
-            }}
-          >
-            {lang === 'en' ? `${freshCount} ${t('newHeadlines', lang)}` : `有 ${freshCount} ${t('newHeadlines', lang)}`}
-          </button>
-        )}
       </div>
     </ErrorBoundary>
   );
