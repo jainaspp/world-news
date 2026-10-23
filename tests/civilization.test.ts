@@ -544,7 +544,9 @@ describe('civilization thick pages', () => {
       const end = stage.n < 10 ? page.html.indexOf(`id="cosmo-${stage.n + 1}"`) : page.html.indexOf('交接人類起源');
       const section = page.html.slice(start, end);
       expect(section).toContain(stage.name);
-      expect(section).toContain(stage.prose.slice(0, 12));
+      for (const para of Array.isArray(stage.prose) ? stage.prose : [stage.prose]) {
+        expect(section).toContain(`<p>${para.slice(0, 12)}`);
+      }
       expect(section).toContain('class="civ-figure"');
       expect(section).toContain(`src="/static/civilization/cosmo-stage-${stage.n}-cover-640w.webp"`);
       expect(section).toContain(`cosmo-stage-${stage.n}-cover-400w.webp 400w`);
