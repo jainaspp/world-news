@@ -302,7 +302,7 @@
         try { localStorage.setItem('wn_lang', lang.code); } catch (e) {}
         document.documentElement.lang = htmlLang(lang.code);
         closeMenu();
-        apply();
+        applyLive();
       });
       item.appendChild(option);
       menu.appendChild(item);
@@ -324,18 +324,37 @@
     });
   }
 
-  window.__wnApplyLive = apply;
+  var observing = false;
+  function observe() {
+    if (observing || !document.documentElement) return;
+    observing = true;
+    new MutationObserver(schedule).observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ['placeholder', 'aria-label', 'title', 'alt']
+    });
+  }
+
+  /* Default copy is already Traditional Chinese. Walking the whole document
+     on load blocked the civilization LCP paint (multi-second main-thread task).
+     Observe and translate only after the reader picks another language. */
+  function applyLive() {
+    observe();
+    apply();
+  }
+
+  window.__wnApplyLive = applyLive;
   installPicker();
-  if (document.body) apply();
-  else document.addEventListener('DOMContentLoaded', apply);
-  new MutationObserver(schedule).observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    characterData: true,
-    attributes: true,
-    attributeFilter: ['placeholder', 'aria-label', 'title', 'alt']
-  });
+  var initialLang = currentTarget();
+  updatePicker(initialLang);
+  if (initialLang !== 'zh-HK') {
+    var run = function () { applyLive(); };
+    if (window.requestIdleCallback) window.requestIdleCallback(run, { timeout: 1500 });
+    else window.setTimeout(run, 1);
+  }
   window.addEventListener('storage', function (event) {
-    if (event.key === 'wn_lang') apply();
+    if (event.key === 'wn_lang') applyLive();
   });
 })();
