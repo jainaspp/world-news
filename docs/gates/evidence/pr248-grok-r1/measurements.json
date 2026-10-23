@@ -1,0 +1,3046 @@
+{
+  "results": [
+    {
+      "meta": {
+        "page": "chronicle",
+        "path": "/civilization/chronicle/",
+        "w": 360,
+        "h": 800,
+        "theme": "light"
+      },
+      "viewport": {
+        "w": 360,
+        "h": 800
+      },
+      "page": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "innerWidth": 360,
+        "scrollingScrollWidth": 360,
+        "pageOverflow": false,
+        "scrollHeight": 37689
+      },
+      "article": {
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "delta": 0,
+        "overflowX": "clip",
+        "overflowY": "visible",
+        "minWidth": "0px",
+        "maxWidth": "100%"
+      },
+      "table": {
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "delta": 0,
+        "layout": "fixed",
+        "rows": 38
+      },
+      "cellFit": [],
+      "cellFitCount": 0,
+      "clips": [],
+      "clipCount": 0,
+      "overlap": [],
+      "touchUnder": [],
+      "touchNamedCount": 32,
+      "adjacent": [
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn 繁",
+          "b": ".chrome .icon-btn 繁",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 文明",
+          "b": ".chrome .chip 文明",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 編年",
+          "b": ".chrome .chip 編年",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 今天",
+          "b": ".chrome .chip 今天",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 開蒙",
+          "b": ".chrome .chip 開蒙",
+          "edge": 0,
+          "center": 0
+        }
+      ],
+      "navs": [
+        {
+          "label": "跳到卷",
+          "delta": 0,
+          "scrollWidth": 328,
+          "clientWidth": 328,
+          "chipCount": 3,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#ch-ancient",
+            "#ch-now",
+            "#ch-future"
+          ],
+          "texts": [
+            "卷一 古",
+            "卷二 今",
+            "卷三 未來"
+          ]
+        },
+        {
+          "label": "模式卡",
+          "delta": 0,
+          "scrollWidth": 328,
+          "clientWidth": 328,
+          "chipCount": 3,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#pattern-power-store",
+            "#pattern-copy-check",
+            "#pattern-measure-promise"
+          ],
+          "texts": [
+            "功率的儲存與維修",
+            "複製與校驗",
+            "度量的互通"
+          ]
+        },
+        {
+          "label": "案例專篇",
+          "delta": 0,
+          "scrollWidth": 328,
+          "clientWidth": 328,
+          "chipCount": 1,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#case-gear-pause"
+          ],
+          "texts": [
+            "敗 · 齒輪裝置的中斷條件"
+          ]
+        },
+        {
+          "label": "古卷刻度",
+          "delta": 0,
+          "scrollWidth": 296,
+          "clientWidth": 296,
+          "chipCount": 5,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#stage-1",
+            "#stage-2",
+            "#stage-3",
+            "#stage-4",
+            "#stage-5"
+          ],
+          "texts": [
+            "01 史前",
+            "02 農業革命",
+            "03 城市與文字",
+            "04 古典帝國",
+            "05 跨區交流"
+          ]
+        },
+        {
+          "label": "今卷刻度",
+          "delta": 0,
+          "scrollWidth": 296,
+          "clientWidth": 296,
+          "chipCount": 5,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#stage-6",
+            "#stage-7",
+            "#stage-8",
+            "#stage-9",
+            "#stage-10"
+          ],
+          "texts": [
+            "06 科學啟蒙",
+            "07 工業革命",
+            "08 現代金融",
+            "09 信息革命",
+            "10 本世紀"
+          ]
+        }
+      ],
+      "partialChips": [],
+      "topHtml": {
+        "hasVolumeNav": true,
+        "hasStageNav": false,
+        "stageHrefs": [],
+        "volumeHrefs": [
+          "#ch-ancient",
+          "#ch-now",
+          "#ch-future"
+        ]
+      },
+      "anchors": [
+        {
+          "id": "ch-ancient",
+          "present": true
+        },
+        {
+          "id": "ch-now",
+          "present": true
+        },
+        {
+          "id": "ch-future",
+          "present": true
+        },
+        {
+          "id": "stage-1",
+          "present": true
+        },
+        {
+          "id": "stage-2",
+          "present": true
+        },
+        {
+          "id": "stage-3",
+          "present": true
+        },
+        {
+          "id": "stage-4",
+          "present": true
+        },
+        {
+          "id": "stage-5",
+          "present": true
+        },
+        {
+          "id": "stage-6",
+          "present": true
+        },
+        {
+          "id": "stage-7",
+          "present": true
+        },
+        {
+          "id": "stage-8",
+          "present": true
+        },
+        {
+          "id": "stage-9",
+          "present": true
+        },
+        {
+          "id": "stage-10",
+          "present": true
+        }
+      ],
+      "originsH3": 0,
+      "deepHasOriginsHref": false,
+      "deepHasOriginsText": false,
+      "originsLinks": [
+        {
+          "text": "詳見人類起源時間線",
+          "path": "div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > section#stage-1.chronicle-stage.civ-reveal.civ-reveal--above-fold > p.stage-links > a"
+        },
+        {
+          "text": "詳見人類起源時間線",
+          "path": "div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > section#stage-2.chronicle-stage.civ-reveal > p.stage-links > a"
+        },
+        {
+          "text": "人類起源時間線",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > p.stage-links > a"
+        }
+      ],
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "logoText": null,
+        "natural": {
+          "w": 185,
+          "h": 68,
+          "complete": true
+        },
+        "clip": {
+          "clipped": false,
+          "reason": "ok",
+          "box": {
+            "left": 16,
+            "right": 153.8,
+            "top": 8,
+            "bottom": 36,
+            "width": 137.8,
+            "height": 28
+          }
+        },
+        "simplified": false
+      },
+      "colors": {
+        ".chapter-band": {
+          "bg": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)",
+          "fontSize": "16px"
+        },
+        ".chapter-kicker": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(232, 228, 220)",
+          "fontSize": "12px"
+        },
+        "body": {
+          "bg": "rgb(244, 246, 248)",
+          "color": "rgb(20, 32, 51)",
+          "fontSize": "16px"
+        },
+        ".civ-article": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(20, 32, 51)",
+          "fontSize": "16px"
+        }
+      },
+      "dom": {
+        "h1": true,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": [],
+        "volumeCards": 0,
+        "volumeBoard": false,
+        "chronicleBand": false,
+        "pattern": 0,
+        "cases": 0,
+        "strip": false,
+        "slice": false
+      },
+      "htmlDark": false,
+      "fonts": [
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400"
+      ],
+      "errors": []
+    },
+    {
+      "meta": {
+        "page": "civ",
+        "path": "/civilization/",
+        "w": 360,
+        "h": 800,
+        "theme": "light"
+      },
+      "viewport": {
+        "w": 360,
+        "h": 800
+      },
+      "page": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "innerWidth": 360,
+        "scrollingScrollWidth": 360,
+        "pageOverflow": false,
+        "scrollHeight": 26908
+      },
+      "article": {
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "delta": 0,
+        "overflowX": "clip",
+        "overflowY": "visible",
+        "minWidth": "0px",
+        "maxWidth": "100%"
+      },
+      "table": null,
+      "cellFit": [],
+      "cellFitCount": 0,
+      "clips": [
+        {
+          "q": ".axis-node .lab",
+          "text": "城市",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 348,
+            "right": 417,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .lab",
+          "text": "今天",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node.axis-now > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 429,
+            "right": 498,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .lab",
+          "text": "未來",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 510,
+            "right": 579,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "基建",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 366.5,
+            "right": 398.5,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "切片",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node.axis-now > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 447.5,
+            "right": 479.5,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "展望",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 528.5,
+            "right": 560.5,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "clipCount": 6,
+      "overlap": [],
+      "touchUnder": [
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "閱讀宇宙長河",
+          "w": 78,
+          "h": 19,
+          "left": 31,
+          "right": 109,
+          "top": 1510.1,
+          "bottom": 1529.1,
+          "width": 78,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "閱讀地球生命",
+          "w": 78,
+          "h": 19,
+          "left": 31,
+          "right": 109,
+          "top": 1874.6,
+          "bottom": 1893.6,
+          "width": 78,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "侏羅紀",
+          "w": 39,
+          "h": 19,
+          "left": 121,
+          "right": 160,
+          "top": 1874.6,
+          "bottom": 1893.6,
+          "width": 39,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card h3 a",
+          "text": "宇宙長河・深時間",
+          "w": 134.3,
+          "h": 24,
+          "left": 31,
+          "right": 165.3,
+          "top": 1427.3,
+          "bottom": 1451.3,
+          "width": 134.3,
+          "height": 24,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card h3 a",
+          "text": "地球生命・深時間",
+          "w": 134.3,
+          "h": 24,
+          "left": 31,
+          "right": 165.3,
+          "top": 1791.8,
+          "bottom": 1815.8,
+          "width": 134.3,
+          "height": 24,
+          "under": true
+        }
+      ],
+      "touchNamedCount": 41,
+      "adjacent": [
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn 繁",
+          "b": ".chrome .icon-btn 繁",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 文明",
+          "b": ".chrome .chip 文明",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 編年",
+          "b": ".chrome .chip 編年",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 今天",
+          "b": ".chrome .chip 今天",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 開蒙",
+          "b": ".chrome .chip 開蒙",
+          "edge": 0,
+          "center": 0
+        }
+      ],
+      "navs": [],
+      "partialChips": [],
+      "topHtml": {
+        "hasVolumeNav": false,
+        "hasStageNav": false,
+        "stageHrefs": [],
+        "volumeHrefs": []
+      },
+      "anchors": [
+        {
+          "id": "ch-ancient",
+          "present": false
+        },
+        {
+          "id": "ch-now",
+          "present": false
+        },
+        {
+          "id": "ch-future",
+          "present": false
+        },
+        {
+          "id": "stage-1",
+          "present": false
+        },
+        {
+          "id": "stage-2",
+          "present": false
+        },
+        {
+          "id": "stage-3",
+          "present": false
+        },
+        {
+          "id": "stage-4",
+          "present": false
+        },
+        {
+          "id": "stage-5",
+          "present": false
+        },
+        {
+          "id": "stage-6",
+          "present": false
+        },
+        {
+          "id": "stage-7",
+          "present": false
+        },
+        {
+          "id": "stage-8",
+          "present": false
+        },
+        {
+          "id": "stage-9",
+          "present": false
+        },
+        {
+          "id": "stage-10",
+          "present": false
+        }
+      ],
+      "originsH3": 1,
+      "deepHasOriginsHref": false,
+      "deepHasOriginsText": false,
+      "originsLinks": [
+        {
+          "text": "起源 ~300ka",
+          "path": "main#content.column-index.civ-main-page > section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node"
+        },
+        {
+          "text": "閱讀人類起源",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > section#civ.axis-hero > div.axis-cta > a.btn.btn-brass"
+        },
+        {
+          "text": "深時間 人類起源 解剖學現代人到全球擴張。約三十萬年前起的年表。",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > section.layers > div.layer-grid > a.layer-card.layer-primary"
+        }
+      ],
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "logoText": null,
+        "natural": {
+          "w": 185,
+          "h": 68,
+          "complete": true
+        },
+        "clip": {
+          "clipped": false,
+          "reason": "ok",
+          "box": {
+            "left": 16,
+            "right": 153.8,
+            "top": 8,
+            "bottom": 36,
+            "width": 137.8,
+            "height": 28
+          }
+        },
+        "simplified": false
+      },
+      "colors": {
+        ".axis-hero": {
+          "bg": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)",
+          "fontSize": "16px"
+        },
+        ".layer-card": {
+          "bg": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)",
+          "fontSize": "16px"
+        },
+        ".layer-card .era": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(122, 90, 50)",
+          "fontSize": "12px"
+        },
+        "body": {
+          "bg": "rgb(244, 246, 248)",
+          "color": "rgb(20, 32, 51)",
+          "fontSize": "16px"
+        },
+        ".civ-article": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(20, 32, 51)",
+          "fontSize": "16px"
+        }
+      },
+      "dom": {
+        "h1": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeBoard": true,
+        "chronicleBand": false,
+        "pattern": 3,
+        "cases": 2,
+        "strip": false,
+        "slice": false
+      },
+      "htmlDark": false,
+      "fonts": [
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400"
+      ],
+      "errors": []
+    },
+    {
+      "meta": {
+        "page": "chronicle",
+        "path": "/civilization/chronicle/",
+        "w": 390,
+        "h": 844,
+        "theme": "light"
+      },
+      "viewport": {
+        "w": 390,
+        "h": 844
+      },
+      "page": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "scrollingScrollWidth": 390,
+        "pageOverflow": false,
+        "scrollHeight": 36259
+      },
+      "article": {
+        "scrollWidth": 358,
+        "clientWidth": 358,
+        "delta": 0,
+        "overflowX": "clip",
+        "overflowY": "visible",
+        "minWidth": "0px",
+        "maxWidth": "100%"
+      },
+      "table": {
+        "scrollWidth": 358,
+        "clientWidth": 358,
+        "delta": 0,
+        "layout": "fixed",
+        "rows": 38
+      },
+      "cellFit": [],
+      "cellFitCount": 0,
+      "clips": [],
+      "clipCount": 0,
+      "overlap": [],
+      "touchUnder": [],
+      "touchNamedCount": 32,
+      "adjacent": [
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn 繁",
+          "b": ".chrome .icon-btn 繁",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 文明",
+          "b": ".chrome .chip 文明",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 編年",
+          "b": ".chrome .chip 編年",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 今天",
+          "b": ".chrome .chip 今天",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 開蒙",
+          "b": ".chrome .chip 開蒙",
+          "edge": 0,
+          "center": 0
+        }
+      ],
+      "navs": [
+        {
+          "label": "跳到卷",
+          "delta": 0,
+          "scrollWidth": 358,
+          "clientWidth": 358,
+          "chipCount": 3,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#ch-ancient",
+            "#ch-now",
+            "#ch-future"
+          ],
+          "texts": [
+            "卷一 古",
+            "卷二 今",
+            "卷三 未來"
+          ]
+        },
+        {
+          "label": "模式卡",
+          "delta": 0,
+          "scrollWidth": 358,
+          "clientWidth": 358,
+          "chipCount": 3,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#pattern-power-store",
+            "#pattern-copy-check",
+            "#pattern-measure-promise"
+          ],
+          "texts": [
+            "功率的儲存與維修",
+            "複製與校驗",
+            "度量的互通"
+          ]
+        },
+        {
+          "label": "案例專篇",
+          "delta": 0,
+          "scrollWidth": 358,
+          "clientWidth": 358,
+          "chipCount": 1,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#case-gear-pause"
+          ],
+          "texts": [
+            "敗 · 齒輪裝置的中斷條件"
+          ]
+        },
+        {
+          "label": "古卷刻度",
+          "delta": 0,
+          "scrollWidth": 326,
+          "clientWidth": 326,
+          "chipCount": 5,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#stage-1",
+            "#stage-2",
+            "#stage-3",
+            "#stage-4",
+            "#stage-5"
+          ],
+          "texts": [
+            "01 史前",
+            "02 農業革命",
+            "03 城市與文字",
+            "04 古典帝國",
+            "05 跨區交流"
+          ]
+        },
+        {
+          "label": "今卷刻度",
+          "delta": 0,
+          "scrollWidth": 326,
+          "clientWidth": 326,
+          "chipCount": 5,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#stage-6",
+            "#stage-7",
+            "#stage-8",
+            "#stage-9",
+            "#stage-10"
+          ],
+          "texts": [
+            "06 科學啟蒙",
+            "07 工業革命",
+            "08 現代金融",
+            "09 信息革命",
+            "10 本世紀"
+          ]
+        }
+      ],
+      "partialChips": [],
+      "topHtml": {
+        "hasVolumeNav": true,
+        "hasStageNav": false,
+        "stageHrefs": [],
+        "volumeHrefs": [
+          "#ch-ancient",
+          "#ch-now",
+          "#ch-future"
+        ]
+      },
+      "anchors": [
+        {
+          "id": "ch-ancient",
+          "present": true
+        },
+        {
+          "id": "ch-now",
+          "present": true
+        },
+        {
+          "id": "ch-future",
+          "present": true
+        },
+        {
+          "id": "stage-1",
+          "present": true
+        },
+        {
+          "id": "stage-2",
+          "present": true
+        },
+        {
+          "id": "stage-3",
+          "present": true
+        },
+        {
+          "id": "stage-4",
+          "present": true
+        },
+        {
+          "id": "stage-5",
+          "present": true
+        },
+        {
+          "id": "stage-6",
+          "present": true
+        },
+        {
+          "id": "stage-7",
+          "present": true
+        },
+        {
+          "id": "stage-8",
+          "present": true
+        },
+        {
+          "id": "stage-9",
+          "present": true
+        },
+        {
+          "id": "stage-10",
+          "present": true
+        }
+      ],
+      "originsH3": 0,
+      "deepHasOriginsHref": false,
+      "deepHasOriginsText": false,
+      "originsLinks": [
+        {
+          "text": "詳見人類起源時間線",
+          "path": "div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > section#stage-1.chronicle-stage.civ-reveal.civ-reveal--above-fold > p.stage-links > a"
+        },
+        {
+          "text": "詳見人類起源時間線",
+          "path": "div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > section#stage-2.chronicle-stage.civ-reveal > p.stage-links > a"
+        },
+        {
+          "text": "人類起源時間線",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > p.stage-links > a"
+        }
+      ],
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "logoText": null,
+        "natural": {
+          "w": 185,
+          "h": 68,
+          "complete": true
+        },
+        "clip": {
+          "clipped": false,
+          "reason": "ok",
+          "box": {
+            "left": 16,
+            "right": 168.8,
+            "top": 8,
+            "bottom": 36,
+            "width": 152.8,
+            "height": 28
+          }
+        },
+        "simplified": false
+      },
+      "colors": {
+        ".chapter-band": {
+          "bg": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)",
+          "fontSize": "16px"
+        },
+        ".chapter-kicker": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(232, 228, 220)",
+          "fontSize": "12px"
+        },
+        "body": {
+          "bg": "rgb(244, 246, 248)",
+          "color": "rgb(20, 32, 51)",
+          "fontSize": "16px"
+        },
+        ".civ-article": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(20, 32, 51)",
+          "fontSize": "16px"
+        }
+      },
+      "dom": {
+        "h1": true,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": [],
+        "volumeCards": 0,
+        "volumeBoard": false,
+        "chronicleBand": false,
+        "pattern": 0,
+        "cases": 0,
+        "strip": false,
+        "slice": false
+      },
+      "htmlDark": false,
+      "fonts": [
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400"
+      ],
+      "errors": []
+    },
+    {
+      "meta": {
+        "page": "civ",
+        "path": "/civilization/",
+        "w": 390,
+        "h": 844,
+        "theme": "light"
+      },
+      "viewport": {
+        "w": 390,
+        "h": 844
+      },
+      "page": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "scrollingScrollWidth": 390,
+        "pageOverflow": false,
+        "scrollHeight": 26338
+      },
+      "article": {
+        "scrollWidth": 358,
+        "clientWidth": 358,
+        "delta": 0,
+        "overflowX": "clip",
+        "overflowY": "visible",
+        "minWidth": "0px",
+        "maxWidth": "100%"
+      },
+      "table": null,
+      "cellFit": [],
+      "cellFitCount": 0,
+      "clips": [
+        {
+          "q": ".axis-node .lab",
+          "text": "城市",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 378,
+            "right": 454.5,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .lab",
+          "text": "今天",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node.axis-now > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 466.5,
+            "right": 543,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .lab",
+          "text": "未來",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 555,
+            "right": 631.5,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "基建",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 400.2,
+            "right": 432.3,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "切片",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node.axis-now > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 488.7,
+            "right": 520.8,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "展望",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 577.2,
+            "right": 609.3,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "clipCount": 6,
+      "overlap": [],
+      "touchUnder": [
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "閱讀宇宙長河",
+          "w": 78,
+          "h": 19,
+          "left": 31,
+          "right": 109,
+          "top": 1541.7,
+          "bottom": 1560.7,
+          "width": 78,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "閱讀地球生命",
+          "w": 78,
+          "h": 19,
+          "left": 31,
+          "right": 109,
+          "top": 1925,
+          "bottom": 1944,
+          "width": 78,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "侏羅紀",
+          "w": 39,
+          "h": 19,
+          "left": 121,
+          "right": 160,
+          "top": 1925,
+          "bottom": 1944,
+          "width": 39,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card h3 a",
+          "text": "宇宙長河・深時間",
+          "w": 134.3,
+          "h": 24,
+          "left": 31,
+          "right": 165.3,
+          "top": 1458.9,
+          "bottom": 1482.9,
+          "width": 134.3,
+          "height": 24,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card h3 a",
+          "text": "地球生命・深時間",
+          "w": 134.3,
+          "h": 24,
+          "left": 31,
+          "right": 165.3,
+          "top": 1842.2,
+          "bottom": 1866.2,
+          "width": 134.3,
+          "height": 24,
+          "under": true
+        }
+      ],
+      "touchNamedCount": 41,
+      "adjacent": [
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn 繁",
+          "b": ".chrome .icon-btn 繁",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 文明",
+          "b": ".chrome .chip 文明",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 編年",
+          "b": ".chrome .chip 編年",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 今天",
+          "b": ".chrome .chip 今天",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 開蒙",
+          "b": ".chrome .chip 開蒙",
+          "edge": 0,
+          "center": 0
+        }
+      ],
+      "navs": [],
+      "partialChips": [],
+      "topHtml": {
+        "hasVolumeNav": false,
+        "hasStageNav": false,
+        "stageHrefs": [],
+        "volumeHrefs": []
+      },
+      "anchors": [
+        {
+          "id": "ch-ancient",
+          "present": false
+        },
+        {
+          "id": "ch-now",
+          "present": false
+        },
+        {
+          "id": "ch-future",
+          "present": false
+        },
+        {
+          "id": "stage-1",
+          "present": false
+        },
+        {
+          "id": "stage-2",
+          "present": false
+        },
+        {
+          "id": "stage-3",
+          "present": false
+        },
+        {
+          "id": "stage-4",
+          "present": false
+        },
+        {
+          "id": "stage-5",
+          "present": false
+        },
+        {
+          "id": "stage-6",
+          "present": false
+        },
+        {
+          "id": "stage-7",
+          "present": false
+        },
+        {
+          "id": "stage-8",
+          "present": false
+        },
+        {
+          "id": "stage-9",
+          "present": false
+        },
+        {
+          "id": "stage-10",
+          "present": false
+        }
+      ],
+      "originsH3": 1,
+      "deepHasOriginsHref": false,
+      "deepHasOriginsText": false,
+      "originsLinks": [
+        {
+          "text": "起源 ~300ka",
+          "path": "main#content.column-index.civ-main-page > section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node"
+        },
+        {
+          "text": "閱讀人類起源",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > section#civ.axis-hero > div.axis-cta > a.btn.btn-brass"
+        },
+        {
+          "text": "深時間 人類起源 解剖學現代人到全球擴張。約三十萬年前起的年表。",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > section.layers > div.layer-grid > a.layer-card.layer-primary"
+        }
+      ],
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "logoText": null,
+        "natural": {
+          "w": 185,
+          "h": 68,
+          "complete": true
+        },
+        "clip": {
+          "clipped": false,
+          "reason": "ok",
+          "box": {
+            "left": 16,
+            "right": 168.8,
+            "top": 8,
+            "bottom": 36,
+            "width": 152.8,
+            "height": 28
+          }
+        },
+        "simplified": false
+      },
+      "colors": {
+        ".axis-hero": {
+          "bg": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)",
+          "fontSize": "16px"
+        },
+        ".layer-card": {
+          "bg": "rgb(247, 241, 230)",
+          "color": "rgb(22, 28, 36)",
+          "fontSize": "16px"
+        },
+        ".layer-card .era": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(122, 90, 50)",
+          "fontSize": "12px"
+        },
+        "body": {
+          "bg": "rgb(244, 246, 248)",
+          "color": "rgb(20, 32, 51)",
+          "fontSize": "16px"
+        },
+        ".civ-article": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(20, 32, 51)",
+          "fontSize": "16px"
+        }
+      },
+      "dom": {
+        "h1": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeBoard": true,
+        "chronicleBand": false,
+        "pattern": 3,
+        "cases": 2,
+        "strip": false,
+        "slice": false
+      },
+      "htmlDark": false,
+      "fonts": [
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400"
+      ],
+      "errors": []
+    },
+    {
+      "meta": {
+        "page": "chronicle",
+        "path": "/civilization/chronicle/",
+        "w": 360,
+        "h": 800,
+        "theme": "dark"
+      },
+      "viewport": {
+        "w": 360,
+        "h": 800
+      },
+      "page": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "innerWidth": 360,
+        "scrollingScrollWidth": 360,
+        "pageOverflow": false,
+        "scrollHeight": 37695
+      },
+      "article": {
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "delta": 0,
+        "overflowX": "clip",
+        "overflowY": "visible",
+        "minWidth": "0px",
+        "maxWidth": "100%"
+      },
+      "table": {
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "delta": 0,
+        "layout": "fixed",
+        "rows": 38
+      },
+      "cellFit": [],
+      "cellFitCount": 0,
+      "clips": [],
+      "clipCount": 0,
+      "overlap": [],
+      "touchUnder": [],
+      "touchNamedCount": 32,
+      "adjacent": [
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn 繁",
+          "b": ".chrome .icon-btn 繁",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 文明",
+          "b": ".chrome .chip 文明",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 編年",
+          "b": ".chrome .chip 編年",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 今天",
+          "b": ".chrome .chip 今天",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 開蒙",
+          "b": ".chrome .chip 開蒙",
+          "edge": 0,
+          "center": 0
+        }
+      ],
+      "navs": [
+        {
+          "label": "跳到卷",
+          "delta": 0,
+          "scrollWidth": 328,
+          "clientWidth": 328,
+          "chipCount": 3,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#ch-ancient",
+            "#ch-now",
+            "#ch-future"
+          ],
+          "texts": [
+            "卷一 古",
+            "卷二 今",
+            "卷三 未來"
+          ]
+        },
+        {
+          "label": "模式卡",
+          "delta": 0,
+          "scrollWidth": 328,
+          "clientWidth": 328,
+          "chipCount": 3,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#pattern-power-store",
+            "#pattern-copy-check",
+            "#pattern-measure-promise"
+          ],
+          "texts": [
+            "功率的儲存與維修",
+            "複製與校驗",
+            "度量的互通"
+          ]
+        },
+        {
+          "label": "案例專篇",
+          "delta": 0,
+          "scrollWidth": 328,
+          "clientWidth": 328,
+          "chipCount": 1,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#case-gear-pause"
+          ],
+          "texts": [
+            "敗 · 齒輪裝置的中斷條件"
+          ]
+        },
+        {
+          "label": "古卷刻度",
+          "delta": 0,
+          "scrollWidth": 294,
+          "clientWidth": 294,
+          "chipCount": 5,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#stage-1",
+            "#stage-2",
+            "#stage-3",
+            "#stage-4",
+            "#stage-5"
+          ],
+          "texts": [
+            "01 史前",
+            "02 農業革命",
+            "03 城市與文字",
+            "04 古典帝國",
+            "05 跨區交流"
+          ]
+        },
+        {
+          "label": "今卷刻度",
+          "delta": 0,
+          "scrollWidth": 294,
+          "clientWidth": 294,
+          "chipCount": 5,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#stage-6",
+            "#stage-7",
+            "#stage-8",
+            "#stage-9",
+            "#stage-10"
+          ],
+          "texts": [
+            "06 科學啟蒙",
+            "07 工業革命",
+            "08 現代金融",
+            "09 信息革命",
+            "10 本世紀"
+          ]
+        }
+      ],
+      "partialChips": [],
+      "topHtml": {
+        "hasVolumeNav": true,
+        "hasStageNav": false,
+        "stageHrefs": [],
+        "volumeHrefs": [
+          "#ch-ancient",
+          "#ch-now",
+          "#ch-future"
+        ]
+      },
+      "anchors": [
+        {
+          "id": "ch-ancient",
+          "present": true
+        },
+        {
+          "id": "ch-now",
+          "present": true
+        },
+        {
+          "id": "ch-future",
+          "present": true
+        },
+        {
+          "id": "stage-1",
+          "present": true
+        },
+        {
+          "id": "stage-2",
+          "present": true
+        },
+        {
+          "id": "stage-3",
+          "present": true
+        },
+        {
+          "id": "stage-4",
+          "present": true
+        },
+        {
+          "id": "stage-5",
+          "present": true
+        },
+        {
+          "id": "stage-6",
+          "present": true
+        },
+        {
+          "id": "stage-7",
+          "present": true
+        },
+        {
+          "id": "stage-8",
+          "present": true
+        },
+        {
+          "id": "stage-9",
+          "present": true
+        },
+        {
+          "id": "stage-10",
+          "present": true
+        }
+      ],
+      "originsH3": 0,
+      "deepHasOriginsHref": false,
+      "deepHasOriginsText": false,
+      "originsLinks": [
+        {
+          "text": "詳見人類起源時間線",
+          "path": "div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > section#stage-1.chronicle-stage.civ-reveal.civ-reveal--above-fold > p.stage-links > a"
+        },
+        {
+          "text": "詳見人類起源時間線",
+          "path": "div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > section#stage-2.chronicle-stage.civ-reveal > p.stage-links > a"
+        },
+        {
+          "text": "人類起源時間線",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > p.stage-links > a"
+        }
+      ],
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "logoText": null,
+        "natural": {
+          "w": 185,
+          "h": 68,
+          "complete": true
+        },
+        "clip": {
+          "clipped": false,
+          "reason": "ok",
+          "box": {
+            "left": 16,
+            "right": 153.8,
+            "top": 8,
+            "bottom": 36,
+            "width": 137.8,
+            "height": 28
+          }
+        },
+        "simplified": false
+      },
+      "colors": {
+        ".chapter-band": {
+          "bg": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)",
+          "fontSize": "16px"
+        },
+        ".chapter-kicker": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(232, 228, 220)",
+          "fontSize": "12px"
+        },
+        "body": {
+          "bg": "rgb(14, 20, 28)",
+          "color": "rgb(243, 246, 250)",
+          "fontSize": "16px"
+        },
+        ".civ-article": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(243, 246, 250)",
+          "fontSize": "16px"
+        }
+      },
+      "dom": {
+        "h1": true,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": [],
+        "volumeCards": 0,
+        "volumeBoard": false,
+        "chronicleBand": false,
+        "pattern": 0,
+        "cases": 0,
+        "strip": false,
+        "slice": false
+      },
+      "htmlDark": true,
+      "fonts": [
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400"
+      ],
+      "errors": []
+    },
+    {
+      "meta": {
+        "page": "civ",
+        "path": "/civilization/",
+        "w": 360,
+        "h": 800,
+        "theme": "dark"
+      },
+      "viewport": {
+        "w": 360,
+        "h": 800
+      },
+      "page": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "innerWidth": 360,
+        "scrollingScrollWidth": 360,
+        "pageOverflow": false,
+        "scrollHeight": 26908
+      },
+      "article": {
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "delta": 0,
+        "overflowX": "clip",
+        "overflowY": "visible",
+        "minWidth": "0px",
+        "maxWidth": "100%"
+      },
+      "table": null,
+      "cellFit": [],
+      "cellFitCount": 0,
+      "clips": [
+        {
+          "q": ".axis-node .lab",
+          "text": "城市",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 348,
+            "right": 417,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .lab",
+          "text": "今天",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node.axis-now > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 429,
+            "right": 498,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .lab",
+          "text": "未來",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 510,
+            "right": 579,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "基建",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 366.5,
+            "right": 398.5,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "切片",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node.axis-now > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 447.5,
+            "right": 479.5,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "展望",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 528.5,
+            "right": 560.5,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "clipCount": 6,
+      "overlap": [],
+      "touchUnder": [
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "閱讀宇宙長河",
+          "w": 78,
+          "h": 19,
+          "left": 31,
+          "right": 109,
+          "top": 1510.1,
+          "bottom": 1529.1,
+          "width": 78,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "閱讀地球生命",
+          "w": 78,
+          "h": 19,
+          "left": 31,
+          "right": 109,
+          "top": 1874.6,
+          "bottom": 1893.6,
+          "width": 78,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "侏羅紀",
+          "w": 39,
+          "h": 19,
+          "left": 121,
+          "right": 160,
+          "top": 1874.6,
+          "bottom": 1893.6,
+          "width": 39,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card h3 a",
+          "text": "宇宙長河・深時間",
+          "w": 134.3,
+          "h": 24,
+          "left": 31,
+          "right": 165.3,
+          "top": 1427.3,
+          "bottom": 1451.3,
+          "width": 134.3,
+          "height": 24,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card h3 a",
+          "text": "地球生命・深時間",
+          "w": 134.3,
+          "h": 24,
+          "left": 31,
+          "right": 165.3,
+          "top": 1791.8,
+          "bottom": 1815.8,
+          "width": 134.3,
+          "height": 24,
+          "under": true
+        }
+      ],
+      "touchNamedCount": 41,
+      "adjacent": [
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn 繁",
+          "b": ".chrome .icon-btn 繁",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 文明",
+          "b": ".chrome .chip 文明",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 編年",
+          "b": ".chrome .chip 編年",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 今天",
+          "b": ".chrome .chip 今天",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 開蒙",
+          "b": ".chrome .chip 開蒙",
+          "edge": 0,
+          "center": 0
+        }
+      ],
+      "navs": [],
+      "partialChips": [],
+      "topHtml": {
+        "hasVolumeNav": false,
+        "hasStageNav": false,
+        "stageHrefs": [],
+        "volumeHrefs": []
+      },
+      "anchors": [
+        {
+          "id": "ch-ancient",
+          "present": false
+        },
+        {
+          "id": "ch-now",
+          "present": false
+        },
+        {
+          "id": "ch-future",
+          "present": false
+        },
+        {
+          "id": "stage-1",
+          "present": false
+        },
+        {
+          "id": "stage-2",
+          "present": false
+        },
+        {
+          "id": "stage-3",
+          "present": false
+        },
+        {
+          "id": "stage-4",
+          "present": false
+        },
+        {
+          "id": "stage-5",
+          "present": false
+        },
+        {
+          "id": "stage-6",
+          "present": false
+        },
+        {
+          "id": "stage-7",
+          "present": false
+        },
+        {
+          "id": "stage-8",
+          "present": false
+        },
+        {
+          "id": "stage-9",
+          "present": false
+        },
+        {
+          "id": "stage-10",
+          "present": false
+        }
+      ],
+      "originsH3": 1,
+      "deepHasOriginsHref": false,
+      "deepHasOriginsText": false,
+      "originsLinks": [
+        {
+          "text": "起源 ~300ka",
+          "path": "main#content.column-index.civ-main-page > section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node"
+        },
+        {
+          "text": "閱讀人類起源",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > section#civ.axis-hero > div.axis-cta > a.btn.btn-brass"
+        },
+        {
+          "text": "深時間 人類起源 解剖學現代人到全球擴張。約三十萬年前起的年表。",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > section.layers > div.layer-grid > a.layer-card.layer-primary"
+        }
+      ],
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "logoText": null,
+        "natural": {
+          "w": 185,
+          "h": 68,
+          "complete": true
+        },
+        "clip": {
+          "clipped": false,
+          "reason": "ok",
+          "box": {
+            "left": 16,
+            "right": 153.8,
+            "top": 8,
+            "bottom": 36,
+            "width": 137.8,
+            "height": 28
+          }
+        },
+        "simplified": false
+      },
+      "colors": {
+        ".axis-hero": {
+          "bg": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)",
+          "fontSize": "16px"
+        },
+        ".layer-card": {
+          "bg": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)",
+          "fontSize": "16px"
+        },
+        ".layer-card .era": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(196, 165, 114)",
+          "fontSize": "12px"
+        },
+        "body": {
+          "bg": "rgb(14, 20, 28)",
+          "color": "rgb(243, 246, 250)",
+          "fontSize": "16px"
+        },
+        ".civ-article": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(243, 246, 250)",
+          "fontSize": "16px"
+        }
+      },
+      "dom": {
+        "h1": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeBoard": true,
+        "chronicleBand": false,
+        "pattern": 3,
+        "cases": 2,
+        "strip": false,
+        "slice": false
+      },
+      "htmlDark": true,
+      "fonts": [
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400"
+      ],
+      "errors": []
+    },
+    {
+      "meta": {
+        "page": "chronicle",
+        "path": "/civilization/chronicle/",
+        "w": 390,
+        "h": 844,
+        "theme": "dark"
+      },
+      "viewport": {
+        "w": 390,
+        "h": 844
+      },
+      "page": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "scrollingScrollWidth": 390,
+        "pageOverflow": false,
+        "scrollHeight": 36265
+      },
+      "article": {
+        "scrollWidth": 358,
+        "clientWidth": 358,
+        "delta": 0,
+        "overflowX": "clip",
+        "overflowY": "visible",
+        "minWidth": "0px",
+        "maxWidth": "100%"
+      },
+      "table": {
+        "scrollWidth": 358,
+        "clientWidth": 358,
+        "delta": 0,
+        "layout": "fixed",
+        "rows": 38
+      },
+      "cellFit": [],
+      "cellFitCount": 0,
+      "clips": [],
+      "clipCount": 0,
+      "overlap": [],
+      "touchUnder": [],
+      "touchNamedCount": 32,
+      "adjacent": [
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn 繁",
+          "b": ".chrome .icon-btn 繁",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 文明",
+          "b": ".chrome .chip 文明",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 編年",
+          "b": ".chrome .chip 編年",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 今天",
+          "b": ".chrome .chip 今天",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 開蒙",
+          "b": ".chrome .chip 開蒙",
+          "edge": 0,
+          "center": 0
+        }
+      ],
+      "navs": [
+        {
+          "label": "跳到卷",
+          "delta": 0,
+          "scrollWidth": 358,
+          "clientWidth": 358,
+          "chipCount": 3,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#ch-ancient",
+            "#ch-now",
+            "#ch-future"
+          ],
+          "texts": [
+            "卷一 古",
+            "卷二 今",
+            "卷三 未來"
+          ]
+        },
+        {
+          "label": "模式卡",
+          "delta": 0,
+          "scrollWidth": 358,
+          "clientWidth": 358,
+          "chipCount": 3,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#pattern-power-store",
+            "#pattern-copy-check",
+            "#pattern-measure-promise"
+          ],
+          "texts": [
+            "功率的儲存與維修",
+            "複製與校驗",
+            "度量的互通"
+          ]
+        },
+        {
+          "label": "案例專篇",
+          "delta": 0,
+          "scrollWidth": 358,
+          "clientWidth": 358,
+          "chipCount": 1,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#case-gear-pause"
+          ],
+          "texts": [
+            "敗 · 齒輪裝置的中斷條件"
+          ]
+        },
+        {
+          "label": "古卷刻度",
+          "delta": 0,
+          "scrollWidth": 324,
+          "clientWidth": 324,
+          "chipCount": 5,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#stage-1",
+            "#stage-2",
+            "#stage-3",
+            "#stage-4",
+            "#stage-5"
+          ],
+          "texts": [
+            "01 史前",
+            "02 農業革命",
+            "03 城市與文字",
+            "04 古典帝國",
+            "05 跨區交流"
+          ]
+        },
+        {
+          "label": "今卷刻度",
+          "delta": 0,
+          "scrollWidth": 324,
+          "clientWidth": 324,
+          "chipCount": 5,
+          "partial": [],
+          "under44": [],
+          "hrefs": [
+            "#stage-6",
+            "#stage-7",
+            "#stage-8",
+            "#stage-9",
+            "#stage-10"
+          ],
+          "texts": [
+            "06 科學啟蒙",
+            "07 工業革命",
+            "08 現代金融",
+            "09 信息革命",
+            "10 本世紀"
+          ]
+        }
+      ],
+      "partialChips": [],
+      "topHtml": {
+        "hasVolumeNav": true,
+        "hasStageNav": false,
+        "stageHrefs": [],
+        "volumeHrefs": [
+          "#ch-ancient",
+          "#ch-now",
+          "#ch-future"
+        ]
+      },
+      "anchors": [
+        {
+          "id": "ch-ancient",
+          "present": true
+        },
+        {
+          "id": "ch-now",
+          "present": true
+        },
+        {
+          "id": "ch-future",
+          "present": true
+        },
+        {
+          "id": "stage-1",
+          "present": true
+        },
+        {
+          "id": "stage-2",
+          "present": true
+        },
+        {
+          "id": "stage-3",
+          "present": true
+        },
+        {
+          "id": "stage-4",
+          "present": true
+        },
+        {
+          "id": "stage-5",
+          "present": true
+        },
+        {
+          "id": "stage-6",
+          "present": true
+        },
+        {
+          "id": "stage-7",
+          "present": true
+        },
+        {
+          "id": "stage-8",
+          "present": true
+        },
+        {
+          "id": "stage-9",
+          "present": true
+        },
+        {
+          "id": "stage-10",
+          "present": true
+        }
+      ],
+      "originsH3": 0,
+      "deepHasOriginsHref": false,
+      "deepHasOriginsText": false,
+      "originsLinks": [
+        {
+          "text": "詳見人類起源時間線",
+          "path": "div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > section#stage-1.chronicle-stage.civ-reveal.civ-reveal--above-fold > p.stage-links > a"
+        },
+        {
+          "text": "詳見人類起源時間線",
+          "path": "div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > section#stage-2.chronicle-stage.civ-reveal > p.stage-links > a"
+        },
+        {
+          "text": "人類起源時間線",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > article.civ-article.chronicle-page > p.stage-links > a"
+        }
+      ],
+      "brand": {
+        "title": "文明編年 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "logoText": null,
+        "natural": {
+          "w": 185,
+          "h": 68,
+          "complete": true
+        },
+        "clip": {
+          "clipped": false,
+          "reason": "ok",
+          "box": {
+            "left": 16,
+            "right": 168.8,
+            "top": 8,
+            "bottom": 36,
+            "width": 152.8,
+            "height": 28
+          }
+        },
+        "simplified": false
+      },
+      "colors": {
+        ".chapter-band": {
+          "bg": "rgb(22, 28, 36)",
+          "color": "rgb(247, 241, 230)",
+          "fontSize": "16px"
+        },
+        ".chapter-kicker": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(232, 228, 220)",
+          "fontSize": "12px"
+        },
+        "body": {
+          "bg": "rgb(14, 20, 28)",
+          "color": "rgb(243, 246, 250)",
+          "fontSize": "16px"
+        },
+        ".civ-article": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(243, 246, 250)",
+          "fontSize": "16px"
+        }
+      },
+      "dom": {
+        "h1": true,
+        "axisTitle": false,
+        "deepAxis": false,
+        "axisCta": [],
+        "volumeCards": 0,
+        "volumeBoard": false,
+        "chronicleBand": false,
+        "pattern": 0,
+        "cases": 0,
+        "strip": false,
+        "slice": false
+      },
+      "htmlDark": true,
+      "fonts": [
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400"
+      ],
+      "errors": []
+    },
+    {
+      "meta": {
+        "page": "civ",
+        "path": "/civilization/",
+        "w": 390,
+        "h": 844,
+        "theme": "dark"
+      },
+      "viewport": {
+        "w": 390,
+        "h": 844
+      },
+      "page": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "scrollingScrollWidth": 390,
+        "pageOverflow": false,
+        "scrollHeight": 26338
+      },
+      "article": {
+        "scrollWidth": 358,
+        "clientWidth": 358,
+        "delta": 0,
+        "overflowX": "clip",
+        "overflowY": "visible",
+        "minWidth": "0px",
+        "maxWidth": "100%"
+      },
+      "table": null,
+      "cellFit": [],
+      "cellFitCount": 0,
+      "clips": [
+        {
+          "q": ".axis-node .lab",
+          "text": "城市",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 378,
+            "right": 454.5,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .lab",
+          "text": "今天",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node.axis-now > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 466.5,
+            "right": 543,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .lab",
+          "text": "未來",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.lab",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 555,
+            "right": 631.5,
+            "top": 373,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "基建",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 400.2,
+            "right": 432.3,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "切片",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node.axis-now > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 488.7,
+            "right": 520.8,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "q": ".axis-node .yr",
+          "text": "展望",
+          "path": "section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node > span.yr",
+          "clipped": true,
+          "reason": "viewport",
+          "box": {
+            "left": 577.2,
+            "right": 609.3,
+            "top": 390.6,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "clipCount": 6,
+      "overlap": [],
+      "touchUnder": [
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "閱讀宇宙長河",
+          "w": 78,
+          "h": 19,
+          "left": 31,
+          "right": 109,
+          "top": 1541.7,
+          "bottom": 1560.7,
+          "width": 78,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "閱讀地球生命",
+          "w": 78,
+          "h": 19,
+          "left": 31,
+          "right": 109,
+          "top": 1925,
+          "bottom": 1944,
+          "width": 78,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card .stage-links a",
+          "text": "侏羅紀",
+          "w": 39,
+          "h": 19,
+          "left": 121,
+          "right": 160,
+          "top": 1925,
+          "bottom": 1944,
+          "width": 39,
+          "height": 19,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card h3 a",
+          "text": "宇宙長河・深時間",
+          "w": 134.3,
+          "h": 24,
+          "left": 31,
+          "right": 165.3,
+          "top": 1458.9,
+          "bottom": 1482.9,
+          "width": 134.3,
+          "height": 24,
+          "under": true
+        },
+        {
+          "q": ".deep-time-card h3 a",
+          "text": "地球生命・深時間",
+          "w": 134.3,
+          "h": 24,
+          "left": 31,
+          "right": 165.3,
+          "top": 1842.2,
+          "bottom": 1866.2,
+          "width": 134.3,
+          "height": 24,
+          "under": true
+        }
+      ],
+      "touchNamedCount": 41,
+      "adjacent": [
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn ",
+          "b": ".chrome .icon-btn ",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".masthead .icon-btn 繁",
+          "b": ".chrome .icon-btn 繁",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 文明",
+          "b": ".chrome .chip 文明",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 編年",
+          "b": ".chrome .chip 編年",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 今天",
+          "b": ".chrome .chip 今天",
+          "edge": 0,
+          "center": 0
+        },
+        {
+          "a": ".civ-nav .chip 開蒙",
+          "b": ".chrome .chip 開蒙",
+          "edge": 0,
+          "center": 0
+        }
+      ],
+      "navs": [],
+      "partialChips": [],
+      "topHtml": {
+        "hasVolumeNav": false,
+        "hasStageNav": false,
+        "stageHrefs": [],
+        "volumeHrefs": []
+      },
+      "anchors": [
+        {
+          "id": "ch-ancient",
+          "present": false
+        },
+        {
+          "id": "ch-now",
+          "present": false
+        },
+        {
+          "id": "ch-future",
+          "present": false
+        },
+        {
+          "id": "stage-1",
+          "present": false
+        },
+        {
+          "id": "stage-2",
+          "present": false
+        },
+        {
+          "id": "stage-3",
+          "present": false
+        },
+        {
+          "id": "stage-4",
+          "present": false
+        },
+        {
+          "id": "stage-5",
+          "present": false
+        },
+        {
+          "id": "stage-6",
+          "present": false
+        },
+        {
+          "id": "stage-7",
+          "present": false
+        },
+        {
+          "id": "stage-8",
+          "present": false
+        },
+        {
+          "id": "stage-9",
+          "present": false
+        },
+        {
+          "id": "stage-10",
+          "present": false
+        }
+      ],
+      "originsH3": 1,
+      "deepHasOriginsHref": false,
+      "deepHasOriginsText": false,
+      "originsLinks": [
+        {
+          "text": "起源 ~300ka",
+          "path": "main#content.column-index.civ-main-page > section#civ.axis-hero > div.deep-axis > ol.milestones > li > a.axis-node"
+        },
+        {
+          "text": "閱讀人類起源",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > section#civ.axis-hero > div.axis-cta > a.btn.btn-brass"
+        },
+        {
+          "text": "深時間 人類起源 解剖學現代人到全球擴張。約三十萬年前起的年表。",
+          "path": "body > div.page.column-page.heritage-page > main#content.column-index.civ-main-page > section.layers > div.layer-grid > a.layer-card.layer-primary"
+        }
+      ],
+      "brand": {
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "aria": "文明編年史",
+        "logoText": null,
+        "natural": {
+          "w": 185,
+          "h": 68,
+          "complete": true
+        },
+        "clip": {
+          "clipped": false,
+          "reason": "ok",
+          "box": {
+            "left": 16,
+            "right": 168.8,
+            "top": 8,
+            "bottom": 36,
+            "width": 152.8,
+            "height": 28
+          }
+        },
+        "simplified": false
+      },
+      "colors": {
+        ".axis-hero": {
+          "bg": "rgb(22, 28, 36)",
+          "color": "rgb(232, 228, 220)",
+          "fontSize": "16px"
+        },
+        ".layer-card": {
+          "bg": "rgb(42, 35, 27)",
+          "color": "rgb(243, 234, 220)",
+          "fontSize": "16px"
+        },
+        ".layer-card .era": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(196, 165, 114)",
+          "fontSize": "12px"
+        },
+        "body": {
+          "bg": "rgb(14, 20, 28)",
+          "color": "rgb(243, 246, 250)",
+          "fontSize": "16px"
+        },
+        ".civ-article": {
+          "bg": "rgba(0, 0, 0, 0)",
+          "color": "rgb(243, 246, 250)",
+          "fontSize": "16px"
+        }
+      },
+      "dom": {
+        "h1": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeBoard": true,
+        "chronicleBand": false,
+        "pattern": 3,
+        "cases": 2,
+        "strip": false,
+        "slice": false
+      },
+      "htmlDark": true,
+      "fonts": [
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400",
+        "Noto Sans TC unloaded 400"
+      ],
+      "errors": []
+    }
+  ],
+  "clicks": {
+    "ancient": {
+      "hash": "#ch-ancient",
+      "gap": 88.6,
+      "targetTop": 249.6,
+      "chromeBottom": 161,
+      "text": "古"
+    },
+    "stage1": {
+      "hash": "#stage-1",
+      "gap": 65,
+      "text": "史前／採集狩獵"
+    },
+    "axisCta": {
+      "url": "http://127.0.0.1:4173/civilization/origins/"
+    },
+    "layerCard": {
+      "url": "http://127.0.0.1:4173/civilization/origins/"
+    }
+  },
+  "pageErrors": [
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "w": 360,
+      "h": 800,
+      "theme": "light",
+      "errors": []
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "w": 360,
+      "h": 800,
+      "theme": "light",
+      "errors": []
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "w": 390,
+      "h": 844,
+      "theme": "light",
+      "errors": []
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "w": 390,
+      "h": 844,
+      "theme": "light",
+      "errors": []
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "w": 360,
+      "h": 800,
+      "theme": "dark",
+      "errors": []
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "w": 360,
+      "h": 800,
+      "theme": "dark",
+      "errors": []
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "w": 390,
+      "h": 844,
+      "theme": "dark",
+      "errors": []
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "w": 390,
+      "h": 844,
+      "theme": "dark",
+      "errors": []
+    }
+  ]
+}
