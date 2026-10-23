@@ -1292,8 +1292,10 @@ describe('civilization question index', () => {
     expect(narrow).toContain('.column-index > * { min-width: 0; }');
     expect(narrow).toContain('.axis-hero { min-width: 0; }');
     expect(narrow).toContain('.deep-axis {');
-    expect(narrow).toContain('overflow-x: auto');
-    expect(narrow).toContain('.milestones li {\n    flex: 0 0 auto;');
+    expect(narrow).toContain('overflow: visible');
+    expect(narrow).toContain('margin-inline: -16px');
+    expect(narrow).not.toContain('overflow-x: auto');
+    expect(narrow).toContain('.milestones li {\n    flex: 1 1 0;');
     expect(narrow).toContain('flex-direction: column');
     expect(narrow).toContain('.pattern-axis .chip');
     expect(narrow).toContain('white-space: normal');

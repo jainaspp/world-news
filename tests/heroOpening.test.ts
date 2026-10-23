@@ -27,7 +27,7 @@ import {
   type HeroPhase,
 } from '../shared/heroOpening';
 import { cssColorToRgb, heroStarPoint, rollHeroStars, syncHeroStarField } from '../shared/heroStars';
-import { phoneSpineSlots, restingPartialSlots, slotFullyReachable } from '../shared/spineTrack';
+import { phoneSpineSlots, slotsPastViewport } from '../shared/spineTrack';
 import { renderHomeFeed } from '../shared/homePage';
 
 /** Same particle scan as copy.test.ts; the Hero may be playful, never Cantonese-colloquial. */
@@ -205,6 +205,10 @@ describe('hero opening client wiring', () => {
     expect(block).toContain('.hero-opening[data-mode="playing"] .hero-title');
     expect(block).not.toMatch(/\.hero-title\s*\{[^}]*opacity:\s*0/);
     expect(block).toContain('font-size: max(12px, 0.82em)');
+    expect(block).toContain('.hero-hint-row { margin: 8px 0 0; }');
+    expect(block).toContain('.hero-skip');
+    expect(block).toContain('min-height: 44px');
+    expect(block).toContain('min-width: 44px');
     const beforeHero = css.slice(0, css.indexOf('.hero-opening {'));
     expect(beforeHero).not.toContain('--era-ancient');
     expect(beforeHero).not.toContain('--era-now');
@@ -466,30 +470,32 @@ describe('homepage anchor and brass', () => {
     expect(css).toMatch(/\.axis-hero \.btn-brass \{ background: var\(--brass-ink-fill\); color: #161c24; \}/);
   });
 
-  it('does not rest with a spine label cut in half at phone widths', () => {
+  it('keeps every phone spine label inside the viewport', () => {
     const css = readFileSync('src/App.css', 'utf8');
     const narrow = css.slice(css.lastIndexOf('@media (max-width: 640px)'));
-    const rule = narrow.match(/width:\s*calc\(\(100cqi - (\d+)px\) \/ (\d+)\)/);
-    expect(rule).toBeTruthy();
     const deep = narrow.slice(narrow.indexOf('.deep-axis {'), narrow.indexOf('.deep-axis::-webkit-scrollbar'));
-    expect(deep).toContain('scroll-snap-type: x mandatory');
-    expect(deep).toContain('scroll-padding-inline: 8px');
-    expect(narrow).toContain('container-type: inline-size');
-    const inset = Number(deep.match(/padding-inline:\s*(\d+)px/)?.[1]);
-    expect(inset).toBe(8);
-    const gapTotal = Number(rule?.[1]);
-    const visible = Number(rule?.[2]);
-    const gap = gapTotal / (visible - 1);
-    expect(gap).toBeGreaterThan(inset);
-    const base = css.slice(css.indexOf('.milestones {'), css.indexOf('@media (max-width: 640px)'));
-    expect(base).toContain('.milestones li { flex: 1; min-width: 0; text-align: center; }');
+    expect(deep).toContain('margin-inline: -16px');
+    expect(deep).toContain('overflow: visible');
+    expect(deep).not.toContain('overflow-x: auto');
+    expect(deep).not.toContain('100cqi');
+    const milestones = narrow.slice(narrow.indexOf('.milestones {'), narrow.indexOf('.milestones::before'));
+    expect(milestones).toContain('width: 100%');
+    expect(milestones).toContain('gap: 8px');
+    expect(milestones).not.toContain('width: max-content');
+    const item = narrow.slice(narrow.indexOf('.milestones li {'), narrow.indexOf('.chronicle-strip'));
+    expect(item).toContain('flex: 1 1 0');
+    expect(item).toContain('min-width: 44px');
+    const hero = css.slice(css.indexOf('.axis-hero {'), css.indexOf('.axis-hero::after'));
+    expect(hero).toContain('padding: 22px 16px 32px');
+    expect(hero).toContain('margin: 12px -16px 0');
     for (const viewport of [360, 390]) {
-      const scrollport = viewport - 32;
-      const slots = phoneSpineSlots(scrollport, visible, gap, 7, inset);
-      expect(restingPartialSlots(scrollport, slots)).toEqual([]);
-      expect(slots[4]!.left).toBeGreaterThanOrEqual(scrollport);
+      const slots = phoneSpineSlots(viewport);
+      expect(slots).toHaveLength(7);
+      expect(slotsPastViewport(viewport, slots)).toEqual([]);
       for (let index = 0; index < slots.length; index += 1) {
-        expect(slotFullyReachable(scrollport, slots, index)).toBe(true);
+        const slot = slots[index]!;
+        expect(slot.right - slot.left).toBeGreaterThanOrEqual(44);
+        if (index > 0) expect(slot.left - slots[index - 1]!.right).toBeGreaterThanOrEqual(8);
       }
     }
   });

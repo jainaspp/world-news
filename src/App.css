@@ -3222,10 +3222,11 @@ a.question-line:hover { text-decoration: underline; }
   .today-slice .story-media,
   .today-slice .thumb-fallback { max-height: 64px; }
 }
-/* Phone hub: the axis hero is a grid item on .column-index. Its min-content
-   (seven spine labels plus nowrap chips) was wider than the viewport, so the
-   hero, chronicle dots, CTAs, and pattern pills shared one overflowing band.
-   min-width: 0 lets the column win. Each band then scrolls or stacks on its own. */
+/* Phone hub: the axis hero is a grid item on .column-index. Pattern chips
+   stack. The seven spine labels share one full-bleed row: a scrollport that
+   parks 城市／今天／未來 past the viewport fails P0-CLIP even when the page
+   itself does not scroll. .axis-hero padding is 16px and the hero is already
+   full-bleed, so the -16px margin puts the track on the viewport edges. */
 @media (max-width: 640px) {
   .column-index,
   .civ-home { min-width: 0; }
@@ -3235,24 +3236,19 @@ a.question-line:hover { text-decoration: underline; }
   .axis-lede { max-width: 100%; overflow-wrap: break-word; }
   .axis-node { font-size: 12px; }
   .deep-axis {
-    max-width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 8px;
-    padding-inline: 8px;
-    container-type: inline-size;
+    max-width: none;
+    margin-inline: -16px;
+    padding-inline: 0;
+    overflow: visible;
   }
   .deep-axis::-webkit-scrollbar { height: 0; display: none; }
   .deep-axis .rail { display: none; }
   .milestones {
     position: relative;
-    width: max-content;
-    min-width: 100%;
-    gap: 12px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    gap: 8px;
     padding-bottom: 2px;
   }
   .milestones::before {
@@ -3267,12 +3263,21 @@ a.question-line:hover { text-decoration: underline; }
     pointer-events: none;
   }
   .milestones li {
-    flex: 0 0 auto;
-    /* 4 slots + 3 gaps of 12px fill the content box inside the 8px inset,
-       so a resting view ends in the gap before 城市, not through a glyph. */
-    width: calc((100cqi - 36px) / 4);
+    flex: 1 1 0;
+    width: auto;
+    min-width: 44px;
+    max-width: 100%;
+  }
+  .deep-axis .axis-node { min-width: 0; max-width: 100%; }
+  .deep-axis .lab,
+  .deep-axis .yr {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .deep-axis .yr {
+    width: fit-content;
     min-width: 0;
-    scroll-snap-align: start;
+    padding-inline: 1px;
   }
   .chronicle-strip,
   .chronicle-track,
@@ -3821,7 +3826,7 @@ html.dark .civ-progress { background: #c4a572; }
   color: #e8e4dc;
   border-color: rgba(232, 228, 220, 0.35);
 }
-.hero-hint-row { margin: 4px 0 0; }
+.hero-hint-row { margin: 8px 0 0; }
 .hero-hint {
   display: inline-flex;
   align-items: center;

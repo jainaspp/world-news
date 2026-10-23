@@ -95,7 +95,7 @@ describe('R1 critical union in CSS', () => {
     expect(volumes).toContain('gap: 12px');
   });
 
-  it('snaps the deep axis and chronicle nav so a resting chip is whole', () => {
+  it('snaps the chronicle nav and fits the phone spine inside the viewport', () => {
     const nav = block(css, '.chronicle-nav,\n.cosmo-nav {', '.chronicle-nav::-webkit-scrollbar');
     expect(nav).toContain('flex-wrap: wrap');
     expect(nav).toContain('scroll-snap-type: x mandatory');
@@ -105,10 +105,12 @@ describe('R1 critical union in CSS', () => {
     expect(chip).toContain('scroll-snap-align: start');
     const narrow = css.slice(css.lastIndexOf('@media (max-width: 640px)'));
     const deep = narrow.slice(narrow.indexOf('.deep-axis {'), narrow.indexOf('.deep-axis::-webkit-scrollbar'));
-    expect(deep).toContain('scroll-snap-type: x mandatory');
-    expect(deep).toContain('padding-inline: 8px');
-    expect(deep).toContain('scroll-padding-inline: 8px');
-    expect(narrow).toContain('width: calc((100cqi - 36px) / 4)');
+    expect(deep).toContain('overflow: visible');
+    expect(deep).toContain('margin-inline: -16px');
+    expect(deep).not.toContain('overflow-x: auto');
+    expect(narrow).toContain('flex: 1 1 0');
+    expect(narrow).toContain('min-width: 44px');
+    expect(narrow).not.toContain('100cqi');
   });
 
   it('paints dark chapter bands with ink #161c24', () => {
