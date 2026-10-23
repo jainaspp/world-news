@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>文明編年史 · 開蒙尺原型（GLM 5.3 · 2026-10-23）</title>
+<meta name="description" content="文明編年史開場動效提案原型。對數環展開為三卷十階。監測只顯示分鐘。零依賴，非生產代碼。" />
+<style>
+  :root {
+    --ink: #161c24;
+    --paper: #f7f1e6;
+    --brass: #c4a572;
+    --brass-on-paper: #7a5a32;
+    --cold: #9ec0ef;
+    --gloss: #d5d0c6;
+    --future: #1c1830;
+    --glow: #c4b6e6;
+    --note: #3d3830;
+    --serif: "Iowan Old Style", Palatino, "Palatino Linotype", "Songti TC", "PMingLiU", "Noto Serif CJK TC", serif;
+    --sans: "PingFang TC", "Noto Sans CJK TC", "Noto Sans TC", "Microsoft JhengHei", "WenQuanYi Micro Hei", "Droid Sans Fallback", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--ink); }
+  body {
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--paper);
+    outline-offset: 2px;
+  }
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    background: var(--ink);
+    overflow: visible;
+  }
+  #cv {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+  }
+  .frame {
+    position: relative;
+    z-index: 1;
+    width: min(720px, 100%);
+    margin: 0 auto;
+    padding: 16px 16px 36px;
+  }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    min-height: 44px;
+  }
+  h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+    color: var(--paper);
+  }
+  .topbar-actions { display: flex; gap: 8px; }
+  .topbar-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(213, 208, 198, 0.55);
+    background: rgba(22, 28, 36, 0.72);
+    color: var(--paper);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  #skip { display: none; }
+  html.is-play #skip, html.is-scrub #skip { display: inline-flex; }
+  html.is-reduce #replay { display: none !important; }
+  .kicker {
+    margin: 22px 0 6px;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    color: var(--brass);
+  }
+  h2 {
+    margin: 0 0 8px;
+    font-family: var(--serif);
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--paper);
+  }
+  .plates { margin: 14px 0 0; }
+  html.is-play .plates, html.is-scrub .plates { min-height: 8.5rem; }
+  .plate { margin: 0 0 16px; }
+  html.is-play .plate, html.is-scrub .plate { display: none; margin: 0; }
+  html.is-play .plate.on, html.is-scrub .plate.on { display: block; }
+  .main {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--paper);
+  }
+  .gloss {
+    margin: 8px 0 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--gloss);
+  }
+  .tag {
+    margin-right: 6px;
+    color: var(--brass);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
+  .live {
+    position: absolute;
+    left: 16px;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+    color: var(--paper);
+  }
+  html.is-play .key, html.is-scrub .key { display: none; }
+  html.is-play .key.on, html.is-scrub .key.on { display: flex; }
+  .key li { display: inline-flex; align-items: center; gap: 8px; min-height: 24px; }
+  .sw {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .sw.gold { background: var(--brass); }
+  .sw.blue { background: var(--cold); }
+  .sw.violet { background: var(--glow); }
+  .stack { margin-top: 8px; }
+  .vol {
+    margin-top: 8px;
+    padding: 8px 12px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(247, 241, 230, 0.16);
+    background: rgba(22, 28, 36, 0.55);
+  }
+  html.is-play .vol, html.is-scrub .vol { display: none; }
+  html.is-play .vol.on, html.is-scrub .vol.on { display: block; }
+  .vol.ancient { box-shadow: inset 4px 0 0 var(--brass); }
+  .vol.now { box-shadow: inset 4px 0 0 var(--cold); }
+  .vol.future {
+    position: relative;
+    background: var(--future);
+    box-shadow: inset 4px 0 0 var(--glow);
+  }
+  .vol.future::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 0;
+    height: 2px;
+    background: var(--glow);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .vol-link, .door, .ticks a, .slip-more a, .refer a, .btn {
+    text-decoration: none;
+  }
+  .vol-link, .door {
+    display: flex;
+    width: 100%;
+    min-height: 44px;
+    align-items: center;
+    color: var(--paper);
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .door {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 4px 10px 8px;
+  }
+  .door-sub {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--gloss);
+  }
+  .era {
+    margin: 0 0 4px;
+    padding-left: 2px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--gloss);
+  }
+  .ticks {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .ticks a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(247, 241, 230, 0.28);
+    background: rgba(22, 28, 36, 0.45);
+    color: var(--paper);
+    font-size: 15px;
+  }
+  .ancient .ticks a { border-color: var(--brass); }
+  .now .ticks a { border-color: var(--cold); }
+  .num { min-width: 1.4em; font-variant-numeric: tabular-nums; }
+  .ancient .num { color: var(--brass); }
+  .now .num { color: var(--cold); }
+  .slip {
+    margin-top: 16px;
+    padding: 14px 16px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--brass);
+    background: var(--paper);
+    color: var(--ink);
+  }
+  html.is-play .slip, html.is-scrub .slip,
+  html.is-play .refer, html.is-scrub .refer,
+  html.is-play .cta, html.is-scrub .cta { display: none; }
+  html.is-play .slip.on, html.is-scrub .slip.on { display: block; }
+  html.is-play .refer.on, html.is-scrub .refer.on { display: block; }
+  html.is-play .cta.on, html.is-scrub .cta.on { display: flex; }
+  html.clock-refer .slip { display: none !important; }
+  html:not(.clock-refer) .refer { display: none !important; }
+  .slip-kicker {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    color: var(--brass-on-paper);
+  }
+  .slip-face {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 6px 0 4px;
+  }
+  .slip-num {
+    font-family: var(--serif);
+    font-size: 56px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .slip-unit { font-size: 18px; font-weight: 700; color: var(--ink); }
+  .slip-meta, .slip-note {
+    margin: 6px 0 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--note);
+  }
+  .slip-more { margin: 4px 0 0; }
+  .slip-more a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .refer {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(247, 241, 230, 0.3);
+    color: var(--paper);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .refer a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 44px;
+    margin-top: 4px;
+    color: var(--cold);
+    font-weight: 700;
+  }
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .btn.brass { background: var(--brass); color: var(--ink); }
+  .btn.ghost { border: 1px solid var(--gloss); color: var(--paper); }
+  .stubs, .footnote {
+    background: #10161c;
+    color: #c9d3df;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .stubs { padding: 4px 16px 8px; }
+  .stubs p {
+    width: min(720px, 100%);
+    margin: 0 auto 8px;
+    padding: 8px 0;
+  }
+  .footnote { padding: 8px 16px 36px; }
+  .footnote p {
+    width: min(720px, 100%);
+    margin: 0 auto;
+  }
+  .footnote code { font-family: ui-monospace, monospace; font-size: 12px; color: var(--paper); }
+  @media (min-width: 800px) {
+    .ticks { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    .frame { padding: 28px 24px 48px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html.is-play .plate.on .main,
+    html.is-play .plate.on .gloss,
+    html.is-play .vol.on,
+    html.is-play .slip.on,
+    html.is-play .cta.on {
+      animation: glm-in 0.7s ease both;
+    }
+    html.is-play .vol.future.on::after {
+      animation: glm-glow 3.6s ease-in-out infinite;
+    }
+  }
+  @keyframes glm-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes glm-glow {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 1; }
+  }
+</style>
+<script>
+(function () {
+  var root = document.documentElement;
+  var q;
+  try { q = new URLSearchParams(window.location.search); }
+  catch (e) { q = new URLSearchParams(); }
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  catch (e2) {}
+  if (q.get('motion') === 'reduce') reduce = true;
+  if (q.get('motion') === 'full') reduce = false;
+  var raw = q.get('t');
+  var hasT = raw !== null && raw !== '' && isFinite(Number(raw));
+  var tNum = hasT ? Math.max(0, Number(raw)) : 0;
+  var seen = false;
+  try { seen = window.sessionStorage.getItem('glm53-hero-opening-seen') === '1'; }
+  catch (e3) {}
+  if (q.get('play') === '1') seen = false;
+  if (q.get('clock') === 'refer') root.classList.add('clock-refer');
+  if (reduce) root.classList.add('is-reduce');
+  if (hasT) {
+    root.classList.add(tNum >= 16400 ? 'is-static' : 'is-scrub');
+    root.setAttribute('data-freeze', String(Math.min(tNum, 16400)));
+  } else if (reduce || seen) {
+    root.classList.add('is-static');
+    if (seen && !reduce) root.classList.add('is-settled');
+  } else {
+    root.classList.add('is-play');
+  }
+})();
+</script>
+</head>
+<body>
+<section class="hero" id="hero" data-mode="static" aria-label="開場：開蒙尺。從宇宙尺度到三卷十階。">
+  <canvas id="cv" aria-hidden="true"></canvas>
+  <div class="frame">
+    <div class="topbar">
+      <h1>文明編年史</h1>
+      <div class="topbar-actions">
+        <button type="button" id="skip">跳過開場</button>
+        <button type="button" id="replay" hidden>重播開場</button>
+      </div>
+    </div>
+    <p class="kicker">開蒙尺</p>
+    <h2>先有刻度，再讀今天</h2>
+
+    <div class="plates" id="plates">
+      <article class="plate" data-at="400" data-beat="1">
+        <p class="main">先把一百三十八億年，摺成可以握住的一把尺。</p>
+        <p class="gloss"><span class="tag">眉批</span>尺上的年份都標「約」。精確到某一年，往往並無意義。</p>
+      </article>
+      <article class="plate" data-at="2600" data-beat="2">
+        <p class="main">起初，一切又熱又密，分不開彼此。</p>
+        <p class="gloss"><span class="tag">眉批</span>沒有一處叫作正中心。往任一方向看，都是向外。</p>
+      </article>
+      <article class="plate" data-at="4800" data-beat="3">
+        <p class="main">重力花了很長的時間，才把氣體捏成恆星；恆星老去，才把碳交還給黑暗。</p>
+        <p class="gloss"><span class="tag">眉批</span>這一步大約要一億年，比任何連載都長。</p>
+      </article>
+      <article class="plate" data-at="7200" data-beat="4">
+        <p class="main">再往後，這顆行星上有了可控的火、穩定的耕種，以及可以留下的文字。</p>
+        <p class="gloss"><span class="tag">眉批</span>火把白晝存進夜裡。文字讓一句話不必只靠記憶流傳。</p>
+      </article>
+      <article class="plate" data-at="9400" data-beat="5">
+        <p class="main">城牆、道路與鑄幣，把陌生人收進同一套秩序。卷一在此合上。</p>
+        <p class="gloss"><span class="tag">眉批</span>這張網沒有電。它靠腳程、船期與信用。</p>
+      </article>
+      <article class="plate" data-at="11200" data-beat="6">
+        <p class="main">實驗、蒸汽、電報與網頁，把遙遠改成可以核對。</p>
+        <p class="gloss"><span class="tag">眉批</span>本世紀的工具仍收在卷二。卷三不寫預測。</p>
+      </article>
+      <article class="plate" data-at="13200" data-beat="7">
+        <p class="main">卷三只留章門。尚未寫定的事，不在門內預告。</p>
+        <p class="gloss"><span class="tag">眉批</span>門旁的刻度以分計。它供人查閱，不用來催促。</p>
+      </article>
+      <article class="plate" data-at="15200" data-beat="8">
+        <p class="main">三卷疊好。十階都在尺上，未來不另立第十一階。</p>
+        <p class="gloss"><span class="tag">眉批</span>先選一卷，再讀今天。</p>
+      </article>
+    </div>
+    <p class="live" id="live" aria-live="polite"></p>
+
+    <ul class="key reveal" data-at="7200" aria-label="三卷色鍵">
+      <li><span class="sw gold" aria-hidden="true"></span>古 · 暖金</li>
+      <li><span class="sw blue" aria-hidden="true"></span>今 · 冷藍</li>
+      <li><span class="sw violet" aria-hidden="true"></span>未來 · 紫黑</li>
+    </ul>
+
+    <nav class="stack" aria-label="三卷十階">
+      <section class="vol ancient reveal" data-at="7200">
+        <a class="vol-link" href="/civilization/chronicle/#ch-ancient">卷一 · 古</a>
+        <p class="era">約三百萬年前至約公元一五〇〇年</p>
+        <ol class="ticks">
+          <li><a href="/civilization/chronicle/#stage-1"><span class="num">1</span><span class="name">史前</span></a></li>
+          <li><a href="/civilization/chronicle/#stage-2"><span class="num">2</span><span class="name">農業革命</span></a></li>
+          <li><a href="/civilization/chronicle/#stage-3"><span class="num">3</span><span class="name">城市與文字</span></a></li>
+          <li><a href="/civilization/chronicle/#stage-4"><span class="num">4</span><span class="name">古典帝國</span></a></li>
+          <li><a href="/civilization/chronicle/#stage-5"><span class="num">5</span><span class="name">跨區交流</span></a></li>
+        </ol>
+      </section>
+      <section class="vol now reveal" data-at="11200">
+        <a class="vol-link" href="/civilization/chronicle/#ch-now">卷二 · 今</a>
+        <p class="era">約公元一五〇〇年起</p>
+        <ol class="ticks">
+          <li><a href="/civilization/chronicle/#stage-6"><span class="num">6</span><span class="name">科學啟蒙</span></a></li>
+          <li><a href="/civilization/chronicle/#stage-7"><span class="num">7</span><span class="name">工業革命</span></a></li>
+          <li><a href="/civilization/chronicle/#stage-8"><span class="num">8</span><span class="name">現代金融</span></a></li>
+          <li><a href="/civilization/chronicle/#stage-9"><span class="num">9</span><span class="name">信息革命</span></a></li>
+          <li><a href="/civilization/chronicle/#stage-10"><span class="num">10</span><span class="name">本世紀</span></a></li>
+        </ol>
+      </section>
+      <section class="vol future reveal" data-at="13200">
+        <a class="door" href="/civilization/chronicle/#ch-future">
+          <span class="door-kicker">卷三 · 未來</span>
+          <span class="door-sub">章門 · 不設年代，不另立第十一階</span>
+        </a>
+      </section>
+    </nav>
+
+    <aside class="slip reveal" data-at="13200" aria-label="監測讀數，以分鐘記">
+      <p class="slip-kicker">監測</p>
+      <p class="slip-face" aria-label="距午夜一分餘。開場不顯示秒。">
+        <span class="slip-num">1</span><span class="slip-unit">分餘</span>
+      </p>
+      <p class="slip-meta">距午夜的分鐘隱喻。資料日期 <time datetime="2025-01-28">2025-01-28</time></p>
+      <p class="slip-note">此為編輯寫定的監測刻度，對照公開公報，並不逐秒走動。</p>
+      <p class="slip-more"><a href="#monitor">秒數與正式刻度見監測</a></p>
+    </aside>
+    <p class="refer reveal" data-at="13200">監測以分鐘記，不在開場重複數字。<a href="#monitor">完整刻度見監測</a></p>
+
+    <div class="cta reveal" data-at="15200">
+      <a class="btn brass" href="/civilization/chronicle/">打開編年</a>
+      <a class="btn ghost" href="#slice">進入今日切片</a>
+    </div>
+  </div>
+</section>
+
+<div class="stubs">
+  <p id="slice">今日切片。原型只留錨，不接新聞。</p>
+  <p id="monitor">監測。正式站這裡是既有刻度；開場不複製秒數。</p>
+  <p id="civ">編年軸。原型只留錨。</p>
+</div>
+<p class="footnote"><span style="display:block;width:min(720px,100%);margin:0 auto;">GLM 5.3 獨立提案原型 · 2026-10-23 · 動效證物，非生產代碼。零依賴、零網絡請求。定格：<code>?t=4800</code> 看環，<code>?t=7200</code> 看卷一，<code>?t=13200</code> 看章門與分鐘卡，<code>?t=16400</code> 看落定。減動態：<code>?motion=reduce</code>。單屏一鐘：<code>?clock=refer</code>。忽略已看：<code>?play=1</code>。說明見同目錄 BRIEF.md、COPY.md、NOTES-for-合議.md。</span></p>
+
+<script>
+(function () {
+  'use strict';
+  var SETTLE = 16400;
+  var KEY = 'glm53-hero-opening-seen';
+  var root = document.documentElement;
+  var hero = document.getElementById('hero');
+  var cv = document.getElementById('cv');
+  var ctx = cv.getContext('2d');
+  var skipBtn = document.getElementById('skip');
+  var replayBtn = document.getElementById('replay');
+  var live = document.getElementById('live');
+  var plates = Array.prototype.slice.call(document.querySelectorAll('.plate'));
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  var mode = root.classList.contains('is-scrub') ? 'scrub' : (root.classList.contains('is-play') ? 'play' : 'static');
+  var W = 0;
+  var H = 0;
+  var DPR = 1;
+  var raf = 0;
+  var t0 = 0;
+  var held = 0;
+  var current = 0;
+
+  function smooth(ms, a, b) {
+    if (ms <= a) return 0;
+    if (ms >= b) return 1;
+    var x = (ms - a) / (b - a);
+    return x * x * (3 - 2 * x);
+  }
+  function easeOut(x) {
+    var t = Math.max(0, Math.min(1, x));
+    return 1 - Math.pow(1 - t, 3);
+  }
+  function apply(ms) {
+    var currentPlate = null;
+    var i;
+    for (i = 0; i < plates.length; i++) {
+      if (Number(plates[i].getAttribute('data-at')) <= ms) currentPlate = plates[i];
+    }
+    for (i = 0; i < plates.length; i++) plates[i].classList.toggle('on', plates[i] === currentPlate);
+    for (i = 0; i < reveals.length; i++) {
+      reveals[i].classList.toggle('on', Number(reveals[i].getAttribute('data-at')) <= ms);
+    }
+    if (currentPlate && (mode === 'play' || mode === 'scrub')) {
+      var line = currentPlate.querySelector('.main').textContent;
+      if (live.textContent !== line) live.textContent = line;
+    }
+    hero.setAttribute('data-beat', currentPlate ? currentPlate.getAttribute('data-beat') : '0');
+  }
+  function draw(ms) {
+    if (!ctx || W < 2 || H < 2) return;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#161c24';
+    ctx.fillRect(0, 0, W, H);
+
+    var expand = easeOut(Math.min(1, ms / 6400));
+    var fade = 1 - smooth(ms, 7600, 12000);
+    var viewH = Math.min(H, window.innerHeight || H);
+    var cx = W * 0.5;
+    var cy = Math.min(viewH * 0.36, 260);
+    var maxR = Math.hypot(W, viewH) * 0.72;
+
+    if (fade > 0.02 && expand > 0) {
+      ctx.save();
+      ctx.globalAlpha = fade;
+      var coreR = 10 + expand * 72;
+      var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreR);
+      var coreA = 0.9 * (1 - expand * 0.62);
+      g.addColorStop(0, 'rgba(247,241,230,' + coreA + ')');
+      g.addColorStop(0.5, 'rgba(196,165,114,' + (coreA * 0.4) + ')');
+      g.addColorStop(1, 'rgba(196,165,114,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(cx, cy, coreR, 0, Math.PI * 2);
+      ctx.fill();
+      var ring;
+      for (ring = 1; ring <= 8; ring++) {
+        var r = Math.max(2, maxR * (ring / 8) * expand);
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        if (ring === 4) {
+          ctx.strokeStyle = 'rgba(196,165,114,0.8)';
+          ctx.lineWidth = 1.75;
+        } else {
+          ctx.strokeStyle = 'rgba(247,241,230,0.2)';
+          ctx.lineWidth = 1;
+        }
+        ctx.stroke();
+      }
+      ctx.restore();
+      var col = Math.min(720, W);
+      var x0 = (W - col) / 2;
+      var scr = ctx.createLinearGradient(0, Math.max(0, cy - 20), 0, cy + 240);
+      scr.addColorStop(0, 'rgba(22,28,36,0)');
+      scr.addColorStop(0.4, 'rgba(22,28,36,' + (0.5 * fade) + ')');
+      scr.addColorStop(1, 'rgba(22,28,36,' + (0.2 * fade) + ')');
+      ctx.fillStyle = scr;
+      ctx.fillRect(x0, 0, col, H);
+    }
+
+    var colW = Math.min(720, W);
+    var gutter = (W - colW) / 2;
+    if (gutter > 24) {
+      var lines = [
+        { at: 7200, y: 0.78, color: '#c4a572' },
+        { at: 11200, y: 0.64, color: '#9ec0ef' },
+        { at: 13200, y: 0.5, color: '#c4b6e6' }
+      ];
+      var n;
+      for (n = 0; n < lines.length; n++) {
+        var amt = smooth(ms, lines[n].at, lines[n].at + 800);
+        if (amt <= 0) continue;
+        var y = Math.min(H - 20, viewH * lines[n].y);
+        var reach = gutter * amt;
+        ctx.strokeStyle = lines[n].color;
+        ctx.globalAlpha = 0.95;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(reach, y);
+        ctx.moveTo(W, y);
+        ctx.lineTo(W - reach, y);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+    }
+  }
+  function resize() {
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = hero.clientWidth;
+    H = hero.clientHeight;
+    if (W < 2 || H < 2) return;
+    cv.width = Math.round(W * DPR);
+    cv.height = Math.round(H * DPR);
+    draw(current);
+  }
+  function settle() {
+    if (mode === 'static' && root.classList.contains('is-static')) {
+      current = SETTLE;
+      hero.setAttribute('data-mode', 'settled');
+      draw(SETTLE);
+      return;
+    }
+    mode = 'static';
+    current = SETTLE;
+    if (raf) cancelAnimationFrame(raf);
+    root.classList.remove('is-play', 'is-scrub');
+    root.classList.add('is-static', 'is-settled');
+    hero.setAttribute('data-mode', 'settled');
+    hero.setAttribute('data-beat', '8');
+    draw(SETTLE);
+    if (!root.classList.contains('is-reduce')) replayBtn.hidden = false;
+    try { window.sessionStorage.setItem(KEY, '1'); } catch (e) {}
+  }
+  function loop(now) {
+    if (mode !== 'play') return;
+    var ms = now - t0;
+    if (ms >= SETTLE) { settle(); return; }
+    current = ms;
+    apply(ms);
+    draw(ms);
+    hero.setAttribute('data-mode', 'playing');
+    raf = requestAnimationFrame(loop);
+  }
+  skipBtn.addEventListener('click', function () { settle(); });
+  replayBtn.addEventListener('click', function () {
+    if (root.classList.contains('is-reduce')) return;
+    try { window.sessionStorage.removeItem(KEY); } catch (e) {}
+    root.classList.remove('is-static', 'is-settled', 'is-scrub');
+    root.classList.add('is-play');
+    replayBtn.hidden = true;
+    mode = 'play';
+    current = 0;
+    apply(0);
+    draw(0);
+    t0 = performance.now();
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(loop);
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (mode !== 'play') return;
+    if (document.hidden) {
+      if (raf) cancelAnimationFrame(raf);
+      held = performance.now() - t0;
+    } else {
+      t0 = performance.now() - held;
+      raf = requestAnimationFrame(loop);
+    }
+  });
+  try {
+    var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    mq.addEventListener('change', function () {
+      if (mq.matches && !root.classList.contains('is-scrub')) {
+        root.classList.add('is-reduce');
+        settle();
+      }
+    });
+  } catch (e4) {}
+  window.addEventListener('resize', resize);
+
+  if (mode === 'play') {
+    current = 0;
+    apply(0);
+    hero.setAttribute('data-mode', 'playing');
+    t0 = performance.now();
+  } else if (mode === 'scrub') {
+    current = Math.min(SETTLE, Number(root.getAttribute('data-freeze') || 0));
+    apply(current);
+    hero.setAttribute('data-mode', 'scrub');
+  } else {
+    current = SETTLE;
+    hero.setAttribute('data-mode', 'settled');
+    hero.setAttribute('data-beat', '8');
+    if (root.classList.contains('is-settled') && !root.classList.contains('is-reduce')) replayBtn.hidden = false;
+  }
+  resize();
+  if (mode === 'play') raf = requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
