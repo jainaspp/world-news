@@ -1,0 +1,2885 @@
+{
+ "H-360-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 19,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 571,
+    "cw": 328,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 339,
+    "cw": 171,
+    "sh": 20,
+    "ch": 20
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 105,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 1,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 1,
+   "axisRails": 1,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "文明編年史 — 從宇宙到今天"
+  },
+  "articles": [],
+  "tables": [],
+  "consoleErrors": [
+   "console: Failed to load resource: net::ERR_FAILED"
+  ],
+  "themeActive": false
+ },
+ "C-360-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 571,
+    "cw": 328,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 197,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 0,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "人類文明 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 328,
+    "cw": 328,
+    "csx": "clip"
+   }
+  ],
+  "tables": [],
+  "consoleErrors": [],
+  "themeActive": false
+ },
+ "N-360-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 197,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 1,
+   "chNow": 1,
+   "chFuture": 1,
+   "stages": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": true,
+   "brand": "文明編年 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 328,
+    "cw": 328,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 328,
+    "cw": 328
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": false,
+  "tailProbe": {
+   "errors": [],
+   "docHscroll": 0,
+   "docHscrollAlt": 0,
+   "innerWidth": 360,
+   "offenders": [
+    {
+     "path": "label.sr-only",
+     "sw": 32,
+     "cw": 1,
+     "sh": 24,
+     "ch": 1
+    },
+    {
+     "path": "a",
+     "sw": 331,
+     "cw": 197,
+     "sh": 20,
+     "ch": 20
+    }
+   ],
+   "overlaps": [],
+   "clips": [],
+   "touch": [],
+   "spacing": [],
+   "dom": {
+    "chrome": 1,
+    "axisTitle": 0,
+    "deepAxis": 0,
+    "axisCta": 0,
+    "volumeCard": 0,
+    "chronicleBand": 0,
+    "patternAxis": 0,
+    "caseAxis": 0,
+    "civNav": 1,
+    "slice": 0,
+    "axisRails": 0,
+    "chAncient": 1,
+    "chNow": 1,
+    "chFuture": 1,
+    "stages": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "originsH3": 0,
+    "stageNavTop": false,
+    "volumeNavTop": true,
+    "brand": "文明編年 — 文明編年史"
+   },
+   "articles": [
+    {
+     "sw": 328,
+     "cw": 328,
+     "csx": "clip"
+    }
+   ],
+   "tables": [
+    {
+     "sw": 328,
+     "cw": 328
+    }
+   ]
+  }
+ },
+ "origins-360-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 197,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "人類起源時間線 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 328,
+    "cw": 328,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 328,
+    "cw": 328
+   },
+   {
+    "sw": 328,
+    "cw": 328
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": false
+ },
+ "tech-360-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 197,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "科技與發現 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 328,
+    "cw": 328,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 328,
+    "cw": 328
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": false
+ },
+ "city-360-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 197,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "城市・基建・民生 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 328,
+    "cw": 328,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 328,
+    "cw": 328
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": false
+ },
+ "L-360-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 19,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 571,
+    "cw": 328,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 339,
+    "cw": 171,
+    "sh": 20,
+    "ch": 20
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 105,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 1,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 1,
+   "axisRails": 1,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "文明編年史 — 從宇宙到今天"
+  },
+  "articles": [],
+  "tables": [],
+  "consoleErrors": [
+   "console: Failed to load resource: net::ERR_FAILED"
+  ],
+  "themeActive": false
+ },
+ "H-360-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 19,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 571,
+    "cw": 328,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 339,
+    "cw": 171,
+    "sh": 20,
+    "ch": 20
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 105,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 1,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 1,
+   "axisRails": 1,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "文明編年史 — 從宇宙到今天"
+  },
+  "articles": [],
+  "tables": [],
+  "consoleErrors": [
+   "console: Failed to load resource: net::ERR_FAILED"
+  ],
+  "themeActive": true
+ },
+ "C-360-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 571,
+    "cw": 328,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 197,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 0,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "人類文明 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 328,
+    "cw": 328,
+    "csx": "clip"
+   }
+  ],
+  "tables": [],
+  "consoleErrors": [],
+  "themeActive": true
+ },
+ "N-360-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 197,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 1,
+   "chNow": 1,
+   "chFuture": 1,
+   "stages": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": true,
+   "brand": "文明編年 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 328,
+    "cw": 328,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 328,
+    "cw": 328
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": true,
+  "tailProbe": {
+   "errors": [],
+   "docHscroll": 0,
+   "docHscrollAlt": 0,
+   "innerWidth": 360,
+   "offenders": [
+    {
+     "path": "label.sr-only",
+     "sw": 32,
+     "cw": 1,
+     "sh": 24,
+     "ch": 1
+    },
+    {
+     "path": "a",
+     "sw": 331,
+     "cw": 197,
+     "sh": 20,
+     "ch": 20
+    }
+   ],
+   "overlaps": [],
+   "clips": [],
+   "touch": [],
+   "spacing": [],
+   "dom": {
+    "chrome": 1,
+    "axisTitle": 0,
+    "deepAxis": 0,
+    "axisCta": 0,
+    "volumeCard": 0,
+    "chronicleBand": 0,
+    "patternAxis": 0,
+    "caseAxis": 0,
+    "civNav": 1,
+    "slice": 0,
+    "axisRails": 0,
+    "chAncient": 1,
+    "chNow": 1,
+    "chFuture": 1,
+    "stages": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "originsH3": 0,
+    "stageNavTop": false,
+    "volumeNavTop": true,
+    "brand": "文明編年 — 文明編年史"
+   },
+   "articles": [
+    {
+     "sw": 328,
+     "cw": 328,
+     "csx": "clip"
+    }
+   ],
+   "tables": [
+    {
+     "sw": 328,
+     "cw": 328
+    }
+   ]
+  }
+ },
+ "origins-360-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 197,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "人類起源時間線 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 328,
+    "cw": 328,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 328,
+    "cw": 328
+   },
+   {
+    "sw": 328,
+    "cw": 328
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": true
+ },
+ "tech-360-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 197,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "科技與發現 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 328,
+    "cw": 328,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 328,
+    "cw": 328
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": true
+ },
+ "city-360-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 197,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "城市・基建・民生 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 328,
+    "cw": 328,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 328,
+    "cw": 328
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": true
+ },
+ "L-360-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 360,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 19,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 571,
+    "cw": 328,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 339,
+    "cw": 171,
+    "sh": 20,
+    "ch": 20
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 105,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 196,
+    "cw": 196,
+    "sh": 63,
+    "ch": 42
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 1,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 1,
+   "axisRails": 1,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "文明編年史 — 從宇宙到今天"
+  },
+  "articles": [],
+  "tables": [],
+  "consoleErrors": [
+   "console: Failed to load resource: net::ERR_FAILED"
+  ],
+  "themeActive": true
+ },
+ "H-390-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 19,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 624,
+    "cw": 358,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 339,
+    "cw": 201,
+    "sh": 20,
+    "ch": 20
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 84,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 63,
+    "ch": 42
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 1,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 1,
+   "axisRails": 1,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "文明編年史 — 從宇宙到今天"
+  },
+  "articles": [],
+  "tables": [],
+  "consoleErrors": [
+   "console: Failed to load resource: net::ERR_FAILED"
+  ],
+  "themeActive": false
+ },
+ "C-390-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 624,
+    "cw": 358,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 227,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 0,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "人類文明 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 358,
+    "cw": 358,
+    "csx": "clip"
+   }
+  ],
+  "tables": [],
+  "consoleErrors": [],
+  "themeActive": false
+ },
+ "N-390-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 227,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 1,
+   "chNow": 1,
+   "chFuture": 1,
+   "stages": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": true,
+   "brand": "文明編年 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 358,
+    "cw": 358,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 358,
+    "cw": 358
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": false,
+  "tailProbe": {
+   "errors": [],
+   "docHscroll": 0,
+   "docHscrollAlt": 0,
+   "innerWidth": 390,
+   "offenders": [
+    {
+     "path": "label.sr-only",
+     "sw": 32,
+     "cw": 1,
+     "sh": 24,
+     "ch": 1
+    },
+    {
+     "path": "a",
+     "sw": 331,
+     "cw": 227,
+     "sh": 20,
+     "ch": 20
+    }
+   ],
+   "overlaps": [],
+   "clips": [],
+   "touch": [],
+   "spacing": [],
+   "dom": {
+    "chrome": 1,
+    "axisTitle": 0,
+    "deepAxis": 0,
+    "axisCta": 0,
+    "volumeCard": 0,
+    "chronicleBand": 0,
+    "patternAxis": 0,
+    "caseAxis": 0,
+    "civNav": 1,
+    "slice": 0,
+    "axisRails": 0,
+    "chAncient": 1,
+    "chNow": 1,
+    "chFuture": 1,
+    "stages": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "originsH3": 0,
+    "stageNavTop": false,
+    "volumeNavTop": true,
+    "brand": "文明編年 — 文明編年史"
+   },
+   "articles": [
+    {
+     "sw": 358,
+     "cw": 358,
+     "csx": "clip"
+    }
+   ],
+   "tables": [
+    {
+     "sw": 358,
+     "cw": 358
+    }
+   ]
+  }
+ },
+ "origins-390-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 227,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "人類起源時間線 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 358,
+    "cw": 358,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 358,
+    "cw": 358
+   },
+   {
+    "sw": 358,
+    "cw": 358
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": false
+ },
+ "tech-390-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 227,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "科技與發現 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 358,
+    "cw": 358,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 358,
+    "cw": 358
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": false
+ },
+ "city-390-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 227,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "城市・基建・民生 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 358,
+    "cw": 358,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 358,
+    "cw": 358
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": false
+ },
+ "L-390-light": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 19,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 624,
+    "cw": 358,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 339,
+    "cw": 201,
+    "sh": 20,
+    "ch": 20
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 84,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 63,
+    "ch": 42
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 1,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 1,
+   "axisRails": 1,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "文明編年史 — 從宇宙到今天"
+  },
+  "articles": [],
+  "tables": [],
+  "consoleErrors": [
+   "console: Failed to load resource: net::ERR_FAILED"
+  ],
+  "themeActive": false
+ },
+ "H-390-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 19,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 624,
+    "cw": 358,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 339,
+    "cw": 201,
+    "sh": 20,
+    "ch": 20
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 84,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 63,
+    "ch": 42
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 1,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 1,
+   "axisRails": 1,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "文明編年史 — 從宇宙到今天"
+  },
+  "articles": [],
+  "tables": [],
+  "consoleErrors": [
+   "console: Failed to load resource: net::ERR_FAILED"
+  ],
+  "themeActive": true
+ },
+ "C-390-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 624,
+    "cw": 358,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 227,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 0,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "人類文明 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 358,
+    "cw": 358,
+    "csx": "clip"
+   }
+  ],
+  "tables": [],
+  "consoleErrors": [],
+  "themeActive": true
+ },
+ "N-390-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 227,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 1,
+   "chNow": 1,
+   "chFuture": 1,
+   "stages": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": true,
+   "brand": "文明編年 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 358,
+    "cw": 358,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 358,
+    "cw": 358
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": true,
+  "tailProbe": {
+   "errors": [],
+   "docHscroll": 0,
+   "docHscrollAlt": 0,
+   "innerWidth": 390,
+   "offenders": [
+    {
+     "path": "label.sr-only",
+     "sw": 32,
+     "cw": 1,
+     "sh": 24,
+     "ch": 1
+    },
+    {
+     "path": "a",
+     "sw": 331,
+     "cw": 227,
+     "sh": 20,
+     "ch": 20
+    }
+   ],
+   "overlaps": [],
+   "clips": [],
+   "touch": [],
+   "spacing": [],
+   "dom": {
+    "chrome": 1,
+    "axisTitle": 0,
+    "deepAxis": 0,
+    "axisCta": 0,
+    "volumeCard": 0,
+    "chronicleBand": 0,
+    "patternAxis": 0,
+    "caseAxis": 0,
+    "civNav": 1,
+    "slice": 0,
+    "axisRails": 0,
+    "chAncient": 1,
+    "chNow": 1,
+    "chFuture": 1,
+    "stages": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "originsH3": 0,
+    "stageNavTop": false,
+    "volumeNavTop": true,
+    "brand": "文明編年 — 文明編年史"
+   },
+   "articles": [
+    {
+     "sw": 358,
+     "cw": 358,
+     "csx": "clip"
+    }
+   ],
+   "tables": [
+    {
+     "sw": 358,
+     "cw": 358
+    }
+   ]
+  }
+ },
+ "origins-390-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 227,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "人類起源時間線 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 358,
+    "cw": 358,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 358,
+    "cw": 358
+   },
+   {
+    "sw": 358,
+    "cw": 358
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": true
+ },
+ "tech-390-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 227,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "科技與發現 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 358,
+    "cw": 358,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 358,
+    "cw": 358
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": true
+ },
+ "city-390-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 24,
+    "ch": 1
+   },
+   {
+    "path": "a",
+    "sw": 331,
+    "cw": 227,
+    "sh": 20,
+    "ch": 20
+   }
+  ],
+  "overlaps": [],
+  "clips": [],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 0,
+   "deepAxis": 0,
+   "axisCta": 0,
+   "volumeCard": 0,
+   "chronicleBand": 0,
+   "patternAxis": 0,
+   "caseAxis": 0,
+   "civNav": 1,
+   "slice": 0,
+   "axisRails": 0,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 0,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "城市・基建・民生 — 文明編年史"
+  },
+  "articles": [
+   {
+    "sw": 358,
+    "cw": 358,
+    "csx": "clip"
+   }
+  ],
+  "tables": [
+   {
+    "sw": 358,
+    "cw": 358
+   }
+  ],
+  "consoleErrors": [],
+  "themeActive": true
+ },
+ "L-390-dark": {
+  "errors": [],
+  "docHscroll": 0,
+  "docHscrollAlt": 0,
+  "innerWidth": 390,
+  "offenders": [
+   {
+    "path": "label.sr-only",
+    "sw": 32,
+    "cw": 1,
+    "sh": 19,
+    "ch": 1
+   },
+   {
+    "path": "div.deep-axis",
+    "sw": 624,
+    "cw": 358,
+    "sh": 69,
+    "ch": 69
+   },
+   {
+    "path": "a",
+    "sw": 339,
+    "cw": 201,
+    "sh": 20,
+    "ch": 20
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 84,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 63,
+    "ch": 42
+   },
+   {
+    "path": "a.rank-title",
+    "sw": 226,
+    "cw": 226,
+    "sh": 63,
+    "ch": 42
+   }
+  ],
+  "overlaps": [],
+  "clips": [
+   ".axis-node .lab::城市",
+   ".axis-node .lab::今天",
+   ".axis-node .lab::未來",
+   ".axis-node .yr::基建",
+   ".axis-node .yr::切片",
+   ".axis-node .yr::展望"
+  ],
+  "touch": [],
+  "spacing": [],
+  "dom": {
+   "chrome": 1,
+   "axisTitle": 1,
+   "deepAxis": 1,
+   "axisCta": 1,
+   "volumeCard": 3,
+   "chronicleBand": 1,
+   "patternAxis": 1,
+   "caseAxis": 1,
+   "civNav": 1,
+   "slice": 1,
+   "axisRails": 1,
+   "chAncient": 0,
+   "chNow": 0,
+   "chFuture": 0,
+   "stages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "originsH3": 1,
+   "stageNavTop": false,
+   "volumeNavTop": false,
+   "brand": "文明編年史 — 從宇宙到今天"
+  },
+  "articles": [],
+  "tables": [],
+  "consoleErrors": [
+   "console: Failed to load resource: net::ERR_FAILED"
+  ],
+  "themeActive": true
+ },
+ "click-H-390-light": {
+  "axisCtas": [
+   {
+    "text": "打開文明總覽",
+    "href": "/civilization/"
+   },
+   {
+    "text": "跳到今日切片",
+    "href": "#slice"
+   }
+  ],
+  "jumpToSlice": {
+   "found": true,
+   "box": {
+    "x": 120,
+    "y": 106,
+    "width": 44,
+    "height": 44,
+    "top": 106,
+    "right": 164,
+    "bottom": 150,
+    "left": 120
+   }
+  },
+  "sliceTop": 2238.125,
+  "stickyLayers": [
+   {
+    "p": "div.chrome",
+    "pos": "sticky",
+    "h": 161
+   }
+  ],
+  "anchorOffset": "220px"
+ },
+ "click-C-390-light": {
+  "axisCtas": [
+   {
+    "text": "閱讀人類起源",
+    "href": "/civilization/origins/"
+   },
+   {
+    "text": "跳到今日切片",
+    "href": "/#slice"
+   }
+  ],
+  "jumpToSlice": {
+   "found": true,
+   "box": {
+    "x": 120.03125,
+    "y": 58,
+    "width": 44.015625,
+    "height": 44,
+    "top": 58,
+    "right": 164.046875,
+    "bottom": 102,
+    "left": 120.03125
+   }
+  },
+  "sliceTop": null,
+  "stickyLayers": [
+   {
+    "p": "div.chrome",
+    "pos": "sticky",
+    "h": 117
+   }
+  ],
+  "anchorOffset": "133px"
+ },
+ "click-C-360-dark": {
+  "axisCtas": [
+   {
+    "text": "閱讀人類起源",
+    "href": "/civilization/origins/"
+   },
+   {
+    "text": "跳到今日切片",
+    "href": "/#slice"
+   }
+  ],
+  "jumpToSlice": {
+   "found": true,
+   "box": {
+    "x": 120.03125,
+    "y": 58,
+    "width": 44.015625,
+    "height": 44,
+    "top": 58,
+    "right": 164.046875,
+    "bottom": 102,
+    "left": 120.03125
+   }
+  },
+  "sliceTop": null,
+  "stickyLayers": [
+   {
+    "p": "div.chrome",
+    "pos": "sticky",
+    "h": 117
+   }
+  ],
+  "anchorOffset": "133px"
+ },
+ "click-N-360-light": {
+  "axisCtas": [],
+  "jumpToSlice": {
+   "found": true,
+   "box": {
+    "x": 120.03125,
+    "y": 58,
+    "width": 44.015625,
+    "height": 44,
+    "top": 58,
+    "right": 164.046875,
+    "bottom": 102,
+    "left": 120.03125
+   }
+  },
+  "sliceTop": null,
+  "stickyLayers": [
+   {
+    "p": "div.chrome",
+    "pos": "sticky",
+    "h": 202
+   }
+  ],
+  "anchorOffset": "218px"
+ }
+}
