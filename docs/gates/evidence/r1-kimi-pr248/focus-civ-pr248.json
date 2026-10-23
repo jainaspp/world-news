@@ -1,0 +1,382 @@
+[
+  {
+    "cell": "civ/360/dark",
+    "deepExists": true,
+    "deepCards": [
+      {
+        "title": "宇宙長河・深時間",
+        "href": "/civilization/cosmos/"
+      },
+      {
+        "title": "地球生命・深時間",
+        "href": "/civilization/earth/"
+      }
+    ],
+    "deepOriginsLinks": 0,
+    "deepOriginsText": false,
+    "deepHeadings": [
+      "深時間",
+      "宇宙長河・深時間",
+      "地球生命・深時間"
+    ],
+    "gridCols": "328px",
+    "covers": [
+      {
+        "aria": "宇宙長河",
+        "w": 326,
+        "h": 204
+      },
+      {
+        "aria": "地球生命",
+        "w": 326,
+        "h": 204
+      }
+    ],
+    "axis": {
+      "before": {
+        "sw": 571,
+        "cw": 328,
+        "sl": 0
+      },
+      "after": {
+        "sl": 243
+      },
+      "nodesAtEnd": [
+        {
+          "label": "宇宙~138億",
+          "left": -219,
+          "right": -150,
+          "fullyInTrack": false,
+          "inViewport": false
+        },
+        {
+          "label": "地球~40億",
+          "left": -138,
+          "right": -69,
+          "fullyInTrack": false,
+          "inViewport": false
+        },
+        {
+          "label": "起源~300ka",
+          "left": -57,
+          "right": 12,
+          "fullyInTrack": false,
+          "inViewport": false
+        },
+        {
+          "label": "技術發現",
+          "left": 24,
+          "right": 93,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "城市基建",
+          "left": 105,
+          "right": 174,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "今天切片",
+          "left": 186,
+          "right": 255,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "未來展望",
+          "left": 267,
+          "right": 336,
+          "fullyInTrack": true,
+          "inViewport": true
+        }
+      ]
+    }
+  },
+  {
+    "cell": "civ/360/light",
+    "deepExists": true,
+    "deepCards": [
+      {
+        "title": "宇宙長河・深時間",
+        "href": "/civilization/cosmos/"
+      },
+      {
+        "title": "地球生命・深時間",
+        "href": "/civilization/earth/"
+      }
+    ],
+    "deepOriginsLinks": 0,
+    "deepOriginsText": false,
+    "deepHeadings": [
+      "深時間",
+      "宇宙長河・深時間",
+      "地球生命・深時間"
+    ],
+    "gridCols": "328px",
+    "covers": [
+      {
+        "aria": "宇宙長河",
+        "w": 326,
+        "h": 204
+      },
+      {
+        "aria": "地球生命",
+        "w": 326,
+        "h": 204
+      }
+    ],
+    "axis": {
+      "before": {
+        "sw": 571,
+        "cw": 328,
+        "sl": 0
+      },
+      "after": {
+        "sl": 243
+      },
+      "nodesAtEnd": [
+        {
+          "label": "宇宙~138億",
+          "left": -219,
+          "right": -150,
+          "fullyInTrack": false,
+          "inViewport": false
+        },
+        {
+          "label": "地球~40億",
+          "left": -138,
+          "right": -69,
+          "fullyInTrack": false,
+          "inViewport": false
+        },
+        {
+          "label": "起源~300ka",
+          "left": -57,
+          "right": 12,
+          "fullyInTrack": false,
+          "inViewport": false
+        },
+        {
+          "label": "技術發現",
+          "left": 24,
+          "right": 93,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "城市基建",
+          "left": 105,
+          "right": 174,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "今天切片",
+          "left": 186,
+          "right": 255,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "未來展望",
+          "left": 267,
+          "right": 336,
+          "fullyInTrack": true,
+          "inViewport": true
+        }
+      ]
+    }
+  },
+  {
+    "cell": "civ/390/dark",
+    "deepExists": true,
+    "deepCards": [
+      {
+        "title": "宇宙長河・深時間",
+        "href": "/civilization/cosmos/"
+      },
+      {
+        "title": "地球生命・深時間",
+        "href": "/civilization/earth/"
+      }
+    ],
+    "deepOriginsLinks": 0,
+    "deepOriginsText": false,
+    "deepHeadings": [
+      "深時間",
+      "宇宙長河・深時間",
+      "地球生命・深時間"
+    ],
+    "gridCols": "358px",
+    "covers": [
+      {
+        "aria": "宇宙長河",
+        "w": 356,
+        "h": 223
+      },
+      {
+        "aria": "地球生命",
+        "w": 356,
+        "h": 223
+      }
+    ],
+    "axis": {
+      "before": {
+        "sw": 624,
+        "cw": 358,
+        "sl": 0
+      },
+      "after": {
+        "sl": 266
+      },
+      "nodesAtEnd": [
+        {
+          "label": "宇宙~138億",
+          "left": -242,
+          "right": -165,
+          "fullyInTrack": false,
+          "inViewport": false
+        },
+        {
+          "label": "地球~40億",
+          "left": -153,
+          "right": -77,
+          "fullyInTrack": false,
+          "inViewport": false
+        },
+        {
+          "label": "起源~300ka",
+          "left": -65,
+          "right": 12,
+          "fullyInTrack": false,
+          "inViewport": false
+        },
+        {
+          "label": "技術發現",
+          "left": 24,
+          "right": 100,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "城市基建",
+          "left": 112,
+          "right": 189,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "今天切片",
+          "left": 201,
+          "right": 277,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "未來展望",
+          "left": 289,
+          "right": 366,
+          "fullyInTrack": true,
+          "inViewport": true
+        }
+      ]
+    }
+  },
+  {
+    "cell": "civ/1280/light",
+    "deepExists": true,
+    "deepCards": [
+      {
+        "title": "宇宙長河・深時間",
+        "href": "/civilization/cosmos/"
+      },
+      {
+        "title": "地球生命・深時間",
+        "href": "/civilization/earth/"
+      }
+    ],
+    "deepOriginsLinks": 0,
+    "deepOriginsText": false,
+    "deepHeadings": [
+      "深時間",
+      "宇宙長河・深時間",
+      "地球生命・深時間"
+    ],
+    "gridCols": "484px 484px",
+    "covers": [
+      {
+        "aria": "宇宙長河",
+        "w": 482,
+        "h": 301
+      },
+      {
+        "aria": "地球生命",
+        "w": 482,
+        "h": 301
+      }
+    ],
+    "axis": {
+      "before": {
+        "sw": 968,
+        "cw": 968,
+        "sl": 0
+      },
+      "after": {
+        "sl": 0
+      },
+      "nodesAtEnd": [
+        {
+          "label": "宇宙~138億",
+          "left": 156,
+          "right": 287,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "地球~40億",
+          "left": 295,
+          "right": 427,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "起源~300ka",
+          "left": 435,
+          "right": 566,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "技術發現",
+          "left": 574,
+          "right": 706,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "城市基建",
+          "left": 714,
+          "right": 845,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "今天切片",
+          "left": 853,
+          "right": 985,
+          "fullyInTrack": true,
+          "inViewport": true
+        },
+        {
+          "label": "未來展望",
+          "left": 993,
+          "right": 1124,
+          "fullyInTrack": true,
+          "inViewport": true
+        }
+      ]
+    }
+  }
+]
