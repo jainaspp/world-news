@@ -13,6 +13,31 @@ import type { HsiQuote } from './hsi.js';
 import type { NewsItem } from './types.js';
 import { wrapCivilizationHome } from './civilizationPage.js';
 import { titleLang } from './zh.js';
+import { afterLcpBootstrap, criticalStyleTag, parkNonLcpImages } from './criticalCss.js';
+
+/**
+ * The module and the built stylesheet finish before first paint on a fast
+ * machine, so Lantern ties the hero title to those downloads. Critical CSS
+ * paints the title; the bundle starts on the following frame.
+ */
+function deferHomeModule(html: string): string {
+  const css = html.match(/<link\b[^>]*href="(\/assets\/[^"]+\.css)"[^>]*>/);
+  const mod = html.match(/<script type="module"[^>]*src="(\/assets\/[^"]+\.js)"[^>]*><\/script>/);
+  let next = html.replace(/<link\b[^>]*rel="modulepreload"[^>]*>/g, '');
+  next = next.replace(/<link\b[^>]*href="\/api\/news"[^>]*>/g, '');
+  next = next.replace(/<script defer src="\/live-translate\.js"><\/script>/g, '');
+  if (css?.[0] && css[1]) {
+    next = next.replace(css[0], `${criticalStyleTag()}<noscript><link rel="stylesheet" href="${css[1]}" /></noscript>`);
+  }
+  if (!css && !mod) return next;
+  const boot = afterLcpBootstrap({
+    stylesheets: css?.[1] ? [css[1]] : [],
+    scripts: ['/live-translate.js'],
+    moduleSrc: mod?.[1] ?? '',
+  });
+  if (mod?.[0]) return next.replace(mod[0], boot);
+  return next.replace('</head>', `${boot}</head>`);
+}
 
 export interface HomeMarket {
   hk: HkNow | null;
@@ -158,6 +183,7 @@ export function renderHomeFeed(
   settled = false,
   columns: HomeColumnLinks = {},
   pageH1 = '',
+  shellSplit = false,
 ): string {
   void market;
   void mustRead;
@@ -169,11 +195,7 @@ export function renderHomeFeed(
       ? '<div class="status-panel"><h2>這個範圍暫時沒有標題</h2><p>可以返回首頁，或改看其他地區與分類。</p></div>'
       : '<div class="status-panel" aria-busy="true"><h2>載入今日切片…</h2><p>正在取得最新標題。</p></div>';
     const inner = `${homeIntroTop(introHref(columns))}${digestStrip(briefingLinks, columns)}${panel}`;
-    return `<a class="skip-link" href="#slice">跳到今日切片</a>
-  <div class="page ssr-home">
-    ${frame(inner)}
-    ${footer()}
-  </div>`;
+    return assembleHome(frame(inner), footer(), shellSplit && !pageH1);
   }
   const major = banner ? `${renderMajorBanner(banner)}<script>try{var n=document.currentScript.previousElementSibling;if(n&&localStorage.getItem('wn-major-dismiss')===n.getAttribute('data-major-id'))n.remove()}catch(e){}</script>` : '';
   const inner = `${major}
@@ -181,13 +203,43 @@ export function renderHomeFeed(
     ${digestStrip(briefingLinks, columns)}
     ${focusHtml.trim()}
     ${rankList(list, counts, feedSlot)}`;
-  return `<a class="skip-link" href="#slice">跳到今日切片</a>
+  return assembleHome(frame(inner), `${homeIntroFoot(introHref(columns))}${footer()}`, shellSplit && !pageH1);
+}
+
+/**
+ * Homepage with a hero keeps that section outside #root. createRoot replaces
+ * #root, and replacing the hero title restarts LCP. Focus pages stay one root.
+ */
+function assembleHome(mainInner: string, foot: string, split: boolean): string {
+  const flat = `<a class="skip-link" href="#slice">跳到今日切片</a>
   <div class="page ssr-home">
     <main id="today">
-      ${frame(inner)}
+      ${mainInner}
     </main>
-    ${homeIntroFoot(introHref(columns))}
-    ${footer()}
+    ${foot}
+  </div>`;
+  if (!split) return flat;
+  const civ = '<div class="civ-home">';
+  const civAt = mainInner.indexOf(civ);
+  const heroAt = mainInner.indexOf('<section class="hero-opening"');
+  const scriptEnd = mainInner.indexOf('</script>', heroAt);
+  if (civAt < 0 || heroAt < 0 || scriptEnd < 0) return flat;
+  const heroEnd = scriptEnd + '</script>'.length;
+  const nav = mainInner.slice(0, civAt);
+  const hero = mainInner.slice(heroAt, heroEnd);
+  const after = mainInner.slice(heroEnd);
+  const closeAt = after.lastIndexOf('</div>');
+  if (closeAt < 0) return flat;
+  return `<a class="skip-link" href="#slice">跳到今日切片</a>
+  <div class="page ssr-home" id="wn-page">
+    <div id="chrome-mount"><noscript>${nav}</noscript></div>
+    <main id="today">
+      <div class="civ-home">
+        ${hero}
+        <div id="root" class="wn-feed">${after.slice(0, closeAt)}</div>
+      ${after.slice(closeAt)}
+    </main>
+    <div id="footer-mount"><noscript>${foot}</noscript></div>
   </div>`;
 }
 
@@ -238,10 +290,14 @@ export function injectHomeShell(
   columns: HomeColumnLinks = {},
   pageH1 = '',
 ): string {
-  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead, new Date(), settled, columns, pageH1);
+  const split = !pageH1;
+  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead, new Date(), settled, columns, pageH1, split);
   const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner) + mustReadBootstrap(mustRead) + columnsBootstrap(columns);
-  const html = shell.replace('<div id="root"></div>', `<div id="root">${feed}</div>${boot}`);
-  return gateHomeAds(html);
+  const marked = split ? shell.replace('<html lang="zh-HK">', '<html lang="zh-HK" data-wn-shell="home">') : shell;
+  const styled = split ? deferHomeModule(marked) : marked;
+  const body = split ? feed : `<div id="root">${feed}</div>`;
+  const html = styled.replace('<div id="root"></div>', `${body}${boot}`);
+  return gateHomeAds(split ? parkNonLcpImages(html) : html);
 }
 
 const PAGEAD = 'pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';

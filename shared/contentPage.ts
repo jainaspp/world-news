@@ -10,6 +10,7 @@ import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
 import { renderCivilizationSlice } from './civilization/renderSlice.js';
 import { jdToolCardMarkup } from './jdToolCard.js';
+import { criticalStyleTag } from './criticalCss.js';
 
 /**
  * Server-rendered pages for the AI columns (/digest/, /weekly/, /analysis/).
@@ -35,7 +36,13 @@ export interface PageOptions {
 }
 
 const DEFAULT_CLIENT = 'ca-pub-8392975944327076';
-const FONTS = 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap';
+export const WEB_FONTS = 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap';
+
+export interface HeadTune {
+  /** Inline above-the-fold CSS and keep site.css, columns.css, and webfonts off the LCP path. */
+  lcp?: boolean;
+  imagePreload?: { href: string; srcset: string; sizes: string };
+}
 
 export function esc(value: string): string {
   return String(value ?? '').replace(/[&<>"']/g, (char) => (
@@ -259,7 +266,24 @@ export function columnIndexable(doc: ContentDoc): boolean {
   return false;
 }
 
-export function head(title: string, description: string, canonical: string, image: string, type: string, extra: string, client: string, loadAds = true): string {
+export function head(title: string, description: string, canonical: string, image: string, type: string, extra: string, client: string, loadAds = true, tune?: HeadTune): string {
+  const lcp = Boolean(tune?.lcp);
+  const preload = tune?.imagePreload;
+  const imagePreload = preload
+    ? `<link rel="preload" as="image" href="${esc(preload.href)}" imagesrcset="${esc(preload.srcset)}" imagesizes="${esc(preload.sizes)}" fetchpriority="high" />`
+    : '';
+  const styles = lcp
+    ? `${criticalStyleTag()}${imagePreload}<noscript><link rel="stylesheet" href="/site.css" /><link rel="stylesheet" href="/columns.css" /></noscript>`
+    : `<link rel="stylesheet" href="/site.css" />
+  <link rel="stylesheet" href="/columns.css" />`;
+  const fonts = lcp
+    ? `<noscript><link rel="stylesheet" href="${WEB_FONTS}" /></noscript>`
+    : `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="${WEB_FONTS}" media="print" onload="this.media='all'" />`;
+  const runtime = lcp
+    ? ''
+    : `<script defer src="/live-translate.js"></script>
+  <script defer src="/columns.js"></script>`;
   return `<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -285,13 +309,10 @@ export function head(title: string, description: string, canonical: string, imag
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.json" />
   <script>try{var s=localStorage.getItem('darkMode');if(s==='true'||(s!=='false'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');var l=localStorage.getItem('wn_lang');if(l==='en'||l==='zh-CN'||l==='zh-HK')document.documentElement.lang=l}catch(e){}</script>
-  <link rel="stylesheet" href="/site.css" />
-  <link rel="stylesheet" href="/columns.css" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="${FONTS}" media="print" onload="this.media='all'" />
+  ${styles}
+  ${fonts}
   ${loadAds && client && adsRuntimeEnabled() ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(client)}" crossorigin="anonymous"></script>` : ''}
-  <script defer src="/live-translate.js"></script>
-  <script defer src="/columns.js"></script>
+  ${runtime}
   ${extra}
 </head>`;
 }

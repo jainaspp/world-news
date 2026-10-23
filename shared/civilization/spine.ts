@@ -57,7 +57,7 @@ export const SPINE: SpineNode[] = [
       dataStage: true,
       cover: () => {
         const first = COSMOS_STAGES[0];
-        return first ? cosmoCoverImg(first, true) : '';
+        return first ? cosmoCoverImg(first, false) : '';
       },
     },
   },
