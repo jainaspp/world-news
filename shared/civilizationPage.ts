@@ -1,5 +1,6 @@
 import { siteBrand } from './brand.js';
-import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPage.js';
+import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head, WEB_FONTS } from './contentPage.js';
+import { afterLcpBootstrap, parkNonLcpImages } from './criticalCss.js';
 import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderVolumeBoard, renderVolumeCards } from './civilization/chronicle.js';
 import { renderBulletinClock } from './civilization/clock.js';
 import { renderCaseAxisLinks } from './civilization/cases.js';
@@ -98,6 +99,27 @@ export function civilizationPublicPaths(): string[] {
 
 const CIV = '/static/civilization';
 
+/** Axis band photograph. srcset lets a 412px phone take 960w instead of the 1280w 2x file. */
+export const AXIS_VIGNETTE = {
+  src: `${CIV}/civ-home-axis-bg-640w.webp`,
+  srcset: [
+    `${CIV}/civ-home-axis-bg-640w.webp 640w`,
+    `${CIV}/civ-home-axis-bg-960w.webp 960w`,
+    `${CIV}/civ-home-axis-bg-1280w.webp 1280w`,
+    `${CIV}/civ-home-axis-bg-1920w.webp 1920w`,
+  ].join(', '),
+  sizes: '100vw',
+  width: 1280,
+  height: 720,
+} as const;
+
+function axisVignette(priority: 'high' | 'low'): string {
+  const hint = priority === 'high'
+    ? ' id="wn-lcp" fetchpriority="high" decoding="sync"'
+    : ' loading="lazy" fetchpriority="low" decoding="async"';
+  return `<div class="axis-vignette" aria-hidden="true"><img src="${AXIS_VIGNETTE.src}" srcset="${AXIS_VIGNETTE.srcset}" sizes="${AXIS_VIGNETTE.sizes}" width="${AXIS_VIGNETTE.width}" height="${AXIS_VIGNETTE.height}" alt=""${hint} /></div>`;
+}
+
 function civImage(options: {
   src: string;
   srcset?: string;
@@ -148,7 +170,6 @@ function hubHero(): string {
     width: 1280,
     height: 720,
     alt: '人類文明溫和史示意：紙感長河',
-    eager: true,
   })}<figcaption>人類文明</figcaption></figure>`;
 }
 
@@ -210,7 +231,7 @@ export function renderHomeChronicle(): string {
   return `<div class="chronicle-band"><section class="volume-board" aria-label="三卷入口">${renderVolumeCards()}</section></div>`;
 }
 
-export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: string; todayHref?: string; asHeading?: boolean; strip?: boolean; rails?: boolean } = {}): string {
+export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: string; todayHref?: string; asHeading?: boolean; strip?: boolean; rails?: boolean; vignette?: 'high' | 'low' } = {}): string {
   const primaryHref = options.primaryHref ?? '/civilization/';
   const primaryLabel = options.primaryLabel ?? '打開文明總覽';
   const todayHref = options.todayHref ?? '#slice';
@@ -220,8 +241,9 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
   const strip = options.strip ? renderVolumeCards() : '';
   const rails = options.rails === false ? '' : `${renderPatternAxisLinks()}${renderCaseAxisLinks()}`;
   const slim = options.rails === false ? ' axis-slim' : '';
+  const vignette = axisVignette(options.vignette ?? 'high');
   return `<section class="axis-hero${slim}" id="civ" aria-label="文明軸">
-    <div class="axis-vignette" aria-hidden="true"></div>
+    ${vignette}
     <p class="kicker">Human span · 溫和史</p>
     ${title}
     <p class="axis-lede">軸由宇宙走到今天，再望向未來。新聞是軸上的一刀。先看見尺度，再讀今日。</p>
@@ -316,7 +338,7 @@ export function wrapCivilizationHome(inner: string, now = new Date(), topic = fa
   return `${renderCivNav(topic)}
   <div class="civ-home">
     ${opening}
-    ${renderAxisBand({ asHeading: !pageH1, strip: false, rails: false })}
+    ${renderAxisBand({ asHeading: !pageH1, strip: false, rails: false, vignette: 'low' })}
     ${renderBulletinClock()}
     ${renderHomeChronicle()}
     ${renderAxisRails()}
@@ -339,12 +361,25 @@ function shell(options: {
   body: string;
   indexable: boolean;
   status?: number;
+  /** Hub only: the axis photograph is the LCP element. */
+  lcp?: boolean;
 }): { html: string; status: number; indexable: boolean } {
   const canonical = `${ORIGIN}${options.path}`;
   const robots = `<meta name="robots" content="${options.indexable ? 'index,follow' : 'noindex,follow'}" />`;
-  const html = `<!doctype html>
+  const tune = options.lcp
+    ? { lcp: true, imagePreload: { href: AXIS_VIGNETTE.src, srcset: AXIS_VIGNETTE.srcset, sizes: AXIS_VIGNETTE.sizes } }
+    : undefined;
+  const late = options.lcp
+    ? afterLcpBootstrap({
+      stylesheets: ['/site.css', '/columns.css'],
+      scripts: ['/live-translate.js', '/columns.js'],
+      fonts: WEB_FONTS,
+      imageId: 'wn-lcp',
+    })
+    : '';
+  const raw = `<!doctype html>
 <html lang="zh-HK">
-${head(options.title, options.description, canonical, '', 'website', `${robots}\n  ${CIV_MOTION_BOOT}`, '', false)}
+${head(options.title, options.description, canonical, '', 'website', `${robots}\n  ${CIV_MOTION_BOOT}`, '', false, tune)}
 <body>
   <div class="page column-page heritage-page civ-page" data-kind="civilization">
   ${chrome('civilization')}
@@ -353,8 +388,10 @@ ${head(options.title, options.description, canonical, '', 'website', `${robots}\
   </main>
   ${footer(false)}
   </div>
+  ${late}
 </body>
 </html>`;
+  const html = options.lcp ? parkNonLcpImages(raw) : raw;
   return { html, status: options.status ?? 200, indexable: options.indexable };
 }
 
@@ -431,6 +468,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
     path: '/civilization/',
     body,
     indexable,
+    lcp: true,
   });
   return { ...page, html: moveHubSignalsBelowAxis(page.html) };
 }

@@ -377,7 +377,20 @@ describe('P1-MIN-FONT computed sample at M', () => {
           seenFiles.add(page.file);
         }
         await probe.viewport(360, 800);
-        await probe.evaluate<void>('new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
+        await probe.evaluate<void>(`new Promise((resolve) => {
+          const start = Date.now();
+          function ready() {
+            for (const sheet of document.styleSheets) {
+              try { if (sheet.cssRules && sheet.cssRules.length > 40) return true; } catch (e) {}
+            }
+            return false;
+          }
+          function tick() {
+            if (ready() || Date.now() - start > 2500) resolve();
+            else requestAnimationFrame(tick);
+          }
+          tick();
+        })`);
         const raw = await probe.evaluate<string>(measureScript(page.scope));
         const sample = JSON.parse(raw) as {
           width: number;

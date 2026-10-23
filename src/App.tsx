@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { breakingIds } from '../shared/breaking';
 import { analysisSlug } from '../shared/content';
 import { CATEGORIES } from '../shared/categories';
@@ -38,6 +39,16 @@ import { useFollows } from './hooks/useFollows';
 import { useNews } from './hooks/useNews';
 import { readView, viewHref, type ViewState } from './routing';
 import { bindHomeHashScroll } from './homeHash';
+
+/** Present when the homepage SSR hero sits outside #root. */
+function homeShellTargets(): { chrome: HTMLElement; footer: HTMLElement } | null {
+  if (typeof document === 'undefined') return null;
+  if (document.documentElement.dataset.wnShell !== 'home') return null;
+  const chrome = document.getElementById('chrome-mount');
+  const footer = document.getElementById('footer-mount');
+  if (!chrome || !footer) return null;
+  return { chrome, footer };
+}
 import { scrollBehavior } from './utils/scroll';
 import './App.css';
 
@@ -345,6 +356,13 @@ export default function App() {
   }, [items]);
   const special = view.bookmarks || view.following;
   const poeticAxis = !special && view.region === 'ALL' && view.category === 'all' && !view.q.trim() && !view.source.trim() && view.time === 'today';
+  useEffect(() => {
+    if (document.documentElement.dataset.wnShell !== 'home') return;
+    const hero = document.getElementById('hero-opening');
+    const root = document.getElementById('root');
+    if (!hero || (root && root.contains(hero))) return;
+    hero.hidden = !poeticAxis;
+  }, [poeticAxis]);
   const focusLabel = !focusPage
     ? ''
     : focusPage.scope === 'region'
@@ -390,9 +408,8 @@ export default function App() {
     return displayTitle(item.title, lang);
   }
 
-  return (
-    <ErrorBoundary>
-      <div className="page">
+  const shell = homeShellTargets();
+  const chrome = (
         <div className="chrome">
           <header className="masthead">
             <h1 className="masthead-title">
@@ -555,13 +572,11 @@ export default function App() {
             </div>
           )}
         </div>
-
-        <div className="layout layout-span">
-          <main id="today">
-            {!special && (
-              <div className="civ-home">
+  );
+  const homeStory = !special ? (
+              <>
                 {poeticAxis && <HeroOpening />}
-                <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false, rails: false }) }} />
+                <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false, rails: false, vignette: 'low' }) }} />
                 <div dangerouslySetInnerHTML={{ __html: renderBulletinClock() }} />
                 <div dangerouslySetInnerHTML={{ __html: renderHomeChronicle() }} />
                 <div dangerouslySetInnerHTML={{ __html: renderAxisRails() }} />
@@ -614,9 +629,9 @@ export default function App() {
                 <div dangerouslySetInnerHTML={{ __html: moreTodayHtml() }} />
                 <div dangerouslySetInnerHTML={{ __html: renderLayerAside() }} />
                 <MostRead rows={popular} variant="below" lang={lang} />
-              </div>
-            )}
-            {special && (
+              </>
+  ) : null;
+  const specialStory = special ? (
               <section aria-label={view.bookmarks ? t('bookmarks', lang) : t('following', lang)}>
                 {view.following && follows.count > 0 && (
                   <div className="follow-list">
@@ -648,11 +663,9 @@ export default function App() {
                   </div>
                 )}
               </section>
-            )}
-          </main>
-        </div>
-
-
+  ) : null;
+  const tail = (
+        <>
         {allowAds && <HomeIntroFoot />}
         <footer className="app-footer">
           <p>
@@ -680,6 +693,29 @@ export default function App() {
             {lang === 'en' ? `${freshCount} ${t('newHeadlines', lang)}` : `有 ${freshCount} ${t('newHeadlines', lang)}`}
           </button>
         )}
+        </>
+  );
+  if (shell) {
+    return (
+      <ErrorBoundary>
+        {createPortal(chrome, shell.chrome)}
+        {homeStory}
+        {specialStory}
+        {createPortal(tail, shell.footer)}
+      </ErrorBoundary>
+    );
+  }
+  return (
+    <ErrorBoundary>
+      <div className="page">
+        {chrome}
+        <div className="layout layout-span">
+          <main id="today">
+            {!special && <div className="civ-home">{homeStory}</div>}
+            {specialStory}
+          </main>
+        </div>
+        {tail}
       </div>
     </ErrorBoundary>
   );

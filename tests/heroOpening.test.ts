@@ -27,8 +27,9 @@ import {
   type HeroPhase,
 } from '../shared/heroOpening';
 import { cssColorToRgb, heroStarPoint, rollHeroStars, syncHeroStarField } from '../shared/heroStars';
+import { CRITICAL_CSS } from '../shared/criticalCss';
 import { phoneSpineSlots, slotsPastViewport } from '../shared/spineTrack';
-import { renderHomeFeed } from '../shared/homePage';
+import { injectHomeShell, renderHomeFeed } from '../shared/homePage';
 
 /** Same particle scan as copy.test.ts; the Hero may be playful, never Cantonese-colloquial. */
 const PARTICLES = /我哋|嘅|喺|咗|點樣|决|嘢|咁|同埋|呢個|呢啲|呢|唔|冇|仲未|撳|睇/g;
@@ -125,6 +126,27 @@ describe('hero opening SSR', () => {
     expect(script).not.toContain('hero-kicker');
   });
 
+  it('keeps the painted hero outside the React root', () => {
+    const shell = '<html lang="zh-HK"><head><link rel="stylesheet" crossorigin href="/assets/index-test.css"></head><body><div id="root"></div></body></html>';
+    const html = injectHomeShell(shell, []);
+    expect(html).toContain('data-wn-shell="home"');
+    expect(html).toContain('id="wn-critical"');
+    expect(html).toContain('.hero-title');
+    expect(html).toContain('id="chrome-mount"');
+    expect(html).toContain('id="footer-mount"');
+    expect(html).toContain('class="wn-feed"');
+    expect(html).toContain('id="wn-lcp-boot"');
+    expect(html).not.toContain('media="print" onload="this.media=\'all\'"');
+    expect(html).not.toContain('rel="modulepreload"');
+    const hero = html.indexOf('id="hero-opening"');
+    const root = html.indexOf('id="root"');
+    expect(hero).toBeGreaterThan(-1);
+    expect(root).toBeGreaterThan(hero);
+    const rootBlock = html.slice(root, html.indexOf('id="footer-mount"'));
+    expect(rootBlock).not.toContain('id="hero-opening"');
+    expect(html).toContain('fetchpriority="low"');
+  });
+
   it('mounts the hero on the pure homepage only, before the axis band', () => {
     const home = renderHomeFeed([]);
     expect(home).toContain('hero-opening');
@@ -169,6 +191,9 @@ describe('hero opening client wiring', () => {
     expect(source).toContain('href={HERO_HINT.href}');
     expect(source).toContain('heroPlaybackAt');
     expect(source).toContain('__WN_HERO_T0');
+    expect(source).toContain('function hostedHero');
+    expect(source).toContain('if (hosted) return null');
+    expect(source).toContain('root.contains(node)');
     expect(source).toContain('syncHeroStarField');
     expect(source).toContain("eraRgb(section, '--era-ancient'");
     expect(source).toContain("eraRgb(section, '--era-now'");
@@ -478,6 +503,15 @@ describe('homepage anchor and brass', () => {
     expect(deep).toContain('overflow: visible');
     expect(deep).not.toContain('overflow-x: auto');
     expect(deep).not.toContain('100cqi');
+    expect(CRITICAL_CSS).toContain('.hero-hint-row { margin: 8px 0 0; }');
+    expect(CRITICAL_CSS).toContain('margin-inline: -16px');
+    expect(CRITICAL_CSS).toContain('overflow: visible');
+    expect(CRITICAL_CSS).toContain('flex: 1 1 0');
+    expect(CRITICAL_CSS).toContain('min-width: 44px');
+    expect(CRITICAL_CSS).not.toContain('100cqi');
+    expect(CRITICAL_CSS).not.toContain('overflow-x: auto');
+    expect(CRITICAL_CSS).toContain('font-size: clamp(2.9rem, 9vw, 3.6rem)');
+    expect(CRITICAL_CSS).toContain('opacity: 1');
     const milestones = narrow.slice(narrow.indexOf('.milestones {'), narrow.indexOf('.milestones::before'));
     expect(milestones).toContain('width: 100%');
     expect(milestones).toContain('gap: 8px');

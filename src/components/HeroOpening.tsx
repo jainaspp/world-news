@@ -199,6 +199,15 @@ function drawDial(
   ctx.restore();
 }
 
+/** SSR hero lives outside #root so createRoot cannot drop the LCP title. */
+function hostedHero(): HTMLElement | null {
+  if (typeof document === 'undefined') return null;
+  const node = document.getElementById('hero-opening');
+  const root = document.getElementById('root');
+  if (!(node instanceof HTMLElement) || !root || root.contains(node)) return null;
+  return node;
+}
+
 function drawRail(ctx: CanvasRenderingContext2D, width: number, height: number, alpha: number) {
   if (alpha <= 0.02) return;
   const y = height - 2;
@@ -216,6 +225,12 @@ function drawRail(ctx: CanvasRenderingContext2D, width: number, height: number, 
 export function HeroOpening() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [hosted] = useState(hostedHero);
+  if (hosted) {
+    sectionRef.current = hosted;
+    const canvas = hosted.querySelector('canvas');
+    if (canvas instanceof HTMLCanvasElement) canvasRef.current = canvas;
+  }
   const settlePaintRef = useRef<() => void>(() => {});
   const [reduced] = useState(prefersReducedMotion);
   const [boot] = useState(initialHero);
@@ -280,6 +295,33 @@ export function HeroOpening() {
   useEffect(() => {
     sectionRef.current?.setAttribute('data-hero-boot', '1');
   }, []);
+
+  useEffect(() => {
+    if (!hosted) return undefined;
+    hosted.dataset.mode = mode;
+    hosted.dataset.phase = phase;
+    hosted.dataset.chapter = chapter;
+    hosted.querySelectorAll('.hero-line').forEach((line, index) => {
+      line.setAttribute('data-on', index < revealed ? 'true' : 'false');
+    });
+    hosted.querySelector('.hero-reading')?.setAttribute('data-on', reading ? 'true' : 'false');
+    hosted.querySelector('canvas')?.classList.toggle('is-drawn', canvasOn);
+    return undefined;
+  }, [hosted, mode, phase, chapter, revealed, reading, canvasOn]);
+
+  useEffect(() => {
+    if (!hosted) return undefined;
+    const onSkip = () => skip();
+    const onReplay = () => replay();
+    const skipBtn = hosted.querySelector('[data-hero-skip]');
+    const replayBtn = hosted.querySelector('[data-hero-replay]');
+    skipBtn?.addEventListener('click', onSkip);
+    replayBtn?.addEventListener('click', onReplay);
+    return () => {
+      skipBtn?.removeEventListener('click', onSkip);
+      replayBtn?.removeEventListener('click', onReplay);
+    };
+  }, [hosted, skip, replay]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -536,6 +578,8 @@ export function HeroOpening() {
   }, [reduced, runId, finish]);
 
   const minutes = heroReadingMinutes(MONITOR_READING.minutes);
+
+  if (hosted) return null;
 
   return (
     <section
