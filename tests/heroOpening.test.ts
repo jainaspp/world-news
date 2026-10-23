@@ -1,14 +1,28 @@
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 import { describe, expect, it } from 'vitest';
+import { MONITOR_READING } from '../shared/civilization/clock';
 import {
   HERO_BEATS,
+  HERO_BOOT_FALLBACK_MS,
   HERO_HINT,
   HERO_PRIMARY,
+  HERO_READING_AT,
+  HERO_RING_AT,
+  HERO_RING_MS,
   HERO_SECONDARY,
   HERO_SEEN_KEY,
   HERO_SETTLE_AT,
+  HERO_STAGES,
+  heroAirAt,
+  heroCanvasDpr,
+  heroDialCenter,
+  heroMinuteAngle,
   heroPlaybackAt,
+  heroReadingText,
+  heroRingAlpha,
+  heroRingRadius,
+  heroStageAt,
   renderHeroOpening,
   type HeroPhase,
 } from '../shared/heroOpening';
@@ -24,29 +38,50 @@ const REDLINE = /台灣|臺灣|台湾|Taiwan|Taipei|台北|臺北|高雄|台南|
 const PHASES: readonly HeroPhase[] = ['singularity', 'bloom', 'soup', 'ignition', 'earth', 'handoff'];
 
 describe('hero opening beats', () => {
-  it('runs seven beats from singularity to handoff inside a tight timeline', () => {
-    expect(HERO_BEATS.length).toBe(7);
-    expect(HERO_BEATS[0]?.phase).toBe('singularity');
-    expect(HERO_BEATS[HERO_BEATS.length - 1]?.phase).toBe('handoff');
+  it('runs six beats from singularity to handoff inside twelve seconds', () => {
+    expect(HERO_BEATS.length).toBe(6);
+    expect(HERO_BEATS.map((beat) => beat.phase)).toEqual([
+      'singularity', 'bloom', 'ignition', 'earth', 'handoff', 'handoff',
+    ]);
+    expect(HERO_BEATS.map((beat) => beat.chapter)).toEqual([
+      'ancient', 'ancient', 'now', 'now', 'future', 'future',
+    ]);
+    expect(HERO_BEATS.some((beat) => beat.phase === 'soup')).toBe(false);
     for (const beat of HERO_BEATS) expect(PHASES).toContain(beat.phase);
     const ids = HERO_BEATS.map((beat) => beat.id);
     expect(new Set(ids).size).toBe(ids.length);
     for (let index = 1; index < HERO_BEATS.length; index += 1) {
       expect(HERO_BEATS[index]!.at).toBeGreaterThan(HERO_BEATS[index - 1]!.at);
     }
-    expect(HERO_BEATS[0]!.at).toBeGreaterThanOrEqual(400);
-    expect(HERO_SETTLE_AT).toBeGreaterThan(HERO_BEATS[HERO_BEATS.length - 1]!.at);
-    expect(HERO_SETTLE_AT).toBeLessThanOrEqual(17000);
+    expect(HERO_BEATS[0]!.at).toBe(400);
+    expect(HERO_BEATS[1]!.at).toBe(HERO_RING_AT);
+    expect(HERO_BEATS[4]!.at).toBe(HERO_READING_AT);
+    expect(HERO_SETTLE_AT).toBe(12000);
+    expect(HERO_SETTLE_AT - HERO_BEATS[HERO_BEATS.length - 1]!.at).toBe(1500);
+    expect(HERO_BOOT_FALLBACK_MS).toBe(4000);
+    expect(HERO_BOOT_FALLBACK_MS).toBeLessThan(HERO_SETTLE_AT);
   });
 
   it('keeps the narration in written Chinese with no red-line terms', () => {
-    for (const beat of HERO_BEATS) {
-      const text = `${beat.main}${beat.aside ?? ''}`;
+    const reading = heroReadingText();
+    expect(reading).toBe(`監測刻度 · 午夜前 ${MONITOR_READING.minutes} 分`);
+    expect(reading).not.toContain('距午夜');
+    const copy = [
+      ...HERO_BEATS.map((beat) => `${beat.main}${beat.aside ?? ''}`),
+      reading,
+    ];
+    for (const text of copy) {
       expect(text.match(PARTICLES) ?? []).toEqual([]);
       expect(text.match(BARE_HAI) ?? []).toEqual([]);
       expect(REDLINE.test(text)).toBe(false);
+      expect(text).not.toContain('距午夜');
+      expect(text).not.toContain('末日');
+      expect(text).not.toContain('倒數');
     }
-    expect(HERO_BEATS[0]!.main).toContain('甚麼');
+    expect(HERO_BEATS[0]!.main).toBe('甚麼都還沒有名字。');
+    expect(HERO_BEATS[1]!.aside).toBe('沒有空氣，就沒有響聲。');
+    expect(HERO_BEATS[5]!.main).toBe('三卷仍在這一屏之下。');
+    expect(HERO_BEATS.map((beat) => beat.main).join('')).not.toContain('秒');
   });
 });
 
@@ -54,8 +89,15 @@ describe('hero opening SSR', () => {
   it('renders settled markup with every line, both CTAs, and the boot fallback', () => {
     const html = renderHeroOpening();
     expect(html).toContain('class="hero-opening"');
+    expect(html).toContain('id="hero-opening"');
     expect(html).toContain('data-mode="settled"');
     expect(html).toContain('data-phase="handoff"');
+    expect(html).toContain('data-chapter="future"');
+    expect(html).toContain('class="hero-reading"');
+    expect(html).toContain(`午夜前 <span class="hero-minute">${MONITOR_READING.minutes}</span> 分`);
+    expect(html).not.toContain('距午夜');
+    expect(html).not.toContain('volume-card');
+    expect(html).not.toContain('setInterval');
     expect(html).not.toContain('<h1');
     for (const beat of HERO_BEATS) {
       expect(html).toContain(beat.main);
@@ -71,16 +113,24 @@ describe('hero opening SSR', () => {
     expect(html).toContain('aria-hidden="true"');
     expect(html).toContain('跳過開場');
     expect(html).toContain('重播開場');
+    expect(html).toContain('data-hero-replay');
     expect(html).toContain(HERO_SEEN_KEY);
     expect(html).toContain('prefers-reduced-motion: reduce');
     expect(html).toContain('heroBoot');
+    expect(html).toContain(String(HERO_BOOT_FALLBACK_MS));
+    expect(html).not.toContain('15600');
     expect(html).toContain('文明編年史');
+    const script = html.match(/<script>([\s\S]*?)<\/script>/)?.[1] ?? '';
+    expect(script).not.toContain('hero-title');
+    expect(script).not.toContain('hero-kicker');
   });
 
   it('mounts the hero on the pure homepage only, before the axis band', () => {
     const home = renderHomeFeed([]);
     expect(home).toContain('hero-opening');
     expect(home.indexOf('hero-opening')).toBeLessThan(home.indexOf('axis-hero'));
+    const heroClose = home.indexOf('</section>', home.indexOf('id="hero-opening"'));
+    expect(home.indexOf('volume-card')).toBeGreaterThan(heroClose);
     const focus = renderHomeFeed([], new Map(), null, '', null, '', undefined, [], new Date(), false, {}, '香港');
     expect(focus).not.toContain('hero-opening');
   });
@@ -100,8 +150,20 @@ describe('hero opening client wiring', () => {
     expect(source).toContain('requestAnimationFrame');
     expect(source).toContain('IntersectionObserver');
     expect(source).toContain('visibilitychange');
-    expect(source).toContain('clearTimeout');
+    expect(source).toContain('cancelAnimationFrame');
     expect(source).toContain('data-hero-boot');
+    expect(source).toContain('data-chapter');
+    expect(source).toContain('hero-reading');
+    expect(source).toContain('data-hero-replay');
+    expect(source).toContain('heroMinuteAngle');
+    expect(source).toContain('heroCanvasDpr');
+    expect(source).toContain('heroDialCenter');
+    expect(source).toContain('heroRingRadius');
+    expect(source).toContain('MONITOR_READING');
+    expect(source).toContain('is-drawn');
+    expect(source).not.toContain('setInterval');
+    expect(source).not.toContain('shadowBlur');
+    expect(source).not.toContain('距午夜');
     expect(source).toContain('href={HERO_PRIMARY.href}');
     expect(source).toContain('href={HERO_SECONDARY.href}');
     expect(source).toContain('href={HERO_HINT.href}');
@@ -134,6 +196,15 @@ describe('hero opening client wiring', () => {
     expect(block).toContain('--era-now: #9ec0ef');
     expect(block).toContain('--era-future: #2a2140');
     expect(block).toContain('var(--era-ancient)');
+    expect(block).toContain('[data-chapter="ancient"]');
+    expect(block).toContain('[data-chapter="future"]');
+    expect(block).toContain('.hero-reading');
+    expect(block).toContain('.hero-canvas.is-drawn');
+    expect(block).toContain('180ms');
+    expect(block).toContain('rgba(110, 90, 170, var(--violet-a))');
+    expect(block).toContain('.hero-opening[data-mode="playing"] .hero-title');
+    expect(block).not.toMatch(/\.hero-title\s*\{[^}]*opacity:\s*0/);
+    expect(block).toContain('font-size: max(12px, 0.82em)');
     const beforeHero = css.slice(0, css.indexOf('.hero-opening {'));
     expect(beforeHero).not.toContain('--era-ancient');
     expect(beforeHero).not.toContain('--era-now');
@@ -196,8 +267,11 @@ class FakeEl {
   querySelector(sel: string) {
     return sel === '[data-hero-skip]' ? this.skip : null;
   }
+  reading: FakeEl | null = null;
   querySelectorAll(sel: string) {
-    return sel === '.hero-line' ? this.lines : [];
+    if (sel === '.hero-line') return this.lines;
+    if (sel === '.hero-line, .hero-reading') return this.reading ? [...this.lines, this.reading] : this.lines;
+    return [];
   }
   addEventListener(_type: string, fn: () => void) {
     this.listeners.push(fn);
@@ -212,6 +286,9 @@ function runBoot(options: { seen?: boolean; reduce?: boolean; heroBoot?: boolean
   const section = new FakeEl(log, 'section');
   section.setAttribute('data-mode', 'settled');
   section.setAttribute('data-phase', 'handoff');
+  section.setAttribute('data-chapter', 'future');
+  section.reading = new FakeEl(log, 'reading');
+  section.reading.setAttribute('data-on', 'true');
   const count = html.match(/class="hero-line"/g)?.length ?? 0;
   section.lines = Array.from({ length: count }, (_, index) => {
     const line = new FakeEl(log, `line${index}`);
@@ -248,10 +325,16 @@ function lineOn(section: FakeEl): string[] {
 
 describe('hero boot reveal', () => {
   it('resumes the timeline from elapsed time instead of showing every line at once', () => {
-    expect(heroPlaybackAt(0)).toEqual({ revealed: 0, phase: 'singularity', settled: false });
+    expect(heroPlaybackAt(0)).toEqual({
+      revealed: 0, phase: 'singularity', chapter: 'ancient', reading: false, settled: false,
+    });
     expect(heroPlaybackAt(HERO_BEATS[0]!.at).revealed).toBe(1);
     expect(heroPlaybackAt(4000).revealed).toBeLessThan(HERO_BEATS.length);
-    expect(heroPlaybackAt(HERO_SETTLE_AT)).toEqual({ revealed: HERO_BEATS.length, phase: 'handoff', settled: true });
+    expect(heroPlaybackAt(HERO_READING_AT - 1).reading).toBe(false);
+    expect(heroPlaybackAt(HERO_READING_AT)).toMatchObject({ reading: true, chapter: 'future', phase: 'handoff' });
+    expect(heroPlaybackAt(HERO_SETTLE_AT)).toEqual({
+      revealed: HERO_BEATS.length, phase: 'handoff', chapter: 'future', reading: true, settled: true,
+    });
   });
 
   it('hides every line before playing, and skip settles with the seen flag', () => {
@@ -261,6 +344,8 @@ describe('hero boot reveal', () => {
     expect(lineOn(first.section)).toEqual(Array(HERO_BEATS.length).fill('false'));
     expect(first.section.attrs.get('data-mode')).toBe('playing');
     expect(first.section.attrs.get('data-phase')).toBe('singularity');
+    expect(first.section.attrs.get('data-chapter')).toBe('ancient');
+    expect(first.section.reading?.attrs.get('data-on')).toBe('false');
     expect(typeof first.windowObj.__WN_HERO_T0).toBe('number');
     expect(first.store.has(HERO_SEEN_KEY)).toBe(false);
 
@@ -268,6 +353,8 @@ describe('hero boot reveal', () => {
     expect(first.store.get(HERO_SEEN_KEY)).toBe('1');
     expect(first.section.attrs.get('data-mode')).toBe('settled');
     expect(first.section.attrs.get('data-phase')).toBe('handoff');
+    expect(first.section.attrs.get('data-chapter')).toBe('future');
+    expect(first.section.reading?.attrs.get('data-on')).toBe('true');
     expect(lineOn(first.section)).toEqual(Array(HERO_BEATS.length).fill('true'));
 
     first.timer?.();
@@ -278,6 +365,8 @@ describe('hero boot reveal', () => {
     for (const options of [{ seen: true }, { reduce: true }]) {
       const run = runBoot(options);
       expect(run.section.attrs.get('data-mode')).toBe('settled');
+      expect(run.section.attrs.get('data-chapter')).toBe('future');
+      expect(run.section.reading?.attrs.get('data-on')).toBe('true');
       expect(lineOn(run.section)).toEqual(Array(HERO_BEATS.length).fill('true'));
       expect(run.windowObj.__WN_HERO_T0).toBeUndefined();
       expect(run.timer).toBeNull();
@@ -294,7 +383,33 @@ describe('hero boot reveal', () => {
     const claimed = runBoot({ heroBoot: true });
     claimed.timer?.();
     expect(claimed.section.attrs.get('data-mode')).toBe('playing');
+    expect(claimed.section.attrs.get('data-chapter')).toBe('ancient');
     expect(lineOn(claimed.section)).toEqual(Array(HERO_BEATS.length).fill('false'));
+    expect(claimed.section.reading?.attrs.get('data-on')).toBe('false');
+  });
+});
+
+describe('hero opening clock and air', () => {
+  it('keeps a single gold ring, a minute hand, and a capped canvas', () => {
+    expect(HERO_STAGES.filter((stage) => stage.ring).map((stage) => stage.at)).toEqual([HERO_RING_AT]);
+    expect(HERO_STAGES.some((stage) => stage.phase === 'soup')).toBe(false);
+    expect(heroStageAt(0)).toMatchObject({ chapter: 'ancient', phase: 'singularity', glow: 1 });
+    expect(heroStageAt(2900).ring).toBe(true);
+    expect(heroStageAt(HERO_SETTLE_AT)).toMatchObject({ chapter: 'future', phase: 'handoff', rail: 1, hand: 1 });
+    expect(heroAirAt(0)).not.toBe(heroAirAt(0));
+    expect(heroMinuteAngle(MONITOR_READING.minutes)).toBeCloseTo(-MONITOR_READING.minutes * (Math.PI / 30));
+    expect(heroMinuteAngle(15)).toBeCloseTo(-Math.PI / 2);
+    expect(heroRingRadius(-1, 360, 800)).toBeNull();
+    expect(heroRingRadius(HERO_RING_MS, 360, 800)).toBeNull();
+    const age = 2900 - HERO_RING_AT;
+    expect(heroRingAlpha(age)).toBeCloseTo(0.62 * (1 - age / HERO_RING_MS));
+    expect(heroRingRadius(age, 360, 800)).toBeGreaterThan(12);
+    expect(heroCanvasDpr(390, 3)).toBe(1.25);
+    expect(heroCanvasDpr(1280, 3)).toBe(1.5);
+    expect(heroCanvasDpr(1280, 1)).toBe(1);
+    const dial = heroDialCenter(360);
+    expect(dial.y + dial.r).toBeLessThan(156);
+    expect(heroDialCenter(1280).r).toBe(60);
   });
 });
 
