@@ -173,7 +173,8 @@ describe('civilization thick pages', () => {
     expect(hub.status).toBe(200);
     expect(hub.indexable).toBe(true);
     expect(hub.html).toContain('導語');
-    expect(hub.html).toContain('起源摘要');
+    expect(hub.html).not.toContain('起源摘要');
+    expect(hub.html.match(/<h3>人類起源<\/h3>/g)).toHaveLength(1);
     expect(hub.html).toContain('解剖學現代人');
     expect(hub.html).toContain('主要走出非洲');
     expect(hub.html).toContain('全新世銜接');
@@ -285,7 +286,8 @@ describe('civilization thick pages', () => {
     expect(hub.html.indexOf('class="chronicle-board"')).toBeLessThan(hub.html.indexOf('class="civ-article"'));
     const deep = hub.html.slice(hub.html.indexOf('class="deep-time"'), hub.html.indexOf('class="chronicle-board"'));
     expect(deep.indexOf('href="/civilization/cosmos/"')).toBeLessThan(deep.indexOf('href="/civilization/earth/"'));
-    expect(deep.indexOf('href="/civilization/earth/"')).toBeLessThan(deep.indexOf('href="/civilization/origins/"'));
+    expect(deep).not.toContain('href="/civilization/origins/"');
+    expect(deep).not.toContain('人類起源');
     expect(deep).toContain('閱讀地球生命');
     expect(deep).toContain('侏羅紀');
     expect(deep).toContain('閱讀宇宙長河');
