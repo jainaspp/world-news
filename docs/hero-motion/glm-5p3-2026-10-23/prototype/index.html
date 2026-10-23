@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>文明編年史 · 開場原型（GLM 5.3 座）</title>
+<meta name="description" content="文明編年史首頁開場動畫提案原型：三幕宇宙演化、古暖金／今冷藍／未來紫黑發光、監測讀數面板。GLM 5.3 座獨立提案，未接入生產。">
+<!--
+  文明編年史 · 開場原型（HERO-MOTION-GLM-5P3-2026-10-23）
+  - 單檔自足：零外部請求（無字型下載、無圖片、無 API）。
+  - 確定性渲染：粒子與城市燈火全部由種子亂數生成；同一時刻重播畫面一致。
+  - 審稿用 URL 參數（不影響預設行為）：
+      ?state=settled              強制定態（完整文字＋監測面板）
+      ?state=playing&t=8000       凍結在播放中第 8 秒的一幀（供逐拍截圖）
+      ?reduce=1                   模擬 prefers-reduced-motion（直接定態＋單幀靜態）
+  - 文案紅線自檢（與 tests/copy.test.ts 同口徑），可在 node 重跑：
+      const PARTICLES = /我哋|嘅|喺|咗|點樣|决|嘢|咁|同埋|呢個|呢啲|呢|唔|冇|仲未|撳|睇/g;
+      const BARE_HAI = /(?<![關係干])係(?![數統列])/g;
+      const REDLINE = /台灣|臺灣|台湾|Taiwan|Taipei|台北|臺北|高雄|台南|臺南|台中|臺中|新北|桃園|台獨|臺獨|六四|天安門|Tiananmen|港獨|文革|文化大革命|主權|示威|遊行|抗議|佔領|RFI|法輪|達賴/i;
+      掃描本檔所有 .hero-main／.hero-aside／周邊字串 → 預期 0 hits。
+  - 監測面板讀數與 shared/civilization/clock.ts 的 MONITOR_READING 同值；
+    生產接入時改為直接 import 單一資料源（見 BRIEF.md §6）。
+-->
+<style>
+  :root {
+    --ink: #161c24;        /* 墨 */
+    --ink-2: #121820;
+    --paper: #f7f1e6;     /* 紙 */
+    --era-ancient: #c4a572;   /* 古暖金 */
+    --era-now: #9ec0ef;       /* 今冷藍 */
+    --era-future: #2a2140;    /* 未來紫黑 */
+    --era-future-glow: #7e63c0; /* 提議伴色：紫黑發光層（僅裝飾，不作正文色） */
+    --brass-ink-fill: #a18256;   /* 銅金填充上的墨字（4.77:1） */
+    --c-main: #e8e4dc;
+    --c-soft: #a8b0ba;
+    --c-meta: #5c6570;
+    --font-serif: Georgia, "Noto Serif TC", "Songti TC", "Times New Roman", serif;
+    --font-sans: -apple-system, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    margin: -1px; padding: 0; border: 0;
+    clip: rect(0 0 0 0); overflow: hidden; white-space: nowrap;
+  }
+
+  /* ---- 開場 Hero：全螢幕三幕宇宙演化 ----
+     與生產 .hero-opening 同構的構造原則：句子全部在 normal flow 佔位，
+     揭示只改 opacity/transform，任何時刻兩個文字盒不可能相交、CLS=0。
+     動效只有 transition + canvas；transition 全部掛在 no-preference。 */
+  .hero-glm {
+    position: relative;
+    overflow: hidden;
+    min-height: clamp(430px, 84vh, 780px);
+    min-height: clamp(430px, 84svh, 780px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 44px 20px 64px;
+    background: var(--ink);
+    color: var(--c-main);
+    text-align: center;
+    border-bottom: 1px solid rgba(126, 99, 192, 0.35);
+  }
+  .sky { position: absolute; inset: 0; pointer-events: none; }
+  .sky-gold, .sky-blue, .sky-future { position: absolute; inset: 0; }
+  .sky-gold {
+    background:
+      radial-gradient(72% 46% at 50% 24%, rgba(196, 165, 114, 0.14), transparent 62%),
+      radial-gradient(150% 110% at 50% 42%, #201f26 0%, #161c24 56%, #121820 100%);
+  }
+  .sky-blue {
+    background:
+      radial-gradient(64% 42% at 64% 74%, rgba(158, 192, 239, 0.12), transparent 60%),
+      radial-gradient(150% 110% at 50% 40%, #172029 0%, #161c24 58%, #10161d 100%);
+  }
+  .sky-future {
+    background:
+      radial-gradient(120% 78% at 50% 106%, rgba(126, 99, 192, 0.26), rgba(42, 33, 64, 0.55) 46%, transparent 74%),
+      radial-gradient(150% 110% at 50% 38%, #181522 0%, #13111b 56%, #0f0d15 100%);
+  }
+  /* 三幕換色：remnant 是跨幕交叉淡入的橋；planet 定格今冷藍；future 定格未來紫黑。 */
+  .sky-blue, .sky-future { opacity: 0; }
+  [data-phase="remnant"] .sky-gold { opacity: 0.6; }
+  [data-phase="remnant"] .sky-blue { opacity: 0.4; }
+  [data-phase="planet"] .sky-gold { opacity: 0; }
+  [data-phase="planet"] .sky-blue { opacity: 1; }
+  [data-phase="future"] .sky-gold { opacity: 0; }
+  [data-phase="future"] .sky-blue { opacity: 0; }
+  [data-phase="future"] .sky-future { opacity: 1; }
+  .hero-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative; z-index: 2;
+    width: min(100%, 620px);
+    margin: 0 auto;
+  }
+  .hero-kicker {
+    margin: 0 0 8px;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--era-ancient);
+  }
+  .hero-title {
+    margin: 0 0 18px;
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+    line-height: 1.2; font-weight: 700;
+    color: var(--paper);
+  }
+  .hero-lines {
+    margin: 0 auto;
+    max-width: 34em;
+    font-size: clamp(0.95rem, 1.5vw + 0.55rem, 1.1rem);
+    line-height: 1.72;
+  }
+  .hero-line { margin: 0 0 0.35em; }
+  .hero-line .hero-main { display: block; color: var(--c-main); }
+  .hero-line .hero-aside {
+    display: block;
+    margin-top: 0.1em;
+    font-size: max(12px, 0.82em);
+    color: var(--c-soft);
+  }
+  /* 腳註形態：※ 起首——冷面腳註是本座幽默語域的視覺部分。 */
+  .hero-line .hero-aside::before {
+    content: "※\00a0";
+    color: var(--era-ancient);
+  }
+  .hero-glm[data-mode="playing"] .hero-line { opacity: 0; transform: translateY(10px); }
+  .hero-glm[data-mode="playing"] .hero-line[data-on="true"] { opacity: 1; transform: none; }
+  .hero-cta {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px; margin-top: 18px;
+  }
+  .hero-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 0.95rem; font-weight: 700;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .hero-btn-brass { background: var(--brass-ink-fill); color: #161c24; }
+  .hero-btn-ghost {
+    background: transparent;
+    color: var(--c-main);
+    border-color: rgba(232, 228, 220, 0.35);
+  }
+  .hero-hint-row { margin: 14px 0 0; }
+  .hero-hint {
+    display: inline-flex; align-items: center;
+    min-height: 44px;
+    padding: 6px 10px;
+    color: var(--c-soft);
+    font-size: 0.8rem;
+    letter-spacing: 0.24em;
+    text-decoration: none;
+  }
+  .hero-hint::after { content: "↓"; margin-left: 0.6em; letter-spacing: 0; }
+
+  /* ---- 監測面板（settled 讀數）----
+     可更新的監測隱喻：讀數／日期／指針全部由 MONITOR_READING 驅動；
+     無秒針走動、無倒數計時、無閃爍；不逐秒走動寫在面板上。 */
+  .hero-monitor {
+    display: flex; align-items: center; gap: 12px;
+    width: fit-content; max-width: 100%;
+    margin: 16px auto 0;
+    padding: 8px 14px 10px;
+    background: rgba(18, 24, 33, 0.55);
+    border: 1px solid rgba(158, 192, 239, 0.25);
+    border-radius: 14px;
+    text-align: left;
+  }
+  .hero-glm[data-mode="playing"] .hero-cta,
+  .hero-glm[data-mode="playing"] .hero-hint-row,
+  .hero-glm[data-mode="playing"] .hero-monitor { opacity: 0; }
+  .monitor-glyph { width: 44px; height: 44px; flex: none; }
+  .mg-face {
+    fill: rgba(158, 192, 239, 0.05);
+    stroke: rgba(158, 192, 239, 0.6); stroke-width: 1.5;
+  }
+  .mg-tick { stroke: var(--era-now); stroke-width: 2; }
+  .mg-hand { stroke: var(--c-main); stroke-width: 2; stroke-linecap: round; }
+  .mg-pin { fill: var(--era-now); }
+  .hero-monitor[data-on="false"] .mg-face,
+  .hero-monitor[data-on="false"] .mg-hand { stroke-dashoffset: 100; }
+  .monitor-text { min-width: 0; }
+  .monitor-line {
+    margin: 0;
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5em;
+    font-size: 0.82rem; color: var(--c-soft);
+  }
+  .monitor-kicker { color: var(--era-now); font-weight: 700; letter-spacing: 0.18em; }
+  .monitor-reading { color: var(--c-main); }
+  .monitor-reading strong { color: var(--paper); font-weight: 700; }
+  .monitor-note { margin: 3px 0 0; font-size: 12px; line-height: 1.5; color: var(--c-soft); }
+
+  /* ---- 幕標軌（底部裝飾；行進點＝開場播放進度，定態後「古」亮起＝交棒卷一）---- */
+  .act-rail {
+    position: absolute; z-index: 2;
+    left: 24px; right: 24px; bottom: 16px;
+    pointer-events: none;
+  }
+  .rail-track {
+    position: relative; height: 2px;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, transparent, rgba(168, 176, 186, 0.28) 12%, rgba(168, 176, 186, 0.28) 88%, transparent);
+  }
+  .rail-dot {
+    position: absolute; top: 50%; left: 100%;
+    width: 6px; height: 6px; margin: -3px -3px 0 0;
+    border-radius: 50%;
+    background: var(--era-ancient);
+    box-shadow: 0 0 8px rgba(196, 165, 114, 0.9);
+  }
+  .rail-labels { display: flex; justify-content: space-between; }
+  .rail-lab {
+    font-size: 12px;
+    letter-spacing: 0.3em; margin-right: -0.3em;
+    color: #8d95a0;
+  }
+  .hero-glm[data-mode="settled"] .rail-lab[data-lab="ancient"] {
+    color: var(--era-ancient);
+    text-shadow: 0 0 12px rgba(196, 165, 114, 0.5);
+  }
+
+  .hero-skip, .hero-replay {
+    position: absolute; z-index: 3;
+    top: 12px; right: 14px;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 13px; font-weight: 600;
+    color: var(--c-soft);
+    background: rgba(22, 28, 36, 0.72);
+    border: 1px solid rgba(168, 176, 186, 0.28);
+    cursor: pointer;
+  }
+  .hero-skip:focus-visible, .hero-replay:focus-visible, .hero-btn:focus-visible, .hero-hint:focus-visible {
+    outline: 2px solid var(--era-now);
+    outline-offset: 2px;
+  }
+  /* 啟動保險：初次狀態翻轉（settled→playing）與凍結審稿幀不經 transition，
+     消除任何「全文閃一下」或截圖落在淡出半程的窗口。 */
+  .hero-glm.boot *, .hero-glm.boot *::before, .hero-glm.boot *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  .hero-glm[data-mode="playing"] .hero-replay { display: none; }
+  .hero-glm[data-mode="settled"] .hero-skip { display: none; }
+
+  /* ---- 動效閘：一切 transition 只在 no-preference；reduce 雙保險全停 ---- */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-line { transition: opacity 0.7s ease, transform 0.7s ease; }
+    .hero-cta, .hero-hint-row, .hero-monitor { transition: opacity 0.8s ease; }
+    .sky-gold, .sky-blue, .sky-future { transition: opacity 1.6s ease; }
+    .mg-face, .mg-hand { transition: stroke-dashoffset 1.3s ease 0.15s; }
+    .rail-lab { transition: color 0.6s ease, text-shadow 0.6s ease; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .hero-glm *, .hero-glm *::before, .hero-glm *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+
+  /* ---- 下方靜態銜接預覽（示意本體；非生產 DOM，非生產 class）----
+     展示開場與文明軸／三卷卡／監測鐘／今日切片的接駁關係。 */
+  .stub {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 30px 20px 48px;
+    background: var(--paper);
+  }
+  .stub-note {
+    margin: 0 0 22px;
+    font-size: 12px; letter-spacing: 0.14em;
+    color: var(--c-meta);
+  }
+  .stub-axis { padding: 18px 16px 16px; background: var(--ink); border-radius: 14px; }
+  .stub-axis h2 { margin: 0 0 14px; font-family: var(--font-serif); font-size: 1.2rem; color: var(--paper); }
+  .stub-nodes {
+    display: flex; flex-wrap: wrap; gap: 8px 12px;
+    font-size: 12px; color: var(--c-soft);
+  }
+  .stub-nodes .n::before {
+    content: ""; display: inline-block;
+    width: 6px; height: 6px; margin-right: 6px;
+    border-radius: 50%;
+    background: var(--era-ancient);
+    vertical-align: 1px;
+  }
+  .stub-nodes .n.today { color: var(--paper); }
+  .stub-nodes .n.today::before { background: var(--paper); box-shadow: 0 0 6px rgba(247, 241, 230, 0.8); }
+  .stub-volumes {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px; margin-top: 18px;
+  }
+  .volume-mock {
+    border: 1px solid #d4cbb8; border-radius: 14px;
+    background: var(--paper); color: var(--ink);
+    padding: 14px 14px 16px;
+    border-top: 3px solid var(--era-ancient);
+  }
+  .volume-mock.now { border-top-color: var(--era-now); }
+  .volume-mock.future { border-top-color: var(--era-future-glow); }
+  .volume-mock .era { margin: 0; font-size: 12px; letter-spacing: 0.08em; color: var(--c-meta); }
+  .volume-mock h3 { margin: 4px 0 6px; font-family: var(--font-serif); font-size: 1.35rem; line-height: 1.3; }
+  .volume-mock p { margin: 0; font-size: 14px; line-height: 1.55; }
+  .stub-clock {
+    margin-top: 18px; padding: 12px 16px;
+    border: 1px solid #c4a572; border-radius: 14px;
+    font-size: 13px; color: var(--ink);
+    background: #fffdf7;
+  }
+  .stub-clock .k { color: #7a5a32; font-weight: 700; letter-spacing: 0.14em; }
+  .stub-slice-head { margin-top: 34px; }
+  .stub-slice-head h2 { margin: 0 0 6px; font-family: var(--font-serif); font-size: 1.3rem; }
+  .stub-slice-head p { margin: 0; font-size: 13px; color: var(--c-meta); }
+  #civ, #slice { scroll-margin-top: 24px; }
+  @media (max-width: 640px) {
+    .stub-volumes { grid-template-columns: 1fr; }
+    .act-rail { left: 16px; right: 16px; }
+    .hero-glm { padding: 38px 16px 58px; }
+  }
+  @media (min-width: 900px) {
+    .hero-inner { width: min(100%, 680px); }
+  }
+</style>
+</head>
+<body>
+<h1 class="sr-only">文明編年史 · 開場原型（GLM 5.3 座提案）</h1>
+
+<section class="hero-glm" id="hero-glm" data-mode="settled" data-phase="future" aria-label="開場：從一個句號，到今天">
+  <div class="sky" aria-hidden="true">
+    <div class="sky-gold"></div>
+    <div class="sky-blue"></div>
+    <div class="sky-future"></div>
+  </div>
+  <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+
+  <div class="hero-inner">
+    <p class="hero-kicker">文明編年史 · 開場</p>
+    <h2 class="hero-title">從一個句號開始</h2>
+    <div class="hero-lines">
+      <p class="hero-line" data-beat="1" data-on="true"><span class="hero-main">一百三十八億年前，整個宇宙小於一個句號。</span><span class="hero-aside">這不是修辭；這是量級。</span></p>
+      <p class="hero-line" data-beat="2" data-on="true"><span class="hero-main">然後，它開始擴張。</span><span class="hero-aside">沒有誰反對；當時，也沒有誰。</span></p>
+      <p class="hero-line" data-beat="3" data-on="true"><span class="hero-main">三分鐘後，夸克學會結伴，組成最初的原子。</span><span class="hero-aside">此一技能沿用至今，未經修訂。</span></p>
+      <p class="hero-line" data-beat="4" data-on="true"><span class="hero-main">重力等了一億年，把氫壓成第一批熔爐。</span><span class="hero-aside">較重的元素，隨後出爐。</span></p>
+      <p class="hero-line" data-beat="5" data-on="true"><span class="hero-main">恆星燒盡，把碳、氧、鐵留在黑暗裏。</span><span class="hero-aside">下一段故事的建材，至此備齊。</span></p>
+      <p class="hero-line" data-beat="6" data-on="true"><span class="hero-main">九十億年後，恆星的灰燼積成了一顆有海洋的行星。</span><span class="hero-aside">行星夜面的燈火，與第一批恆星同色。</span></p>
+      <p class="hero-line" data-beat="7" data-on="true"><span class="hero-main">現在，物質開始記錄自己。</span><span class="hero-aside">你讀的這一頁，已是最新一頁。</span></p>
+    </div>
+    <div class="hero-cta">
+      <a class="hero-btn hero-btn-brass" href="#civ">開始編年</a>
+      <a class="hero-btn hero-btn-ghost" href="#slice">進入今日切片</a>
+    </div>
+    <p class="hero-hint-row"><a class="hero-hint" href="#civ">向下滾動，翻開三卷</a></p>
+
+    <!-- 讀數與 shared/civilization/clock.ts 的 MONITOR_READING 同源；
+         生產接入時直接 import，本原型硬編同一份值（minutes:1, seconds:29, asOf:2025-01-28）。 -->
+    <div class="hero-monitor" id="hero-monitor" data-on="true" aria-label="監測讀數">
+      <svg class="monitor-glyph" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <circle class="mg-face" cx="32" cy="32" r="26" pathLength="100" stroke-dasharray="100"/>
+        <line class="mg-tick" x1="32" y1="5.5" x2="32" y2="11"/>
+        <!-- 指針停在距午夜 89 秒（一分二十九秒）的位置：只在編輯資料更新時移動 -->
+        <line class="mg-hand" x1="32" y1="35" x2="28.1" y2="6.8" pathLength="100" stroke-dasharray="100"/>
+        <circle class="mg-pin" cx="32" cy="32" r="1.8"/>
+      </svg>
+      <div class="monitor-text">
+        <p class="monitor-line"><span class="monitor-kicker">監測</span><span class="monitor-reading">距午夜 <strong>一分二十九秒</strong></span><span class="monitor-asof">資料日期 2025-01-28</span></p>
+        <p class="monitor-note">編輯寫定的監測刻度，對照公開公報；不逐秒走動。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="act-rail" aria-hidden="true">
+    <div class="rail-track" id="rail-track"><span class="rail-dot" id="rail-dot"></span></div>
+    <div class="rail-labels">
+      <span class="rail-lab" data-lab="ancient">古</span>
+      <span class="rail-lab" data-lab="now">今</span>
+      <span class="rail-lab" data-lab="future">未來</span>
+    </div>
+  </div>
+
+  <button class="hero-skip" type="button" id="hero-skip">跳過開場</button>
+  <button class="hero-replay" type="button" id="hero-replay">重播開場</button>
+</section>
+
+<section class="stub" aria-label="銜接預覽（靜態示意，非生產 DOM）">
+  <p class="stub-note">銜接預覽 · 靜態示意，非生產標記——展示開場與其下各帶的接駁，實際版面以生產 DOM 為準。</p>
+  <div class="stub-axis" id="civ">
+    <h2>文明軸（生產位於開場正下方，零間距交接）</h2>
+    <div class="stub-nodes" aria-hidden="true">
+      <span class="n">宇宙</span><span class="n">地球生命</span><span class="n">起源</span><span class="n">技術</span><span class="n">城市</span><span class="n today">今天</span><span class="n">未來</span>
+    </div>
+  </div>
+  <div class="stub-volumes">
+    <div class="volume-mock"><p class="era">卷一</p><h3>古</h3><p>採集、農業、城市、帝國與商路；開場第一幕的古暖金屬於這一卷的色域。</p></div>
+    <div class="volume-mock now"><p class="era">卷二</p><h3>今</h3><p>科學方法到本世紀工具；第二幕的今冷藍與監測面板同一色源。</p></div>
+    <div class="volume-mock future"><p class="era">卷三</p><h3>未來</h3><p>章門不設年代；第三幕的紫黑發光是它的門色。</p></div>
+  </div>
+  <div class="stub-clock"><span class="k">監測</span> 距午夜一分二十九秒 · 資料日期 2025-01-28 —— 完整監測鐘在生產頁原位（軸帶之後），與開場面板同一份資料。</div>
+  <div class="stub-slice-head" id="slice">
+    <h2>今日切片</h2>
+    <p>生產頁自「今日切片」以下維持既有新聞區，開場不觸碰。</p>
+  </div>
+</section>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ---- 時間軸資料（文案在 HTML 內為單一真源；此處只有時刻與幕） ---- */
+  const BEATS = [
+    { id: 1, phase: 'void',    at: 700 },
+    { id: 2, phase: 'bloom',   at: 3000 },
+    { id: 3, phase: 'atoms',   at: 5100 },
+    { id: 4, phase: 'furnace', at: 7400 },
+    { id: 5, phase: 'remnant', at: 9700 },
+    { id: 6, phase: 'planet',  at: 11900 },
+    { id: 7, phase: 'future',  at: 13800 },
+  ];
+  const SETTLE_AT = 15000;
+  const SEEN_KEY = 'wn-glm-hero-seen';
+  const BANG = 3000;          /* 拍 2：擴散環＋暖閃 */
+  const WAVE_T0 = 7400;       /* 拍 4：點燃波 */
+  const WAVE_D = 2400;
+  const POPS = [              /* 拍 5：兩次超新星餘光（確定性時刻） */
+    { t0: 10100, u: 0.30, v: 0.30, r: 0.15 },
+    { t0: 10900, u: 0.66, v: 0.22, r: 0.11 },
+  ];
+
+  /* ---- 各幕圖層目標（每幀以 τ≈480ms 指數收斂，無硬切） ---- */
+  const TARGETS = {
+    void:    { core: 1, soup: 0,    stars: 0,    dust: 0,    rise: 0,    sink: 0, glow: 0, city: 0,    drift: 0 },
+    bloom:   { core: 0.3, soup: 0.35, stars: 0.05, dust: 0, rise: 0, sink: 0, glow: 0, city: 0, drift: 0.16 },
+    atoms:   { core: 0, soup: 1,    stars: 0.1,  dust: 0,    rise: 0,    sink: 0, glow: 0, city: 0,    drift: 0.3 },
+    furnace: { core: 0, soup: 0.28, stars: 1,    dust: 0.12, rise: 0,    sink: 0, glow: 0, city: 0,    drift: 0.45 },
+    remnant: { core: 0, soup: 0.1,  stars: 0.88, dust: 1,    rise: 0.05, sink: 0, glow: 0, city: 0,    drift: 0.6 },
+    planet:  { core: 0, soup: 0,    stars: 0.62, dust: 0.32, rise: 1,    sink: 0, glow: 0, city: 1,    drift: 0.82 },
+    future:  { core: 0, soup: 0,    stars: 0.45, dust: 0.12, rise: 1,    sink: 1, glow: 1, city: 0.55, drift: 1 },
+  };
+
+  const section = document.getElementById('hero-glm');
+  const canvas = document.getElementById('hero-canvas');
+  const monitor = document.getElementById('hero-monitor');
+  const railDot = document.getElementById('rail-dot');
+  const railTrack = document.getElementById('rail-track');
+  const lines = Array.from(section.querySelectorAll('.hero-line'));
+  const ctx = canvas.getContext('2d');
+
+  const params = new URLSearchParams(location.search);
+  const reduce = params.get('reduce') === '1' ||
+    (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const forced = params.get('state');
+  const frozenAt = Math.max(0, Number(params.get('t')) || 0);
+  const frozen = forced === 'playing' && frozenAt > 0 && !reduce;
+  let seen = false;
+  try { seen = !!sessionStorage.getItem(SEEN_KEY); } catch (err) { /* 私密模式照播 */ }
+
+  let mode = 'settled';
+  let phase = 'future';
+  let t0 = 0;
+  let timers = [];
+
+  /* ---- 種子亂數（mulberry32）：粒子全部可重現，重播同一時刻畫面一致 ---- */
+  function rng(seed) {
+    let s = seed >>> 0;
+    return () => {
+      s = (s + 0x6d2b79f5) | 0;
+      let t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  let w = 1, h = 1, dpr = 1;
+  let stars = [], soup = [], city = [];
+  const GOLD = '196,165,114';   /* 與 --era-ancient 同值：第一批恆星與城市燈火同一色源 */
+  const BLUE = '158,192,239';   /* --era-now */
+  const VIOLET = '126,99,192';  /* --era-future-glow */
+
+  function buildField() {
+    const r = rng(0x5f3a771);
+    const starN = Math.max(90, Math.min(230, Math.round(w * h / 8200)));
+    stars = Array.from({ length: starN }, () => ({
+      u: r(), v: r(), r: 0.35 + r() * 1.15, z: 0.35 + r() * 0.65,
+      gold: r() < 0.3, phase: r() * Math.PI * 2, speed: 0.5 + r() * 0.9,
+    }));
+    const soupN = Math.max(50, Math.min(140, Math.round(w * h / 15000)));
+    soup = Array.from({ length: soupN }, () => ({
+      u: r(), v: r(), r: 0.4 + r() * 0.9, phase: r() * Math.PI * 2, speed: 0.4 + r() * 0.8,
+    }));
+    /* 城市燈火：三個聚落沿地平線弧分佈，八成暖金（與第一批恆星同色）、兩成冷白 */
+    const clusters = [-0.30, -0.04, 0.22];
+    const cityN = Math.max(36, Math.min(104, Math.round(w / 9)));
+    city = Array.from({ length: cityN }, (_, i) => {
+      const spread = (r() + r() - 1) * 0.17;
+      return {
+        theta: clusters[i % 3] + spread,
+        pull: 0.982 + r() * 0.012,
+        size: 0.5 + r() * 0.8,
+        warm: r() < 0.82,
+        phase: r() * Math.PI * 2,
+        speed: 0.3 + r() * 0.5,
+      };
+    });
+  }
+
+  function resize() {
+    const rect = section.getBoundingClientRect();
+    w = Math.max(1, Math.round(rect.width));
+    h = Math.max(1, Math.round(rect.height));
+    dpr = Math.min(2, (window.devicePixelRatio || 1));
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    buildField();
+  }
+
+  /* ---- 繪製輔助 ---- */
+  function softGlow(x, y, radius, rgb, alpha) {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, radius);
+    g.addColorStop(0, 'rgba(' + rgb + ',' + alpha + ')');
+    g.addColorStop(0.55, 'rgba(' + rgb + ',' + alpha * 0.28 + ')');
+    g.addColorStop(1, 'rgba(' + rgb + ',0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+  const easeOut3 = (p) => 1 - Math.pow(1 - p, 3);
+
+  let levels = { ...TARGETS.future };
+
+  /* ---- 全螢幕分鏡：奇點→暖閃環→原子湯→點燃波星野→金塵→地平線→未來紫黑 ---- */
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h);
+    const cx = w * 0.5;
+    const cy = h * 0.34;
+
+    /* 拍 1：奇點暖光（呼吸） */
+    if (levels.core > 0.01) {
+      const pulse = 0.9 + 0.1 * Math.sin(t / 880);
+      softGlow(cx, cy, Math.min(w, h) * 0.28 * pulse, '240,231,214', 0.36 * levels.core);
+      ctx.fillStyle = 'rgba(247,241,230,' + 0.92 * levels.core + ')';
+      ctx.beginPath();
+      ctx.arc(cx, cy, 1.8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    /* 拍 2：暖閃＋擴散環（一次性，由 t 確定） */
+    const bangAge = t - BANG;
+    if (bangAge >= 0 && bangAge < 800) {
+      const p = bangAge / 800;
+      softGlow(cx, cy, Math.min(w, h) * 0.7, '240,231,214', 0.26 * (1 - p) * (1 - p));
+    }
+    if (bangAge >= 0 && bangAge < 1700) {
+      const p = easeOut3(bangAge / 1700);
+      ctx.strokeStyle = 'rgba(240,235,227,' + 0.5 * (1 - p) + ')';
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.arc(cx, cy, p * Math.hypot(w, h) * 0.55, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    /* 拍 3：原子湯——粒子自中心向外鋪開（擴張的回聲），慢速漂移閃爍 */
+    if (levels.soup > 0.01) {
+      const spread = 0.1 + 0.9 * easeOut3(clamp01((t - BANG) / 3000));
+      for (const p of soup) {
+        const tw = 0.55 + 0.45 * Math.sin(t * 0.0011 * p.speed + p.phase);
+        const a = levels.soup * tw * 0.8;
+        if (a <= 0.02) continue;
+        const x = cx + (p.u - 0.5) * w * spread;
+        const y = cy + (p.v - 0.34) * h * spread;
+        ctx.fillStyle = 'rgba(232,228,220,' + a + ')';
+        ctx.beginPath();
+        ctx.arc(x, y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    /* 拍 4：點燃波自中心掃開，恆星隨波亮起；之後星野帶視差緩慢上移（時間向前） */
+    const waveR = easeOut3(clamp01((t - WAVE_T0) / WAVE_D)) * Math.hypot(w, h) * 0.62;
+    const rise = levels.drift * 0.10;
+    for (const s of stars) {
+      const x = s.u * w;
+      const y = (((s.v - rise * s.z) % 1) + 1) % 1 * h;
+      const d = Math.hypot(x - cx, y - cy);
+      const ign = clamp01((waveR - d) / 90);
+      if (ign <= 0) continue;
+      const tw = 0.66 + 0.34 * Math.sin(t * 0.0011 * s.speed + s.phase);
+      const a = ign * tw * levels.stars * (s.gold ? 0.95 : 0.8);
+      if (a <= 0.02) continue;
+      if (s.gold && levels.dust > 0.01) {
+        softGlow(x, y, s.r * 6, GOLD, 0.3 * levels.dust * tw);
+      }
+      ctx.fillStyle = s.gold ? 'rgba(' + GOLD + ',' + a + ')' : 'rgba(236,232,222,' + a + ')';
+      ctx.beginPath();
+      ctx.arc(x, y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    /* 拍 5：兩次超新星餘光（確定性時刻，金色柔光＋細環） */
+    for (const pop of POPS) {
+      const age = t - pop.t0;
+      if (age < 0 || age > 1100) continue;
+      const p = age / 1100;
+      const a = Math.sin(Math.PI * p) * 0.5;
+      const x = pop.u * w;
+      const y = pop.v * h;
+      softGlow(x, y, pop.r * Math.min(w, h) * (0.35 + p), GOLD, a);
+      ctx.strokeStyle = 'rgba(' + GOLD + ',' + a * 0.55 + ')';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(x, y, pop.r * Math.min(w, h) * p * 1.6, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    /* 拍 6：地平線升起——行星不是一點，而是一彎佔滿下緣的弧；
+       夜面城市燈火沿弧點亮（暖金＝第一批恆星的顏色） */
+    if (levels.rise > 0.01 || levels.sink > 0.01) {
+      const R = h * 1.35;
+      const cyRest = h * 0.6 + R;
+      const cyStart = h * 2.6;
+      const pcy = cyStart + (cyRest - cyStart) * levels.rise + levels.sink * R * 1.55;
+      if (pcy - R <= h + 4) {
+        softGlow(cx, pcy - R, Math.min(w, h) * 0.16, BLUE, 0.10 * Math.min(1, levels.rise * 1.4));
+        ctx.fillStyle = '#0d1420';
+        ctx.beginPath();
+        ctx.arc(cx, pcy, R, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(' + BLUE + ',0.10)';
+        ctx.lineWidth = 12;
+        ctx.beginPath();
+        ctx.arc(cx, pcy, R, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(' + BLUE + ',0.55)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx, pcy, R, 0, Math.PI * 2);
+        ctx.stroke();
+        for (const c of city) {
+          const tw = 0.6 + 0.4 * Math.sin(t * 0.0013 * c.speed + c.phase);
+          const a = levels.city * tw;
+          if (a <= 0.02) continue;
+          const x = cx + Math.sin(c.theta) * R * c.pull;
+          const y = pcy - Math.cos(c.theta) * R * c.pull;
+          ctx.fillStyle = c.warm ? 'rgba(' + GOLD + ',' + a * 0.9 + ')' : 'rgba(214,232,250,' + a * 0.9 + ')';
+          ctx.beginPath();
+          ctx.arc(x, y, c.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    /* 拍 7：未來紫黑發光——行星沉入地平線，底部升起紫色光暈與門線 */
+    if (levels.glow > 0.01) {
+      const breath = 0.9 + 0.1 * Math.sin(t / 1900);
+      const rad = ctx.createRadialGradient(w * 0.5, h * 1.04, 0, w * 0.5, h * 1.04, Math.min(w, h) * 1.05);
+      rad.addColorStop(0, 'rgba(' + VIOLET + ',' + 0.2 * levels.glow * breath + ')');
+      rad.addColorStop(0.45, 'rgba(42,33,64,' + 0.46 * levels.glow + ')');
+      rad.addColorStop(1, 'rgba(42,33,64,0)');
+      ctx.fillStyle = rad;
+      ctx.fillRect(0, 0, w, h);
+      const lineW = w * levels.glow;
+      const left = (w - lineW) / 2;
+      const lg = ctx.createLinearGradient(left, 0, left + lineW, 0);
+      lg.addColorStop(0, 'rgba(' + VIOLET + ',0)');
+      lg.addColorStop(0.5, 'rgba(' + VIOLET + ',' + 0.85 * levels.glow + ')');
+      lg.addColorStop(1, 'rgba(' + VIOLET + ',0)');
+      ctx.fillStyle = lg;
+      ctx.fillRect(left, h - 2.5, lineW, 2.5);
+    }
+  }
+
+  /* ---- 播放狀態機 ---- */
+  function playbackAt(ms) {
+    let revealed = 0;
+    let ph = 'void';
+    for (const b of BEATS) {
+      if (ms >= b.at) { revealed += 1; ph = b.phase; }
+    }
+    return { revealed, phase: ph, settled: ms >= SETTLE_AT };
+  }
+
+  function clearTimers() {
+    for (const id of timers) clearTimeout(id);
+    timers = [];
+  }
+
+  function applyLines(revealed) {
+    lines.forEach((el, i) => { el.dataset.on = i < revealed ? 'true' : 'false'; });
+  }
+
+  function settle(markSeen) {
+    clearTimers();
+    mode = 'settled';
+    phase = 'future';
+    section.dataset.mode = 'settled';
+    section.dataset.phase = 'future';
+    applyLines(BEATS.length);
+    monitor.dataset.on = 'true';
+    setRail(1);
+    if (markSeen) {
+      try { sessionStorage.setItem(SEEN_KEY, '1'); } catch (err) { /* 私密模式 */ }
+    }
+  }
+
+  function play(fromMs) {
+    clearTimers();
+    mode = 'playing';
+    const pb = playbackAt(fromMs);
+    phase = pb.phase;
+    applyLines(pb.revealed);
+    monitor.dataset.on = 'false';
+    section.dataset.mode = 'playing';
+    section.dataset.phase = pb.phase;
+    t0 = performance.now() - fromMs;
+    levels = frozen ? { ...TARGETS[pb.phase] } : { ...TARGETS.void };
+    if (!frozen) {
+      for (const b of BEATS) {
+        if (b.at <= fromMs) continue;
+        timers.push(setTimeout(() => {
+          phase = b.phase;
+          section.dataset.phase = b.phase;
+          applyLines(b.id);
+        }, b.at - fromMs));
+      }
+      timers.push(setTimeout(() => settle(true), Math.max(0, SETTLE_AT - fromMs)));
+    }
+  }
+
+  /* ---- 幕標軌行進點＝開場播放進度（線性、誠實的進度標，不是倒數鐘） ---- */
+  function setRail(p) {
+    const track = railTrack.clientWidth || 1;
+    railDot.style.transform = 'translateX(' + (-p * track) + 'px)';
+  }
+
+  document.getElementById('hero-skip').addEventListener('click', () => settle(true));
+  document.getElementById('hero-replay').addEventListener('click', () => play(0));
+
+  /* ---- 畫布迴圈：單一 rAF；出畫面／分頁隱藏即停；凍結審稿幀只畫一次 ---- */
+  let running = false;
+  let raf = 0;
+  let inView = true;
+  let lastT = 0;
+
+  function tick(now) {
+    const t = frozen ? frozenAt : Math.max(0, now - t0);
+    const dt = Math.min(64, now - (lastT || now));
+    lastT = now;
+    const target = TARGETS[phase];
+    const ease = 1 - Math.exp(-dt / 480);
+    for (const key of Object.keys(target)) {
+      levels[key] += (target[key] - levels[key]) * ease;
+    }
+    draw(frozen ? frozenAt : (mode === 'settled' ? now : t));
+    if (!frozen) setRail(clamp01(t / SETTLE_AT));
+    raf = running ? requestAnimationFrame(tick) : 0;
+  }
+
+  function gate() {
+    const should = !reduce && !frozen && inView && !document.hidden;
+    if (should && !running) {
+      running = true;
+      lastT = 0;
+      raf = requestAnimationFrame(tick);
+    } else if (!should && running) {
+      running = false;
+      cancelAnimationFrame(raf);
+      raf = 0;
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    inView = entries[0] ? entries[0].isIntersecting : true;
+    gate();
+  });
+  observer.observe(section);
+  document.addEventListener('visibilitychange', gate);
+  const resizeObserver = new ResizeObserver(() => {
+    resize();
+    if (reduce) { levels = { ...TARGETS.future }; draw(6000); setRail(1); }
+    else if (frozen) { levels = { ...TARGETS[phase] }; draw(frozenAt); }
+    else if (!running) { draw(mode === 'settled' ? 9e9 : 0); }
+  });
+  resizeObserver.observe(section);
+
+  /* ---- 啟動：預設 settled 標記→符合資格的首次訪客翻成 playing（首繪前，無全文閃現）----
+     boot class 先掛上：初次翻轉不經 transition，reflow 後即拆，之後的揭示照常淡入。 */
+  section.classList.add('boot');
+  resize();
+  if (forced === 'playing' && !reduce) {
+    play(frozenAt);
+    levels = { ...TARGETS[phase] };
+    draw(frozenAt);
+    setRail(clamp01(frozenAt / SETTLE_AT));
+  } else if (forced === 'settled' || reduce || seen) {
+    settle(false);
+  } else {
+    play(0);
+  }
+  if (reduce) { levels = { ...TARGETS.future }; draw(6000); }
+  void section.offsetHeight;
+  section.classList.remove('boot');
+  gate();
+})();
+</script>
+</body>
+</html>
