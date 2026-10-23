@@ -1,0 +1,1526 @@
+[
+  {
+    "label": "home-360-light",
+    "page": "home",
+    "vp": "360",
+    "theme": "light",
+    "reduced": false,
+    "errors": [],
+    "shotBytes": 707630,
+    "playing": {
+      "sampledMs": 322,
+      "settledAfterMs": 12274,
+      "settledSnapshot": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "linesOn": 6
+      },
+      "hero": {
+        "mode": "playing",
+        "phase": "singularity",
+        "chapter": "ancient",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleTransform": "none",
+        "titleTransition": "all",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerSize": "12px",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "linesOn": 0,
+        "lineCount": 6,
+        "reading": "監測刻度 · 午夜前 1 分",
+        "readingOn": "false",
+        "skipDisplay": "block",
+        "skipW": 81.2,
+        "skipH": 44,
+        "reduced": false
+      },
+      "lineHits": [],
+      "titleContrast": {
+        "n": 10496,
+        "width": 328,
+        "height": 32,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "contrast": 15.24
+      },
+      "kickerContrast": {
+        "n": 4592,
+        "width": 328,
+        "height": 14,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          156,
+          134,
+          96
+        ],
+        "contrast": 4.89
+      },
+      "rawHits": [],
+      "undersized": []
+    },
+    "settled": {
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleTransform": "none",
+        "titleTransition": "all",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerSize": "12px",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "linesOn": 6,
+        "lineCount": 6,
+        "reading": "監測刻度 · 午夜前 1 分",
+        "readingOn": "true",
+        "skipDisplay": "none",
+        "skipW": 0,
+        "skipH": 0,
+        "reduced": false
+      },
+      "rawHits": [],
+      "lineHits": [],
+      "undersized": [],
+      "gaps": [
+        {
+          "a": ".hero-btn:開始編年",
+          "b": ".hero-hint:向下滾動，開始編年",
+          "gap": 4,
+          "center": 84.5
+        },
+        {
+          "a": ".hero-btn:進入今日切片",
+          "b": ".hero-hint:向下滾動，開始編年",
+          "gap": 4,
+          "center": 72.5
+        }
+      ],
+      "centers": [],
+      "brandTargets": [
+        {
+          "cls": "logo-compact logo-light",
+          "alt": "",
+          "aria": "文明編年史",
+          "text": "",
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "natural": 185,
+          "w": 103.6,
+          "h": 28,
+          "clipped": false,
+          "left": 16,
+          "right": 119.6
+        },
+        {
+          "cls": "hero-kicker",
+          "alt": null,
+          "aria": "",
+          "text": "文明編年史 · 開場",
+          "src": "",
+          "natural": null,
+          "w": 328,
+          "h": 17,
+          "clipped": false,
+          "left": 16,
+          "right": 344
+        },
+        {
+          "cls": "hero-title",
+          "alt": null,
+          "aria": "",
+          "text": "從宇宙到今天",
+          "src": "",
+          "natural": null,
+          "w": 328,
+          "h": 32.6,
+          "clipped": false,
+          "left": 16,
+          "right": 344
+        }
+      ],
+      "clipTargets": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "scrollHeight": 5969,
+        "pageOverflow": false
+      },
+      "dom": {
+        "axis": true,
+        "axisSlim": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeTexts": [
+          "古",
+          "今",
+          "未來"
+        ],
+        "chronicleBand": 1,
+        "volumeBoard": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "simplified": false,
+        "brandCount": 4
+      },
+      "font": {
+        "noto": true
+      },
+      "titleContrast": {
+        "n": 10496,
+        "width": 328,
+        "height": 32,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          209,
+          205,
+          198
+        ],
+        "contrast": 10.82
+      },
+      "kickerContrast": {
+        "n": 5576,
+        "width": 328,
+        "height": 17,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          127,
+          111,
+          83
+        ],
+        "contrast": 3.51
+      }
+    }
+  },
+  {
+    "label": "civ-360-light",
+    "page": "civ",
+    "vp": "360",
+    "theme": "light",
+    "reduced": false,
+    "errors": [],
+    "shotBytes": 2321544,
+    "playing": null,
+    "settled": {
+      "hero": null,
+      "rawHits": [],
+      "lineHits": [],
+      "undersized": [],
+      "gaps": [
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源~300ka",
+          "gap": 6.8,
+          "center": 66.1
+        }
+      ],
+      "centers": [],
+      "brandTargets": [
+        {
+          "cls": "logo-compact logo-light",
+          "alt": "",
+          "aria": "文明編年史",
+          "text": "",
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "natural": 185,
+          "w": 103.6,
+          "h": 28,
+          "clipped": false,
+          "left": 16,
+          "right": 119.6
+        }
+      ],
+      "clipTargets": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "scrollHeight": 27680,
+        "pageOverflow": false
+      },
+      "dom": {
+        "axis": true,
+        "axisSlim": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeTexts": [
+          "古",
+          "今",
+          "未來"
+        ],
+        "chronicleBand": 0,
+        "volumeBoard": 1,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "dark": false,
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "simplified": false,
+        "brandCount": 2
+      },
+      "font": {
+        "noto": true
+      },
+      "titleContrast": null,
+      "kickerContrast": null
+    }
+  },
+  {
+    "label": "home-360-dark",
+    "page": "home",
+    "vp": "360",
+    "theme": "dark",
+    "reduced": false,
+    "errors": [],
+    "shotBytes": 707079,
+    "playing": {
+      "sampledMs": 160,
+      "settledAfterMs": 12238,
+      "settledSnapshot": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "linesOn": 6
+      },
+      "hero": {
+        "mode": "playing",
+        "phase": "singularity",
+        "chapter": "ancient",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleTransform": "none",
+        "titleTransition": "all",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerSize": "12px",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "linesOn": 0,
+        "lineCount": 6,
+        "reading": "監測刻度 · 午夜前 1 分",
+        "readingOn": "false",
+        "skipDisplay": "block",
+        "skipW": 81.2,
+        "skipH": 44,
+        "reduced": false
+      },
+      "lineHits": [],
+      "titleContrast": {
+        "n": 10496,
+        "width": 328,
+        "height": 32,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "contrast": 15.24
+      },
+      "kickerContrast": {
+        "n": 4592,
+        "width": 328,
+        "height": 14,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          156,
+          134,
+          96
+        ],
+        "contrast": 4.89
+      },
+      "rawHits": [],
+      "undersized": []
+    },
+    "settled": {
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleTransform": "none",
+        "titleTransition": "all",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerSize": "12px",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "linesOn": 6,
+        "lineCount": 6,
+        "reading": "監測刻度 · 午夜前 1 分",
+        "readingOn": "true",
+        "skipDisplay": "none",
+        "skipW": 0,
+        "skipH": 0,
+        "reduced": false
+      },
+      "rawHits": [],
+      "lineHits": [],
+      "undersized": [],
+      "gaps": [
+        {
+          "a": ".hero-btn:開始編年",
+          "b": ".hero-hint:向下滾動，開始編年",
+          "gap": 4,
+          "center": 84.5
+        },
+        {
+          "a": ".hero-btn:進入今日切片",
+          "b": ".hero-hint:向下滾動，開始編年",
+          "gap": 4,
+          "center": 72.5
+        }
+      ],
+      "centers": [],
+      "brandTargets": [
+        {
+          "cls": "logo-compact logo-dark",
+          "alt": "",
+          "aria": "文明編年史",
+          "text": "",
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "natural": 185,
+          "w": 103.6,
+          "h": 28,
+          "clipped": false,
+          "left": 16,
+          "right": 119.6
+        },
+        {
+          "cls": "hero-kicker",
+          "alt": null,
+          "aria": "",
+          "text": "文明編年史 · 開場",
+          "src": "",
+          "natural": null,
+          "w": 328,
+          "h": 17,
+          "clipped": false,
+          "left": 16,
+          "right": 344
+        },
+        {
+          "cls": "hero-title",
+          "alt": null,
+          "aria": "",
+          "text": "從宇宙到今天",
+          "src": "",
+          "natural": null,
+          "w": 328,
+          "h": 32.6,
+          "clipped": false,
+          "left": 16,
+          "right": 344
+        }
+      ],
+      "clipTargets": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "scrollHeight": 5969,
+        "pageOverflow": false
+      },
+      "dom": {
+        "axis": true,
+        "axisSlim": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeTexts": [
+          "古",
+          "今",
+          "未來"
+        ],
+        "chronicleBand": 1,
+        "volumeBoard": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "simplified": false,
+        "brandCount": 4
+      },
+      "font": {
+        "noto": true
+      },
+      "titleContrast": {
+        "n": 10496,
+        "width": 328,
+        "height": 32,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          209,
+          205,
+          198
+        ],
+        "contrast": 10.82
+      },
+      "kickerContrast": {
+        "n": 5576,
+        "width": 328,
+        "height": 17,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          127,
+          111,
+          83
+        ],
+        "contrast": 3.51
+      }
+    }
+  },
+  {
+    "label": "civ-360-dark",
+    "page": "civ",
+    "vp": "360",
+    "theme": "dark",
+    "reduced": false,
+    "errors": [],
+    "shotBytes": 2300875,
+    "playing": null,
+    "settled": {
+      "hero": null,
+      "rawHits": [],
+      "lineHits": [],
+      "undersized": [],
+      "gaps": [
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源~300ka",
+          "gap": 4,
+          "center": 63.7
+        }
+      ],
+      "centers": [],
+      "brandTargets": [
+        {
+          "cls": "logo-compact logo-dark",
+          "alt": "",
+          "aria": "文明編年史",
+          "text": "",
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "natural": 185,
+          "w": 103.6,
+          "h": 28,
+          "clipped": false,
+          "left": 16,
+          "right": 119.6
+        }
+      ],
+      "clipTargets": [],
+      "scroll": {
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "scrollingScrollWidth": 360,
+        "innerWidth": 360,
+        "scrollHeight": 27680,
+        "pageOverflow": false
+      },
+      "dom": {
+        "axis": true,
+        "axisSlim": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeTexts": [
+          "古",
+          "今",
+          "未來"
+        ],
+        "chronicleBand": 0,
+        "volumeBoard": 1,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "dark": true,
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "simplified": false,
+        "brandCount": 2
+      },
+      "font": {
+        "noto": true
+      },
+      "titleContrast": null,
+      "kickerContrast": null
+    }
+  },
+  {
+    "label": "home-390-light",
+    "page": "home",
+    "vp": "390",
+    "theme": "light",
+    "reduced": false,
+    "errors": [],
+    "shotBytes": 719215,
+    "playing": {
+      "sampledMs": 157,
+      "settledAfterMs": 12251,
+      "settledSnapshot": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "linesOn": 6
+      },
+      "hero": {
+        "mode": "playing",
+        "phase": "singularity",
+        "chapter": "ancient",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleTransform": "none",
+        "titleTransition": "all",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerSize": "12px",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "linesOn": 0,
+        "lineCount": 6,
+        "reading": "監測刻度 · 午夜前 1 分",
+        "readingOn": "false",
+        "skipDisplay": "block",
+        "skipW": 81.2,
+        "skipH": 44,
+        "reduced": false
+      },
+      "lineHits": [],
+      "titleContrast": {
+        "n": 11456,
+        "width": 358,
+        "height": 32,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "contrast": 15.24
+      },
+      "kickerContrast": {
+        "n": 5012,
+        "width": 358,
+        "height": 14,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          149,
+          128,
+          93
+        ],
+        "contrast": 4.51
+      },
+      "rawHits": [],
+      "undersized": []
+    },
+    "settled": {
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleTransform": "none",
+        "titleTransition": "all",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerSize": "12px",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "linesOn": 6,
+        "lineCount": 6,
+        "reading": "監測刻度 · 午夜前 1 分",
+        "readingOn": "true",
+        "skipDisplay": "none",
+        "skipW": 0,
+        "skipH": 0,
+        "reduced": false
+      },
+      "rawHits": [],
+      "lineHits": [],
+      "undersized": [],
+      "gaps": [
+        {
+          "a": ".hero-btn:開始編年",
+          "b": ".hero-hint:向下滾動，開始編年",
+          "gap": 4,
+          "center": 84.5
+        },
+        {
+          "a": ".hero-btn:進入今日切片",
+          "b": ".hero-hint:向下滾動，開始編年",
+          "gap": 4,
+          "center": 72.5
+        }
+      ],
+      "centers": [],
+      "brandTargets": [
+        {
+          "cls": "logo-compact logo-light",
+          "alt": "",
+          "aria": "文明編年史",
+          "text": "",
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "natural": 185,
+          "w": 103.6,
+          "h": 28,
+          "clipped": false,
+          "left": 16,
+          "right": 119.6
+        },
+        {
+          "cls": "hero-kicker",
+          "alt": null,
+          "aria": "",
+          "text": "文明編年史 · 開場",
+          "src": "",
+          "natural": null,
+          "w": 358,
+          "h": 17,
+          "clipped": false,
+          "left": 16,
+          "right": 374
+        },
+        {
+          "cls": "hero-title",
+          "alt": null,
+          "aria": "",
+          "text": "從宇宙到今天",
+          "src": "",
+          "natural": null,
+          "w": 358,
+          "h": 32.6,
+          "clipped": false,
+          "left": 16,
+          "right": 374
+        }
+      ],
+      "clipTargets": [],
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "scrollHeight": 5896,
+        "pageOverflow": false
+      },
+      "dom": {
+        "axis": true,
+        "axisSlim": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeTexts": [
+          "古",
+          "今",
+          "未來"
+        ],
+        "chronicleBand": 1,
+        "volumeBoard": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "dark": false,
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "simplified": false,
+        "brandCount": 4
+      },
+      "font": {
+        "noto": true
+      },
+      "titleContrast": {
+        "n": 11456,
+        "width": 358,
+        "height": 32,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          198,
+          196,
+          188
+        ],
+        "contrast": 9.81
+      },
+      "kickerContrast": {
+        "n": 6086,
+        "width": 358,
+        "height": 17,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          114,
+          101,
+          77
+        ],
+        "contrast": 3.01
+      }
+    }
+  },
+  {
+    "label": "civ-390-light",
+    "page": "civ",
+    "vp": "390",
+    "theme": "light",
+    "reduced": false,
+    "errors": [],
+    "shotBytes": 2414375,
+    "playing": null,
+    "settled": {
+      "hero": null,
+      "rawHits": [],
+      "lineHits": [],
+      "undersized": [],
+      "gaps": [
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源~300ka",
+          "gap": 5,
+          "center": 76.3
+        }
+      ],
+      "centers": [],
+      "brandTargets": [
+        {
+          "cls": "logo-compact logo-light",
+          "alt": "",
+          "aria": "文明編年史",
+          "text": "",
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "natural": 185,
+          "w": 103.6,
+          "h": 28,
+          "clipped": false,
+          "left": 16,
+          "right": 119.6
+        }
+      ],
+      "clipTargets": [],
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "scrollHeight": 27082,
+        "pageOverflow": false
+      },
+      "dom": {
+        "axis": true,
+        "axisSlim": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeTexts": [
+          "古",
+          "今",
+          "未來"
+        ],
+        "chronicleBand": 0,
+        "volumeBoard": 1,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "dark": false,
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "simplified": false,
+        "brandCount": 2
+      },
+      "font": {
+        "noto": true
+      },
+      "titleContrast": null,
+      "kickerContrast": null
+    }
+  },
+  {
+    "label": "home-390-dark",
+    "page": "home",
+    "vp": "390",
+    "theme": "dark",
+    "reduced": false,
+    "errors": [],
+    "shotBytes": 719272,
+    "playing": {
+      "sampledMs": 172,
+      "settledAfterMs": 12259,
+      "settledSnapshot": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "linesOn": 6
+      },
+      "hero": {
+        "mode": "playing",
+        "phase": "singularity",
+        "chapter": "ancient",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleTransform": "none",
+        "titleTransition": "all",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerSize": "12px",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "linesOn": 0,
+        "lineCount": 6,
+        "reading": "監測刻度 · 午夜前 1 分",
+        "readingOn": "false",
+        "skipDisplay": "block",
+        "skipW": 81.2,
+        "skipH": 44,
+        "reduced": false
+      },
+      "lineHits": [],
+      "titleContrast": {
+        "n": 11456,
+        "width": 358,
+        "height": 32,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          247,
+          241,
+          230
+        ],
+        "contrast": 15.24
+      },
+      "kickerContrast": {
+        "n": 5012,
+        "width": 358,
+        "height": 14,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          149,
+          128,
+          93
+        ],
+        "contrast": 4.51
+      },
+      "rawHits": [],
+      "undersized": []
+    },
+    "settled": {
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleTransform": "none",
+        "titleTransition": "all",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerSize": "12px",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "linesOn": 6,
+        "lineCount": 6,
+        "reading": "監測刻度 · 午夜前 1 分",
+        "readingOn": "true",
+        "skipDisplay": "none",
+        "skipW": 0,
+        "skipH": 0,
+        "reduced": false
+      },
+      "rawHits": [],
+      "lineHits": [],
+      "undersized": [],
+      "gaps": [
+        {
+          "a": ".hero-btn:開始編年",
+          "b": ".hero-hint:向下滾動，開始編年",
+          "gap": 4,
+          "center": 84.5
+        },
+        {
+          "a": ".hero-btn:進入今日切片",
+          "b": ".hero-hint:向下滾動，開始編年",
+          "gap": 4,
+          "center": 72.5
+        }
+      ],
+      "centers": [],
+      "brandTargets": [
+        {
+          "cls": "logo-compact logo-dark",
+          "alt": "",
+          "aria": "文明編年史",
+          "text": "",
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "natural": 185,
+          "w": 103.6,
+          "h": 28,
+          "clipped": false,
+          "left": 16,
+          "right": 119.6
+        },
+        {
+          "cls": "hero-kicker",
+          "alt": null,
+          "aria": "",
+          "text": "文明編年史 · 開場",
+          "src": "",
+          "natural": null,
+          "w": 358,
+          "h": 17,
+          "clipped": false,
+          "left": 16,
+          "right": 374
+        },
+        {
+          "cls": "hero-title",
+          "alt": null,
+          "aria": "",
+          "text": "從宇宙到今天",
+          "src": "",
+          "natural": null,
+          "w": 358,
+          "h": 32.6,
+          "clipped": false,
+          "left": 16,
+          "right": 374
+        }
+      ],
+      "clipTargets": [],
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "scrollHeight": 5896,
+        "pageOverflow": false
+      },
+      "dom": {
+        "axis": true,
+        "axisSlim": true,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeTexts": [
+          "古",
+          "今",
+          "未來"
+        ],
+        "chronicleBand": 1,
+        "volumeBoard": 1,
+        "axisRails": 1,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "dark": true,
+        "title": "文明編年史 — 從宇宙到今天",
+        "og": "文明編年史",
+        "simplified": false,
+        "brandCount": 4
+      },
+      "font": {
+        "noto": true
+      },
+      "titleContrast": {
+        "n": 11456,
+        "width": 358,
+        "height": 32,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          198,
+          196,
+          188
+        ],
+        "contrast": 9.81
+      },
+      "kickerContrast": {
+        "n": 6086,
+        "width": 358,
+        "height": 17,
+        "bg": [
+          22,
+          28,
+          36
+        ],
+        "fg": [
+          114,
+          101,
+          77
+        ],
+        "contrast": 3.01
+      }
+    }
+  },
+  {
+    "label": "civ-390-dark",
+    "page": "civ",
+    "vp": "390",
+    "theme": "dark",
+    "reduced": false,
+    "errors": [],
+    "shotBytes": 2399867,
+    "playing": null,
+    "settled": {
+      "hero": null,
+      "rawHits": [],
+      "lineHits": [],
+      "undersized": [],
+      "gaps": [
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源~300ka",
+          "gap": 4,
+          "center": 75.5
+        }
+      ],
+      "centers": [],
+      "brandTargets": [
+        {
+          "cls": "logo-compact logo-dark",
+          "alt": "",
+          "aria": "文明編年史",
+          "text": "",
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "natural": 185,
+          "w": 103.6,
+          "h": 28,
+          "clipped": false,
+          "left": 16,
+          "right": 119.6
+        }
+      ],
+      "clipTargets": [],
+      "scroll": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollingScrollWidth": 390,
+        "innerWidth": 390,
+        "scrollHeight": 27082,
+        "pageOverflow": false
+      },
+      "dom": {
+        "axis": true,
+        "axisSlim": false,
+        "axisTitle": true,
+        "deepAxis": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeTexts": [
+          "古",
+          "今",
+          "未來"
+        ],
+        "chronicleBand": 0,
+        "volumeBoard": 1,
+        "axisRails": 0,
+        "patternAxis": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "dark": true,
+        "title": "人類文明 — 文明編年史",
+        "og": "文明編年史",
+        "simplified": false,
+        "brandCount": 2
+      },
+      "font": {
+        "noto": true
+      },
+      "titleContrast": null,
+      "kickerContrast": null
+    }
+  },
+  {
+    "label": "home-360-light-reduced",
+    "page": "home",
+    "vp": "360",
+    "theme": "light",
+    "reduced": true,
+    "errors": [],
+    "sampledMs": 306,
+    "hero": {
+      "mode": "settled",
+      "phase": "handoff",
+      "chapter": "future",
+      "boot": "1",
+      "titleOpacity": "1",
+      "titleColor": "rgb(247, 241, 230)",
+      "titleTransform": "none",
+      "titleTransition": "all",
+      "titleSize": "27.2px",
+      "kickerOpacity": "1",
+      "kickerColor": "rgb(196, 165, 114)",
+      "kickerSize": "12px",
+      "kickerText": "文明編年史 · 開場",
+      "titleText": "從宇宙到今天",
+      "linesOn": 6,
+      "lineCount": 6,
+      "reading": "監測刻度 · 午夜前 1 分",
+      "readingOn": "true",
+      "skipDisplay": "none",
+      "skipW": 0,
+      "skipH": 0,
+      "reduced": true
+    },
+    "lineHits": [],
+    "rawHits": [],
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "scrollHeight": 5707,
+      "pageOverflow": false
+    },
+    "undersized": [],
+    "titleContrast": {
+      "n": 10496,
+      "width": 328,
+      "height": 32,
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "fg": [
+        247,
+        241,
+        230
+      ],
+      "contrast": 15.24
+    },
+    "font": {
+      "noto": true
+    }
+  },
+  {
+    "label": "home-360-dark-reduced",
+    "page": "home",
+    "vp": "360",
+    "theme": "dark",
+    "reduced": true,
+    "errors": [],
+    "sampledMs": 307,
+    "hero": {
+      "mode": "settled",
+      "phase": "handoff",
+      "chapter": "future",
+      "boot": "1",
+      "titleOpacity": "1",
+      "titleColor": "rgb(247, 241, 230)",
+      "titleTransform": "none",
+      "titleTransition": "all",
+      "titleSize": "27.2px",
+      "kickerOpacity": "1",
+      "kickerColor": "rgb(196, 165, 114)",
+      "kickerSize": "12px",
+      "kickerText": "文明編年史 · 開場",
+      "titleText": "從宇宙到今天",
+      "linesOn": 6,
+      "lineCount": 6,
+      "reading": "監測刻度 · 午夜前 1 分",
+      "readingOn": "true",
+      "skipDisplay": "none",
+      "skipW": 0,
+      "skipH": 0,
+      "reduced": true
+    },
+    "lineHits": [],
+    "rawHits": [],
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "scrollHeight": 5707,
+      "pageOverflow": false
+    },
+    "undersized": [],
+    "titleContrast": {
+      "n": 10496,
+      "width": 328,
+      "height": 32,
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "fg": [
+        247,
+        241,
+        230
+      ],
+      "contrast": 15.24
+    },
+    "font": {
+      "noto": true
+    }
+  },
+  {
+    "label": "home-390-light-reduced",
+    "page": "home",
+    "vp": "390",
+    "theme": "light",
+    "reduced": true,
+    "errors": [],
+    "sampledMs": 306,
+    "hero": {
+      "mode": "settled",
+      "phase": "handoff",
+      "chapter": "future",
+      "boot": "1",
+      "titleOpacity": "1",
+      "titleColor": "rgb(247, 241, 230)",
+      "titleTransform": "none",
+      "titleTransition": "all",
+      "titleSize": "27.2px",
+      "kickerOpacity": "1",
+      "kickerColor": "rgb(196, 165, 114)",
+      "kickerSize": "12px",
+      "kickerText": "文明編年史 · 開場",
+      "titleText": "從宇宙到今天",
+      "linesOn": 6,
+      "lineCount": 6,
+      "reading": "監測刻度 · 午夜前 1 分",
+      "readingOn": "true",
+      "skipDisplay": "none",
+      "skipW": 0,
+      "skipH": 0,
+      "reduced": true
+    },
+    "lineHits": [],
+    "rawHits": [],
+    "scroll": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingScrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 5649,
+      "pageOverflow": false
+    },
+    "undersized": [],
+    "titleContrast": {
+      "n": 11456,
+      "width": 358,
+      "height": 32,
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "fg": [
+        247,
+        241,
+        230
+      ],
+      "contrast": 15.24
+    },
+    "font": {
+      "noto": true
+    }
+  },
+  {
+    "label": "home-390-dark-reduced",
+    "page": "home",
+    "vp": "390",
+    "theme": "dark",
+    "reduced": true,
+    "errors": [],
+    "sampledMs": 306,
+    "hero": {
+      "mode": "settled",
+      "phase": "handoff",
+      "chapter": "future",
+      "boot": "1",
+      "titleOpacity": "1",
+      "titleColor": "rgb(247, 241, 230)",
+      "titleTransform": "none",
+      "titleTransition": "all",
+      "titleSize": "27.2px",
+      "kickerOpacity": "1",
+      "kickerColor": "rgb(196, 165, 114)",
+      "kickerSize": "12px",
+      "kickerText": "文明編年史 · 開場",
+      "titleText": "從宇宙到今天",
+      "linesOn": 6,
+      "lineCount": 6,
+      "reading": "監測刻度 · 午夜前 1 分",
+      "readingOn": "true",
+      "skipDisplay": "none",
+      "skipW": 0,
+      "skipH": 0,
+      "reduced": true
+    },
+    "lineHits": [],
+    "rawHits": [],
+    "scroll": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingScrollWidth": 390,
+      "innerWidth": 390,
+      "scrollHeight": 5649,
+      "pageOverflow": false
+    },
+    "undersized": [],
+    "titleContrast": {
+      "n": 11456,
+      "width": 358,
+      "height": 32,
+      "bg": [
+        22,
+        28,
+        36
+      ],
+      "fg": [
+        247,
+        241,
+        230
+      ],
+      "contrast": 15.24
+    },
+    "font": {
+      "noto": true
+    }
+  }
+]
