@@ -1,0 +1,3892 @@
+[
+  {
+    "kind": "full",
+    "page": "home",
+    "path": "/",
+    "vp": "360",
+    "theme": "light",
+    "logs": [],
+    "file": "2026-10-23-home-360-light-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 360,
+        "client": 360,
+        "inner": 360,
+        "scrolling": 360,
+        "pageOverflow": false
+      },
+      "dark": false,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "true",
+          "opacity": "1",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "replay": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 266.8,
+            "top": 175,
+            "right": 348,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "ctaOpacity": "1",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 360,
+          "bottom": 837,
+          "width": 360,
+          "height": 672
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 276,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 292,
+            "bottom": 36,
+            "width": 276,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 34,
+      "near": [
+        {
+          "a": "a.hero-btn.hero-btn-brass \"開始編年\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 84.4,
+          "edge": 4
+        },
+        {
+          "a": "a.hero-btn.hero-btn-ghost \"進入今日切片\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 72.5,
+          "edge": 4
+        }
+      ],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 348,
+            "top": 995,
+            "right": 417,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 429,
+            "top": 995,
+            "right": 498,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 510,
+            "top": 995,
+            "right": 579,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 366.5,
+            "top": 1012.6,
+            "right": 398.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 447.5,
+            "top": 1012.6,
+            "right": 479.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 528.5,
+            "top": 1012.6,
+            "right": 560.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "civ",
+    "path": "/civilization/",
+    "vp": "360",
+    "theme": "light",
+    "logs": [],
+    "file": "2026-10-23-civ-360-light-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 360,
+        "client": 360,
+        "inner": 360,
+        "scrolling": 360,
+        "pageOverflow": false
+      },
+      "dark": false,
+      "brand": {
+        "texts": [
+          "人類文明 — 文明編年史",
+          "文明編年史",
+          "人類文明",
+          "",
+          "/brand/logo-compact.svg?v=wn-v18",
+          ""
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": false,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "deep": true,
+        "stages": []
+      },
+      "hero": null,
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 137.8,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 153.8,
+            "bottom": 36,
+            "width": 137.8,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 26,
+      "near": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 348,
+            "top": 373,
+            "right": 417,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 429,
+            "top": 373,
+            "right": 498,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 510,
+            "top": 373,
+            "right": 579,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 366.5,
+            "top": 390.6,
+            "right": 398.5,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 447.5,
+            "top": 390.6,
+            "right": 479.5,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 528.5,
+            "top": 390.6,
+            "right": 560.5,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "home",
+    "path": "/",
+    "vp": "390",
+    "theme": "light",
+    "logs": [],
+    "file": "2026-10-23-home-390-light-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 390,
+        "client": 390,
+        "inner": 390,
+        "scrolling": 390,
+        "pageOverflow": false
+      },
+      "dark": false,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "true",
+          "opacity": "1",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "replay": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 296.8,
+            "top": 175,
+            "right": 378,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "ctaOpacity": "1",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 390,
+          "bottom": 874,
+          "width": 390,
+          "height": 709
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 306,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 322,
+            "bottom": 36,
+            "width": 306,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 34,
+      "near": [
+        {
+          "a": "a.hero-btn.hero-btn-brass \"開始編年\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 84.4,
+          "edge": 4
+        },
+        {
+          "a": "a.hero-btn.hero-btn-ghost \"進入今日切片\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 72.5,
+          "edge": 4
+        }
+      ],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 378,
+            "top": 1032,
+            "right": 454.5,
+            "bottom": 1047.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 466.5,
+            "top": 1032,
+            "right": 543,
+            "bottom": 1047.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 555,
+            "top": 1032,
+            "right": 631.5,
+            "bottom": 1047.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 400.3,
+            "top": 1049.5,
+            "right": 432.3,
+            "bottom": 1065.1,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 488.8,
+            "top": 1049.5,
+            "right": 520.8,
+            "bottom": 1065.1,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 577.3,
+            "top": 1049.5,
+            "right": 609.3,
+            "bottom": 1065.1,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "civ",
+    "path": "/civilization/",
+    "vp": "390",
+    "theme": "light",
+    "logs": [],
+    "file": "2026-10-23-civ-390-light-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 390,
+        "client": 390,
+        "inner": 390,
+        "scrolling": 390,
+        "pageOverflow": false
+      },
+      "dark": false,
+      "brand": {
+        "texts": [
+          "人類文明 — 文明編年史",
+          "文明編年史",
+          "人類文明",
+          "",
+          "/brand/logo-compact.svg?v=wn-v18",
+          ""
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": false,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "deep": true,
+        "stages": []
+      },
+      "hero": null,
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 152.8,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 168.8,
+            "bottom": 36,
+            "width": 152.8,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 26,
+      "near": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 378,
+            "top": 373,
+            "right": 454.5,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 466.5,
+            "top": 373,
+            "right": 543,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 555,
+            "top": 373,
+            "right": 631.5,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 400.2,
+            "top": 390.6,
+            "right": 432.3,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 488.7,
+            "top": 390.6,
+            "right": 520.8,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 577.2,
+            "top": 390.6,
+            "right": 609.3,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "home",
+    "path": "/",
+    "vp": "414",
+    "theme": "light",
+    "logs": [],
+    "file": "2026-10-23-home-414-light-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 414,
+        "client": 414,
+        "inner": 414,
+        "scrolling": 414,
+        "pageOverflow": false
+      },
+      "dark": false,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "true",
+          "opacity": "1",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "replay": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 320.8,
+            "top": 175,
+            "right": 402,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "ctaOpacity": "1",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 414,
+          "bottom": 917.6,
+          "width": 414,
+          "height": 752.6
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 330,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 346,
+            "bottom": 36,
+            "width": 330,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 34,
+      "near": [
+        {
+          "a": "a.hero-btn.hero-btn-brass \"開始編年\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 84.4,
+          "edge": 4
+        },
+        {
+          "a": "a.hero-btn.hero-btn-ghost \"進入今日切片\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 72.5,
+          "edge": 4
+        }
+      ],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 402,
+            "top": 1075.6,
+            "right": 484.5,
+            "bottom": 1091.2,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 496.5,
+            "top": 1075.6,
+            "right": 579,
+            "bottom": 1091.2,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 591,
+            "top": 1075.6,
+            "right": 673.5,
+            "bottom": 1091.2,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 427.3,
+            "top": 1093.2,
+            "right": 459.3,
+            "bottom": 1108.8,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 521.8,
+            "top": 1093.2,
+            "right": 553.8,
+            "bottom": 1108.8,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 616.3,
+            "top": 1093.2,
+            "right": 648.3,
+            "bottom": 1108.8,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "civ",
+    "path": "/civilization/",
+    "vp": "414",
+    "theme": "light",
+    "logs": [],
+    "file": "2026-10-23-civ-414-light-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 414,
+        "client": 414,
+        "inner": 414,
+        "scrolling": 414,
+        "pageOverflow": false
+      },
+      "dark": false,
+      "brand": {
+        "texts": [
+          "人類文明 — 文明編年史",
+          "文明編年史",
+          "人類文明",
+          "",
+          "/brand/logo-compact.svg?v=wn-v18",
+          ""
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": false,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "deep": true,
+        "stages": []
+      },
+      "hero": null,
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 164.8,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 180.8,
+            "bottom": 36,
+            "width": 164.8,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 26,
+      "near": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 402,
+            "top": 373,
+            "right": 484.5,
+            "bottom": 388.6,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 496.5,
+            "top": 373,
+            "right": 579,
+            "bottom": 388.6,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 591,
+            "top": 373,
+            "right": 673.5,
+            "bottom": 388.6,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 427.2,
+            "top": 390.6,
+            "right": 459.3,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 521.7,
+            "top": 390.6,
+            "right": 553.8,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 616.2,
+            "top": 390.6,
+            "right": 648.3,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "home",
+    "path": "/",
+    "vp": "360",
+    "theme": "dark",
+    "logs": [],
+    "file": "2026-10-23-home-360-dark-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 360,
+        "client": 360,
+        "inner": 360,
+        "scrolling": 360,
+        "pageOverflow": false
+      },
+      "dark": true,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact-dark.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "true",
+          "opacity": "1",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "replay": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 266.8,
+            "top": 175,
+            "right": 348,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "ctaOpacity": "1",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 360,
+          "bottom": 837,
+          "width": 360,
+          "height": 672
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 276,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 292,
+            "bottom": 36,
+            "width": 276,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 34,
+      "near": [
+        {
+          "a": "a.hero-btn.hero-btn-brass \"開始編年\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 84.4,
+          "edge": 4
+        },
+        {
+          "a": "a.hero-btn.hero-btn-ghost \"進入今日切片\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 72.5,
+          "edge": 4
+        }
+      ],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 348,
+            "top": 995,
+            "right": 417,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 429,
+            "top": 995,
+            "right": 498,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 510,
+            "top": 995,
+            "right": 579,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 366.5,
+            "top": 1012.6,
+            "right": 398.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 447.5,
+            "top": 1012.6,
+            "right": 479.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 528.5,
+            "top": 1012.6,
+            "right": 560.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "civ",
+    "path": "/civilization/",
+    "vp": "360",
+    "theme": "dark",
+    "logs": [],
+    "file": "2026-10-23-civ-360-dark-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 360,
+        "client": 360,
+        "inner": 360,
+        "scrolling": 360,
+        "pageOverflow": false
+      },
+      "dark": true,
+      "brand": {
+        "texts": [
+          "人類文明 — 文明編年史",
+          "文明編年史",
+          "人類文明",
+          "",
+          "/brand/logo-compact-dark.svg?v=wn-v18",
+          ""
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": false,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "deep": true,
+        "stages": []
+      },
+      "hero": null,
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 137.8,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 153.8,
+            "bottom": 36,
+            "width": 137.8,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 26,
+      "near": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 348,
+            "top": 373,
+            "right": 417,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 429,
+            "top": 373,
+            "right": 498,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 510,
+            "top": 373,
+            "right": 579,
+            "bottom": 388.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 366.5,
+            "top": 390.6,
+            "right": 398.5,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 447.5,
+            "top": 390.6,
+            "right": 479.5,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 528.5,
+            "top": 390.6,
+            "right": 560.5,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "home",
+    "path": "/",
+    "vp": "390",
+    "theme": "dark",
+    "logs": [],
+    "file": "2026-10-23-home-390-dark-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 390,
+        "client": 390,
+        "inner": 390,
+        "scrolling": 390,
+        "pageOverflow": false
+      },
+      "dark": true,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact-dark.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "true",
+          "opacity": "1",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "replay": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 296.8,
+            "top": 175,
+            "right": 378,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "ctaOpacity": "1",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 390,
+          "bottom": 874,
+          "width": 390,
+          "height": 709
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 306,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 322,
+            "bottom": 36,
+            "width": 306,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 34,
+      "near": [
+        {
+          "a": "a.hero-btn.hero-btn-brass \"開始編年\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 84.4,
+          "edge": 4
+        },
+        {
+          "a": "a.hero-btn.hero-btn-ghost \"進入今日切片\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 72.5,
+          "edge": 4
+        }
+      ],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 378,
+            "top": 1032,
+            "right": 454.5,
+            "bottom": 1047.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 466.5,
+            "top": 1032,
+            "right": 543,
+            "bottom": 1047.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 555,
+            "top": 1032,
+            "right": 631.5,
+            "bottom": 1047.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 400.3,
+            "top": 1049.5,
+            "right": 432.3,
+            "bottom": 1065.1,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 488.8,
+            "top": 1049.5,
+            "right": 520.8,
+            "bottom": 1065.1,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 577.3,
+            "top": 1049.5,
+            "right": 609.3,
+            "bottom": 1065.1,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "civ",
+    "path": "/civilization/",
+    "vp": "390",
+    "theme": "dark",
+    "logs": [],
+    "file": "2026-10-23-civ-390-dark-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 390,
+        "client": 390,
+        "inner": 390,
+        "scrolling": 390,
+        "pageOverflow": false
+      },
+      "dark": true,
+      "brand": {
+        "texts": [
+          "人類文明 — 文明編年史",
+          "文明編年史",
+          "人類文明",
+          "",
+          "/brand/logo-compact-dark.svg?v=wn-v18",
+          ""
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": false,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "deep": true,
+        "stages": []
+      },
+      "hero": null,
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 152.8,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 168.8,
+            "bottom": 36,
+            "width": 152.8,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 26,
+      "near": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 378,
+            "top": 373,
+            "right": 454.5,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 466.5,
+            "top": 373,
+            "right": 543,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 555,
+            "top": 373,
+            "right": 631.5,
+            "bottom": 388.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 400.2,
+            "top": 390.6,
+            "right": 432.3,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 488.7,
+            "top": 390.6,
+            "right": 520.8,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 577.2,
+            "top": 390.6,
+            "right": 609.3,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "home",
+    "path": "/",
+    "vp": "414",
+    "theme": "dark",
+    "logs": [],
+    "file": "2026-10-23-home-414-dark-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 414,
+        "client": 414,
+        "inner": 414,
+        "scrolling": 414,
+        "pageOverflow": false
+      },
+      "dark": true,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact-dark.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "true",
+          "opacity": "1",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "replay": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 320.8,
+            "top": 175,
+            "right": 402,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "ctaOpacity": "1",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 414,
+          "bottom": 917.6,
+          "width": 414,
+          "height": 752.6
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 330,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 346,
+            "bottom": 36,
+            "width": 330,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 34,
+      "near": [
+        {
+          "a": "a.hero-btn.hero-btn-brass \"開始編年\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 84.4,
+          "edge": 4
+        },
+        {
+          "a": "a.hero-btn.hero-btn-ghost \"進入今日切片\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 72.5,
+          "edge": 4
+        }
+      ],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 402,
+            "top": 1075.6,
+            "right": 484.5,
+            "bottom": 1091.2,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 496.5,
+            "top": 1075.6,
+            "right": 579,
+            "bottom": 1091.2,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 591,
+            "top": 1075.6,
+            "right": 673.5,
+            "bottom": 1091.2,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 427.3,
+            "top": 1093.2,
+            "right": 459.3,
+            "bottom": 1108.8,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 521.8,
+            "top": 1093.2,
+            "right": 553.8,
+            "bottom": 1108.8,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 616.3,
+            "top": 1093.2,
+            "right": 648.3,
+            "bottom": 1108.8,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "full",
+    "page": "civ",
+    "path": "/civilization/",
+    "vp": "414",
+    "theme": "dark",
+    "logs": [],
+    "file": "2026-10-23-civ-414-dark-full.png",
+    "measured": {
+      "scroll": {
+        "doc": 414,
+        "client": 414,
+        "inner": 414,
+        "scrolling": 414,
+        "pageOverflow": false
+      },
+      "dark": true,
+      "brand": {
+        "texts": [
+          "人類文明 — 文明編年史",
+          "文明編年史",
+          "人類文明",
+          "",
+          "/brand/logo-compact-dark.svg?v=wn-v18",
+          ""
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": false,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "閱讀人類起源",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 0,
+        "axisRails": 0,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": false,
+        "deep": true,
+        "stages": []
+      },
+      "hero": null,
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 164.8,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 180.8,
+            "bottom": 36,
+            "width": 164.8,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 26,
+      "near": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 402,
+            "top": 373,
+            "right": 484.5,
+            "bottom": 388.6,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 496.5,
+            "top": 373,
+            "right": 579,
+            "bottom": 388.6,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 591,
+            "top": 373,
+            "right": 673.5,
+            "bottom": 388.6,
+            "width": 82.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 427.2,
+            "top": 390.6,
+            "right": 459.3,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 521.7,
+            "top": 390.6,
+            "right": 553.8,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 616.2,
+            "top": 390.6,
+            "right": 648.3,
+            "bottom": 406.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "playing-early",
+    "page": "home",
+    "path": "/",
+    "vp": "390",
+    "theme": "light",
+    "motion": "no-preference",
+    "logs": [],
+    "label": "playing-early",
+    "file": "2026-10-23-home-390-light-playing.png",
+    "measured": {
+      "scroll": {
+        "doc": 390,
+        "client": 390,
+        "inner": 390,
+        "scrolling": 390,
+        "pageOverflow": false
+      },
+      "dark": false,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "playing",
+        "phase": "singularity",
+        "chapter": "ancient",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "0.81045",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "false",
+            "opacity": "0",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "false",
+            "opacity": "0",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "false",
+            "opacity": "0",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "false",
+            "opacity": "0",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "false",
+            "opacity": "0",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "false",
+          "opacity": "0",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 296.8,
+            "top": 175,
+            "right": 378,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "replay": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "ctaOpacity": "0",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 390,
+          "bottom": 874,
+          "width": 390,
+          "height": 709
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 306,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 322,
+            "bottom": 36,
+            "width": 306,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 30,
+      "near": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 378,
+            "top": 1038.8,
+            "right": 454.5,
+            "bottom": 1054.4,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 466.5,
+            "top": 1050,
+            "right": 543,
+            "bottom": 1065.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 555,
+            "top": 1032,
+            "right": 631.5,
+            "bottom": 1047.6,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 400.3,
+            "top": 1056.4,
+            "right": 432.3,
+            "bottom": 1072,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 488.8,
+            "top": 1067.5,
+            "right": 520.8,
+            "bottom": 1083.1,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 577.3,
+            "top": 1049.6,
+            "right": 609.3,
+            "bottom": 1065.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "playing-mid",
+    "page": "home",
+    "path": "/",
+    "vp": "390",
+    "theme": "dark",
+    "motion": "no-preference",
+    "logs": [
+      {
+        "kind": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      }
+    ],
+    "label": "playing-mid",
+    "file": "2026-10-23-home-390-dark-playing.png",
+    "measured": {
+      "scroll": {
+        "doc": 390,
+        "client": 390,
+        "inner": 390,
+        "scrolling": 390,
+        "pageOverflow": false
+      },
+      "dark": true,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact-dark.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "playing",
+        "phase": "bloom",
+        "chapter": "ancient",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "true",
+            "opacity": "0.972444",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "false",
+            "opacity": "0",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "false",
+            "opacity": "0",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "false",
+            "opacity": "0",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "false",
+            "opacity": "0",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "false",
+          "opacity": "0",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 296.8,
+            "top": 175,
+            "right": 378,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "replay": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "ctaOpacity": "0",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 390,
+          "bottom": 874,
+          "width": 390,
+          "height": 709
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 306,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 322,
+            "bottom": 36,
+            "width": 306,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 31,
+      "near": [],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 378,
+            "top": 1032,
+            "right": 454.5,
+            "bottom": 1047.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 466.5,
+            "top": 1032,
+            "right": 543,
+            "bottom": 1047.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 555,
+            "top": 1032,
+            "right": 631.5,
+            "bottom": 1047.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 400.3,
+            "top": 1049.5,
+            "right": 432.3,
+            "bottom": 1065.1,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 488.8,
+            "top": 1049.5,
+            "right": 520.8,
+            "bottom": 1065.1,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 577.3,
+            "top": 1049.5,
+            "right": 609.3,
+            "bottom": 1065.1,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": [
+        {
+          "kind": "error",
+          "text": "Failed to load resource: net::ERR_FAILED"
+        }
+      ]
+    }
+  },
+  {
+    "kind": "reduced-300",
+    "page": "home",
+    "path": "/",
+    "vp": "360",
+    "theme": "light",
+    "motion": "reduce",
+    "logs": [],
+    "label": "reduced-300",
+    "file": "2026-10-23-home-360-light-reduced.png",
+    "measured": {
+      "scroll": {
+        "doc": 360,
+        "client": 360,
+        "inner": 360,
+        "scrolling": 360,
+        "pageOverflow": false
+      },
+      "dark": false,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "true",
+          "opacity": "1",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "replay": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 266.8,
+            "top": 175,
+            "right": 348,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "ctaOpacity": "1",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 360,
+          "bottom": 837,
+          "width": 360,
+          "height": 672
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 276,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 292,
+            "bottom": 36,
+            "width": 276,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 34,
+      "near": [
+        {
+          "a": "a.hero-btn.hero-btn-brass \"開始編年\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 84.4,
+          "edge": 4
+        },
+        {
+          "a": "a.hero-btn.hero-btn-ghost \"進入今日切片\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 72.5,
+          "edge": 4
+        }
+      ],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 348,
+            "top": 995,
+            "right": 417,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 429,
+            "top": 995,
+            "right": 498,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 510,
+            "top": 995,
+            "right": 579,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 366.5,
+            "top": 1012.6,
+            "right": 398.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 447.5,
+            "top": 1012.6,
+            "right": 479.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 528.5,
+            "top": 1012.6,
+            "right": 560.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "reduced-300",
+    "page": "home",
+    "path": "/",
+    "vp": "360",
+    "theme": "dark",
+    "motion": "reduce",
+    "logs": [],
+    "label": "reduced-300",
+    "file": "2026-10-23-home-360-dark-reduced.png",
+    "measured": {
+      "scroll": {
+        "doc": 360,
+        "client": 360,
+        "inner": 360,
+        "scrolling": 360,
+        "pageOverflow": false
+      },
+      "dark": true,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact-dark.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "true",
+          "opacity": "1",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "replay": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 266.8,
+            "top": 175,
+            "right": 348,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "ctaOpacity": "1",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 360,
+          "bottom": 837,
+          "width": 360,
+          "height": 672
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 276,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 292,
+            "bottom": 36,
+            "width": 276,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 34,
+      "near": [
+        {
+          "a": "a.hero-btn.hero-btn-brass \"開始編年\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 84.4,
+          "edge": 4
+        },
+        {
+          "a": "a.hero-btn.hero-btn-ghost \"進入今日切片\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 72.5,
+          "edge": 4
+        }
+      ],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 348,
+            "top": 995,
+            "right": 417,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 429,
+            "top": 995,
+            "right": 498,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 510,
+            "top": 995,
+            "right": 579,
+            "bottom": 1010.6,
+            "width": 69,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 366.5,
+            "top": 1012.6,
+            "right": 398.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 447.5,
+            "top": 1012.6,
+            "right": 479.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 528.5,
+            "top": 1012.6,
+            "right": 560.5,
+            "bottom": 1028.2,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": []
+    }
+  },
+  {
+    "kind": "settle-12s",
+    "page": "home",
+    "path": "/",
+    "vp": "390",
+    "theme": "light",
+    "motion": "no-preference",
+    "logs": [
+      {
+        "kind": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      }
+    ],
+    "label": "settle-12s",
+    "file": "2026-10-23-home-390-light-settled12.png",
+    "measured": {
+      "scroll": {
+        "doc": 390,
+        "client": 390,
+        "inner": 390,
+        "scrolling": 390,
+        "pageOverflow": false
+      },
+      "dark": false,
+      "brand": {
+        "texts": [
+          "文明編年史 — 從宇宙到今天",
+          "文明編年史",
+          "文明編年史 — 從宇宙到今天",
+          "",
+          "/brand/logo-compact.svg?v=wn-v18",
+          "文明編年史 · 開場"
+        ],
+        "hasTraditional": true,
+        "simplified": false,
+        "logo": {
+          "src": "/brand/logo-compact.svg?v=wn-v18",
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 119.6,
+            "bottom": 36,
+            "width": 103.6,
+            "height": 28
+          },
+          "clipped": false,
+          "broken": false
+        }
+      },
+      "dom": {
+        "hero": true,
+        "axis": true,
+        "axisTitle": true,
+        "axisCta": 1,
+        "axisCtaText": [
+          "打開文明總覽",
+          "跳到今日切片"
+        ],
+        "volumeCards": 3,
+        "volumeHeads": [
+          "卷一 古 採集、農業、城市、帝國與商路，在此收成",
+          "古",
+          "卷二 今 科學方法、工業能量、全球信用、信息網絡"
+        ],
+        "chronicleBand": 1,
+        "axisRails": 1,
+        "pattern": 1,
+        "caseAxis": 1,
+        "slice": true,
+        "deep": true,
+        "stages": []
+      },
+      "hero": {
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "boot": "1",
+        "titleOpacity": "1",
+        "titleColor": "rgb(247, 241, 230)",
+        "titleSize": "27.2px",
+        "kickerOpacity": "1",
+        "kickerColor": "rgb(196, 165, 114)",
+        "kickerText": "文明編年史 · 開場",
+        "titleText": "從宇宙到今天",
+        "lines": [
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "甚麼都還沒有名字。 膨脹已經開始。鐘更晚。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "空間忽然多出來。 沒有空氣，就沒有響聲。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "碳是恆星煉成的。 包括這一行裡的碳。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "然後，人類才開始看分鐘。 地球並不趕時間。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "這一格由編輯寫定。 對照公開公報，並不逐秒走動。"
+          },
+          {
+            "on": "true",
+            "opacity": "1",
+            "text": "三卷仍在這一屏之下。 刻度交給編年，不交給秒針。"
+          }
+        ],
+        "reading": {
+          "on": "true",
+          "opacity": "1",
+          "text": "監測刻度 · 午夜前 1 分"
+        },
+        "skip": {
+          "display": "none",
+          "opacity": "1",
+          "box": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "width": 0,
+            "height": 0
+          }
+        },
+        "replay": {
+          "display": "block",
+          "opacity": "1",
+          "box": {
+            "left": 296.8,
+            "top": 175,
+            "right": 378,
+            "bottom": 219,
+            "width": 81.2,
+            "height": 44
+          }
+        },
+        "ctaOpacity": "0.99551",
+        "box": {
+          "left": 0,
+          "top": 165,
+          "right": 390,
+          "bottom": 874,
+          "width": 390,
+          "height": 709
+        }
+      },
+      "hits": [],
+      "touchFails": [
+        {
+          "sel": "a.logo-link",
+          "label": "a.logo-link \"文明編年史\"",
+          "width": 306,
+          "height": 28,
+          "fail": true,
+          "box": {
+            "left": 16,
+            "top": 8,
+            "right": 322,
+            "bottom": 36,
+            "width": 306,
+            "height": 28
+          }
+        }
+      ],
+      "touchCount": 34,
+      "near": [
+        {
+          "a": "a.hero-btn.hero-btn-brass \"開始編年\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 84.4,
+          "edge": 4
+        },
+        {
+          "a": "a.hero-btn.hero-btn-ghost \"進入今日切片\"",
+          "b": "a.hero-hint \"向下滾動，開始編年\"",
+          "center": 72.5,
+          "edge": 4
+        }
+      ],
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"城市\"",
+          "box": {
+            "left": 378,
+            "top": 1043,
+            "right": 454.5,
+            "bottom": 1058.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"今天\"",
+          "box": {
+            "left": 466.5,
+            "top": 1043,
+            "right": 543,
+            "bottom": 1058.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .lab",
+          "label": "span.lab \"未來\"",
+          "box": {
+            "left": 555,
+            "top": 1043,
+            "right": 631.5,
+            "bottom": 1058.5,
+            "width": 76.5,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"基建\"",
+          "box": {
+            "left": 400.2,
+            "top": 1060.5,
+            "right": 432.3,
+            "bottom": 1076.1,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"切片\"",
+          "box": {
+            "left": 488.7,
+            "top": 1060.5,
+            "right": 520.8,
+            "bottom": 1076.1,
+            "width": 32,
+            "height": 15.6
+          }
+        },
+        {
+          "sel": ".axis-node .yr",
+          "label": "span.yr \"展望\"",
+          "box": {
+            "left": 577.2,
+            "top": 1060.5,
+            "right": 609.3,
+            "bottom": 1076.1,
+            "width": 32,
+            "height": 15.6
+          }
+        }
+      ],
+      "consoleReady": true,
+      "logs": [
+        {
+          "kind": "error",
+          "text": "Failed to load resource: net::ERR_FAILED"
+        }
+      ]
+    }
+  },
+  {
+    "kind": "cta-click",
+    "file": "2026-10-23-civ-360-dark-slice-click.png",
+    "before": {
+      "href": "/civilization/origins/",
+      "text": "閱讀人類起源"
+    },
+    "after": {
+      "href": "/civilization/origins/",
+      "gap": null
+    }
+  },
+  {
+    "kind": "home-cta",
+    "file": "2026-10-23-home-360-light-civ-click.png",
+    "before": {
+      "text": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ],
+      "hero": [
+        {
+          "text": "開始編年",
+          "href": "#civ",
+          "box": {
+            "x": 61.0625,
+            "y": 725,
+            "width": 98.75,
+            "height": 44,
+            "top": 725,
+            "right": 159.8125,
+            "bottom": 769,
+            "left": 61.0625
+          }
+        },
+        {
+          "text": "進入今日切片",
+          "href": "#slice",
+          "box": {
+            "x": 169.8125,
+            "y": 725,
+            "width": 129.125,
+            "height": 44,
+            "top": 725,
+            "right": 298.9375,
+            "bottom": 769,
+            "left": 169.8125
+          }
+        }
+      ]
+    },
+    "after": "/civilization/"
+  }
+]
