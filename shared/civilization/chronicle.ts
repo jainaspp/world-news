@@ -428,7 +428,6 @@ function sourceTable(): string {
 export function renderChronicleArticle(): string {
   const stages = chronicleStagesOrdered();
   const chapters = CHRONICLE_CHAPTERS.map((chapter) => `<a class="chip" href="#${chapter.id}">${esc(chapter.volume)} ${esc(chapter.name)}</a>`).join('');
-  const nav = stages.map((stage) => `<a class="chip" href="#stage-${stage.n}">${ordinal(stage.n)} ${esc(stage.short)}</a>`).join('');
   const lede = CHRONICLE_LEDE.split('\n').map((paragraph) => `<p>${esc(paragraph)}</p>`).join('');
   const body = stages.flatMap((stage) => {
     const chapter = CHRONICLE_CHAPTERS.find((item) => item.stages[0] === stage.n);
@@ -441,7 +440,6 @@ export function renderChronicleArticle(): string {
     <h2>如何閱讀本編年</h2>
     <p>${esc(CHRONICLE_HOW)}</p>
     <nav class="chronicle-nav" aria-label="跳到卷">${chapters}</nav>
-    <nav class="chronicle-nav" aria-label="跳到階段">${nav}</nav>
     ${renderPatternNav()}
     ${renderCaseNav('/civilization/chronicle/')}
     <div class="civ-progress" aria-hidden="true"></div>

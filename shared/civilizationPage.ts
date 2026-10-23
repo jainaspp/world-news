@@ -34,9 +34,7 @@ const ORIGIN = 'https://world-news.xyz';
  */
 const CIV_MOTION_BOOT = '<script>try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("civ-motion");setTimeout(function(){var root=document.documentElement;if(!root.classList.contains("civ-motion")||root.hasAttribute("data-civ-motion"))return;if(document.querySelector(".civ-reveal:not(.is-inview):not(.civ-reveal--above-fold)"))root.classList.remove("civ-motion")},1500)}}catch(e){}</script>';
 
-const HUB_LEDE = `${siteBrand}把每日新聞放在人類文明的時間軸上。讀者先看見深時間、技術發現與城市公共生活的尺度，再進入今天的切片。遠史只收溫和題材，用來說明今日切片何以落在這一日。新聞是軸上的今天，不是整站的皮膚。本頁寫明閱讀方法、起源層的實質摘要，以及三則可以核對的里程碑。技術與城市已各有長頁。仍未寫厚的層次不另開網址，也不進入網站地圖。`;
-
-const HUB_ORIGINS = '約三十萬年前，解剖學上的現代人已能在非洲化石中辨認。摩洛哥 Jebel Irhoud 等地點常被公共科普引為重要證據之一，但現代人起源是非洲內部的長期過程，不是單一洞穴的一日事件。約六萬至四萬五千年前的主要擴張，使現代人分布到歐亞等地，並與尼安德特人、丹尼索瓦人發生有限的基因交流。比例與時間仍有學術爭議，本站不作人群比較。約一萬一千七百年前全新世開始之後，農業與定居轉入城市和基建，不放進起源的月日卡。全文見人類起源時間線。';
+const HUB_LEDE = `${siteBrand}把每日新聞放在人類文明的時間軸上。讀者先看見深時間、技術發現與城市公共生活的尺度，再進入今天的切片。遠史只收溫和題材，用來說明今日切片何以落在這一日。新聞是軸上的今天，不是整站的皮膚。本頁寫明閱讀方法，以及三則可以核對的里程碑。技術與城市已各有長頁。仍未寫厚的層次不另開網址，也不進入網站地圖。`;
 
 export const HUB_MILESTONES: { era: string; title: string; text: string }[] = [
   {
@@ -67,7 +65,6 @@ export function originsProse(): string {
 export function hubProse(): string {
   return [
     HUB_LEDE,
-    HUB_ORIGINS,
     ...HUB_MILESTONES.flatMap((row) => [row.era, row.title, row.text]),
     HUB_READ,
     HUB_LOCAL,
@@ -412,8 +409,6 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
     <article class="civ-article">
       <h2>導語</h2>
       <p>${esc(HUB_LEDE)}</p>
-      <h2>起源摘要</h2>
-      <p>${esc(HUB_ORIGINS)}</p>
       <h2>里程碑</h2>
       ${milestoneList()}
       <h2>怎樣讀這條軸</h2>

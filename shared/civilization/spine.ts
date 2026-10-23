@@ -2,8 +2,6 @@ import { esc } from '../contentPage.js';
 import { COSMOS_STAGES, cosmoCoverImg } from './cosmos.js';
 import { EARTH_STAGES, earthCoverImg } from './earth.js';
 
-const CIV = '/static/civilization';
-
 export interface SpineLink {
   href: string;
   label: string;
@@ -17,7 +15,7 @@ export interface SpineBoard {
   title: string;
   meaning: string;
   links: SpineLink[];
-  /** Cosmos and earth covers carry data-stage. Origins does not. */
+  /** Cosmos and earth covers carry data-stage. */
   dataStage?: boolean;
   cover: () => string;
 }
@@ -32,13 +30,9 @@ export interface SpineNode {
   board?: SpineBoard;
 }
 
-function originsCover(): string {
-  return `<img src="${CIV}/civ-layer-origins-640w.webp" srcset="${CIV}/civ-layer-origins-400w.webp 400w, ${CIV}/civ-layer-origins-640w.webp 640w" sizes="(max-width: 600px) 100vw, 360px" width="640" height="480" alt="人類起源：深時間溫和示意" loading="lazy" decoding="async" onerror="this.hidden=true" />`;
-}
-
 /**
- * Axis order is this list. Deep-time cards are the same objects that set `board`,
- * so inserting a node between cosmos and origins is one entry, not a new template.
+ * Axis order is this list. Deep-time cards are the cosmos and earth nodes that set `board`.
+ * Origins stays on the axis and as the civilization-layer card, not a third deep-time card.
  */
 export const SPINE: SpineNode[] = [
   {
@@ -89,16 +83,6 @@ export const SPINE: SpineNode[] = [
     label: '起源',
     year: '~300ka',
     href: '/civilization/origins/',
-    board: {
-      cardClass: '',
-      seal: '起源',
-      aria: '人類起源',
-      era: '人類起源',
-      title: '人類起源',
-      meaning: '約七百萬年前人族至智人。宇宙長河在此交接。',
-      links: [{ href: '/civilization/origins/', label: '閱讀人類起源' }],
-      cover: originsCover,
-    },
   },
   {
     id: 'tech',
@@ -160,7 +144,7 @@ export function renderDeepTimeBoardFromSpine(): string {
     <div class="chronicle-board-head">
       <h2>深時間</h2>
     </div>
-    <p class="chronicle-board-note">宇宙長河接到地球生命，再交接入類起源。約七百萬年前，演化進入人族階段。下方編年分作古、今、未來三卷。</p>
+    <p class="chronicle-board-note">宇宙長河接到地球生命。人族之後的年表見下方文明層。編年分作古、今、未來三卷。</p>
     <div class="deep-time-grid">
       ${cards}
     </div>
