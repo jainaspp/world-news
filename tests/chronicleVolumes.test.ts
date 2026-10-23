@@ -76,6 +76,35 @@ describe('chronicle three volumes P0', () => {
     expect(cjkChars(stage10?.prose ?? '')).toBeGreaterThanOrEqual(400);
   });
 
+  it('thickens volume 1 with deep-read bodies, asks, and public sources', () => {
+    const page = renderChroniclePage().html;
+    for (const n of [1, 2, 3, 4, 5]) {
+      const stage = CHRONICLE_STAGES.find((item) => item.n === n);
+      const prose = stage?.prose ?? '';
+      expect(cjkChars(prose)).toBeGreaterThanOrEqual(400);
+      expect(prose.split('\n').filter(Boolean).length).toBeGreaterThanOrEqual(4);
+      const section = stageSlice(page, n);
+      for (const paragraph of prose.split('\n')) {
+        expect(section).toContain(paragraph.slice(0, 12));
+      }
+      const hasPatternAsk = patternsForStage(n).some((card) => card.ask.trim().length > 0);
+      const hasStageAsk = Boolean(stage?.mechanismAsk) && section.includes(`機制問題：${stage?.mechanismAsk}`);
+      expect(hasPatternAsk || hasStageAsk).toBe(true);
+      expect(section).toContain('class="stage-sources"');
+      expect(httpsCount(section)).toBeGreaterThanOrEqual(4);
+    }
+    const stage1 = CHRONICLE_STAGES.find((item) => item.n === 1);
+    expect(stage1?.prose).toContain('宇宙長河');
+    expect(stage1?.prose).toContain('約七百萬年前');
+    const chapter = page.slice(page.indexOf('id="ch-ancient"'), page.indexOf('id="stage-1"'));
+    expect(chapter).toContain('本卷正文按階段加厚');
+    // The thickened bodies keep the origins long page as the deep-time handoff.
+    for (const n of [1, 2]) {
+      const section = stageSlice(page, n);
+      expect(section).toContain('href="/civilization/origins/"');
+    }
+  });
+
   it('thickens volume 2 and leaves the future door on the existing anchors', () => {
     const page = renderChroniclePage().html;
     for (const n of [6, 7, 8, 9, 10]) {
