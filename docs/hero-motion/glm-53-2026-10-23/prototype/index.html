@@ -52,7 +52,7 @@
     z-index: 1;
     width: min(720px, 100%);
     margin: 0 auto;
-    padding: 16px 16px 36px;
+    padding: 0 0 28px;
   }
   .topbar {
     display: flex;
@@ -61,7 +61,10 @@
     gap: 12px;
     flex-wrap: wrap;
     min-height: 44px;
+    padding: 12px 16px;
+    background: #161c24;
   }
+  [hidden] { display: none !important; }
   h1 {
     margin: 0;
     font-size: 18px;
@@ -80,7 +83,7 @@
     padding: 0 16px;
     border-radius: 999px;
     border: 1px solid rgba(213, 208, 198, 0.55);
-    background: rgba(22, 28, 36, 0.72);
+    background: #161c24;
     color: var(--paper);
     font: inherit;
     font-size: 14px;
@@ -89,8 +92,14 @@
   #skip { display: none; }
   html.is-play #skip, html.is-scrub #skip { display: inline-flex; }
   html.is-reduce #replay { display: none !important; }
+  .lecture {
+    margin: 4px 16px 0;
+    padding: 10px 14px 8px;
+    border-radius: 14px;
+    background: rgba(22, 28, 36, 0.9);
+  }
   .kicker {
-    margin: 22px 0 6px;
+    margin: 0 0 4px;
     font-size: 12px;
     letter-spacing: 0.28em;
     color: var(--brass);
@@ -104,7 +113,7 @@
     color: var(--paper);
   }
   .plates { margin: 14px 0 0; }
-  html.is-play .plates, html.is-scrub .plates { min-height: 8.5rem; }
+  html.is-play .plates, html.is-scrub .plates { min-height: 6.75rem; }
   .plate { margin: 0 0 16px; }
   html.is-play .plate, html.is-scrub .plate { display: none; margin: 0; }
   html.is-play .plate.on, html.is-scrub .plate.on { display: block; }
@@ -141,7 +150,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px 16px;
-    margin: 18px 0 0;
+    margin: 10px 16px 0;
     padding: 0;
     list-style: none;
     font-size: 13px;
@@ -159,7 +168,7 @@
   .sw.gold { background: var(--brass); }
   .sw.blue { background: var(--cold); }
   .sw.violet { background: var(--glow); }
-  .stack { margin-top: 8px; }
+  .stack { margin: 8px 16px 0; }
   .vol {
     margin-top: 8px;
     padding: 8px 12px 12px;
@@ -246,8 +255,8 @@
   .ancient .num { color: var(--brass); }
   .now .num { color: var(--cold); }
   .slip {
-    margin-top: 16px;
-    padding: 14px 16px 12px;
+    margin: 10px 16px 0;
+    padding: 10px 16px 6px;
     border-radius: 12px;
     border: 1px solid var(--brass);
     background: var(--paper);
@@ -275,7 +284,7 @@
   }
   .slip-num {
     font-family: var(--serif);
-    font-size: 56px;
+    font-size: 48px;
     line-height: 1;
     color: var(--ink);
   }
@@ -298,7 +307,7 @@
     text-underline-offset: 3px;
   }
   .refer {
-    margin-top: 16px;
+    margin: 16px 16px 0;
     padding: 12px 14px;
     border-radius: 12px;
     border: 1px solid rgba(247, 241, 230, 0.3);
@@ -319,7 +328,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 18px;
+    margin: 18px 16px 0;
   }
   .btn {
     display: inline-flex;
@@ -352,11 +361,20 @@
     margin: 0 auto;
   }
   .footnote code { font-family: ui-monospace, monospace; font-size: 12px; color: var(--paper); }
+  @media (max-width: 799px) {
+    html.is-play .vol.on:has(~ .vol.on) .ticks,
+    html.is-play .vol.on:has(~ .vol.on) .era,
+    html.is-scrub .vol.on:has(~ .vol.on) .ticks,
+    html.is-scrub .vol.on:has(~ .vol.on) .era { display: none; }
+  }
   @media (min-width: 800px) {
     .ticks { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   }
   @media (min-width: 1024px) {
-    .frame { padding: 28px 24px 48px; }
+    .frame { padding-bottom: 48px; }
+    .topbar { padding: 20px 24px 8px; }
+    .lecture { margin-left: 24px; margin-right: 24px; }
+    .key, .stack, .slip, .refer, .cta { margin-left: 24px; margin-right: 24px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -425,6 +443,7 @@
         <button type="button" id="replay" hidden>重播開場</button>
       </div>
     </div>
+    <div class="lecture">
     <p class="kicker">開蒙尺</p>
     <h2>先有刻度，再讀今天</h2>
 
@@ -461,6 +480,7 @@
         <p class="main">三卷疊好。十階都在尺上，未來不另立第十一階。</p>
         <p class="gloss"><span class="tag">眉批</span>先選一卷，再讀今天。</p>
       </article>
+    </div>
     </div>
     <p class="live" id="live" aria-live="polite"></p>
 
@@ -617,14 +637,6 @@
         ctx.stroke();
       }
       ctx.restore();
-      var col = Math.min(720, W);
-      var x0 = (W - col) / 2;
-      var scr = ctx.createLinearGradient(0, Math.max(0, cy - 20), 0, cy + 240);
-      scr.addColorStop(0, 'rgba(22,28,36,0)');
-      scr.addColorStop(0.4, 'rgba(22,28,36,' + (0.5 * fade) + ')');
-      scr.addColorStop(1, 'rgba(22,28,36,' + (0.2 * fade) + ')');
-      ctx.fillStyle = scr;
-      ctx.fillRect(x0, 0, col, H);
     }
 
     var colW = Math.min(720, W);
@@ -642,13 +654,16 @@
         var y = Math.min(H - 20, viewH * lines[n].y);
         var reach = gutter * amt;
         ctx.strokeStyle = lines[n].color;
-        ctx.globalAlpha = 0.95;
-        ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(reach, y);
         ctx.moveTo(W, y);
         ctx.lineTo(W - reach, y);
+        ctx.lineWidth = 10;
+        ctx.globalAlpha = 0.28 * amt;
+        ctx.stroke();
+        ctx.lineWidth = 3;
+        ctx.globalAlpha = 0.95;
         ctx.stroke();
         ctx.globalAlpha = 1;
       }
