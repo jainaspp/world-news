@@ -1,0 +1,299 @@
+{
+  "H-dark": {
+    "boxes": [
+      {
+        "sel": ".axis-hero .axis-title",
+        "text": "站在一條很長的時間軸上",
+        "x": 16,
+        "y": 405,
+        "w": 358,
+        "h": 34
+      },
+      {
+        "sel": ".axis-hero .axis-lede",
+        "text": "軸由宇宙走到今天，再望向",
+        "x": 16,
+        "y": 447,
+        "w": 358,
+        "h": 32
+      },
+      {
+        "sel": ".axis-hero .kicker",
+        "text": "Human span ·",
+        "x": 16,
+        "y": 383,
+        "w": 358,
+        "h": 14
+      },
+      {
+        "sel": ".axis-hero .axis-cta .btn-ghost",
+        "text": "跳到今日切片",
+        "x": 132,
+        "y": 582,
+        "w": 108,
+        "h": 44
+      }
+    ],
+    "sampled": {
+      ".axis-hero .axis-title": {
+        "text": "站在一條很長的時間軸上",
+        "color": "rgb(247, 241, 230)",
+        "medianRatio": 12.96,
+        "brightRatio": 11.9,
+        "bgLum": 0.022
+      },
+      ".axis-hero .axis-lede": {
+        "text": "軸由宇宙走到今天，再望向",
+        "color": "rgb(197, 192, 182)",
+        "medianRatio": 6.51,
+        "brightRatio": 5.57,
+        "bgLum": 0.039
+      },
+      ".axis-hero .kicker": {
+        "text": "Human span ·",
+        "color": "rgb(196, 165, 114)",
+        "medianRatio": 6.98,
+        "brightRatio": 6.22,
+        "bgLum": 0.014
+      },
+      ".axis-hero .axis-cta .btn-ghost": {
+        "text": "跳到今日切片",
+        "color": "rgb(232, 228, 220)",
+        "medianRatio": 12.94,
+        "brightRatio": 12.31,
+        "bgLum": 0.014
+      }
+    }
+  },
+  "H-light": {
+    "boxes": [
+      {
+        "sel": ".axis-hero .axis-title",
+        "text": "站在一條很長的時間軸上",
+        "x": 16,
+        "y": 405,
+        "w": 358,
+        "h": 34
+      },
+      {
+        "sel": ".axis-hero .axis-lede",
+        "text": "軸由宇宙走到今天，再望向",
+        "x": 16,
+        "y": 447,
+        "w": 358,
+        "h": 32
+      },
+      {
+        "sel": ".axis-hero .kicker",
+        "text": "Human span ·",
+        "x": 16,
+        "y": 383,
+        "w": 358,
+        "h": 14
+      },
+      {
+        "sel": ".axis-hero .axis-cta .btn-ghost",
+        "text": "跳到今日切片",
+        "x": 132,
+        "y": 582,
+        "w": 108,
+        "h": 44
+      }
+    ],
+    "sampled": {
+      ".axis-hero .axis-title": {
+        "text": "站在一條很長的時間軸上",
+        "color": "rgb(247, 241, 230)",
+        "medianRatio": 12.43,
+        "brightRatio": 11.24,
+        "bgLum": 0.025
+      },
+      ".axis-hero .axis-lede": {
+        "text": "軸由宇宙走到今天，再望向",
+        "color": "rgb(197, 192, 182)",
+        "medianRatio": 6.03,
+        "brightRatio": 5.05,
+        "bgLum": 0.046
+      },
+      ".axis-hero .kicker": {
+        "text": "Human span ·",
+        "color": "rgb(196, 165, 114)",
+        "medianRatio": 6.83,
+        "brightRatio": 5.88,
+        "bgLum": 0.016
+      },
+      ".axis-hero .axis-cta .btn-ghost": {
+        "text": "跳到今日切片",
+        "color": "rgb(232, 228, 220)",
+        "medianRatio": 12.79,
+        "brightRatio": 12.15,
+        "bgLum": 0.015
+      }
+    }
+  },
+  "C-dark": {
+    "boxes": [
+      {
+        "sel": ".axis-hero .axis-title",
+        "text": "站在一條很長的時間軸上",
+        "x": 16,
+        "y": 243,
+        "w": 358,
+        "h": 34
+      },
+      {
+        "sel": ".axis-hero .axis-lede",
+        "text": "軸由宇宙走到今天，再望向",
+        "x": 16,
+        "y": 285,
+        "w": 358,
+        "h": 40
+      },
+      {
+        "sel": ".axis-hero .kicker",
+        "text": "Human span ·",
+        "x": 16,
+        "y": 218,
+        "w": 358,
+        "h": 17
+      }
+    ],
+    "sampled": {
+      ".axis-hero .axis-title": {
+        "text": "站在一條很長的時間軸上",
+        "color": "rgb(247, 241, 230)",
+        "medianRatio": 13.31,
+        "brightRatio": 12.45,
+        "bgLum": 0.02
+      },
+      ".axis-hero .axis-lede": {
+        "text": "軸由宇宙走到今天，再望向",
+        "color": "rgb(197, 192, 182)",
+        "medianRatio": 7.82,
+        "brightRatio": 7.38,
+        "bgLum": 0.024
+      },
+      ".axis-hero .kicker": {
+        "text": "Human span ·",
+        "color": "rgb(196, 165, 114)",
+        "medianRatio": 6.64,
+        "brightRatio": 6.12,
+        "bgLum": 0.018
+      }
+    }
+  },
+  "C-light": {
+    "boxes": [
+      {
+        "sel": ".axis-hero .axis-title",
+        "text": "站在一條很長的時間軸上",
+        "x": 16,
+        "y": 243,
+        "w": 358,
+        "h": 34
+      },
+      {
+        "sel": ".axis-hero .axis-lede",
+        "text": "軸由宇宙走到今天，再望向",
+        "x": 16,
+        "y": 285,
+        "w": 358,
+        "h": 40
+      },
+      {
+        "sel": ".axis-hero .kicker",
+        "text": "Human span ·",
+        "x": 16,
+        "y": 218,
+        "w": 358,
+        "h": 17
+      }
+    ],
+    "sampled": {
+      ".axis-hero .axis-title": {
+        "text": "站在一條很長的時間軸上",
+        "color": "rgb(247, 241, 230)",
+        "medianRatio": 12.78,
+        "brightRatio": 11.72,
+        "bgLum": 0.023
+      },
+      ".axis-hero .axis-lede": {
+        "text": "軸由宇宙走到今天，再望向",
+        "color": "rgb(197, 192, 182)",
+        "medianRatio": 7.41,
+        "brightRatio": 6.96,
+        "bgLum": 0.028
+      },
+      ".axis-hero .kicker": {
+        "text": "Human span ·",
+        "color": "rgb(196, 165, 114)",
+        "medianRatio": 6.4,
+        "brightRatio": 5.71,
+        "bgLum": 0.02
+      }
+    }
+  },
+  "C-dark-figcaps": {
+    "boxes": [
+      {
+        "sel": ".pattern-card figcaption",
+        "text": "功率的儲存與維修 · 紙",
+        "x": 29,
+        "y": 413,
+        "w": 332,
+        "h": 17
+      }
+    ],
+    "sampled": {
+      ".pattern-card figcaption": {
+        "text": "功率的儲存與維修 · 紙",
+        "color": "rgb(92, 101, 112)",
+        "medianRatio": 2.62,
+        "brightRatio": 2.62,
+        "bgLum": 0.018
+      }
+    }
+  },
+  "C-light-figcaps": {
+    "boxes": [
+      {
+        "sel": ".pattern-card figcaption",
+        "text": "功率的儲存與維修 · 紙",
+        "x": 29,
+        "y": 413,
+        "w": 332,
+        "h": 17
+      }
+    ],
+    "sampled": {
+      ".pattern-card figcaption": {
+        "text": "功率的儲存與維修 · 紙",
+        "color": "rgb(92, 101, 112)",
+        "medianRatio": 5.26,
+        "brightRatio": 5.26,
+        "bgLum": 0.884
+      }
+    }
+  },
+  "N-dark-figcaps": {
+    "boxes": [
+      {
+        "sel": ".pattern-card figcaption",
+        "text": "複製與校驗 · 紙感 ·",
+        "x": 29,
+        "y": 413,
+        "w": 332,
+        "h": 17
+      }
+    ],
+    "sampled": {
+      ".pattern-card figcaption": {
+        "text": "複製與校驗 · 紙感 ·",
+        "color": "rgb(92, 101, 112)",
+        "medianRatio": 3.01,
+        "brightRatio": 3.01,
+        "bgLum": 0.009
+      }
+    }
+  }
+}
