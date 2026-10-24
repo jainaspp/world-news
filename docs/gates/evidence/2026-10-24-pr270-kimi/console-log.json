@@ -1,0 +1,121 @@
+{
+  "exceptions": [],
+  "pages": [
+    {
+      "page": "home",
+      "theme": "light",
+      "href": "/",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "list",
+      "theme": "light",
+      "href": "/?view=list",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "civ",
+      "theme": "light",
+      "href": "/civilization/",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "chronicle",
+      "theme": "light",
+      "href": "/civilization/chronicle/",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "learn",
+      "theme": "light",
+      "href": "/learn/",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "slice",
+      "theme": "light",
+      "href": "/#slice",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "news",
+      "theme": "light",
+      "href": "/story/9f249c039bb5/",
+      "logCount": 2,
+      "logs": [
+        {
+          "kind": "requestfailed",
+          "text": "net::ERR_NAME_NOT_RESOLVED https://https//img.jiemian.com/101/original/20220307/164664251748738900_a580x330.png"
+        },
+        {
+          "kind": "error",
+          "text": "Failed to load resource: net::ERR_NAME_NOT_RESOLVED"
+        }
+      ]
+    },
+    {
+      "page": "home",
+      "theme": "dark",
+      "href": "/",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "list",
+      "theme": "dark",
+      "href": "/?view=list",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "civ",
+      "theme": "dark",
+      "href": "/civilization/",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "chronicle",
+      "theme": "dark",
+      "href": "/civilization/chronicle/",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "learn",
+      "theme": "dark",
+      "href": "/learn/",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "slice",
+      "theme": "dark",
+      "href": "/#slice",
+      "logCount": 0,
+      "logs": []
+    },
+    {
+      "page": "news",
+      "theme": "dark",
+      "href": "/story/9f249c039bb5/",
+      "logCount": 2,
+      "logs": [
+        {
+          "kind": "requestfailed",
+          "text": "net::ERR_NAME_NOT_RESOLVED https://https//img.jiemian.com/101/original/20220307/164664251748738900_a580x330.png"
+        },
+        {
+          "kind": "error",
+          "text": "Failed to load resource: net::ERR_NAME_NOT_RESOLVED"
+        }
+      ]
+    }
+  ]
+}
