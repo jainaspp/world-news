@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 /** User-facing copy. Prompts in content.ts and focus.ts name banned particles on purpose and stay out of this scan. */
 const FILES = [
+  'shared/civArch/document.ts',
   'shared/siteNav.ts',
   'shared/sitePages.ts',
   'shared/contentPage.ts',
