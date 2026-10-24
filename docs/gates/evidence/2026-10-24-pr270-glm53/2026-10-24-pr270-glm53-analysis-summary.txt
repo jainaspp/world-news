@@ -1,0 +1,98 @@
+GLM 5.3 seat - PR #270 re-gate - 73 measurement rows (page-vp-theme)
+All rows: pageOverflow=false; main-layer overlap scan zero hits everywhere.
+
+clicks:
+  list-390-light       跳到今日切片 -> /?view=list#slice gap=30.7 heading=今日切片
+  list-390-light       打開文明總覽 -> /civilization/ gap=None heading=
+  list-390-dark        跳到今日切片 -> /?view=list#slice gap=30.7 heading=今日切片
+  list-360-light       跳到今日切片 -> /?view=list#slice gap=31 heading=今日切片
+  learn-390-light      跳到今日切片 -> /learn/#slice gap=30.7 heading=今日切片
+  story-390-light      跳到今日切片 -> /story/253f030a50c6/#slice gap=30.7 heading=今日切片
+  civ-360-light        跳到今日切片 -> /#slice gap=26.9 heading=今日切片
+  civ-390-dark         跳到今日切片 -> /#slice gap=27.1 heading=今日切片
+  civ-390-light        閱讀人類起源 -> /civilization/origins/ gap=None heading=
+
+axis heroes (slim=hero class, offLine<=640 / offRail>=1024):
+  civ-390-light        slim=False maxH=none scrollGap=0 ctas=[('閱讀人類起源', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  civ-1280-light       slim=False maxH=none scrollGap=0 ctas=[('閱讀人類起源', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 139.4}
+  civ-390-dark         slim=False maxH=none scrollGap=0 ctas=[('閱讀人類起源', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  civ-1280-dark        slim=False maxH=none scrollGap=0 ctas=[('閱讀人類起源', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 139.4}
+  list-390-light       slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  list-1280-light      slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 139.4}
+  list-390-dark        slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  list-1280-dark       slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 139.4}
+  learn-390-light      slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  learn-1280-light     slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 139.4}
+  learn-390-dark       slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  learn-1280-dark      slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 139.4}
+  story-390-light      slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  story-1280-light     slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 139.4}
+  story-390-dark       slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  story-1280-dark      slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 139.4}
+  civ-360-light        slim=False maxH=none scrollGap=0 ctas=[('閱讀人類起源', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  list-360-light       slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  learn-360-light      slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  story-360-light      slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  civ-360-dark         slim=False maxH=none scrollGap=0 ctas=[('閱讀人類起源', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  list-360-dark        slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  learn-360-dark       slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  story-360-dark       slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  civ-640x360-light    slim=False maxH=none scrollGap=0 ctas=[('閱讀人類起源', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  civ-640x360-dark     slim=False maxH=none scrollGap=0 ctas=[('閱讀人類起源', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  list-640x360-light   slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  list-640x360-dark    slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[0, 0, 0, 0, 0, 0, 0] gaps={'minEdge': 8, 'minCenter': 72.4}
+  civ-1024-light       slim=False maxH=none scrollGap=0 ctas=[('閱讀人類起源', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 115.4}
+  list-1024-light      slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 115.4}
+  learn-1024-light     slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 115.4}
+  story-1024-light     slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 115.4}
+  civ-1024-dark        slim=False maxH=none scrollGap=0 ctas=[('閱讀人類起源', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 115.4}
+  list-1024-dark       slim=True maxH=none scrollGap=0 ctas=[('打開文明總覽', 108, 44, 44), ('跳到今日切片', 108, 44, 44)] nodeOffs=[8, 8, 8, 8, 8, 8, 8] gaps={'minEdge': 8, 'minCenter': 115.4}
+
+footer-nav:
+  civ-390-light        n=13 minEdge=8 minCenter=52 under44=0
+  civ-1280-light       n=13 minEdge=8 minCenter=54.4 under44=0
+  civ-390-dark         n=13 minEdge=8 minCenter=52 under44=0
+  civ-1280-dark        n=13 minEdge=8 minCenter=54.4 under44=0
+  list-390-light       n=11 minEdge=8 minCenter=52 under44=0
+  list-1280-light      n=11 minEdge=8 minCenter=54.4 under44=0
+  list-390-dark        n=11 minEdge=8 minCenter=52 under44=0
+  list-1280-dark       n=11 minEdge=8 minCenter=54.4 under44=0
+  learn-390-light      n=11 minEdge=8 minCenter=52 under44=0
+  learn-1280-light     n=11 minEdge=8 minCenter=54.4 under44=0
+  learn-390-dark       n=11 minEdge=8 minCenter=52 under44=0
+  learn-1280-dark      n=11 minEdge=8 minCenter=54.4 under44=0
+  story-390-light      n=11 minEdge=8 minCenter=52 under44=0
+  story-1280-light     n=11 minEdge=8 minCenter=54.4 under44=0
+  story-390-dark       n=11 minEdge=8 minCenter=52 under44=0
+  story-1280-dark      n=11 minEdge=8 minCenter=54.4 under44=0
+  civ-360-light        n=13 minEdge=8 minCenter=52.2 under44=0
+  chronicle-360-light  n=13 minEdge=8 minCenter=52.2 under44=0
+  list-360-light       n=11 minEdge=8 minCenter=54.4 under44=0
+  learn-360-light      n=11 minEdge=8 minCenter=54.4 under44=0
+  story-360-light      n=11 minEdge=8 minCenter=54.4 under44=0
+  civ-360-dark         n=13 minEdge=8 minCenter=52.2 under44=0
+  list-360-dark        n=11 minEdge=8 minCenter=54.4 under44=0
+  learn-360-dark       n=11 minEdge=8 minCenter=54.4 under44=0
+  story-360-dark       n=11 minEdge=8 minCenter=54.4 under44=0
+  chronicle-390-light  n=13 minEdge=8 minCenter=52 under44=0
+  chronicle-390-dark   n=13 minEdge=8 minCenter=52 under44=0
+  civ-640x360-light    n=13 minEdge=8 minCenter=52 under44=0
+  civ-640x360-dark     n=13 minEdge=8 minCenter=52 under44=0
+  list-640x360-light   n=11 minEdge=8 minCenter=52 under44=0
+  list-640x360-dark    n=11 minEdge=8 minCenter=52 under44=0
+  civ-1024-light       n=13 minEdge=8 minCenter=54.4 under44=0
+  chronicle-1024-light n=13 minEdge=8 minCenter=54.4 under44=0
+  list-1024-light      n=11 minEdge=8 minCenter=54.4 under44=0
+  learn-1024-light     n=11 minEdge=8 minCenter=54.4 under44=0
+  story-1024-light     n=11 minEdge=8 minCenter=54.4 under44=0
+  civ-1024-dark        n=13 minEdge=8 minCenter=54.4 under44=0
+  list-1024-dark       n=11 minEdge=8 minCenter=54.4 under44=0
+
+contrast (worst-case sampled pixels):
+  civ-390-light        axis-title=12.48 axis-lede=7.12 hero-kicker=6.41 axis-lab=8.53 axis-yr=4.54 cta-brass=4.77 cta-ghost=6.66 civ-nav-chip=12.8
+  civ-390-dark         axis-title=12.84 axis-lede=7.42 hero-kicker=6.49 axis-lab=8.96 axis-yr=4.93 cta-brass=4.77 cta-ghost=7.07 civ-nav-chip=13.88
+  list-390-dark        axis-title=14.05 axis-lede=6.48 hero-kicker=6.73 axis-lab=9.64 axis-yr=5.4 cta-brass=4.77 cta-ghost=8.37 civ-nav-chip=15.4
+  home-390-dark        doc wordmark=16.09 volume-lead=16.09 chapter-body=16.09 unwritten-note=10.4 license=16.09
+  read-390-dark        doc wordmark=16.09 volume-lead=16.09 chapter-body=16.09 unwritten-note=10.4 license=16.09
+  cut-390-dark         doc wordmark=16.09 license=16.09
+  margin-390-dark      doc wordmark=16.09 door-state=10.4 license=16.09
