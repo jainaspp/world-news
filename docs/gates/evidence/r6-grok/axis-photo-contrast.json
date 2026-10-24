@@ -1,0 +1,44 @@
+{
+  "method": "Headless Chrome, deviceScaleFactor 1. Hide the element's text, capture the full viewport PNG, crop by getBoundingClientRect. Page.captureScreenshot clip coordinates after scroll were discarded: they sampled the page background (#f4f6f8 / #0e141c), not the axis photo. Those discarded rows remain in r6-follow.json samples and must not be read as contrast fails.",
+  "fgNote": "Ratios are WCAG relative luminance of the computed text color against each background pixel.",
+  "rows": [
+    {"path":"/","theme":"light","vp":360,"sel":".axis-lede","size":14,"need":4.5,"worst":4.43,"p05":4.97,"median":5.73,"mean":"rgb(68,64,57)","note":"Block box includes empty width past the second line. Glyph-band remeasure is ledeGlyph."},
+    {"path":"/","theme":"light","vp":360,"sel":".axis-hero .kicker","size":12,"need":4.5,"worst":5,"p05":5.63,"median":6.5,"mean":"rgb(36,39,42)"},
+    {"path":"/","theme":"light","vp":360,"sel":".axis-cta .btn-ghost","text":"跳到今日切片","size":13,"need":4.5,"worst":11.08,"p05":11.7,"median":12.76,"mean":"rgb(29,34,39)"},
+    {"path":"/","theme":"light","vp":360,"sel":".axis-node .lab","text":"宇宙","size":12,"need":4.5,"worst":8.08,"p05":8.39,"median":9.13,"mean":"rgb(27,32,39)"},
+    {"path":"/","theme":"light","vp":360,"sel":".axis-node .yr","text":"~138億","size":12,"need":4.5,"worst":6.09,"p05":6.42,"median":7,"mean":"rgb(28,33,40)"},
+    {"path":"/","theme":"dark","vp":390,"sel":".axis-title","size":27.2,"need":3,"worst":10.61,"p05":11.46,"median":12.71,"mean":"rgb(40,43,46)"},
+    {"path":"/","theme":"dark","vp":390,"sel":".axis-lede","size":14,"need":4.5,"worst":4.91,"p05":5.5,"median":6.23,"mean":"rgb(61,59,54)"},
+    {"path":"/","theme":"dark","vp":390,"sel":".axis-hero .kicker","size":12,"need":4.5,"worst":5.39,"p05":5.98,"median":6.75,"mean":"rgb(32,36,41)"},
+    {"path":"/","theme":"dark","vp":390,"sel":".axis-cta .btn-ghost","size":13,"need":4.5,"worst":11.39,"p05":11.86,"median":12.91,"mean":"rgb(28,33,39)"},
+    {"path":"/civilization/","theme":"dark","vp":390,"sel":".axis-title","size":27.2,"need":3,"worst":11.06,"p05":11.91,"median":13.01,"mean":"rgb(39,41,43)"},
+    {"path":"/civilization/","theme":"dark","vp":390,"sel":".axis-lede","size":14,"need":4.5,"worst":6.65,"p05":6.99,"median":7.73,"mean":"rgb(42,44,46)"},
+    {"path":"/civilization/","theme":"dark","vp":390,"sel":".axis-hero .kicker","size":12,"need":4.5,"worst":5.39,"p05":5.82,"median":6.4,"mean":"rgb(37,39,42)"},
+    {"path":"/civilization/","theme":"dark","vp":390,"sel":".axis-cta .btn-ghost","size":13,"need":4.5,"worst":6.89,"p05":7.93,"median":8.77,"mean":"rgb(63,60,55)"},
+    {"path":"/civilization/","theme":"dark","vp":390,"sel":".axis-node .lab","text":"宇宙","size":12,"need":4.5,"worst":6,"p05":6.17,"median":6.85,"mean":"rgb(53,53,52)"},
+    {"path":"/civilization/","theme":"light","vp":390,"sel":".axis-cta .btn-ghost","size":13,"need":4.5,"worst":6.24,"p05":7.3,"median":8.12,"mean":"rgb(69,64,57)"},
+    {"path":"/civilization/","theme":"light","vp":390,"sel":".axis-hero .kicker","size":12,"need":4.5,"worst":5,"p05":5.55,"median":6.13,"mean":"rgb(41,42,44)"},
+    {"path":"/civilization/","theme":"light","vp":390,"sel":".axis-title","size":27.2,"need":3,"worst":10.25,"p05":11.23,"median":12.39,"mean":"rgb(43,44,45)"}
+  ],
+  "ledeGlyph": {
+    "page": "H",
+    "vp": "360 light",
+    "fg": "rgb(197,192,182)",
+    "lineRects": [
+      {"x":16,"y":383.55,"w":308,"h":16},
+      {"x":16,"y":399.55,"w":182,"h":16}
+    ],
+    "blockBoxUnder45": "212/10496 (2.0%), worst 3.92, clustered in the empty lower-right past the second line (line width 182 of block width 328)",
+    "glyphBand": "20–80% of each line box, 2px horizontal inset. 3/5302 pixels under 4.5 (worst 4.44). p01 4.90, p05 5.20, median 6.02.",
+    "scored": "PASS. The sub-4.5 block-box pixels are not under glyphs. Three fringe pixels in the glyph band are not the text background."
+  },
+  "titleLightH360": {
+    "file": "axis-view-H-360-light.png",
+    "size": 27.2,
+    "need": 3,
+    "worst": 9.64,
+    "p05": 10.96,
+    "median": 12.46,
+    "mean": "rgb(42,44,48)"
+  }
+}
