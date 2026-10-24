@@ -1,0 +1,1064 @@
+{
+  "generated": "2026-10-24",
+  "seat": "kimi-k3",
+  "head": "cbbf264",
+  "server": "vite dev localhost:5173",
+  "hscroll": {
+    "home-390-light": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "home-390-dark": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "home-360-light": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "home-360-dark": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "home-1280-light": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "home-1280-dark": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "home-1024-light": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "home-1024-dark": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "read-390-light": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "read-390-dark": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "read-360-light": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "read-360-dark": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "read-1280-light": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "read-1280-dark": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "read-1024-light": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "read-1024-dark": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "method-390-light": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "method-390-dark": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "method-360-light": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "method-360-dark": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "method-1280-light": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "method-1280-dark": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "method-1024-light": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "method-1024-dark": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "cut-390-light": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "cut-390-dark": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "cut-360-light": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "cut-360-dark": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "cut-1280-light": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "cut-1280-dark": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "cut-1024-light": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "cut-1024-dark": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "margin-390-light": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "margin-390-dark": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "margin-360-light": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "margin-360-dark": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "margin-1280-light": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "margin-1280-dark": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "margin-1024-light": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "margin-1024-dark": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "civ-390-light": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "civ-390-dark": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "civ-360-light": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "civ-360-dark": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "civ-1280-light": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "civ-1280-dark": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "civ-1024-light": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "civ-1024-dark": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "list-390-light": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "list-390-dark": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingElementWidth": 390,
+      "innerWidth": 390,
+      "fail": false
+    },
+    "list-360-light": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "list-360-dark": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingElementWidth": 360,
+      "innerWidth": 360,
+      "fail": false
+    },
+    "list-1280-light": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "list-1280-dark": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingElementWidth": 1280,
+      "innerWidth": 1280,
+      "fail": false
+    },
+    "list-1024-light": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    },
+    "list-1024-dark": {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "scrollingElementWidth": 1024,
+      "innerWidth": 1024,
+      "fail": false
+    }
+  },
+  "collisions": {
+    "home-390-light": 0,
+    "home-390-dark": 0,
+    "home-360-light": 0,
+    "home-360-dark": 0,
+    "home-1280-light": 0,
+    "home-1280-dark": 0,
+    "home-1024-light": 0,
+    "home-1024-dark": 0,
+    "read-390-light": 0,
+    "read-390-dark": 0,
+    "read-360-light": 0,
+    "read-360-dark": 0,
+    "read-1280-light": 0,
+    "read-1280-dark": 0,
+    "read-1024-light": 0,
+    "read-1024-dark": 0,
+    "method-390-light": 0,
+    "method-390-dark": 0,
+    "method-360-light": 0,
+    "method-360-dark": 0,
+    "method-1280-light": 0,
+    "method-1280-dark": 0,
+    "method-1024-light": 0,
+    "method-1024-dark": 0,
+    "cut-390-light": 0,
+    "cut-390-dark": 0,
+    "cut-360-light": 0,
+    "cut-360-dark": 0,
+    "cut-1280-light": 0,
+    "cut-1280-dark": 0,
+    "cut-1024-light": 0,
+    "cut-1024-dark": 0,
+    "margin-390-light": 0,
+    "margin-390-dark": 0,
+    "margin-360-light": 0,
+    "margin-360-dark": 0,
+    "margin-1280-light": 0,
+    "margin-1280-dark": 0,
+    "margin-1024-light": 0,
+    "margin-1024-dark": 0,
+    "civ-390-light": 0,
+    "civ-390-dark": 0,
+    "civ-360-light": 0,
+    "civ-360-dark": 0,
+    "civ-1280-light": 0,
+    "civ-1280-dark": 0,
+    "civ-1024-light": 0,
+    "civ-1024-dark": 0,
+    "list-390-light": 0,
+    "list-390-dark": 0,
+    "list-360-light": 0,
+    "list-360-dark": 0,
+    "list-1280-light": 0,
+    "list-1280-dark": 0,
+    "list-1024-light": 0,
+    "list-1024-dark": 0
+  },
+  "clips": {
+    "list-390-light": [
+      {
+        "sel": ".axis-cta a",
+        "text": "打開文明總覽",
+        "rect": {
+          "l": 16,
+          "t": 1187.7,
+          "r": 124,
+          "b": 1231.7,
+          "w": 108,
+          "h": 44
+        }
+      },
+      {
+        "sel": ".axis-cta a",
+        "text": "跳到今日切片",
+        "rect": {
+          "l": 132,
+          "t": 1187.7,
+          "r": 240,
+          "b": 1231.7,
+          "w": 108,
+          "h": 44
+        }
+      }
+    ],
+    "list-390-dark": [
+      {
+        "sel": ".axis-cta a",
+        "text": "打開文明總覽",
+        "rect": {
+          "l": 16,
+          "t": 1187.7,
+          "r": 124,
+          "b": 1231.7,
+          "w": 108,
+          "h": 44
+        }
+      },
+      {
+        "sel": ".axis-cta a",
+        "text": "跳到今日切片",
+        "rect": {
+          "l": 132,
+          "t": 1187.7,
+          "r": 240,
+          "b": 1231.7,
+          "w": 108,
+          "h": 44
+        }
+      }
+    ],
+    "list-360-light": [
+      {
+        "sel": ".axis-cta a",
+        "text": "打開文明總覽",
+        "rect": {
+          "l": 16,
+          "t": 1185.3,
+          "r": 124,
+          "b": 1229.3,
+          "w": 108,
+          "h": 44
+        }
+      },
+      {
+        "sel": ".axis-cta a",
+        "text": "跳到今日切片",
+        "rect": {
+          "l": 132,
+          "t": 1185.3,
+          "r": 240,
+          "b": 1229.3,
+          "w": 108,
+          "h": 44
+        }
+      }
+    ],
+    "list-360-dark": [
+      {
+        "sel": ".axis-cta a",
+        "text": "打開文明總覽",
+        "rect": {
+          "l": 16,
+          "t": 1185.3,
+          "r": 124,
+          "b": 1229.3,
+          "w": 108,
+          "h": 44
+        }
+      },
+      {
+        "sel": ".axis-cta a",
+        "text": "跳到今日切片",
+        "rect": {
+          "l": 132,
+          "t": 1185.3,
+          "r": 240,
+          "b": 1229.3,
+          "w": 108,
+          "h": 44
+        }
+      }
+    ]
+  },
+  "consoleErrors": {},
+  "touchNamedG01": {
+    "home-390-dark": {
+      "smallNonSkip": [],
+      "gaps": []
+    },
+    "home-360-light": {
+      "smallNonSkip": [],
+      "gaps": []
+    },
+    "read-390-dark": {
+      "smallNonSkip": [],
+      "gaps": []
+    },
+    "cut-390-light": {
+      "smallNonSkip": [],
+      "gaps": []
+    },
+    "margin-390-light": {
+      "smallNonSkip": [],
+      "gaps": []
+    },
+    "home-1024-light": {
+      "smallNonSkip": [],
+      "gaps": []
+    }
+  },
+  "pass2": {
+    "slimHeroClip": {
+      "heroClass": "axis-hero axis-slim",
+      "heroMaxHeight": "300px",
+      "heroOverflow": "hidden/hidden",
+      "heroBox": {
+        "t": 874,
+        "b": 1174,
+        "h": 300
+      },
+      "ctaBox": {
+        "t": 1187.7,
+        "b": 1231.7,
+        "h": 44
+      },
+      "ctaOverflowPx": 57.8,
+      "btns": [
+        {
+          "text": "打開文明總覽",
+          "t": 1187.7,
+          "b": 1231.7,
+          "visiblePx": 0
+        },
+        {
+          "text": "跳到今日切片",
+          "t": 1187.7,
+          "b": 1231.7,
+          "visiblePx": 0
+        }
+      ]
+    },
+    "ctaClickC": {
+      "before": "http://localhost:5173/civilization/",
+      "after": "http://localhost:5173/#slice",
+      "land": {
+        "found": true,
+        "top": 88.1,
+        "headerBottom": 61,
+        "gapBelowHeader": 27.1,
+        "clipped": false,
+        "text": "今日切片"
+      }
+    },
+    "todayChip": {
+      "after": "http://localhost:5173/#slice",
+      "land": {
+        "found": true,
+        "top": 88.1,
+        "headerBottom": 61,
+        "gapBelowHeader": 27.1,
+        "clipped": false
+      }
+    },
+    "directSlice": {
+      "after": "http://localhost:5173/#slice",
+      "land": {
+        "found": true,
+        "top": 88.1,
+        "headerBottom": 61,
+        "gapBelowHeader": 27.1,
+        "clipped": false,
+        "scrolled": true
+      }
+    },
+    "sticky_home": {
+      "header": ".top",
+      "position": "sticky",
+      "headerTop": 0,
+      "wordmark": {
+        "t": 8,
+        "b": 52,
+        "w": 110,
+        "h": 44,
+        "clipped": false,
+        "text": "文明編年史"
+      }
+    },
+    "sticky_list": {
+      "header": ".chrome",
+      "position": "sticky",
+      "headerTop": 0,
+      "wordmark": {
+        "t": 0,
+        "b": 44,
+        "w": 306,
+        "h": 44,
+        "clipped": false,
+        "text": "文明編年史"
+      }
+    },
+    "openingSkip": {
+      "playing": "1",
+      "clickedSkip": true,
+      "landed": {
+        "play": null,
+        "land": "present",
+        "y": 510
+      }
+    },
+    "civAxisNodes": [
+      {
+        "lab": "宇宙",
+        "l": 41.7,
+        "r": 73.8,
+        "inside": true,
+        "w": 83.5,
+        "h": 64.4
+      },
+      {
+        "lab": "地球",
+        "l": 133.2,
+        "r": 165.3,
+        "inside": true,
+        "w": 83.5,
+        "h": 64.4
+      },
+      {
+        "lab": "起源",
+        "l": 224.7,
+        "r": 256.8,
+        "inside": true,
+        "w": 83.5,
+        "h": 64.4
+      },
+      {
+        "lab": "技術",
+        "l": 316.2,
+        "r": 348.3,
+        "inside": true,
+        "w": 83.5,
+        "h": 64.4
+      },
+      {
+        "lab": "城市",
+        "l": 41.7,
+        "r": 73.8,
+        "inside": true,
+        "w": 83.5,
+        "h": 64.4
+      },
+      {
+        "lab": "今天",
+        "l": 133.2,
+        "r": 165.3,
+        "inside": true,
+        "w": 83.5,
+        "h": 64.4
+      },
+      {
+        "lab": "未來",
+        "l": 224.7,
+        "r": 256.8,
+        "inside": true,
+        "w": 83.5,
+        "h": 64.4
+      }
+    ]
+  },
+  "pass3": {
+    "darkPaperC": {
+      "htmlDark": true,
+      "hero": {
+        "bg": "rgb(22, 28, 36)",
+        "color": "rgb(232, 228, 220)"
+      },
+      "band": null,
+      "board": {
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(243, 246, 250)"
+      },
+      "card": {
+        "bg": "rgb(42, 35, 27)",
+        "color": "rgb(243, 234, 220)"
+      },
+      "body": {
+        "bg": "rgb(14, 20, 28)",
+        "color": "rgb(243, 246, 250)"
+      },
+      "pin": {
+        "bg": "rgb(42, 35, 27)",
+        "color": "rgb(243, 234, 220)"
+      }
+    },
+    "axisLabPixelsDark": [
+      {
+        "text": "宇宙",
+        "ratio": 13.51,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            232,
+            228,
+            220
+          ]
+        ]
+      },
+      {
+        "text": "地球",
+        "ratio": 13.51,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            232,
+            228,
+            220
+          ]
+        ]
+      },
+      {
+        "text": "起源",
+        "ratio": 13.51,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            232,
+            228,
+            220
+          ]
+        ]
+      },
+      {
+        "text": "技術",
+        "ratio": 13.51,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            232,
+            228,
+            220
+          ]
+        ]
+      },
+      {
+        "text": "城市",
+        "ratio": 13.51,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            232,
+            228,
+            220
+          ]
+        ]
+      },
+      {
+        "text": "今天",
+        "ratio": 13.51,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            232,
+            228,
+            220
+          ]
+        ]
+      },
+      {
+        "text": "未來",
+        "ratio": 13.51,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            232,
+            228,
+            220
+          ]
+        ]
+      }
+    ],
+    "axisYrPixelsDark": [
+      {
+        "text": "~138億",
+        "ratio": 7.32,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            196,
+            165,
+            114
+          ]
+        ]
+      },
+      {
+        "text": "~40億",
+        "ratio": 7.32,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            196,
+            165,
+            114
+          ]
+        ]
+      },
+      {
+        "text": "~300ka",
+        "ratio": 7.32,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            196,
+            165,
+            114
+          ]
+        ]
+      },
+      {
+        "text": "發現",
+        "ratio": 7.32,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            196,
+            165,
+            114
+          ]
+        ]
+      },
+      {
+        "text": "基建",
+        "ratio": 7.32,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            196,
+            165,
+            114
+          ]
+        ]
+      },
+      {
+        "text": "切片",
+        "ratio": 7.32,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            196,
+            165,
+            114
+          ]
+        ]
+      },
+      {
+        "text": "展望",
+        "ratio": 7.32,
+        "pair": [
+          [
+            22,
+            28,
+            36
+          ],
+          [
+            196,
+            165,
+            114
+          ]
+        ]
+      }
+    ]
+  },
+  "pass4": {
+    "volMenu": {
+      "before": {
+        "w": 46.1875,
+        "h": 44,
+        "expanded": "false"
+      },
+      "opened": {
+        "hidden": false,
+        "expanded": "true",
+        "links": [
+          {
+            "text": "卷一 · 古",
+            "w": 374,
+            "h": 44,
+            "inView": true
+          },
+          {
+            "text": "卷二 · 今",
+            "w": 374,
+            "h": 44,
+            "inView": true
+          },
+          {
+            "text": "卷三 · 未來",
+            "w": 374,
+            "h": 44,
+            "inView": true
+          }
+        ]
+      }
+    },
+    "moreButtons": [
+      {
+        "tag": "SUMMARY",
+        "cls": "chip",
+        "r": {
+          "w": 44,
+          "h": 44
+        }
+      }
+    ],
+    "list1280Cta": {
+      "slim": true,
+      "maxH": "none",
+      "btns": [
+        {
+          "text": "打開文明總覽",
+          "w": 108,
+          "h": 44,
+          "visible": true
+        },
+        {
+          "text": "跳到今日切片",
+          "w": 108,
+          "h": 44,
+          "visible": true
+        }
+      ]
+    }
+  }
+}
