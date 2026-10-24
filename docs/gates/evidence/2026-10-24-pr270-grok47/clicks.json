@@ -1,0 +1,106 @@
+[
+  {
+    "id": "list-today",
+    "url": "http://127.0.0.1:5173/?view=list#slice",
+    "slice": {
+      "tag": "SECTION",
+      "id": "slice",
+      "text": "今日切片軸上今日軸上今日只列公開標題與出處，方便對照文明編年；不另起一面牆。近層 · 今日問題與軸上先例常設問題索引 近 · 語音影像 一段聲音如何留下可核對的",
+      "x": 16,
+      "y": 176.7,
+      "w": 358,
+      "h": 2456.3,
+      "r": 374,
+      "b": 2633,
+      "stickyBottom": 161,
+      "clearance": 15.7
+    },
+    "dark": false
+  },
+  {
+    "id": "list-primary",
+    "url": "http://127.0.0.1:5173/civilization/",
+    "h1": "人類文明",
+    "title": "人類文明 — 文明編年史"
+  },
+  {
+    "id": "civ-today",
+    "url": "http://127.0.0.1:5173/#slice",
+    "slice": {
+      "tag": "H3",
+      "id": "slice",
+      "text": "今日切片",
+      "x": 33,
+      "y": 87.9,
+      "w": 294,
+      "h": 44,
+      "r": 327,
+      "b": 131.9,
+      "stickyBottom": 61,
+      "clearance": 26.9
+    },
+    "brand": "文明編年史",
+    "paper": "rgb(18, 17, 15)",
+    "ink": "rgb(244, 236, 223)",
+    "play": null,
+    "land": "present"
+  },
+  {
+    "id": "civ-primary",
+    "url": "http://127.0.0.1:5173/civilization/origins/",
+    "h1": "人類起源時間線：從深時間到今日切片",
+    "title": "人類起源時間線 — 文明編年史"
+  },
+  {
+    "id": "hash-slice-light",
+    "url": "http://127.0.0.1:5173/#slice",
+    "slice": {
+      "tag": "H3",
+      "id": "slice",
+      "text": "今日切片",
+      "x": 33,
+      "y": 88.1,
+      "w": 324,
+      "h": 44,
+      "r": 357,
+      "b": 132.1,
+      "stickyBottom": 61,
+      "clearance": 27.1
+    },
+    "word": {
+      "pos": "static",
+      "top": 8,
+      "text": "文明編年史"
+    },
+    "paper": "rgb(244, 239, 230)",
+    "ink": "rgb(27, 23, 20)",
+    "land": "present",
+    "hscroll": 0
+  },
+  {
+    "id": "hash-slice-dark",
+    "url": "http://127.0.0.1:5173/#slice",
+    "slice": {
+      "tag": "H3",
+      "id": "slice",
+      "text": "今日切片",
+      "x": 33,
+      "y": 88.1,
+      "w": 324,
+      "h": 44,
+      "r": 357,
+      "b": 132.1,
+      "stickyBottom": 61,
+      "clearance": 27.1
+    },
+    "word": {
+      "pos": "static",
+      "top": 8,
+      "text": "文明編年史"
+    },
+    "paper": "rgb(18, 17, 15)",
+    "ink": "rgb(244, 236, 223)",
+    "land": "present",
+    "hscroll": 0
+  }
+]
