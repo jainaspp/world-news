@@ -1,0 +1,131 @@
+{
+  "seat": "Grok 4.7",
+  "round": "R5",
+  "pr": 198,
+  "sha": "921a6ef8fe0f01d0c1261748c174fcbadd8a959d",
+  "branch": "cursor/chronicle-three-volumes-p0-d5bd",
+  "verdict": "FAIL",
+  "critical": 1,
+  "failingP0": ["P0-CONTRAST"],
+  "trapV08": "DEFERRED",
+  "chrome": "156.0.8078.47",
+  "npmTest": { "files": 67, "passed": 407, "vitest": "3.2.7" },
+  "matrix": {
+    "loads": 136,
+    "pages": ["home", "civ", "chronicle", "learn", "news-long", "news-plain", "news-long-story", "origins", "cosmos", "earth", "tech", "city", "major"],
+    "viewports": ["360", "390", "414", "768", "1024", "1280", "1440", "land"],
+    "themes": ["light", "dark"],
+    "canonicalHits": 0,
+    "touchFails": 0,
+    "edgeGapFails": 0,
+    "hscrollPages": 0,
+    "domMiss": 0,
+    "fontUnder12": 0,
+    "axisLabelCollisions": 0,
+    "consoleErrors": 0,
+    "ads": 0
+  },
+  "brand": { "aria": "文明編年史", "naturalWidth": 185, "simplified": false, "broken": false },
+  "cta": [
+    { "from": "civ", "viewport": 360, "theme": "dark", "href": "/#slice", "scrollY": 2077, "gapPx": 31.4 },
+    { "from": "civ", "viewport": 1280, "theme": "light", "href": "/#slice", "scrollY": 1729, "gapPx": 33.3 },
+    { "from": "direct", "viewport": 360, "theme": "dark", "href": "/#slice", "scrollY": 2102, "gapPx": 48.4 },
+    { "from": "direct", "viewport": 1280, "theme": "light", "href": "/#slice", "scrollY": 1763, "gapPx": 33.3 },
+    { "label": "打開文明總覽", "viewport": 360, "theme": "dark", "landed": "/civilization/", "box": "108x44" },
+    { "label": "打開文明總覽", "viewport": 1280, "theme": "light", "landed": "/civilization/", "box": "108x44" },
+    { "label": "閱讀人類起源", "viewport": 360, "theme": "dark", "landed": "/civilization/origins/", "box": "108x44" },
+    { "label": "閱讀人類起源", "viewport": 1280, "theme": "light", "landed": "/civilization/origins/", "box": "108x44" }
+  ],
+  "anchors360dark": {
+    "#ch-ancient": 64.6,
+    "#ch-now": 64,
+    "#ch-future": 64.5,
+    "#stage-1": 41,
+    "#stage-10": 29.4,
+    "#stage-8": 29.5
+  },
+  "contrastFails": [
+    {
+      "surface": "home dark .more-today span",
+      "text": "全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。",
+      "fg": "#5c6570",
+      "bg": "#0e141c",
+      "sizePx": 12,
+      "ratio": 3.13,
+      "need": 4.5,
+      "coverage": "all 8 viewports"
+    },
+    {
+      "surface": "learn dark .learn-progress / .learn-note / .learn-bound",
+      "fg": "#3d4550",
+      "bg": "#121820",
+      "sizePx": 16,
+      "ratio": 1.84,
+      "need": 4.5,
+      "coverage": "all 8 viewports"
+    },
+    {
+      "surface": "learn dark .learn-bearings",
+      "fg": "#5c6570",
+      "bg": "#121820",
+      "sizePx": 12,
+      "ratio": 3.02,
+      "need": 4.5,
+      "coverage": "all 8 viewports"
+    },
+    {
+      "surface": "dark .nav-more > summary",
+      "text": "更多",
+      "fg": "#5c6570",
+      "bg": "#0e141c",
+      "sizePx": 13,
+      "ratio": 3.13,
+      "need": 4.5,
+      "coverage": "768/1024/1280/1440 on H/C/N/A and spot pages; learn page uses #121820 so the same control is 3.02"
+    },
+    {
+      "surface": "chronicle light #ch-future .stage-links a",
+      "fg": "#1d4f91",
+      "bg": "#161c24",
+      "sizePx": 13,
+      "ratio": 2.1,
+      "need": 4.5,
+      "coverage": "all 8 light viewports; seven links. Dark accent #9ec0ef on the same band is 9.17 and was not flagged."
+    },
+    {
+      "surface": "home light .bulletin-seconds",
+      "fg": "#8a8175",
+      "bg": "#f7f1e6",
+      "sizePx": 12,
+      "ratio": 3.41,
+      "need": 4.5,
+      "coverage": "all 8 light viewports. Dark override #b7b1a6 on the clock was not flagged."
+    }
+  ],
+  "figcaptionFix": {
+    "selector": "html.dark .civ-block-figure figcaption",
+    "fg": "#d2c4b0",
+    "card": "#2a231b",
+    "sizePx": 12,
+    "ratioOnCard": 9.05,
+    "ratioOnPage": 10.8,
+    "lightRatioOnPaper": 5.26,
+    "result": "PASS"
+  },
+  "heroLightPixel": {
+    "method": "forced light, text set to transparent, sample the painted box",
+    ".hero-title": { "worst": 14.39, "median": 14.72, "need": 3 },
+    ".hero-main": { "worst": 12.6, "median": 12.91, "need": 4.5 },
+    ".hero-aside": { "worst": 6.5, "median": 7.38, "need": 4.5 },
+    ".hero-kicker": { "worst": 7, "median": 7.08, "need": 4.5 },
+    ".hero-skip": { "worst": 4.32, "median": 9.45, "need": 4.5, "note": "worst pixels sit on the translucent edge; glyph field median clears 4.5. Not counted as P0-CONTRAST." }
+  },
+  "rejectedScriptFlags": "Background-color walk false-failed hero text because the hero fill is a gradient. Gate-literal clipped() flagged axis years and the resting 城市 label that starts 4px past the scroller, plus chips fully outside an intentional horizontal scroller and chips sitting on the bottom fold. Those are not glyph cuts.",
+  "news": "Renderer fixtures, not live KV. Long title and plain story served from the local probe.",
+  "section73": {
+    "fullMatrix": false,
+    "inp": false,
+    "consoleScreenshot": false,
+    "trapV08": "DEFERRED"
+  }
+}
