@@ -192,7 +192,8 @@ function originsArticle(body: string): string {
   return html;
 }
 
-/** Primary row: 文明｜編年｜今天｜開蒙. Column links stay in 更多, outside this nav. */
+/** Primary row: 文明｜編年｜今天｜開蒙. Column links stay in 更多, outside this nav.
+ *  「今天」and「跳到今日切片」use /#slice, which is the G01 bookmark on bare `/`. */
 export function renderCivNav(topic = false): string {
   void topic;
   return `<nav class="civ-nav" aria-label="主欄目"><a class="chip civ-chip" href="/civilization/">文明</a><a class="chip" href="/civilization/chronicle/">編年</a><a class="chip" href="/#slice">今天</a><a class="chip" href="/learn/">開蒙</a></nav>`;

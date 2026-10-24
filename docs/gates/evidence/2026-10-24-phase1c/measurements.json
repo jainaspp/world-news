@@ -1,0 +1,1871 @@
+{
+  "measures": [
+    {
+      "label": "list-390x844-light",
+      "href": "http://127.0.0.1:5173/?view=list",
+      "width": 390,
+      "height": 844,
+      "dark": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "axis": {
+        "slim": true,
+        "maxHeight": "none",
+        "overflow": "hidden",
+        "heroH": 358.8,
+        "scrollGap": 0,
+        "ctas": [
+          {
+            "text": "打開文明總覽",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          },
+          {
+            "text": "跳到今日切片",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          }
+        ],
+        "nodes": [
+          {
+            "text": "宇宙",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 99.5
+          },
+          {
+            "text": "地球",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 107.5,
+            "right": 191
+          },
+          {
+            "text": "起源",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 199,
+            "right": 282.5
+          },
+          {
+            "text": "技術",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 290.5,
+            "right": 374
+          },
+          {
+            "text": "城市",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 99.5
+          },
+          {
+            "text": "今天",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 107.5,
+            "right": 191
+          },
+          {
+            "text": "未來",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 199,
+            "right": 282.5
+          }
+        ],
+        "nodeGaps": {
+          "minEdge": 8,
+          "minCenter": 72.4,
+          "worst": [
+            0,
+            4
+          ]
+        }
+      },
+      "footer": [
+        {
+          "text": "文明",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "開蒙",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "當年今日",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "香港地標",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "新聞懶人包",
+          "w": 104,
+          "h": 44
+        },
+        {
+          "text": "每日導讀",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "數據",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "關於我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "私隱政策",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "使用條款",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "聯絡我們",
+          "w": 88,
+          "h": 44
+        }
+      ],
+      "footerGaps": {
+        "minEdge": 8,
+        "minCenter": 52,
+        "worst": [
+          6,
+          9
+        ]
+      },
+      "landing": {
+        "id": "slice",
+        "tag": "SECTION",
+        "text": "今日切片軸上今日軸上今日只列公開標題與出處，方便",
+        "headerBottom": 161,
+        "targetTop": 2370.7,
+        "clearance": 2209.7
+      }
+    },
+    {
+      "label": "list-390x844-dark",
+      "href": "http://127.0.0.1:5173/?view=list",
+      "width": 390,
+      "height": 844,
+      "dark": true,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "axis": {
+        "slim": true,
+        "maxHeight": "none",
+        "overflow": "hidden",
+        "heroH": 358.8,
+        "scrollGap": 0,
+        "ctas": [
+          {
+            "text": "打開文明總覽",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          },
+          {
+            "text": "跳到今日切片",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          }
+        ],
+        "nodes": [
+          {
+            "text": "宇宙",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 99.5
+          },
+          {
+            "text": "地球",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 107.5,
+            "right": 191
+          },
+          {
+            "text": "起源",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 199,
+            "right": 282.5
+          },
+          {
+            "text": "技術",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 290.5,
+            "right": 374
+          },
+          {
+            "text": "城市",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 99.5
+          },
+          {
+            "text": "今天",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 107.5,
+            "right": 191
+          },
+          {
+            "text": "未來",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 199,
+            "right": 282.5
+          }
+        ],
+        "nodeGaps": {
+          "minEdge": 8,
+          "minCenter": 72.4,
+          "worst": [
+            0,
+            4
+          ]
+        }
+      },
+      "footer": [
+        {
+          "text": "文明",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "開蒙",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "當年今日",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "香港地標",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "新聞懶人包",
+          "w": 104,
+          "h": 44
+        },
+        {
+          "text": "每日導讀",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "數據",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "關於我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "私隱政策",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "使用條款",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "聯絡我們",
+          "w": 88,
+          "h": 44
+        }
+      ],
+      "footerGaps": {
+        "minEdge": 8,
+        "minCenter": 52,
+        "worst": [
+          6,
+          9
+        ]
+      },
+      "landing": {
+        "id": "slice",
+        "tag": "SECTION",
+        "text": "今日切片軸上今日軸上今日只列公開標題與出處，方便",
+        "headerBottom": 161,
+        "targetTop": 2370.7,
+        "clearance": 2209.7
+      }
+    },
+    {
+      "label": "list-360x800-light",
+      "href": "http://127.0.0.1:5173/?view=list",
+      "width": 360,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "axis": {
+        "slim": true,
+        "maxHeight": "none",
+        "overflow": "hidden",
+        "heroH": 358.8,
+        "scrollGap": 0,
+        "ctas": [
+          {
+            "text": "打開文明總覽",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          },
+          {
+            "text": "跳到今日切片",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          }
+        ],
+        "nodes": [
+          {
+            "text": "宇宙",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 92
+          },
+          {
+            "text": "地球",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 100,
+            "right": 176
+          },
+          {
+            "text": "起源",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 184,
+            "right": 260
+          },
+          {
+            "text": "技術",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 268,
+            "right": 344
+          },
+          {
+            "text": "城市",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 92
+          },
+          {
+            "text": "今天",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 100,
+            "right": 176
+          },
+          {
+            "text": "未來",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 184,
+            "right": 260
+          }
+        ],
+        "nodeGaps": {
+          "minEdge": 8,
+          "minCenter": 72.4,
+          "worst": [
+            0,
+            4
+          ]
+        }
+      },
+      "footer": [
+        {
+          "text": "文明",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "開蒙",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "當年今日",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "香港地標",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "新聞懶人包",
+          "w": 104,
+          "h": 44
+        },
+        {
+          "text": "每日導讀",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "數據",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "關於我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "私隱政策",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "使用條款",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "聯絡我們",
+          "w": 88,
+          "h": 44
+        }
+      ],
+      "footerGaps": {
+        "minEdge": 8,
+        "minCenter": 54.4,
+        "worst": [
+          0,
+          3
+        ]
+      },
+      "landing": {
+        "id": "slice",
+        "tag": "SECTION",
+        "text": "今日切片軸上今日軸上今日只列公開標題與出處，方便",
+        "headerBottom": 161,
+        "targetTop": 2387,
+        "clearance": 2226
+      }
+    },
+    {
+      "label": "list-360x800-dark",
+      "href": "http://127.0.0.1:5173/?view=list",
+      "width": 360,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "axis": {
+        "slim": true,
+        "maxHeight": "none",
+        "overflow": "hidden",
+        "heroH": 358.8,
+        "scrollGap": 0,
+        "ctas": [
+          {
+            "text": "打開文明總覽",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          },
+          {
+            "text": "跳到今日切片",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          }
+        ],
+        "nodes": [
+          {
+            "text": "宇宙",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 92
+          },
+          {
+            "text": "地球",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 100,
+            "right": 176
+          },
+          {
+            "text": "起源",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 184,
+            "right": 260
+          },
+          {
+            "text": "技術",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 268,
+            "right": 344
+          },
+          {
+            "text": "城市",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 92
+          },
+          {
+            "text": "今天",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 100,
+            "right": 176
+          },
+          {
+            "text": "未來",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 184,
+            "right": 260
+          }
+        ],
+        "nodeGaps": {
+          "minEdge": 8,
+          "minCenter": 72.4,
+          "worst": [
+            0,
+            4
+          ]
+        }
+      },
+      "footer": [
+        {
+          "text": "文明",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "開蒙",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "當年今日",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "香港地標",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "新聞懶人包",
+          "w": 104,
+          "h": 44
+        },
+        {
+          "text": "每日導讀",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "數據",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "關於我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "私隱政策",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "使用條款",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "聯絡我們",
+          "w": 88,
+          "h": 44
+        }
+      ],
+      "footerGaps": {
+        "minEdge": 8,
+        "minCenter": 54.4,
+        "worst": [
+          0,
+          3
+        ]
+      },
+      "landing": {
+        "id": "slice",
+        "tag": "SECTION",
+        "text": "今日切片軸上今日軸上今日只列公開標題與出處，方便",
+        "headerBottom": 161,
+        "targetTop": 2387,
+        "clearance": 2226
+      }
+    },
+    {
+      "label": "list-640x360-light",
+      "href": "http://127.0.0.1:5173/?view=list",
+      "width": 640,
+      "height": 360,
+      "dark": false,
+      "scrollWidth": 640,
+      "clientWidth": 640,
+      "axis": {
+        "slim": true,
+        "maxHeight": "none",
+        "overflow": "hidden",
+        "heroH": 342.8,
+        "scrollGap": 0,
+        "ctas": [
+          {
+            "text": "打開文明總覽",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          },
+          {
+            "text": "跳到今日切片",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          }
+        ],
+        "nodes": [
+          {
+            "text": "宇宙",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 162
+          },
+          {
+            "text": "地球",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 170,
+            "right": 316
+          },
+          {
+            "text": "起源",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 324,
+            "right": 470
+          },
+          {
+            "text": "技術",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 478,
+            "right": 624
+          },
+          {
+            "text": "城市",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 162
+          },
+          {
+            "text": "今天",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 170,
+            "right": 316
+          },
+          {
+            "text": "未來",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 324,
+            "right": 470
+          }
+        ],
+        "nodeGaps": {
+          "minEdge": 8,
+          "minCenter": 72.4,
+          "worst": [
+            0,
+            4
+          ]
+        }
+      },
+      "footer": [
+        {
+          "text": "文明",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "開蒙",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "當年今日",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "香港地標",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "新聞懶人包",
+          "w": 104,
+          "h": 44
+        },
+        {
+          "text": "每日導讀",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "數據",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "關於我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "私隱政策",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "使用條款",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "聯絡我們",
+          "w": 88,
+          "h": 44
+        }
+      ],
+      "footerGaps": {
+        "minEdge": 8,
+        "minCenter": 52,
+        "worst": [
+          0,
+          6
+        ]
+      },
+      "landing": {
+        "id": "slice",
+        "tag": "SECTION",
+        "text": "今日切片軸上今日軸上今日只列公開標題與出處，方便",
+        "headerBottom": 109,
+        "targetTop": 2326,
+        "clearance": 2217
+      }
+    },
+    {
+      "label": "civ-390x844-light",
+      "href": "http://127.0.0.1:5173/civilization/",
+      "width": 390,
+      "height": 844,
+      "dark": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "axis": {
+        "slim": false,
+        "maxHeight": "none",
+        "overflow": "hidden",
+        "heroH": 659.8,
+        "scrollGap": 0,
+        "ctas": [
+          {
+            "text": "閱讀人類起源",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          },
+          {
+            "text": "跳到今日切片",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          }
+        ],
+        "nodes": [
+          {
+            "text": "宇宙",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 99.5
+          },
+          {
+            "text": "地球",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 107.5,
+            "right": 191
+          },
+          {
+            "text": "起源",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 199,
+            "right": 282.5
+          },
+          {
+            "text": "技術",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 290.5,
+            "right": 374
+          },
+          {
+            "text": "城市",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 99.5
+          },
+          {
+            "text": "今天",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 107.5,
+            "right": 191
+          },
+          {
+            "text": "未來",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 199,
+            "right": 282.5
+          }
+        ],
+        "nodeGaps": {
+          "minEdge": 8,
+          "minCenter": 72.4,
+          "worst": [
+            0,
+            4
+          ]
+        }
+      },
+      "footer": [
+        {
+          "text": "文明",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "開蒙",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "當年今日",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "香港地標",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "新聞懶人包",
+          "w": 104,
+          "h": 44
+        },
+        {
+          "text": "每日導讀",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "數據",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "關於我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "私隱政策",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "使用條款",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "聯絡我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "RSS",
+          "w": 54.1,
+          "h": 44
+        },
+        {
+          "text": "Telegram",
+          "w": 96.8,
+          "h": 44
+        }
+      ],
+      "footerGaps": {
+        "minEdge": 8,
+        "minCenter": 52,
+        "worst": [
+          6,
+          9
+        ]
+      },
+      "landing": null
+    },
+    {
+      "label": "civ-390x844-dark",
+      "href": "http://127.0.0.1:5173/civilization/",
+      "width": 390,
+      "height": 844,
+      "dark": true,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "axis": {
+        "slim": false,
+        "maxHeight": "none",
+        "overflow": "hidden",
+        "heroH": 659.8,
+        "scrollGap": 0,
+        "ctas": [
+          {
+            "text": "閱讀人類起源",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          },
+          {
+            "text": "跳到今日切片",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          }
+        ],
+        "nodes": [
+          {
+            "text": "宇宙",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 99.5
+          },
+          {
+            "text": "地球",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 107.5,
+            "right": 191
+          },
+          {
+            "text": "起源",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 199,
+            "right": 282.5
+          },
+          {
+            "text": "技術",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 290.5,
+            "right": 374
+          },
+          {
+            "text": "城市",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 99.5
+          },
+          {
+            "text": "今天",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 107.5,
+            "right": 191
+          },
+          {
+            "text": "未來",
+            "w": 83.5,
+            "h": 64.4,
+            "off": 0,
+            "left": 199,
+            "right": 282.5
+          }
+        ],
+        "nodeGaps": {
+          "minEdge": 8,
+          "minCenter": 72.4,
+          "worst": [
+            0,
+            4
+          ]
+        }
+      },
+      "footer": [
+        {
+          "text": "文明",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "開蒙",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "當年今日",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "香港地標",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "新聞懶人包",
+          "w": 104,
+          "h": 44
+        },
+        {
+          "text": "每日導讀",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "數據",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "關於我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "私隱政策",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "使用條款",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "聯絡我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "RSS",
+          "w": 54.1,
+          "h": 44
+        },
+        {
+          "text": "Telegram",
+          "w": 96.8,
+          "h": 44
+        }
+      ],
+      "footerGaps": {
+        "minEdge": 8,
+        "minCenter": 52,
+        "worst": [
+          6,
+          9
+        ]
+      },
+      "landing": null
+    },
+    {
+      "label": "civ-360x800-light",
+      "href": "http://127.0.0.1:5173/civilization/",
+      "width": 360,
+      "height": 800,
+      "dark": false,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "axis": {
+        "slim": false,
+        "maxHeight": "none",
+        "overflow": "hidden",
+        "heroH": 659.8,
+        "scrollGap": 0,
+        "ctas": [
+          {
+            "text": "閱讀人類起源",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          },
+          {
+            "text": "跳到今日切片",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          }
+        ],
+        "nodes": [
+          {
+            "text": "宇宙",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 92
+          },
+          {
+            "text": "地球",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 100,
+            "right": 176
+          },
+          {
+            "text": "起源",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 184,
+            "right": 260
+          },
+          {
+            "text": "技術",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 268,
+            "right": 344
+          },
+          {
+            "text": "城市",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 92
+          },
+          {
+            "text": "今天",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 100,
+            "right": 176
+          },
+          {
+            "text": "未來",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 184,
+            "right": 260
+          }
+        ],
+        "nodeGaps": {
+          "minEdge": 8,
+          "minCenter": 72.4,
+          "worst": [
+            0,
+            4
+          ]
+        }
+      },
+      "footer": [
+        {
+          "text": "文明",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "開蒙",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "當年今日",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "香港地標",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "新聞懶人包",
+          "w": 104,
+          "h": 44
+        },
+        {
+          "text": "每日導讀",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "數據",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "關於我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "私隱政策",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "使用條款",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "聯絡我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "RSS",
+          "w": 54.1,
+          "h": 44
+        },
+        {
+          "text": "Telegram",
+          "w": 96.8,
+          "h": 44
+        }
+      ],
+      "footerGaps": {
+        "minEdge": 8,
+        "minCenter": 52.2,
+        "worst": [
+          9,
+          12
+        ]
+      },
+      "landing": null
+    },
+    {
+      "label": "civ-640x360-light",
+      "href": "http://127.0.0.1:5173/civilization/",
+      "width": 640,
+      "height": 360,
+      "dark": false,
+      "scrollWidth": 640,
+      "clientWidth": 640,
+      "axis": {
+        "slim": false,
+        "maxHeight": "none",
+        "overflow": "hidden",
+        "heroH": 639.8,
+        "scrollGap": 0,
+        "ctas": [
+          {
+            "text": "閱讀人類起源",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          },
+          {
+            "text": "跳到今日切片",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          }
+        ],
+        "nodes": [
+          {
+            "text": "宇宙",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 162
+          },
+          {
+            "text": "地球",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 170,
+            "right": 316
+          },
+          {
+            "text": "起源",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 324,
+            "right": 470
+          },
+          {
+            "text": "技術",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 478,
+            "right": 624
+          },
+          {
+            "text": "城市",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 162
+          },
+          {
+            "text": "今天",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 170,
+            "right": 316
+          },
+          {
+            "text": "未來",
+            "w": 146,
+            "h": 64.4,
+            "off": 0,
+            "left": 324,
+            "right": 470
+          }
+        ],
+        "nodeGaps": {
+          "minEdge": 8,
+          "minCenter": 72.4,
+          "worst": [
+            0,
+            4
+          ]
+        }
+      },
+      "footer": [
+        {
+          "text": "文明",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "開蒙",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "當年今日",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "香港地標",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "新聞懶人包",
+          "w": 104,
+          "h": 44
+        },
+        {
+          "text": "每日導讀",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "數據",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "關於我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "私隱政策",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "使用條款",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "聯絡我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "RSS",
+          "w": 54.1,
+          "h": 44
+        },
+        {
+          "text": "Telegram",
+          "w": 96.8,
+          "h": 44
+        }
+      ],
+      "footerGaps": {
+        "minEdge": 8,
+        "minCenter": 52,
+        "worst": [
+          0,
+          6
+        ]
+      },
+      "landing": null
+    },
+    {
+      "label": "home-390x844-light",
+      "href": "http://127.0.0.1:5173/#slice",
+      "width": 390,
+      "height": 844,
+      "dark": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "axis": null,
+      "footer": [],
+      "footerGaps": {
+        "minEdge": null,
+        "minCenter": null,
+        "worst": null
+      },
+      "landing": {
+        "id": "slice",
+        "tag": "H3",
+        "text": "今日切片",
+        "headerBottom": 61,
+        "targetTop": 88.1,
+        "clearance": 27.1
+      }
+    },
+    {
+      "label": "home-390x844-dark",
+      "href": "http://127.0.0.1:5173/#slice",
+      "width": 390,
+      "height": 844,
+      "dark": false,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "axis": null,
+      "footer": [],
+      "footerGaps": {
+        "minEdge": null,
+        "minCenter": null,
+        "worst": null
+      },
+      "landing": {
+        "id": "slice",
+        "tag": "H3",
+        "text": "今日切片",
+        "headerBottom": 61,
+        "targetTop": 88.1,
+        "clearance": 27.1
+      }
+    },
+    {
+      "label": "civ-360x800-dark",
+      "href": "http://127.0.0.1:5173/civilization/",
+      "width": 360,
+      "height": 800,
+      "dark": true,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "axis": {
+        "slim": false,
+        "maxHeight": "none",
+        "overflow": "hidden",
+        "heroH": 659.8,
+        "scrollGap": 0,
+        "ctas": [
+          {
+            "text": "閱讀人類起源",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          },
+          {
+            "text": "跳到今日切片",
+            "w": 108,
+            "h": 44,
+            "visible": 44
+          }
+        ],
+        "nodes": [
+          {
+            "text": "宇宙",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 92
+          },
+          {
+            "text": "地球",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 100,
+            "right": 176
+          },
+          {
+            "text": "起源",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 184,
+            "right": 260
+          },
+          {
+            "text": "技術",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 268,
+            "right": 344
+          },
+          {
+            "text": "城市",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 16,
+            "right": 92
+          },
+          {
+            "text": "今天",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 100,
+            "right": 176
+          },
+          {
+            "text": "未來",
+            "w": 76,
+            "h": 64.4,
+            "off": 0,
+            "left": 184,
+            "right": 260
+          }
+        ],
+        "nodeGaps": {
+          "minEdge": 8,
+          "minCenter": 72.4,
+          "worst": [
+            0,
+            4
+          ]
+        }
+      },
+      "footer": [
+        {
+          "text": "文明",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "開蒙",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "當年今日",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "香港地標",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "新聞懶人包",
+          "w": 104,
+          "h": 44
+        },
+        {
+          "text": "每日導讀",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "數據",
+          "w": 56,
+          "h": 44
+        },
+        {
+          "text": "關於我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "私隱政策",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "使用條款",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "聯絡我們",
+          "w": 88,
+          "h": 44
+        },
+        {
+          "text": "RSS",
+          "w": 54.1,
+          "h": 44
+        },
+        {
+          "text": "Telegram",
+          "w": 96.8,
+          "h": 44
+        }
+      ],
+      "footerGaps": {
+        "minEdge": 8,
+        "minCenter": 52.2,
+        "worst": [
+          9,
+          12
+        ]
+      },
+      "landing": null
+    }
+  ],
+  "shots": [
+    {
+      "name": "2026-10-24-phase1c-list-390x844-light-hero.png",
+      "x": 0,
+      "y": 865.953125,
+      "width": 390,
+      "height": 374.75
+    },
+    {
+      "name": "2026-10-24-phase1c-list-390x844-light-footer.png",
+      "x": 8,
+      "y": 5541.46875,
+      "width": 374,
+      "height": 216
+    },
+    {
+      "name": "2026-10-24-phase1c-list-360x800-light-hero.png",
+      "x": 0,
+      "y": 860.546875,
+      "width": 360,
+      "height": 374.75
+    },
+    {
+      "name": "2026-10-24-phase1c-list-640x360-light-axis.png",
+      "x": 8,
+      "y": 1008.640625,
+      "width": 624,
+      "height": 166.75
+    },
+    {
+      "name": "2026-10-24-phase1c-civ-390x844-light-axis.png",
+      "x": 8,
+      "y": 335,
+      "width": 374,
+      "height": 166.75
+    },
+    {
+      "name": "2026-10-24-phase1c-civ-390x844-light-footer.png",
+      "x": 8,
+      "y": 26308.53125,
+      "width": 374,
+      "height": 216
+    },
+    {
+      "name": "2026-10-24-phase1c-civ-360x800-light-axis.png",
+      "x": 8,
+      "y": 335,
+      "width": 344,
+      "height": 166.75
+    },
+    {
+      "name": "2026-10-24-phase1c-civ-640x360-light-axis.png",
+      "x": 8,
+      "y": 315,
+      "width": 624,
+      "height": 166.75
+    },
+    {
+      "name": "2026-10-24-phase1c-home-390x844-light-slice.png",
+      "x": 25,
+      "y": 992.140625,
+      "width": 340,
+      "height": 60
+    },
+    {
+      "name": "2026-10-24-phase1c-list-390x844-dark-hero.png",
+      "x": 0,
+      "y": 865.953125,
+      "width": 390,
+      "height": 374.75
+    },
+    {
+      "name": "2026-10-24-phase1c-list-390x844-dark-footer.png",
+      "x": 8,
+      "y": 7129.640625,
+      "width": 374,
+      "height": 216
+    },
+    {
+      "name": "2026-10-24-phase1c-list-360x800-dark-hero.png",
+      "x": 0,
+      "y": 860.546875,
+      "width": 360,
+      "height": 374.75
+    },
+    {
+      "name": "2026-10-24-phase1c-civ-390x844-dark-axis.png",
+      "x": 8,
+      "y": 335,
+      "width": 374,
+      "height": 166.75
+    },
+    {
+      "name": "2026-10-24-phase1c-civ-390x844-dark-footer.png",
+      "x": 8,
+      "y": 26308.53125,
+      "width": 374,
+      "height": 216
+    },
+    {
+      "name": "2026-10-24-phase1c-civ-360x800-dark-axis.png",
+      "x": 8,
+      "y": 335,
+      "width": 344,
+      "height": 166.75
+    },
+    {
+      "name": "2026-10-24-phase1c-home-390x844-dark-slice.png",
+      "x": 25,
+      "y": 992.140625,
+      "width": 340,
+      "height": 60
+    }
+  ]
+}
