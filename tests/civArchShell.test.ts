@@ -83,6 +83,7 @@ describe('G01 phase-1 document shell', () => {
     const ahead = body.indexOf('id="vol-ahead"');
     const method = body.indexOf('id="ch-method"');
     const bookmark = body.indexOf('id="bookmark"');
+    const slice = body.indexOf('id="slice"');
     const margin = body.indexOf('id="margin-strip"');
     const tools = body.indexOf('id="ch-tools"');
     const stay = body.indexOf('id="stay"');
@@ -90,7 +91,10 @@ describe('G01 phase-1 document shell', () => {
     expect(ancient).toBeLessThan(present);
     expect(present).toBeLessThan(ahead);
     expect(method).toBeLessThan(bookmark);
-    expect(bookmark).toBeLessThan(margin);
+    expect(bookmark).toBeLessThan(slice);
+    expect(slice).toBeLessThan(margin);
+    expect(body).toContain('<h3 id="slice" tabindex="-1"><a href="/cut/">今日切片</a></h3>');
+    expect(body).toContain("hash==='#slice'");
     expect(margin).toBeLessThan(tools);
     expect(tools).toBeLessThan(stay);
     expect(stay).toBeLessThan(ahead);
@@ -125,7 +129,8 @@ describe('G01 phase-1 document shell', () => {
   });
 
   it('styles a vertical 390 shell: 44px rows, no page-level horizontal scroll', () => {
-    expect(CIV_ARCH_CSS).toContain('overflow-x: hidden');
+    expect(CIV_ARCH_CSS).toContain('overflow-x: clip');
+    expect(CIV_ARCH_CSS).not.toContain('overflow-x: hidden');
     expect(CIV_ARCH_CSS).toContain('overscroll-behavior-x: contain');
     expect(CIV_ARCH_CSS).toContain('min-height: 44px');
     expect(CIV_ARCH_CSS).toContain('touch-action: pan-x pan-y');

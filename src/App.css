@@ -118,7 +118,7 @@ img { max-width: 100%; }
 }
 .masthead { display: flex; align-items: center; gap: var(--space-2); min-height: 52px; }
 .masthead-title { margin: 0; font-size: inherit; font-weight: inherit; line-height: 1; flex: none; }
-.logo-link { display: flex; align-items: center; min-height: 40px; text-decoration: none; color: inherit; }
+.logo-link { display: flex; align-items: center; min-width: 44px; min-height: 44px; text-decoration: none; color: inherit; }
 .logo-link img { height: 36px; width: auto; }
 .logo-frame { position: relative; display: inline-flex; align-items: center; line-height: 0; flex: none; }
 /* Chronicle wordmark has no red-dot slot. A leftover span must not paint a floating pulse. */
@@ -147,7 +147,7 @@ a.chip { color: inherit; text-decoration: none; }
 }
 .digest-strip a, .analysis-link { font-weight: 700; text-decoration: none; }
 .digest-strip .chip {
-  flex: 0 0 auto; white-space: nowrap; min-height: 40px; border-color: var(--chip-border);
+  flex: 0 0 auto; white-space: nowrap; min-width: 44px; min-height: 44px; border-color: var(--chip-border);
 }
 .digest-strip .chip.active {
   background: color-mix(in srgb, var(--accent) 12%, var(--card));
@@ -339,7 +339,7 @@ a.chip { color: inherit; text-decoration: none; }
 @media (max-width: 700px) {
   .chrome { padding-bottom: 0; }
   .masthead { min-height: 44px; max-height: none; flex-wrap: wrap; row-gap: 8px; }
-  .logo-link { min-height: 0; }
+  .logo-link { min-width: 44px; min-height: 44px; padding-block: 8px; }
   .logo-link .logo-full { display: none !important; }
   .logo-link .logo-compact.logo-light { display: block; }
   html.dark .logo-link .logo-compact.logo-light { display: none !important; }
@@ -368,7 +368,7 @@ a.chip { color: inherit; text-decoration: none; }
   }
   .digest-strip .badge { display: none; }
   .digest-strip .chip {
-    min-height: 36px; padding: 4px 10px; font-size: 14px; line-height: 1.35;
+    min-width: 44px; min-height: 44px; padding: 4px 10px; font-size: 14px; line-height: 1.35;
   }
   .home-intro.home-intro-top { margin-top: 4px; padding: 6px 10px; }
   .home-intro-line { font-size: 14px; }
@@ -423,13 +423,16 @@ a.chip { color: inherit; text-decoration: none; }
 .filter-label { margin: 8px 0 0; color: var(--muted); font-size: 0.78rem; font-weight: 700; }
 .hk-info-wrap { position: relative; min-width: 0; margin-top: 8px; }
 .hk-info {
-  display: flex; align-items: center; gap: 4px 8px; flex-wrap: wrap; min-height: 40px; margin-top: 0; padding: 4px 12px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-height: 44px; margin-top: 0; padding: 4px 12px;
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
   font-size: 0.9rem; font-variant-numeric: tabular-nums; white-space: normal; overflow: visible;
 }
 .hk-info-bit { display: inline-flex; align-items: center; gap: 8px; flex: none; max-width: 100%; white-space: nowrap; }
 .sidebar .hk-info-wrap { margin-top: 0; }
-.hk-info a { color: inherit; text-decoration: none; font-weight: 700; }
+.hk-info a {
+  display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; padding: 0 4px;
+  color: inherit; text-decoration: none; font-weight: 700;
+}
 .hk-info-sep { color: var(--muted); }
 .hk-info-hsi.hsi-up { color: var(--color-breaking); }
 .hk-info-hsi.hsi-down { color: #0b6b4f; }
@@ -1677,11 +1680,21 @@ a.axis-node:hover { color: #f7f1e6; }
   background: #fff;
   box-shadow: 0 0 0 2px #fff, 0 0 12px rgba(255, 255, 255, 0.55);
 }
-.axis-node .lab, .axis-node .yr { display: block; line-height: 1.3; }
-/* R6: 發現／基建／切片 sit on the bright axis photo. #c4a572 against that
-   median (#453f38) is 4.44:1. The plate is the same ink #161c24 used to
-   separate photo-overlaid type; brass on the plate is 7.32:1. A shadow
-   does not move the median of the wide label crop. */
+.axis-node .lab, .axis-node .yr {
+  display: block;
+  line-height: 1.35;
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 2px 4px;
+  border-radius: 0;
+  background: #161c24;
+  box-shadow: 0 0 0 2px #161c24;
+}
+.axis-node .lab { color: #e8e4dc; }
+/* R6: 技術／發現／~300ka sit on the bright axis photo. The plate is ink
+   #161c24 with square corners so the sampled glyph box is the plate, not
+   the photograph. Brass #c4a572 on that ink is 7.32:1; #e8e4dc on it clears 4.5:1. */
 .axis-node .yr {
   color: #c4a572;
   font-weight: 700;
@@ -1689,11 +1702,12 @@ a.axis-node:hover { color: #f7f1e6; }
   width: max-content;
   max-width: 100%;
   margin-inline: auto;
-  padding: 0 4px;
-  border-radius: 3px;
+  padding: 2px 4px;
+  border-radius: 0;
   background: #161c24;
+  box-shadow: 0 0 0 2px #161c24;
 }
-.axis-cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.axis-cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .axis-hero .btn {
   display: inline-flex;
   align-items: center;
@@ -3257,23 +3271,17 @@ a.question-line:hover { text-decoration: underline; }
   .axis-node { font-size: 12px; }
   .deep-axis {
     max-width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 8px;
-    padding-inline: 8px;
-    container-type: inline-size;
+    overflow: visible;
+    padding-inline: 0;
   }
-  .deep-axis::-webkit-scrollbar { height: 0; display: none; }
   .deep-axis .rail { display: none; }
   .milestones {
     position: relative;
-    width: max-content;
-    min-width: 100%;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
     padding-bottom: 2px;
   }
   .milestones::before {
@@ -3288,13 +3296,17 @@ a.question-line:hover { text-decoration: underline; }
     pointer-events: none;
   }
   .milestones li {
-    flex: 0 0 auto;
-    /* 4 slots + 3 gaps of 12px fill the content box inside the 8px inset,
-       so a resting view ends in the gap before 城市, not through a glyph. */
-    width: calc((100cqi - 36px) / 4);
+    flex: none;
+    width: auto;
     min-width: 0;
-    scroll-snap-align: start;
+    min-height: 44px;
   }
+  .milestones .axis-node {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .milestones .lab,
+  .milestones .yr { overflow-wrap: anywhere; }
   .chronicle-strip,
   .chronicle-track,
   .axis-cta,

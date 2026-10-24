@@ -351,31 +351,25 @@ describe('homepage anchor and brass', () => {
     expect(css).toMatch(/\.axis-hero \.btn-brass \{ background: var\(--brass-ink-fill\); color: #161c24; \}/);
   });
 
-  it('does not rest with a spine label cut in half at phone widths', () => {
+  it('keeps every spine label inside the resting phone frame', () => {
     const css = readFileSync('src/App.css', 'utf8');
     const narrow = css.slice(css.lastIndexOf('@media (max-width: 640px)'));
-    const rule = narrow.match(/width:\s*calc\(\(100cqi - (\d+)px\) \/ (\d+)\)/);
-    expect(rule).toBeTruthy();
-    const deep = narrow.slice(narrow.indexOf('.deep-axis {'), narrow.indexOf('.deep-axis::-webkit-scrollbar'));
-    expect(deep).toContain('scroll-snap-type: x mandatory');
-    expect(deep).toContain('scroll-padding-inline: 8px');
-    expect(narrow).toContain('container-type: inline-size');
-    const inset = Number(deep.match(/padding-inline:\s*(\d+)px/)?.[1]);
-    expect(inset).toBe(8);
-    const gapTotal = Number(rule?.[1]);
-    const visible = Number(rule?.[2]);
-    const gap = gapTotal / (visible - 1);
-    expect(gap).toBeGreaterThan(inset);
+    const deep = narrow.slice(narrow.indexOf('.deep-axis {'), narrow.indexOf('.deep-axis .rail'));
+    expect(deep).toContain('overflow: visible');
+    expect(narrow).toContain('grid-template-columns: repeat(4, minmax(0, 1fr))');
+    expect(narrow).toContain('gap: 8px');
+    expect(narrow).not.toContain('width: max-content');
     const base = css.slice(css.indexOf('.milestones {'), css.indexOf('@media (max-width: 640px)'));
     expect(base).toContain('.milestones li { flex: 1; min-width: 0; text-align: center; }');
-    for (const viewport of [360, 390]) {
+    for (const viewport of [360, 390, 414, 640]) {
       const scrollport = viewport - 32;
-      const slots = phoneSpineSlots(scrollport, visible, gap, 7, inset);
+      const slots = phoneSpineSlots(scrollport);
       expect(restingPartialSlots(scrollport, slots)).toEqual([]);
-      expect(slots[4]!.left).toBeGreaterThanOrEqual(scrollport);
-      for (let index = 0; index < slots.length; index += 1) {
-        expect(slotFullyReachable(scrollport, slots, index)).toBe(true);
+      for (const slot of slots) {
+        expect(slot.left).toBeGreaterThanOrEqual(-0.5);
+        expect(slot.right).toBeLessThanOrEqual(scrollport + 0.5);
       }
+      expect(slotFullyReachable(scrollport, slots, 4)).toBe(true);
     }
   });
 });

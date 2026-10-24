@@ -133,10 +133,11 @@ export function stayFace(): string {
 
 export const CIV_ARCH_CSS = `
 *, *::before, *::after { box-sizing: border-box; }
-html { overflow-x: hidden; background: var(--paper); color: var(--ink); }
+/* clip, not hidden: hidden computes overflow-y to auto and the header stops sticking. */
+html { overflow-x: clip; background: var(--paper); color: var(--ink); }
 body {
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   background: var(--paper);
   color: var(--ink);
   font-family: "Noto Sans TC", "PingFang TC", "Noto Sans CJK TC", sans-serif;
@@ -194,11 +195,11 @@ a { color: var(--link); }
 .top-bar {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  min-height: 52px;
+  gap: 8px;
+  min-height: 60px;
   width: min(1120px, 100%);
   margin: 0 auto;
-  padding: 0.35rem 1rem;
+  padding: 8px 16px;
 }
 h1.wordmark {
   margin: 0;
@@ -207,9 +208,25 @@ h1.wordmark {
   font-weight: 700;
   line-height: 1.2;
 }
-h1.wordmark a { color: var(--ink); text-decoration: none; }
-.nav-desk { display: none; align-items: center; gap: 0.9rem; flex-wrap: wrap; }
-.nav-desk a { color: var(--ink); text-decoration: none; }
+h1.wordmark a {
+  display: inline-flex;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav-desk { display: none; align-items: center; gap: 8px; flex-wrap: wrap; }
+.nav-desk a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.4rem;
+  color: var(--ink);
+  text-decoration: none;
+}
 .nav-desk a[aria-current="page"] { box-shadow: inset 0 -2px 0 currentColor; }
 .skip-open, .vol-toggle {
   font: inherit;
@@ -224,15 +241,22 @@ h1.wordmark a { color: var(--ink); text-decoration: none; }
 @media (max-width: 959px) {
   .skip-open-bar { display: none; }
 }
-.vol-menu { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.vol-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding: 8px 0;
+}
 .vol-menu a {
   display: flex;
   align-items: center;
   min-height: 44px;
+  margin: 0 8px;
   padding: 0 1rem;
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px solid var(--line);
+  border: 1px solid var(--line);
   white-space: normal;
 }
 .sheet { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
@@ -330,17 +354,23 @@ html[data-play="1"] .beat-status, html[data-play="1"] .beat-dots { display: bloc
   scroll-margin-top: 4.75rem;
 }
 .bookmark h3, .stay h3, .margin-rail .rail-kicker { margin: 0 0 0.25rem; font-size: 1rem; }
-.bookmark a { color: inherit; }
-.margin-rail { font-size: 14px; margin: 0.5rem 0 1rem; }
+#slice { scroll-margin-top: 5.5rem; }
+.bookmark h3 a {
+  display: inline-flex;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: inherit;
+}
+.margin-rail { display: flex; flex-direction: column; gap: 8px; font-size: 14px; margin: 0.5rem 0 1rem; }
 .margin-rail a, .door-list a, .door-list li {
   display: flex;
   align-items: center;
   min-height: 44px;
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px solid var(--line);
 }
-.door-list { list-style: none; margin: 1rem 0 0; padding: 0; }
+.door-list { display: flex; flex-direction: column; gap: 8px; list-style: none; margin: 1rem 0 0; padding: 0; }
 .door-closed { margin-right: 0.75rem; }
 .door-state { color: var(--muted); font-size: 14px; }
 .stay {
@@ -362,10 +392,11 @@ html[data-play="1"] .beat-status, html[data-play="1"] .beat-dots { display: bloc
   padding-top: 1rem;
   border-top: 1px solid var(--line);
 }
-.foot-nav, .legal { display: flex; flex-direction: column; gap: 0.15rem; }
+.foot-nav, .legal { display: flex; flex-direction: column; gap: 8px; }
 .foot-nav a, .legal a {
   display: flex;
   align-items: center;
+  min-width: 44px;
   min-height: 44px;
   color: var(--ink);
 }
@@ -383,19 +414,26 @@ html[data-play="1"] .beat-status, html[data-play="1"] .beat-dots { display: bloc
     align-items: start;
   }
   .rail {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     grid-column: 1;
     grid-row: 1 / span 2;
     position: sticky;
     top: 4.75rem;
     font-size: 14px;
   }
-  .rail a { display: block; padding: 0.4rem 0; color: var(--ink); text-decoration: none; }
+  .rail a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ink);
+    text-decoration: none;
+  }
   .landing, .volume-body { grid-column: 2; grid-row: 1; }
   .margin-rail { grid-column: 3; grid-row: 1; align-self: start; margin-top: 0; }
   .after { grid-column: 2; grid-row: 2; }
-  .foot-nav, .legal { flex-direction: row; gap: 1.25rem; flex-wrap: wrap; }
-  .foot-nav a, .legal a { min-height: 0; }
+  .foot-nav, .legal { flex-direction: row; gap: 8px; flex-wrap: wrap; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -405,7 +443,7 @@ html[data-play="1"] .beat-status, html[data-play="1"] .beat-dots { display: bloc
 `.trim();
 
 function homeHeadScript(): string {
-  return `(function(){try{var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}if(reduce)document.documentElement.setAttribute('data-motion','reduce');var seen=false;try{seen=sessionStorage.getItem('civ_arch_open_seen')==='1'}catch(e){}if(seen)document.documentElement.setAttribute('data-land','present');else if(!reduce)document.documentElement.setAttribute('data-play','1')}catch(e){}})();`;
+  return `(function(){try{var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}if(reduce)document.documentElement.setAttribute('data-motion','reduce');var hash=location.hash||'';var direct=hash==='#slice'||hash==='#bookmark'||hash==='#stay'||hash.indexOf('#vol-')===0||hash.indexOf('#ch-')===0;var seen=false;try{seen=sessionStorage.getItem('civ_arch_open_seen')==='1'}catch(e){}if(direct||seen)document.documentElement.setAttribute('data-land','present');else if(!reduce)document.documentElement.setAttribute('data-play','1')}catch(e){}})();`;
 }
 
 function bootScript(): string {
@@ -442,9 +480,19 @@ function bootScript(): string {
       }
     });
   }
+  function hashTarget() {
+    var raw = (location.hash || '').replace(/^#/, '');
+    if (!raw) return '';
+    try { raw = decodeURIComponent(raw); } catch (err) {}
+    return document.getElementById(raw) ? raw : '';
+  }
   if (page !== 'home') {
     if (focusId) go(focusId, false);
     return;
+  }
+  var hashLand = hashTarget();
+  function land() {
+    go(hashLand || 'vol-present', !hashLand);
   }
   var open = document.getElementById('civ-open');
   var timer = 0;
@@ -462,13 +510,13 @@ function bootScript(): string {
     document.documentElement.removeAttribute('data-play');
     document.documentElement.setAttribute('data-land', 'present');
     conceal();
-    go('vol-present', true);
+    land();
   }
   var skips = document.querySelectorAll('[data-skip-open]');
   for (var s = 0; s < skips.length; s++) skips[s].addEventListener('click', finish);
   if (document.documentElement.getAttribute('data-land') === 'present') {
     conceal();
-    go('vol-present', true);
+    land();
     return;
   }
   if (reduce || !open) return;
@@ -661,7 +709,7 @@ function volumeHeading(volume: Volume, focus: string, allowAuto: boolean): strin
 
 function bookmarkHtml(): string {
   return `<aside class="bookmark" id="bookmark" aria-label="書籤">
-    <h3><a href="/cut/">今日切片</a></h3>
+    <h3 id="slice" tabindex="-1"><a href="/cut/">今日切片</a></h3>
     <p>今日沒有可對照的切片</p>
   </aside>`;
 }
