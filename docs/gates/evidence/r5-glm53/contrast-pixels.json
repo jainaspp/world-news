@@ -1,0 +1,25 @@
+{
+  "sha": "921a6ef8fe0f01d0c1261748c174fcbadd8a959d",
+  "method": "Pixels taken from headless Chrome captureBeyondViewport PNGs of the production dist + Pages renderers. Viewport-relative clips were blank on long scrolls and are not used.",
+  "threshold": 4.5,
+  "patternCardFigcaption": {
+    "declared": { "color": "#d2c4b0", "background": "#2a231b", "ratio": 9.05 },
+    "r4PairRetired": { "color": "#5c6570", "background": "#2a231b", "ratio": 2.62 },
+    "samples": [
+      { "file": "shots/2026-10-22-civ-360-dark-full.png", "bands": 40, "min": 8.89, "typical": 9.05 },
+      { "file": "shots/2026-10-22-civ-390-dark-full.png", "bands": 40, "min": 8.89, "typical": 9.05 },
+      { "file": "shots/2026-10-22-civ-1280-dark-full.png", "bands": 42, "min": 8.45, "typical": 9.05 },
+      { "file": "shots/2026-10-22-chronicle-360-dark-full.png", "bands": 293, "min": 8.53, "typical": 9.05 },
+      { "file": "shots/2026-10-22-chronicle-390-dark-full.png", "bands": 296, "min": 8.53, "typical": 9.05 }
+    ],
+    "light": { "file": "shots/2026-10-22-civ-360-light-full.png", "color": "#5c6570", "background": "#f7f1e6", "ratio": 5.26 }
+  },
+  "hubHeroFigcaptionDark": {
+    "note": "html.dark sets #161c24 on a translucent ink wash. Painted pixels sit on the light hero image.",
+    "crop": "derived from shots/2026-10-22-civ-360-dark-full.png y≈520–740",
+    "ink": "#161c24",
+    "image": "#f7f1e6",
+    "ratio": 14.75
+  },
+  "pass": true
+}

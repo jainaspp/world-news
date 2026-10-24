@@ -1,0 +1,182 @@
+[
+  {
+    "from": "H",
+    "theme": "light",
+    "vp": "360",
+    "click": {
+      "x": 70,
+      "y": 398,
+      "text": "打開文明總覽",
+      "href": "/civilization/",
+      "top": "btn btn-brass"
+    },
+    "landed": "/civilization/"
+  },
+  {
+    "from": "C-origins",
+    "theme": "light",
+    "vp": "360",
+    "click": {
+      "x": 70,
+      "y": 398,
+      "text": "閱讀人類起源",
+      "href": "/civilization/origins/",
+      "top": "btn btn-brass"
+    },
+    "landed": "/civilization/origins/"
+  },
+  {
+    "from": "C-slice",
+    "theme": "light",
+    "vp": "360",
+    "click": {
+      "x": 186,
+      "y": 398,
+      "text": "跳到今日切片",
+      "href": "/#slice",
+      "top": "btn btn-ghost"
+    },
+    "landed": {
+      "hash": "#slice",
+      "path": "/",
+      "clearance": 31.4,
+      "heading": "今日切片",
+      "scrollY": 2077
+    }
+  },
+  {
+    "from": "H",
+    "theme": "light",
+    "vp": "1280",
+    "click": {
+      "x": 210,
+      "y": 398,
+      "text": "打開文明總覽",
+      "href": "/civilization/",
+      "top": "btn btn-brass"
+    },
+    "landed": "/civilization/"
+  },
+  {
+    "from": "C-origins",
+    "theme": "light",
+    "vp": "1280",
+    "click": {
+      "x": 210,
+      "y": 398,
+      "text": "閱讀人類起源",
+      "href": "/civilization/origins/",
+      "top": "btn btn-brass"
+    },
+    "landed": "/civilization/origins/"
+  },
+  {
+    "from": "C-slice",
+    "theme": "light",
+    "vp": "1280",
+    "click": {
+      "x": 326,
+      "y": 398,
+      "text": "跳到今日切片",
+      "href": "/#slice",
+      "top": "btn btn-ghost"
+    },
+    "landed": {
+      "hash": "#slice",
+      "path": "/",
+      "clearance": 33.3,
+      "heading": "今日切片",
+      "scrollY": 1729
+    }
+  },
+  {
+    "from": "H",
+    "theme": "dark",
+    "vp": "360",
+    "click": {
+      "x": 70,
+      "y": 398,
+      "text": "打開文明總覽",
+      "href": "/civilization/",
+      "top": "btn btn-brass"
+    },
+    "landed": "/civilization/"
+  },
+  {
+    "from": "C-origins",
+    "theme": "dark",
+    "vp": "360",
+    "click": {
+      "x": 70,
+      "y": 398,
+      "text": "閱讀人類起源",
+      "href": "/civilization/origins/",
+      "top": "btn btn-brass"
+    },
+    "landed": "/civilization/origins/"
+  },
+  {
+    "from": "C-slice",
+    "theme": "dark",
+    "vp": "360",
+    "click": {
+      "x": 186,
+      "y": 398,
+      "text": "跳到今日切片",
+      "href": "/#slice",
+      "top": "btn btn-ghost"
+    },
+    "landed": {
+      "hash": "#slice",
+      "path": "/",
+      "clearance": 31.4,
+      "heading": "今日切片",
+      "scrollY": 2077
+    }
+  },
+  {
+    "from": "H",
+    "theme": "dark",
+    "vp": "1280",
+    "click": {
+      "x": 210,
+      "y": 398,
+      "text": "打開文明總覽",
+      "href": "/civilization/",
+      "top": "btn btn-brass"
+    },
+    "landed": "/civilization/"
+  },
+  {
+    "from": "C-origins",
+    "theme": "dark",
+    "vp": "1280",
+    "click": {
+      "x": 210,
+      "y": 398,
+      "text": "閱讀人類起源",
+      "href": "/civilization/origins/",
+      "top": "btn btn-brass"
+    },
+    "landed": "/civilization/origins/"
+  },
+  {
+    "from": "C-slice",
+    "theme": "dark",
+    "vp": "1280",
+    "click": {
+      "x": 326,
+      "y": 398,
+      "text": "跳到今日切片",
+      "href": "/#slice",
+      "top": "btn btn-ghost"
+    },
+    "landed": {
+      "hash": "#slice",
+      "path": "/",
+      "clearance": 33.3,
+      "heading": "今日切片",
+      "scrollY": 1729
+    }
+  }
+]
