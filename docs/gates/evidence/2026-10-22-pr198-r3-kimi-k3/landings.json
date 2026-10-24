@@ -1,0 +1,67 @@
+[
+  {
+    "label": "direct-360-dark",
+    "scrollY": 2073,
+    "hash": "#slice",
+    "clearance": 30.8,
+    "headingTop": 191.8,
+    "headingText": "今日切片",
+    "chromeBottom": 161,
+    "sliceTop": 176.8
+  },
+  {
+    "label": "direct-1280-light",
+    "scrollY": 1727,
+    "hash": "#slice",
+    "clearance": 33.3,
+    "headingTop": 142.3,
+    "headingText": "今日切片",
+    "chromeBottom": 109,
+    "sliceTop": 127.3
+  },
+  {
+    "label": "direct-768-light",
+    "scrollY": 1750,
+    "hash": "#slice",
+    "clearance": 45.6,
+    "headingTop": 154.6,
+    "headingText": "今日切片",
+    "chromeBottom": 109,
+    "sliceTop": 139.6
+  },
+  {
+    "label": "same-360-dark",
+    "error": "Error: Runtime.evaluate: {\"code\":-32000,\"message\":\"Object reference chain is too long\"}"
+  },
+  {
+    "label": "overview-360-dark",
+    "scrollY": 2073,
+    "hash": "#slice",
+    "clearance": 30.8,
+    "headingTop": 191.8,
+    "headingText": "今日切片",
+    "chromeBottom": 161,
+    "sliceTop": 176.8
+  },
+  {
+    "label": "overview-1280-light",
+    "scrollY": 1727,
+    "hash": "#slice",
+    "clearance": 33.3,
+    "headingTop": 142.3,
+    "headingText": "今日切片",
+    "chromeBottom": 109,
+    "sliceTop": 127.3
+  },
+  {
+    "label": "overview-360-dark-restore0",
+    "sawSlice": true,
+    "scrollY": 2073,
+    "hash": "#slice",
+    "clearance": 30.8,
+    "headingTop": 191.8,
+    "headingText": "今日切片",
+    "chromeBottom": 161,
+    "sliceTop": 176.8
+  }
+]
