@@ -1,0 +1,62 @@
+[
+  {
+    "id": "Z01",
+    "title": "三卷書脊",
+    "one_liner": "首頁化作三卷巨著的書架門廳：點書脊即入卷，新聞只是夾在「今」卷裡的一張今日書籤。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/glm/P01.md"
+  },
+  {
+    "id": "Z02",
+    "title": "長河縱卷",
+    "one_liner": "由宇宙泉源順流而下的一條時間長河：十階是十座渡口，今日切片是泊在「現在」的碼頭。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/glm/P02.md"
+  },
+  {
+    "id": "Z03",
+    "title": "文明地層",
+    "one_liner": "頁面即考古剖面：向下挖掘是過去，頭頂開放夜空是未來，今日切片是地表正在沉積的新一層。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/glm/P03.md"
+  },
+  {
+    "id": "Z04",
+    "title": "星台觀測所",
+    "one_liner": "首頁是一座觀測所：三卷化作三座星官、十階是十顆主星，監測鐘是台上唯一儀器，新聞是今晚星象。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/glm/P04.md"
+  },
+  {
+    "id": "Z05",
+    "title": "章門月台",
+    "one_liner": "用交通導航做文明軸：三線十站、清晰路牌，未來是圍板後的終點工地——看得見、不通車，章門即閘。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/glm/P05.md"
+  },
+  {
+    "id": "Z06",
+    "title": "橫卷迴廊",
+    "one_liner": "以東亞手卷閱讀法重排文明軸：向右舒卷而行古至今，卷末一道未來章門，縱向下探讀厚文。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/glm/P06.md"
+  },
+  {
+    "id": "Z07",
+    "title": "經緯棋盤",
+    "one_liner": "不講故事、講結構：三卷作經、能量信息制度貨幣四線作緯，織成一張可檢索的文明輿圖。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/glm/P07.md"
+  },
+  {
+    "id": "Z08",
+    "title": "以今為針",
+    "one_liner": "以「現在」為錶盤中心重排一切：離針愈近愈是新聞、愈遠愈是歷史，針尖之外是未來展望。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/glm/P08.md"
+  },
+  {
+    "id": "Z09",
+    "title": "開蒙書室",
+    "one_liner": "首頁讓知識樹先行：宇宙動畫入土成根、文明軸成主幹、學科樹開枝，讀者由「學」入「史」。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/glm/P09.md"
+  },
+  {
+    "id": "Z10",
+    "title": "一線星光",
+    "one_liner": "極簡夜空版：全站一條光線貫古通今，十階是線上十顆星，LCP 優先、字排為王、動效近零。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/glm/P10.md"
+  }
+]
