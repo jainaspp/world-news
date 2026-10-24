@@ -12,6 +12,7 @@
   - `docs/gates/SITE-REVIEW-CHECKLIST-KIMI-K3-2026-10-20.md`
   - `docs/gates/SITE-REVIEW-CHECKLIST-GLM-53-2026-10-20.md`
   - `docs/gates/SITE-REVIEW-CHECKLIST-GROK-47-2026-10-20.md`
+- 開場 Hero 席審（索引，不改本閘條文、不是上線簽字）：`docs/gates/BBT-HERO-REVIEW-GLM-5.3-2026-10-22.md`
 - 事故樣本：`civ-mobile-broken-2026-10-20.jpg`。手機文明 hub 暗色首屏：軸、編年圓點、「跳到今日切片」、模式卡／案例晶片疊在同一帶，左緣裁字，品牌不完整，觸控目標小於 44px。內容審過、沒有視覺閘，仍然上線。
 - 性質：只定檢測與過關。不改 app、不改 CSS、不改 runtime、不改文明文案、不開新產品線。
 
