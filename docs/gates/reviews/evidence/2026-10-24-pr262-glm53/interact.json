@@ -1,0 +1,131 @@
+{
+  "landed": {
+    "scrollY": 505,
+    "land": "present",
+    "play": null,
+    "htmlOverflow": "hidden auto/hidden/auto",
+    "bodyOverflow": "hidden auto/hidden/auto",
+    "topPosition": "sticky",
+    "header": {
+      "y": -505,
+      "b": -449,
+      "h": 56
+    },
+    "word": {
+      "y": -494,
+      "b": -463,
+      "h": 31,
+      "w": 110,
+      "text": "文明編年史"
+    },
+    "h2": {
+      "y": 100,
+      "text": "卷二 · 今",
+      "gapFromHeader": 548
+    },
+    "slice": false,
+    "bookmark": true,
+    "stay": "停留刻度 1 分 29 秒 停留刻度由編輯寫定。 資料日期：2025-01-28 此數不走動，亦非預報。",
+    "paper": "rgb(244, 239, 230)",
+    "ink": "rgb(27, 23, 20)"
+  },
+  "menu": [
+    {
+      "t": "卷一 · 古",
+      "href": "/read/ancient/",
+      "w": 390,
+      "h": 44,
+      "y": 56
+    },
+    {
+      "t": "卷二 · 今",
+      "href": "/read/present/",
+      "w": 390,
+      "h": 44,
+      "y": 100
+    },
+    {
+      "t": "卷三 · 未來",
+      "href": "/read/ahead/",
+      "w": 390,
+      "h": 44,
+      "y": 144
+    }
+  ],
+  "civ": {
+    "jump": "/#slice",
+    "jumpBox": {
+      "w": 108,
+      "h": 44
+    },
+    "today": "/#slice",
+    "axisBg": "rgb(22, 28, 36)",
+    "nodes": [
+      {
+        "t": "宇宙~138億",
+        "x": 24,
+        "r": 101,
+        "w": 77,
+        "h": 55
+      },
+      {
+        "t": "地球~40億",
+        "x": 113,
+        "r": 189,
+        "w": 77,
+        "h": 55
+      },
+      {
+        "t": "起源~300ka",
+        "x": 201,
+        "r": 278,
+        "w": 77,
+        "h": 55
+      },
+      {
+        "t": "技術發現",
+        "x": 290,
+        "r": 366,
+        "w": 77,
+        "h": 55
+      },
+      {
+        "t": "城市基建",
+        "x": 378,
+        "r": 455,
+        "w": 77,
+        "h": 55
+      },
+      {
+        "t": "今天切片",
+        "x": 467,
+        "r": 543,
+        "w": 77,
+        "h": 55
+      },
+      {
+        "t": "未來展望",
+        "x": 555,
+        "r": 632,
+        "w": 77,
+        "h": 55
+      }
+    ]
+  },
+  "after": {
+    "href": "http://127.0.0.1:5173/#slice",
+    "hash": "#slice",
+    "slice": false,
+    "g01": "g01",
+    "land": "present",
+    "scrollY": 505,
+    "h2": "卷二 · 今",
+    "bookmarkTop": 475
+  },
+  "hashSlice": {
+    "href": "http://127.0.0.1:5173/#slice",
+    "slice": false,
+    "scrollY": 505,
+    "h2": "卷一 · 古"
+  }
+}
