@@ -1533,6 +1533,50 @@ html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
 @media (min-width: 720px) {
   .learn-map { grid-template-columns: repeat(3, 1fr); }
 }
+/* 開蒙 taxonomy v2：門徑（L1）→ 區塊（L2）→ 葉（L3）。全部縱向堆疊，手機不左右溢出。 */
+.learn-tree { display: flex; flex-direction: column; gap: 4px; }
+.learn-path h2 {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  margin: 16px 0 4px;
+}
+.learn-path-state { font-size: 12px; color: #5c6570; margin-left: 6px; }
+.learn-block {
+  margin: 4px 0 10px;
+  padding: 0 0 0 12px;
+  border-left: 2px solid #c4a572;
+}
+.learn-block.is-sprout { border-left-style: dashed; border-left-color: #d4cbb8; }
+.learn-block h3 { font-size: 1rem; margin: 0 0 6px; }
+.learn-sprout,
+.learn-growth { color: #5c6570; font-size: 13px; }
+.learn-leaf { margin: 0 0 10px; }
+.learn-leaf h4 { font-size: 1.02rem; margin: 0 0 2px; }
+.learn-leaf .learn-state { display: inline-block; margin-top: 2px; color: #5c6570; }
+.learn-next { color: #3d4550; max-width: 40rem; }
+/* 拇指區動作鈕（Hub 重設／葉「本節讀完」）一律 ≥44px 高。 */
+.learn-actions button {
+  min-height: 44px;
+  padding: 10px 22px;
+  font-size: 15px;
+  background: #161c24;
+  color: #f7f1e6;
+  border: 1px solid #161c24;
+  border-radius: 10px;
+  cursor: pointer;
+}
+html.dark .learn-actions button {
+  background: #f7f1e6;
+  color: #161c24;
+  border-color: #f7f1e6;
+}
+html.dark .learn-path-state,
+html.dark .learn-sprout,
+html.dark .learn-growth,
+html.dark .learn-next,
+html.dark .learn-leaf .learn-state { color: var(--color-muted); }
+html.dark .learn-block { border-left-color: #9a7b4f; }
+html.dark .learn-block.is-sprout { border-left-color: #2a3240; }
 .chip.civ-chip {
   background: #161c24;
   color: #f0ebe3;
