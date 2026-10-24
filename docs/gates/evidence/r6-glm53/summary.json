@@ -1,0 +1,2841 @@
+{
+  "sha": "517cc73889c72b7f9091b13e4f478b06b9d4dc4c",
+  "meta": {
+    "longTitle": "Unitree unveils H2-X robot in 'Kung Fu Legend: Guardian' video, demonstrating car-lifting rescue capability",
+    "plainTitle": "朝鮮擬恢復對韓擴音器廣播 韓國呼籲通過對話解決問題",
+    "count": 363
+  },
+  "rows": 66,
+  "hscroll": [],
+  "collisions": [],
+  "controlHits": [
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "768",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "414",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "1024",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "390",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "768",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "414",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "N",
+      "vp": "390",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "N",
+      "vp": "768",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "L",
+      "vp": "390",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "L",
+      "vp": "768",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "A",
+      "vp": "390",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "A",
+      "vp": "768",
+      "theme": "light",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "768",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "414",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "1024",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "390",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "768",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "414",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "N",
+      "vp": "390",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "N",
+      "vp": "768",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "L",
+      "vp": "390",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "L",
+      "vp": "768",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "A",
+      "vp": "390",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    },
+    {
+      "page": "A",
+      "vp": "768",
+      "theme": "dark",
+      "controlHits": [
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "數據"
+        ],
+        [
+          "A.",
+          "A.",
+          "world-news.xyz",
+          "重大更新"
+        ]
+      ]
+    }
+  ],
+  "clips": [
+    {
+      "page": "H",
+      "vp": "360",
+      "theme": "light",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 348,
+          "r": 417,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 429,
+          "r": 498,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 510,
+          "r": 579,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 93,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 105,
+          "r": 174,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 186,
+          "r": 255,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 267,
+          "r": 336,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 348,
+          "r": 417,
+          "w": 360
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "light",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 378,
+          "r": 455,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 467,
+          "r": 543,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 555,
+          "r": 632,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 101,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 113,
+          "r": 189,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 201,
+          "r": 278,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 290,
+          "r": 366,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 378,
+          "r": 455,
+          "w": 390
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "414",
+      "theme": "light",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 402,
+          "r": 485,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 497,
+          "r": 579,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 591,
+          "r": 674,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 107,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 119,
+          "r": 201,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 213,
+          "r": 296,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 308,
+          "r": 390,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 402,
+          "r": 485,
+          "w": 414
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "360",
+      "theme": "light",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 348,
+          "r": 417,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 429,
+          "r": 498,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 510,
+          "r": 579,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 186,
+          "r": 255,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 267,
+          "r": 336,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 348,
+          "r": 417,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "切片",
+          "l": 429,
+          "r": 498,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "展望",
+          "l": 510,
+          "r": 579,
+          "w": 360
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "390",
+      "theme": "light",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 378,
+          "r": 455,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 467,
+          "r": 543,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 555,
+          "r": 632,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 101,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 113,
+          "r": 189,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 201,
+          "r": 278,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 290,
+          "r": 366,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 378,
+          "r": 455,
+          "w": 390
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "414",
+      "theme": "light",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 402,
+          "r": 485,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 497,
+          "r": 579,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 591,
+          "r": 674,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 107,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 119,
+          "r": 201,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 213,
+          "r": 296,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 308,
+          "r": 390,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 402,
+          "r": 485,
+          "w": 414
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "360",
+      "theme": "dark",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 348,
+          "r": 417,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 429,
+          "r": 498,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 510,
+          "r": 579,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 93,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 105,
+          "r": 174,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 186,
+          "r": 255,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 267,
+          "r": 336,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 348,
+          "r": 417,
+          "w": 360
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "dark",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 378,
+          "r": 455,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 467,
+          "r": 543,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 555,
+          "r": 632,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 101,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 113,
+          "r": 189,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 201,
+          "r": 278,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 290,
+          "r": 366,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 378,
+          "r": 455,
+          "w": 390
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "414",
+      "theme": "dark",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 402,
+          "r": 485,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 497,
+          "r": 579,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 591,
+          "r": 674,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 107,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 119,
+          "r": 201,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 213,
+          "r": 296,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 308,
+          "r": 390,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 402,
+          "r": 485,
+          "w": 414
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "360",
+      "theme": "dark",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 348,
+          "r": 417,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 429,
+          "r": 498,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 510,
+          "r": 579,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 93,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 105,
+          "r": 174,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 186,
+          "r": 255,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 267,
+          "r": 336,
+          "w": 360
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 348,
+          "r": 417,
+          "w": 360
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "390",
+      "theme": "dark",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 378,
+          "r": 455,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 467,
+          "r": 543,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 555,
+          "r": 632,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 101,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 113,
+          "r": 189,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 201,
+          "r": 278,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 290,
+          "r": 366,
+          "w": 390
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 378,
+          "r": 455,
+          "w": 390
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "414",
+      "theme": "dark",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 402,
+          "r": 485,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 497,
+          "r": 579,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 591,
+          "r": 674,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 107,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 119,
+          "r": 201,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 213,
+          "r": 296,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 308,
+          "r": 390,
+          "w": 414
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 402,
+          "r": 485,
+          "w": 414
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "640x360",
+      "theme": "dark",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 628,
+          "r": 767,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 779,
+          "r": 918,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 930,
+          "r": 1069,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 163,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 175,
+          "r": 314,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 326,
+          "r": 465,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 477,
+          "r": 616,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 628,
+          "r": 767,
+          "w": 640
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "640x360",
+      "theme": "dark",
+      "clips": [
+        {
+          "sel": ".axis-node .lab",
+          "text": "城市",
+          "l": 628,
+          "r": 767,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "今天",
+          "l": 779,
+          "r": 918,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .lab",
+          "text": "未來",
+          "l": 930,
+          "r": 1069,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~138億",
+          "l": 24,
+          "r": 163,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~40億",
+          "l": 175,
+          "r": 314,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "~300ka",
+          "l": 326,
+          "r": 465,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "發現",
+          "l": 477,
+          "r": 616,
+          "w": 640
+        },
+        {
+          "sel": ".axis-node .yr",
+          "text": "基建",
+          "l": 628,
+          "r": 767,
+          "w": 640
+        }
+      ]
+    }
+  ],
+  "undersize": [],
+  "tight": [
+    {
+      "page": "H",
+      "vp": "360",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 87.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 70.8
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 63.6
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 97.2
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 63.7
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 75.4
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "768",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 6.8,
+          "center": 56.6
+        },
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 113.5
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 53.5
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 1.8,
+          "center": 105.5
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.7,
+          "center": 106.1
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".axis-node:技術\n發現",
+          "b": ".axis-node:城市\n基建",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 184
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 183.1
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 192
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "1280",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 4.8,
+          "center": 55.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 4.8,
+          "center": 117.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 62
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 184
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 183.1
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 192
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "1440",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 6.8,
+          "center": 57.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 6.8,
+          "center": 118.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 62
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 139.1
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 184
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 183.1
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 192
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "414",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 7.8,
+          "center": 57.6
+        },
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 104.9
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 59.3
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 86.7
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "1024",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 7.8,
+          "center": 57.4
+        },
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.2,
+          "center": 125.7
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 51.4
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 7.2,
+          "center": 125.7
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 115.2
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 115
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 115
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 184
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 183.1
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 192
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "390",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 97.2
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 63.7
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 75.4
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "768",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 113.5
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 53.5
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 1.8,
+          "center": 105.5
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.7,
+          "center": 106.3
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".axis-node:技術\n發現",
+          "b": ".axis-node:城市\n基建",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 193
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 196.5
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 201
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "1280",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 62
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 139.2
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 193
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 196.5
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 201
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "1440",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 4.8,
+          "center": 55.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 4.8,
+          "center": 117.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 62
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 193
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 196.5
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 201
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "414",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 104.9
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 59.3
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 86.7
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "1024",
+      "theme": "light",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 7.8,
+          "center": 57.4
+        },
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.5,
+          "center": 126.1
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 2.8,
+          "center": 52.4
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 7.5,
+          "center": 126.1
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 115.1
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 115
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 115
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 193
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 196.5
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 201
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "360",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 7.8,
+          "center": 58.5
+        },
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 87.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 70.8
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 63.6
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "390",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 97.2
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 63.7
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 75.4
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "768",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 5.8,
+          "center": 55.6
+        },
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 113.5
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 53.5
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 1.8,
+          "center": 105.5
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.7,
+          "center": 106.1
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".axis-node:技術\n發現",
+          "b": ".axis-node:城市\n基建",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 184
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 183.1
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 192
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "1280",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 6.8,
+          "center": 57.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 6.8,
+          "center": 118.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 62
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 139.1
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 184
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 183.1
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 192
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "1440",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 62
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 139.2
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 184
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 183.1
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 192
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "414",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 104.9
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 59.3
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 86.7
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "1024",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 5.8,
+          "center": 55.4
+        },
+        {
+          "a": ".axis-cta a:打開文明總覽",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.2,
+          "center": 125.7
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 51.4
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 7.2,
+          "center": 125.7
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 115.1
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 115
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 115
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 184
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 183.1
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 192
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "360",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 87.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 70.8
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 63.6
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "390",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 97.2
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 63.7
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 75.4
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "768",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 6.8,
+          "center": 56.6
+        },
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 113.5
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 53.5
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 1.8,
+          "center": 105.5
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.7,
+          "center": 106.1
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".axis-node:技術\n發現",
+          "b": ".axis-node:城市\n基建",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.7,
+          "center": 106
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 193
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 196.5
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 201
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "1280",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 6.8,
+          "center": 57.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 6.8,
+          "center": 118.6
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 62
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 139.1
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 193
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 196.5
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 201
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "1440",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 1.8,
+          "center": 62
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 139.2
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 139
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 193
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 196.5
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 201
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "414",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 104.9
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 59.3
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 3.8,
+          "center": 86.7
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "1024",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:宇宙\n~138億",
+          "edge": 7.8,
+          "center": 57.4
+        },
+        {
+          "a": ".axis-cta a:閱讀人類起源",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.5,
+          "center": 126.1
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 2.8,
+          "center": 52.4
+        },
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:起源\n~300ka",
+          "edge": 7.5,
+          "center": 126.1
+        },
+        {
+          "a": ".axis-node:宇宙\n~138億",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 7.6,
+          "center": 115.1
+        },
+        {
+          "a": ".axis-node:起源\n~300ka",
+          "b": ".axis-node:技術\n發現",
+          "edge": 7.6,
+          "center": 115
+        },
+        {
+          "a": ".axis-node:城市\n基建",
+          "b": ".axis-node:今天\n切片",
+          "edge": 7.6,
+          "center": 115
+        },
+        {
+          "a": ".pattern-axis .chip:能量 · 功率的儲存與維修",
+          "b": ".pattern-axis .chip:信息 · 複製與校驗",
+          "edge": 7.8,
+          "center": 193
+        },
+        {
+          "a": ".pattern-axis .chip:信息 · 複製與校驗",
+          "b": ".pattern-axis .chip:制度 · 貨幣 · 度量的互通",
+          "edge": 7.8,
+          "center": 196.5
+        },
+        {
+          "a": ".case-axis .chip:成 · 印刷與知識成本",
+          "b": ".case-axis .chip:敗 · 齒輪裝置的中斷條件",
+          "edge": 7.8,
+          "center": 201
+        }
+      ]
+    },
+    {
+      "page": "H",
+      "vp": "640x360",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 79.2
+        }
+      ]
+    },
+    {
+      "page": "C",
+      "vp": "640x360",
+      "theme": "dark",
+      "tight": [
+        {
+          "a": ".axis-cta a:跳到今日切片",
+          "b": ".axis-node:地球\n~40億",
+          "edge": 3.8,
+          "center": 79.2
+        }
+      ]
+    }
+  ],
+  "darkMismatch": [],
+  "exceptions": [],
+  "minFont": 12,
+  "brand": [
+    {
+      "page": "H",
+      "theme": "light",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": ""
+    },
+    {
+      "page": "C",
+      "theme": "light",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "人類文明"
+    },
+    {
+      "page": "N",
+      "theme": "light",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "文明編年：從採集到智能工具"
+    },
+    {
+      "page": "L",
+      "theme": "light",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "開蒙 · 森羅"
+    },
+    {
+      "page": "A",
+      "theme": "light",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "Unitree unveils H2-X robot in 'Kung Fu Legend: Guardian' video, demonstrating car-lifting rescue capability"
+    },
+    {
+      "page": "A2",
+      "theme": "light",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "朝鮮擬恢復對韓擴音器廣播 韓國呼籲通過對話解決問題"
+    },
+    {
+      "page": "Lk",
+      "theme": "light",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "物質"
+    },
+    {
+      "page": "H",
+      "theme": "dark",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": ""
+    },
+    {
+      "page": "C",
+      "theme": "dark",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "人類文明"
+    },
+    {
+      "page": "N",
+      "theme": "dark",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "文明編年：從採集到智能工具"
+    },
+    {
+      "page": "L",
+      "theme": "dark",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "開蒙 · 森羅"
+    },
+    {
+      "page": "A",
+      "theme": "dark",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "Unitree unveils H2-X robot in 'Kung Fu Legend: Guardian' video, demonstrating car-lifting rescue capability"
+    },
+    {
+      "page": "A2",
+      "theme": "dark",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "朝鮮擬恢復對韓擴音器廣播 韓國呼籲通過對話解決問題"
+    },
+    {
+      "page": "Lk",
+      "theme": "dark",
+      "brand": {
+        "aria": "文明編年史",
+        "href": "/",
+        "img": 185,
+        "simplified": false
+      },
+      "h1": "物質"
+    }
+  ],
+  "ink": [
+    {
+      "page": "H",
+      "ink": "rgb(22, 28, 36)",
+      "chapterInk": ""
+    },
+    {
+      "page": "C",
+      "ink": "rgb(22, 28, 36)",
+      "chapterInk": ""
+    },
+    {
+      "page": "N",
+      "ink": "rgb(22, 28, 36)",
+      "chapterInk": "rgb(22, 28, 36)"
+    }
+  ]
+}

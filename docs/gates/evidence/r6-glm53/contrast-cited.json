@@ -1,0 +1,219 @@
+{
+  "method": "Specified computed color against the median of pixels in the element crop that are more than 45 away from that color. Crops are cut from the viewport screenshot after scrollIntoView, except the hub year labels and brass button, which are element clips taken while those nodes were already in the first screen.",
+  "r5Pairs": [
+    {
+      "id": "clock-seconds-light",
+      "page": "H",
+      "vp": 360,
+      "theme": "light",
+      "fg": "#6e675c",
+      "bg": "#f7f1e6",
+      "ratio": 4.97,
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-360-light-clock-seconds.png"
+    },
+    {
+      "id": "clock-asof-light",
+      "page": "H",
+      "vp": 360,
+      "theme": "light",
+      "fg": "#5c6570",
+      "bg": "#f7f1e6",
+      "ratio": 5.26,
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-360-light-clock-asof.png"
+    },
+    {
+      "id": "clock-seconds-dark",
+      "page": "H",
+      "vp": 360,
+      "theme": "dark",
+      "fg": "#b7b1a6",
+      "bg": "#161c24",
+      "ratio": 8.04,
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-360-dark-clock-seconds.png"
+    },
+    {
+      "id": "more-today-dark",
+      "page": "H",
+      "vp": 360,
+      "theme": "dark",
+      "fg": "#c9d3df",
+      "bg": "#0e141c",
+      "ratio": 12.21,
+      "need": 4.5,
+      "file": "shots/2026-10-22-home-360-dark-more-today.png"
+    },
+    {
+      "id": "learn-bearings-dark",
+      "page": "L",
+      "vp": 360,
+      "theme": "dark",
+      "fg": "#c9d3df",
+      "bg": "#121820",
+      "ratio": 11.78,
+      "need": 4.5,
+      "file": "shots/2026-10-22-learn-360-dark-learn-bearings.png"
+    },
+    {
+      "id": "learn-bound-dark",
+      "page": "L",
+      "vp": 360,
+      "theme": "dark",
+      "fg": "#c9d3df",
+      "bg": "#121820",
+      "ratio": 11.78,
+      "need": 4.5,
+      "file": "shots/2026-10-22-learn-360-dark-learn-bound.png"
+    },
+    {
+      "id": "learn-progress-dark",
+      "page": "L",
+      "vp": 360,
+      "theme": "dark",
+      "fg": "#c8d3de",
+      "bg": "#121820",
+      "ratio": 11.76,
+      "need": 4.5,
+      "file": "shots/2026-10-22-learn-360-dark-learn-progress.png"
+    },
+    {
+      "id": "learn-locked-dark",
+      "page": "Lk",
+      "vp": 360,
+      "theme": "dark",
+      "fg": "#c9d3df",
+      "bg": "#121820",
+      "ratio": 11.78,
+      "need": 4.5,
+      "file": "shots/2026-10-22-learn-locked-360-dark-learn-locked.png"
+    },
+    {
+      "id": "nav-more-360-dark",
+      "page": "L",
+      "vp": 360,
+      "theme": "dark",
+      "fg": "#e8e4dc",
+      "bg": "#121820",
+      "ratio": 14.07,
+      "need": 4.5,
+      "note": "≤720 chip override, not the muted token",
+      "file": "shots/2026-10-22-learn-360-dark-nav-more.png"
+    },
+    {
+      "id": "nav-more-768-dark",
+      "page": "L",
+      "vp": 768,
+      "theme": "dark",
+      "fg": "#c7d1dd",
+      "bg": "#0e131c",
+      "ratio": 12.04,
+      "need": 4.5,
+      "file": "shots/2026-10-22-learn-768-dark-nav-more.png"
+    },
+    {
+      "id": "nav-more-1280-dark",
+      "page": "L",
+      "vp": 1280,
+      "theme": "dark",
+      "fg": "#c7d1dd",
+      "bg": "#0e131c",
+      "ratio": 12.04,
+      "need": 4.5,
+      "file": "shots/2026-10-22-learn-1280-dark-nav-more.png"
+    },
+    {
+      "id": "future-link-light",
+      "page": "N",
+      "vp": 360,
+      "theme": "light",
+      "fg": "#9ec0ef",
+      "bg": "#161c24",
+      "ratio": 9.17,
+      "need": 4.5,
+      "file": "shots/2026-10-22-chronicle-360-light-future-link.png"
+    },
+    {
+      "id": "future-link-dark",
+      "page": "N",
+      "vp": 360,
+      "theme": "dark",
+      "fg": "#9ec0ef",
+      "bg": "#161c24",
+      "ratio": 9.17,
+      "need": 4.5,
+      "file": "shots/2026-10-22-chronicle-360-dark-future-link.png"
+    },
+    {
+      "id": "figcaption-dark",
+      "page": "C",
+      "vp": 360,
+      "theme": "dark",
+      "fg": "#d2c4b0",
+      "bg": "#2a231b",
+      "ratio": 9.05,
+      "need": 4.5,
+      "file": "shots/2026-10-22-civ-360-dark-figcaption.png"
+    },
+    {
+      "id": "brass-button",
+      "page": "C",
+      "vp": 390,
+      "theme": "dark",
+      "fg": "#161c24",
+      "bg": "#a18256",
+      "ratio": 4.77,
+      "need": 4.5,
+      "file": "shots/2026-10-22-civ-390-dark-cta.png"
+    }
+  ],
+  "yearLabels": {
+    "page": "C",
+    "vp": 390,
+    "theme": "dark",
+    "fg": "#c4a572",
+    "need": 4.5,
+    "sizePx": 12,
+    "weight": 700,
+    "note": "Median of non-glyph pixels in the label crop versus specified #c4a572. Stable from a 30 to 80 color-distance cutoff.",
+    "nodes": [
+      {
+        "text": "~138億",
+        "ratio": 5.16,
+        "file": "shots/2026-10-22-civ-390-dark-yr-0.png",
+        "result": "PASS"
+      },
+      {
+        "text": "~40億",
+        "ratio": 4.82,
+        "file": "shots/2026-10-22-civ-390-dark-yr-1.png",
+        "result": "PASS"
+      },
+      {
+        "text": "~300ka",
+        "ratio": 4.54,
+        "file": "shots/2026-10-22-civ-390-dark-yr-2.png",
+        "result": "PASS"
+      },
+      {
+        "text": "發現",
+        "ratio": 4.44,
+        "file": "shots/2026-10-22-civ-390-dark-yr-3.png",
+        "result": "FAIL"
+      },
+      {
+        "text": "基建",
+        "ratio": 4.44,
+        "file": "shots/2026-10-22-civ-390-dark-yr-4.png",
+        "result": "FAIL"
+      },
+      {
+        "text": "切片",
+        "ratio": 4.44,
+        "file": "shots/2026-10-22-civ-390-dark-yr-5.png",
+        "result": "FAIL"
+      }
+    ]
+  }
+}
