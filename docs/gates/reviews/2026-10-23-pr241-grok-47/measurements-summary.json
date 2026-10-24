@@ -1,0 +1,2371 @@
+[
+  {
+    "kind": "settled-page",
+    "page": "home",
+    "vp": "360",
+    "theme": "light",
+    "file": "2026-10-23-home-360-light-full.png",
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "rawHits": [],
+    "clips": [
+      {
+        "sel": ".axis-node .lab",
+        "text": "城市",
+        "box": {
+          "left": 348,
+          "top": 995,
+          "right": 417,
+          "bottom": 1011,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "今天",
+        "box": {
+          "left": 429,
+          "top": 995,
+          "right": 498,
+          "bottom": 1011,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "未來",
+        "box": {
+          "left": 510,
+          "top": 995,
+          "right": 579,
+          "bottom": 1011,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "基建",
+        "box": {
+          "left": 367,
+          "top": 1013,
+          "right": 399,
+          "bottom": 1028,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "切片",
+        "box": {
+          "left": 448,
+          "top": 1013,
+          "right": 480,
+          "bottom": 1029,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "展望",
+        "box": {
+          "left": 529,
+          "top": 1013,
+          "right": 561,
+          "bottom": 1028,
+          "width": 32,
+          "height": 16
+        }
+      }
+    ],
+    "touchFails": [
+      {
+        "sel": "a.logo-link",
+        "text": "文明編年史",
+        "w": 276,
+        "h": 28,
+        "box": {
+          "left": 16,
+          "top": 8,
+          "right": 292,
+          "bottom": 36,
+          "width": 276,
+          "height": 28
+        },
+        "fail": true
+      }
+    ],
+    "near": [],
+    "overflows": [
+      {
+        "path": "div#root > div.page",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "div.page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+        "scrollWidth": 32,
+        "clientWidth": 1,
+        "delta": 31,
+        "overflowX": "hidden"
+      },
+      {
+        "path": "div#root > div.page > div.layout.layout-span",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home > div.axis-mount",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "section#civ > div.deep-axis",
+        "scrollWidth": 571,
+        "clientWidth": 328,
+        "delta": 243,
+        "overflowX": "auto"
+      },
+      {
+        "path": "main#today > div.civ-home > div",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home > div",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      }
+    ],
+    "dom": {
+      "axisHero": true,
+      "axisSlim": true,
+      "axisCta": 1,
+      "axisCtaText": [
+        "打開文明總覽\n跳到今日切片"
+      ],
+      "volumeCards": 3,
+      "chronicleBand": 1,
+      "volumeBoard": 1,
+      "axisRails": 1,
+      "patternAxis": 1,
+      "caseAxis": 1,
+      "slice": true,
+      "deepAxis": true,
+      "axisTitle": "站在一條很長的時間軸上",
+      "dark": false,
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史"
+    },
+    "brand": {
+      "src": "/brand/logo-compact.svg?v=wn-v18",
+      "alt": "",
+      "aria": "文明編年史",
+      "natural": "185x50",
+      "complete": true,
+      "box": {
+        "left": 16,
+        "top": 8,
+        "right": 120,
+        "bottom": 36,
+        "width": 104,
+        "height": 28
+      },
+      "clipped": false
+    },
+    "hero": {
+      "mode": "settled",
+      "phase": "handoff",
+      "titleOpacity": "1",
+      "titleText": "從宇宙到今天",
+      "kickerText": "文明編年史 · 開場",
+      "readingText": "監測刻度 · 午夜前 1 分",
+      "height": 672,
+      "bg": "rgb(22, 28, 36)",
+      "bottom": 837
+    },
+    "volume": [
+      {
+        "text": "卷一\n\n古\n\n採集、農業、城市、帝國與商路，在此",
+        "box": {
+          "left": 16,
+          "top": 1295,
+          "right": 344,
+          "bottom": 1451,
+          "width": 328,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷二\n\n今\n\n科學方法、工業能量、全球信用、信息",
+        "box": {
+          "left": 16,
+          "top": 1463,
+          "right": 344,
+          "bottom": 1619,
+          "width": 328,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷三\n\n未來\n\n未來章門只連到總覽既有展望。面板",
+        "box": {
+          "left": 16,
+          "top": 1631,
+          "right": 344,
+          "bottom": 1765,
+          "width": 328,
+          "height": 134
+        }
+      }
+    ],
+    "logs": [],
+    "simplified": "no-simplified-编年史"
+  },
+  {
+    "kind": "settled-page",
+    "page": "home",
+    "vp": "360",
+    "theme": "dark",
+    "file": "2026-10-23-home-360-dark-full.png",
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "rawHits": [],
+    "clips": [
+      {
+        "sel": ".axis-node .lab",
+        "text": "城市",
+        "box": {
+          "left": 348,
+          "top": 995,
+          "right": 417,
+          "bottom": 1011,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "今天",
+        "box": {
+          "left": 429,
+          "top": 996,
+          "right": 498,
+          "bottom": 1011,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "未來",
+        "box": {
+          "left": 510,
+          "top": 995,
+          "right": 579,
+          "bottom": 1011,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "基建",
+        "box": {
+          "left": 367,
+          "top": 1013,
+          "right": 399,
+          "bottom": 1028,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "切片",
+        "box": {
+          "left": 448,
+          "top": 1013,
+          "right": 480,
+          "bottom": 1029,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "展望",
+        "box": {
+          "left": 529,
+          "top": 1013,
+          "right": 561,
+          "bottom": 1028,
+          "width": 32,
+          "height": 16
+        }
+      }
+    ],
+    "touchFails": [
+      {
+        "sel": "a.logo-link",
+        "text": "文明編年史",
+        "w": 276,
+        "h": 28,
+        "box": {
+          "left": 16,
+          "top": 8,
+          "right": 292,
+          "bottom": 36,
+          "width": 276,
+          "height": 28
+        },
+        "fail": true
+      }
+    ],
+    "near": [],
+    "overflows": [
+      {
+        "path": "div#root > div.page",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "div.page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+        "scrollWidth": 32,
+        "clientWidth": 1,
+        "delta": 31,
+        "overflowX": "hidden"
+      },
+      {
+        "path": "div#root > div.page > div.layout.layout-span",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home > div.axis-mount",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "section#civ > div.deep-axis",
+        "scrollWidth": 571,
+        "clientWidth": 328,
+        "delta": 243,
+        "overflowX": "auto"
+      },
+      {
+        "path": "main#today > div.civ-home > div",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home > div",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      }
+    ],
+    "dom": {
+      "axisHero": true,
+      "axisSlim": true,
+      "axisCta": 1,
+      "axisCtaText": [
+        "打開文明總覽\n跳到今日切片"
+      ],
+      "volumeCards": 3,
+      "chronicleBand": 1,
+      "volumeBoard": 1,
+      "axisRails": 1,
+      "patternAxis": 1,
+      "caseAxis": 1,
+      "slice": true,
+      "deepAxis": true,
+      "axisTitle": "站在一條很長的時間軸上",
+      "dark": true,
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史"
+    },
+    "brand": {
+      "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+      "alt": "",
+      "aria": "文明編年史",
+      "natural": "185x50",
+      "complete": true,
+      "box": {
+        "left": 16,
+        "top": 8,
+        "right": 120,
+        "bottom": 36,
+        "width": 104,
+        "height": 28
+      },
+      "clipped": false
+    },
+    "hero": {
+      "mode": "settled",
+      "phase": "handoff",
+      "titleOpacity": "1",
+      "titleText": "從宇宙到今天",
+      "kickerText": "文明編年史 · 開場",
+      "readingText": "監測刻度 · 午夜前 1 分",
+      "height": 672,
+      "bg": "rgb(22, 28, 36)",
+      "bottom": 837
+    },
+    "volume": [
+      {
+        "text": "卷一\n\n古\n\n採集、農業、城市、帝國與商路，在此",
+        "box": {
+          "left": 16,
+          "top": 1295,
+          "right": 344,
+          "bottom": 1451,
+          "width": 328,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷二\n\n今\n\n科學方法、工業能量、全球信用、信息",
+        "box": {
+          "left": 16,
+          "top": 1463,
+          "right": 344,
+          "bottom": 1619,
+          "width": 328,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷三\n\n未來\n\n未來章門只連到總覽既有展望。面板",
+        "box": {
+          "left": 16,
+          "top": 1631,
+          "right": 344,
+          "bottom": 1765,
+          "width": 328,
+          "height": 134
+        }
+      }
+    ],
+    "logs": [],
+    "simplified": "no-simplified-编年史"
+  },
+  {
+    "kind": "settled-page",
+    "page": "home",
+    "vp": "390",
+    "theme": "light",
+    "file": "2026-10-23-home-390-light-full.png",
+    "scroll": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingScrollWidth": 390,
+      "innerWidth": 390,
+      "pageOverflow": false
+    },
+    "rawHits": [],
+    "clips": [
+      {
+        "sel": ".axis-node .lab",
+        "text": "城市",
+        "box": {
+          "left": 378,
+          "top": 1032,
+          "right": 455,
+          "bottom": 1048,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "今天",
+        "box": {
+          "left": 467,
+          "top": 1033,
+          "right": 543,
+          "bottom": 1048,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "未來",
+        "box": {
+          "left": 555,
+          "top": 1032,
+          "right": 632,
+          "bottom": 1048,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "基建",
+        "box": {
+          "left": 400,
+          "top": 1050,
+          "right": 432,
+          "bottom": 1065,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "切片",
+        "box": {
+          "left": 489,
+          "top": 1050,
+          "right": 521,
+          "bottom": 1066,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "展望",
+        "box": {
+          "left": 577,
+          "top": 1050,
+          "right": 609,
+          "bottom": 1065,
+          "width": 32,
+          "height": 16
+        }
+      }
+    ],
+    "touchFails": [
+      {
+        "sel": "a.logo-link",
+        "text": "文明編年史",
+        "w": 306,
+        "h": 28,
+        "box": {
+          "left": 16,
+          "top": 8,
+          "right": 322,
+          "bottom": 36,
+          "width": 306,
+          "height": 28
+        },
+        "fail": true
+      }
+    ],
+    "near": [],
+    "overflows": [
+      {
+        "path": "div#root > div.page",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "div.page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+        "scrollWidth": 32,
+        "clientWidth": 1,
+        "delta": 31,
+        "overflowX": "hidden"
+      },
+      {
+        "path": "div#root > div.page > div.layout.layout-span",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home > div.axis-mount",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "section#civ > div.deep-axis",
+        "scrollWidth": 624,
+        "clientWidth": 358,
+        "delta": 266,
+        "overflowX": "auto"
+      },
+      {
+        "path": "main#today > div.civ-home > div",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home > div",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      }
+    ],
+    "dom": {
+      "axisHero": true,
+      "axisSlim": true,
+      "axisCta": 1,
+      "axisCtaText": [
+        "打開文明總覽\n跳到今日切片"
+      ],
+      "volumeCards": 3,
+      "chronicleBand": 1,
+      "volumeBoard": 1,
+      "axisRails": 1,
+      "patternAxis": 1,
+      "caseAxis": 1,
+      "slice": true,
+      "deepAxis": true,
+      "axisTitle": "站在一條很長的時間軸上",
+      "dark": false,
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史"
+    },
+    "brand": {
+      "src": "/brand/logo-compact.svg?v=wn-v18",
+      "alt": "",
+      "aria": "文明編年史",
+      "natural": "185x50",
+      "complete": true,
+      "box": {
+        "left": 16,
+        "top": 8,
+        "right": 120,
+        "bottom": 36,
+        "width": 104,
+        "height": 28
+      },
+      "clipped": false
+    },
+    "hero": {
+      "mode": "settled",
+      "phase": "handoff",
+      "titleOpacity": "1",
+      "titleText": "從宇宙到今天",
+      "kickerText": "文明編年史 · 開場",
+      "readingText": "監測刻度 · 午夜前 1 分",
+      "height": 709,
+      "bg": "rgb(22, 28, 36)",
+      "bottom": 874
+    },
+    "volume": [
+      {
+        "text": "卷一\n\n古\n\n採集、農業、城市、帝國與商路，在此",
+        "box": {
+          "left": 16,
+          "top": 1332,
+          "right": 374,
+          "bottom": 1466,
+          "width": 358,
+          "height": 134
+        }
+      },
+      {
+        "text": "卷二\n\n今\n\n科學方法、工業能量、全球信用、信息",
+        "box": {
+          "left": 16,
+          "top": 1478,
+          "right": 374,
+          "bottom": 1634,
+          "width": 358,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷三\n\n未來\n\n未來章門只連到總覽既有展望。面板",
+        "box": {
+          "left": 16,
+          "top": 1646,
+          "right": 374,
+          "bottom": 1780,
+          "width": 358,
+          "height": 134
+        }
+      }
+    ],
+    "logs": [],
+    "simplified": "no-simplified-编年史"
+  },
+  {
+    "kind": "settled-page",
+    "page": "home",
+    "vp": "390",
+    "theme": "dark",
+    "file": "2026-10-23-home-390-dark-full.png",
+    "scroll": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingScrollWidth": 390,
+      "innerWidth": 390,
+      "pageOverflow": false
+    },
+    "rawHits": [],
+    "clips": [
+      {
+        "sel": ".axis-node .lab",
+        "text": "城市",
+        "box": {
+          "left": 378,
+          "top": 1032,
+          "right": 455,
+          "bottom": 1048,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "今天",
+        "box": {
+          "left": 467,
+          "top": 1033,
+          "right": 543,
+          "bottom": 1048,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "未來",
+        "box": {
+          "left": 555,
+          "top": 1032,
+          "right": 632,
+          "bottom": 1048,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "基建",
+        "box": {
+          "left": 400,
+          "top": 1050,
+          "right": 432,
+          "bottom": 1065,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "切片",
+        "box": {
+          "left": 489,
+          "top": 1050,
+          "right": 521,
+          "bottom": 1066,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "展望",
+        "box": {
+          "left": 577,
+          "top": 1050,
+          "right": 609,
+          "bottom": 1065,
+          "width": 32,
+          "height": 16
+        }
+      }
+    ],
+    "touchFails": [
+      {
+        "sel": "a.logo-link",
+        "text": "文明編年史",
+        "w": 306,
+        "h": 28,
+        "box": {
+          "left": 16,
+          "top": 8,
+          "right": 322,
+          "bottom": 36,
+          "width": 306,
+          "height": 28
+        },
+        "fail": true
+      }
+    ],
+    "near": [],
+    "overflows": [
+      {
+        "path": "div#root > div.page",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "div.page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+        "scrollWidth": 32,
+        "clientWidth": 1,
+        "delta": 31,
+        "overflowX": "hidden"
+      },
+      {
+        "path": "div#root > div.page > div.layout.layout-span",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home > div.axis-mount",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "section#civ > div.deep-axis",
+        "scrollWidth": 624,
+        "clientWidth": 358,
+        "delta": 266,
+        "overflowX": "auto"
+      },
+      {
+        "path": "main#today > div.civ-home > div",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "main#today > div.civ-home > div",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      }
+    ],
+    "dom": {
+      "axisHero": true,
+      "axisSlim": true,
+      "axisCta": 1,
+      "axisCtaText": [
+        "打開文明總覽\n跳到今日切片"
+      ],
+      "volumeCards": 3,
+      "chronicleBand": 1,
+      "volumeBoard": 1,
+      "axisRails": 1,
+      "patternAxis": 1,
+      "caseAxis": 1,
+      "slice": true,
+      "deepAxis": true,
+      "axisTitle": "站在一條很長的時間軸上",
+      "dark": true,
+      "title": "文明編年史 — 從宇宙到今天",
+      "ogSite": "文明編年史"
+    },
+    "brand": {
+      "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+      "alt": "",
+      "aria": "文明編年史",
+      "natural": "185x50",
+      "complete": true,
+      "box": {
+        "left": 16,
+        "top": 8,
+        "right": 120,
+        "bottom": 36,
+        "width": 104,
+        "height": 28
+      },
+      "clipped": false
+    },
+    "hero": {
+      "mode": "settled",
+      "phase": "handoff",
+      "titleOpacity": "1",
+      "titleText": "從宇宙到今天",
+      "kickerText": "文明編年史 · 開場",
+      "readingText": "監測刻度 · 午夜前 1 分",
+      "height": 709,
+      "bg": "rgb(22, 28, 36)",
+      "bottom": 874
+    },
+    "volume": [
+      {
+        "text": "卷一\n\n古\n\n採集、農業、城市、帝國與商路，在此",
+        "box": {
+          "left": 16,
+          "top": 1332,
+          "right": 374,
+          "bottom": 1466,
+          "width": 358,
+          "height": 134
+        }
+      },
+      {
+        "text": "卷二\n\n今\n\n科學方法、工業能量、全球信用、信息",
+        "box": {
+          "left": 16,
+          "top": 1478,
+          "right": 374,
+          "bottom": 1634,
+          "width": 358,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷三\n\n未來\n\n未來章門只連到總覽既有展望。面板",
+        "box": {
+          "left": 16,
+          "top": 1646,
+          "right": 374,
+          "bottom": 1780,
+          "width": 358,
+          "height": 134
+        }
+      }
+    ],
+    "logs": [],
+    "simplified": "no-simplified-编年史"
+  },
+  {
+    "kind": "settled-page",
+    "page": "civ",
+    "vp": "360",
+    "theme": "light",
+    "file": "2026-10-23-civ-360-light-full.png",
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "rawHits": [],
+    "clips": [
+      {
+        "sel": ".axis-node .lab",
+        "text": "城市",
+        "box": {
+          "left": 348,
+          "top": 373,
+          "right": 417,
+          "bottom": 389,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "今天",
+        "box": {
+          "left": 429,
+          "top": 373,
+          "right": 498,
+          "bottom": 389,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "未來",
+        "box": {
+          "left": 510,
+          "top": 373,
+          "right": 579,
+          "bottom": 389,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "基建",
+        "box": {
+          "left": 366,
+          "top": 391,
+          "right": 399,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "切片",
+        "box": {
+          "left": 447,
+          "top": 391,
+          "right": 480,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "展望",
+        "box": {
+          "left": 528,
+          "top": 391,
+          "right": 561,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      }
+    ],
+    "touchFails": [
+      {
+        "sel": "a.logo-link",
+        "text": "文明編年史",
+        "w": 137.8,
+        "h": 28,
+        "box": {
+          "left": 16,
+          "top": 8,
+          "right": 154,
+          "bottom": 36,
+          "width": 138,
+          "height": 28
+        },
+        "fail": true
+      }
+    ],
+    "near": [],
+    "overflows": [
+      {
+        "path": "html.civ-motion > body > div.page.column-page",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "div.page.column-page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+        "scrollWidth": 32,
+        "clientWidth": 1,
+        "delta": 31,
+        "overflowX": "hidden"
+      },
+      {
+        "path": "main#content",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "section#civ > div.deep-axis",
+        "scrollWidth": 571,
+        "clientWidth": 328,
+        "delta": 243,
+        "overflowX": "auto"
+      }
+    ],
+    "dom": {
+      "axisHero": true,
+      "axisSlim": false,
+      "axisCta": 1,
+      "axisCtaText": [
+        "閱讀人類起源\n跳到今日切片"
+      ],
+      "volumeCards": 3,
+      "chronicleBand": 0,
+      "volumeBoard": 1,
+      "axisRails": 0,
+      "patternAxis": 1,
+      "caseAxis": 1,
+      "slice": false,
+      "deepAxis": true,
+      "axisTitle": "站在一條很長的時間軸上",
+      "dark": false,
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史"
+    },
+    "brand": {
+      "src": "/brand/logo-compact.svg?v=wn-v18",
+      "alt": "",
+      "aria": "文明編年史",
+      "natural": "185x50",
+      "complete": true,
+      "box": {
+        "left": 16,
+        "top": 8,
+        "right": 120,
+        "bottom": 36,
+        "width": 104,
+        "height": 28
+      },
+      "clipped": false
+    },
+    "hero": null,
+    "volume": [
+      {
+        "text": "卷一\n\n古\n\n採集、農業、城市、帝國與商路，在此",
+        "box": {
+          "left": 16,
+          "top": 2497,
+          "right": 344,
+          "bottom": 2653,
+          "width": 328,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷二\n\n今\n\n科學方法、工業能量、全球信用、信息",
+        "box": {
+          "left": 16,
+          "top": 2665,
+          "right": 344,
+          "bottom": 2821,
+          "width": 328,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷三\n\n未來\n\n未來章門只連到總覽既有展望。面板",
+        "box": {
+          "left": 16,
+          "top": 2833,
+          "right": 344,
+          "bottom": 2967,
+          "width": 328,
+          "height": 134
+        }
+      }
+    ],
+    "logs": [],
+    "simplified": "no-simplified-编年史"
+  },
+  {
+    "kind": "settled-page",
+    "page": "civ",
+    "vp": "360",
+    "theme": "dark",
+    "file": "2026-10-23-civ-360-dark-full.png",
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "rawHits": [],
+    "clips": [
+      {
+        "sel": ".axis-node .lab",
+        "text": "城市",
+        "box": {
+          "left": 348,
+          "top": 373,
+          "right": 417,
+          "bottom": 389,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "今天",
+        "box": {
+          "left": 429,
+          "top": 373,
+          "right": 498,
+          "bottom": 389,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "未來",
+        "box": {
+          "left": 510,
+          "top": 373,
+          "right": 579,
+          "bottom": 389,
+          "width": 69,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "基建",
+        "box": {
+          "left": 366,
+          "top": 391,
+          "right": 399,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "切片",
+        "box": {
+          "left": 447,
+          "top": 391,
+          "right": 480,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "展望",
+        "box": {
+          "left": 528,
+          "top": 391,
+          "right": 561,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      }
+    ],
+    "touchFails": [
+      {
+        "sel": "a.logo-link",
+        "text": "文明編年史",
+        "w": 137.8,
+        "h": 28,
+        "box": {
+          "left": 16,
+          "top": 8,
+          "right": 154,
+          "bottom": 36,
+          "width": 138,
+          "height": 28
+        },
+        "fail": true
+      }
+    ],
+    "near": [],
+    "overflows": [
+      {
+        "path": "html.dark.civ-motion > body > div.page.column-page",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "div.page.column-page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+        "scrollWidth": 32,
+        "clientWidth": 1,
+        "delta": 31,
+        "overflowX": "hidden"
+      },
+      {
+        "path": "main#content",
+        "scrollWidth": 344,
+        "clientWidth": 328,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "section#civ > div.deep-axis",
+        "scrollWidth": 571,
+        "clientWidth": 328,
+        "delta": 243,
+        "overflowX": "auto"
+      }
+    ],
+    "dom": {
+      "axisHero": true,
+      "axisSlim": false,
+      "axisCta": 1,
+      "axisCtaText": [
+        "閱讀人類起源\n跳到今日切片"
+      ],
+      "volumeCards": 3,
+      "chronicleBand": 0,
+      "volumeBoard": 1,
+      "axisRails": 0,
+      "patternAxis": 1,
+      "caseAxis": 1,
+      "slice": false,
+      "deepAxis": true,
+      "axisTitle": "站在一條很長的時間軸上",
+      "dark": true,
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史"
+    },
+    "brand": {
+      "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+      "alt": "",
+      "aria": "文明編年史",
+      "natural": "185x50",
+      "complete": true,
+      "box": {
+        "left": 16,
+        "top": 8,
+        "right": 120,
+        "bottom": 36,
+        "width": 104,
+        "height": 28
+      },
+      "clipped": false
+    },
+    "hero": null,
+    "volume": [
+      {
+        "text": "卷一\n\n古\n\n採集、農業、城市、帝國與商路，在此",
+        "box": {
+          "left": 16,
+          "top": 2497,
+          "right": 344,
+          "bottom": 2653,
+          "width": 328,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷二\n\n今\n\n科學方法、工業能量、全球信用、信息",
+        "box": {
+          "left": 16,
+          "top": 2665,
+          "right": 344,
+          "bottom": 2821,
+          "width": 328,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷三\n\n未來\n\n未來章門只連到總覽既有展望。面板",
+        "box": {
+          "left": 16,
+          "top": 2833,
+          "right": 344,
+          "bottom": 2967,
+          "width": 328,
+          "height": 134
+        }
+      }
+    ],
+    "logs": [],
+    "simplified": "no-simplified-编年史"
+  },
+  {
+    "kind": "settled-page",
+    "page": "civ",
+    "vp": "390",
+    "theme": "light",
+    "file": "2026-10-23-civ-390-light-full.png",
+    "scroll": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingScrollWidth": 390,
+      "innerWidth": 390,
+      "pageOverflow": false
+    },
+    "rawHits": [],
+    "clips": [
+      {
+        "sel": ".axis-node .lab",
+        "text": "城市",
+        "box": {
+          "left": 378,
+          "top": 373,
+          "right": 455,
+          "bottom": 389,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "今天",
+        "box": {
+          "left": 467,
+          "top": 373,
+          "right": 543,
+          "bottom": 389,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "未來",
+        "box": {
+          "left": 555,
+          "top": 373,
+          "right": 632,
+          "bottom": 389,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "基建",
+        "box": {
+          "left": 400,
+          "top": 391,
+          "right": 432,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "切片",
+        "box": {
+          "left": 489,
+          "top": 391,
+          "right": 521,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "展望",
+        "box": {
+          "left": 577,
+          "top": 391,
+          "right": 609,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      }
+    ],
+    "touchFails": [
+      {
+        "sel": "a.logo-link",
+        "text": "文明編年史",
+        "w": 152.8,
+        "h": 28,
+        "box": {
+          "left": 16,
+          "top": 8,
+          "right": 169,
+          "bottom": 36,
+          "width": 153,
+          "height": 28
+        },
+        "fail": true
+      }
+    ],
+    "near": [],
+    "overflows": [
+      {
+        "path": "html.civ-motion > body > div.page.column-page",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "div.page.column-page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+        "scrollWidth": 32,
+        "clientWidth": 1,
+        "delta": 31,
+        "overflowX": "hidden"
+      },
+      {
+        "path": "main#content",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "section#civ > div.deep-axis",
+        "scrollWidth": 624,
+        "clientWidth": 358,
+        "delta": 266,
+        "overflowX": "auto"
+      }
+    ],
+    "dom": {
+      "axisHero": true,
+      "axisSlim": false,
+      "axisCta": 1,
+      "axisCtaText": [
+        "閱讀人類起源\n跳到今日切片"
+      ],
+      "volumeCards": 3,
+      "chronicleBand": 0,
+      "volumeBoard": 1,
+      "axisRails": 0,
+      "patternAxis": 1,
+      "caseAxis": 1,
+      "slice": false,
+      "deepAxis": true,
+      "axisTitle": "站在一條很長的時間軸上",
+      "dark": false,
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史"
+    },
+    "brand": {
+      "src": "/brand/logo-compact.svg?v=wn-v18",
+      "alt": "",
+      "aria": "文明編年史",
+      "natural": "185x50",
+      "complete": true,
+      "box": {
+        "left": 16,
+        "top": 8,
+        "right": 120,
+        "bottom": 36,
+        "width": 104,
+        "height": 28
+      },
+      "clipped": false
+    },
+    "hero": null,
+    "volume": [
+      {
+        "text": "卷一\n\n古\n\n採集、農業、城市、帝國與商路，在此",
+        "box": {
+          "left": 16,
+          "top": 2547,
+          "right": 374,
+          "bottom": 2681,
+          "width": 358,
+          "height": 134
+        }
+      },
+      {
+        "text": "卷二\n\n今\n\n科學方法、工業能量、全球信用、信息",
+        "box": {
+          "left": 16,
+          "top": 2693,
+          "right": 374,
+          "bottom": 2849,
+          "width": 358,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷三\n\n未來\n\n未來章門只連到總覽既有展望。面板",
+        "box": {
+          "left": 16,
+          "top": 2861,
+          "right": 374,
+          "bottom": 2995,
+          "width": 358,
+          "height": 134
+        }
+      }
+    ],
+    "logs": [],
+    "simplified": "no-simplified-编年史"
+  },
+  {
+    "kind": "settled-page",
+    "page": "civ",
+    "vp": "390",
+    "theme": "dark",
+    "file": "2026-10-23-civ-390-dark-full.png",
+    "scroll": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingScrollWidth": 390,
+      "innerWidth": 390,
+      "pageOverflow": false
+    },
+    "rawHits": [],
+    "clips": [
+      {
+        "sel": ".axis-node .lab",
+        "text": "城市",
+        "box": {
+          "left": 378,
+          "top": 373,
+          "right": 455,
+          "bottom": 389,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "今天",
+        "box": {
+          "left": 467,
+          "top": 373,
+          "right": 543,
+          "bottom": 389,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .lab",
+        "text": "未來",
+        "box": {
+          "left": 555,
+          "top": 373,
+          "right": 632,
+          "bottom": 389,
+          "width": 77,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "基建",
+        "box": {
+          "left": 400,
+          "top": 391,
+          "right": 432,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "切片",
+        "box": {
+          "left": 489,
+          "top": 391,
+          "right": 521,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      },
+      {
+        "sel": ".axis-node .yr",
+        "text": "展望",
+        "box": {
+          "left": 577,
+          "top": 391,
+          "right": 609,
+          "bottom": 406,
+          "width": 32,
+          "height": 16
+        }
+      }
+    ],
+    "touchFails": [
+      {
+        "sel": "a.logo-link",
+        "text": "文明編年史",
+        "w": 152.8,
+        "h": 28,
+        "box": {
+          "left": 16,
+          "top": 8,
+          "right": 169,
+          "bottom": 36,
+          "width": 153,
+          "height": 28
+        },
+        "fail": true
+      }
+    ],
+    "near": [],
+    "overflows": [
+      {
+        "path": "html.dark.civ-motion > body > div.page.column-page",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "div.page.column-page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+        "scrollWidth": 32,
+        "clientWidth": 1,
+        "delta": 31,
+        "overflowX": "hidden"
+      },
+      {
+        "path": "main#content",
+        "scrollWidth": 374,
+        "clientWidth": 358,
+        "delta": 16,
+        "overflowX": "visible"
+      },
+      {
+        "path": "section#civ > div.deep-axis",
+        "scrollWidth": 624,
+        "clientWidth": 358,
+        "delta": 266,
+        "overflowX": "auto"
+      }
+    ],
+    "dom": {
+      "axisHero": true,
+      "axisSlim": false,
+      "axisCta": 1,
+      "axisCtaText": [
+        "閱讀人類起源\n跳到今日切片"
+      ],
+      "volumeCards": 3,
+      "chronicleBand": 0,
+      "volumeBoard": 1,
+      "axisRails": 0,
+      "patternAxis": 1,
+      "caseAxis": 1,
+      "slice": false,
+      "deepAxis": true,
+      "axisTitle": "站在一條很長的時間軸上",
+      "dark": true,
+      "title": "人類文明 — 文明編年史",
+      "ogSite": "文明編年史"
+    },
+    "brand": {
+      "src": "/brand/logo-compact-dark.svg?v=wn-v18",
+      "alt": "",
+      "aria": "文明編年史",
+      "natural": "185x50",
+      "complete": true,
+      "box": {
+        "left": 16,
+        "top": 8,
+        "right": 120,
+        "bottom": 36,
+        "width": 104,
+        "height": 28
+      },
+      "clipped": false
+    },
+    "hero": null,
+    "volume": [
+      {
+        "text": "卷一\n\n古\n\n採集、農業、城市、帝國與商路，在此",
+        "box": {
+          "left": 16,
+          "top": 2547,
+          "right": 374,
+          "bottom": 2681,
+          "width": 358,
+          "height": 134
+        }
+      },
+      {
+        "text": "卷二\n\n今\n\n科學方法、工業能量、全球信用、信息",
+        "box": {
+          "left": 16,
+          "top": 2693,
+          "right": 374,
+          "bottom": 2849,
+          "width": 358,
+          "height": 156
+        }
+      },
+      {
+        "text": "卷三\n\n未來\n\n未來章門只連到總覽既有展望。面板",
+        "box": {
+          "left": 16,
+          "top": 2861,
+          "right": 374,
+          "bottom": 2995,
+          "width": 358,
+          "height": 134
+        }
+      }
+    ],
+    "logs": [],
+    "simplified": "no-simplified-编年史"
+  },
+  {
+    "kind": "hero-play",
+    "theme": "light",
+    "logs": [
+      {
+        "kind": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      }
+    ],
+    "samples": [
+      {
+        "elapsed": 375,
+        "file": null,
+        "mode": "playing",
+        "phase": "singularity",
+        "chapter": "ancient",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "false",
+        "readingOpacity": "0",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "false",
+          "false",
+          "false",
+          "false",
+          "false",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 920,
+        "file": "2026-10-23-home-390-light-hero-playing.png",
+        "mode": "playing",
+        "phase": "singularity",
+        "chapter": "ancient",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "false",
+        "readingOpacity": "0",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "false",
+          "false",
+          "false",
+          "false",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 2723,
+        "file": null,
+        "mode": "playing",
+        "phase": "bloom",
+        "chapter": "ancient",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "false",
+        "readingOpacity": "0",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "false",
+          "false",
+          "false",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 4323,
+        "file": null,
+        "mode": "playing",
+        "phase": "bloom",
+        "chapter": "ancient",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "false",
+        "readingOpacity": "0",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "false",
+          "false",
+          "false",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 7123,
+        "file": null,
+        "mode": "playing",
+        "phase": "earth",
+        "chapter": "now",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "false",
+        "readingOpacity": "0",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "false",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 10123,
+        "file": null,
+        "mode": "playing",
+        "phase": "handoff",
+        "chapter": "future",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "true",
+        "readingOpacity": "1",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 11923,
+        "file": null,
+        "mode": "playing",
+        "phase": "handoff",
+        "chapter": "future",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "true",
+        "readingOpacity": "1",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 12722,
+        "file": "2026-10-23-home-390-light-hero-settled.png",
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "true",
+        "readingOpacity": "1",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true"
+        ],
+        "skip": {
+          "display": "none",
+          "w": 0,
+          "h": 0,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      }
+    ]
+  },
+  {
+    "kind": "hero-play",
+    "theme": "dark",
+    "logs": [
+      {
+        "kind": "error",
+        "text": "Failed to load resource: net::ERR_FAILED"
+      }
+    ],
+    "samples": [
+      {
+        "elapsed": 387,
+        "file": null,
+        "mode": "playing",
+        "phase": "singularity",
+        "chapter": "ancient",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "false",
+        "readingOpacity": "0",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "false",
+          "false",
+          "false",
+          "false",
+          "false",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 935,
+        "file": "2026-10-23-home-390-dark-hero-playing.png",
+        "mode": "playing",
+        "phase": "singularity",
+        "chapter": "ancient",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "false",
+        "readingOpacity": "0",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "false",
+          "false",
+          "false",
+          "false",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 2738,
+        "file": null,
+        "mode": "playing",
+        "phase": "bloom",
+        "chapter": "ancient",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "false",
+        "readingOpacity": "0",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "false",
+          "false",
+          "false",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 4338,
+        "file": null,
+        "mode": "playing",
+        "phase": "bloom",
+        "chapter": "ancient",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "false",
+        "readingOpacity": "0",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "false",
+          "false",
+          "false",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 7139,
+        "file": null,
+        "mode": "playing",
+        "phase": "earth",
+        "chapter": "now",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "false",
+        "readingOpacity": "0",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "false",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 10138,
+        "file": null,
+        "mode": "playing",
+        "phase": "handoff",
+        "chapter": "future",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "true",
+        "readingOpacity": "1",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "false"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 11939,
+        "file": null,
+        "mode": "playing",
+        "phase": "handoff",
+        "chapter": "future",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "true",
+        "readingOpacity": "1",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true"
+        ],
+        "skip": {
+          "display": "block",
+          "w": 81.2,
+          "h": 44,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      },
+      {
+        "elapsed": 12738,
+        "file": "2026-10-23-home-390-dark-hero-settled.png",
+        "mode": "settled",
+        "phase": "handoff",
+        "chapter": "future",
+        "titleOpacity": "1",
+        "kickerOpacity": "1",
+        "readingOn": "true",
+        "readingOpacity": "1",
+        "readingText": "監測刻度 · 午夜前 1 分",
+        "height": 709,
+        "linesOn": [
+          "true",
+          "true",
+          "true",
+          "true",
+          "true",
+          "true"
+        ],
+        "skip": {
+          "display": "none",
+          "w": 0,
+          "h": 0,
+          "text": "跳過開場"
+        },
+        "hits": 0
+      }
+    ]
+  },
+  {
+    "kind": "reduced",
+    "file": "2026-10-23-home-390-light-hero-reduced.png",
+    "logs": [],
+    "scroll": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingScrollWidth": 390,
+      "innerWidth": 390,
+      "pageOverflow": false
+    },
+    "hits": [],
+    "hero": {
+      "mode": "settled",
+      "phase": "handoff",
+      "chapter": "future",
+      "titleOpacity": "1",
+      "readingText": "監測刻度 · 午夜前 1 分",
+      "height": 709,
+      "linesOn": [
+        "true",
+        "true",
+        "true",
+        "true",
+        "true",
+        "true"
+      ]
+    }
+  }
+]
