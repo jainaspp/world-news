@@ -110,6 +110,13 @@ img { max-width: 100%; }
 .skip-link:focus { top: var(--space-3); }
 
 .page { width: min(100% - 32px, var(--main-col)); margin: 0 auto; padding: 0 0 var(--space-7); }
+/* Homepage shell: React fills #root under the SSR hero. contents keeps
+   .hero-opening + .axis-mount adjacent so the axis margin stays zero. */
+.wn-feed { display: contents; }
+#chrome-mount { min-height: 111px; }
+@media (max-width: 700px) {
+  #chrome-mount { min-height: 161px; }
+}
 
 .chrome {
   position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 92%, transparent);
@@ -1549,6 +1556,7 @@ html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
   color: #e8e4dc;
   overflow: hidden;
 }
+.axis-hero:not(.axis-slim) { min-height: 560px; }
 .axis-hero::after {
   content: "";
   position: absolute;
@@ -1566,18 +1574,15 @@ html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
   pointer-events: none;
   background: #161c24;
 }
-.axis-vignette::before {
-  content: "";
+/* Real <img> so the browser can preload the LCP file from HTML.
+   image-set() on ::before waited for the full stylesheet and picked 1280w. */
+.axis-vignette img {
   position: absolute;
   inset: 0;
-  background-image: url("/static/civilization/civ-home-axis-bg-640w.webp");
-  background-image: image-set(
-    url("/static/civilization/civ-home-axis-bg-640w.webp") type("image/webp") 1x,
-    url("/static/civilization/civ-home-axis-bg-1280w.webp") type("image/webp") 2x
-  );
-  background-position: center 42%;
-  background-size: cover;
-  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
   opacity: 0.4;
 }
 .axis-vignette::after {
@@ -1588,33 +1593,16 @@ html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
   pointer-events: none;
 }
 @media (min-width: 700px) {
-  .axis-vignette::before {
-    background-image: url("/static/civilization/civ-home-axis-bg-960w.webp");
-    background-image: image-set(
-      url("/static/civilization/civ-home-axis-bg-960w.webp") type("image/webp") 1x,
-      url("/static/civilization/civ-home-axis-bg-1920w.webp") type("image/webp") 2x
-    );
-    opacity: 0.42;
-  }
+  .axis-vignette img { opacity: 0.42; }
   .axis-vignette::after {
     background: linear-gradient(180deg, rgba(22, 28, 36, 0.55) 0%, rgba(22, 28, 36, 0.18) 46%, rgba(22, 28, 36, 0.5) 100%);
   }
 }
 @media (min-width: 1100px) {
-  .axis-vignette::before {
-    background-image: url("/static/civilization/civ-home-axis-bg-1280w.webp");
-    background-image: image-set(
-      url("/static/civilization/civ-home-axis-bg-1280w.webp") type("image/webp") 1x,
-      url("/static/civilization/civ-home-axis-bg-1920w.webp") type("image/webp") 2x
-    );
-    opacity: 0.44;
-  }
+  .axis-vignette img { opacity: 0.44; }
 }
 @media (min-width: 1600px) {
-  .axis-vignette::before {
-    background-image: url("/static/civilization/civ-home-axis-bg-1920w.webp");
-    opacity: 0.45;
-  }
+  .axis-vignette img { opacity: 0.45; }
 }
 .axis-hero .kicker {
   margin: 0 0 8px;
@@ -3243,10 +3231,11 @@ a.question-line:hover { text-decoration: underline; }
   .today-slice .story-media,
   .today-slice .thumb-fallback { max-height: 64px; }
 }
-/* Phone hub: the axis hero is a grid item on .column-index. Its min-content
-   (seven spine labels plus nowrap chips) was wider than the viewport, so the
-   hero, chronicle dots, CTAs, and pattern pills shared one overflowing band.
-   min-width: 0 lets the column win. Each band then scrolls or stacks on its own. */
+/* Phone hub: the axis hero is a grid item on .column-index. Pattern chips
+   stack. The seven spine labels share one full-bleed row: a scrollport that
+   parks 城市／今天／未來 past the viewport fails P0-CLIP even when the page
+   itself does not scroll. .axis-hero padding is 16px and the hero is already
+   full-bleed, so the -16px margin puts the track on the viewport edges. */
 @media (max-width: 640px) {
   .column-index,
   .civ-home { min-width: 0; }
@@ -3256,24 +3245,19 @@ a.question-line:hover { text-decoration: underline; }
   .axis-lede { max-width: 100%; overflow-wrap: break-word; }
   .axis-node { font-size: 12px; }
   .deep-axis {
-    max-width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 8px;
-    padding-inline: 8px;
-    container-type: inline-size;
+    max-width: none;
+    margin-inline: -16px;
+    padding-inline: 0;
+    overflow: visible;
   }
   .deep-axis::-webkit-scrollbar { height: 0; display: none; }
   .deep-axis .rail { display: none; }
   .milestones {
     position: relative;
-    width: max-content;
-    min-width: 100%;
-    gap: 12px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    gap: 8px;
     padding-bottom: 2px;
   }
   .milestones::before {
@@ -3288,12 +3272,21 @@ a.question-line:hover { text-decoration: underline; }
     pointer-events: none;
   }
   .milestones li {
-    flex: 0 0 auto;
-    /* 4 slots + 3 gaps of 12px fill the content box inside the 8px inset,
-       so a resting view ends in the gap before 城市, not through a glyph. */
-    width: calc((100cqi - 36px) / 4);
+    flex: 1 1 0;
+    width: auto;
+    min-width: 44px;
+    max-width: 100%;
+  }
+  .deep-axis .axis-node { min-width: 0; max-width: 100%; }
+  .deep-axis .lab,
+  .deep-axis .yr {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .deep-axis .yr {
+    width: fit-content;
     min-width: 0;
-    scroll-snap-align: start;
+    padding-inline: 1px;
   }
   .chronicle-strip,
   .chronicle-track,
@@ -3715,29 +3708,37 @@ html.dark .chronicle-nav .chip.is-current {
 }
 html.dark .civ-progress { background: #c4a572; }
 
-/* ---- 開場 Hero（BBT opening）：墨紙基底上的宇宙敘事。
-   All lines live in normal flow; the reveal is opacity/transform only, so
-   the section never shifts layout and no two text boxes can intersect.
-   Motion is transition + canvas only — this block declares no keyframe
-   animations of its own, and every transition sits behind no-preference. */
+/* ---- 開場 Hero（Grok 4.7 · 十二秒冷開場）。
+   Lines stay in normal flow. Reveal is opacity and at most 8px of transform.
+   The title and kicker stay opaque in both playing and settled — they are
+   the LCP element and must not fade in. The canvas fades in after first paint.
+   No keyframes in this block. Chapter air is CSS; the clock and ring are canvas. */
 .hero-opening {
   --era-ancient: #c4a572; /* 古暖金 */
   --era-now: #9ec0ef; /* 今冷藍 */
-  --era-future: #2a2140; /* 未來紫黑 */
+  --era-future: #2a2140; /* 未來紫黑，token 本身幾乎貼著墨底 */
+  --gold-a: 0.1;
+  --blue-a: 0.22;
+  --violet-a: 0.34;
   position: relative;
   margin: 0 -16px;
-  padding: 60px 20px 44px;
-  min-height: clamp(430px, 84vh, 780px);
+  padding: 168px 20px 28px;
   min-height: clamp(430px, 84svh, 780px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   overflow: hidden;
-  background: radial-gradient(130% 95% at 50% 38%, #1c2431 0%, #161c24 55%, #121820 100%);
+  background-color: #161c24;
+  background-image:
+    radial-gradient(34% 22% at 50% 78px, rgba(226, 196, 140, var(--gold-a)), transparent 68%),
+    radial-gradient(18% 14% at 24% 86px, rgba(158, 192, 239, var(--blue-a)), transparent 72%),
+    linear-gradient(to top, rgba(110, 90, 170, var(--violet-a)), transparent 16%);
   color: #e8e4dc;
-  border-bottom: 1px solid color-mix(in srgb, var(--era-ancient) 35%, transparent);
   text-align: center;
 }
+.hero-opening[data-chapter="ancient"] { --gold-a: 0.62; --blue-a: 0; --violet-a: 0; }
+.hero-opening[data-chapter="now"] { --gold-a: 0.18; --blue-a: 0.48; --violet-a: 0.06; }
+.hero-opening[data-chapter="future"] { --gold-a: 0.1; --blue-a: 0.22; --violet-a: 0.34; }
 /* The opening hands off to the spine: no gutter between hero and axis band. */
 .hero-opening + .axis-mount > .axis-hero,
 .hero-opening + .axis-hero { margin-top: 0; }
@@ -3747,7 +3748,9 @@ html.dark .civ-progress { background: #c4a572; }
   width: 100%;
   height: 100%;
   pointer-events: none;
+  opacity: 0;
 }
+.hero-canvas.is-drawn { opacity: 1; }
 .hero-inner {
   position: relative;
   z-index: 1;
@@ -3755,44 +3758,64 @@ html.dark .civ-progress { background: #c4a572; }
   margin: 0 auto;
 }
 .hero-kicker {
-  margin: 0 0 10px;
+  margin: 0 0 6px;
   font-size: var(--civ-type-kicker);
   font-weight: 700;
   letter-spacing: 0.22em;
   color: var(--era-ancient);
+  opacity: 1;
 }
 .hero-title {
-  margin: 0 0 26px;
+  margin: 0 0 8px;
   font-family: var(--font-serif);
-  font-size: clamp(1.9rem, 6vw, 3rem);
+  font-size: clamp(2.9rem, 9vw, 3.6rem);
   line-height: 1.2;
   font-weight: 700;
   color: #f7f1e6;
+  opacity: 1;
 }
+.hero-opening[data-mode="playing"] .hero-kicker,
+.hero-opening[data-mode="playing"] .hero-title,
+.hero-opening[data-mode="settled"] .hero-kicker,
+.hero-opening[data-mode="settled"] .hero-title {
+  opacity: 1;
+}
+.hero-reading {
+  margin: 0 0 8px;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  color: #f7f1e6;
+}
+.hero-minute { font-weight: 700; }
 .hero-lines {
   margin: 0 auto;
-  max-width: 34em;
-  font-size: clamp(0.98rem, 1.6vw + 0.55rem, 1.16rem);
-  line-height: 1.9;
+  max-width: 36em;
+  font-size: 1rem;
+  line-height: 1.45;
 }
-.hero-line { margin: 0 0 0.5em; }
-.hero-line .hero-main { display: block; }
+.hero-line { margin: 0 0 0.28rem; }
+.hero-line .hero-main { display: block; color: #e8e4dc; }
 .hero-line .hero-aside {
   display: block;
-  margin-top: 0.1em;
+  margin-top: 0.05em;
   font-size: max(12px, 0.82em);
+  line-height: 1.35;
   color: #a8b0ba;
 }
 /* Playing state hides unrevealed lines with opacity only, so the full text
-   stays in the accessibility tree and the reserved space prevents CLS. */
-.hero-opening[data-mode="playing"] .hero-line { opacity: 0; transform: translateY(10px); }
-.hero-opening[data-mode="playing"] .hero-line[data-on="true"] { opacity: 1; transform: none; }
+   stays in the accessibility tree and the reserved space prevents CLS.
+   The title is not in this rule. */
+.hero-opening[data-mode="playing"] .hero-line,
+.hero-opening[data-mode="playing"] .hero-reading { opacity: 0; transform: translateY(8px); }
+.hero-opening[data-mode="playing"] .hero-line[data-on="true"],
+.hero-opening[data-mode="playing"] .hero-reading[data-on="true"] { opacity: 1; transform: none; }
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin-top: 26px;
+  margin-top: 12px;
 }
 .hero-btn {
   display: inline-flex;
@@ -3812,7 +3835,7 @@ html.dark .civ-progress { background: #c4a572; }
   color: #e8e4dc;
   border-color: rgba(232, 228, 220, 0.35);
 }
-.hero-hint-row { margin: 22px 0 0; }
+.hero-hint-row { margin: 8px 0 0; }
 .hero-hint {
   display: inline-flex;
   align-items: center;
@@ -3847,27 +3870,31 @@ html.dark .civ-progress { background: #c4a572; }
 .hero-opening[data-mode="playing"] .hero-cta,
 .hero-opening[data-mode="playing"] .hero-hint-row {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(8px);
   visibility: hidden;
 }
 @media (prefers-reduced-motion: no-preference) {
   .hero-opening .hero-line,
+  .hero-opening .hero-reading,
   .hero-opening .hero-cta,
   .hero-opening .hero-hint-row {
     transition: opacity 880ms var(--motion-ease), transform 880ms var(--motion-ease);
   }
+  .hero-canvas.is-drawn { transition: opacity 180ms linear; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-opening,
   .hero-opening .hero-line,
+  .hero-opening .hero-reading,
   .hero-opening .hero-cta,
-  .hero-opening .hero-hint-row {
+  .hero-opening .hero-hint-row,
+  .hero-canvas {
     animation: none;
     transition: none;
   }
 }
 @media (max-width: 480px) {
-  .hero-opening { padding: 56px 16px 40px; }
+  .hero-opening { padding: 156px 16px 20px; }
   .hero-skip,
   .hero-replay { right: 12px; }
 }

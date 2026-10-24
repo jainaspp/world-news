@@ -1,8 +1,9 @@
 /**
- * Phone spine geometry. CSS mirrors this with
- * `width: calc((100cqi - gap*(visible-1)) / visible)` inside the content box,
- * plus an optional inline inset on the scrollport. A resting scroll of 0
- * ends in the gap before the next label, not through a glyph.
+ * Phone spine at ≤640px. CSS puts `.deep-axis` on the viewport edges
+ * (`margin-inline: -16px` cancels the hero's 16px padding) and lays seven
+ * stops in one row with an 8px gap. A resting view keeps every label inside
+ * the viewport, which is what `clipped()` requires. Horizontal scroll that
+ * parks later labels past the scrollport fails that check.
  */
 
 export interface SpineSlot {
@@ -11,35 +12,17 @@ export interface SpineSlot {
   right: number;
 }
 
-export function phoneSpineSlots(scrollport: number, visible: number, gap: number, count = 7, inset = 0): SpineSlot[] {
-  const inner = scrollport - inset * 2;
-  const width = (inner - (visible - 1) * gap) / visible;
+export function phoneSpineSlots(viewport: number, count = 7, gap = 8): SpineSlot[] {
+  const width = (viewport - (count - 1) * gap) / count;
   const stride = width + gap;
   return Array.from({ length: count }, (_, index) => ({
     index,
-    left: inset + index * stride,
-    right: inset + index * stride + width,
+    left: index * stride,
+    right: index * stride + width,
   }));
 }
 
-/** Slots that intersect the resting scrollport (scrollLeft 0) but are not fully inside it. */
-export function restingPartialSlots(scrollport: number, slots: readonly SpineSlot[]): number[] {
-  const partial: number[] = [];
-  for (const slot of slots) {
-    const shown = Math.min(slot.right, scrollport) - Math.max(slot.left, 0);
-    if (shown > 0.5 && shown < slot.right - slot.left - 0.5) partial.push(slot.index);
-  }
-  return partial;
-}
-
-/** True when some legal scrollLeft shows the whole slot inside the scrollport. */
-export function slotFullyReachable(scrollport: number, slots: readonly SpineSlot[], index: number): boolean {
-  const slot = slots[index];
-  if (!slot) return false;
-  const width = slot.right - slot.left;
-  const last = slots[slots.length - 1];
-  const track = last ? last.right : 0;
-  const maxScroll = Math.max(0, track - scrollport);
-  const scrollLeft = Math.min(Math.max(0, slot.right - scrollport), maxScroll);
-  return scrollLeft <= slot.left + 0.5 && scrollLeft + scrollport >= slot.left + width - 0.5;
+/** Labels whose border box leaves the viewport by more than the gate's 1px. */
+export function slotsPastViewport(viewport: number, slots: readonly SpineSlot[]): number[] {
+  return slots.filter((slot) => slot.left < -1 || slot.right > viewport + 1).map((slot) => slot.index);
 }
