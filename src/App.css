@@ -295,8 +295,25 @@ a.chip { color: inherit; text-decoration: none; }
 .page:has(.install-banner) .ad-slot { position: relative; bottom: auto; }
 .share-row, .app-footer { margin-top: var(--space-5); }
 .app-footer { display: grid; gap: 8px; }
-.footer-nav { display: flex; flex-wrap: wrap; gap: 4px 16px; }
-.footer-nav a { color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; }
+/* Shared chrome on C / news-skin / N / A. 36px boxes and a 4px row gap failed
+   P0-TOUCH-44 (centers ~34–43px). 44px boxes plus an 8px gap keep adjacent
+   centers at least 52px on M and T. */
+.footer-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.footer-nav a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px 12px;
+  line-height: 1.2;
+}
+.footer-nav a[hidden] { display: none !important; }
 .home-intro {
   margin-top: var(--space-3); padding: var(--space-4); background: var(--card);
   border: 1px solid var(--line); border-radius: var(--radius-lg); display: grid; gap: 8px;
@@ -3241,8 +3258,12 @@ a.question-line:hover { text-decoration: underline; }
     flex-wrap: wrap;
     overflow: visible;
   }
+  /* Was max-height: 300px. The ≤640 four-column wrap made the band ~359px
+     tall and overflow:hidden cut the whole .axis-cta (0 of 44px visible).
+     Grow with the title, nodes, and both CTAs. overflow:hidden still
+     contains the vignette; in-flow content is not clipped. */
   .axis-hero.axis-slim {
-    max-height: 300px;
+    max-height: none;
     padding-top: 14px;
     padding-bottom: 12px;
     overflow: hidden;
@@ -3284,24 +3305,31 @@ a.question-line:hover { text-decoration: underline; }
     min-width: 0;
     padding-bottom: 2px;
   }
-  .milestones::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 6px;
-    z-index: -1;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #c4a572, #e8e4dc, #c4a572, transparent);
-    pointer-events: none;
-  }
+  /* One full-width line sat on row 1 only, so 城市／今天／未來 (row 2) left
+     the track by ~72px. Seven 44px nodes plus 8px gaps do not fit one row at
+     360 (7*44+6*8=356 > ~328). Each wrapped row keeps its own brass segment
+     through the 14px dot (center at 7px; the 2px line is top 6px). */
   .milestones li {
     flex: none;
+    position: relative;
     width: auto;
     min-width: 0;
     min-height: 44px;
   }
+  .milestones li::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    top: 6px;
+    z-index: 0;
+    height: 2px;
+    background: #c4a572;
+    pointer-events: none;
+  }
   .milestones .axis-node {
+    position: relative;
+    z-index: 1;
     min-width: 44px;
     min-height: 44px;
   }
