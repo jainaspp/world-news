@@ -590,9 +590,13 @@ html.dark .hsi-down .hsi-price, html.dark .hsi-down .hsi-change { color: #7fd6b4
 .topic.active .topic-rank { color: inherit; }
 .topic-count { color: var(--muted); font-size: 0.75rem; }
 .topic.active .topic-count { color: inherit; }
-/* New headlines + back to top */
+/* Fresh-headline chip. In flow at the top of <main>, not fixed or sticky.
+   A fixed pill at the viewport bottom paints over 卷二, then 卷三 and the about
+   blurb as those sections pass the same spot. Static flow gives the chip its
+   own row, so those boxes cannot intersect it. */
 .new-items {
-  position: fixed; top: auto; bottom: 20px; left: 16px; transform: none; z-index: 15; border: 0; cursor: pointer;
+  position: static; display: inline-flex; align-items: center; width: fit-content; max-width: 100%;
+  margin: 8px 0 4px; scroll-margin-top: calc(var(--home-anchor-offset) + 8px); border: 0; cursor: pointer;
   background: var(--accent); color: var(--accent-ink); font-weight: 700; border-radius: var(--radius-pill);
   min-height: 40px; padding: 8px 16px; box-shadow: var(--shadow-md), 0 4px 14px rgba(0,0,0,0.18);
 }
@@ -3264,6 +3268,7 @@ a.question-line:hover { text-decoration: underline; }
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: 8px;
+    scroll-padding-inline-end: 16px;
     padding-inline: 8px;
     container-type: inline-size;
   }
@@ -3275,6 +3280,9 @@ a.question-line:hover { text-decoration: underline; }
     min-width: 100%;
     gap: 12px;
     padding-bottom: 2px;
+    /* End inset scales with the scrollport so a rest on 城市 clears 技術.
+       25cqi + 8px is the snap distance of that fifth node across 355–640. */
+    padding-inline-end: calc(25cqi + 8px);
   }
   .milestones::before {
     content: "";
@@ -3289,11 +3297,17 @@ a.question-line:hover { text-decoration: underline; }
   }
   .milestones li {
     flex: 0 0 auto;
-    /* 4 slots + 3 gaps of 12px fill the content box inside the 8px inset,
-       so a resting view ends in the gap before 城市, not through a glyph. */
+    /* 4 slots + 3 gaps of 12px fill the content box inside the 8px inset.
+       That alone leaves 城市's border box ~12px inside the viewport (the
+       scrollport ends one hero padding before the screen edge). */
     width: calc((100cqi - 36px) / 4);
     min-width: 0;
     scroll-snap-align: start;
+  }
+  .milestones li:nth-child(5) {
+    /* Parks 城市, and 未來 after it, past the viewport at scroll 0.
+       Snap still aligns the border box, so a later rest shows the whole label. */
+    margin-inline-start: 24px;
   }
   .chronicle-strip,
   .chronicle-track,

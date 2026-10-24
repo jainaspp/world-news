@@ -366,13 +366,32 @@ describe('homepage anchor and brass', () => {
     const visible = Number(rule?.[2]);
     const gap = gapTotal / (visible - 1);
     expect(gap).toBeGreaterThan(inset);
+    const tail = Number(narrow.match(/\.milestones li:nth-child\(5\) \{[^}]*margin-inline-start:\s*(\d+)px/)?.[1]);
+    expect(tail).toBe(24);
+    expect(narrow).toContain('scroll-padding-inline-end: 16px');
+    expect(narrow).toContain('padding-inline-end: calc(25cqi + 8px)');
     const base = css.slice(css.indexOf('.milestones {'), css.indexOf('@media (max-width: 640px)'));
     expect(base).toContain('.milestones li { flex: 1; min-width: 0; text-align: center; }');
-    for (const viewport of [360, 390]) {
+    for (const viewport of [355, 360, 375, 390, 414, 640]) {
       const scrollport = viewport - 32;
-      const slots = phoneSpineSlots(scrollport, visible, gap, 7, inset);
+      const slots = phoneSpineSlots(scrollport, visible, gap, 7, inset, tail);
       expect(restingPartialSlots(scrollport, slots)).toEqual([]);
-      expect(slots[4]!.left).toBeGreaterThanOrEqual(scrollport);
+      /* Full-bleed hero: the scrollport ends 16px before the viewport edge. */
+      const viewportEdge = scrollport + 16;
+      expect(slots[4]!.left).toBeGreaterThanOrEqual(viewportEdge);
+      expect(slots[6]!.left).toBeGreaterThan(slots[4]!.left);
+      const endPad = (scrollport - inset * 2) * 0.25 + 8;
+      const maxScroll = slots[slots.length - 1]!.right + endPad + inset - scrollport;
+      const snap = slots[4]!.left - inset;
+      expect(maxScroll).toBeGreaterThanOrEqual(snap - 0.5);
+      for (const slot of slots) {
+        const left = slot.left - snap;
+        const right = slot.right - snap;
+        const width = right - left;
+        const shown = Math.min(right, scrollport) - Math.max(left, 0);
+        const partial = shown > 0.5 && shown < width - 0.5;
+        expect(partial).toBe(false);
+      }
       for (let index = 0; index < slots.length; index += 1) {
         expect(slotFullyReachable(scrollport, slots, index)).toBe(true);
       }
