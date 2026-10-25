@@ -620,13 +620,17 @@ html.dark .jd-tool-card { box-shadow: none; }
   }
   .page.column-page[data-kind="compare"] .pack-article .story-body,
   .page.column-page[data-kind="briefing"] .pack-article .story-body,
-  .page.column-page[data-kind="story"] .pack-article .story-body,
+  .page.column-page[data-kind="story"] .pack-article .story-body {
+    gap: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+  }
   .page.column-page[data-kind="compare"] .timeline-card .story-body,
   .page.column-page[data-kind="briefing"] .timeline-card .story-body,
   .page.column-page[data-kind="story"] .timeline-card .story-body {
     gap: 0;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0;
   }
   .page.column-page[data-kind="compare"] .pack-article .story-kicker,
   .page.column-page[data-kind="briefing"] .pack-article .story-kicker,
@@ -769,6 +773,7 @@ html.dark .jd-tool-card { box-shadow: none; }
   .page.column-page[data-kind="briefing"] .pack-sources .source-list,
   .page.column-page[data-kind="story"] .pack-sources .source-list {
     gap: 8px;
+    margin: 0;
   }
   .page.column-page[data-kind="compare"] .pack-sources .source-list a,
   .page.column-page[data-kind="briefing"] .pack-sources .source-list a,
