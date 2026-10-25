@@ -85,9 +85,24 @@ function softGlow(ctx: CanvasRenderingContext2D, x: number, y: number, radius: n
   ctx.fill();
 }
 
+/** SSR hero lives outside #root so createRoot cannot drop the LCP title. */
+function hostedHero(): HTMLElement | null {
+  if (typeof document === 'undefined') return null;
+  const node = document.getElementById('hero-opening');
+  const root = document.getElementById('root');
+  if (!(node instanceof HTMLElement) || !root || root.contains(node)) return null;
+  return node;
+}
+
 export function HeroOpening() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [hosted] = useState(hostedHero);
+  if (hosted) {
+    sectionRef.current = hosted;
+    const canvas = hosted.querySelector('canvas');
+    if (canvas instanceof HTMLCanvasElement) canvasRef.current = canvas;
+  }
   const bloomAtRef = useRef(0);
   const [reduced] = useState(prefersReducedMotion);
   const [boot] = useState(initialHero);
@@ -126,6 +141,31 @@ export function HeroOpening() {
   useEffect(() => {
     sectionRef.current?.setAttribute('data-hero-boot', '1');
   }, []);
+
+  useEffect(() => {
+    if (!hosted) return undefined;
+    hosted.dataset.mode = mode;
+    hosted.dataset.phase = phase;
+    const lines = hosted.querySelectorAll('.hero-line');
+    lines.forEach((line, index) => {
+      line.setAttribute('data-on', index < revealed ? 'true' : 'false');
+    });
+    return undefined;
+  }, [hosted, mode, phase, revealed]);
+
+  useEffect(() => {
+    if (!hosted) return undefined;
+    const onSkip = () => skip();
+    const onReplay = () => replay();
+    const skipBtn = hosted.querySelector('[data-hero-skip]');
+    const replayBtn = hosted.querySelector('[data-hero-replay]');
+    skipBtn?.addEventListener('click', onSkip);
+    replayBtn?.addEventListener('click', onReplay);
+    return () => {
+      skipBtn?.removeEventListener('click', onSkip);
+      replayBtn?.removeEventListener('click', onReplay);
+    };
+  }, [hosted, skip, replay]);
 
   useEffect(() => {
     phaseRef.current = phase;
@@ -302,6 +342,8 @@ export function HeroOpening() {
       document.removeEventListener('visibilitychange', onVisibility);
     };
   }, [reduced]);
+
+  if (hosted) return null;
 
   return (
     <section ref={sectionRef} className="hero-opening" id="hero-opening" data-mode={mode} data-phase={phase} aria-label="開場：從奇點到今天">
