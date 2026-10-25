@@ -803,3 +803,166 @@ html.dark .jd-tool-card { box-shadow: none; }
     white-space: nowrap;
   }
 }
+
+/* T5 mobile IG snap cards. Desktop: wrappers disappear and the long form stays. */
+.ig-deck,
+.ig-card,
+.ig-body-part,
+.ig-extra { display: contents; }
+.ig-points,
+.ig-dots,
+.ig-close-only { display: none; }
+@media (max-width: 768px) {
+  .page.column-page[data-kind="compare"]:has(.ig-deck),
+  .page.column-page[data-kind="briefing"]:has(.ig-deck),
+  .page.column-page[data-kind="story"]:has(.ig-deck) {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) > .app-footer,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) > .app-footer,
+  .page.column-page[data-kind="story"]:has(.ig-deck) > .app-footer,
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .sidebar,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .sidebar,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .sidebar { display: none; }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .layout,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .layout,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .layout,
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .column-main,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .column-main,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .column-main {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 0;
+  }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-deck,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-deck,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .ig-deck {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card {
+    display: grid;
+    align-content: center;
+    position: relative;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 100dvh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    padding: max(72px, env(safe-area-inset-top)) 20px calc(88px + env(safe-area-inset-bottom));
+  }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .pack-body:has(.ig-body-part),
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .pack-body:has(.ig-body-part) { display: contents; }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-lead,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-lead,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-lead { order: 1; }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-timeline,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-timeline,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-timeline { order: 2; }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-body,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-body { order: 3; }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-sources,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-sources,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-sources { order: 4; }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-close,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-close,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-close { order: 5; }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-deck > #ad-mid,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-deck > #ad-mid { display: none !important; }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-deck > .ig-extra,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-deck > .ig-extra {
+    display: block;
+    order: 6;
+    scroll-snap-align: none;
+    padding: 24px 20px 88px;
+  }
+  .ig-points {
+    display: grid;
+    gap: 12px;
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+  }
+  .ig-points li {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .ig-dots {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: grid;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .ig-dots i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--line);
+    display: block;
+  }
+  .ig-dots i.on { background: var(--accent); }
+  .ig-close-only { display: grid; gap: 12px; }
+  .ig-kicker {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .ig-card::after {
+    content: "↑ 上滑";
+    position: absolute;
+    left: 0;
+    right: 28px;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--muted);
+    pointer-events: none;
+  }
+  .ig-card-close::after { content: none; }
+  .ig-card .story,
+  .ig-card .pack-sources,
+  .ig-card .timeline-card {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+}
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-deck,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-deck,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .ig-deck { scroll-behavior: auto; }
+}
