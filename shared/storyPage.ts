@@ -1,6 +1,6 @@
 import { siteBrand } from './brand.js';
 import { analysisEligible, analysisSlug } from './content.js';
-import { bookmarkButton, catChip, chrome, esc, favicon, footer, head, heatBadge, hkt, listenControls, media, safeHttp, share, withLcpShell } from './contentPage.js';
+import { bookmarkButton, catChip, chrome, esc, favicon, footer, head, heatBadge, hkt, listenControls, media, packToolbar, safeHttp, share, withLcpShell } from './contentPage.js';
 import { bestImage } from './media.js';
 import type { StoryCluster } from './trending';
 import type { NewsItem } from './types';
@@ -19,8 +19,16 @@ export function renderStoryPage(item: NewsItem, cluster: StoryCluster | null, re
   const ld = `<meta name="robots" content="noindex, follow" />`;
   const timeline = coverage.length > 1 ? `<section class="story column-block timeline-card" aria-label="各媒體報道"><div class="story-body">
         <h2 class="column-h2">各媒體報道（香港時間）</h2>
-        <ol class="timeline" data-timeline="scroll">${coverage.map((row) => `<li data-story-id="${esc(row.id)}"><time datetime="${esc(row.pubDate)}">${esc(hkt(row.pubDate, false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body">${favicon(row.link)} <strong>${esc(row.source)}</strong> <a href="${esc(safeHttp(row.link))}" target="_blank" rel="noopener noreferrer">${esc(row.title)}</a></span></li>`).join('')}</ol>
+        <ol class="timeline" data-timeline="scroll">${coverage.map((row) => `<li data-story-id="${esc(row.id)}"><time datetime="${esc(row.pubDate)}">${esc(hkt(row.pubDate, false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body"><strong class="tl-phase">${esc(row.source)}</strong> ${esc(row.title)}</span></li>`).join('')}</ol>
       </div></section>` : '';
+  const sourceRows = coverage.map((row) => {
+    const href = safeHttp(row.link);
+    if (!href) return '';
+    return `<li><a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${favicon(href)}<span class="source-name">${esc(row.source)}</span><span class="source-title">${esc(row.title)}</span></a></li>`;
+  }).join('');
+  const sources = sourceRows
+    ? `<section class="pack-sources" aria-label="來源"><h2 class="column-h2">來源（${coverage.length}）</h2><ul class="source-list">${sourceRows}</ul></section>`
+    : '';
   const cards = related.slice(0, 6).map((row) => `<article class="story">
           <a class="story-media" href="/story/${esc(row.id)}/" tabindex="-1" aria-hidden="true">${media(row.image, row.category, row.source)}</a>
           <div class="story-body">
@@ -37,29 +45,22 @@ ${head(item.title, description, canonical, image, 'article', ld, '', false, { lc
   ${chrome('none')}
   <div class="layout">
     <main id="content" class="column-main">
-      <article class="story story-hero column-hero" data-story-id="${esc(item.id)}">
+      <article class="story story-hero column-hero pack-article" data-story-id="${esc(item.id)}">
         <div class="story-media">${media(image, item.category, item.source, true, '', Boolean(image))}</div>
         <div class="story-body">
           <div class="story-kicker">${catChip(item.category)}${heatBadge(outlets)}</div>
           <h1 class="story-title column-title">${esc(item.title)}</h1>
+          <p class="dek">${esc(description)}</p>
           <div class="story-meta">${favicon(item.link)}<strong>${esc(item.source)}</strong><time datetime="${esc(item.pubDate)}">· ${esc(hkt(item.pubDate))} 香港時間</time></div>
-          <div class="story-actions">
-            ${url ? `<a class="primary" href="${esc(url)}" target="_blank" rel="noopener noreferrer">閱讀 ${esc(item.source)} 原文 →</a>` : ''}
-            ${analysis ? `<a class="chip analysis-chip" href="${analysis}"><span class="badge ai-badge">AI 整合</span> 背景與各方說法</a>` : ''}
-          </div>
-          ${share(item.title, canonical)}
-          ${listenControls()}
-          ${bookmarkButton({ page: 'story', key: item.id, title: item.title, link: `/story/${item.id}/`, publishedAt: item.pubDate, category: item.category })}
+          ${packToolbar(`${url ? `<a class="chip" href="${esc(url)}" target="_blank" rel="noopener noreferrer">閱讀原文</a>` : ''}${analysis ? `<a class="chip analysis-chip" href="${analysis}"><span class="badge ai-badge">AI 整合</span> 背景與各方說法</a>` : ''}${share(item.title, canonical)}${listenControls()}${bookmarkButton({ page: 'story', key: item.id, title: item.title, link: `/story/${item.id}/`, publishedAt: item.pubDate, category: item.category })}`)}
         </div>
       </article>
       ${timeline}
+      ${sources}
       ${cards ? `<section class="related"><h2 class="section-title">相關頭條</h2><div class="news-grid related-grid">${cards}</div></section>` : ''}
     </main>
-    <aside class="sidebar" aria-label="側欄">
-      <section class="side-card"><h2>關於此頁</h2><p>${esc(siteBrand)}只列出標題、來源與原文連結，不轉載內文。全文請到原文網站閱讀。</p></section>
-    </aside>
   </div>
-  ${footer()}
+  ${footer(false)}
   </div>
 </body>
 </html>`;
@@ -70,7 +71,7 @@ export function renderStoryMissing(canonical: string): string {
   return withLcpShell(`<!doctype html>
 <html lang="zh-HK">
 ${head('此則頭條已經下架', '標題只保留一段時間。', canonical, '', 'website', '<meta name="robots" content="noindex" />', '', false, { lcp: true })}
-<body><div class="page column-page" data-kind="story">${chrome('none')}<main id="content" class="column-index"><div class="status-panel"><h2>此則頭條已經下架</h2><p>${esc(siteBrand)}只保留最近的標題。可以返回首頁查看最新頭條。</p><a class="primary" href="/">返回首頁</a></div></main>${footer()}</div></body></html>`);
+<body><div class="page column-page" data-kind="story">${chrome('none')}<main id="content" class="column-index"><div class="status-panel"><h2>此則頭條已經下架</h2><p>${esc(siteBrand)}只保留最近的標題。可以返回首頁查看最新頭條。</p><a class="primary" href="/">返回首頁</a></div></main>${footer(false)}</div></body></html>`);
 }
 
 /** Same-category headlines first, newest first, excluding the story's own cluster. */

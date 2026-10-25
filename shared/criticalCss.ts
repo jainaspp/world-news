@@ -150,7 +150,6 @@ button, input { font: inherit; color: inherit; }
 .ad-slot { display: block; width: 100%; }
 .app-footer { margin-top: 24px; color: var(--muted); font-size: 0.95rem; }
 .notice { color: var(--muted); }
-.key-points { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 16px; }
 .share-buttons, .story-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .listen {
   display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 44px;
@@ -191,18 +190,31 @@ button, input { font: inherit; color: inherit; }
     display: inline-flex; align-items: center; justify-content: center;
     border: 1px solid var(--chip-border); border-radius: var(--radius-pill); background: var(--card);
   }
-  .timeline[data-timeline="scroll"] {
-    display: flex; gap: 10px; overflow-x: auto; overscroll-behavior-x: contain;
-    padding: 2px 2px 6px; scroll-snap-type: x proximity;
+  .column-title { min-height: 56px; }
+  .column-hero.pack-shell .column-title,
+  .pack-article .column-title { font-size: 20px; line-height: 28px; min-height: 56px; }
+  .column-hero.pack-shell .dek,
+  .pack-article .dek { font-size: 15px; line-height: 24px; min-height: 24px; }
+  .pack-toolbar { display: flex; align-items: center; height: 36px; max-height: 36px; overflow: hidden; }
+  .pack-toolbar .listen { min-height: 32px; height: 32px; }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"],
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"],
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] {
+    display: flex; gap: 64px; align-items: flex-start; overflow-x: auto;
+    overscroll-behavior-x: contain; margin: 0; padding: 0 0 4px;
   }
-  .timeline[data-timeline="scroll"] li {
-    flex: 0 0 min(240px, 78vw);
-    display: grid; grid-template-columns: 14px minmax(0, 1fr);
-    gap: 4px 8px; align-content: start;
-    margin: 0; padding: 8px 10px; scroll-snap-align: start;
-    border: 1px solid var(--line); border-radius: 12px; background: var(--card);
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] li,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] li,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] li {
+    position: relative; display: flex; flex-direction: column; align-items: center;
+    flex: 0 0 auto; min-width: 44px; max-width: 148px; margin: 0; padding: 0;
+    border: 0; background: transparent;
   }
-  .timeline[data-timeline="scroll"] time { grid-column: 1 / -1; }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] .tl-dot,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] .tl-dot,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] .tl-dot {
+    width: 44px; height: 48px; margin: 0; background: transparent; border-radius: 0;
+  }
   .timeline[data-timeline="scroll"] li .tl-dot::after { content: none; }
 }
 `.replace(/\n+/g, '\n').trim();

@@ -519,7 +519,8 @@ html.dark .jd-tool-card { box-shadow: none; }
 .jd-tool-actions { display: flex; flex-wrap: wrap; gap: 8px 16px; }
 .jd-tool-link-secondary { font-weight: 600; }
 
-/* Mobile story and explainer timelines paint as a horizontal strip. Desktop stays vertical. */
+/* Mobile story and explainer timelines paint as a horizontal strip. Desktop stays vertical.
+   Pack pages override this with the four-layer axis below. */
 @media (max-width: 700px) {
   .timeline[data-timeline="scroll"] {
     display: flex;
@@ -544,4 +545,261 @@ html.dark .jd-tool-card { box-shadow: none; }
   }
   .timeline[data-timeline="scroll"] time { grid-column: 1 / -1; }
   .timeline[data-timeline="scroll"] li .tl-dot::after { content: none; }
+}
+
+/* T1 pack article: kicker, title, dek, meta, one toolbar. Shared by explainer, briefing, story. */
+.pack-article.story-hero .column-title {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+}
+.pack-toolbar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  max-height: 36px;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.pack-toolbar .share-buttons,
+.pack-toolbar .listen {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  max-height: 32px;
+  margin: 0;
+}
+.pack-toolbar .share-buttons .chip,
+.pack-toolbar .listen .chip,
+.pack-toolbar > .chip,
+.pack-toolbar .bookmark-article,
+.pack-toolbar .listen-rate,
+.pack-toolbar .listen-rate select {
+  box-sizing: border-box;
+  min-height: 32px;
+  height: 32px;
+  max-height: 32px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.pack-toolbar .listen-rate {
+  font-size: 12px;
+  line-height: 16px;
+  gap: 6px;
+}
+.pack-toolbar .listen-rate select { font-size: 12px; line-height: 16px; }
+.pack-body { display: grid; gap: 12px; min-width: 0; }
+.pack-body p { margin: 0; font-size: 15px; line-height: 24px; }
+.pack-body .column-h2,
+.pack-sources .column-h2 { margin: 0; }
+.pack-sources { display: grid; gap: 8px; min-width: 0; }
+.timeline-card { min-width: 0; }
+.timeline-card .story-body { min-width: 0; }
+
+/* Mobile 360: 16px page inset, 24px section gap, type and timeline geometry. */
+@media (max-width: 700px) {
+  .page.column-page[data-kind="compare"],
+  .page.column-page[data-kind="briefing"],
+  .page.column-page[data-kind="story"] {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .page.column-page[data-kind="compare"] .column-main,
+  .page.column-page[data-kind="briefing"] .column-main,
+  .page.column-page[data-kind="story"] .column-main {
+    gap: 24px;
+  }
+  .page.column-page[data-kind="compare"] .pack-article .story-body,
+  .page.column-page[data-kind="briefing"] .pack-article .story-body,
+  .page.column-page[data-kind="story"] .pack-article .story-body {
+    gap: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+  .page.column-page[data-kind="compare"] .timeline-card .story-body,
+  .page.column-page[data-kind="briefing"] .timeline-card .story-body,
+  .page.column-page[data-kind="story"] .timeline-card .story-body {
+    gap: 0;
+    padding: 0;
+  }
+  .page.column-page[data-kind="compare"] .pack-article .story-kicker,
+  .page.column-page[data-kind="briefing"] .pack-article .story-kicker,
+  .page.column-page[data-kind="story"] .pack-article .story-kicker {
+    margin: 0 0 8px;
+  }
+  .page.column-page[data-kind="compare"] .pack-article .column-title,
+  .page.column-page[data-kind="briefing"] .pack-article .column-title,
+  .page.column-page[data-kind="story"] .pack-article .column-title {
+    margin: 0 0 12px;
+    font-size: 20px;
+    line-height: 28px;
+    min-height: 56px;
+  }
+  .page.column-page[data-kind="compare"] .pack-article .story-title.title-reserve,
+  .page.column-page[data-kind="briefing"] .pack-article .story-title.title-reserve,
+  .page.column-page[data-kind="story"] .pack-article .story-title.title-reserve {
+    min-height: 113px;
+  }
+  .page.column-page[data-kind="compare"] .pack-article .dek,
+  .page.column-page[data-kind="briefing"] .pack-article .dek,
+  .page.column-page[data-kind="story"] .pack-article .dek {
+    margin: 0 0 8px;
+    font-size: 15px;
+    line-height: 24px;
+  }
+  .page.column-page[data-kind="compare"] .pack-article .story-meta,
+  .page.column-page[data-kind="briefing"] .pack-article .story-meta,
+  .page.column-page[data-kind="story"] .pack-article .story-meta {
+    margin: 0;
+  }
+  .page.column-page[data-kind="compare"] .pack-toolbar,
+  .page.column-page[data-kind="briefing"] .pack-toolbar,
+  .page.column-page[data-kind="story"] .pack-toolbar {
+    margin-top: 8px;
+  }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"],
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"],
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] {
+    display: flex;
+    gap: 64px;
+    align-items: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 0 4px;
+    scroll-snap-type: x proximity;
+  }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] li,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] li,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 0 0 auto;
+    min-width: 44px;
+    max-width: 148px;
+    margin: 0;
+    padding: 0;
+    scroll-snap-align: start;
+  }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] .tl-dot,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] .tl-dot,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] .tl-dot {
+    order: 1;
+    width: 44px;
+    height: 48px;
+    margin: 0;
+    background: transparent;
+    border-radius: 0;
+    display: grid;
+    place-items: center;
+  }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] .tl-dot::before,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] .tl-dot::before,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] .tl-dot::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] li:not(:last-child) .tl-dot::after,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] li:not(:last-child) .tl-dot::after,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] li:not(:last-child) .tl-dot::after {
+    content: none;
+  }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] li:not(:last-child)::after,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] li:not(:last-child)::after,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 23px;
+    left: 0;
+    width: calc(100% + 64px);
+    height: 2px;
+    background: var(--line);
+  }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] li:first-child:not(:last-child)::after,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] li:first-child:not(:last-child)::after,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] li:first-child:not(:last-child)::after {
+    left: 50%;
+    width: calc(50% + 64px);
+  }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] li:last-child::before,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] li:last-child::before,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] li:last-child::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 23px;
+    left: 0;
+    width: 50%;
+    height: 2px;
+    background: var(--line);
+  }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] time,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] time,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] time,
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] .tl-phase,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] .tl-phase,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] .tl-phase,
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] .tl-body,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] .tl-body,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] .tl-body {
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+  }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] time,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] time,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] time { order: 2; }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] .tl-body,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] .tl-body,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] .tl-body { order: 3; }
+  .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"] .tl-phase,
+  .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"] .tl-phase,
+  .page.column-page[data-kind="story"] .timeline[data-timeline="scroll"] .tl-phase {
+    display: block;
+  }
+  .page.column-page[data-kind="compare"] .pack-sources .source-list,
+  .page.column-page[data-kind="briefing"] .pack-sources .source-list,
+  .page.column-page[data-kind="story"] .pack-sources .source-list {
+    gap: 8px;
+    margin: 0;
+  }
+  .page.column-page[data-kind="compare"] .pack-sources .source-list a,
+  .page.column-page[data-kind="briefing"] .pack-sources .source-list a,
+  .page.column-page[data-kind="story"] .pack-sources .source-list a {
+    grid-template-columns: 16px auto minmax(0, 1fr);
+    align-items: center;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+  .page.column-page[data-kind="compare"] .pack-sources .source-title,
+  .page.column-page[data-kind="briefing"] .pack-sources .source-title,
+  .page.column-page[data-kind="story"] .pack-sources .source-title {
+    grid-column: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }

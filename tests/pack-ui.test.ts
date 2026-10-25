@@ -66,11 +66,17 @@ describe('pack shell columns', () => {
 
   it('folds secondary explainer and analysis blocks and leaves the timeline open', () => {
     const explainer = renderContentPage(doc({ kind: 'compare' }), 'https://world-news.xyz/explainer/demo');
-    expect(explainer).toContain('class="story story-hero column-hero pack-shell"');
-    expect(explainer).toContain('<details class="topic-fold pack-fold"><summary>各方回應</summary>');
-    expect(explainer).toContain('<details class="topic-fold pack-fold"><summary>後續關注</summary>');
+    expect(explainer).toContain('class="story story-hero column-hero pack-shell pack-article"');
+    expect(explainer).toContain('class="pack-body"');
+    expect(explainer).toContain('class="pack-toolbar"');
     expect(explainer).toContain('<h2 class="column-h2">事件經過</h2>');
-    expect(explainer).not.toContain('<details class="topic-fold pack-fold" open');
+    expect(explainer).toContain('<h2 class="column-h2">各方回應</h2>');
+    expect(explainer).toContain('<h2 class="column-h2">後續關注</h2>');
+    expect(explainer).not.toContain('<details class="topic-fold pack-fold"><summary>各方回應</summary>');
+    expect(explainer).not.toContain('<details class="topic-fold pack-fold"><summary>後續關注</summary>');
+    expect(explainer).not.toContain('class="key-points');
+    expect(explainer).not.toContain('highlight-box');
+    expect(explainer).not.toContain('ai-footnote');
     const analysis = renderContentPage(doc({
       kind: 'analysis',
       blocks: [

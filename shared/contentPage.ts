@@ -5,7 +5,7 @@ import { briefingPublic, briefingScopeOf, columnHeroSources, explainerCurrent, l
 import { bestImage, repairDoubledScheme } from './media.js';
 import { listens } from './listen.js';
 import { adsRuntimeEnabled } from './adPolicy.js';
-import { adSlotMarkup, hasManualSlots } from './adSlot.js';
+import { adSlotMarkup, hasManualSlots, validAdSlot } from './adSlot.js';
 import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
 import { renderCivilizationSlice } from './civilization/renderSlice.js';
@@ -53,8 +53,8 @@ export interface HeadTune {
  */
 export function packAdSlots(ads: AdConfig | undefined): { inArticle: string; afterSources: string } {
   return {
-    inArticle: ads?.mid || '',
-    afterSources: ads?.bottom || ads?.top || '',
+    inArticle: validAdSlot(ads?.mid),
+    afterSources: validAdSlot(ads?.bottom) || validAdSlot(ads?.top),
   };
 }
 
@@ -157,6 +157,64 @@ export function adUnit(ads: AdConfig | undefined, slot: string | undefined, posi
 function adsForPage(substantial: boolean, ads: AdConfig | undefined): AdConfig | undefined {
   if (!substantial || !ads || !hasManualSlots([ads.top, ads.mid, ads.bottom])) return undefined;
   return ads;
+}
+
+/** Manual units only. Page-level auto ads, vignettes and anchor overlays are not emitted. */
+const BANNED_AD = /enable_page_level_ads|vignette|anchor_ad|data-ad-format="anchor"|overlays\s*:/i;
+
+/**
+ * Explainer and briefing ads: at most one in-article unit, and the default unit after sources.
+ * Top is not a third slot. An empty bottom falls back to top so the after-sources unit still has an id.
+ */
+export function packAdPlan(ads: AdConfig | undefined): { mid: string; afterSources: string } {
+  const slots = packAdSlots(ads);
+  return { mid: slots.inArticle, afterSources: slots.afterSources };
+}
+
+function articleSlot(ads: AdConfig | undefined, id: 'ad-mid' | 'ad-after-sources', slot: string, placeholder: boolean): string {
+  const unit = adUnit(ads, slot, id, true);
+  if (unit && !BANNED_AD.test(unit)) return unit.replace('<div class="ad-slot', `<div id="${id}" class="ad-slot`);
+  return placeholder ? `<div id="${id}" hidden></div>` : '';
+}
+
+/**
+ * AdSense loader for a pack page. It runs after the first paint, then in an idle callback,
+ * so the script does not compete with the H1 or the timeline. The push is a manual unit
+ * (`{}`), never enable_page_level_ads, a vignette, or an anchor overlay.
+ */
+export function deferredAdLoader(client: string): string {
+  const src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(client)}`;
+  return `<script data-ad-loader="idle">
+(function () {
+  function boot() {
+    if (document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]')) return;
+    var s = document.createElement('script');
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    s.src = ${JSON.stringify(src)};
+    s.onload = function () {
+      document.querySelectorAll('ins.adsbygoogle').forEach(function (ins) {
+        if (ins.getAttribute('data-adsbygoogle-status')) return;
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      });
+    };
+    document.body.appendChild(s);
+  }
+  function afterPaint() {
+    var run = function () {
+      if (window.requestIdleCallback) window.requestIdleCallback(boot, { timeout: 2000 });
+      else window.setTimeout(boot, 1);
+    };
+    if (window.requestAnimationFrame) window.requestAnimationFrame(function () { window.requestAnimationFrame(run); });
+    else window.setTimeout(run, 1);
+  }
+  afterPaint();
+})();
+</script>`;
+}
+
+export function packToolbar(inner: string): string {
+  return `<div class="pack-toolbar">${inner}</div>`;
 }
 
 const FILLER = /來源未有提及|未有足夠|沒有足夠資料|資料未有|未有提供/;
@@ -517,17 +575,18 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
     : '<meta name="robots" content="index,follow" />';
   const ld = `${robots}<script type="application/ld+json">${JSON.stringify(json).replace(/</g, '\\u003c')}</script>`;
   const note = modelFailed ? `<p class="notice" role="status">${MODEL_FAILED_NOTICE}</p>` : '';
-  const points = modelFailed ? [] : keyPoints(doc);
+  const empty = !modelFailed && !shownBlocks.length ? '<p class="notice">這一期暫時沒有足夠的多方來源。</p>' : '';
+  const pack = doc.kind === 'briefing' || doc.kind === 'compare';
+  const points = modelFailed || pack ? [] : keyPoints(doc);
   const pointsLabel = doc.kind === 'digest' ? '今期重點' : '重點';
   const pointsBox = points.length > 1 ? `<section class="key-points pack-shell" aria-label="${pointsLabel}"><h2>${pointsLabel}</h2><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></section>` : '';
-  const highlight = !modelFailed && doc.highlight?.items.length
+  const highlight = !modelFailed && !pack && doc.highlight?.items.length
     ? `<section class="highlight-box" aria-label="${esc(doc.highlight.label)}"><h2>${esc(doc.highlight.label)}</h2><ul>${doc.highlight.items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul></section>`
     : '';
   const bodyBlocks = modelFailed ? [] : shownBlocks;
-  const pack = doc.kind === 'briefing' || doc.kind === 'compare';
-  const adPlan = pack ? packAdSlots(ads) : { inArticle: '', afterSources: '' };
-  const midAt = Math.max(1, Math.ceil(bodyBlocks.length / 2));
-  const blocks = bodyBlocks.map((block, index) => {
+  const looseBlocks = pack ? [] : bodyBlocks;
+  const midAt = Math.max(1, Math.ceil(looseBlocks.length / 2));
+  const blocks = looseBlocks.map((block, index) => {
     const blockImage = doc.kind === 'analysis' ? '' : safeHttp(bestImage(columnHeroSources(block.sources, doc.kind)));
     const blockCategory = block.category || block.sources[0]?.category;
     const showMedia = doc.kind === 'digest' && index > 0;
@@ -544,16 +603,18 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
           ${points}
         </div>
       </section>`;
-    const midAd = !pack && index + 1 === midAt && bodyBlocks.length > 1 ? adUnit(ads, ads?.mid, 'mid', true) : '';
-    return section + midAd;
+    return section + (index + 1 === midAt && looseBlocks.length > 1 ? adUnit(ads, ads?.mid, 'mid', true) : '');
   }).join('');
   const analysisTimeline = !modelFailed && doc.kind === 'analysis' ? timeline(sources) : '';
   const angles = !modelFailed && doc.kind === 'analysis' ? outletAngles(sources) : '';
-  const rich = doc.kind === 'briefing' || doc.kind === 'compare';
+  const rich = pack;
   const timelineSources = timelineBlock && timelineRows(timelineBlock.sources).length >= 2 ? timelineBlock.sources : sources;
-  const explainerTimeline = !modelFailed && doc.kind === 'compare' ? eventTimeline(timelineSources) : '';
-  const sourceSection = listed.length
-    ? `<details class="topic-fold pack-fold"><summary>來源（${listed.length}）</summary>${sourceList(listed)}</details>`
+  const explainerTimeline = !modelFailed && pack ? eventTimeline(timelineSources) : '';
+  const sourceListHtml = sourceList(listed);
+  const sourceSection = sourceListHtml
+    ? (pack
+      ? `<section class="pack-sources" aria-label="來源"><h2 class="column-h2">來源（${listed.length}）</h2>${sourceListHtml}</section>`
+      : `<details class="topic-fold pack-fold"><summary>來源（${listed.length}）</summary>${sourceListHtml}</details>`)
     : '';
   const civSlice = !modelFailed && doc.kind === 'compare'
     ? renderCivilizationSlice({ key: doc.key, title: doc.title, description: doc.description })
@@ -572,30 +633,76 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const showDek = doc.kind === 'analysis' || rich;
   const relatedCats = categories.join(',');
   const exclude = sources.map((source) => source.url).slice(0, 30);
-  const empty = !modelFailed && !shownBlocks.length ? '<p class="notice">這一期暫時沒有足夠的多方來源。</p>' : '';
-  const heroMedia = `<div class="story-media">${media(image, leadCategory, sources[0]?.source || siteBrand, !pack)}</div>`;
-  const heroBody = `<div class="story-body">
-          <div class="index-title-row">
-            <div class="story-kicker">${modelFailed ? '' : '<span class="badge ai-badge">AI 整合</span>'}<span class="kicker-region">${columnName(doc)}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
-            <h1 class="story-title column-title${doc.kind === 'compare' && isMostlyEnglish(doc.title) ? ' title-reserve' : ''}">${esc(doc.title)}</h1>
-          </div>
-          ${doc.kind === 'analysis' || doc.kind === 'compare' ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : ''}
+  const bookmark = listens(doc.kind) ? `${listenControls()}${bookmarkButton({
+    page: doc.kind === 'compare' ? 'explainer' : doc.kind,
+    key: doc.key,
+    title: doc.title,
+    link: (() => { try { return new URL(canonical).pathname; } catch { return canonical; } })(),
+    publishedAt: doc.publishedAt,
+    category: leadCategory,
+  })}` : '';
+  const metaInner = `<time datetime="${esc(doc.publishedAt)}">${esc(doc.hkt || hkt(doc.publishedAt))} 香港時間</time><span>· 閱讀約 ${minutes} 分鐘</span>${sources.length ? `<span>· ${outlets} 間媒體 · ${sources.length} 篇報道</span>` : ''}${doc.updatedAt ? `<span>· 最後更新 ${esc(hkt(doc.updatedAt))}</span>` : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}`;
+  const meta = `<div class="story-meta">${metaInner}${pack && doc.kind === 'compare' ? heatBadge(outlets) : ''}${pack ? categories.map(catChip).join('') : ''}</div>`;
+  const titleClass = `story-title column-title${doc.kind === 'compare' && isMostlyEnglish(doc.title) ? ' title-reserve' : ''}`;
+  const plan = packAdPlan(options.ads);
+  const midHtml = pack ? articleSlot(ads, 'ad-mid', plan.mid, plan.mid !== '') : '';
+  const afterHtml = pack ? articleSlot(ads, 'ad-after-sources', plan.afterSources, true) : '';
+  const adBoot = (midHtml + afterHtml).includes('adsbygoogle') ? deferredAdLoader(client || options.ads?.client || DEFAULT_CLIENT) : '';
+  const packImage = pack ? `<div class="story-media">${media(image, leadCategory, sources[0]?.source || siteBrand, false)}</div>` : '';
+  const packOriginal = pack ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : '';
+  const packSections = bodyBlocks.map((block) => `<h2 class="column-h2">${esc(block.title)}</h2>${block.sentences.map((sentence) => `<p>${esc(sentence)}</p>`).join('')}`).join('');
+  const packInner = `${packImage}${packOriginal}${note}${empty}${packSections}`;
+  const packBody = pack && packInner.trim() ? `<section class="pack-body">${packInner}</section>` : '';
+  const related = `<section class="related" id="related" data-categories="${esc(relatedCats)}" data-exclude="${esc(JSON.stringify(exclude))}" hidden>
+        <h2 class="section-title">相關頭條</h2>
+        <div class="news-grid related-grid"></div>
+      </section>`;
+  const packMain = `<article class="story story-hero column-hero pack-shell pack-article">
+        <div class="story-body">
+          <div class="story-kicker">${modelFailed ? '' : '<span class="badge ai-badge">AI 整合</span>'}<span class="kicker-region">${columnName(doc)}</span></div>
+          <h1 class="${titleClass}">${esc(doc.title)}</h1>
           ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}
-          <div class="story-meta"><time datetime="${esc(doc.publishedAt)}">${esc(doc.hkt || hkt(doc.publishedAt))} 香港時間</time><span>· 閱讀約 ${minutes} 分鐘</span>${sources.length ? `<span>· ${outlets} 間媒體 · ${sources.length} 篇報道</span>` : ''}${doc.updatedAt ? `<span>· 最後更新 ${esc(hkt(doc.updatedAt))}</span>` : ''}</div>
+          ${meta}
+          ${packToolbar(`${share(doc.title, canonical)}${bookmark}`)}
+        </div>
+      </article>
+      ${explainerTimeline}
+      ${packBody}
+      ${midHtml}
+      ${civSlice}
+      ${toolCard}
+      ${sourceSection}
+      ${afterHtml}
+      ${related}
+      ${topicLinks}
+      ${explainerLinks}`;
+  const columnMain = `<article class="story story-hero column-hero${doc.kind === 'analysis' ? ' pack-shell' : ''}">
+        <div class="story-media">${media(image, leadCategory, sources[0]?.source || siteBrand, true)}</div>
+        <div class="story-body">
+          <div class="index-title-row">
+            <div class="story-kicker">${modelFailed ? '' : '<span class="badge ai-badge">AI 整合</span>'}<span class="kicker-region">${columnName(doc)}</span>${doc.kind === 'analysis' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
+            <h1 class="story-title column-title">${esc(doc.title)}</h1>
+          </div>
+          ${doc.kind === 'analysis' ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : ''}
+          ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}
+          ${meta}
           ${share(doc.title, canonical)}
-          ${listens(doc.kind) ? `${listenControls()}${bookmarkButton({
-            page: doc.kind === 'compare' ? 'explainer' : doc.kind,
-            key: doc.key,
-            title: doc.title,
-            link: (() => { try { return new URL(canonical).pathname; } catch { return canonical; } })(),
-            publishedAt: doc.publishedAt,
-            category: leadCategory,
-          })}` : ''}
-        </div>`;
-  const hero = `<article class="story story-hero column-hero${doc.kind === 'compare' || doc.kind === 'analysis' ? ' pack-shell' : ''}">${pack ? `${heroBody}${heroMedia}` : `${heroMedia}${heroBody}`}</article>`;
-  const adsSrc = pack && client && adsRuntimeEnabled()
-    ? `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(client)}`
-    : '';
+          ${bookmark}
+        </div>
+      </article>
+      ${adUnit(ads, ads?.top, 'top')}
+      ${note}
+      ${empty}
+      ${pointsBox || highlight ? `<div class="column-boxes">${pointsBox}${highlight}</div>` : ''}
+      ${topicLinks}
+      ${angles}
+      ${blocks}
+      ${explainerLinks}
+      ${analysisTimeline}
+      ${sourceSection}
+      ${adUnit(ads, ads?.bottom, 'bottom')}
+      ${related}`;
+
   const html = `<!doctype html>
 <html lang="zh-HK">
 ${head(doc.title, description, canonical, image, 'article', ld, client, !pack, pack ? { lcp: true } : undefined)}
@@ -604,36 +711,18 @@ ${head(doc.title, description, canonical, image, 'article', ld, client, !pack, p
   ${chrome(doc.kind)}
   <div class="layout">
     <main id="content" class="column-main">
-      ${hero}
-      ${explainerTimeline}
-      ${pack ? '' : adUnit(ads, ads?.top, 'top')}
-      ${note}
-      ${empty}
-      ${pointsBox || highlight ? `<div class="column-boxes">${pointsBox}${highlight}</div>` : ''}
-      ${topicLinks}
-      ${angles}
-      ${blocks}
-      ${pack ? adUnit(ads, adPlan.inArticle, 'in-article', true) : ''}
-      ${explainerLinks}
-      ${analysisTimeline}
-      ${civSlice}
-      ${toolCard}
-      ${sourceSection}
-      ${pack ? adUnit(ads, adPlan.afterSources, 'after-sources') : adUnit(ads, ads?.bottom, 'bottom')}
-      <section class="related" id="related" data-categories="${esc(relatedCats)}" data-exclude="${esc(JSON.stringify(exclude))}" hidden>
-        <h2 class="section-title">相關頭條</h2>
-        <div class="news-grid related-grid"></div>
-      </section>
+      ${pack ? packMain : columnMain}
     </main>
     <aside class="sidebar" aria-label="側欄">
       ${archiveCard(options.archive ?? [], doc.kind, doc.key)}
     </aside>
   </div>
-  ${footer()}
+  ${footer(!pack)}
   </div>
+  ${adBoot}
 </body>
 </html>`;
-  return pack ? withLcpShell(html, { adsSrc }) : html;
+  return pack ? withLcpShell(html) : html;
 }
 
 function packPreviewList(entry: IndexEntry): string {
