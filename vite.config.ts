@@ -24,7 +24,6 @@ import { onRequest as briefingIndex } from './functions/briefing/index';
 import { onRequest as topicPage } from './functions/topic/[slug]';
 import { onRequest as topicIndex } from './functions/topic/index';
 import type { PagesContext } from './functions/env';
-import { civArchResponse } from './shared/civArch/document';
 import { previewSeed } from './shared/readerSample';
 import { loadHkBundle } from './server/hkService';
 import { emptyHkNow } from './shared/hk';
@@ -97,11 +96,6 @@ function pagePath(url: string): string {
 function attach(middlewares: { use: (fn: (req: IncomingMessage, res: ServerResponse, next: () => void) => void) => void }) {
   middlewares.use((req, res, next) => {
     const url = req.url ?? '';
-    const civ = civArchResponse(new URL(url, 'http://127.0.0.1').toString());
-    if (civ) {
-      void forward(res, civ);
-      return;
-    }
     const path = pagePath(url);
     if (path === '/site.css') {
       res.statusCode = 200;

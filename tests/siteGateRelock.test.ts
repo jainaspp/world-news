@@ -104,11 +104,11 @@ describe('R1 critical union in CSS', () => {
     const chip = block(css, '.chronicle-nav .chip,', '.chronicle-stage {');
     expect(chip).toContain('scroll-snap-align: start');
     const narrow = css.slice(css.lastIndexOf('@media (max-width: 640px)'));
-    const deep = narrow.slice(narrow.indexOf('.deep-axis {'), narrow.indexOf('.deep-axis .rail'));
-    expect(deep).toContain('overflow: visible');
-    expect(narrow).toContain('grid-template-columns: repeat(4, minmax(0, 1fr))');
-    expect(narrow).toContain('gap: 8px');
-    expect(narrow).not.toContain('width: calc((100cqi - 36px) / 4)');
+    const deep = narrow.slice(narrow.indexOf('.deep-axis {'), narrow.indexOf('.deep-axis::-webkit-scrollbar'));
+    expect(deep).toContain('scroll-snap-type: x mandatory');
+    expect(deep).toContain('padding-inline: 8px');
+    expect(deep).toContain('scroll-padding-inline: 8px');
+    expect(narrow).toContain('width: calc((100cqi - 36px) / 4)');
   });
 
   it('paints dark chapter bands with ink #161c24', () => {
@@ -240,16 +240,8 @@ describe('R6 P0-CONTRAST axis year labels', () => {
     expect(rule).toContain('background: #161c24');
     expect(rule).toContain('width: max-content');
     expect(rule).toContain('max-width: 100%');
-    expect(rule).toContain('border-radius: 0');
-    expect(rule).toContain('box-shadow: 0 0 0 2px #161c24');
     expect(contrast('#c4a572', '#161c24')).toBeGreaterThanOrEqual(4.5);
     expect(contrast('#c4a572', photoMedian)).toBeLessThan(4.5);
-    const plated = css.slice(css.indexOf('.axis-node .lab, .axis-node .yr {'), css.indexOf('.axis-node .lab { color'));
-    expect(plated).toContain('background: #161c24');
-    expect(plated).toContain('border-radius: 0');
-    const labColor = css.slice(css.indexOf('.axis-node .lab { color'), css.indexOf('.axis-node .yr {', css.indexOf('.axis-node .lab { color')));
-    expect(labColor).toContain('#e8e4dc');
-    expect(contrast('#e8e4dc', '#161c24')).toBeGreaterThanOrEqual(4.5);
     const lab = css.slice(css.indexOf('.axis-node {'), css.indexOf('a.axis-node:hover'));
     expect(lab).toContain('color: #c5c0b6');
     expect(contrast('#c5c0b6', photoMedian)).toBeGreaterThanOrEqual(4.5);

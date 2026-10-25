@@ -33,7 +33,7 @@ describe('R2 critical CSS', () => {
     expect(milestones).toContain('gap: 8px');
     expect(milestones).not.toContain('gap: 4px');
     const phone = css.slice(css.lastIndexOf('@media (max-width: 640px)'));
-    expect(block(phone, '.milestones {')).toContain('gap: 8px');
+    expect(block(phone, '.milestones {')).toContain('gap: 12px');
     const row = block(css, '.line-filter-row {');
     expect(row).toContain('gap: 8px');
     expect(row).not.toContain('gap: 6px');
