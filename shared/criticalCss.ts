@@ -104,15 +104,17 @@ button, input { font: inherit; color: inherit; }
   object-fit: cover; background: var(--chip);
 }
 .thumb-fallback { display: flex; align-items: center; justify-content: center; }
-.story-body { display: grid; gap: 10px; padding: 12px 16px 16px; align-content: start; }
+.story-body { display: grid; gap: 6px; padding: 12px 16px 16px; align-content: start; }
 .story-kicker, .story-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; color: var(--muted); font-size: 0.92rem; }
 .kicker-region { font-weight: 700; color: var(--text); font-size: 13px; }
 .story-title, .column-title {
   margin: 0; font-family: var(--font-serif); font-weight: 700;
-  font-size: clamp(1.4rem, 5vw, 1.85rem); line-height: 1.35;
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem); line-height: 1.32;
 }
+.story-hero .story-title { font-size: clamp(1.35rem, 2.4vw, 1.85rem); line-height: 1.32; }
 .column-hero.pack-shell .column-title { font-size: 28px; line-height: 1.35; }
-.dek { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
+.dek { margin: 0; color: var(--muted); font-size: 1.02rem; line-height: 1.6; }
+.column-hero.pack-shell .dek { font-size: 15px; line-height: 1.55; }
 .index-title-row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 10px; }
 .index-title-row .story-kicker { margin: 0; }
 .column-h2 { margin: 0; font-family: var(--font-serif); font-size: 18px; line-height: 1.4; }
@@ -145,6 +147,20 @@ button, input { font: inherit; color: inherit; }
   .search-bar > .search-toggle { display: inline-flex; min-height: 44px; min-width: 44px; }
   .search-bar input { display: none; }
   .layout { margin-top: 4px; gap: 8px; }
+  .chrome > .tab-bar {
+    flex-wrap: nowrap; align-items: center; gap: 8px; min-width: 0; padding: 8px 0;
+  }
+  .chrome .chip-scroller {
+    display: flex; flex: 1 1 0%; width: 0; min-width: 0; overflow: hidden; align-items: center;
+  }
+  .chrome .chip-scroller .civ-nav { flex-wrap: nowrap; width: max-content; gap: 8px; }
+  .chrome .civ-nav .chip, .chrome .nav-more > summary {
+    min-width: 44px; min-height: 44px; padding: 3px 8px; font-size: 13px;
+  }
+  .chrome .nav-more > summary {
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--chip-border); border-radius: var(--radius-pill); background: var(--card);
+  }
   .timeline[data-timeline="scroll"] {
     display: flex; gap: 10px; overflow-x: auto; overscroll-behavior-x: contain;
     padding: 2px 2px 6px; scroll-snap-type: x proximity;
