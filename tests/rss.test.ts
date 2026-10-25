@@ -56,6 +56,16 @@ describe('rss parse and dedupe', () => {
     expect(normalizeLink('https://www.bbc.com/news/a?at_medium=RSS&at_campaign=rss')).toBe('https://www.bbc.com/news/a');
   });
 
+  it('repairs a doubled image scheme instead of requesting https://https//', () => {
+    const xml = `<rss><channel><item>
+      <title>界面</title>
+      <link>https://www.jiemian.com/article/1.html</link>
+      <pubDate>Tue, 06 Oct 2026 01:00:00 GMT</pubDate>
+      <media:content url="https://https//img.jiemian.com/101/original/a580x330.png" type="image/png" />
+    </item></channel></rss>`;
+    expect(parseFeed(xml, feed)[0]?.image).toBe('https://img.jiemian.com/101/original/a580x330.png');
+  });
+
   it('reads itunes images and pictures escaped inside the description', () => {
     const xml = `<rss><channel><item>
       <title>Show art</title>

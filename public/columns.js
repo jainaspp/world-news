@@ -433,6 +433,9 @@
     article.appendChild(body);
     return article;
   }
+  var pageEl = document.querySelector('.column-page');
+  var pageKind = pageEl ? pageEl.getAttribute('data-kind') : '';
+  function loadRelated() {
   fetch('/api/news').then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
     if (!data || !data.items) return;
     var items = data.items.filter(function (item) { return item.link && exclude.indexOf(item.link) < 0; });
@@ -445,6 +448,10 @@
     picked.forEach(function (item) { grid.appendChild(card(item)); });
     related.hidden = false;
   }).catch(function () {});
+  }
+  if ((pageKind === 'briefing' || pageKind === 'compare') && window.requestIdleCallback) {
+    window.requestIdleCallback(loadRelated, { timeout: 3000 });
+  } else loadRelated();
 })();
 
   // Merged HK weather + Hang Seng row. A failed side is omitted; both failing leaves the row hidden.
