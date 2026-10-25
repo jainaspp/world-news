@@ -146,7 +146,9 @@ describe('article and briefing LCP shell', () => {
     const briefing = renderContentPage(doc, 'https://world-news.xyz/briefing/2026-10-24-pm/');
     expect(withoutNoscript(briefing)).not.toContain('<link rel="stylesheet" href="/site.css"');
     expect(briefing).toContain('class="dek"');
+    expect(briefing).toContain('class="story-title column-title"');
     expect(briefing).toContain('id="wn-lcp-boot"');
+    expect(ARTICLE_CRITICAL_CSS).toContain('min-height: 56px');
     const digest = renderContentPage({ ...doc, kind: 'digest', key: '2026-10-24-am' }, 'https://world-news.xyz/digest/2026-10-24-am/');
     expect(digest).toContain('<link rel="stylesheet" href="/site.css"');
     expect(digest).not.toContain('id="wn-critical"');

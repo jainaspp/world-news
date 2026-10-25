@@ -190,8 +190,9 @@ button, input { font: inherit; color: inherit; }
     display: inline-flex; align-items: center; justify-content: center;
     border: 1px solid var(--chip-border); border-radius: var(--radius-pill); background: var(--card);
   }
+  .column-title { min-height: 56px; }
   .column-hero.pack-shell .column-title,
-  .pack-article .column-title { font-size: 20px; line-height: 28px; }
+  .pack-article .column-title { font-size: 20px; line-height: 28px; min-height: 56px; }
   .column-hero.pack-shell .dek,
   .pack-article .dek { font-size: 15px; line-height: 24px; min-height: 24px; }
   .pack-toolbar { display: flex; align-items: center; height: 36px; max-height: 36px; overflow: hidden; }

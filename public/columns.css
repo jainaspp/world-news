@@ -643,6 +643,12 @@ html.dark .jd-tool-card { box-shadow: none; }
     margin: 0 0 12px;
     font-size: 20px;
     line-height: 28px;
+    min-height: 56px;
+  }
+  .page.column-page[data-kind="compare"] .pack-article .story-title.title-reserve,
+  .page.column-page[data-kind="briefing"] .pack-article .story-title.title-reserve,
+  .page.column-page[data-kind="story"] .pack-article .story-title.title-reserve {
+    min-height: 113px;
   }
   .page.column-page[data-kind="compare"] .pack-article .dek,
   .page.column-page[data-kind="briefing"] .pack-article .dek,

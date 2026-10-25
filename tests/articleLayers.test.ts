@@ -122,6 +122,8 @@ describe('T1 four-layer article', () => {
     expect(mobile).toContain('margin: 0 0 12px');
     expect(mobile).toContain('font-size: 20px');
     expect(mobile).toContain('line-height: 28px');
+    expect(mobile).toContain('min-height: 56px');
+    expect(mobile).toContain('min-height: 113px');
     expect(mobile).toContain('margin: 0 0 8px');
     expect(mobile).toContain('font-size: 15px');
     expect(mobile).toContain('line-height: 24px');
