@@ -170,6 +170,8 @@ describe('article and briefing LCP shell', () => {
     expect(readFileSync('shared/adPolicy.ts', 'utf8')).not.toContain('enable_page_level_ads:true');
     const rules = ARTICLE_CRITICAL_CSS.split('{').length - 1;
     expect(rules).toBeGreaterThan(40);
+    expect(ARTICLE_CRITICAL_CSS).toContain('.chrome { min-height: 178px; }');
+    expect(ARTICLE_CRITICAL_CSS).toContain('size-adjust: 100%');
     expect(readFileSync('public/columns.css', 'utf8')).toContain('.timeline[data-timeline="scroll"]');
   });
 });

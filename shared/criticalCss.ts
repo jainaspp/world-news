@@ -25,8 +25,8 @@ export const ARTICLE_CRITICAL_CSS = `
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-pill: 999px;
-  --font-sans: "Noto Sans TC", "PingFang HK", "PingFang TC", "Microsoft JhengHei", sans-serif;
-  --font-serif: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --font-sans: "Noto Sans TC", "WN Sans FB", "PingFang HK", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-serif: "Noto Serif TC", "WN Serif FB", "Songti TC", "PMingLiU", serif;
   --main-col: 812px;
   --bg: var(--color-bg);
   --card: var(--color-surface);
@@ -55,6 +55,22 @@ html.dark {
   --line: var(--color-line);
   --accent: var(--color-primary);
   --chip: var(--color-chip);
+}
+@font-face {
+  font-family: "WN Sans FB";
+  src: local("PingFang HK"), local("PingFang TC"), local("Microsoft JhengHei");
+  size-adjust: 100%;
+  ascent-override: 95%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "WN Serif FB";
+  src: local("Songti TC"), local("PMingLiU"), local("Noto Serif CJK TC");
+  size-adjust: 100%;
+  ascent-override: 95%;
+  descent-override: 22%;
+  line-gap-override: 0%;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; min-height: 100%; }
@@ -112,9 +128,9 @@ button, input { font: inherit; color: inherit; }
   font-size: clamp(1.35rem, 2.4vw, 1.85rem); line-height: 1.32;
 }
 .story-hero .story-title { font-size: clamp(1.35rem, 2.4vw, 1.85rem); line-height: 1.32; }
-.column-hero.pack-shell .column-title { font-size: 28px; line-height: 1.35; }
-.dek { margin: 0; color: var(--muted); font-size: 1.02rem; line-height: 1.6; }
-.column-hero.pack-shell .dek { font-size: 15px; line-height: 1.55; }
+.column-hero.pack-shell .column-title { font-size: 28px; line-height: 1.35; min-height: 1.35em; }
+.dek { margin: 0; color: var(--muted); font-size: 1.02rem; line-height: 1.6; min-height: 1.6em; }
+.column-hero.pack-shell .dek { font-size: 15px; line-height: 1.55; min-height: 1.55em; }
 .index-title-row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 10px; }
 .index-title-row .story-kicker { margin: 0; }
 .column-h2 { margin: 0; font-family: var(--font-serif); font-size: 18px; line-height: 1.4; }
@@ -134,9 +150,21 @@ button, input { font: inherit; color: inherit; }
 .notice { color: var(--muted); }
 .key-points { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 16px; }
 .share-buttons, .story-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.listen {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 44px;
+}
+.listen[hidden] { display: flex !important; }
 .favicon { width: 16px; height: 16px; }
 @media (max-width: 700px) {
-  .chrome { min-height: 100px; }
+  /* QA mobile (~390px layout): .chrome grew 104→178 when site.css painted the weather row. */
+  .chrome { min-height: 178px; }
+  .chrome > .hk-info {
+    display: flex; align-items: center; flex-wrap: wrap; box-sizing: border-box;
+    min-height: 40px; margin: 4px 0 0; padding: 4px 12px;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    font-size: 0.9rem; line-height: 1.4;
+  }
+  .chrome > .hk-info[hidden] { display: flex !important; }
   .masthead { min-height: 44px; flex-wrap: wrap; }
   .logo-link .logo-full { display: none !important; }
   .logo-link .logo-compact.logo-light { display: block; }
