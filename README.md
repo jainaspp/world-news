@@ -66,7 +66,62 @@ Vercel Cron 每日 08:00 UTC 呼叫 `GET /api/crawl`。同一條連結會覆寫�
 
 ## Cloudflare Pages
 
-跟 Vercel 共用 `server/` 的 RSS、分類同 Supabase 邏輯。`functions/api/news.ts` 同 `functions/api/crawl.ts` 只負責 Workers 的請求同 Cache API。`/api/news` 回應 `Cache-Control: public, s-maxage=300, stale-while-revalidate=600`，並且寫入 Cache API。300 秒內直接回快取；300 到 900 秒回舊內容並在背景更新。
+跟 Vercel 共用 `server/` 的 RSS、分類同 Supabase 邏輯。`functions/api/news.ts` 同 `functions/api/crawl.ts` 只負責 Workers 的請求同 Cache API。`/api/news` 回應 `Cache-Control: public, s-maxage=300, stale-while-revalidate=600`，並且寫入 Cache API。300 秒內直接回快取；300 到 900 秒回舊內容並在背景更新。這個 Cache API 只在這座資料中心的 Function 裡面，`cf-cache-status` 仍然是 `DYNAMIC`。
+
+### 文章 HTML 同 `/api/news` 的 CDN 快取
+
+Cloudflare 在請求進來時就決定這條 URL 能不能進 CDN。HTML 同 JSON 不在預設可快取的副檔名裡，所以只設 `Cache-Control`（或只寫 `caches.default`）不會變成 `HIT`。`cf.cacheTtl` 只影響這個 Worker 自己發出的 `fetch()`，不會把 Function 回傳的 Response 放進 CDN。
+
+程式做了兩件事：
+
+- 公開的導讀、懶人包、分析、日報、週報、專題同 `/story/<id>`，在 `world-news.xyz` 上用 Cache API 做短 TTL 加 stale-while-revalidate。同一個資料中心的下一次請求不必再掃 KV。
+- 這些頁面同 `GET`/`HEAD /api/news` 加上 `Cloudflare-CDN-Cache-Control`。可共用的 200 是短的 `s-maxage` 加 `stale-while-revalidate`（最長 600 秒）。錯誤、`Authorization`、`Set-Cookie`、`Vary: cookie`、首頁同其他 API 是 `no-store`，避免一條過寬的規則把不該共用的回應存下來。
+
+`/api/news` 不放進第二層 Cache API，避免跟分片自己的 300／900 秒時鐘疊加，把舊的分片再標成新鮮。
+
+導讀比故事慢，是因為 `/briefing/<slot>` 先讀完整份導讀索引，再逐篇 `readDoc`（索引上限 186），另外再讀當日懶人包。故事頁只打一次已快取的 `/api/news`，再讀看板。冷的導讀仍然要付這筆 KV；熱的請求走上面的快取。
+
+**只靠程式不能把 HTML／JSON 變成 `cf-cache-status: HIT`。** 擁有人要在區域 `world-news.xyz`（不是 `pages.dev`）加一條 Cache Rule：
+
+1. Caching → Cache Rules → Create rule。名稱例如 `Public article HTML and news API`。
+2. 符合這條運算式（Custom filter expression）：
+
+```
+(http.host eq "world-news.xyz" and (http.request.method eq "GET" or http.request.method eq "HEAD") and not len(http.request.headers["authorization"]) > 0 and (starts_with(http.request.uri.path, "/briefing") or starts_with(http.request.uri.path, "/explainer") or starts_with(http.request.uri.path, "/analysis") or starts_with(http.request.uri.path, "/digest") or starts_with(http.request.uri.path, "/weekly") or starts_with(http.request.uri.path, "/topic") or starts_with(http.request.uri.path, "/story/") or http.request.uri.path eq "/api/news"))
+```
+
+3. Cache eligibility：**Eligible for cache**。
+4. Edge TTL：**Use cache-control header if present, bypass cache if not**（`bypass_by_default`）。不要選 Ignore cache-control，否則 `no-store` 的 404 也會被存住。
+5. Browser TTL：**Respect origin**。不要把瀏覽器 TTL 拉長。
+6. 不要把 Cookie 放進 cache key。Query string 維持預設（全部計入），`/api/news?part=` 才不會混在一起。付費方案如果可以忽略 query，只忽略 `utm_*`、`fbclid`、`gclid`。
+7. 不要為 `/*` 或 `/` 建 Cache Everything。首頁殼、`/region/`、`/category/`、`/api/generate`、`/api/crawl`、`/api/reads` 都不在這條規則裡。
+
+Origin Cache Control 在 Free／Pro／Business 預設是開的，不要關掉。部署不會自動清掉這條規則存下的 HTML。TTL 最長約 5 分鐘；如果存到壞回應，到 Caching → Configuration → Custom Purge 清那條 URL。
+
+規則生效後：
+
+```bash
+curl -sI https://world-news.xyz/briefing/ | grep -iE 'HTTP/|cf-cache-status|cache-control|age:|etag|x-pages-cache'
+curl -sI https://world-news.xyz/briefing/ | grep -iE 'HTTP/|cf-cache-status|cache-control|age:|etag|x-pages-cache'
+curl -sI https://world-news.xyz/api/news | grep -iE 'HTTP/|cf-cache-status|cache-control|age:|etag|x-pages-cache'
+curl -sI https://world-news.xyz/api/news | grep -iE 'HTTP/|cf-cache-status|cache-control|age:|etag|x-pages-cache'
+curl -sI -H 'Authorization: Bearer x' https://world-news.xyz/api/news | grep -iE 'cf-cache-status|cache-control'
+curl -sI https://world-news.xyz/api/generate | grep -iE 'cf-cache-status|cache-control'
+curl -sI https://world-news.xyz/ | grep -iE 'cf-cache-status|cache-control'
+```
+
+第二次、而且還在 `s-maxage` 內，可快取的 URL 應該是 `cf-cache-status: HIT`。過了 `s-maxage`、正文沒變、重新驗證拿到 304 時是 `REVALIDATED`。stale-while-revalidate 那一段 Cloudflare 可能顯示 `UPDATING`。規則還沒上線時，`cf-cache-status` 維持 `DYNAMIC`；導讀第二下應該看到 `x-pages-cache: HIT`（或 `STALE`），`/api/news` 的第二下也是。規則生效之後以 `cf-cache-status` 為準：CDN 存下的是第一次源站回應，裡面的 `x-pages-cache` 可能仍寫著 `MISS`。`Authorization`、`/api/generate`、首頁不應變成可共用的 `HIT`。`curl -sI` 是 HEAD；若第二下導讀仍是 `x-pages-cache: MISS`，改用 `curl -s -D - -o /dev/null` 再看一次（有些執行環境會把 HEAD 的正文拿掉，Cache API 不會把空正文寫進去）。
+
+仍然會是 `DYNAMIC`（規則沒有涵蓋，或請求時就不合格）的：
+
+- 規則未建立之前的所有 HTML／JSON
+- 首頁 `/`、`/region/*`、`/category/*`、`/search`、`/saved`，以及其他 `/api/*`（`/api/news` 除外）
+- `POST` 和其他非 GET／HEAD
+- 帶 `Authorization` 的請求（規則吻合時是 `BYPASS`，因為 `no-store`）
+- 404、503 和其他非 200（規則吻合時是 `BYPASS`）
+- 有 `Set-Cookie` 的回應
+- `*.pages.dev`（規則在 `world-news.xyz` 這個 zone；正式的 pages.dev 別名本來就會 301）
+- `/assets/*` 不是 DYNAMIC：帶 hash 的靜態檔會 `HIT`，跟這條規則無關
 
 Pages 專案設定：
 

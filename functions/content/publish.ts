@@ -81,7 +81,8 @@ async function page(doc: ContentDoc, canonical: string, env: ContentEnv, status 
   const archive = await readIndex(env, doc.kind).catch(() => []);
   // Docs saved before the guard existed get the same deterministic pass when shown.
   const shown = doc.mode === 'ai' ? guardDoc(doc) : doc;
-  return new Response(renderContentPage(shown, canonical, { ads: adConfig(env), archive }), { status, headers: HTML_HEADERS });
+  const headers = status === 200 ? HTML_HEADERS : { 'content-type': HTML_HEADERS['content-type'], 'cache-control': 'no-store' };
+  return new Response(renderContentPage(shown, canonical, { ads: adConfig(env), archive }), { status, headers });
 }
 
 function emptyDoc(kind: ContentDoc['kind'], key: string, title: string): ContentDoc {

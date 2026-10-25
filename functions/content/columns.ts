@@ -138,7 +138,8 @@ function htmlPage(
     ? { ...doc, mode: 'sources' as const, points: [], blocks: doc.blocks.map((block) => ({ ...block, sentences: block.sources.slice(0, 6).map((ref) => `${ref.source}報道：${ref.title}。`) })) }
     : doc;
   const shown = listed.mode === 'ai' ? guardDoc(listed) : listed;
-  return new Response(renderContentPage(shown, canonical, { ads: adConfig(env), archive, explainers }), { status, headers: HTML_HEADERS });
+  const headers = status === 200 ? HTML_HEADERS : { 'content-type': HTML_HEADERS['content-type'], 'cache-control': 'no-store' };
+  return new Response(renderContentPage(shown, canonical, { ads: adConfig(env), archive, explainers }), { status, headers });
 }
 
 function apiKey(env: ContentEnv): string {
