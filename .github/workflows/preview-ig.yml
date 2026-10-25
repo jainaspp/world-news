@@ -1,0 +1,33 @@
+name: preprod-ig-preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - cursor/t5-ig-swipe-cards-6afc
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Deploy this branch to the preprod Pages project
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${CLOUDFLARE_API_TOKEN}" ]; then
+            echo "CLOUDFLARE_API_TOKEN secret is empty; not deploying production"
+            exit 1
+          fi
+          npx --yes wrangler@4 pages deploy dist \
+            --project-name world-news-b5e \
+            --branch cursor/t5-ig-swipe-cards-6afc \
+            --commit-dirty=true
