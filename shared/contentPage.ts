@@ -2,7 +2,7 @@ import { feedTitle, siteBrand, swCacheName } from './brand.js';
 import { readableSourceTitle } from './search.js';
 import { CATEGORY_TILE, categoryLabel, isCategoryId } from './categories.js';
 import { briefingPublic, briefingScopeOf, columnHeroSources, explainerCurrent, leadImage, sourceList as listedSources, type ContentDoc, type IndexEntry, type SourceRef } from './content.js';
-import { bestImage } from './media.js';
+import { bestImage, repairDoubledScheme } from './media.js';
 import { listens } from './listen.js';
 import { adsRuntimeEnabled } from './adPolicy.js';
 import { adSlotMarkup, hasManualSlots } from './adSlot.js';
@@ -10,6 +10,8 @@ import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
 import { renderCivilizationSlice } from './civilization/renderSlice.js';
 import { jdToolCardMarkup } from './jdToolCard.js';
+import { afterLcpBootstrap, criticalStyleTag, parkNonLcpImages } from './criticalCss.js';
+import { isMostlyEnglish } from './zh.js';
 
 /**
  * Server-rendered pages for the AI columns (/digest/, /weekly/, /analysis/).
@@ -35,7 +37,26 @@ export interface PageOptions {
 }
 
 const DEFAULT_CLIENT = 'ca-pub-8392975944327076';
-const FONTS = 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap';
+export const WEB_FONTS = 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap';
+
+export interface HeadTune {
+  /** Inline article critical CSS and keep site.css, columns.css, and webfonts off the LCP path. */
+  lcp?: boolean;
+  /** Absolute URL of the story LCP image. Omitted when the LCP node is text. */
+  imagePreload?: string;
+}
+
+/**
+ * Briefing and explainer ads stay off the title, dek, and timeline.
+ * One optional unit sits after the body and before the source list.
+ * The other configured unit (bottom, or top when bottom is empty) sits after sources.
+ */
+export function packAdSlots(ads: AdConfig | undefined): { inArticle: string; afterSources: string } {
+  return {
+    inArticle: ads?.mid || '',
+    afterSources: ads?.bottom || ads?.top || '',
+  };
+}
 
 export function esc(value: string): string {
   return String(value ?? '').replace(/[&<>"']/g, (char) => (
@@ -46,8 +67,10 @@ export function esc(value: string): string {
 export function safeHttp(url: string | undefined): string {
   if (!url) return '';
   try {
-    const parsed = new URL(url);
-    return parsed.protocol === 'https:' || parsed.protocol === 'http:' ? parsed.toString() : '';
+    const parsed = new URL(repairDoubledScheme(url));
+    if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return '';
+    if (parsed.hostname === 'https' || parsed.hostname === 'http') return '';
+    return parsed.toString();
   } catch {
     return '';
   }
@@ -103,10 +126,11 @@ export function safeMediaSrc(url: string | undefined): string {
 }
 
 /** Feed photo with the same category-colour tile as the homepage when there is none or it fails. */
-export function media(image: string | undefined, category: string | undefined, label: string, eager = false, alt = ''): string {
+export function media(image: string | undefined, category: string | undefined, label: string, eager = false, alt = '', lcp = false): string {
   const src = safeMediaSrc(image);
   if (!src) return fallbackTile(category, label);
-  return `<img class="thumb" src="${esc(src)}" alt="${esc(alt)}" width="640" height="360" loading="${eager ? 'eager' : 'lazy'}"${eager ? ' fetchpriority="high"' : ''} decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />${fallbackTile(category, label, true)}`;
+  const priority = lcp || eager;
+  return `<img class="thumb"${lcp ? ' id="wn-lcp"' : ''} src="${esc(src)}" alt="${esc(alt)}" width="640" height="360" loading="${priority ? 'eager' : 'lazy'}"${priority ? ' fetchpriority="high"' : ''} decoding="${lcp ? 'sync' : 'async'}" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />${fallbackTile(category, label, true)}`;
 }
 
 export function favicon(url: string): string {
@@ -197,7 +221,7 @@ function eventTimeline(sources: SourceRef[]): string {
   const rows = timelineRows(sources);
   if (rows.length < 2) return '';
   const items = rows.map((source, index) => `<li><time datetime="${esc(source.pubDate || '')}">${esc(hkt(source.pubDate || '', false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body"><strong class="tl-phase">${phaseName(index, rows.length)}</strong> <strong>${esc(source.source)}</strong> ${esc(source.title)}</span></li>`).join('');
-  return `<section class="story column-block timeline-card" aria-label="事件時間線"><div class="story-body"><h2 class="column-h2">事件時間線</h2><ol class="timeline">${items}</ol></div></section>`;
+  return `<section class="story column-block timeline-card" aria-label="事件時間線"><div class="story-body"><h2 class="column-h2">事件時間線</h2><ol class="timeline" data-timeline="scroll">${items}</ol></div></section>`;
 }
 
 const KIND_LABEL: Record<ContentDoc['kind'], string> = {
@@ -259,7 +283,23 @@ export function columnIndexable(doc: ContentDoc): boolean {
   return false;
 }
 
-export function head(title: string, description: string, canonical: string, image: string, type: string, extra: string, client: string, loadAds = true): string {
+export function head(title: string, description: string, canonical: string, image: string, type: string, extra: string, client: string, loadAds = true, tune?: HeadTune): string {
+  const lcp = Boolean(tune?.lcp);
+  const preload = tune?.imagePreload
+    ? `<link rel="preload" as="image" href="${esc(tune.imagePreload)}" fetchpriority="high" />`
+    : '';
+  const styles = lcp
+    ? `${criticalStyleTag()}${preload}<noscript><link rel="stylesheet" href="/site.css" /><link rel="stylesheet" href="/columns.css" /></noscript>`
+    : `<link rel="stylesheet" href="/site.css" />
+  <link rel="stylesheet" href="/columns.css" />`;
+  const fonts = lcp
+    ? `<noscript><link rel="stylesheet" href="${WEB_FONTS}" /></noscript>`
+    : `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="${WEB_FONTS}" media="print" onload="this.media='all'" />`;
+  const runtime = lcp
+    ? `<noscript><script src="/live-translate.js"></script><script src="/columns.js"></script></noscript>`
+    : `<script defer src="/live-translate.js"></script>
+  <script defer src="/columns.js"></script>`;
   return `<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -285,15 +325,30 @@ export function head(title: string, description: string, canonical: string, imag
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.json" />
   <script>try{var s=localStorage.getItem('darkMode');if(s==='true'||(s!=='false'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');var l=localStorage.getItem('wn_lang');if(l==='en'||l==='zh-CN'||l==='zh-HK')document.documentElement.lang=l}catch(e){}</script>
-  <link rel="stylesheet" href="/site.css" />
-  <link rel="stylesheet" href="/columns.css" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="${FONTS}" media="print" onload="this.media='all'" />
-  ${loadAds && client && adsRuntimeEnabled() ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(client)}" crossorigin="anonymous"></script>` : ''}
-  <script defer src="/live-translate.js"></script>
-  <script defer src="/columns.js"></script>
+  ${styles}
+  ${fonts}
+  ${!lcp && loadAds && client && adsRuntimeEnabled() ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(client)}" crossorigin="anonymous"></script>` : ''}
+  ${runtime}
   ${extra}
 </head>`;
+}
+
+/** Story, briefing, and explainer documents. Other column kinds keep blocking CSS. */
+export function withLcpShell(html: string, options: { imageId?: string; adsSrc?: string } = {}): string {
+  const scripts = [
+    ...(options.adsSrc ? [options.adsSrc] : []),
+    '/live-translate.js',
+    '/columns.js',
+  ];
+  const boot = afterLcpBootstrap({
+    stylesheets: ['/site.css', '/columns.css'],
+    scripts,
+    fonts: WEB_FONTS,
+    imageId: options.imageId || '',
+    scriptCrossOrigin: Boolean(options.adsSrc),
+  });
+  const parked = parkNonLcpImages(html);
+  return parked.includes('</body>') ? parked.replace('</body>', `${boot}</body>`) : `${parked}${boot}`;
 }
 
 export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'learn'): string {
@@ -469,6 +524,8 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
     ? `<section class="highlight-box" aria-label="${esc(doc.highlight.label)}"><h2>${esc(doc.highlight.label)}</h2><ul>${doc.highlight.items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul></section>`
     : '';
   const bodyBlocks = modelFailed ? [] : shownBlocks;
+  const pack = doc.kind === 'briefing' || doc.kind === 'compare';
+  const adPlan = pack ? packAdSlots(ads) : { inArticle: '', afterSources: '' };
   const midAt = Math.max(1, Math.ceil(bodyBlocks.length / 2));
   const blocks = bodyBlocks.map((block, index) => {
     const blockImage = doc.kind === 'analysis' ? '' : safeHttp(bestImage(columnHeroSources(block.sources, doc.kind)));
@@ -487,7 +544,8 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
           ${points}
         </div>
       </section>`;
-    return section + (index + 1 === midAt && bodyBlocks.length > 1 ? adUnit(ads, ads?.mid, 'mid', true) : '');
+    const midAd = !pack && index + 1 === midAt && bodyBlocks.length > 1 ? adUnit(ads, ads?.mid, 'mid', true) : '';
+    return section + midAd;
   }).join('');
   const analysisTimeline = !modelFailed && doc.kind === 'analysis' ? timeline(sources) : '';
   const angles = !modelFailed && doc.kind === 'analysis' ? outletAngles(sources) : '';
@@ -515,21 +573,11 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const relatedCats = categories.join(',');
   const exclude = sources.map((source) => source.url).slice(0, 30);
   const empty = !modelFailed && !shownBlocks.length ? '<p class="notice">這一期暫時沒有足夠的多方來源。</p>' : '';
-
-  return `<!doctype html>
-<html lang="zh-HK">
-${head(doc.title, description, canonical, image, 'article', ld, client)}
-<body>
-  <div class="page column-page" data-kind="${doc.kind}">
-  ${chrome(doc.kind)}
-  <div class="layout">
-    <main id="content" class="column-main">
-      <article class="story story-hero column-hero${doc.kind === 'compare' || doc.kind === 'analysis' ? ' pack-shell' : ''}">
-        <div class="story-media">${media(image, leadCategory, sources[0]?.source || siteBrand, true)}</div>
-        <div class="story-body">
+  const heroMedia = `<div class="story-media">${media(image, leadCategory, sources[0]?.source || siteBrand, !pack)}</div>`;
+  const heroBody = `<div class="story-body">
           <div class="index-title-row">
             <div class="story-kicker">${modelFailed ? '' : '<span class="badge ai-badge">AI 整合</span>'}<span class="kicker-region">${columnName(doc)}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
-            <h1 class="story-title column-title">${esc(doc.title)}</h1>
+            <h1 class="story-title column-title${doc.kind === 'compare' && isMostlyEnglish(doc.title) ? ' title-reserve' : ''}">${esc(doc.title)}</h1>
           </div>
           ${doc.kind === 'analysis' || doc.kind === 'compare' ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : ''}
           ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}
@@ -543,22 +591,35 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
             publishedAt: doc.publishedAt,
             category: leadCategory,
           })}` : ''}
-        </div>
-      </article>
-      ${adUnit(ads, ads?.top, 'top')}
+        </div>`;
+  const hero = `<article class="story story-hero column-hero${doc.kind === 'compare' || doc.kind === 'analysis' ? ' pack-shell' : ''}">${pack ? `${heroBody}${heroMedia}` : `${heroMedia}${heroBody}`}</article>`;
+  const adsSrc = pack && client && adsRuntimeEnabled()
+    ? `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(client)}`
+    : '';
+  const html = `<!doctype html>
+<html lang="zh-HK">
+${head(doc.title, description, canonical, image, 'article', ld, client, !pack, pack ? { lcp: true } : undefined)}
+<body>
+  <div class="page column-page" data-kind="${doc.kind}">
+  ${chrome(doc.kind)}
+  <div class="layout">
+    <main id="content" class="column-main">
+      ${hero}
+      ${explainerTimeline}
+      ${pack ? '' : adUnit(ads, ads?.top, 'top')}
       ${note}
       ${empty}
       ${pointsBox || highlight ? `<div class="column-boxes">${pointsBox}${highlight}</div>` : ''}
       ${topicLinks}
-      ${explainerTimeline}
       ${angles}
       ${blocks}
+      ${pack ? adUnit(ads, adPlan.inArticle, 'in-article', true) : ''}
       ${explainerLinks}
       ${analysisTimeline}
       ${civSlice}
       ${toolCard}
       ${sourceSection}
-      ${adUnit(ads, ads?.bottom, 'bottom')}
+      ${pack ? adUnit(ads, adPlan.afterSources, 'after-sources') : adUnit(ads, ads?.bottom, 'bottom')}
       <section class="related" id="related" data-categories="${esc(relatedCats)}" data-exclude="${esc(JSON.stringify(exclude))}" hidden>
         <h2 class="section-title">相關頭條</h2>
         <div class="news-grid related-grid"></div>
@@ -572,6 +633,7 @@ ${head(doc.title, description, canonical, image, 'article', ld, client)}
   </div>
 </body>
 </html>`;
+  return pack ? withLcpShell(html, { adsSrc }) : html;
 }
 
 function packPreviewList(entry: IndexEntry): string {

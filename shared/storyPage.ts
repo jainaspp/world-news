@@ -1,6 +1,6 @@
 import { siteBrand } from './brand.js';
 import { analysisEligible, analysisSlug } from './content.js';
-import { bookmarkButton, catChip, chrome, esc, favicon, footer, head, heatBadge, hkt, listenControls, media, safeHttp, share } from './contentPage.js';
+import { bookmarkButton, catChip, chrome, esc, favicon, footer, head, heatBadge, hkt, listenControls, media, safeHttp, share, withLcpShell } from './contentPage.js';
 import { bestImage } from './media.js';
 import type { StoryCluster } from './trending';
 import type { NewsItem } from './types';
@@ -19,7 +19,7 @@ export function renderStoryPage(item: NewsItem, cluster: StoryCluster | null, re
   const ld = `<meta name="robots" content="noindex, follow" />`;
   const timeline = coverage.length > 1 ? `<section class="story column-block timeline-card" aria-label="各媒體報道"><div class="story-body">
         <h2 class="column-h2">各媒體報道（香港時間）</h2>
-        <ol class="timeline">${coverage.map((row) => `<li data-story-id="${esc(row.id)}"><time datetime="${esc(row.pubDate)}">${esc(hkt(row.pubDate, false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body">${favicon(row.link)} <strong>${esc(row.source)}</strong> <a href="${esc(safeHttp(row.link))}" target="_blank" rel="noopener noreferrer">${esc(row.title)}</a></span></li>`).join('')}</ol>
+        <ol class="timeline" data-timeline="scroll">${coverage.map((row) => `<li data-story-id="${esc(row.id)}"><time datetime="${esc(row.pubDate)}">${esc(hkt(row.pubDate, false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body">${favicon(row.link)} <strong>${esc(row.source)}</strong> <a href="${esc(safeHttp(row.link))}" target="_blank" rel="noopener noreferrer">${esc(row.title)}</a></span></li>`).join('')}</ol>
       </div></section>` : '';
   const cards = related.slice(0, 6).map((row) => `<article class="story">
           <a class="story-media" href="/story/${esc(row.id)}/" tabindex="-1" aria-hidden="true">${media(row.image, row.category, row.source)}</a>
@@ -29,16 +29,16 @@ export function renderStoryPage(item: NewsItem, cluster: StoryCluster | null, re
             <div class="story-meta">${favicon(row.link)}<span class="source-tag">${esc(row.source)}</span></div>
           </div>
         </article>`).join('');
-  return `<!doctype html>
+  const html = `<!doctype html>
 <html lang="zh-HK">
-${head(item.title, description, canonical, image, 'article', ld, '', false)}
+${head(item.title, description, canonical, image, 'article', ld, '', false, { lcp: true, ...(image ? { imagePreload: image } : {}) })}
 <body>
   <div class="page column-page" data-kind="story">
   ${chrome('none')}
   <div class="layout">
     <main id="content" class="column-main">
       <article class="story story-hero column-hero" data-story-id="${esc(item.id)}">
-        <div class="story-media">${media(image, item.category, item.source, true)}</div>
+        <div class="story-media">${media(image, item.category, item.source, true, '', Boolean(image))}</div>
         <div class="story-body">
           <div class="story-kicker">${catChip(item.category)}${heatBadge(outlets)}</div>
           <h1 class="story-title column-title">${esc(item.title)}</h1>
@@ -63,13 +63,14 @@ ${head(item.title, description, canonical, image, 'article', ld, '', false)}
   </div>
 </body>
 </html>`;
+  return withLcpShell(html, { imageId: image ? 'wn-lcp' : '' });
 }
 
 export function renderStoryMissing(canonical: string): string {
-  return `<!doctype html>
+  return withLcpShell(`<!doctype html>
 <html lang="zh-HK">
-${head('此則頭條已經下架', '標題只保留一段時間。', canonical, '', 'website', '<meta name="robots" content="noindex" />', '', false)}
-<body><div class="page column-page">${chrome('none')}<main id="content" class="column-index"><div class="status-panel"><h2>此則頭條已經下架</h2><p>${esc(siteBrand)}只保留最近的標題。可以返回首頁查看最新頭條。</p><a class="primary" href="/">返回首頁</a></div></main>${footer()}</div></body></html>`;
+${head('此則頭條已經下架', '標題只保留一段時間。', canonical, '', 'website', '<meta name="robots" content="noindex" />', '', false, { lcp: true })}
+<body><div class="page column-page" data-kind="story">${chrome('none')}<main id="content" class="column-index"><div class="status-panel"><h2>此則頭條已經下架</h2><p>${esc(siteBrand)}只保留最近的標題。可以返回首頁查看最新頭條。</p><a class="primary" href="/">返回首頁</a></div></main>${footer()}</div></body></html>`);
 }
 
 /** Same-category headlines first, newest first, excluding the story's own cluster. */

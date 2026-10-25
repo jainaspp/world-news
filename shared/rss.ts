@@ -1,4 +1,5 @@
 import { categorize, type CategoryId } from './categories.js';
+import { repairDoubledScheme } from './media.js';
 import type { Feed } from './feeds';
 import type { NewsItem } from './types';
 import { toHK } from './zh.js';
@@ -73,10 +74,11 @@ function toIso(raw: string): string {
 function safeImage(raw: string): string {
   const trimmed = raw.trim().replace(/&amp;/g, '&');
   if (!trimmed || trimmed.startsWith('data:')) return '';
-  const absolute = trimmed.startsWith('//') ? `https:${trimmed}` : trimmed;
+  const absolute = repairDoubledScheme(trimmed.startsWith('//') ? `https:${trimmed}` : trimmed);
   try {
     const url = new URL(absolute);
     if (url.protocol !== 'http:' && url.protocol !== 'https:') return '';
+    if (url.hostname === 'https' || url.hostname === 'http') return '';
     return url.toString();
   } catch {
     return '';
