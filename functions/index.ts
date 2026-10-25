@@ -11,7 +11,6 @@ import { readBoard, scheduleBoard } from './board/store.js';
 import { loadHomeColumns } from './content/homeColumns.js';
 import { loadBriefingLinks, loadMustRead } from './content/mustRead.js';
 import type { ContentEnv } from './content/store.js';
-import { civArchResponse, wantsNewsSkin } from '../shared/civArch/document.js';
 import { edgeCache, type PagesContext } from './env.js';
 
 const CACHE_KEY = new Request('https://world-news.xyz/ssr-home-v11');
@@ -31,11 +30,6 @@ function envSlot(env: Record<string, unknown>): string {
  */
 export async function onRequest(context: PagesContext): Promise<Response> {
   applyRuntimeEnv(context.env);
-  const requestUrl = new URL(context.request.url);
-  if ((requestUrl.pathname.replace(/\/+$/, '') || '/') === '/' && !wantsNewsSkin(requestUrl)) {
-    const documentHome = civArchResponse(context.request.url);
-    if (documentHome) return documentHome;
-  }
   const assets = context.env.ASSETS as { fetch(request: Request): Promise<Response> } | undefined;
   if (!assets) return context.next();
 

@@ -1,7 +1,8 @@
 /**
- * Phone spine geometry. At widths ≤640 the milestones wrap into a 4-column
- * grid with an 8px gap, so 城市／今天／未來 sit inside the resting frame.
- * Column width is (scrollport - (columns-1)*gap) / columns.
+ * Phone spine geometry. CSS mirrors this with
+ * `width: calc((100cqi - gap*(visible-1)) / visible)` inside the content box,
+ * plus an optional inline inset on the scrollport. A resting scroll of 0
+ * ends in the gap before the next label, not through a glyph.
  */
 
 export interface SpineSlot {
@@ -10,13 +11,15 @@ export interface SpineSlot {
   right: number;
 }
 
-export function phoneSpineSlots(scrollport: number, columns = 4, gap = 8, count = 7): SpineSlot[] {
-  const width = (scrollport - (columns - 1) * gap) / columns;
-  return Array.from({ length: count }, (_, index) => {
-    const col = index % columns;
-    const left = col * (width + gap);
-    return { index, left, right: left + width };
-  });
+export function phoneSpineSlots(scrollport: number, visible: number, gap: number, count = 7, inset = 0): SpineSlot[] {
+  const inner = scrollport - inset * 2;
+  const width = (inner - (visible - 1) * gap) / visible;
+  const stride = width + gap;
+  return Array.from({ length: count }, (_, index) => ({
+    index,
+    left: inset + index * stride,
+    right: inset + index * stride + width,
+  }));
 }
 
 /** Slots that intersect the resting scrollport (scrollLeft 0) but are not fully inside it. */
