@@ -21,6 +21,8 @@
   var flight = false;
   var frame = 0;
   var wrap = null;
+  var titleHoldUntil = Date.now() + 500;
+  var titleHoldTimer = 0;
   var menuButton = null;
   var menu = null;
 
@@ -115,11 +117,29 @@
     return record;
   }
 
+  function reservedTitle(node) {
+    var el = node && node.parentElement;
+    return !!(el && el.closest && el.closest('h1.title-reserve'));
+  }
+
+  function holdReservedTitle(node, target, core) {
+    if (!reservedTitle(node) || Date.now() >= titleHoldUntil) return false;
+    queue(target, core);
+    if (!titleHoldTimer) {
+      titleHoldTimer = setTimeout(function () {
+        titleHoldTimer = 0;
+        apply();
+      }, Math.max(0, titleHoldUntil - Date.now()) + 30);
+    }
+    return true;
+  }
+
   function paintText(node, target) {
     if (!node || !node.nodeValue || skipped(node)) return;
     var parts = splitEdges(node.nodeValue);
     if (!parts.core || !worth(parts.core)) return;
     var record = rememberRecord(records, node, parts.core);
+    if (holdReservedTitle(node, target, record.original)) return;
     var next = lookup(target, record.original);
     if (next == null) {
       queue(target, record.original);

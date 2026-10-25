@@ -407,6 +407,7 @@ html.dark .pack-shell { box-shadow: none; }
   font-weight: 700;
   line-height: 1.35;
 }
+.column-hero.pack-shell .story-title.title-reserve { min-height: 113px; }
 .column-page .column-h2 { font-size: 18px; }
 .column-index .dek,
 .column-hero.pack-shell .dek { font-size: 15px; line-height: 1.55; }

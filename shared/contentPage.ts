@@ -11,6 +11,7 @@ import { relatedTopics } from './topicPack.js';
 import { renderCivilizationSlice } from './civilization/renderSlice.js';
 import { jdToolCardMarkup } from './jdToolCard.js';
 import { afterLcpBootstrap, criticalStyleTag, parkNonLcpImages } from './criticalCss.js';
+import { isMostlyEnglish } from './zh.js';
 
 /**
  * Server-rendered pages for the AI columns (/digest/, /weekly/, /analysis/).
@@ -576,7 +577,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const heroBody = `<div class="story-body">
           <div class="index-title-row">
             <div class="story-kicker">${modelFailed ? '' : '<span class="badge ai-badge">AI 整合</span>'}<span class="kicker-region">${columnName(doc)}</span>${doc.kind === 'analysis' || doc.kind === 'compare' ? heatBadge(outlets) : ''}${credit ? `<span class="model-credit">${esc(credit)}</span>` : ''}${categories.map(catChip).join('')}</div>
-            <h1 class="story-title column-title">${esc(doc.title)}</h1>
+            <h1 class="story-title column-title${doc.kind === 'compare' && isMostlyEnglish(doc.title) ? ' title-reserve' : ''}">${esc(doc.title)}</h1>
           </div>
           ${doc.kind === 'analysis' || doc.kind === 'compare' ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : ''}
           ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}

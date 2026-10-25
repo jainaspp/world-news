@@ -129,6 +129,8 @@ button, input { font: inherit; color: inherit; }
 }
 .story-hero .story-title { font-size: clamp(1.35rem, 2.4vw, 1.85rem); line-height: 1.32; }
 .column-hero.pack-shell .column-title { font-size: 28px; line-height: 1.35; min-height: 1.35em; }
+/* English explainer H1 is three 28px lines (~113px) until live-translate shortens it. */
+.column-hero.pack-shell .story-title.title-reserve { min-height: 113px; }
 .dek { margin: 0; color: var(--muted); font-size: 1.02rem; line-height: 1.6; min-height: 1.6em; }
 .column-hero.pack-shell .dek { font-size: 15px; line-height: 1.55; min-height: 1.55em; }
 .index-title-row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 10px; }

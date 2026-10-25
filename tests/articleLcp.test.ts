@@ -172,6 +172,19 @@ describe('article and briefing LCP shell', () => {
     expect(rules).toBeGreaterThan(40);
     expect(ARTICLE_CRITICAL_CSS).toContain('.chrome { min-height: 178px; }');
     expect(ARTICLE_CRITICAL_CSS).toContain('size-adjust: 100%');
+    expect(ARTICLE_CRITICAL_CSS).toContain('.story-title.title-reserve { min-height: 113px; }');
+  });
+
+  it('reserves the explainer H1 when the headline is still English', () => {
+    const english = explainer();
+    english.title = 'Paramount weighs a longer bid for Warner after the board asks for more time';
+    const chinese = explainer();
+    const enHtml = renderContentPage(english, 'https://world-news.xyz/explainer/en/');
+    const zhHtml = renderContentPage(chinese, 'https://world-news.xyz/explainer/zh/');
+    expect(enHtml).toContain('class="story-title column-title title-reserve"');
+    expect(zhHtml).not.toContain('class="story-title column-title title-reserve"');
+    expect(readFileSync('public/live-translate.js', 'utf8')).toContain('h1.title-reserve');
+    expect(readFileSync('public/columns.css', 'utf8')).toContain('.story-title.title-reserve { min-height: 113px; }');
     expect(readFileSync('public/columns.css', 'utf8')).toContain('.timeline[data-timeline="scroll"]');
   });
 });
