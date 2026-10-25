@@ -562,7 +562,7 @@ export function igCloseCard(title: string, rest: string): string {
 }
 
 export function igDotsScript(): string {
-  return `<script id="ig-dots-boot">(function(){var deck=document.getElementById("ig-deck");var nav=document.getElementById("ig-dots");if(!deck||!nav||!window.matchMedia)return;var mq=window.matchMedia("(max-width: 768px)");function cards(){return Array.prototype.slice.call(deck.querySelectorAll(".ig-card"));}function build(){nav.textContent="";if(!mq.matches)return;cards().forEach(function(_,i){var dot=document.createElement("i");if(i===0)dot.className="on";nav.appendChild(dot);});}function sync(){if(!mq.matches)return;var list=cards();var dots=nav.children;if(dots.length!==list.length)build();dots=nav.children;var edge=deck.getBoundingClientRect().top+deck.clientHeight*0.35;var idx=0;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=edge+1)idx=i;}for(var j=0;j<dots.length;j++)dots[j].classList.toggle("on",j===idx);}build();deck.addEventListener("scroll",function(){requestAnimationFrame(sync);},{passive:true});if(mq.addEventListener)mq.addEventListener("change",function(){build();sync();});else if(mq.addListener)mq.addListener(function(){build();sync();});sync();})();</script>`;
+  return `<script id="ig-dots-boot">(function(){var deck=document.getElementById("ig-deck");var nav=document.getElementById("ig-dots");if(!deck||!nav||!window.matchMedia)return;var mq=window.matchMedia("(max-width: 900px)");function cards(){return Array.prototype.slice.call(deck.querySelectorAll(".ig-card"));}function build(){nav.textContent="";if(!mq.matches)return;cards().forEach(function(_,i){var dot=document.createElement("i");if(i===0)dot.className="on";nav.appendChild(dot);});}function sync(){if(!mq.matches)return;var list=cards();var dots=nav.children;if(dots.length!==list.length)build();dots=nav.children;var edge=deck.getBoundingClientRect().top+deck.clientHeight*0.35;var idx=0;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=edge+1)idx=i;}for(var j=0;j<dots.length;j++)dots[j].classList.toggle("on",j===idx);}build();deck.addEventListener("scroll",function(){requestAnimationFrame(sync);},{passive:true});if(mq.addEventListener)mq.addEventListener("change",function(){build();sync();});else if(mq.addListener)mq.addListener(function(){build();sync();});sync();})();</script>`;
 }
 
 function blockPieces(block: { title: string; sentences: string[] }): string[] {
@@ -573,10 +573,10 @@ function blockPieces(block: { title: string; sentences: string[] }): string[] {
 }
 
 /** One body card, or 3a/3b when the prose is long enough to split. Still a single pack-body. */
-function swipePackBody(blocks: { title: string; sentences: string[] }[], lead: string): string {
+export function igBodyCards(blocks: { title: string; sentences: string[] }[], lead = ''): string {
   const pieces = blocks.flatMap(blockPieces);
   const chars = blocks.reduce((sum, block) => sum + block.sentences.join('').length, 0);
-  const split = pieces.length >= 2 && (blocks.length >= 4 || chars > 700);
+  const split = pieces.length >= 2 && (pieces.length >= 5 || blocks.length >= 4 || chars > 700);
   if (!pieces.length && !lead.trim()) return '';
   if (!split) return `<div class="ig-card ig-card-body"><section class="pack-body">${lead}${pieces.join('')}</section></div>`;
   const mid = Math.ceil(pieces.length / 2);
@@ -704,7 +704,7 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const packImage = pack ? `<div class="story-media">${media(image, leadCategory, sources[0]?.source || siteBrand, false)}</div>` : '';
   const packOriginal = pack ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : '';
   const packLead = `${packImage}${packOriginal}${note}${empty}`;
-  const packBody = pack ? swipePackBody(bodyBlocks, packLead) : '';
+  const packBody = pack ? igBodyCards(bodyBlocks, packLead) : '';
   const related = `<section class="related" id="related" data-categories="${esc(relatedCats)}" data-exclude="${esc(JSON.stringify(exclude))}" hidden>
         <h2 class="section-title">相關頭條</h2>
         <div class="news-grid related-grid"></div>

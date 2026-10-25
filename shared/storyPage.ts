@@ -1,13 +1,38 @@
 import { siteBrand } from './brand.js';
 import { analysisEligible, analysisSlug } from './content.js';
-import { bookmarkButton, catChip, chrome, esc, favicon, footer, head, heatBadge, hkt, igCloseCard, igDotsNav, igDotsScript, igPointList, listenControls, media, packToolbar, safeHttp, share, withLcpShell } from './contentPage.js';
+import { bookmarkButton, catChip, chrome, esc, favicon, footer, head, heatBadge, hkt, igBodyCards, igCloseCard, igDotsNav, igDotsScript, igPointList, listenControls, media, packToolbar, safeHttp, share, withLcpShell } from './contentPage.js';
 import { bestImage } from './media.js';
 import type { StoryCluster } from './trending';
 import type { NewsItem } from './types';
 
+/** Plain sentences from a coverage blurb. Tags are dropped; the title alone is not body text. */
+function proseSentences(text: string, title: string): string[] {
+  const plain = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!plain) return [];
+  const parts = plain.split(/(?<=[。！？])\s*|(?<=[.!?])\s+/).map((part) => part.trim()).filter(Boolean);
+  const sentences = parts.length ? parts : [plain];
+  if (sentences.length === 1 && sentences[0].replace(/[。！？.!?]+$/g, '') === title.trim()) return [];
+  return sentences;
+}
+
+/** Body card from coverage blurbs already on the item. Omitted when every item is title-only. */
+function storyBody(coverage: NewsItem[]): string {
+  const seen = new Set<string>();
+  const blocks: { title: string; sentences: string[] }[] = [];
+  for (const row of coverage) {
+    const sentences = proseSentences(row.excerpt || '', row.title);
+    if (!sentences.length) continue;
+    const key = sentences.join('\n');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    blocks.push({ title: row.source, sentences });
+  }
+  return igBodyCards(blocks);
+}
+
 /**
  * /story/<id>/: one headline with every outlet's coverage of the same story, a reporting timeline
- * and related headlines. Only headlines, sources and links (no article text), so it is noindex.
+ * and related headlines. Noindex. The swipe body uses each outlet blurb when one is present.
  */
 export function renderStoryPage(item: NewsItem, cluster: StoryCluster | null, related: NewsItem[], canonical: string): string {
   const coverage = (cluster?.items ?? [item]).slice().sort((a, b) => Date.parse(a.pubDate) - Date.parse(b.pubDate));
@@ -68,6 +93,7 @@ ${head(item.title, description, canonical, image, 'article', ld, '', false, { lc
         </div>
       </article></div>
       ${timeline}
+      ${storyBody(coverage)}
       ${sources}
       ${igCloseCard(item.title, cards ? `<section class="related"><h2 class="section-title">相關頭條</h2><div class="news-grid related-grid">${cards}</div></section>` : '')}
       </div>

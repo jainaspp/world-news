@@ -219,7 +219,7 @@ button, input { font: inherit; color: inherit; }
 }
 .ig-deck, .ig-card, .ig-body-part, .ig-extra { display: contents; }
 .ig-points, .ig-dots, .ig-close-only { display: none; }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .page.column-page[data-kind="compare"]:has(.ig-deck),
   .page.column-page[data-kind="briefing"]:has(.ig-deck),
   .page.column-page[data-kind="story"]:has(.ig-deck) {
@@ -256,7 +256,8 @@ button, input { font: inherit; color: inherit; }
     padding: max(72px, env(safe-area-inset-top)) 20px calc(88px + env(safe-area-inset-bottom));
   }
   .page.column-page[data-kind="compare"]:has(.ig-deck) .pack-body:has(.ig-body-part),
-  .page.column-page[data-kind="briefing"]:has(.ig-deck) .pack-body:has(.ig-body-part) { display: contents; }
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .pack-body:has(.ig-body-part),
+  .page.column-page[data-kind="story"]:has(.ig-deck) .pack-body:has(.ig-body-part) { display: contents; }
   .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-lead,
   .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-lead,
   .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-lead { order: 1; }
@@ -264,7 +265,8 @@ button, input { font: inherit; color: inherit; }
   .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-timeline,
   .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-timeline { order: 2; }
   .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-body,
-  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-body { order: 3; }
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-body,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-body { order: 3; }
   .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-sources,
   .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-sources,
   .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-sources { order: 4; }
@@ -298,7 +300,7 @@ button, input { font: inherit; color: inherit; }
   .ig-card-close::after { content: none; }
   .ig-card .story, .ig-card .pack-sources, .ig-card .timeline-card { background: transparent; border: 0; box-shadow: none; }
 }
-@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) {
   .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-deck,
   .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-deck,
   .page.column-page[data-kind="story"]:has(.ig-deck) .ig-deck { scroll-behavior: auto; }

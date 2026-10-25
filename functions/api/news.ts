@@ -47,13 +47,18 @@ function cacheId(url: URL): string {
   return shardIndex(part) == null ? 'all' : part!;
 }
 
-function jsonResult(payload: NewsPayload): JsonResult {
+function keepBody(requestUrl: string): boolean {
+  return new URL(requestUrl).searchParams.get('body') === '1';
+}
+
+function jsonResult(payload: NewsPayload, withBody = false): JsonResult {
   const status = payload.items.length > 0 ? 200 : 503;
   // Public shards are slim. Excerpts are not stored, and parsing them in the parent
-  // was burning the CPU budget the list response needs.
+  // was burning the CPU budget the list response needs. Story pages opt in with body=1.
+  const bodyPayload = withBody ? payload : toListPayload(payload);
   return {
     status,
-    body: JSON.stringify(toListPayload(payload)),
+    body: JSON.stringify(bodyPayload),
     cacheControl: status === 200 ? 'public, s-maxage=300, stale-while-revalidate=600' : 'no-store',
   };
 }
@@ -74,9 +79,11 @@ function emptyShard(): NewsPayload {
   };
 }
 
-async function fetchShard(requestUrl: string, part: string): Promise<NewsPayload> {
+async function fetchShard(requestUrl: string, part: string, withBody: boolean): Promise<NewsPayload> {
   const shardUrl = new URL(requestUrl);
   shardUrl.searchParams.set('part', part);
+  if (withBody) shardUrl.searchParams.set('body', '1');
+  else shardUrl.searchParams.delete('body');
   try {
     const response = await fetch(shardUrl.href, { headers: { accept: 'application/json' } });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -87,7 +94,9 @@ async function fetchShard(requestUrl: string, part: string): Promise<NewsPayload
 }
 
 async function loadMerged(requestUrl: string): Promise<NewsPayload> {
-  const fresh = await readCache(false);
+  const withBody = keepBody(requestUrl);
+  // The stored list has no blurbs. Story pages must read the shard that still has them.
+  const fresh = withBody ? null : await readCache(false);
   if (fresh && fresh.length > 0) {
     return {
       items: fresh,
@@ -99,23 +108,25 @@ async function loadMerged(requestUrl: string): Promise<NewsPayload> {
   }
   const parts = isLocalRequest(requestUrl)
     ? await Promise.all(Array.from({ length: SHARD_COUNT }, (_, index) => assemblePayload(feedsInShard(String(index)))))
-    : await Promise.all(Array.from({ length: SHARD_COUNT }, (_, index) => fetchShard(requestUrl, String(index))));
+    : await Promise.all(Array.from({ length: SHARD_COUNT }, (_, index) => fetchShard(requestUrl, String(index), withBody)));
   const merged = mergePayloads(parts);
   if (merged.items.length > 0) void storeNews(merged.items).catch(() => undefined);
   return merged;
 }
 
 async function buildPart(requestUrl: string, part: string): Promise<JsonResult> {
-  if (shardIndex(part) != null) return jsonResult(await assemblePayload(feedsInShard(part)));
-  return jsonResult(await loadMerged(requestUrl));
+  const withBody = keepBody(requestUrl);
+  if (shardIndex(part) != null) return jsonResult(await assemblePayload(feedsInShard(part)), withBody);
+  return jsonResult(await loadMerged(requestUrl), withBody);
 }
 
 export async function onRequest(context: PagesContext): Promise<Response> {
   applyRuntimeEnv(context.env);
   const url = new URL(context.request.url);
   const part = cacheId(url);
-  // v3: smaller shards, slim bodies. Don't keep serving a v2 entry from the previous deploy.
-  const cacheKey = new Request(`${url.origin}/api/news?cache=v3-${part}`, { method: 'GET' });
+  const withBody = keepBody(url.href);
+  // v3: smaller shards, slim bodies. body=1 is a separate entry so the homepage list stays slim.
+  const cacheKey = new Request(`${url.origin}/api/news?cache=v3-${withBody ? 'body-' : ''}${part}`, { method: 'GET' });
   const cache = edgeCache();
 
   const finish = (result: JsonResult, response: Response) => {
