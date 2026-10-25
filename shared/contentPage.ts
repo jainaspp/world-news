@@ -360,7 +360,7 @@ export function head(title: string, description: string, canonical: string, imag
   <script defer src="/columns.js"></script>`;
   return `<head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>${esc(title)} — ${siteBrand}</title>
   <meta name="description" content="${esc(description)}" />
   <link rel="canonical" href="${esc(canonical)}" />
@@ -530,6 +530,59 @@ function keyPoints(doc: ContentDoc): string[] {
   return doc.blocks.map((block) => realSentences(block.sentences)[0] || '').filter(Boolean).slice(0, 4);
 }
 
+/** Up to three points already on the page: key points, else the first line of each section. */
+export function igSwipePoints(doc: ContentDoc, modelFailed = false): string[] {
+  if (modelFailed) return [];
+  const listed = (doc.points ?? []).map((point) => point.trim()).filter(Boolean);
+  if (listed.length) return listed.slice(0, 3);
+  const picked: string[] = [];
+  for (const block of doc.blocks) {
+    if (block.title === '事件時間線') continue;
+    const sentence = realSentences(block.sentences)[0];
+    if (!sentence) continue;
+    picked.push(sentence);
+    if (picked.length >= 3) break;
+  }
+  return picked;
+}
+
+export function igPointList(items: string[]): string {
+  const rows = items.map((item) => item.trim()).filter(Boolean).slice(0, 3);
+  if (!rows.length) return '';
+  return `<ul class="ig-points">${rows.map((point) => `<li>${esc(point)}</li>`).join('')}</ul>`;
+}
+
+export function igDotsNav(): string {
+  return '<nav class="ig-dots" id="ig-dots" aria-hidden="true"></nav>';
+}
+
+/** Close card. Ad markup, when present, is passed in `rest` so it stays after sources. */
+export function igCloseCard(title: string, rest: string): string {
+  return `<div class="ig-card ig-card-close"><div class="ig-close-only"><p class="ig-kicker">收束</p><h2 class="column-h2">完</h2><p class="dek">${esc(title)}</p><a class="chip" href="/">返回首頁</a></div>${rest}</div>`;
+}
+
+export function igDotsScript(): string {
+  return `<script id="ig-dots-boot">(function(){var deck=document.getElementById("ig-deck");var nav=document.getElementById("ig-dots");if(!deck||!nav||!window.matchMedia)return;var mq=window.matchMedia("(max-width: 900px)");function cards(){return Array.prototype.slice.call(deck.querySelectorAll(".ig-card"));}function build(){nav.textContent="";if(!mq.matches)return;cards().forEach(function(_,i){var dot=document.createElement("i");if(i===0)dot.className="on";nav.appendChild(dot);});}function sync(){if(!mq.matches)return;var list=cards();var dots=nav.children;if(dots.length!==list.length)build();dots=nav.children;var edge=deck.getBoundingClientRect().top+deck.clientHeight*0.35;var idx=0;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=edge+1)idx=i;}for(var j=0;j<dots.length;j++)dots[j].classList.toggle("on",j===idx);}build();deck.addEventListener("scroll",function(){requestAnimationFrame(sync);},{passive:true});if(mq.addEventListener)mq.addEventListener("change",function(){build();sync();});else if(mq.addListener)mq.addListener(function(){build();sync();});sync();})();</script>`;
+}
+
+function blockPieces(block: { title: string; sentences: string[] }): string[] {
+  const sentences = block.sentences.filter(Boolean);
+  if (!sentences.length) return [];
+  const paras = sentences.map((sentence) => `<p>${esc(sentence)}</p>`);
+  return [`<h2 class="column-h2">${esc(block.title)}</h2>${paras[0]}`, ...paras.slice(1)];
+}
+
+/** One body card, or 3a/3b when the prose is long enough to split. Still a single pack-body. */
+export function igBodyCards(blocks: { title: string; sentences: string[] }[], lead = ''): string {
+  const pieces = blocks.flatMap(blockPieces);
+  const chars = blocks.reduce((sum, block) => sum + block.sentences.join('').length, 0);
+  const split = pieces.length >= 2 && (pieces.length >= 5 || blocks.length >= 4 || chars > 700);
+  if (!pieces.length && !lead.trim()) return '';
+  if (!split) return `<div class="ig-card ig-card-body"><section class="pack-body">${lead}${pieces.join('')}</section></div>`;
+  const mid = Math.ceil(pieces.length / 2);
+  return `<section class="pack-body"><div class="ig-card ig-card-body ig-body-part" data-ig="3a">${lead}${pieces.slice(0, mid).join('')}</div><div class="ig-card ig-card-body ig-body-part" data-ig="3b">${pieces.slice(mid).join('')}</div></section>`;
+}
+
 export function renderContentPage(doc: ContentDoc, canonical: string, options: PageOptions = {}): string {
   const sources = [...new Map(doc.blocks.flatMap((block) => block.sources).map((source) => [source.url, source])).values()];
   const listed = doc.kind === 'briefing' || doc.kind === 'compare' ? listedSources(doc) : (doc.citations?.length ? doc.citations.slice(0, 10) : sources);
@@ -650,32 +703,32 @@ export function renderContentPage(doc: ContentDoc, canonical: string, options: P
   const adBoot = (midHtml + afterHtml).includes('adsbygoogle') ? deferredAdLoader(client || options.ads?.client || DEFAULT_CLIENT) : '';
   const packImage = pack ? `<div class="story-media">${media(image, leadCategory, sources[0]?.source || siteBrand, false)}</div>` : '';
   const packOriginal = pack ? originalTitle(doc.originalTitle, doc.originalUrl || sources[0]?.url) : '';
-  const packSections = bodyBlocks.map((block) => `<h2 class="column-h2">${esc(block.title)}</h2>${block.sentences.map((sentence) => `<p>${esc(sentence)}</p>`).join('')}`).join('');
-  const packInner = `${packImage}${packOriginal}${note}${empty}${packSections}`;
-  const packBody = pack && packInner.trim() ? `<section class="pack-body">${packInner}</section>` : '';
+  const packLead = `${packImage}${packOriginal}${note}${empty}`;
+  const packBody = pack ? igBodyCards(bodyBlocks, packLead) : '';
   const related = `<section class="related" id="related" data-categories="${esc(relatedCats)}" data-exclude="${esc(JSON.stringify(exclude))}" hidden>
         <h2 class="section-title">相關頭條</h2>
         <div class="news-grid related-grid"></div>
       </section>`;
-  const packMain = `<article class="story story-hero column-hero pack-shell pack-article">
+  const swipePoints = igPointList(igSwipePoints(doc, modelFailed));
+  const packMain = `${igDotsNav()}<div class="ig-deck" id="ig-deck">
+      <div class="ig-card ig-card-lead"><article class="story story-hero column-hero pack-shell pack-article">
         <div class="story-body">
           <div class="story-kicker">${modelFailed ? '' : '<span class="badge ai-badge">AI 整合</span>'}<span class="kicker-region">${columnName(doc)}</span></div>
           <h1 class="${titleClass}">${esc(doc.title)}</h1>
           ${showDek ? `<p class="dek">${esc(description)}</p>` : ''}
+          ${swipePoints}
           ${meta}
           ${packToolbar(`${share(doc.title, canonical)}${bookmark}`)}
         </div>
-      </article>
-      ${explainerTimeline}
+      </article></div>
+      ${explainerTimeline ? `<div class="ig-card ig-card-timeline">${explainerTimeline}</div>` : ''}
       ${packBody}
       ${midHtml}
-      ${civSlice}
-      ${toolCard}
-      ${sourceSection}
-      ${afterHtml}
-      ${related}
-      ${topicLinks}
-      ${explainerLinks}`;
+      ${civSlice ? `<div class="ig-extra">${civSlice}</div>` : ''}
+      ${toolCard ? `<div class="ig-extra">${toolCard}</div>` : ''}
+      ${sourceSection ? `<div class="ig-card ig-card-sources">${sourceSection}</div>` : ''}
+      ${igCloseCard(doc.title, `${afterHtml}${related}${topicLinks}${explainerLinks}`)}
+      </div>`;
   const columnMain = `<article class="story story-hero column-hero${doc.kind === 'analysis' ? ' pack-shell' : ''}">
         <div class="story-media">${media(image, leadCategory, sources[0]?.source || siteBrand, true)}</div>
         <div class="story-body">
@@ -719,6 +772,7 @@ ${head(doc.title, description, canonical, image, 'article', ld, client, !pack, p
   </div>
   ${footer(!pack)}
   </div>
+  ${pack ? igDotsScript() : ''}
   ${adBoot}
 </body>
 </html>`;

@@ -70,6 +70,16 @@ export function feedsInShard(part: string): Feed[] {
   return FEEDS.filter((_, feedIndex) => feedIndex % SHARD_COUNT === index);
 }
 
+/** Shard ids that carry these outlet labels. One story only needs its own outlets. */
+export function shardPartsForLabels(labels: string[]): string[] {
+  const wanted = new Set(labels);
+  const parts = new Set<string>();
+  FEEDS.forEach((feed, index) => {
+    if (wanted.has(feed.label)) parts.add(String(index % SHARD_COUNT));
+  });
+  return [...parts];
+}
+
 export const FEEDS: Feed[] = [
   { id: 'rthk-hk', label: '香港電台', homepage: 'https://news.rthk.hk', url: `${rthk}/c_expressnews_clocal.xml`, regions: ['HKG'], terms: 'uncertain', category: 'hk' },
   { id: 'rthk-en-hk', label: '港台英文', homepage: 'https://news.rthk.hk', url: `${rthk}/e_expressnews_elocal.xml`, regions: ['HKG'], terms: 'uncertain', category: 'hk' },

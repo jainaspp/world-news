@@ -190,3 +190,200 @@ describe('article and briefing LCP shell', () => {
     expect(readFileSync('public/columns.css', 'utf8')).toContain('.timeline[data-timeline="scroll"]');
   });
 });
+
+describe('T5 mobile IG swipe cards', () => {
+  function pointItems(html: string): string[] {
+    const start = html.indexOf('class="ig-points"');
+    expect(start).toBeGreaterThan(-1);
+    const ul = html.slice(start, html.indexOf('</ul>', start));
+    return [...ul.matchAll(/<li>(.*?)<\/li>/g)].map((match) => match[1]);
+  }
+
+  it('stacks explainer and briefing cards as title, timeline, body, sources, then the ad close', () => {
+    const html = renderContentPage(explainer(), 'https://world-news.xyz/explainer/2026-10-24-demo-abcdef123456/');
+    const lead = html.indexOf('class="ig-card ig-card-lead"');
+    const timeline = html.indexOf('class="ig-card ig-card-timeline"');
+    const body = html.indexOf('class="pack-body"');
+    const sources = html.indexOf('class="pack-sources"');
+    const close = html.indexOf('class="ig-card ig-card-close"');
+    expect(lead).toBeGreaterThan(0);
+    expect(lead).toBeLessThan(timeline);
+    expect(timeline).toBeLessThan(body);
+    expect(body).toBeLessThan(html.indexOf('id="ad-mid"') === -1 ? sources : html.indexOf('id="ad-mid"'));
+    expect(html.indexOf('class="pack-body"')).toBeLessThan(sources);
+    expect(sources).toBeLessThan(close);
+    expect(html.indexOf('id="ad-after-sources"')).toBeGreaterThan(sources);
+    expect(html.indexOf('id="ad-after-sources"')).toBeGreaterThan(close);
+    expect(html).toContain('id="ig-deck"');
+    expect(html).toContain('id="ig-dots"');
+    expect(html).toContain('id="ig-dots-boot"');
+    expect(pointItems(html)).toEqual(['港鐵建議調整票價。', '加幅仍待公布。']);
+    expect(html).not.toContain('class="key-points');
+    expect(html.match(/class="pack-body"/g)).toHaveLength(1);
+    expect(html).not.toContain('data-ig="3a"');
+
+    const briefing = renderContentPage({ ...explainer(), kind: 'briefing', key: '2026-10-24-pm' }, 'https://world-news.xyz/briefing/2026-10-24-pm/');
+    expect(briefing).toContain('id="ig-deck"');
+    expect(briefing.indexOf('class="ig-card ig-card-lead"')).toBeLessThan(briefing.indexOf('class="ig-card ig-card-timeline"'));
+    expect(briefing.indexOf('class="pack-sources"')).toBeLessThan(briefing.indexOf('class="ig-card ig-card-close"'));
+    expect(briefing.indexOf('id="ad-after-sources"')).toBeGreaterThan(briefing.indexOf('class="pack-sources"'));
+
+    const digest = renderContentPage({ ...explainer(), kind: 'digest', key: '2026-10-24-am' }, 'https://world-news.xyz/digest/2026-10-24-am/');
+    expect(digest).not.toContain('id="ig-deck"');
+    expect(readFileSync('index.html', 'utf8')).not.toContain('ig-deck');
+    expect(readFileSync('shared/homePage.ts', 'utf8')).not.toContain('ig-deck');
+  });
+
+  it('caps the title card at three points and splits a long body into 3a and 3b', () => {
+    const many = explainer();
+    many.points = ['第一點', '第二點', '第三點', '第四點不應出現'];
+    const capped = renderContentPage(many, 'https://world-news.xyz/explainer/cap/');
+    expect(pointItems(capped)).toEqual(['第一點', '第二點', '第三點']);
+
+    const long = explainer();
+    long.points = [];
+    long.blocks = [
+      { title: '甲', sentences: ['甲段一句。'], sources: long.blocks[0].sources },
+      { title: '乙', sentences: ['乙段一句。'], sources: long.blocks[0].sources },
+      { title: '丙', sentences: ['丙段一句。'], sources: long.blocks[0].sources },
+      { title: '丁', sentences: ['丁段一句。'], sources: long.blocks[0].sources },
+      { title: '事件時間線', sentences: ['時間線不入正文。'], sources: long.blocks[0].sources },
+    ];
+    const split = renderContentPage(long, 'https://world-news.xyz/explainer/split/');
+    expect(split.match(/class="pack-body"/g)).toHaveLength(1);
+    expect(split).toContain('data-ig="3a"');
+    expect(split).toContain('data-ig="3b"');
+    expect(split.indexOf('data-ig="3a"')).toBeLessThan(split.indexOf('data-ig="3b"'));
+    expect(split.indexOf('data-ig="3b"')).toBeLessThan(split.indexOf('class="pack-sources"'));
+    expect(split.indexOf('id="ad-after-sources"')).toBeGreaterThan(split.indexOf('class="pack-sources"'));
+    expect(split.indexOf('id="ad-mid"')).toBe(-1);
+    expect(pointItems(split)).toEqual(['甲段一句。', '乙段一句。', '丙段一句。']);
+    expect(pointItems(split)).not.toContain('丁段一句。');
+  });
+
+  it('skips a missing timeline, keeps story pages ad-free, and preserves CLS reserves', () => {
+    const noTimeline = explainer();
+    noTimeline.blocks = [{ ...noTimeline.blocks[0], sources: [noTimeline.blocks[0].sources[0]] }];
+    const html = renderContentPage(noTimeline, 'https://world-news.xyz/explainer/no-tl/');
+    expect(html).not.toContain('class="ig-card ig-card-timeline"');
+    expect(html).toContain('ig-card-lead');
+    expect(html).toContain('ig-card-close');
+    expect(html.indexOf('class="pack-body"')).toBeLessThan(html.indexOf('class="pack-sources"'));
+
+    const hero = item({ id: 'solo', title: '單一來源' });
+    const alone = renderStoryPage(hero, null, [], 'https://world-news.xyz/story/solo/');
+    expect(alone).toContain('id="ig-deck"');
+    expect(alone).not.toContain('class="ig-card ig-card-timeline"');
+    expect(alone).not.toContain('adsbygoogle');
+    expect(alone).not.toContain('id="ad-after-sources"');
+    expect(alone).not.toContain('id="ad-mid"');
+    expect(alone).toContain('ig-card-close');
+    expect(alone).toContain('收束');
+    expect(alone).not.toContain('class="ig-points"');
+    expect(alone).not.toContain('class="ig-card ig-card-body"');
+
+    const other = item({ id: 'abc999', title: '同一則報道', source: '明報', pubDate: '2026-10-24T02:00:00.000Z' });
+    const clustered = renderStoryPage(hero, {
+      id: hero.id,
+      lead: hero,
+      items: [hero, other],
+      sources: ['香港電台', '明報'],
+      count: 2,
+      latest: Date.parse(other.pubDate),
+    }, [], 'https://world-news.xyz/story/solo/');
+    expect(clustered.indexOf('class="ig-card ig-card-lead"')).toBeLessThan(clustered.indexOf('class="ig-card ig-card-timeline"'));
+    expect(clustered.indexOf('class="ig-card ig-card-timeline"')).toBeLessThan(clustered.indexOf('class="ig-card ig-card-sources"'));
+    expect(clustered.indexOf('class="ig-card ig-card-sources"')).toBeLessThan(clustered.indexOf('class="ig-card ig-card-close"'));
+    expect(pointItems(clustered)).toEqual(['明報：同一則報道']);
+    expect(clustered).not.toContain('id="ad-after-sources"');
+
+    const css = readFileSync('public/columns.css', 'utf8');
+    expect(css).toContain('scroll-snap-type: y mandatory');
+    expect(css).toContain('scroll-snap-align: start');
+    expect(css).toContain('scroll-snap-stop: always');
+    expect(css).toContain('min-height: 100dvh');
+    expect(css).toContain('max-width: 900px');
+    expect(css).not.toContain('max-width: 768px');
+    expect(ARTICLE_CRITICAL_CSS).toContain('max-width: 900px');
+    expect(ARTICLE_CRITICAL_CSS).toContain('scroll-snap-type: y mandatory');
+    expect(ARTICLE_CRITICAL_CSS).toContain('min-height: 100dvh');
+    expect(ARTICLE_CRITICAL_CSS).toContain('[data-kind="story"]:has(.ig-deck) .ig-card-body');
+    expect(readFileSync('functions/story/[id].ts', 'utf8')).toContain('loadSourceBlurbs');
+    expect(readFileSync('functions/board/list.ts', 'utf8')).toContain('/api/news?part=');
+    expect(readFileSync('functions/board/list.ts', 'utf8')).toContain('body=1');
+    expect(readFileSync('functions/api/news.ts', 'utf8')).toContain('toListPayload');
+    expect(readFileSync('functions/index.ts', 'utf8')).toContain('loadList(context)');
+    expect(readFileSync('functions/index.ts', 'utf8')).not.toContain('loadStoryList');
+    expect(ARTICLE_CRITICAL_CSS).toContain('.chrome { min-height: 178px; }');
+    expect(ARTICLE_CRITICAL_CSS).toContain('.column-title { min-height: 56px; }');
+    expect(ARTICLE_CRITICAL_CSS).toContain('.story-title.title-reserve { min-height: 113px; }');
+    expect(css).toContain('.story-title.title-reserve { min-height: 113px; }');
+  });
+
+  it('emits a story body card from real blurb text and splits a long body', () => {
+    const blurb = '港鐵建議調整票價，並交立法會討論。加幅仍待公布，兩間媒體都寫了同一件事。';
+    const hero = item({ id: 'body1', title: '港鐵建議調整票價', excerpt: blurb });
+    const html = renderStoryPage(hero, null, [], 'https://world-news.xyz/story/body1/');
+    const lead = html.indexOf('class="ig-card ig-card-lead"');
+    const body = html.indexOf('class="ig-card ig-card-body"');
+    const sources = html.indexOf('class="ig-card ig-card-sources"');
+    const close = html.indexOf('class="ig-card ig-card-close"');
+    expect(html).not.toContain('class="ig-card ig-card-timeline"');
+    expect(lead).toBeGreaterThan(0);
+    expect(lead).toBeLessThan(body);
+    expect(body).toBeLessThan(sources);
+    expect(sources).toBeLessThan(close);
+    expect(html).toContain('<p>港鐵建議調整票價，並交立法會討論。</p>');
+    expect(html).toContain('<p>加幅仍待公布，兩間媒體都寫了同一件事。</p>');
+    expect(html).not.toContain('adsbygoogle');
+    expect(html).not.toContain('id="ad-after-sources"');
+    expect(html.match(/class="pack-body"/g)).toHaveLength(1);
+    expect(html).not.toContain('data-ig="3a"');
+
+    const same = item({ id: 'thin', title: '只有標題', excerpt: '只有標題' });
+    expect(renderStoryPage(same, null, [], 'https://world-news.xyz/story/thin/')).not.toContain('class="ig-card ig-card-body"');
+
+    const longSentences = ['第一句報道加幅。', '第二句仍待公布。', '第三句交立法會。', '第四句兩間媒體。', '第五句同一件事。', '第六句續報票價。'];
+    const long = item({ id: 'long1', title: '港鐵票價', excerpt: longSentences.join('') });
+    const other = item({
+      id: 'long2',
+      title: '明報寫法',
+      source: '明報',
+      pubDate: '2026-10-24T02:00:00.000Z',
+      excerpt: '明報指加幅仍待公布，側重程序。',
+    });
+    const splitStory = renderStoryPage(long, {
+      id: long.id,
+      lead: long,
+      items: [long, other],
+      sources: ['香港電台', '明報'],
+      count: 2,
+      latest: Date.parse(other.pubDate),
+    }, [], 'https://world-news.xyz/story/long1/');
+    expect(splitStory).toContain('data-ig="3a"');
+    expect(splitStory).toContain('data-ig="3b"');
+    expect(splitStory.indexOf('class="ig-card ig-card-lead"')).toBeLessThan(splitStory.indexOf('class="ig-card ig-card-timeline"'));
+    expect(splitStory.indexOf('class="ig-card ig-card-timeline"')).toBeLessThan(splitStory.indexOf('data-ig="3a"'));
+    expect(splitStory.indexOf('data-ig="3a"')).toBeLessThan(splitStory.indexOf('data-ig="3b"'));
+    expect(splitStory.indexOf('data-ig="3b"')).toBeLessThan(splitStory.indexOf('class="ig-card ig-card-sources"'));
+    expect(splitStory.indexOf('class="ig-card ig-card-sources"')).toBeLessThan(splitStory.indexOf('class="ig-card ig-card-close"'));
+    expect(splitStory.match(/class="pack-body"/g)).toHaveLength(1);
+    expect(splitStory).toContain('第六句續報票價。');
+    expect(splitStory).not.toContain('id="ad-mid"');
+    expect(splitStory).not.toContain('adsbygoogle');
+
+    const manyParas = explainer();
+    manyParas.kind = 'briefing';
+    manyParas.key = '2026-10-24-pm';
+    manyParas.blocks = [{
+      title: '事件經過',
+      sentences: ['一句。', '二句。', '三句。', '四句。', '五句。', '六句。'],
+      sources: manyParas.blocks[0].sources.slice(0, 1),
+    }];
+    const briefing = renderContentPage(manyParas, 'https://world-news.xyz/briefing/many/');
+    expect(briefing.match(/class="pack-body"/g)).toHaveLength(1);
+    expect(briefing).toContain('data-ig="3a"');
+    expect(briefing).toContain('data-ig="3b"');
+    expect(briefing.indexOf('data-ig="3b"')).toBeLessThan(briefing.indexOf('class="pack-sources"'));
+  });
+});
