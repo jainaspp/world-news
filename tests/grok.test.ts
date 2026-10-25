@@ -258,9 +258,12 @@ describe('mocked Grok generation', () => {
     expect(html).toContain('新聞懶人包');
     expect(html).toContain('xAI Grok 4.3');
     expect(html).toContain('事件時間線');
-    expect(html).toContain('class="timeline"');
-    expect(html).toContain('重點數字');
-    expect(html).toContain('key-points');
+    expect(html).toContain('class="timeline" data-timeline="scroll"');
+    expect(html).toContain('class="pack-body"');
+    expect(html).toContain('class="pack-toolbar"');
+    expect(html).not.toContain('重點數字');
+    expect(html).not.toContain('key-points');
+    expect(html).not.toContain('ai-footnote');
     expect(html).toContain('https://example.com/rthk');
     expect(html).toContain('https://example.com/ming');
     expect(html.match(/href="https:\/\/example.com\/rthk"/g)).toHaveLength(1);
@@ -309,7 +312,9 @@ describe('mocked Grok generation', () => {
     expect(html.match(/href="https:\/\/example.com\/h1"/g)).toHaveLength(1);
     expect(html.match(/href="https:\/\/example.com\/c1"/g)).toHaveLength(1);
     expect(html).not.toContain('標題同描述');
-    expect(html).toContain('key-points');
+    expect(html).toContain('class="pack-body"');
+    expect(html).not.toContain('key-points');
+    expect(html).not.toContain('ai-footnote');
     expect(html).toContain('name="robots" content="index,follow"');
     expect(html).not.toContain('noindex');
     const index = renderColumnIndex('compare', [{

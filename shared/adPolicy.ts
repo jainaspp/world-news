@@ -12,9 +12,11 @@ export const FEED_AD_EVERY = 8;
  * The homepage shell also drops inline Auto ads bootstraps (enable_page_level_ads, google_ad_client,
  * including vignette and anchor overlays). columns.js does not call adsbygoogle unless that loader
  * tag is already in the document, so explainer and civilization pages stay quiet during the hold.
- * Story, briefing, and explainer documents start that loader only after LCP, and never emit
- * enable_page_level_ads, vignette, or anchor overlays. A manual unit, when the hold is off, sits
- * after the source list, with at most one in-article unit after the body.
+ * Story, briefing, and explainer documents keep the pagead script off the LCP path. Explainer and
+ * briefing pages reserve #ad-after-sources after the source list and, when a mid slot id is set,
+ * one #ad-mid after the body. They never emit enable_page_level_ads, vignette, or anchor overlays.
+ * When the hold is off, that script is inserted from requestIdleCallback after the first paint,
+ * not from the document head.
  * After approval, a later change sets this to false. Only then may an indexable page with at
  * least 500 characters of story body emit a manual unit. Auto ads stay off in that first step.
  */
