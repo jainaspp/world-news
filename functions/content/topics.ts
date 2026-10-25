@@ -591,7 +591,10 @@ export async function serveTopic(context: PagesContext): Promise<Response> {
   const cards = await loadCards(env).catch(() => new Map());
   if (!topic) {
     const html = renderTopicIndex(topicIndexCards(cards), `${siteUrl(env)}/topic/`, adConfig(env), '', true);
-    return new Response(html, { status: 404, headers: { ...HTML_HEADERS, 'x-robots-tag': 'noindex, follow' } });
+    return new Response(html, {
+      status: 404,
+      headers: { 'content-type': HTML_HEADERS['content-type'], 'cache-control': 'no-store', 'x-robots-tag': 'noindex, follow' },
+    });
   }
   const board = await readBoard(env).catch(() => null);
   const items = materialFromBoard(board)?.items ?? [];

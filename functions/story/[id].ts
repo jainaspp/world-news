@@ -13,13 +13,18 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   const canonical = `https://world-news.xyz/story/${encodeURIComponent(id)}/`;
   const headers = {
     'content-type': 'text/html; charset=utf-8',
-    'cache-control': 'public, max-age=120, s-maxage=300',
+    'cache-control': 'public, max-age=120, s-maxage=300, stale-while-revalidate=300',
     'x-robots-tag': 'noindex, follow',
   };
-  if (!/^[0-9a-f]{6,16}$/.test(id)) return new Response(renderStoryMissing(canonical), { status: 404, headers });
+  const missing = {
+    'content-type': headers['content-type'],
+    'cache-control': 'no-store',
+    'x-robots-tag': headers['x-robots-tag'],
+  };
+  if (!/^[0-9a-f]{6,16}$/.test(id)) return new Response(renderStoryMissing(canonical), { status: 404, headers: missing });
   const items = await loadList(context);
   const item = items.find((row) => row.id === id);
-  if (!item) return new Response(renderStoryMissing(canonical), { status: 404, headers });
+  if (!item) return new Response(renderStoryMissing(canonical), { status: 404, headers: missing });
   const snapshot = await readBoard(context.env as ContentEnv);
   // A stored board already clustered the full list. Otherwise only the newest 100.
   const cluster = snapshot

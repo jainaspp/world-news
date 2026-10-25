@@ -10,13 +10,20 @@ import { edgeCache, type PagesContext } from '../env.js';
 const FRESH_S = 300;
 const STALE_S = 900;
 
-function toResponse(result: JsonResult, cachedAt?: number): Response {
+function toResponse(result: JsonResult, cachedAt?: number, pagesCache?: 'HIT' | 'STALE' | 'MISS'): Response {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': result.cacheControl,
   };
   if (cachedAt) headers['x-cached-at'] = String(cachedAt);
+  if (pagesCache) headers['x-pages-cache'] = pagesCache;
   return new Response(result.body, { status: result.status, headers });
+}
+
+function withPagesCache(response: Response, pagesCache: 'HIT' | 'STALE'): Response {
+  const headers = new Headers(response.headers);
+  headers.set('x-pages-cache', pagesCache);
+  return new Response(response.body, { status: response.status, headers });
 }
 
 function ageSeconds(response: Response): number {
@@ -112,7 +119,8 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   const cache = edgeCache();
 
   const finish = (result: JsonResult, response: Response) => {
-    if (result.status !== 200 || context.request.method !== 'GET') return;
+    // HEAD (curl -sI) shares the GET entry. Cache API still reports cf-cache-status DYNAMIC.
+    if (result.status !== 200 || (context.request.method !== 'GET' && context.request.method !== 'HEAD')) return;
     const boardUrl = new URL('/api/board', context.request.url).href;
     context.waitUntil((async () => {
       if (cache) await store(cache, cacheKey, response);
@@ -121,7 +129,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     })());
   };
 
-  if (cache && context.request.method === 'GET') {
+  if (cache && (context.request.method === 'GET' || context.request.method === 'HEAD')) {
     try {
       const hit = await cache.match(cacheKey);
       if (hit) {
@@ -136,7 +144,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
             }),
           );
         }
-        if (age < STALE_S) return hit;
+        if (age < STALE_S) return withPagesCache(hit, age >= FRESH_S ? 'STALE' : 'HIT');
       }
     } catch {
       /* read-through */
@@ -146,7 +154,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   const result = part === 'all' && !cache
     ? await buildNewsResponse()
     : await buildPart(context.request.url, part);
-  const response = toResponse(result, result.status === 200 ? Date.now() : undefined);
+  const response = toResponse(result, result.status === 200 ? Date.now() : undefined, result.status === 200 ? 'MISS' : undefined);
   finish(result, response);
   return response;
 }

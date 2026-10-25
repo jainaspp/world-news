@@ -98,5 +98,7 @@ describe('Cloudflare Pages', () => {
     expect(readFileSync('server/responses.ts', 'utf8')).toContain('s-maxage=300, stale-while-revalidate=600');
     expect(readFileSync('functions/_middleware.ts', 'utf8')).toContain('REDIRECT_PAGES_DEV');
     expect(readFileSync('functions/_middleware.ts', 'utf8')).toContain('world-news.xyz');
+    expect(readFileSync('functions/_middleware.ts', 'utf8')).toContain('prepareCachedResponse');
+    expect(readFileSync('functions/httpCache.ts', 'utf8')).toContain('cloudflare-cdn-cache-control');
   });
 });
