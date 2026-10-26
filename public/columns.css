@@ -905,7 +905,7 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-lead { order: 1; }
 .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-timeline,
 .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-timeline,
-.page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-timeline { order: 2; }
+.page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-timeline { order: 2; padding-bottom: 96px; }
 .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-body,
 .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-body,
 .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-body { order: 3; }
