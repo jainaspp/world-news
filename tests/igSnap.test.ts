@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { swCacheName } from '../shared/brand';
 import { renderCivilizationHub, renderOriginsPage } from '../shared/civilizationPage';
-import { renderColumnIndex, renderContentPage, type ContentDoc } from '../shared/contentPage';
+import { renderColumnIndex, renderContentPage, type ContentDoc } from '../shared/content';
 import { renderHomeFeed } from '../shared/homePage';
 import type { NewsItem } from '../shared/types';
 
@@ -67,7 +67,7 @@ describe('T4 home, list, and civ hub snap deck', () => {
     const index = renderColumnIndex('briefing', [entry, { ...entry, key: '2026-10-25-am', title: '早上導讀' }], 'https://world-news.xyz/briefing/');
     expect(index).toContain('class="page column-page ig-snap"');
     expect(index).toContain('id="ig-deck"');
-    expect(index).toContain('scroll-snap-type');
+    expect(index).toContain('href="/site.css"');
     expect(index.match(/class="ig-card ig-card-story"/g)).toHaveLength(2);
     expect(index.indexOf('每日香港導讀')).toBeLessThan(index.indexOf('早上導讀'));
     expect(index).toContain('href="/briefing/2026-10-25-pm/"');

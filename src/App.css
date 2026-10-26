@@ -3607,6 +3607,15 @@ html.dark .line-filter-status.is-empty {
   border-color: #5c4a34;
 }
 
+@keyframes ig-swipe-hint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes ig-swipe-hint-ink {
+  from { color: var(--muted); }
+  to { color: var(--accent); }
+}
+
 /* Civilization axis motion (P0).
    Hide styles apply only under html.civ-motion, which the head boot adds and
    columns.js keeps after IntersectionObserver is armed. No class, reduced
@@ -4019,14 +4028,6 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   animation: ig-swipe-hint 1.2s ease-in-out 2, ig-swipe-hint-ink 1.2s ease-out 1 forwards;
 }
 .page.ig-snap .ig-card-close::after { content: none; animation: none; }
-@keyframes ig-swipe-hint {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-@keyframes ig-swipe-hint-ink {
-  from { color: var(--muted); }
-  to { color: var(--accent); }
-}
 @media (min-width: 901px) {
   .page.ig-snap:has(.ig-deck) {
     background: color-mix(in srgb, var(--text) 8%, var(--bg));
