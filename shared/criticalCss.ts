@@ -217,7 +217,7 @@ button, input { font: inherit; color: inherit; }
   }
   .timeline[data-timeline="scroll"] li .tl-dot::after { content: none; }
 }
-/* T5b always-on IG snap. Card height is the deck under the header, not 100dvh. */
+/* T5b always-on IG snap. Card fills the deck under the header, not 100dvh, and does not scroll inside. */
 html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .page.column-page[data-kind="compare"]:has(.ig-deck),
 .page.column-page[data-kind="briefing"]:has(.ig-deck),
@@ -254,17 +254,12 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card,
 .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card {
   display: flex; flex-direction: column; align-items: stretch; position: relative; box-sizing: border-box;
-  flex: 0 0 86%; width: 100%; height: 86%; min-height: 0; max-height: 86%; overflow: hidden;
+  flex: 0 0 100%; width: 100%; height: 100%; min-height: 0; max-height: 100%; overflow: hidden;
   scroll-snap-align: start; scroll-snap-stop: always; padding: 0 22px 72px; background: var(--bg);
 }
-.page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card::before,
-.page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card::before,
-.page.column-page[data-kind="story"]:has(.ig-deck) .ig-card::before {
-  content: ""; flex: 0 0 var(--ig-band, 30%); height: var(--ig-band, 30%); pointer-events: none;
-}
 .ig-card > * {
-  flex: 1 1 0%; min-height: 0; min-width: 0; max-width: 100%;
-  overflow-x: hidden; overflow-y: auto; position: relative; z-index: 1; background: var(--bg);
+  flex: 1 1 auto; min-height: 0; min-width: 0; max-width: 100%;
+  overflow: hidden; position: relative; z-index: 1; background: var(--bg);
 }
 .page.column-page[data-kind="compare"]:has(.ig-deck) .pack-body:has(.ig-body-part),
 .page.column-page[data-kind="briefing"]:has(.ig-deck) .pack-body:has(.ig-body-part),
@@ -274,7 +269,7 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-lead { order: 1; }
 .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-timeline,
 .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-timeline,
-.page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-timeline { order: 2; padding-bottom: 96px; }
+.page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-timeline { order: 2; padding-bottom: 144px; }
 .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card-body,
 .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card-body,
 .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card-body { order: 3; }
@@ -334,7 +329,7 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
 }
 .ig-card .story-title { display: block; overflow: visible; -webkit-line-clamp: unset; line-clamp: unset; }
 .ig-card .story-media, .ig-card .thumb, .ig-card .thumb-fallback {
-  position: relative; float: none; display: block; width: 100%; height: 144px; max-height: 144px;
+  position: relative; float: none; display: block; width: 100%; height: 96px; max-height: 96px;
   object-fit: cover; z-index: 0;
 }
 .ig-card .story-media { overflow: hidden; margin: 0; flex: 0 0 auto; }
