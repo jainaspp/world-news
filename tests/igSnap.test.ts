@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { swCacheName } from '../shared/brand';
-import { renderCivilizationHub, renderOriginsPage } from '../shared/civilizationPage';
+import { renderCivilizationHub, renderCivilizationMiss, renderCityPage, renderCosmosPage, renderChroniclePage, renderEarthPage, renderOriginsPage, renderTechPage } from '../shared/civilizationPage';
 import { renderColumnIndex, renderContentPage, type ContentDoc } from '../shared/content';
 import { renderHomeFeed } from '../shared/homePage';
 import type { NewsItem } from '../shared/types';
@@ -87,7 +87,7 @@ describe('T4 home, list, and civ hub snap deck', () => {
     expect(article).not.toContain('ig-snap');
   });
 
-  it('snaps the civilization hub and leaves the long origins page alone', () => {
+  it('snaps the civilization hub and every detail page on the same deck', () => {
     const hub = renderCivilizationHub(new Date('2026-10-17T04:00:00.000Z')).html;
     expect(hub).toContain('class="page column-page heritage-page civ-page ig-snap"');
     expect(hub).toContain('id="ig-deck"');
@@ -96,10 +96,24 @@ describe('T4 home, list, and civ hub snap deck', () => {
     expect(hub.indexOf('class="axis-hero"')).toBeLessThan(hub.indexOf('class="civ-hub-hero"'));
     expect(hub.indexOf('class="civ-hub-hero"')).toBeLessThan(hub.indexOf('class="civ-article"'));
     expect(hub.indexOf('id="future"')).toBeLessThan(hub.indexOf('class="civ-article"'));
-    const origins = renderOriginsPage().html;
-    expect(origins).not.toContain('id="ig-deck"');
-    expect(origins).not.toContain('ig-snap');
-    expect(origins).toContain('人類起源時間線');
+    const details = [
+      renderOriginsPage(),
+      renderChroniclePage(),
+      renderCosmosPage(),
+      renderEarthPage(),
+      renderTechPage(),
+      renderCityPage(),
+    ];
+    for (const page of details) {
+      expect(page.html).toContain('class="page column-page heritage-page civ-page ig-snap"');
+      expect(page.html).toContain('id="ig-deck"');
+      expect(page.html).toContain('ig-card-flow');
+      expect(page.html).toContain('class="ig-card ig-card-close"');
+      expect(page.html).toContain('id="ig-dots-boot"');
+      expect(page.html.match(/id="ig-deck"/g)).toHaveLength(1);
+    }
+    expect(renderOriginsPage().html).toContain('人類起源時間線');
+    expect(renderCivilizationMiss().html).not.toContain('id="ig-deck"');
   });
 
   it('keeps the shared snap rules full-height, with no peek band and a 420px frame', () => {
@@ -114,6 +128,10 @@ describe('T4 home, list, and civ hub snap deck', () => {
     expect(ig).toContain('width: min(420px, 100%)');
     expect(ig).toContain('min-width: 901px');
     expect(ig).toContain('content: "↑ 上滑"');
+    expect(ig).toContain('.ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after');
+    expect(ig).toContain('ig-swipe-hint 0.6s ease-out 1');
+    expect(ig).not.toContain('ig-swipe-hint-ink');
+    expect(ig).toContain('scroll-snap-type: y mandatory');
     expect(ig).toContain('width: 8px');
     expect(ig).toContain('height: 8px');
     expect(ig).toContain('gap: 10px');

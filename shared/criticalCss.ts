@@ -247,7 +247,7 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-deck,
 .page.column-page[data-kind="story"]:has(.ig-deck) .ig-deck {
   display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; height: 100%;
-  overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth;
+  overflow-x: hidden; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain;
 }
 .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card,
@@ -300,22 +300,19 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .ig-close-only { display: grid; gap: 12px; }
 .ig-kicker { margin: 0; font-size: 12px; letter-spacing: 0.12em; color: var(--accent); font-weight: 700; }
 @keyframes ig-swipe-hint {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-@keyframes ig-swipe-hint-ink {
-  from { color: var(--muted); }
-  to { color: var(--accent); }
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-8px); }
 }
 .ig-card::after {
-  content: none; position: absolute; left: 0; right: 32px; z-index: 3;
-  bottom: max(16px, env(safe-area-inset-bottom)); text-align: center;
-  font-size: 16px; line-height: 1.4; color: var(--muted); pointer-events: none;
+  content: none; position: absolute; left: 50%; right: auto; z-index: 3;
+  bottom: max(18px, env(safe-area-inset-bottom)); width: max-content; max-width: calc(100% - 72px);
+  padding: 8px 14px; border-radius: 999px; background: var(--accent); color: var(--accent-ink);
+  font-size: 16px; font-weight: 700; line-height: 1.2; letter-spacing: 0.04em; text-align: center;
+  pointer-events: none; transform: translateX(-50%);
 }
-.ig-card.ig-on:not(.ig-card-close)::after,
-.ig-deck:not(:has(.ig-on)) .ig-card-lead::after {
+.ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after {
   content: "↑ 上滑";
-  animation: ig-swipe-hint 1.2s ease-in-out 2, ig-swipe-hint-ink 1.2s ease-out 1 forwards;
+  animation: ig-swipe-hint 0.6s ease-out 1;
 }
 .ig-card-close::after { content: none; animation: none; }
 .ig-card > .story, .ig-card .ig-sheet, .ig-card .pack-body:not(:has(.ig-body-part)) {
@@ -398,14 +395,18 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
     border: 1px solid var(--line); border-radius: 28px;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28); background: var(--bg); overflow: hidden;
   }
+  .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-deck,
+  .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-deck,
+  .page.column-page[data-kind="story"]:has(.ig-deck) .ig-deck {
+    scroll-snap-type: y mandatory; overflow-x: hidden; overflow-y: auto;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-deck,
   .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-deck,
   .page.column-page[data-kind="story"]:has(.ig-deck) .ig-deck { scroll-behavior: auto; }
   .ig-card::after { animation: none; }
-  .ig-card.ig-on:not(.ig-card-close)::after { animation: none; }
-  .ig-deck:not(:has(.ig-on)) .ig-card-lead::after { animation: none; }
+  .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after { animation: none; }
 }
 `.replace(/\n+/g, '\n').trim();
 
