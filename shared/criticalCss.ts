@@ -381,12 +381,14 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card .timeline[data-timeline="scroll"] time,
 .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card .timeline[data-timeline="scroll"] .tl-body,
 .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card .timeline[data-timeline="scroll"] .tl-body,
-.page.column-page[data-kind="story"]:has(.ig-deck) .ig-card .timeline[data-timeline="scroll"] .tl-body,
+.page.column-page[data-kind="story"]:has(.ig-deck) .ig-card .timeline[data-timeline="scroll"] .tl-body {
+  display: block; max-width: 100%; text-align: left; white-space: normal; overflow: visible;
+  overflow-wrap: anywhere; font-size: 15px; line-height: 24px;
+}
 .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card .timeline[data-timeline="scroll"] .tl-phase,
 .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card .timeline[data-timeline="scroll"] .tl-phase,
 .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card .timeline[data-timeline="scroll"] .tl-phase {
-  display: block; max-width: 100%; text-align: left; white-space: normal; overflow: visible;
-  overflow-wrap: anywhere; font-size: 15px; line-height: 24px;
+  display: inline; font-size: 15px; line-height: 24px;
 }
 @media (min-width: 901px) {
   .page.column-page[data-kind="compare"]:has(.ig-deck),

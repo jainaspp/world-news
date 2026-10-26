@@ -316,6 +316,7 @@ describe('T5b always-on IG snap cards', () => {
     expect(ig).toContain('font-size: 16px');
     expect(ig).toContain('padding: 0 22px 72px');
     expect(ig).toContain('.ig-card-timeline { order: 2; padding-bottom: 96px; }');
+    expect(ig).toContain('.tl-phase {\n  display: inline;');
     expect(ig).toContain('flex: 0 0 var(--ig-band, 30%)');
     expect(ig).toContain('.ig-card.ig-on:not(.ig-card-close)::after');
     expect(ig).toContain('@keyframes ig-swipe-hint');
