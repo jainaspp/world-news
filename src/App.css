@@ -3979,8 +3979,85 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
 }
 .page.ig-snap .ig-card-lead .ig-sheet { background: transparent; padding: 0; }
 .page.ig-snap .ig-card-axis { background: #161c24; padding-left: 0; padding-right: 0; }
-.page.ig-snap .ig-card-axis .ig-sheet { background: transparent; }
-.page.ig-snap .ig-card-axis .axis-hero { min-height: 0; margin: 0; flex: 1 1 auto; }
+.page.ig-snap .ig-card.ig-card-axis > .ig-sheet,
+.page.ig-snap .ig-card.ig-card-axis > .axis-mount {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+/* Phone axis-slim caps the hero at 300px. Inside a full-height snap card that
+   leaves an empty band and clips the CTAs. Let the hero fill the card. */
+.page.ig-snap .ig-deck .axis-hero.axis-slim {
+  max-height: none;
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.page.ig-snap .axis-hero .axis-vignette { z-index: 0; }
+.page.ig-snap .axis-hero::after { z-index: 0; }
+.page.ig-snap .axis-hero > :not(.axis-vignette) { z-index: 2; }
+.page.ig-snap .axis-hero .kicker,
+.page.ig-snap .axis-hero .axis-title,
+.page.ig-snap .axis-hero .axis-lede,
+.page.ig-snap .axis-hero .milestones li {
+  background: transparent;
+}
+.page.ig-snap .axis-hero .axis-title { color: #f7f1e6; }
+.page.ig-snap .ig-card .milestones {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+  gap: 10px 6px;
+}
+.page.ig-snap .ig-card .milestones li {
+  flex: none;
+  width: auto;
+  min-width: 0;
+  background: transparent;
+  scroll-snap-align: none;
+}
+.page.ig-snap .ig-card .milestones::before { content: none; }
+/* Deep-time images crop inside the card. The sheet does not scroll. */
+.page.ig-snap .ig-card .deep-time {
+  margin-top: 0;
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.page.ig-snap .ig-card .deep-time-grid {
+  min-height: 0;
+  overflow: hidden;
+}
+.page.ig-snap .ig-card .deep-time-card {
+  min-height: 0;
+  overflow: hidden;
+}
+.page.ig-snap .ig-card .deep-time-card .stage-cover {
+  aspect-ratio: auto;
+  height: 72px;
+  max-height: 72px;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+.page.ig-snap .ig-card .deep-time-card .stage-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 .page.ig-snap .ig-card .deep-axis {
   overflow: hidden;
   scroll-snap-type: none;

@@ -1,6 +1,6 @@
 // Offline support: static assets cache-first, pages network-first with the last copy as fallback,
 // headlines and HK weather network-first with the last copy kept, so the app opens offline with the last news.
-const CACHE = 'wn-v20';
+const CACHE = 'wn-v21';
 const PRECACHE = ['/', '/offline.html', '/manifest.json', '/favicon.svg', '/site.css', '/columns.css', '/columns.js'];
 const RUNTIME_API = ['/api/news', '/api/hk'];
 

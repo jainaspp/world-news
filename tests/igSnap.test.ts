@@ -117,6 +117,11 @@ describe('T4 home, list, and civ hub snap deck', () => {
     expect(ig).toContain('width: 8px');
     expect(ig).toContain('height: 8px');
     expect(ig).toContain('gap: 10px');
+    expect(ig).toContain('.axis-hero.axis-slim');
+    expect(ig).toContain('max-height: none');
+    expect(ig).toContain('background: transparent');
+    expect(ig).toContain('object-fit: cover');
+    expect(ig).not.toContain('max-height: 300px');
     expect(ig).not.toContain('--ig-band');
     expect(ig).not.toContain('86%');
     expect(ig).not.toContain('max-width: 900px');
