@@ -365,7 +365,7 @@ describe('T5b always-on IG snap cards', () => {
     expect(dots).toContain('id="ig-dots-boot"');
     expect(dots).not.toContain('--ig-band');
     expect(dots).toContain('ig-card-timeline");var floor=timeline?144:72');
-    expect(dots).toContain('box.bottom-r.bottom<4');
+    expect(dots).toContain('box.bottom-r.bottom<12');
     expect(dots).not.toContain('max-width: 900px');
     expect(dots).not.toContain('mq.matches');
     expect(readFileSync('functions/story/[id].ts', 'utf8')).toContain('loadSourceBlurbs');
