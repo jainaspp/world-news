@@ -9,6 +9,8 @@ import {
   catChip,
   chrome,
   esc,
+  igDotsScript,
+  igIndexDeck,
   favicon,
   footer,
   hkt,
@@ -329,20 +331,6 @@ export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, _ad
   const ready = active ? readyAll.filter((card) => card.topic.category === active) : readyAll;
   // Pending non-property shells may appear in a weakened fold; property stays fully hidden until ready.
   const pending = cards.filter((card) => !card.ready && card.topic.slug !== 'property');
-  const articles = ready.map((card, index) => {
-    const when = card.updatedAt ? `<div class="story-meta"><time datetime="${esc(card.updatedAt)}">${esc(hkt(card.updatedAt, false))}</time></div>` : '';
-    const credit = card.picture ? photoCredit(card.picture) : '';
-    return `<article class="story pack-shell pack-topic">
-      <a class="story-media${card.picture ? '' : ' pack-fallback'}" href="/topic/${esc(card.topic.slug)}/" tabindex="-1" aria-hidden="true">${media(card.picture?.url, card.topic.category, card.topic.title, index < 2, card.picture?.alt ?? '')}</a>
-      <div class="story-body">
-        <div class="story-kicker"><span class="pack-kicker">專題懶人包</span><span class="badge ai-badge">AI 整合</span>${catChip(card.topic.category)}</div>
-        <h2 class="story-title"><a href="/topic/${esc(card.topic.slug)}/">${esc(card.topic.title)}</a></h2>
-        <p class="dek">${esc(card.description)}</p>
-        ${credit}
-        ${when}
-      </div>
-    </article>`;
-  }).join('');
   const pendingFold = pending.length
     ? `<details class="topic-fold pack-fold topic-pending"><summary>籌備中（${pending.length}）</summary><ul class="points">${pending.map((card) => `<li><span>${esc(card.topic.title)}</span> — ${esc(card.description)}</li>`).join('')}</ul></details>`
     : '';
@@ -362,26 +350,39 @@ export function renderTopicIndex(cards: TopicIndexCard[], canonical: string, _ad
       })),
     },
   }).replace(/</g, '\\u003c')}</script>`;
-  return `<!doctype html>
-<html lang="zh-HK">
-${head(title, description, canonical, absoluteSrc(ready.find((card) => card.picture)?.picture?.url || '', canonical), 'website', `<meta name="robots" content="${!forceNoindex && ready.length ? 'index,follow' : 'noindex,follow'}" />${ld}`, '', false)}
-<body>
-  <div class="page column-page" data-kind="topic-index">
-  ${chrome('topic')}
-  <main id="content" class="column-index">
-    <header class="index-head">
+  const headHtml = `<header class="index-head">
       <div class="index-title-row">
         <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">專題</span></div>
         <h1 class="column-title">${title}</h1>
       </div>
       <p class="dek">${esc(description)}</p>
     </header>
-    ${topicFilters(cards, active)}
-    ${ready.length ? `<div class="news-grid analysis-grid">${articles}</div>` : '<p class="notice">暫時未有公開專題懶人包。</p>'}
-    ${pendingFold}
+    ${topicFilters(cards, active)}`;
+  const itemCards = ready.map((card, index) => {
+    const when = card.updatedAt ? `<div class="story-meta"><time datetime="${esc(card.updatedAt)}">${esc(hkt(card.updatedAt, false))}</time></div>` : '';
+    const credit = card.picture ? photoCredit(card.picture) : '';
+    return `<article class="story pack-shell pack-topic">
+      <a class="story-media${card.picture ? '' : ' pack-fallback'}" href="/topic/${esc(card.topic.slug)}/" tabindex="-1" aria-hidden="true">${media(card.picture?.url, card.topic.category, card.topic.title, index < 2, card.picture?.alt ?? '')}</a>
+      <div class="story-body">
+        <div class="story-kicker"><span class="pack-kicker">專題懶人包</span><span class="badge ai-badge">AI 整合</span>${catChip(card.topic.category)}</div>
+        <h2 class="story-title"><a href="/topic/${esc(card.topic.slug)}/">${esc(card.topic.title)}</a></h2>
+        <p class="dek">${esc(card.description)}</p>
+        ${credit}
+        ${when}
+      </div>
+    </article>`;
+  });
+  return `<!doctype html>
+<html lang="zh-HK">
+${head(title, description, canonical, absoluteSrc(ready.find((card) => card.picture)?.picture?.url || '', canonical), 'website', `<meta name="robots" content="${!forceNoindex && ready.length ? 'index,follow' : 'noindex,follow'}" />${ld}`, '', false)}
+<body>
+  <div class="page column-page ig-snap" data-kind="topic-index">
+  ${chrome('topic')}
+  <main id="content" class="column-index ig-frame">
+    ${igIndexDeck(headHtml, itemCards, '<p class="notice">暫時未有公開專題懶人包。</p>', title, `${pendingFold}${footer(false)}`)}
   </main>
-  ${footer(false)}
   </div>
+  ${igDotsScript()}
 </body>
 </html>`;
 }

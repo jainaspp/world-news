@@ -857,8 +857,8 @@ describe('homepage today slice', () => {
     ], [
       { href: '/explainer/unmatched/', title: '沒有文明對照', description: '這則沒有手寫座標。' },
     ], new Date('2026-10-17T04:00:00.000Z'));
-    expect(html.indexOf('id="civ"')).toBeLessThan(html.indexOf('今日落點'));
-    expect(html.indexOf('今日落點')).toBeLessThan(html.indexOf('id="slice"'));
+    expect(html.indexOf('id="civ"')).toBeLessThan(html.indexOf('id="slice"'));
+    expect(html.indexOf('id="slice"')).toBeLessThan(html.indexOf('今日落點'));
     expect(html).not.toContain('今日必讀');
     expect(html).not.toContain('class="home-cards"');
     expect(html).not.toContain('story-hero');
@@ -897,7 +897,7 @@ describe('homepage today slice', () => {
     expect(html.indexOf('class="volume-board"')).toBeLessThan(html.indexOf('今日落點'));
     expect(html).not.toContain('class="chronicle-strip"');
     expect(html).not.toContain('class="stage-dot"');
-    expect(html.indexOf('今日落點')).toBeLessThan(html.indexOf('id="slice"'));
+    expect(html.indexOf('id="slice"')).toBeLessThan(html.indexOf('今日落點'));
     expect(html.indexOf('id="slice"')).toBeLessThan(html.indexOf('aria-label="文明層"'));
     const primary = html.slice(html.indexOf('aria-label="主欄目"'), html.indexOf('</nav>'));
     expect(primary).toContain('>文明<');

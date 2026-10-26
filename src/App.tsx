@@ -12,6 +12,7 @@ import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
 import { renderBulletinClock } from '../shared/civilization/clock';
 import { moreTodayHtml, renderAxisBand, renderAxisRails, renderHomeChronicle, renderLayerAside, sliceHeadHtml } from '../shared/civilizationPage';
 import { renderNearBridge } from '../shared/civilization/renderSlice';
+import { igDotsScript } from '../shared/contentPage';
 import { columnHref, DEFAULT_BRIEFING_LINKS, homeDigestLinks, type HomeColumnLinks } from '../shared/homePage';
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
@@ -345,6 +346,22 @@ export default function App() {
   }, [items]);
   const special = view.bookmarks || view.following;
   const poeticAxis = !special && view.region === 'ALL' && view.category === 'all' && !view.q.trim() && !view.source.trim() && view.time === 'today';
+
+  useEffect(() => {
+    const boot = () => {
+      const run = (window as unknown as { __wnIgDots?: () => void }).__wnIgDots;
+      if (run) run();
+      else window.dispatchEvent(new Event('resize'));
+    };
+    if (!document.getElementById('ig-dots-boot')) {
+      const script = document.createElement('script');
+      script.id = 'ig-dots-boot';
+      script.textContent = igDotsScript().replace(/^<script id="ig-dots-boot">/, '').replace(/<\/script>$/, '');
+      document.body.appendChild(script);
+    }
+    boot();
+    window.dispatchEvent(new Event('resize'));
+  }, [listed.length, poeticAxis, special]);
   const focusLabel = !focusPage
     ? ''
     : focusPage.scope === 'region'
@@ -392,7 +409,7 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <div className="page">
+      <div className="page ig-snap">
         <div className="chrome">
           <header className="masthead">
             <h1 className="masthead-title">
@@ -556,69 +573,32 @@ export default function App() {
           )}
         </div>
 
-        <div className="layout layout-span">
-          <main id="today">
-            {!special && (
-              <div className="civ-home">
+        <main id="today" className="ig-frame">
+          <nav className="ig-dots" id="ig-dots" aria-hidden="true" />
+          <div className="ig-deck civ-home" id="ig-deck">
+            {!special && poeticAxis && (
+              <div className="ig-card ig-card-lead">
                 {poeticAxis && <HeroOpening />}
-                <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false, rails: false }) }} />
-                <div dangerouslySetInnerHTML={{ __html: renderBulletinClock() }} />
-                <div dangerouslySetInnerHTML={{ __html: renderHomeChronicle() }} />
-                <div dangerouslySetInnerHTML={{ __html: renderAxisRails() }} />
-                <OnThisDay />
-                <section className="today-slice" id="slice" aria-label="今日切片">
-                      {focusLabel ? <h1 className="focus-title">{focusLabel}</h1> : null}
-                      <div dangerouslySetInnerHTML={{ __html: sliceHeadHtml() }} />
-                      <div dangerouslySetInnerHTML={{ __html: renderNearBridge() }} />
-                      <MajorBanner />
-                      <AlertRow />
-                      <HomeIntroTop />
-                      {loading && items.length === 0 ? (
-                        <div className="status-panel" aria-busy="true"><h2>{lang === 'en' ? 'Loading today' : '載入今日切片…'}</h2></div>
-                      ) : error && items.length === 0 ? (
-                        <div className="status-panel" role="alert">
-                          <h2>{lang === 'en' ? 'No titles' : '今日切片暫時沒有標題'}</h2>
-                          <p>{error}</p>
-                          <button type="button" className="primary" onClick={() => void refresh()}>{t('refresh', lang)}</button>
-                        </div>
-                      ) : visible.length === 0 ? (
-                        <div className="status-panel">
-                          <h2>{lang === 'en' ? 'Nothing here' : '沒有符合的標題'}</h2>
-                          <p>{emptyMessage}</p>
-                        </div>
-                      ) : (
-                        <>
-                          {(partial || stale) && (
-                            <p className="notice" role="status">
-                              {stale ? (lang === 'en' ? 'Some sources are down; showing a recent cache.' : '部分來源暫時連不上，以下是較早儲存的標題。') : lang === 'en' ? 'Some sources did not reply; other headlines are still available.' : '部分來源暫時沒有回應，其餘標題仍可閱讀。'}
-                            </p>
-                          )}
-                          <DigestStrip />
-                          {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
-                          <div className="home-list">
-                            {Array.from({ length: Math.ceil(listed.length / FEED_AD_EVERY) }, (_, chunk) => {
-                              const start = chunk * FEED_AD_EVERY;
-                              const slice = listed.slice(start, start + FEED_AD_EVERY);
-                              const tail = slice[slice.length - 1];
-                              return (
-                                <div key={slice[0]?.id ?? chunk} className="rank-chunk">
-                                  <RankedList start={start} items={slice} counts={counts} breaking={rankBreaking} explainers={analysisHrefs} titleOf={titleOf} lang={lang} />
-                                  {allowAds && slice.length === FEED_AD_EVERY && tail ? <AdSlot slot={AD_SLOT_FEED} variant="feed" /> : null}
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </>
-                      )}
-                </section>
-                <div dangerouslySetInnerHTML={{ __html: moreTodayHtml() }} />
-                <div dangerouslySetInnerHTML={{ __html: renderLayerAside() }} />
-                <MostRead rows={popular} variant="below" lang={lang} />
               </div>
             )}
-            {special && (
-              <section aria-label={view.bookmarks ? t('bookmarks', lang) : t('following', lang)}>
-                {view.following && follows.count > 0 && (
+            {!special && (
+              <div className="ig-card ig-card-axis">
+                <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false, rails: false }) }} />
+              </div>
+            )}
+            <section className="today-slice ig-card ig-card-slice" id="slice" aria-label={special ? (view.bookmarks ? t('bookmarks', lang) : t('following', lang)) : '今日切片'}>
+              <div className="ig-sheet">
+                {!special && (
+                  <>
+                    {focusLabel ? <h1 className="focus-title">{focusLabel}</h1> : null}
+                    <div dangerouslySetInnerHTML={{ __html: sliceHeadHtml() }} />
+                    <div dangerouslySetInnerHTML={{ __html: renderNearBridge() }} />
+                    <MajorBanner />
+                    <AlertRow />
+                    <HomeIntroTop />
+                  </>
+                )}
+                {special && view.following && follows.count > 0 && (
                   <div className="follow-list">
                     {follows.regions.map((code) => (
                       <button key={code} type="button" className="chip follow-chip on" onClick={() => follows.toggleRegion(code)}>
@@ -637,36 +617,86 @@ export default function App() {
                     ))}
                   </div>
                 )}
-                {visible.length === 0 ? (
+                {loading && items.length === 0 ? (
+                  <div className="status-panel" aria-busy="true"><h2>{lang === 'en' ? 'Loading today' : '載入今日切片…'}</h2></div>
+                ) : error && items.length === 0 ? (
+                  <div className="status-panel" role="alert">
+                    <h2>{lang === 'en' ? 'No titles' : '今日切片暫時沒有標題'}</h2>
+                    <p>{error}</p>
+                    <button type="button" className="primary" onClick={() => void refresh()}>{t('refresh', lang)}</button>
+                  </div>
+                ) : visible.length === 0 ? (
                   <div className="status-panel">
                     <h2>{lang === 'en' ? 'Nothing here' : '沒有符合的標題'}</h2>
                     <p>{emptyMessage}</p>
                   </div>
                 ) : (
-                  <div className="home-list">
-                    <RankedList items={listed} counts={counts} breaking={rankBreaking} explainers={analysisHrefs} titleOf={titleOf} lang={lang} />
-                  </div>
+                  <>
+                    {(partial || stale) && (
+                      <p className="notice" role="status">
+                        {stale ? (lang === 'en' ? 'Some sources are down; showing a recent cache.' : '部分來源暫時連不上，以下是較早儲存的標題。') : lang === 'en' ? 'Some sources did not reply; other headlines are still available.' : '部分來源暫時沒有回應，其餘標題仍可閱讀。'}
+                      </p>
+                    )}
+                    {!special && <DigestStrip />}
+                    {focusPage && <WeekFocus scope={focusPage.scope} id={focusPage.id} />}
+                  </>
                 )}
-              </section>
+              </div>
+            </section>
+            {visible.length > 0 && (
+              <div className="home-list">
+                {Array.from({ length: Math.ceil(listed.length / FEED_AD_EVERY) }, (_, chunk) => {
+                  const start = chunk * FEED_AD_EVERY;
+                  const slice = listed.slice(start, start + FEED_AD_EVERY);
+                  const tail = slice[slice.length - 1];
+                  return (
+                    <div key={slice[0]?.id ?? chunk} className="rank-chunk">
+                      <RankedList start={start} items={slice} counts={counts} breaking={rankBreaking} explainers={analysisHrefs} titleOf={titleOf} lang={lang} />
+                      {allowAds && slice.length === FEED_AD_EVERY && tail ? (
+                        <div className="ig-card ig-card-ad"><div className="ig-sheet"><AdSlot slot={AD_SLOT_FEED} variant="feed" /></div></div>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
             )}
-          </main>
-        </div>
+            {!special && (
+              <>
+                <div className="ig-card"><div className="ig-sheet" dangerouslySetInnerHTML={{ __html: renderBulletinClock() }} /></div>
+                <div className="ig-card"><div className="ig-sheet" dangerouslySetInnerHTML={{ __html: renderHomeChronicle() }} /></div>
+                <div className="ig-card"><div className="ig-sheet" dangerouslySetInnerHTML={{ __html: renderAxisRails() }} /></div>
+                <div className="ig-card"><OnThisDay /></div>
+                <div className="ig-card"><div className="ig-sheet" dangerouslySetInnerHTML={{ __html: moreTodayHtml() }} /></div>
+                <div className="ig-card">
+                  <div className="ig-sheet">
+                    <div dangerouslySetInnerHTML={{ __html: renderLayerAside() }} />
+                    <MostRead rows={popular} variant="below" lang={lang} />
+                  </div>
+                </div>
+              </>
+            )}
+            <div className="ig-card ig-card-close">
+              <div className="ig-sheet">
+                {allowAds && <HomeIntroFoot />}
+                <footer className="app-footer">
+                  <p>
+                    {siteBrand}{lang === 'en' ? ' is a civilization axis. News is one slice of today: titles and source links only.' : '是文明時間軸。新聞是軸上的今天一片，只列出標題與出處連結，不轉載內文。'}
+                    <a href={SITE_URL}> {SITE_URL.replace('https://', '')}</a>
+                    {' · '}
+                    <a href="/major/">{lang === 'en' ? 'Major updates' : '重大更新'}</a>
+                  </p>
+                  <nav className="footer-nav" aria-label="網站資料">
+                    {FOOTER_LINKS.map((link) => (
+                      <a key={link.href} href={link.href}>{link.label}</a>
+                    ))}
+                  </nav>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </main>
 
 
-        {allowAds && <HomeIntroFoot />}
-        <footer className="app-footer">
-          <p>
-            {siteBrand}{lang === 'en' ? ' is a civilization axis. News is one slice of today: titles and source links only.' : '是文明時間軸。新聞是軸上的今天一片，只列出標題與出處連結，不轉載內文。'}
-            <a href={SITE_URL}> {SITE_URL.replace('https://', '')}</a>
-            {' · '}
-            <a href="/major/">{lang === 'en' ? 'Major updates' : '重大更新'}</a>
-          </p>
-          <nav className="footer-nav" aria-label="網站資料">
-            {FOOTER_LINKS.map((link) => (
-              <a key={link.href} href={link.href}>{link.label}</a>
-            ))}
-          </nav>
-        </footer>
         <BackToTop />
         {freshCount > 0 && (
           <button
@@ -674,6 +704,8 @@ export default function App() {
             className="new-items"
             onClick={() => {
               showPending();
+              const deck = document.getElementById('ig-deck');
+              if (deck) deck.scrollTo({ top: 0, behavior: scrollBehavior() });
               window.scrollTo({ top: 0, behavior: scrollBehavior() });
             }}
           >

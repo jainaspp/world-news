@@ -11,7 +11,7 @@ export const siteBrand = '文明編年史';
  * Header logo URLs carry it so a worker still on the previous cache cannot
  * keep serving /brand/logo*.svg cache-first.
  */
-export const swCacheName = 'wn-v19';
+export const swCacheName = 'wn-v21';
 
 /** Homepage document title, og:title, and twitter:title. */
 export const siteTitle = '文明編年史 — 從宇宙到今天';

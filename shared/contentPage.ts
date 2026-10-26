@@ -556,6 +556,21 @@ export function igDotsNav(): string {
   return '<nav class="ig-dots" id="ig-dots" aria-hidden="true"></nav>';
 }
 
+/** One snap card. `kind` adds a modifier such as `ig-card-lead` or `ig-card-story`. */
+export function igCard(inner: string, kind = ''): string {
+  const cls = kind ? `ig-card ${kind}` : 'ig-card';
+  return `<div class="${cls}"><div class="ig-sheet">${inner}</div></div>`;
+}
+
+/**
+ * Index deck: lead, then one card per item, then the close card.
+ * Dots are a sibling of the deck so they stay put while the deck scrolls.
+ */
+export function igIndexDeck(head: string, items: string[], emptyHtml: string, closeTitle: string, tail = ''): string {
+  const body = items.length ? items.map((item) => igCard(item, 'ig-card-story')).join('') : igCard(emptyHtml);
+  return `${igDotsNav()}<div class="ig-deck" id="ig-deck">${igCard(head, 'ig-card-lead')}${body}${igCloseCard(closeTitle, tail)}</div>`;
+}
+
 /** Close card. Ad markup, when present, is passed in `rest` so it stays after sources. */
 export function igCloseCard(title: string, rest: string): string {
   return `<div class="ig-card ig-card-close"><div class="ig-sheet"><div class="ig-close-only"><p class="ig-kicker">收束</p><h2 class="column-h2">完</h2><p class="dek">${esc(title)}</p><a class="chip" href="/">返回首頁</a></div>${rest}</div></div>`;
@@ -568,7 +583,7 @@ export function igCloseCard(title: string, rest: string): string {
  * so the last ink stays clearly above the hint. Cards do not scroll inside.
  */
 export function igDotsScript(): string {
-  return `<script id="ig-dots-boot">(function(){var deck=document.getElementById("ig-deck");var nav=document.getElementById("ig-dots");if(!deck||!nav)return;function cards(){return Array.prototype.slice.call(deck.querySelectorAll(".ig-card"));}function sheetOf(card){return card.firstElementChild;}function sliver(sheet,partial){var box=sheet.getBoundingClientRect();var top=0,bottom=0;if(box.height<8)return {top:0,bottom:0};var atoms=sheet.querySelectorAll(".chip,.pack-toolbar,button,select");for(var a=0;a<atoms.length;a++){var ar=atoms[a].getBoundingClientRect();if(ar.width<2||ar.height<2)continue;if(ar.top>box.top&&ar.top<box.bottom-0.5&&ar.bottom>box.bottom+0.5)bottom=Math.max(bottom,box.bottom-ar.top+2);if(ar.bottom<box.bottom&&ar.bottom>box.top+0.5&&ar.top<box.top-0.5)top=Math.max(top,ar.bottom-box.top+2);}var walker=document.createTreeWalker(sheet,NodeFilter.SHOW_TEXT);var range=document.createRange();var node;while((node=walker.nextNode())){if(!node.textContent||!/\\S/.test(node.textContent))continue;var host=node.parentElement;if(host&&host.closest&&host.closest(".chip,.pack-toolbar,button,select"))continue;range.selectNodeContents(node);var rects=range.getClientRects();for(var i=0;i<rects.length;i++){var r=rects[i];if(r.width<1||r.height<1)continue;if(r.top>box.top&&r.top<box.bottom+2&&r.bottom>box.bottom-0.5)bottom=Math.max(bottom,box.bottom-r.top+2);if(partial&&r.top>box.top&&r.bottom<=box.bottom&&box.bottom-r.bottom<12)bottom=Math.max(bottom,box.bottom-r.top+2);if(partial&&r.height<12&&r.top>box.top&&r.top<box.bottom&&r.bottom>box.bottom-1)bottom=Math.max(bottom,box.bottom-r.top+2);if(r.bottom<box.bottom&&r.bottom>box.top-2&&r.top<box.top+0.5)top=Math.max(top,r.bottom-box.top+2);}}return {top:top,bottom:bottom};}function seat(){var list=cards();for(var i=0;i<list.length;i++){var card=list[i];var sheet=sheetOf(card);if(!sheet)continue;var timeline=card.classList.contains("ig-card-timeline");var floor=timeline?144:72;card.style.paddingBottom=floor+"px";sheet.style.paddingTop="0px";var guard=0;while(guard<8){var cut=sliver(sheet,timeline);if(cut.top<1&&cut.bottom<1)break;if(cut.top>=1){var pt=parseFloat(getComputedStyle(sheet).paddingTop)||0;sheet.style.paddingTop=(pt+Math.ceil(cut.top))+"px";}if(cut.bottom>=1){var pb=parseFloat(getComputedStyle(card).paddingBottom)||floor;card.style.paddingBottom=(pb+Math.ceil(cut.bottom))+"px";}guard++;}}}function build(){nav.textContent="";cards().forEach(function(_,i){var dot=document.createElement("i");if(i===0)dot.className="on";nav.appendChild(dot);});}function sync(){var list=cards();var dots=nav.children;if(dots.length!==list.length)build();dots=nav.children;var edge=deck.getBoundingClientRect().top+deck.clientHeight*0.35;var idx=0;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=edge+1)idx=i;}for(var j=0;j<dots.length;j++)dots[j].classList.toggle("on",j===idx);for(var k=0;k<list.length;k++)list[k].classList.toggle("ig-on",k===idx);}build();sync();seat();deck.addEventListener("scroll",function(){requestAnimationFrame(sync);},{passive:true});window.addEventListener("resize",function(){sync();seat();});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(seat);})();</script>`;
+  return `<script id="ig-dots-boot">(function(){function boot(){var deck=document.getElementById("ig-deck");var nav=document.getElementById("ig-dots");if(!deck||!nav||deck.getAttribute("data-ig-boot"))return;deck.setAttribute("data-ig-boot","1");function cards(){return Array.prototype.slice.call(deck.querySelectorAll(".ig-card"));}function sheetOf(card){return card.firstElementChild;}function sliver(sheet,partial){var box=sheet.getBoundingClientRect();var top=0,bottom=0;if(box.height<8)return {top:0,bottom:0};var atoms=sheet.querySelectorAll(".chip,.pack-toolbar,button,select");for(var a=0;a<atoms.length;a++){var ar=atoms[a].getBoundingClientRect();if(ar.width<2||ar.height<2)continue;if(ar.top>box.top&&ar.top<box.bottom-0.5&&ar.bottom>box.bottom+0.5)bottom=Math.max(bottom,box.bottom-ar.top+2);if(ar.bottom<box.bottom&&ar.bottom>box.top+0.5&&ar.top<box.top-0.5)top=Math.max(top,ar.bottom-box.top+2);}var walker=document.createTreeWalker(sheet,NodeFilter.SHOW_TEXT);var range=document.createRange();var node;while((node=walker.nextNode())){if(!node.textContent||!/\\S/.test(node.textContent))continue;var host=node.parentElement;if(host&&host.closest&&host.closest(".chip,.pack-toolbar,button,select"))continue;range.selectNodeContents(node);var rects=range.getClientRects();for(var i=0;i<rects.length;i++){var r=rects[i];if(r.width<1||r.height<1)continue;if(r.top>box.top&&r.top<box.bottom+2&&r.bottom>box.bottom-0.5)bottom=Math.max(bottom,box.bottom-r.top+2);if(partial&&r.top>box.top&&r.bottom<=box.bottom&&box.bottom-r.bottom<12)bottom=Math.max(bottom,box.bottom-r.top+2);if(partial&&r.height<12&&r.top>box.top&&r.top<box.bottom&&r.bottom>box.bottom-1)bottom=Math.max(bottom,box.bottom-r.top+2);if(r.bottom<box.bottom&&r.bottom>box.top-2&&r.top<box.top+0.5)top=Math.max(top,r.bottom-box.top+2);}}return {top:top,bottom:bottom};}function seat(){var list=cards();for(var i=0;i<list.length;i++){var card=list[i];var sheet=sheetOf(card);if(!sheet)continue;var timeline=card.classList.contains("ig-card-timeline");var floor=timeline?144:72;card.style.paddingBottom=floor+"px";sheet.style.paddingTop="0px";var guard=0;while(guard<8){var cut=sliver(sheet,timeline);if(cut.top<1&&cut.bottom<1)break;if(cut.top>=1){var pt=parseFloat(getComputedStyle(sheet).paddingTop)||0;sheet.style.paddingTop=(pt+Math.ceil(cut.top))+"px";}if(cut.bottom>=1){var pb=parseFloat(getComputedStyle(card).paddingBottom)||floor;card.style.paddingBottom=(pb+Math.ceil(cut.bottom))+"px";}guard++;}}}function build(){nav.textContent="";cards().forEach(function(_,i){var dot=document.createElement("i");if(i===0)dot.className="on";nav.appendChild(dot);});}function sync(){var list=cards();var dots=nav.children;if(dots.length!==list.length)build();dots=nav.children;var edge=deck.getBoundingClientRect().top+deck.clientHeight*0.35;var idx=0;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=edge+1)idx=i;}for(var j=0;j<dots.length;j++)dots[j].classList.toggle("on",j===idx);for(var k=0;k<list.length;k++)list[k].classList.toggle("ig-on",k===idx);}build();sync();seat();deck.addEventListener("scroll",function(){requestAnimationFrame(sync);},{passive:true});window.addEventListener("resize",function(){sync();seat();});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(seat);}window.__wnIgDots=boot;boot();})();</script>`;
 }
 
 function blockPieces(block: { title: string; sentences: string[] }): string[] {
@@ -824,7 +839,6 @@ export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, _o
   const title = '熱門分析';
   const description = '多個來源同時報道的熱門新聞：背景、各方說法、與香港的關係。AI 根據公開標題整理。';
   const sorted = sortByHeat(entries);
-  const cards = sorted.map((entry, index) => columnPackCard(entry, `/analysis/${encodeURIComponent(entry.key)}/`, '熱門分析', index, '報道', true)).join('');
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -832,24 +846,25 @@ export function renderAnalysisIndex(entries: IndexEntry[], canonical: string, _o
     itemListElement: sorted.map((entry, index) => ({ '@type': 'ListItem', position: index + 1, name: entry.title, url: `https://world-news.xyz/analysis/${encodeURIComponent(entry.key)}` })),
   }).replace(/</g, '\\u003c')}</script>`;
   const robots = `<meta name="robots" content="${entries.length ? 'index,follow' : 'noindex,follow'}" />`;
-  return `<!doctype html>
-<html lang="zh-HK">
-${head(title, description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', `${robots}${ld}`, '', false)}
-<body>
-  <div class="page column-page" data-kind="analysis-index">
-  ${chrome('analysis')}
-  <main id="content" class="column-index">
-    <header class="index-head">
+  const headHtml = `<header class="index-head">
       <div class="index-title-row">
         <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">分析</span></div>
         <h1 class="column-title">${title}</h1>
       </div>
       <p class="dek">${esc(description)}</p>
-    </header>
-    ${entries.length ? `<div class="news-grid analysis-grid">${cards}</div>` : '<p class="notice">暫時未有分析。熱門新聞有三個或以上來源報道時，會自動整理一篇。</p>'}
+    </header>`;
+  const itemCards = sorted.map((entry, index) => columnPackCard(entry, `/analysis/${encodeURIComponent(entry.key)}/`, '熱門分析', index, '報道', true));
+  return `<!doctype html>
+<html lang="zh-HK">
+${head(title, description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', `${robots}${ld}`, '', false)}
+<body>
+  <div class="page column-page ig-snap" data-kind="analysis-index">
+  ${chrome('analysis')}
+  <main id="content" class="column-index ig-frame">
+    ${igIndexDeck(headHtml, itemCards, '<p class="notice">暫時未有分析。熱門新聞有三個或以上來源報道時，會自動整理一篇。</p>', title, footer(false))}
   </main>
-  ${footer()}
   </div>
+  ${igDotsScript()}
 </body>
 </html>`;
 }
@@ -875,7 +890,7 @@ export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEn
   const path = kind === 'compare' ? 'explainer' : kind;
   const sorted = [...entries].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
   const cardKicker = kind === 'compare' ? '新聞懶人包' : meta.kicker;
-  const cards = sorted.map((entry, index) => columnPackCard(entry, `/${path}/${encodeURIComponent(entry.key)}/`, cardKicker, index, '來源')).join('');
+  const itemCards = sorted.map((entry, index) => columnPackCard(entry, `/${path}/${encodeURIComponent(entry.key)}/`, cardKicker, index, '來源'));
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -887,24 +902,24 @@ export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEn
       url: `https://world-news.xyz/${path}/${encodeURIComponent(entry.key)}`,
     })),
   }).replace(/</g, '\\u003c')}</script>`;
-  return `<!doctype html>
-<html lang="zh-HK">
-${head(meta.title, meta.description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', `<meta name="robots" content="index,follow" />${ld}`, '', false)}
-<body>
-  <div class="page column-page" data-kind="${kind}-index">
-  ${chrome(kind)}
-  <main id="content" class="column-index">
-    <header class="index-head">
+  const headHtml = `<header class="index-head">
       <div class="index-title-row">
         <div class="story-kicker"><span class="badge ai-badge">AI 整合</span><span class="kicker-region">${meta.kicker}</span></div>
         <h1 class="column-title">${meta.title}</h1>
       </div>
       <p class="dek">${esc(meta.description)}</p>
-    </header>
-    ${entries.length ? `<div class="news-grid analysis-grid">${cards}</div>` : `<p class="notice">${esc(meta.empty)}</p>`}
+    </header>`;
+  return `<!doctype html>
+<html lang="zh-HK">
+${head(meta.title, meta.description, canonical, entries.find((entry) => entry.image)?.image || '', 'website', `<meta name="robots" content="index,follow" />${ld}`, '', false)}
+<body>
+  <div class="page column-page ig-snap" data-kind="${kind}-index">
+  ${chrome(kind)}
+  <main id="content" class="column-index ig-frame">
+    ${igIndexDeck(headHtml, itemCards, `<p class="notice">${esc(meta.empty)}</p>`, meta.title, footer(false))}
   </main>
-  ${footer()}
   </div>
+  ${igDotsScript()}
 </body>
 </html>`;
 }

@@ -3607,6 +3607,15 @@ html.dark .line-filter-status.is-empty {
   border-color: #5c4a34;
 }
 
+@keyframes ig-swipe-hint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes ig-swipe-hint-ink {
+  from { color: var(--muted); }
+  to { color: var(--accent); }
+}
+
 /* Civilization axis motion (P0).
    Hide styles apply only under html.civ-motion, which the head boot adds and
    columns.js keeps after IntersectionObserver is armed. No class, reduced
@@ -3870,4 +3879,250 @@ html.dark .civ-progress { background: #c4a572; }
   .hero-opening { padding: 56px 16px 40px; }
   .hero-skip,
   .hero-replay { right: 12px; }
+}
+
+/* T4 always-snap deck for the homepage, list indexes, and the civilization hub.
+   Article pages keep the T5b rules in columns.css. One deck scrolls; cards fill it. */
+html:has(.ig-deck),
+body:has(.ig-deck) { height: 100%; overflow: hidden; }
+.page.ig-snap:has(.ig-deck) {
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.page.ig-snap:has(.ig-deck) > .chrome { flex: none; width: 100%; }
+.page.ig-snap .ig-frame {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.page.ig-snap .ig-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+.page.ig-snap .ig-deck .home-list,
+.page.ig-snap .ig-deck .rank-list,
+.page.ig-snap .ig-deck .rank-chunk {
+  display: contents;
+}
+.page.ig-snap .ig-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  box-sizing: border-box;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  margin: 0;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  padding: 0 22px 72px;
+  background: var(--bg);
+  list-style: none;
+}
+.page.ig-snap .ig-card > * {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+.page.ig-snap .ig-card > *:not(.hero-opening) { background: var(--bg); }
+.page.ig-snap .ig-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+.page.ig-snap .ig-card-story .rank-row {
+  align-items: center;
+  border: 0;
+  min-height: 0;
+}
+.page.ig-snap .ig-card-story .rank-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 5vw, 1.75rem);
+  line-height: 1.35;
+}
+.page.ig-snap .ig-card-story .ig-sheet { justify-content: center; }
+.page.ig-snap .ig-card-lead .hero-opening {
+  min-height: 0;
+  height: 100%;
+  margin: 0;
+  flex: 1 1 auto;
+}
+.page.ig-snap .ig-card-lead .ig-sheet { background: transparent; padding: 0; }
+.page.ig-snap .ig-card-axis { background: #161c24; padding-left: 0; padding-right: 0; }
+.page.ig-snap .ig-card.ig-card-axis > .ig-sheet,
+.page.ig-snap .ig-card.ig-card-axis > .axis-mount {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+/* Phone axis-slim caps the hero at 300px. Inside a full-height snap card that
+   leaves an empty band and clips the CTAs. Let the hero fill the card. */
+.page.ig-snap .ig-deck .axis-hero.axis-slim {
+  max-height: none;
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.page.ig-snap .axis-hero .axis-vignette { z-index: 0; }
+.page.ig-snap .axis-hero::after { z-index: 0; }
+.page.ig-snap .axis-hero > :not(.axis-vignette) { z-index: 2; }
+.page.ig-snap .axis-hero .kicker,
+.page.ig-snap .axis-hero .axis-title,
+.page.ig-snap .axis-hero .axis-lede,
+.page.ig-snap .axis-hero .milestones li {
+  background: transparent;
+}
+.page.ig-snap .axis-hero .axis-title { color: #f7f1e6; }
+.page.ig-snap .ig-card .milestones {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+  gap: 10px 6px;
+}
+.page.ig-snap .ig-card .milestones li {
+  flex: none;
+  width: auto;
+  min-width: 0;
+  background: transparent;
+  scroll-snap-align: none;
+}
+.page.ig-snap .ig-card .milestones::before { content: none; }
+/* Deep-time images crop inside the card. The sheet does not scroll. */
+.page.ig-snap .ig-card .deep-time {
+  margin-top: 0;
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.page.ig-snap .ig-card .deep-time-grid {
+  min-height: 0;
+  overflow: hidden;
+}
+.page.ig-snap .ig-card .deep-time-card {
+  min-height: 0;
+  overflow: hidden;
+}
+.page.ig-snap .ig-card .deep-time-card .stage-cover {
+  aspect-ratio: auto;
+  height: 72px;
+  max-height: 72px;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+.page.ig-snap .ig-card .deep-time-card .stage-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.page.ig-snap .ig-card .deep-axis {
+  overflow: hidden;
+  scroll-snap-type: none;
+  max-width: 100%;
+}
+.page.ig-snap .ig-card .milestones {
+  width: 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.page.ig-snap .ig-dots {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: grid;
+  gap: 10px;
+  pointer-events: none;
+}
+.page.ig-snap .ig-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line);
+  display: block;
+}
+.page.ig-snap .ig-dots i.on { background: var(--accent); }
+.page.ig-snap .ig-card::after {
+  content: none;
+  position: absolute;
+  left: 0;
+  right: 32px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 3;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--muted);
+  pointer-events: none;
+}
+.page.ig-snap .ig-card.ig-on:not(.ig-card-close)::after,
+.page.ig-snap .ig-deck:not(:has(.ig-on)) .ig-card-lead::after {
+  content: "↑ 上滑";
+  animation: ig-swipe-hint 1.2s ease-in-out 2, ig-swipe-hint-ink 1.2s ease-out 1 forwards;
+}
+.page.ig-snap .ig-card-close::after { content: none; animation: none; }
+@media (min-width: 901px) {
+  .page.ig-snap:has(.ig-deck) {
+    background: color-mix(in srgb, var(--text) 8%, var(--bg));
+  }
+  .page.ig-snap:has(.ig-deck) .ig-frame {
+    width: min(420px, 100%);
+    align-self: center;
+    margin: 12px 0 16px;
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+    background: var(--bg);
+    overflow: hidden;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page.ig-snap .ig-deck { scroll-behavior: auto; }
+  .page.ig-snap .ig-card::after,
+  .page.ig-snap .ig-card.ig-on:not(.ig-card-close)::after,
+  .page.ig-snap .ig-deck:not(:has(.ig-on)) .ig-card-lead::after { animation: none; }
 }

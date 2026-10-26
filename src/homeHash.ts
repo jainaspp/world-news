@@ -88,6 +88,17 @@ export function placeHomeHash(view: HomeHashView): number | null {
   return top;
 }
 
+/** Move the snap deck so the anchor's card sits at the top. Window scroll stays put. */
+function scrollDeckTo(el: HTMLElement): void {
+  const deck = el.closest('.ig-deck');
+  if (!(deck instanceof HTMLElement)) return;
+  const card = el.closest('.ig-card');
+  const target = card instanceof HTMLElement ? card : el;
+  const top = deck.scrollTop + target.getBoundingClientRect().top - deck.getBoundingClientRect().top;
+  if (Math.abs(deck.scrollTop - top) < PLACE_EPSILON) return;
+  deck.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+}
+
 function readOffset(win: Window): number {
   const raw = win.getComputedStyle(win.document.documentElement).getPropertyValue('--home-anchor-offset');
   return parseCssPx(raw, 127);
@@ -117,6 +128,8 @@ export function bindHomeHashScroll(win: Window = window): () => void {
   function place(): void {
     const id = homeAnchorId(win.location.hash);
     if (!id) return;
+    const el = win.document.getElementById(id);
+    if (el) scrollDeckTo(el);
     const view = viewFor(id);
     if (!view) return;
     const top = placeHomeHash(view);
@@ -128,6 +141,11 @@ export function bindHomeHashScroll(win: Window = window): () => void {
     if (!id) return;
     const el = win.document.getElementById(id);
     if (!el) return;
+    const deck = el.closest('.ig-deck');
+    if (deck instanceof HTMLElement) {
+      if (deck.scrollTop < 4) scrollDeckTo(el);
+      return;
+    }
     const scrollY = win.scrollY || win.pageYOffset || 0;
     const heading = el.querySelector('h1, h2') ?? el;
     const head = heading.getBoundingClientRect();
