@@ -1,5 +1,5 @@
 import { siteBrand } from './brand.js';
-import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head, igCard, igDotsNav, igDotsScript } from './contentPage.js';
+import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head, igCard, igCloseCard, igDotsNav, igDotsScript } from './contentPage.js';
 import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderVolumeBoard, renderVolumeCards } from './civilization/chronicle.js';
 import { renderBulletinClock } from './civilization/clock.js';
 import { renderCaseAxisLinks } from './civilization/cases.js';
@@ -336,6 +336,11 @@ export function wrapCivilizationHome(inner: string, now = new Date(), topic = fa
   </div>`;
 }
 
+/** One #ig-deck for a long civilization page. Flow cards shed overflow in the boot script. */
+function snapDetail(body: string, title: string): string {
+  return `${igDotsNav()}<div class="ig-deck" id="ig-deck">${igCard(body, 'ig-card-lead ig-card-flow')}${igCloseCard(title, footer(false))}</div>`;
+}
+
 function shell(options: {
   title: string;
   description: string;
@@ -343,7 +348,7 @@ function shell(options: {
   body: string;
   indexable: boolean;
   status?: number;
-  /** Hub only. Detail pages stay long documents. */
+  /** Hub and detail pages snap. The 404 miss stays a short document. */
   snap?: boolean;
 }): { html: string; status: number; indexable: boolean } {
   const canonical = `${ORIGIN}${options.path}`;
@@ -444,8 +449,9 @@ export function renderCosmosPage(): { html: string; status: number; indexable: b
     title: '宇宙長河・深時間',
     description: '從大爆炸到人族前生物圈的十階段深時間，約七百萬年前交接入類起源。',
     path: '/civilization/cosmos/',
-    body,
+    body: snapDetail(body, '宇宙長河'),
     indexable,
+    snap: true,
   });
 }
 
@@ -457,8 +463,9 @@ export function renderEarthPage(): { html: string; status: number; indexable: bo
     title: '地球生命・深時間',
     description: '從大氧化、寒武紀到三疊紀、侏羅紀、白堊紀與哺乳動物輻射，約七百萬年前交接入類起源。',
     path: '/civilization/earth/',
-    body,
+    body: snapDetail(body, '地球生命'),
     indexable,
+    snap: true,
   });
 }
 
@@ -470,8 +477,9 @@ export function renderChroniclePage(): { html: string; status: number; indexable
     title: '文明編年',
     description: '編年分作古、今、未來三卷，以能量、信息、制度、貨幣四線標出界定里程碑。',
     path: '/civilization/chronicle/',
-    body,
+    body: snapDetail(body, '文明編年'),
     indexable,
+    snap: true,
   });
 }
 
@@ -483,8 +491,9 @@ export function renderTechPage(): { html: string; status: number; indexable: boo
     title: '科技與發現',
     description: '從石器、用火、文字與科學儀器到工業能量、大眾媒介與今日新聞切片。',
     path: '/civilization/tech/',
-    body,
+    body: snapDetail(body, '科技與發現'),
     indexable,
+    snap: true,
   });
 }
 
@@ -496,8 +505,9 @@ export function renderCityPage(): { html: string; status: number; indexable: boo
     title: '城市・基建・民生',
     description: '從聚落、公共工程與交通樞紐到公民場館與日常公共生活。香港地標只作本地案例。',
     path: '/civilization/city/',
-    body,
+    body: snapDetail(body, '城市・基建・民生'),
     indexable,
+    snap: true,
   });
 }
 
@@ -515,8 +525,9 @@ export function renderOriginsPage(): { html: string; status: number; indexable: 
     title: '人類起源時間線',
     description: '從深時間到解剖學現代人與全球擴張的約略年表。',
     path: '/civilization/origins/',
-    body,
+    body: snapDetail(body, '人類起源時間線'),
     indexable,
+    snap: true,
   });
 }
 

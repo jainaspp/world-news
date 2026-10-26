@@ -54,6 +54,7 @@
     var currentId = '';
     var io = null;
     var scrollOn = false;
+    var scrollDeck = null;
     var ticking = false;
 
     function motionReduced() {
@@ -85,14 +86,17 @@
       root.style.setProperty('--civ-progress', String(value));
     }
     function measure() {
+      var deck = document.getElementById('ig-deck');
       var rects = stages.map(function (stage) { return stage.getBoundingClientRect(); });
-      var line = window.innerHeight * 0.28;
+      var viewTop = deck ? deck.getBoundingClientRect().top : 0;
+      var viewHeight = deck ? deck.clientHeight : window.innerHeight;
+      var line = viewTop + viewHeight * 0.28;
       var nextId = '';
       var best = Infinity;
       var i;
       for (i = 0; i < stages.length; i++) {
         var rect = rects[i];
-        if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
+        if (rect.bottom < viewTop || rect.top > viewTop + viewHeight) continue;
         var dist = Math.abs(rect.top - line);
         if (dist < best) { best = dist; nextId = stages[i].id; }
       }
@@ -103,10 +107,15 @@
       }
       var progress = 1;
       if (rects.length) {
-        var start = rects[0].top + window.scrollY;
-        var end = rects[rects.length - 1].bottom + window.scrollY - window.innerHeight;
-        var span = end - start;
-        progress = span <= 1 ? 1 : (window.scrollY - start) / span;
+        if (deck) {
+          var max = deck.scrollHeight - deck.clientHeight;
+          progress = max <= 1 ? 1 : deck.scrollTop / max;
+        } else {
+          var start = rects[0].top + window.scrollY;
+          var end = rects[rects.length - 1].bottom + window.scrollY - window.innerHeight;
+          var span = end - start;
+          progress = span <= 1 ? 1 : (window.scrollY - start) / span;
+        }
         if (progress < 0) progress = 0;
         if (progress > 1) progress = 1;
         progress = Math.round(progress * 1000) / 1000;
@@ -131,12 +140,15 @@
     function bindScroll() {
       if (scrollOn) return;
       scrollOn = true;
+      scrollDeck = document.getElementById('ig-deck');
+      if (scrollDeck) scrollDeck.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll, { passive: true });
     }
     function unbindScroll() {
       if (!scrollOn) return;
       scrollOn = false;
+      if (scrollDeck) scrollDeck.removeEventListener('scroll', onScroll);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     }
@@ -160,13 +172,22 @@
       return top;
     }
     function placeHashTarget(target, behavior) {
+      var deck = target && target.closest ? target.closest('#ig-deck') : null;
+      if (deck) {
+        var card = target.closest('.ig-card') || target;
+        var top = deck.scrollTop + card.getBoundingClientRect().top - deck.getBoundingClientRect().top;
+        if (top < 0) top = 0;
+        if (Math.abs(deck.scrollTop - top) < 2) return;
+        deck.scrollTo({ top: top, behavior: behavior || (motionReduced() ? 'auto' : 'smooth') });
+        return;
+      }
       var reading = syncCivAnchorOffset();
       anchorChrome = reading.height;
       hashPlacedAt = Date.now();
-      var top = documentTop(target) - reading.offset;
-      if (top < 0) top = 0;
-      if (Math.abs(window.scrollY - top) < 2) return;
-      window.scrollTo({ top: top, behavior: behavior || (motionReduced() ? 'auto' : 'smooth') });
+      var docTop = documentTop(target) - reading.offset;
+      if (docTop < 0) docTop = 0;
+      if (Math.abs(window.scrollY - docTop) < 2) return;
+      window.scrollTo({ top: docTop, behavior: behavior || (motionReduced() ? 'auto' : 'smooth') });
     }
     function correctHashIfCovered() {
       var reading = syncCivAnchorOffset();
@@ -286,7 +307,7 @@
             entry.target.classList.add('is-inview');
             io.unobserve(entry.target);
           });
-        }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+        }, { root: document.getElementById('ig-deck') || null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
         stages.forEach(function (stage) {
           if (!stage.classList.contains('is-inview')) io.observe(stage);
         });

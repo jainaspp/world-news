@@ -3608,12 +3608,8 @@ html.dark .line-filter-status.is-empty {
 }
 
 @keyframes ig-swipe-hint {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-@keyframes ig-swipe-hint-ink {
-  from { color: var(--muted); }
-  to { color: var(--accent); }
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-8px); }
 }
 
 /* Civilization axis motion (P0).
@@ -3881,8 +3877,10 @@ html.dark .civ-progress { background: #c4a572; }
   .hero-replay { right: 12px; }
 }
 
-/* T4 always-snap deck for the homepage, list indexes, and the civilization hub.
-   Article pages keep the T5b rules in columns.css. One deck scrolls; cards fill it. */
+/* T4 always-snap deck for the homepage, list indexes, the civilization hub, and
+   T6a detail pages. Article pages keep the T5b rules in columns.css.
+   Wide screens use this same snap inside a 420px frame. There is no document-scroll fallback.
+   One deck scrolls; cards fill it. */
 html:has(.ig-deck),
 body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .page.ig-snap:has(.ig-deck) {
@@ -3976,7 +3974,43 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   height: 100%;
   margin: 0;
   flex: 1 1 auto;
+  padding: 20px 8px 8px;
 }
+/* T6a: the lead is a settled card. The long intro no longer hides the CTAs,
+   and the duplicate downward hint stays off the title row. */
+.page.ig-snap .hero-opening[data-mode="playing"] .hero-line,
+.page.ig-snap .hero-opening[data-mode="playing"] .hero-cta,
+.page.ig-snap .hero-opening[data-mode="playing"] .hero-hint-row {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+.page.ig-snap .hero-opening .hero-line,
+.page.ig-snap .hero-opening .hero-cta,
+.page.ig-snap .hero-opening .hero-hint-row {
+  transition: none;
+}
+.page.ig-snap .hero-skip,
+.page.ig-snap .hero-replay,
+.page.ig-snap .hero-hint-row { display: none; }
+html.civ-motion body:not(.static) .page.ig-snap .civ-reveal,
+html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .stage-frame img,
+html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
+  opacity: 1;
+  transform: none;
+  animation: none;
+  transition: none;
+}
+.page.ig-snap .hero-title {
+  font-size: clamp(1.45rem, 4.5vw, 2rem);
+  margin-bottom: 12px;
+}
+.page.ig-snap .hero-lines {
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.page.ig-snap .hero-line { margin: 0 0 0.25em; }
+.page.ig-snap .hero-cta { margin-top: 14px; }
 .page.ig-snap .ig-card-lead .ig-sheet { background: transparent; padding: 0; }
 .page.ig-snap .ig-card-axis { background: #161c24; padding-left: 0; padding-right: 0; }
 .page.ig-snap .ig-card.ig-card-axis > .ig-sheet,
@@ -4058,10 +4092,40 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   object-fit: cover;
   object-position: center;
 }
-.page.ig-snap .ig-card .deep-axis {
+.page.ig-snap .ig-card .deep-axis,
+.page.ig-snap .ig-card .pattern-axis,
+.page.ig-snap .ig-card .case-axis,
+.page.ig-snap .ig-card .chronicle-nav,
+.page.ig-snap .ig-card .chronicle-track,
+.page.ig-snap .ig-card .line-chips {
+  display: flex;
+  flex-wrap: wrap;
   overflow: hidden;
   scroll-snap-type: none;
   max-width: 100%;
+  min-width: 0;
+}
+.page.ig-snap .ig-card .pattern-axis .chip,
+.page.ig-snap .ig-card .case-axis .chip,
+.page.ig-snap .ig-card .chronicle-nav .chip,
+.page.ig-snap .ig-card .line-chip {
+  max-width: 100%;
+  height: auto;
+  white-space: normal;
+  scroll-snap-align: none;
+}
+.page.ig-snap .ig-card .civ-block-figure,
+.page.ig-snap .ig-card .milestone-figure,
+.page.ig-snap .ig-card .future-cover {
+  overflow: hidden;
+  max-height: 168px;
+}
+.page.ig-snap .ig-card .civ-block-figure img,
+.page.ig-snap .ig-card .milestone-figure img,
+.page.ig-snap .ig-card .future-cover img {
+  max-height: 120px;
+  width: 100%;
+  object-fit: cover;
 }
 .page.ig-snap .ig-card .milestones {
   width: 100%;
@@ -4089,22 +4153,87 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .page.ig-snap .ig-card::after {
   content: none;
   position: absolute;
-  left: 0;
-  right: 32px;
-  bottom: max(16px, env(safe-area-inset-bottom));
+  left: 50%;
+  right: auto;
+  bottom: max(18px, env(safe-area-inset-bottom));
   z-index: 3;
-  text-align: center;
+  width: max-content;
+  max-width: calc(100% - 72px);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
   font-size: 16px;
-  line-height: 1.4;
-  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-align: center;
   pointer-events: none;
+  transform: translateX(-50%);
 }
-.page.ig-snap .ig-card.ig-on:not(.ig-card-close)::after,
-.page.ig-snap .ig-deck:not(:has(.ig-on)) .ig-card-lead::after {
+.page.ig-snap .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after {
   content: "↑ 上滑";
-  animation: ig-swipe-hint 1.2s ease-in-out 2, ig-swipe-hint-ink 1.2s ease-out 1 forwards;
+  animation: ig-swipe-hint 0.6s ease-out 1;
 }
 .page.ig-snap .ig-card-close::after { content: none; animation: none; }
+/* Detail-page figures and chips stay inside the card. No inner scroller. */
+.page.ig-snap .ig-card-flow .civ-figure,
+.page.ig-snap .ig-card-flow .civ-origins-hero,
+.page.ig-snap .ig-card-flow .civ-node-hero,
+.page.ig-snap .ig-card-flow .civ-hub-hero,
+.page.ig-snap .ig-card-flow .cosmo-scale-frame {
+  float: none;
+  clear: none;
+  width: 100%;
+  max-width: 100%;
+  margin: 8px 0;
+}
+.page.ig-snap .ig-card-flow .stage-frame,
+.page.ig-snap .ig-card-flow .civ-origins-hero,
+.page.ig-snap .ig-card-flow .civ-node-hero,
+.page.ig-snap .ig-card-flow .cosmo-scale-frame {
+  position: relative;
+  height: 168px;
+  max-height: 168px;
+  aspect-ratio: auto;
+  overflow: hidden;
+}
+.page.ig-snap .ig-card-flow .stage-frame img,
+.page.ig-snap .ig-card-flow .civ-figure img,
+.page.ig-snap .ig-card-flow .civ-origins-hero img,
+.page.ig-snap .ig-card-flow .civ-node-hero img,
+.page.ig-snap .ig-card-flow figure img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center;
+}
+.page.ig-snap .ig-card-flow .chronicle-nav,
+.page.ig-snap .ig-card-flow .cosmo-nav,
+.page.ig-snap .ig-card-flow .stage-links,
+.page.ig-snap .ig-card-flow .line-chips,
+.page.ig-snap .ig-card-flow .pattern-axis,
+.page.ig-snap .ig-card-flow .case-axis,
+.page.ig-snap .ig-card-flow .deep-axis,
+.page.ig-snap .ig-card-flow .chronicle-track {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  scroll-snap-type: none;
+}
+.page.ig-snap .ig-card-flow .chip,
+.page.ig-snap .ig-card-flow .line-chip {
+  max-width: 100%;
+  height: auto;
+  white-space: normal;
+}
 @media (min-width: 901px) {
   .page.ig-snap:has(.ig-deck) {
     background: color-mix(in srgb, var(--text) 8%, var(--bg));
@@ -4119,10 +4248,14 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
     background: var(--bg);
     overflow: hidden;
   }
+  .page.ig-snap .ig-deck {
+    scroll-snap-type: y mandatory;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .page.ig-snap .ig-deck { scroll-behavior: auto; }
   .page.ig-snap .ig-card::after,
-  .page.ig-snap .ig-card.ig-on:not(.ig-card-close)::after,
-  .page.ig-snap .ig-deck:not(:has(.ig-on)) .ig-card-lead::after { animation: none; }
+  .page.ig-snap .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after { animation: none; }
 }
