@@ -805,7 +805,7 @@ html.dark .jd-tool-card { box-shadow: none; }
 }
 
 /* T5b always-on IG snap. One deck at every width: lead, timeline, body, sources, close.
-   Wide screens center a 420px phone. Cards size to the deck under the header (86% so the next card peeks ~14%). */
+   Wide screens center a 420px phone. Each card fills the deck. Only the deck scrolls. */
 html:has(.ig-deck),
 body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .page.column-page[data-kind="compare"]:has(.ig-deck),
@@ -867,32 +867,23 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   align-items: stretch;
   position: relative;
   box-sizing: border-box;
-  flex: 0 0 86%;
+  flex: 0 0 100%;
   width: 100%;
-  height: 86%;
+  height: 100%;
   min-height: 0;
-  max-height: 86%;
+  max-height: 100%;
   overflow: hidden;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   padding: 0 22px 72px;
   background: var(--bg);
 }
-.page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card::before,
-.page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card::before,
-.page.column-page[data-kind="story"]:has(.ig-deck) .ig-card::before {
-  content: "";
-  flex: 0 0 var(--ig-band, 30%);
-  height: var(--ig-band, 30%);
-  pointer-events: none;
-}
 .ig-card > * {
-  flex: 1 1 0%;
+  flex: 1 1 auto;
   min-height: 0;
   min-width: 0;
   max-width: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
   z-index: 1;
   background: var(--bg);
@@ -1040,8 +1031,8 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   float: none;
   display: block;
   width: 100%;
-  height: 144px;
-  max-height: 144px;
+  height: 96px;
+  max-height: 96px;
   object-fit: cover;
   z-index: 0;
 }

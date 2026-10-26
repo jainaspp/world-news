@@ -303,8 +303,11 @@ describe('T5b always-on IG snap cards', () => {
     expect(ig).toContain('scroll-snap-type: y mandatory');
     expect(ig).toContain('scroll-snap-align: start');
     expect(ig).toContain('scroll-snap-stop: always');
-    expect(ig).toContain('flex: 0 0 86%');
-    expect(ig).toContain('height: 86%');
+    expect(ig).toContain('flex: 0 0 100%');
+    expect(ig).toContain('height: 100%');
+    expect(ig).toContain('overflow: hidden;');
+    expect(ig).not.toContain('86%');
+    expect(ig).not.toContain('--ig-band');
     expect(ig).not.toContain('min-height: 100dvh');
     expect(ig).not.toContain('max-width: 900px');
     expect(ig).toContain('min-width: 901px');
@@ -317,7 +320,7 @@ describe('T5b always-on IG snap cards', () => {
     expect(ig).toContain('padding: 0 22px 72px');
     expect(ig).toContain('.ig-card-timeline { order: 2; padding-bottom: 96px; }');
     expect(ig).toContain('.tl-phase {\n  display: inline;');
-    expect(ig).toContain('flex: 0 0 var(--ig-band, 30%)');
+    expect(ig).toContain('.ig-card > * {\n  flex: 1 1 auto;');
     expect(ig).toContain('.ig-card.ig-on:not(.ig-card-close)::after');
     expect(ig).toContain('@keyframes ig-swipe-hint');
     expect(ig).toContain('@keyframes ig-swipe-hint-ink');
@@ -336,7 +339,10 @@ describe('T5b always-on IG snap cards', () => {
     expect(ARTICLE_CRITICAL_CSS).not.toContain('min-height: 100dvh');
     expect(ARTICLE_CRITICAL_CSS).toContain('scroll-snap-type: y mandatory');
     expect(ARTICLE_CRITICAL_CSS).toContain('scroll-snap-stop: always');
-    expect(ARTICLE_CRITICAL_CSS).toContain('flex: 0 0 86%');
+    expect(ARTICLE_CRITICAL_CSS).toContain('flex: 0 0 100%');
+    expect(ARTICLE_CRITICAL_CSS).toContain('height: 100%');
+    expect(ARTICLE_CRITICAL_CSS).not.toContain('86%');
+    expect(ARTICLE_CRITICAL_CSS).not.toContain('--ig-band');
     expect(ARTICLE_CRITICAL_CSS).toContain('width: min(420px, 100%)');
     expect(ARTICLE_CRITICAL_CSS).toContain('width: 8px; height: 8px');
     expect(ARTICLE_CRITICAL_CSS).toContain('gap: 10px');
@@ -345,7 +351,7 @@ describe('T5b always-on IG snap cards', () => {
     expect(ARTICLE_CRITICAL_CSS).toContain('font-size: 16px');
     expect(ARTICLE_CRITICAL_CSS).toContain('padding: 0 22px 72px');
     expect(ARTICLE_CRITICAL_CSS).toContain('.ig-card-timeline { order: 2; padding-bottom: 96px; }');
-    expect(ARTICLE_CRITICAL_CSS).toContain('flex: 0 0 var(--ig-band, 30%)');
+    expect(ARTICLE_CRITICAL_CSS).toContain('overflow: hidden;');
     expect(ARTICLE_CRITICAL_CSS).toContain('.ig-card.ig-on:not(.ig-card-close)::after { animation: none; }');
     expect(ARTICLE_CRITICAL_CSS).toContain('ig-swipe-hint 1.2s ease-in-out 2');
     expect(ARTICLE_CRITICAL_CSS).toContain('from { color: var(--muted); }');
@@ -357,7 +363,7 @@ describe('T5b always-on IG snap cards', () => {
     expect(ARTICLE_CRITICAL_CSS).toContain('[data-kind="story"]:has(.ig-deck) .ig-card-body');
     const dots = readFileSync('shared/contentPage.ts', 'utf8');
     expect(dots).toContain('id="ig-dots-boot"');
-    expect(dots).toContain('--ig-band');
+    expect(dots).not.toContain('--ig-band');
     expect(dots).toContain('ig-card-timeline");var floor=timeline?96:72');
     expect(dots).not.toContain('max-width: 900px');
     expect(dots).not.toContain('mq.matches');
