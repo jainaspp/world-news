@@ -558,12 +558,15 @@ export function igDotsNav(): string {
 
 /** Close card. Ad markup, when present, is passed in `rest` so it stays after sources. */
 export function igCloseCard(title: string, rest: string): string {
-  return `<div class="ig-card ig-card-close"><div class="ig-close-only"><p class="ig-kicker">收束</p><h2 class="column-h2">完</h2><p class="dek">${esc(title)}</p><a class="chip" href="/">返回首頁</a></div>${rest}</div>`;
+  return `<div class="ig-card ig-card-close"><div class="ig-sheet"><div class="ig-close-only"><p class="ig-kicker">收束</p><h2 class="column-h2">完</h2><p class="dek">${esc(title)}</p><a class="chip" href="/">返回首頁</a></div>${rest}</div></div>`;
 }
 
-/** Dots follow the deck at every width. There is no narrow-screen gate. */
+/**
+ * Dots follow the deck at every width. The active card gets `.ig-on` so only that
+ * card paints 「↑ 上滑」. Padding grows past 72px until no text line is cut by the sheet.
+ */
 export function igDotsScript(): string {
-  return `<script id="ig-dots-boot">(function(){var deck=document.getElementById("ig-deck");var nav=document.getElementById("ig-dots");if(!deck||!nav)return;function cards(){return Array.prototype.slice.call(deck.querySelectorAll(".ig-card"));}function build(){nav.textContent="";cards().forEach(function(_,i){var dot=document.createElement("i");if(i===0)dot.className="on";nav.appendChild(dot);});}function sync(){var list=cards();var dots=nav.children;if(dots.length!==list.length)build();dots=nav.children;var edge=deck.getBoundingClientRect().top+deck.clientHeight*0.35;var idx=0;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=edge+1)idx=i;}for(var j=0;j<dots.length;j++)dots[j].classList.toggle("on",j===idx);}build();deck.addEventListener("scroll",function(){requestAnimationFrame(sync);},{passive:true});sync();})();</script>`;
+  return `<script id="ig-dots-boot">(function(){var deck=document.getElementById("ig-deck");var nav=document.getElementById("ig-dots");if(!deck||!nav)return;function cards(){return Array.prototype.slice.call(deck.querySelectorAll(".ig-card"));}function sheetOf(card){return card.firstElementChild;}function halfCut(sheet){var box=sheet.getBoundingClientRect();if(box.height<8)return "";var walker=document.createTreeWalker(sheet,NodeFilter.SHOW_TEXT);var range=document.createRange();var node,top=false,bottom=false;while((node=walker.nextNode())){if(!node.textContent||!/\\S/.test(node.textContent))continue;range.selectNodeContents(node);var rects=range.getClientRects();for(var i=0;i<rects.length;i++){var r=rects[i];if(r.width<1||r.height<1)continue;var hit=r.bottom>box.top+1&&r.top<box.bottom-1;var full=r.top>=box.top-1&&r.bottom<=box.bottom+1;if(hit&&!full){if(r.top<box.top+1)top=true;else bottom=true;}}}if(top)return "top";if(bottom)return "bottom";return "";}function fitBand(){var list=cards();var sample=null;for(var i=0;i<list.length;i++){if(!list[i].classList.contains("ig-card-close")){sample=list[i];break;}}var cardH=sample?sample.getBoundingClientRect().height:deck.clientHeight*0.86;var peek=Math.ceil(deck.clientHeight-cardH+8);if(peek<48)peek=48;deck.style.setProperty("--ig-band",peek+"px");}function seat(){fitBand();var list=cards();for(var i=0;i<list.length;i++){var card=list[i];var sheet=sheetOf(card);if(!sheet)continue;card.style.paddingBottom="72px";sheet.style.paddingTop="0px";var guard=0;while(guard<36){var cut=halfCut(sheet);if(!cut)break;if(cut==="top"){var pt=parseFloat(getComputedStyle(sheet).paddingTop)||0;sheet.style.paddingTop=(pt+2)+"px";}else{var pb=parseFloat(getComputedStyle(card).paddingBottom)||72;card.style.paddingBottom=(pb+2)+"px";}guard++;}}}function build(){nav.textContent="";cards().forEach(function(_,i){var dot=document.createElement("i");if(i===0)dot.className="on";nav.appendChild(dot);});}function sync(){var list=cards();var dots=nav.children;if(dots.length!==list.length)build();dots=nav.children;var edge=deck.getBoundingClientRect().top+deck.clientHeight*0.35;var idx=0;for(var i=0;i<list.length;i++){if(list[i].getBoundingClientRect().top<=edge+1)idx=i;}for(var j=0;j<dots.length;j++)dots[j].classList.toggle("on",j===idx);for(var k=0;k<list.length;k++)list[k].classList.toggle("ig-on",k===idx);}build();sync();seat();deck.addEventListener("scroll",function(){requestAnimationFrame(sync);},{passive:true});window.addEventListener("resize",function(){sync();seat();});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(seat);})();</script>`;
 }
 
 function blockPieces(block: { title: string; sentences: string[] }): string[] {
@@ -581,7 +584,7 @@ export function igBodyCards(blocks: { title: string; sentences: string[] }[], le
   if (!pieces.length && !lead.trim()) return '';
   if (!split) return `<div class="ig-card ig-card-body"><section class="pack-body">${lead}${pieces.join('')}</section></div>`;
   const mid = Math.ceil(pieces.length / 2);
-  return `<section class="pack-body"><div class="ig-card ig-card-body ig-body-part" data-ig="3a">${lead}${pieces.slice(0, mid).join('')}</div><div class="ig-card ig-card-body ig-body-part" data-ig="3b">${pieces.slice(mid).join('')}</div></section>`;
+  return `<section class="pack-body"><div class="ig-card ig-card-body ig-body-part" data-ig="3a"><div class="ig-sheet">${lead}${pieces.slice(0, mid).join('')}</div></div><div class="ig-card ig-card-body ig-body-part" data-ig="3b"><div class="ig-sheet">${pieces.slice(mid).join('')}</div></div></section>`;
 }
 
 export function renderContentPage(doc: ContentDoc, canonical: string, options: PageOptions = {}): string {
