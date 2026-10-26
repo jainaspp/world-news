@@ -30,28 +30,30 @@ export function RankedList({ items, counts, breaking, explainers, titleOf, lang,
         const badge = breaking.has(item.id) ? t('breaking', lang) : '';
         const pack = explainers.get(item.id) || '';
         const open = () => trackRead(item.id);
+        const storyHref = `/story/${item.id}/`;
         return (
-          <li key={item.id} className={rank <= 3 ? 'rank-row rank-row-top' : 'rank-row'}>
-            <span className="rank-num" aria-hidden="true">{rank}</span>
-            <div className="rank-main">
-              {href ? (
-                <a className="rank-title" href={href} lang={langAttr} title={title} target="_blank" rel="noopener noreferrer" onClick={open}>
-                  {title}
-                </a>
-              ) : (
-                <span className="rank-title" lang={langAttr} title={title}>{title}</span>
-              )}
-              {pack ? <a className="rank-pack" href={pack}>{t('packLink', lang)}</a> : null}
-              <span className="rank-note">
-                <span className="source-tag">{item.source}</span>
-                {when ? <time dateTime={item.pubDate}>{when}</time> : null}
-              </span>
-              {badge ? <span className="rank-badge">{badge}</span> : null}
-            </div>
-            <div className="rank-side">
-              {heat != null ? (
-                <a className="rank-heat" href={`/story/${item.id}/`} aria-label={`${heat} ${t('outlets', lang)}`}>{heat}</a>
-              ) : null}
+          <li key={item.id} className="ig-card ig-card-story">
+            <div className="ig-sheet">
+              <div className={rank <= 3 ? 'rank-row rank-row-top' : 'rank-row'}>
+                <span className="rank-num" aria-hidden="true">{rank}</span>
+                <div className="rank-main">
+                  <a className="rank-title" href={storyHref} lang={langAttr} title={title} onClick={open}>
+                    {title}
+                  </a>
+                  {pack ? <a className="rank-pack" href={pack}>{t('packLink', lang)}</a> : null}
+                  <span className="rank-note">
+                    <span className="source-tag">{item.source}</span>
+                    {when ? <time dateTime={item.pubDate}>{when}</time> : null}
+                  </span>
+                  {href ? <a className="rank-original" href={href} target="_blank" rel="noopener noreferrer">原文</a> : null}
+                  {badge ? <span className="rank-badge">{badge}</span> : null}
+                </div>
+                <div className="rank-side">
+                  {heat != null ? (
+                    <a className="rank-heat" href={storyHref} aria-label={`${heat} ${t('outlets', lang)}`}>{heat}</a>
+                  ) : null}
+                </div>
+              </div>
             </div>
           </li>
         );

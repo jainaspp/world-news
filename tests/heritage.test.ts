@@ -111,9 +111,9 @@ describe('當年今日 pages', () => {
     const slice = home.indexOf('id="slice"');
     const digest = home.indexOf('class="digest-strip"');
     expect(axis).toBeGreaterThan(-1);
-    expect(pin).toBeGreaterThan(axis);
-    expect(slice).toBeGreaterThan(pin);
+    expect(slice).toBeGreaterThan(axis);
     expect(digest).toBeGreaterThan(slice);
+    expect(pin).toBeGreaterThan(digest);
     expect(home).not.toContain('今日必讀');
     expect(home).toContain('chip civ-chip');
     expect(home).toContain('站在一條很長的時間軸上');
@@ -122,7 +122,7 @@ describe('當年今日 pages', () => {
     expect(home).not.toContain('adsbygoogle');
     const app = readFileSync('src/App.tsx', 'utf8');
     expect(app.indexOf('<OnThisDay')).toBeGreaterThan(0);
-    expect(app.indexOf('<OnThisDay')).toBeLessThan(app.indexOf('id="slice"'));
+    expect(app.indexOf('id="slice"')).toBeLessThan(app.indexOf('<OnThisDay'));
     expect(app).not.toContain('<MustRead');
   });
 

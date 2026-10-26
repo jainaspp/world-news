@@ -5,7 +5,7 @@ import type { MajorEntry } from './angles.js';
 import { breakingIds } from './breaking.js';
 import { analysisSlug } from './content.js';
 import { rankHeatCount } from './homeTemplate.js';
-import { esc, footer, safeHttp } from './contentPage.js';
+import { esc, footer, igCard, igDotsScript, safeHttp } from './contentPage.js';
 import { homeIntroFoot, homeIntroTop, type IntroHref } from './homeIntro.js';
 import { renderMajorBanner } from './majorPage.js';
 import type { HkNow } from './hk.js';
@@ -119,9 +119,11 @@ function rankList(items: NewsItem[], counts: Map<string, number>, feedSlot: stri
     const title = esc(item.title);
     const lang = titleLang(item.title);
     const langAttr = lang === 'zh' ? 'zh-HK' : lang;
-    const titleHtml = articleUrl
-      ? `<a class="rank-title" lang="${langAttr}" title="${title}" href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer">${title}</a>`
-      : `<span class="rank-title" lang="${langAttr}" title="${title}">${title}</span>`;
+    const storyHref = `/story/${esc(item.id)}/`;
+    const titleHtml = `<a class="rank-title" lang="${langAttr}" title="${title}" href="${storyHref}">${title}</a>`;
+    const original = articleUrl
+      ? `<a class="rank-original" href="${esc(articleUrl)}" target="_blank" rel="noopener noreferrer">原文</a>`
+      : '';
     const sources = counts.get(item.id) ?? 0;
     const heat = rankHeatCount(sources);
     const when = timeAgo(item.pubDate);
@@ -133,15 +135,16 @@ function rankList(items: NewsItem[], counts: Map<string, number>, feedSlot: stri
     const heatHtml = heat != null
       ? `<a class="rank-heat" href="/story/${esc(item.id)}/" aria-label="${heat} 間媒體報道">${heat}</a>`
       : '';
-    return `<li class="rank-row${rank <= 3 ? ' rank-row-top' : ''}"><span class="rank-num" aria-hidden="true">${rank}</span><div class="rank-main">${titleHtml}${pack}${note}${badge}</div><div class="rank-side">${heatHtml}</div></li>`;
+    return igCard(`<div class="rank-row${rank <= 3 ? ' rank-row-top' : ''}"><span class="rank-num" aria-hidden="true">${rank}</span><div class="rank-main">${titleHtml}${pack}${note}${original}${badge}</div><div class="rank-side">${heatHtml}</div></div>`, 'ig-card-story');
   });
   const parts: string[] = [];
   for (let index = 0; index < rows.length; index += FEED_AD_EVERY) {
     const slice = rows.slice(index, index + FEED_AD_EVERY);
-    parts.push(`<ol class="rank-list" aria-label="列表">${slice.join('')}</ol>`);
-    if (slice.length === FEED_AD_EVERY) parts.push(adSlotMarkup('feed', feedSlot));
+    parts.push(slice.join(''));
+    const ad = slice.length === FEED_AD_EVERY ? adSlotMarkup('feed', feedSlot) : '';
+    if (ad) parts.push(igCard(ad, 'ig-card-ad'));
   }
-  return `<div class="home-list">${parts.join('')}</div>`;
+  return `<div class="home-list" aria-label="列表">${parts.join('')}</div>`;
 }
 
 /** First-page feed HTML so mobile LCP does not wait on React + /api/news. */
@@ -162,33 +165,34 @@ export function renderHomeFeed(
   void market;
   void mustRead;
   /* The BBT opening belongs to the pure homepage only; focus pages (pageH1) skip it. */
-  const frame = (inner: string) => wrapCivilizationHome(inner, now, Boolean(columns.topic), { pageH1, hero: !pageH1 });
+  const close = `${igCard(homeIntroFoot(introHref(columns)))}${igCard(footer(), 'ig-card-close')}`;
+  const frame = (inner: string, stories = '') => wrapCivilizationHome(inner, now, Boolean(columns.topic), {
+    pageH1,
+    hero: !pageH1,
+    stories,
+    close,
+  });
   const list = demoteGraphic(items).slice(0, SSR_COUNT);
+  const shell = (body: string) => `<a class="skip-link" href="#slice">跳到今日切片</a>
+  <div class="page ssr-home ig-snap">
+    <main id="today" class="ig-frame">
+      ${body}
+    </main>
+  </div>
+  ${igDotsScript()}`;
   if (!list.length) {
     const panel = settled
       ? '<div class="status-panel"><h2>這個範圍暫時沒有標題</h2><p>可以返回首頁，或改看其他地區與分類。</p></div>'
       : '<div class="status-panel" aria-busy="true"><h2>載入今日切片…</h2><p>正在取得最新標題。</p></div>';
     const inner = `${homeIntroTop(introHref(columns))}${digestStrip(briefingLinks, columns)}${panel}`;
-    return `<a class="skip-link" href="#slice">跳到今日切片</a>
-  <div class="page ssr-home">
-    ${frame(inner)}
-    ${footer()}
-  </div>`;
+    return shell(frame(inner));
   }
   const major = banner ? `${renderMajorBanner(banner)}<script>try{var n=document.currentScript.previousElementSibling;if(n&&localStorage.getItem('wn-major-dismiss')===n.getAttribute('data-major-id'))n.remove()}catch(e){}</script>` : '';
   const inner = `${major}
     ${homeIntroTop(introHref(columns))}
     ${digestStrip(briefingLinks, columns)}
-    ${focusHtml.trim()}
-    ${rankList(list, counts, feedSlot)}`;
-  return `<a class="skip-link" href="#slice">跳到今日切片</a>
-  <div class="page ssr-home">
-    <main id="today">
-      ${frame(inner)}
-    </main>
-    ${homeIntroFoot(introHref(columns))}
-    ${footer()}
-  </div>`;
+    ${focusHtml.trim()}`;
+  return shell(frame(inner, rankList(list, counts, feedSlot)));
 }
 
 export function homeBootstrap(items: NewsItem[]): string {

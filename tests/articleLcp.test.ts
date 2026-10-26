@@ -231,7 +231,7 @@ describe('T5b always-on IG snap cards', () => {
     const digest = renderContentPage({ ...explainer(), kind: 'digest', key: '2026-10-24-am' }, 'https://world-news.xyz/digest/2026-10-24-am/');
     expect(digest).not.toContain('id="ig-deck"');
     expect(readFileSync('index.html', 'utf8')).not.toContain('ig-deck');
-    expect(readFileSync('shared/homePage.ts', 'utf8')).not.toContain('ig-deck');
+    expect(readFileSync('shared/homePage.ts', 'utf8')).toContain('id="ig-deck"');
   });
 
   it('caps the title card at three points and splits a long body into 3a and 3b', () => {

@@ -151,7 +151,7 @@ describe('pack shell columns', () => {
     expect(feed).toContain('今日落點');
     expect(feed).toContain('id="slice"');
     expect(feed).not.toContain('otd-pack');
-    expect(feed.indexOf('今日落點')).toBeLessThan(feed.indexOf('digest-strip'));
+    expect(feed.indexOf('digest-strip')).toBeLessThan(feed.indexOf('今日落點'));
     expect(feed).not.toContain('今日必讀');
     expect(feed).not.toContain('story-hero');
   });

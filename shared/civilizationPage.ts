@@ -1,5 +1,5 @@
 import { siteBrand } from './brand.js';
-import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head } from './contentPage.js';
+import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head, igCard, igDotsNav, igDotsScript } from './contentPage.js';
 import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderVolumeBoard, renderVolumeCards } from './civilization/chronicle.js';
 import { renderBulletinClock } from './civilization/clock.js';
 import { renderCaseAxisLinks } from './civilization/cases.js';
@@ -306,26 +306,33 @@ export function moreTodayHtml(): string {
   return `<p class="more-today"><a href="/today/">更多今日</a><span>全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。</span></p>`;
 }
 
-export function wrapCivilizationHome(inner: string, now = new Date(), topic = false, options: { pageH1?: string; hero?: boolean } = {}): string {
+export function wrapCivilizationHome(inner: string, now = new Date(), topic = false, options: { pageH1?: string; hero?: boolean; stories?: string; close?: string } = {}): string {
   const pageH1 = options.pageH1?.trim() ?? '';
   const heading = pageH1 ? `<h1 class="focus-title">${esc(pageH1)}</h1>` : '';
-  const opening = options.hero ? renderHeroOpening() : '';
+  const opening = options.hero ? igCard(renderHeroOpening(), 'ig-card-lead') : '';
+  const stories = options.stories ?? '';
+  const close = options.close ?? '';
   return `${renderCivNav(topic)}
-  <div class="civ-home">
+  ${igDotsNav()}
+  <div class="ig-deck civ-home" id="ig-deck">
     ${opening}
-    ${renderAxisBand({ asHeading: !pageH1, strip: false, rails: false })}
-    ${renderBulletinClock()}
-    ${renderHomeChronicle()}
-    ${renderAxisRails()}
-    ${renderTodayPin(now)}
-    <section class="today-slice" id="slice" aria-label="今日切片">
+    ${igCard(renderAxisBand({ asHeading: !pageH1, strip: false, rails: false }), 'ig-card-axis')}
+    <section class="today-slice ig-card ig-card-slice" id="slice" aria-label="今日切片">
+      <div class="ig-sheet">
       ${heading}
       ${sliceHeadHtml()}
       ${renderNearBridge()}
       ${inner}
+      </div>
     </section>
-    ${moreTodayHtml()}
-    ${renderLayerAside()}
+    ${stories}
+    ${igCard(renderBulletinClock())}
+    ${igCard(renderHomeChronicle())}
+    ${igCard(renderAxisRails())}
+    ${igCard(renderTodayPin(now))}
+    ${igCard(moreTodayHtml())}
+    ${igCard(renderLayerAside())}
+    ${close}
   </div>`;
 }
 
@@ -336,20 +343,24 @@ function shell(options: {
   body: string;
   indexable: boolean;
   status?: number;
+  /** Hub only. Detail pages stay long documents. */
+  snap?: boolean;
 }): { html: string; status: number; indexable: boolean } {
   const canonical = `${ORIGIN}${options.path}`;
   const robots = `<meta name="robots" content="${options.indexable ? 'index,follow' : 'noindex,follow'}" />`;
+  const snap = options.snap === true;
   const html = `<!doctype html>
 <html lang="zh-HK">
 ${head(options.title, options.description, canonical, '', 'website', `${robots}\n  ${CIV_MOTION_BOOT}`, '', false)}
 <body>
-  <div class="page column-page heritage-page civ-page" data-kind="civilization">
+  <div class="page column-page heritage-page civ-page${snap ? ' ig-snap' : ''}" data-kind="civilization">
   ${chrome('civilization')}
-  <main id="content" class="column-index civ-main-page">
+  <main id="content" class="column-index civ-main-page${snap ? ' ig-frame' : ''}">
     ${options.body}
   </main>
-  ${footer(false)}
+  ${snap ? '' : footer(false)}
   </div>
+  ${snap ? igDotsScript() : ''}
 </body>
 </html>`;
   return { html, status: options.status ?? 200, indexable: options.indexable };
@@ -396,36 +407,31 @@ function renderDeepTimeBoard(): string {
 
 export function renderCivilizationHub(now = new Date()): { html: string; status: number; indexable: boolean } {
   const indexable = hubIndexable();
-  const body = `<nav class="crumb"><a href="/">首頁</a> · 文明</nav>
-    ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice', strip: false })}
-    ${hubHero()}
-    <h1 class="column-title civ-page-title">人類文明</h1>
-    ${renderDeepTimeBoard()}
-    ${renderVolumeBoard()}
-    ${renderTodayPin(now)}
-    ${renderNearBridge()}
-    ${renderQuestionIndex()}
-    ${renderFuturePanel(now)}
-    <article class="civ-article">
-      <h2>導語</h2>
-      <p>${esc(HUB_LEDE)}</p>
-      <h2>里程碑</h2>
-      ${milestoneList()}
-      <h2>怎樣讀這條軸</h2>
-      <p>${esc(HUB_READ)}</p>
-      <h2>本地科普節點</h2>
-      <p>${esc(HUB_LOCAL)}</p>
-      <p><a href="/civilization/tech/">科技與發現</a> · <a href="/civilization/city/">城市・基建・民生</a></p>
-      <p><a href="/hk/landmarks/science-museum/">香港科學館</a> · <a href="/hk/landmarks/space-museum/">香港太空館</a></p>
-      ${renderPatternBoard()}
-    </article>
-    ${renderLayerAside()}`;
+  const sections = [
+    igCard(`<nav class="crumb"><a href="/">首頁</a> · 文明</nav>
+    ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice', strip: false })}`, 'ig-card-lead'),
+    igCard(`${hubHero()}<h1 class="column-title civ-page-title">人類文明</h1>`),
+    igCard(renderDeepTimeBoard()),
+    igCard(renderVolumeBoard()),
+    igCard(renderTodayPin(now)),
+    igCard(renderNearBridge()),
+    igCard(renderQuestionIndex()),
+    igCard(renderFuturePanel(now)),
+    igCard(`<article class="civ-article"><h2>導語</h2><p>${esc(HUB_LEDE)}</p></article>`, 'ig-card-body'),
+    igCard(`<h2>里程碑</h2>${milestoneList()}`, 'ig-card-body'),
+    igCard(`<h2>怎樣讀這條軸</h2><p>${esc(HUB_READ)}</p>`, 'ig-card-body'),
+    igCard(`<h2>本地科普節點</h2><p>${esc(HUB_LOCAL)}</p><p><a href="/civilization/tech/">科技與發現</a> · <a href="/civilization/city/">城市・基建・民生</a></p><p><a href="/hk/landmarks/science-museum/">香港科學館</a> · <a href="/hk/landmarks/space-museum/">香港太空館</a></p>${renderPatternBoard()}`, 'ig-card-body'),
+    igCard(renderLayerAside()),
+    igCard(`<div class="ig-close-only"><p class="ig-kicker">收束</p><h2 class="column-h2">完</h2><p class="dek">人類文明</p><a class="chip" href="/">返回首頁</a></div>${footer(false)}`, 'ig-card-close'),
+  ];
+  const body = `${igDotsNav()}<div class="ig-deck" id="ig-deck">${sections.join('')}</div>`;
   const page = shell({
     title: '人類文明',
     description: '從深時間到今日切片的溫和文明總覽。',
     path: '/civilization/',
     body,
     indexable,
+    snap: true,
   });
   return { ...page, html: moveHubSignalsBelowAxis(page.html) };
 }
