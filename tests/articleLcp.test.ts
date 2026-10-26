@@ -318,7 +318,7 @@ describe('T5b always-on IG snap cards', () => {
     expect(ig).toContain('content: "↑ 上滑"');
     expect(ig).toContain('font-size: 16px');
     expect(ig).toContain('padding: 0 22px 72px');
-    expect(ig).toContain('.ig-card-timeline { order: 2; padding-bottom: 96px; }');
+    expect(ig).toContain('.ig-card-timeline { order: 2; padding-bottom: 144px; }');
     expect(ig).toContain('.tl-phase {\n  display: inline;');
     expect(ig).toContain('.ig-card > * {\n  flex: 1 1 auto;');
     expect(ig).toContain('.ig-card.ig-on:not(.ig-card-close)::after');
@@ -350,7 +350,7 @@ describe('T5b always-on IG snap cards', () => {
     expect(ARTICLE_CRITICAL_CSS).toContain('@keyframes ig-swipe-hint-ink');
     expect(ARTICLE_CRITICAL_CSS).toContain('font-size: 16px');
     expect(ARTICLE_CRITICAL_CSS).toContain('padding: 0 22px 72px');
-    expect(ARTICLE_CRITICAL_CSS).toContain('.ig-card-timeline { order: 2; padding-bottom: 96px; }');
+    expect(ARTICLE_CRITICAL_CSS).toContain('.ig-card-timeline { order: 2; padding-bottom: 144px; }');
     expect(ARTICLE_CRITICAL_CSS).toContain('overflow: hidden;');
     expect(ARTICLE_CRITICAL_CSS).toContain('.ig-card.ig-on:not(.ig-card-close)::after { animation: none; }');
     expect(ARTICLE_CRITICAL_CSS).toContain('ig-swipe-hint 1.2s ease-in-out 2');
@@ -364,7 +364,8 @@ describe('T5b always-on IG snap cards', () => {
     const dots = readFileSync('shared/contentPage.ts', 'utf8');
     expect(dots).toContain('id="ig-dots-boot"');
     expect(dots).not.toContain('--ig-band');
-    expect(dots).toContain('ig-card-timeline");var floor=timeline?96:72');
+    expect(dots).toContain('ig-card-timeline");var floor=timeline?144:72');
+    expect(dots).toContain('box.bottom-r.bottom<4');
     expect(dots).not.toContain('max-width: 900px');
     expect(dots).not.toContain('mq.matches');
     expect(readFileSync('functions/story/[id].ts', 'utf8')).toContain('loadSourceBlurbs');
