@@ -66,12 +66,20 @@ describe('T4 home, list, and civ hub snap deck', () => {
     };
     const index = renderColumnIndex('briefing', [entry, { ...entry, key: '2026-10-25-am', title: '早上導讀' }], 'https://world-news.xyz/briefing/');
     expect(index).toContain('class="page column-page ig-snap"');
+    expect(index).toContain('data-kind="briefing-index"');
     expect(index).toContain('id="ig-deck"');
     expect(index).toContain('href="/site.css"');
-    expect(index.match(/class="ig-card ig-card-story"/g)).toHaveLength(2);
+    const lead = index.slice(index.indexOf('class="ig-card ig-card-lead"'), index.indexOf('class="ig-card ig-card-story"'));
+    expect(lead).toContain('每日導讀');
+    expect(lead).toContain('每日香港導讀');
+    expect(lead).toContain('href="/briefing/2026-10-25-pm/"');
+    expect(index.match(/class="ig-card ig-card-story"/g)).toHaveLength(1);
     expect(index.indexOf('每日香港導讀')).toBeLessThan(index.indexOf('早上導讀'));
-    expect(index).toContain('href="/briefing/2026-10-25-pm/"');
     expect(index).toContain('class="ig-card ig-card-close"');
+    const empty = renderColumnIndex('briefing', [], 'https://world-news.xyz/briefing/');
+    const emptyLead = empty.slice(empty.indexOf('class="ig-card ig-card-lead"'), empty.indexOf('class="ig-card ig-card-close"'));
+    expect(emptyLead).toContain('暫時未有導讀');
+    expect(empty.match(/class="ig-card ig-card-story"/g)).toBeNull();
 
     const article = renderContentPage({
       key: '2026-10-25-pm',
