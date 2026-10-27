@@ -4156,11 +4156,21 @@ html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
   white-space: normal;
   scroll-snap-align: none;
 }
-.page.ig-snap .ig-card .civ-block-figure,
 .page.ig-snap .ig-card .milestone-figure,
 .page.ig-snap .ig-card .future-cover {
   overflow: hidden;
   max-height: 168px;
+}
+/* Keep the pattern caption inside the figure box. Clipping the whole figure
+   at 168px laid 「複製與校驗 · 紙感」 past the sheet edge once the bar got shorter. */
+.page.ig-snap .ig-card .civ-block-figure {
+  overflow: visible;
+  max-height: none;
+}
+.page.ig-snap .ig-card .civ-block-figure .civ-block-frame {
+  height: 120px;
+  max-height: 120px;
+  aspect-ratio: auto;
 }
 .page.ig-snap .ig-card .civ-block-figure img,
 .page.ig-snap .ig-card .milestone-figure img,
