@@ -253,8 +253,11 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .page.column-page[data-kind="story"]:has(.ig-deck) .ig-deck {
   display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; height: 100%;
   overflow-x: hidden; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; scrollbar-width: none;
 }
+.page.column-page[data-kind="compare"]:has(.ig-deck) .ig-deck::-webkit-scrollbar,
+.page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-deck::-webkit-scrollbar,
+.page.column-page[data-kind="story"]:has(.ig-deck) .ig-deck::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .page.column-page[data-kind="compare"]:has(.ig-deck) .ig-card,
 .page.column-page[data-kind="briefing"]:has(.ig-deck) .ig-card,
 .page.column-page[data-kind="story"]:has(.ig-deck) .ig-card {
@@ -297,30 +300,28 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
   border-radius: 10px; padding: 12px 14px; font-size: 15px; line-height: 1.5;
 }
 .ig-dots {
-  position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 40;
-  display: grid; gap: 10px; pointer-events: none;
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%); z-index: 40;
+  display: grid; gap: 7px; justify-items: center; pointer-events: none;
 }
-.ig-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: block; }
-.ig-dots i.on { background: var(--accent); }
+.ig-dots i { width: 5px; height: 5px; border-radius: 50%; background: color-mix(in srgb, var(--text) 35%, transparent); display: block; opacity: 0.45; }
+.ig-dots i.edge { width: 3px; height: 3px; opacity: 0.4; }
+.ig-dots i.on { width: 5px; height: 5px; background: var(--accent); opacity: 0.7; }
 .ig-close-only { display: grid; gap: 12px; }
 .ig-kicker { margin: 0; font-size: 12px; letter-spacing: 0.12em; color: var(--accent); font-weight: 700; }
 @keyframes ig-swipe-hint {
   0% { opacity: 0; transform: translateX(-50%) translateY(4px); }
-  100% { opacity: 0.72; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0.7; transform: translateX(-50%) translateY(0); }
 }
 .ig-card::after {
   content: none; position: absolute; left: 50%; right: auto; z-index: 3;
   bottom: max(18px, env(safe-area-inset-bottom)); width: max-content; max-width: calc(100% - 72px);
-  padding: 8px 14px; border-radius: 999px; background: transparent; color: #9a7b4f;
-  font-size: 16px; font-weight: 600; line-height: 1.2; letter-spacing: 0.08em; text-align: center;
-  pointer-events: none; transform: translateX(-50%);
+  padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--text) 42%, transparent); color: var(--bg);
+  font-size: 12px; font-weight: 600; line-height: 1.2; letter-spacing: 0.08em; text-align: center;
+  pointer-events: none; opacity: 0.7; transform: translateX(-50%);
 }
 .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after {
   content: "↑ 上滑";
-  opacity: 0;
-  animation: ig-swipe-hint 0.6s ease-out 1;
-  animation-delay: 2.8s;
-  animation-fill-mode: forwards;
+  animation: ig-swipe-hint 0.6s ease-out 0.85s 1 both;
 }
 .ig-card-close::after { content: none; animation: none; }
 .ig-card > .story, .ig-card .ig-sheet, .ig-card .pack-body:not(:has(.ig-body-part)) {
@@ -333,6 +334,10 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
   clear: both; float: none;
 }
 .ig-card .story-title { display: block; overflow: visible; -webkit-line-clamp: unset; line-clamp: unset; }
+.ig-card :is(h1, h2, h3, h4, p, li, .dek, .story-title, .rank-title, .column-title, .hero-title, .hero-line) {
+  line-break: strict; word-break: normal; overflow-wrap: break-word; text-wrap: pretty;
+}
+.ig-card :is(h1, h2, h3, .story-title, .rank-title, .column-title, .hero-title) { text-wrap: balance; }
 .ig-card .story-media, .ig-card .thumb, .ig-card .thumb-fallback {
   position: relative; float: none; display: block; width: 100%; height: 96px; max-height: 96px;
   object-fit: cover; z-index: 0;
