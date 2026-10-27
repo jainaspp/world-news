@@ -160,11 +160,13 @@ button, input { font: inherit; color: inherit; }
   /* QA mobile (~390px layout): .chrome grew 104→178 when site.css painted the weather row. */
   .chrome { min-height: 178px; }
   .chrome > .hk-info {
-    display: flex; align-items: center; flex-wrap: wrap; box-sizing: border-box;
-    min-height: 40px; margin: 4px 0 0; padding: 4px 12px;
+    display: flex; align-items: center; flex-wrap: nowrap; box-sizing: border-box;
+    min-width: 0; max-width: 100%; min-height: 40px; margin: 4px 0 0; padding: 4px 12px;
     background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
-    font-size: 0.9rem; line-height: 1.4;
+    font-size: 0.9rem; line-height: 1.4; white-space: nowrap;
+    overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
   }
+  .chrome > .hk-info > * { flex: none; }
   .chrome > .hk-info[hidden] { display: flex !important; }
   .masthead { min-height: 44px; flex-wrap: wrap; }
   .logo-link .logo-full { display: none !important; }
@@ -186,9 +188,10 @@ button, input { font: inherit; color: inherit; }
   .chrome .civ-nav .chip, .chrome .nav-more > summary {
     min-width: 44px; min-height: 44px; padding: 3px 8px; font-size: 13px;
   }
-  .chrome .nav-more > summary {
+  .chrome .nav-more > summary,
+  .chrome .subscribe-menu > summary {
     display: inline-flex; align-items: center; justify-content: center;
-    border: 1px solid var(--chip-border); border-radius: var(--radius-pill); background: var(--card);
+    border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--muted); font-weight: 500;
   }
   .column-title { min-height: 56px; }
   .column-hero.pack-shell .column-title,
@@ -300,19 +303,22 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
 .ig-close-only { display: grid; gap: 12px; }
 .ig-kicker { margin: 0; font-size: 12px; letter-spacing: 0.12em; color: var(--accent); font-weight: 700; }
 @keyframes ig-swipe-hint {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-8px); }
+  0% { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  100% { opacity: 0.72; transform: translateX(-50%) translateY(0); }
 }
 .ig-card::after {
   content: none; position: absolute; left: 50%; right: auto; z-index: 3;
   bottom: max(18px, env(safe-area-inset-bottom)); width: max-content; max-width: calc(100% - 72px);
-  padding: 8px 14px; border-radius: 999px; background: var(--accent); color: var(--accent-ink);
-  font-size: 16px; font-weight: 700; line-height: 1.2; letter-spacing: 0.04em; text-align: center;
+  padding: 8px 14px; border-radius: 999px; background: transparent; color: #9a7b4f;
+  font-size: 16px; font-weight: 600; line-height: 1.2; letter-spacing: 0.08em; text-align: center;
   pointer-events: none; transform: translateX(-50%);
 }
 .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after {
   content: "↑ 上滑";
+  opacity: 0;
   animation: ig-swipe-hint 0.6s ease-out 1;
+  animation-delay: 2.8s;
+  animation-fill-mode: forwards;
 }
 .ig-card-close::after { content: none; animation: none; }
 .ig-card > .story, .ig-card .ig-sheet, .ig-card .pack-body:not(:has(.ig-body-part)) {
@@ -407,6 +413,7 @@ html:has(.ig-deck), body:has(.ig-deck) { height: 100%; overflow: hidden; }
   .page.column-page[data-kind="story"]:has(.ig-deck) .ig-deck { scroll-behavior: auto; }
   .ig-card::after { animation: none; }
   .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after { animation: none; }
+  .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after { opacity: 0.72; }
 }
 `.replace(/\n+/g, '\n').trim();
 

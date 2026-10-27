@@ -115,7 +115,8 @@ describe('當年今日 pages', () => {
     expect(digest).toBeGreaterThan(slice);
     expect(pin).toBeGreaterThan(digest);
     expect(home).not.toContain('今日必讀');
-    expect(home).toContain('chip civ-chip');
+    expect(home).toContain('class="chip active" href="/#slice"');
+    expect(home).not.toContain('chip civ-chip');
     expect(home).toContain('站在一條很長的時間軸上');
     expect(home).not.toContain('otd-pack');
     expect(home).not.toContain('MOCK');

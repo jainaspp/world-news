@@ -6,6 +6,7 @@ import { bestImage, repairDoubledScheme } from './media.js';
 import { listens } from './listen.js';
 import { adsRuntimeEnabled } from './adPolicy.js';
 import { adSlotMarkup, hasManualSlots, validAdSlot } from './adSlot.js';
+import { primaryNavHtml } from './primaryNav.js';
 import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
 import { renderCivilizationSlice } from './civilization/renderSlice.js';
@@ -113,10 +114,12 @@ export function catChip(category: string | undefined): string {
   return `<a class="chip cat-chip" style="--ph:${tile.color}" href="/category/${tile.id}">${esc(categoryLabel(tile.id))}</a>`;
 }
 
-function fallbackTile(category: string | undefined, label: string, hidden = false): string {
+function fallbackTile(category: string | undefined, label: string, hidden = false, neutral = false): string {
   const tile = tileOf(category);
   const icon = `/icons/${tile.icon}.svg`;
-  return `<div class="thumb thumb-fallback" style="--ph:${tile.color}" aria-hidden="true"${hidden ? ' hidden' : ''}><span class="region-icon region-icon-lg" style="mask-image:url('${icon}');-webkit-mask-image:url('${icon}')"></span><span class="thumb-source">${esc(label)}</span></div>`;
+  const ph = neutral ? '' : ` style="--ph:${tile.color}"`;
+  const cls = neutral ? 'thumb thumb-fallback thumb-neutral' : 'thumb thumb-fallback';
+  return `<div class="${cls}"${ph} aria-hidden="true"${hidden ? ' hidden' : ''}><span class="region-icon region-icon-lg" style="mask-image:url('${icon}');-webkit-mask-image:url('${icon}')"></span><span class="thumb-source">${esc(label)}</span></div>`;
 }
 
 /** Self-hosted topic pictures are root-relative. Everything else must be an http(s) URL. */
@@ -126,11 +129,11 @@ export function safeMediaSrc(url: string | undefined): string {
 }
 
 /** Feed photo with the same category-colour tile as the homepage when there is none or it fails. */
-export function media(image: string | undefined, category: string | undefined, label: string, eager = false, alt = '', lcp = false): string {
+export function media(image: string | undefined, category: string | undefined, label: string, eager = false, alt = '', lcp = false, neutral = false): string {
   const src = safeMediaSrc(image);
-  if (!src) return fallbackTile(category, label);
+  if (!src) return fallbackTile(category, label, false, neutral);
   const priority = lcp || eager;
-  return `<img class="thumb"${lcp ? ' id="wn-lcp"' : ''} src="${esc(src)}" alt="${esc(alt)}" width="640" height="360" loading="${priority ? 'eager' : 'lazy'}"${priority ? ' fetchpriority="high"' : ''} decoding="${lcp ? 'sync' : 'async'}" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />${fallbackTile(category, label, true)}`;
+  return `<img class="thumb"${lcp ? ' id="wn-lcp"' : ''} src="${esc(src)}" alt="${esc(alt)}" width="640" height="360" loading="${priority ? 'eager' : 'lazy'}"${priority ? ' fetchpriority="high"' : ''} decoding="${lcp ? 'sync' : 'async'}" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />${fallbackTile(category, label, true, neutral)}`;
 }
 
 export function favicon(url: string): string {
@@ -409,10 +412,10 @@ export function withLcpShell(html: string, options: { imageId?: string; adsSrc?:
   return parked.includes('</body>') ? parked.replace('</body>', `${boot}</body>`) : `${parked}${boot}`;
 }
 
-export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'learn'): string {
+export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'chronicle' | 'learn' | 'home'): string {
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   const current = (key: typeof active) => active === key ? ' aria-current="page"' : '';
-  const primary = `<nav class="civ-nav" aria-label="主欄目"><a class="chip civ-chip${active === 'civilization' ? ' active' : ''}" href="/civilization/"${current('civilization')}>文明</a><a class="chip" href="/civilization/chronicle/">編年</a><a class="chip" href="/#slice">今天</a><a class="chip${active === 'learn' ? ' active' : ''}" href="/learn/"${current('learn')}>開蒙</a></nav>`;
+  const primary = primaryNavHtml(active);
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
     <header class="masthead">
@@ -811,14 +814,36 @@ function packPreviewList(entry: IndexEntry): string {
   return `<ol class="pack-preview">${lines.map((line) => `<li>${esc(line)}</li>`).join('')}</ol>`;
 }
 
-/** Index card shared by 新聞懶人包 and 熱門分析: kicker, title, one dek, two preview lines. */
-function columnPackCard(entry: IndexEntry, href: string, kicker: string, index: number, sourceWord: string, showOriginal = false): string {
+/** Briefing cards keep at most a region chip and a heat badge. */
+function briefingMarks(entry: IndexEntry): string {
+  const marks: string[] = [];
+  const heat = heatBadge(entry.outlets ?? entry.sources);
+  if (heat) marks.push(heat);
+  if (marks.length < 2) marks.push(catChip(entry.category));
+  return marks.slice(0, 2).join('');
+}
+
+/** Index card shared by 新聞懶人包 and 熱門分析: kicker, title, one dek, two preview lines. Briefing puts the title under the image and caps badges at two. */
+function columnPackCard(entry: IndexEntry, href: string, kicker: string, index: number, sourceWord: string, showOriginal = false, briefing = false): string {
   const dek = entry.description ? `<p class="dek">${esc(entry.description)}</p>` : '';
   const original = showOriginal && entry.originalTitle && !/[\u3400-\u9fff]/.test(entry.originalTitle)
     ? `<p class="orig-title" lang="en">${esc(entry.originalTitle)}</p>`
     : '';
+  const picture = media(entry.image, entry.category, categoryLabel(entry.category || 'world'), index < 2, '', false, briefing);
+  if (briefing) {
+    return `<article class="story pack-shell briefing-card">
+          <a class="story-media" href="${href}" tabindex="-1" aria-hidden="true">${picture}</a>
+          <div class="story-body">
+            <h2 class="story-title"><a href="${href}">${esc(entry.title)}</a></h2>
+            <div class="story-kicker">${briefingMarks(entry)}</div>
+            ${dek}
+            ${packPreviewList(entry)}
+            <div class="story-meta"><time datetime="${esc(entry.publishedAt)}">${esc(hkt(entry.publishedAt, false))}</time></div>
+          </div>
+        </article>`;
+  }
   return `<article class="story pack-shell">
-          <a class="story-media" href="${href}" tabindex="-1" aria-hidden="true">${media(entry.image, entry.category, categoryLabel(entry.category || 'world'), index < 2)}</a>
+          <a class="story-media" href="${href}" tabindex="-1" aria-hidden="true">${picture}</a>
           <div class="story-body">
             <div class="story-kicker"><span class="pack-kicker">${esc(kicker)}</span><span class="badge ai-badge">AI 整合</span>${heatBadge(entry.outlets ?? entry.sources) || `<span class="cluster-badge">${entry.sources} 篇${sourceWord}</span>`}${catChip(entry.category)}</div>
             <h2 class="story-title"><a href="${href}">${esc(entry.title)}</a></h2>
@@ -895,7 +920,7 @@ export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEn
   const path = kind === 'compare' ? 'explainer' : kind;
   const sorted = [...entries].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
   const cardKicker = kind === 'compare' ? '新聞懶人包' : meta.kicker;
-  const itemCards = sorted.map((entry, index) => columnPackCard(entry, `/${path}/${encodeURIComponent(entry.key)}/`, cardKicker, index, '來源'));
+  const itemCards = sorted.map((entry, index) => columnPackCard(entry, `/${path}/${encodeURIComponent(entry.key)}/`, cardKicker, index, '來源', false, kind === 'briefing'));
   const ld = `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'ItemList',

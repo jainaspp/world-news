@@ -492,7 +492,7 @@
     function paint(hk, hsi, ticks) {
       var weatherBits = [];
       if (hk && typeof hk.temperature === 'number') weatherBits.push(hk.temperature + '°C');
-      if (hk && hk.aqhi && isFinite(hk.aqhi.value)) weatherBits.push('AQHI ' + Math.floor(hk.aqhi.value));
+      if (hk && hk.aqhi && isFinite(hk.aqhi.value)) weatherBits.push('空氣質素 ' + Math.floor(hk.aqhi.value));
       var weather = weatherBits.join(' · ');
       var quote = '';
       var direction = '';
@@ -509,6 +509,7 @@
         wx.target = '_blank';
         wx.rel = 'noopener noreferrer';
         wx.textContent = weather;
+        if (weather.indexOf('空氣質素') >= 0) wx.title = '空氣質素健康指數（AQHI）';
         box.appendChild(wx);
       }
       if (weather && quote) {

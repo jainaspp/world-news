@@ -70,6 +70,15 @@ describe('T4 home, list, and civ hub snap deck', () => {
     expect(index).toContain('href="/site.css"');
     expect(index.match(/class="ig-card ig-card-story"/g)).toHaveLength(2);
     expect(index.indexOf('每日香港導讀')).toBeLessThan(index.indexOf('早上導讀'));
+    expect(index).toContain('class="chip active" href="/#slice"');
+    expect(index).not.toContain('civ-chip');
+    const story = index.slice(index.indexOf('class="ig-card ig-card-story"'));
+    const card = story.slice(story.indexOf('<article'), story.indexOf('</article>'));
+    expect(card).toContain('briefing-card');
+    expect(card).toContain('thumb-neutral');
+    expect(card).not.toContain('ai-badge');
+    expect(card).not.toContain('pack-kicker');
+    expect(card.indexOf('class="story-title"')).toBeLessThan(card.indexOf('class="story-kicker"'));
     expect(index).toContain('href="/briefing/2026-10-25-pm/"');
     expect(index).toContain('class="ig-card ig-card-close"');
 

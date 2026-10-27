@@ -287,6 +287,7 @@ export function HkInfoStrip() {
               aria-expanded={panelOpen}
               aria-controls={panelId}
               aria-label={`${summary}，天氣詳情`}
+              title={aqhi ? '空氣質素健康指數（AQHI）' : undefined}
               onClick={togglePanel}
             >
               {emoji ? <span className={wxIconClass(emoji)} aria-hidden="true">{emoji} </span> : null}
