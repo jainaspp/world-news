@@ -3,8 +3,9 @@
  * `civ-chip` is only the current 文明 pill, so a later chrome pass can keep
  * `.chip.civ-chip` as the filled/underlined current state (T8 #287 tip
  * `0f844a8` underlines every `.masthead .chip.civ-chip`).
- * Briefing highlights 今天 in this row. 導讀 stays the aria-current page
- * inside 更多. Chronicle highlights 編年, not 文明.
+ * `/` and civilization pages highlight 文明. Briefing highlights 今天 in this
+ * row, while 導讀 stays the aria-current page inside 更多. Chronicle
+ * highlights 編年. Learn highlights 開蒙.
  */
 export type PrimaryKey = 'civilization' | 'chronicle' | 'today' | 'learn';
 
@@ -12,7 +13,8 @@ export function primaryKeyFor(active: string): PrimaryKey | '' {
   if (active === 'chronicle') return 'chronicle';
   if (active === 'civilization') return 'civilization';
   if (active === 'learn') return 'learn';
-  if (active === 'briefing' || active === 'home') return 'today';
+  if (active === 'briefing') return 'today';
+  if (active === 'home') return 'civilization';
   return '';
 }
 

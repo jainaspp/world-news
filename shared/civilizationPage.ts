@@ -193,7 +193,7 @@ function originsArticle(body: string): string {
   return html;
 }
 
-/** Primary row: 文明｜編年｜今天｜開蒙. The homepage highlights 今天. Column links stay in 更多. */
+/** Primary row: 文明｜編年｜今天｜開蒙. The homepage highlights 文明. Column links stay in 更多. */
 export function renderCivNav(topic = false): string {
   void topic;
   return primaryNavHtml('home');
