@@ -172,7 +172,7 @@ describe('article and briefing LCP shell', () => {
     expect(readFileSync('shared/adPolicy.ts', 'utf8')).not.toContain('enable_page_level_ads:true');
     const rules = ARTICLE_CRITICAL_CSS.split('{').length - 1;
     expect(rules).toBeGreaterThan(40);
-    expect(ARTICLE_CRITICAL_CSS).toContain('.chrome { min-height: 178px; }');
+    expect(ARTICLE_CRITICAL_CSS).toContain('.chrome { min-height: 96px; }');
     expect(ARTICLE_CRITICAL_CSS).toContain('size-adjust: 100%');
     expect(ARTICLE_CRITICAL_CSS).toContain('.story-title.title-reserve { min-height: 113px; }');
   });
@@ -375,7 +375,7 @@ describe('T5b always-on IG snap cards', () => {
     expect(readFileSync('functions/api/news.ts', 'utf8')).toContain('toListPayload');
     expect(readFileSync('functions/index.ts', 'utf8')).toContain('loadList(context)');
     expect(readFileSync('functions/index.ts', 'utf8')).not.toContain('loadStoryList');
-    expect(ARTICLE_CRITICAL_CSS).toContain('.chrome { min-height: 178px; }');
+    expect(ARTICLE_CRITICAL_CSS).toContain('.chrome { min-height: 96px; }');
     expect(ARTICLE_CRITICAL_CSS).toContain('.column-title { min-height: 56px; }');
     expect(ARTICLE_CRITICAL_CSS).toContain('.story-title.title-reserve { min-height: 113px; }');
     expect(css).toContain('.story-title.title-reserve { min-height: 113px; }');
