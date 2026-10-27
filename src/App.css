@@ -3918,6 +3918,9 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
 }
+/* Chronicle only. A late webfont reflow must not let scroll anchoring
+   slide the settled card off the snap point and through a line of text. */
+.page.ig-snap:has(.chronicle-page) .ig-deck { overflow-anchor: none; }
 .page.ig-snap .ig-deck .home-list,
 .page.ig-snap .ig-deck .rank-list,
 .page.ig-snap .ig-deck .rank-chunk {
