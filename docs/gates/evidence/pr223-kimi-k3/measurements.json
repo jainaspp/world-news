@@ -1,0 +1,1757 @@
+{
+  "commit": "699a858201ee40a0b953cb697c55f30e78b93984",
+  "shots": [
+    "2026-10-23-home-360-light-full.png",
+    "2026-10-23-home-360-light-brand.png",
+    "2026-10-23-home-360-dark-full.png",
+    "2026-10-23-home-360-dark-brand.png",
+    "2026-10-23-civ-360-light-full.png",
+    "2026-10-23-civ-360-light-brand.png",
+    "2026-10-23-civ-360-dark-full.png",
+    "2026-10-23-civ-360-dark-brand.png",
+    "2026-10-23-chronicle-360-light-stage-8.png",
+    "2026-10-23-chronicle-360-light-stage-9.png",
+    "2026-10-23-chronicle-360-light-stage-10.png",
+    "2026-10-23-chronicle-360-dark-stage-8.png",
+    "2026-10-23-chronicle-360-dark-stage-9.png",
+    "2026-10-23-chronicle-360-dark-stage-10.png",
+    "2026-10-23-civ-360-dark-click-slice.png"
+  ],
+  "pages": [
+    {
+      "page": "home",
+      "path": "/",
+      "ready": ".volume-card",
+      "theme": "light",
+      "vp": "360",
+      "width": 360,
+      "height": 800,
+      "measured": {
+        "rawHits": [],
+        "clips": [
+          {
+            "sel": ".axis-node",
+            "text": "城市基建",
+            "box": {
+              "left": 348,
+              "top": 1019,
+              "right": 417,
+              "bottom": 1074,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node",
+            "text": "今天切片",
+            "box": {
+              "left": 429,
+              "top": 1019,
+              "right": 498,
+              "bottom": 1074,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node",
+            "text": "未來展望",
+            "box": {
+              "left": 510,
+              "top": 1019,
+              "right": 579,
+              "bottom": 1074,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "城市",
+            "box": {
+              "left": 348,
+              "top": 1041,
+              "right": 417,
+              "bottom": 1056,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "今天",
+            "box": {
+              "left": 429,
+              "top": 1041,
+              "right": 498,
+              "bottom": 1056,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "未來",
+            "box": {
+              "left": 510,
+              "top": 1041,
+              "right": 579,
+              "bottom": 1056,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "基建",
+            "box": {
+              "left": 366,
+              "top": 1058,
+              "right": 399,
+              "bottom": 1074,
+              "width": 32,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "切片",
+            "box": {
+              "left": 447,
+              "top": 1058,
+              "right": 480,
+              "bottom": 1074,
+              "width": 32,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "展望",
+            "box": {
+              "left": 528,
+              "top": 1058,
+              "right": 561,
+              "bottom": 1074,
+              "width": 32,
+              "height": 16
+            }
+          }
+        ],
+        "controlsSmall": [],
+        "controlCount": 26,
+        "stageDotCount": 0,
+        "touchPairs": [],
+        "touchPairCount": 0,
+        "scroll": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "scrollingScrollWidth": 360,
+          "innerWidth": 360,
+          "scrollHeight": 7159,
+          "pageOverflow": false
+        },
+        "overflows": [
+          {
+            "path": "div#root > div.page",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "div.page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+            "scrollWidth": 32,
+            "clientWidth": 1,
+            "delta": 31,
+            "overflowX": "hidden",
+            "internal": false
+          },
+          {
+            "path": "div#root > div.page > div.layout.layout-span",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "main#today",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "main#today > div.civ-home",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "main#today > div.civ-home > div.axis-mount",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "section#civ > div.deep-axis",
+            "scrollWidth": 571,
+            "clientWidth": 328,
+            "delta": 243,
+            "overflowX": "auto",
+            "internal": true
+          },
+          {
+            "path": "main#today > div.civ-home > div",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "main#today > div.civ-home > div",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          }
+        ],
+        "logoImgs": [
+          {
+            "cls": "logo-full logo-light",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-full logo-dark",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-light",
+            "alt": "",
+            "shown": true,
+            "w": 104,
+            "h": 28,
+            "left": 16,
+            "right": 120,
+            "natural": "185x50",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-dark",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x50",
+            "complete": true
+          }
+        ],
+        "brandText": "",
+        "svgLabel": "|||",
+        "title": "文明編年史 — 從宇宙到今天",
+        "htmlDark": false,
+        "dom": {
+          "axisHero": true,
+          "axisSlim": true,
+          "axisCta": 1,
+          "axisCtaText": [
+            "打開文明總覽",
+            "跳到今日切片"
+          ],
+          "volumeCards": 3,
+          "chronicleBand": 1,
+          "volumeBoard": 1,
+          "axisRails": 1,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "slice": true,
+          "chAncient": false,
+          "chNow": false,
+          "chFuture": false,
+          "stages": [],
+          "patternCards": 0
+        },
+        "stages": {
+          "8": {
+            "present": false
+          },
+          "9": {
+            "present": false
+          },
+          "10": {
+            "present": false
+          }
+        },
+        "simplifiedHits": [],
+        "ink": [
+          {
+            "sel": ".chrome",
+            "color": "rgb(20, 32, 51)",
+            "bg": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".axis-hero",
+            "color": "rgb(232, 228, 220)",
+            "bg": "rgb(22, 28, 36)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".chronicle-band",
+            "color": "rgb(232, 228, 220)",
+            "bg": "rgb(22, 28, 36)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".volume-card",
+            "color": "rgb(22, 28, 36)",
+            "bg": "rgb(247, 241, 230)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".logo-link",
+            "color": "rgb(20, 32, 51)",
+            "bg": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        ]
+      },
+      "logs": [],
+      "shot": {
+        "total": 7159,
+        "mode": "fullPage",
+        "file": "/tmp/k3-evidence/2026-10-23-home-360-light-full.png"
+      },
+      "brand": "2026-10-23-home-360-light-brand.png"
+    },
+    {
+      "page": "home",
+      "path": "/",
+      "ready": ".volume-card",
+      "theme": "dark",
+      "vp": "360",
+      "width": 360,
+      "height": 800,
+      "measured": {
+        "rawHits": [],
+        "clips": [
+          {
+            "sel": ".axis-node",
+            "text": "城市基建",
+            "box": {
+              "left": 348,
+              "top": 1019,
+              "right": 417,
+              "bottom": 1074,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node",
+            "text": "今天切片",
+            "box": {
+              "left": 429,
+              "top": 1019,
+              "right": 498,
+              "bottom": 1074,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node",
+            "text": "未來展望",
+            "box": {
+              "left": 510,
+              "top": 1019,
+              "right": 579,
+              "bottom": 1074,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "城市",
+            "box": {
+              "left": 348,
+              "top": 1041,
+              "right": 417,
+              "bottom": 1056,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "今天",
+            "box": {
+              "left": 429,
+              "top": 1041,
+              "right": 498,
+              "bottom": 1056,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "未來",
+            "box": {
+              "left": 510,
+              "top": 1041,
+              "right": 579,
+              "bottom": 1056,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "基建",
+            "box": {
+              "left": 366,
+              "top": 1058,
+              "right": 399,
+              "bottom": 1074,
+              "width": 32,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "切片",
+            "box": {
+              "left": 447,
+              "top": 1058,
+              "right": 480,
+              "bottom": 1074,
+              "width": 32,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "展望",
+            "box": {
+              "left": 528,
+              "top": 1058,
+              "right": 561,
+              "bottom": 1074,
+              "width": 32,
+              "height": 16
+            }
+          }
+        ],
+        "controlsSmall": [],
+        "controlCount": 26,
+        "stageDotCount": 0,
+        "touchPairs": [],
+        "touchPairCount": 0,
+        "scroll": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "scrollingScrollWidth": 360,
+          "innerWidth": 360,
+          "scrollHeight": 7159,
+          "pageOverflow": false
+        },
+        "overflows": [
+          {
+            "path": "div#root > div.page",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "div.page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+            "scrollWidth": 32,
+            "clientWidth": 1,
+            "delta": 31,
+            "overflowX": "hidden",
+            "internal": false
+          },
+          {
+            "path": "div#root > div.page > div.layout.layout-span",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "main#today",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "main#today > div.civ-home",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "main#today > div.civ-home > div.axis-mount",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "section#civ > div.deep-axis",
+            "scrollWidth": 571,
+            "clientWidth": 328,
+            "delta": 243,
+            "overflowX": "auto",
+            "internal": true
+          },
+          {
+            "path": "main#today > div.civ-home > div",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "main#today > div.civ-home > div",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          }
+        ],
+        "logoImgs": [
+          {
+            "cls": "logo-full logo-light",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-full logo-dark",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-light",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x50",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-dark",
+            "alt": "",
+            "shown": true,
+            "w": 104,
+            "h": 28,
+            "left": 16,
+            "right": 120,
+            "natural": "185x50",
+            "complete": true
+          }
+        ],
+        "brandText": "",
+        "svgLabel": "|||",
+        "title": "文明編年史 — 從宇宙到今天",
+        "htmlDark": true,
+        "dom": {
+          "axisHero": true,
+          "axisSlim": true,
+          "axisCta": 1,
+          "axisCtaText": [
+            "打開文明總覽",
+            "跳到今日切片"
+          ],
+          "volumeCards": 3,
+          "chronicleBand": 1,
+          "volumeBoard": 1,
+          "axisRails": 1,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "slice": true,
+          "chAncient": false,
+          "chNow": false,
+          "chFuture": false,
+          "stages": [],
+          "patternCards": 0
+        },
+        "stages": {
+          "8": {
+            "present": false
+          },
+          "9": {
+            "present": false
+          },
+          "10": {
+            "present": false
+          }
+        },
+        "simplifiedHits": [],
+        "ink": [
+          {
+            "sel": ".chrome",
+            "color": "rgb(243, 246, 250)",
+            "bg": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".axis-hero",
+            "color": "rgb(232, 228, 220)",
+            "bg": "rgb(22, 28, 36)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".chronicle-band",
+            "color": "rgb(232, 228, 220)",
+            "bg": "rgb(22, 28, 36)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".volume-card",
+            "color": "rgb(243, 234, 220)",
+            "bg": "rgb(42, 35, 27)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".logo-link",
+            "color": "rgb(243, 246, 250)",
+            "bg": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        ]
+      },
+      "logs": [],
+      "shot": {
+        "total": 7159,
+        "mode": "fullPage",
+        "file": "/tmp/k3-evidence/2026-10-23-home-360-dark-full.png"
+      },
+      "brand": "2026-10-23-home-360-dark-brand.png"
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "ready": ".volume-card",
+      "theme": "light",
+      "vp": "360",
+      "width": 360,
+      "height": 800,
+      "measured": {
+        "rawHits": [],
+        "clips": [
+          {
+            "sel": ".axis-node",
+            "text": "城市基建",
+            "box": {
+              "left": 348,
+              "top": 351,
+              "right": 417,
+              "bottom": 406,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node",
+            "text": "今天切片",
+            "box": {
+              "left": 429,
+              "top": 351,
+              "right": 498,
+              "bottom": 406,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node",
+            "text": "未來展望",
+            "box": {
+              "left": 510,
+              "top": 351,
+              "right": 579,
+              "bottom": 406,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "城市",
+            "box": {
+              "left": 348,
+              "top": 373,
+              "right": 417,
+              "bottom": 389,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "今天",
+            "box": {
+              "left": 429,
+              "top": 373,
+              "right": 498,
+              "bottom": 389,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "未來",
+            "box": {
+              "left": 510,
+              "top": 373,
+              "right": 579,
+              "bottom": 389,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "基建",
+            "box": {
+              "left": 366,
+              "top": 391,
+              "right": 399,
+              "bottom": 406,
+              "width": 32,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "切片",
+            "box": {
+              "left": 447,
+              "top": 391,
+              "right": 480,
+              "bottom": 406,
+              "width": 32,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "展望",
+            "box": {
+              "left": 528,
+              "top": 391,
+              "right": 561,
+              "bottom": 406,
+              "width": 32,
+              "height": 16
+            }
+          }
+        ],
+        "controlsSmall": [],
+        "controlCount": 23,
+        "stageDotCount": 0,
+        "touchPairs": [],
+        "touchPairCount": 0,
+        "scroll": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "scrollingScrollWidth": 360,
+          "innerWidth": 360,
+          "scrollHeight": 27680,
+          "pageOverflow": false
+        },
+        "overflows": [
+          {
+            "path": "html.civ-motion > body.static > div.page.column-page",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "div.page.column-page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+            "scrollWidth": 32,
+            "clientWidth": 1,
+            "delta": 31,
+            "overflowX": "hidden",
+            "internal": false
+          },
+          {
+            "path": "main#content",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "section#civ > div.deep-axis",
+            "scrollWidth": 571,
+            "clientWidth": 328,
+            "delta": 243,
+            "overflowX": "auto",
+            "internal": true
+          }
+        ],
+        "logoImgs": [
+          {
+            "cls": "logo-full logo-light",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-full logo-dark",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-light",
+            "alt": "",
+            "shown": true,
+            "w": 104,
+            "h": 28,
+            "left": 16,
+            "right": 120,
+            "natural": "185x50",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-dark",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x50",
+            "complete": true
+          }
+        ],
+        "brandText": "",
+        "svgLabel": "|||",
+        "title": "人類文明 — 文明編年史",
+        "htmlDark": false,
+        "dom": {
+          "axisHero": true,
+          "axisSlim": false,
+          "axisCta": 1,
+          "axisCtaText": [
+            "閱讀人類起源",
+            "跳到今日切片"
+          ],
+          "volumeCards": 3,
+          "chronicleBand": 0,
+          "volumeBoard": 1,
+          "axisRails": 0,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "slice": false,
+          "chAncient": false,
+          "chNow": false,
+          "chFuture": false,
+          "stages": [],
+          "patternCards": 3
+        },
+        "stages": {
+          "8": {
+            "present": false
+          },
+          "9": {
+            "present": false
+          },
+          "10": {
+            "present": false
+          }
+        },
+        "simplifiedHits": [],
+        "ink": [
+          {
+            "sel": ".chrome",
+            "color": "rgb(20, 32, 51)",
+            "bg": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".axis-hero",
+            "color": "rgb(232, 228, 220)",
+            "bg": "rgb(22, 28, 36)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".volume-card",
+            "color": "rgb(22, 28, 36)",
+            "bg": "rgb(247, 241, 230)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".pattern-card",
+            "color": "rgb(22, 28, 36)",
+            "bg": "rgb(247, 241, 230)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".logo-link",
+            "color": "rgb(20, 32, 51)",
+            "bg": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        ]
+      },
+      "logs": [],
+      "shot": {
+        "total": 27680,
+        "mode": "cdp-stitch",
+        "file": "/tmp/k3-evidence/2026-10-23-civ-360-light-full.png",
+        "height": 27680
+      },
+      "brand": "2026-10-23-civ-360-light-brand.png"
+    },
+    {
+      "page": "civ",
+      "path": "/civilization/",
+      "ready": ".volume-card",
+      "theme": "dark",
+      "vp": "360",
+      "width": 360,
+      "height": 800,
+      "measured": {
+        "rawHits": [],
+        "clips": [
+          {
+            "sel": ".axis-node",
+            "text": "城市基建",
+            "box": {
+              "left": 348,
+              "top": 351,
+              "right": 417,
+              "bottom": 406,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node",
+            "text": "今天切片",
+            "box": {
+              "left": 429,
+              "top": 351,
+              "right": 498,
+              "bottom": 406,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node",
+            "text": "未來展望",
+            "box": {
+              "left": 510,
+              "top": 351,
+              "right": 579,
+              "bottom": 406,
+              "width": 69,
+              "height": 55
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "城市",
+            "box": {
+              "left": 348,
+              "top": 373,
+              "right": 417,
+              "bottom": 389,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "今天",
+            "box": {
+              "left": 429,
+              "top": 373,
+              "right": 498,
+              "bottom": 389,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .lab",
+            "text": "未來",
+            "box": {
+              "left": 510,
+              "top": 373,
+              "right": 579,
+              "bottom": 389,
+              "width": 69,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "基建",
+            "box": {
+              "left": 366,
+              "top": 391,
+              "right": 399,
+              "bottom": 406,
+              "width": 32,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "切片",
+            "box": {
+              "left": 447,
+              "top": 391,
+              "right": 480,
+              "bottom": 406,
+              "width": 32,
+              "height": 16
+            }
+          },
+          {
+            "sel": ".axis-node .yr",
+            "text": "展望",
+            "box": {
+              "left": 528,
+              "top": 391,
+              "right": 561,
+              "bottom": 406,
+              "width": 32,
+              "height": 16
+            }
+          }
+        ],
+        "controlsSmall": [],
+        "controlCount": 23,
+        "stageDotCount": 0,
+        "touchPairs": [],
+        "touchPairCount": 0,
+        "scroll": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "scrollingScrollWidth": 360,
+          "innerWidth": 360,
+          "scrollHeight": 27680,
+          "pageOverflow": false
+        },
+        "overflows": [
+          {
+            "path": "html.dark.civ-motion > body.static > div.page.column-page",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "div.page.column-page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+            "scrollWidth": 32,
+            "clientWidth": 1,
+            "delta": 31,
+            "overflowX": "hidden",
+            "internal": false
+          },
+          {
+            "path": "main#content",
+            "scrollWidth": 344,
+            "clientWidth": 328,
+            "delta": 16,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "section#civ > div.deep-axis",
+            "scrollWidth": 571,
+            "clientWidth": 328,
+            "delta": 243,
+            "overflowX": "auto",
+            "internal": true
+          }
+        ],
+        "logoImgs": [
+          {
+            "cls": "logo-full logo-light",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-full logo-dark",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-light",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x50",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-dark",
+            "alt": "",
+            "shown": true,
+            "w": 104,
+            "h": 28,
+            "left": 16,
+            "right": 120,
+            "natural": "185x50",
+            "complete": true
+          }
+        ],
+        "brandText": "",
+        "svgLabel": "|||",
+        "title": "人類文明 — 文明編年史",
+        "htmlDark": true,
+        "dom": {
+          "axisHero": true,
+          "axisSlim": false,
+          "axisCta": 1,
+          "axisCtaText": [
+            "閱讀人類起源",
+            "跳到今日切片"
+          ],
+          "volumeCards": 3,
+          "chronicleBand": 0,
+          "volumeBoard": 1,
+          "axisRails": 0,
+          "patternAxis": 1,
+          "caseAxis": 1,
+          "slice": false,
+          "chAncient": false,
+          "chNow": false,
+          "chFuture": false,
+          "stages": [],
+          "patternCards": 3
+        },
+        "stages": {
+          "8": {
+            "present": false
+          },
+          "9": {
+            "present": false
+          },
+          "10": {
+            "present": false
+          }
+        },
+        "simplifiedHits": [],
+        "ink": [
+          {
+            "sel": ".chrome",
+            "color": "rgb(243, 246, 250)",
+            "bg": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".axis-hero",
+            "color": "rgb(232, 228, 220)",
+            "bg": "rgb(22, 28, 36)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".volume-card",
+            "color": "rgb(243, 234, 220)",
+            "bg": "rgb(42, 35, 27)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".pattern-card",
+            "color": "rgb(243, 234, 220)",
+            "bg": "rgb(42, 35, 27)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".logo-link",
+            "color": "rgb(243, 246, 250)",
+            "bg": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        ]
+      },
+      "logs": [],
+      "shot": {
+        "total": 27680,
+        "mode": "cdp-stitch",
+        "file": "/tmp/k3-evidence/2026-10-23-civ-360-dark-full.png",
+        "height": 27680
+      },
+      "brand": "2026-10-23-civ-360-dark-brand.png"
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "ready": "#stage-10",
+      "theme": "light",
+      "vp": "360",
+      "width": 360,
+      "height": 800,
+      "measured": {
+        "rawHits": [],
+        "clips": [],
+        "controlsSmall": [],
+        "controlCount": 9,
+        "stageDotCount": 0,
+        "touchPairs": [],
+        "touchPairCount": 0,
+        "scroll": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "scrollingScrollWidth": 360,
+          "innerWidth": 360,
+          "scrollHeight": 45133,
+          "pageOverflow": false
+        },
+        "overflows": [
+          {
+            "path": "html.civ-motion > body.static > div.page.column-page",
+            "scrollWidth": 330,
+            "clientWidth": 328,
+            "delta": 2,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "div.page.column-page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+            "scrollWidth": 32,
+            "clientWidth": 1,
+            "delta": 31,
+            "overflowX": "hidden",
+            "internal": false
+          },
+          {
+            "path": "main#content > article.civ-article.chronicle-page",
+            "scrollWidth": 546,
+            "clientWidth": 328,
+            "delta": 218,
+            "overflowX": "auto",
+            "internal": true
+          }
+        ],
+        "logoImgs": [
+          {
+            "cls": "logo-full logo-light",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-full logo-dark",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-light",
+            "alt": "",
+            "shown": true,
+            "w": 104,
+            "h": 28,
+            "left": 16,
+            "right": 120,
+            "natural": "185x50",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-dark",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x50",
+            "complete": true
+          }
+        ],
+        "brandText": "",
+        "svgLabel": "|||",
+        "title": "文明編年 — 文明編年史",
+        "htmlDark": false,
+        "dom": {
+          "axisHero": false,
+          "axisSlim": false,
+          "axisCta": 0,
+          "axisCtaText": [],
+          "volumeCards": 0,
+          "chronicleBand": 0,
+          "volumeBoard": 0,
+          "axisRails": 0,
+          "patternAxis": 0,
+          "caseAxis": 0,
+          "slice": false,
+          "chAncient": true,
+          "chNow": true,
+          "chFuture": true,
+          "stages": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "patternCards": 3
+        },
+        "stages": {
+          "8": {
+            "present": true,
+            "h2": "現代金融與全球體系",
+            "proseChars": 1817,
+            "proseSample": "約十九世紀後期至二十世紀中葉，跨國貿易與工業生產把「遠距結算如何維持可核對的信用」推到制度前線。金本位安排以金屬為錨，使匯價在較長時間內相對可預期；匯票、清算所",
+            "cardHits": [],
+            "h2Clipped": false
+          },
+          "9": {
+            "present": true,
+            "h2": "信息革命",
+            "proseChars": 1821,
+            "proseSample": "約二十世紀七十年代至二十一世紀第一個十年，信息處理與遠距協作的成本驟降。分組交換把長訊息切成可獨立轉發的小包，使網絡不必為每一對通信方預留整條專線；開放的互聯協",
+            "cardHits": [],
+            "h2Clipped": false
+          },
+          "10": {
+            "present": true,
+            "h2": "本世紀／當代",
+            "proseChars": 2544,
+            "proseSample": "數字貨幣形態、生命科學工具與人工智能的通用化，是本世紀已經進入公共機構頁面的工具事實，不是對以後世紀的預測。本節把年代收到約公元二零一零年起，只寫可核對的形態，",
+            "cardHits": [],
+            "h2Clipped": false
+          }
+        },
+        "simplifiedHits": [],
+        "ink": [
+          {
+            "sel": ".chrome",
+            "color": "rgb(20, 32, 51)",
+            "bg": "color(srgb 0.956863 0.964706 0.972549 / 0.92)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".chapter-band",
+            "color": "rgb(247, 241, 230)",
+            "bg": "rgb(22, 28, 36)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".pattern-card",
+            "color": "rgb(22, 28, 36)",
+            "bg": "rgb(247, 241, 230)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": "#stage-8 h2",
+            "color": "rgb(20, 32, 51)",
+            "bg": "rgba(0, 0, 0, 0)",
+            "fontSize": "24px"
+          },
+          {
+            "sel": "#stage-8 p",
+            "color": "rgb(122, 90, 50)",
+            "bg": "rgba(0, 0, 0, 0)",
+            "fontSize": "12px"
+          },
+          {
+            "sel": ".logo-link",
+            "color": "rgb(20, 32, 51)",
+            "bg": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        ]
+      },
+      "logs": [],
+      "anchors": [
+        {
+          "id": "#stage-8",
+          "text": "現代金融與全球體系",
+          "gap": 40.8,
+          "chromeBottom": 161,
+          "chromeHeight": 161,
+          "headingTop": 201.8,
+          "headingHeight": 35,
+          "inViewport": true,
+          "fontSize": "24px",
+          "color": "rgb(20, 32, 51)",
+          "clippedRight": false,
+          "file": "2026-10-23-chronicle-360-light-stage-8.png"
+        },
+        {
+          "id": "#stage-9",
+          "text": "信息革命",
+          "gap": 41,
+          "chromeBottom": 161,
+          "chromeHeight": 161,
+          "headingTop": 202,
+          "headingHeight": 35,
+          "inViewport": true,
+          "fontSize": "24px",
+          "color": "rgb(20, 32, 51)",
+          "clippedRight": false,
+          "file": "2026-10-23-chronicle-360-light-stage-9.png"
+        },
+        {
+          "id": "#stage-10",
+          "text": "本世紀／當代",
+          "gap": 40.7,
+          "chromeBottom": 161,
+          "chromeHeight": 161,
+          "headingTop": 201.7,
+          "headingHeight": 35,
+          "inViewport": true,
+          "fontSize": "24px",
+          "color": "rgb(20, 32, 51)",
+          "clippedRight": false,
+          "file": "2026-10-23-chronicle-360-light-stage-10.png"
+        }
+      ]
+    },
+    {
+      "page": "chronicle",
+      "path": "/civilization/chronicle/",
+      "ready": "#stage-10",
+      "theme": "dark",
+      "vp": "360",
+      "width": 360,
+      "height": 800,
+      "measured": {
+        "rawHits": [],
+        "clips": [],
+        "controlsSmall": [],
+        "controlCount": 9,
+        "stageDotCount": 0,
+        "touchPairs": [],
+        "touchPairCount": 0,
+        "scroll": {
+          "scrollWidth": 360,
+          "clientWidth": 360,
+          "scrollingScrollWidth": 360,
+          "innerWidth": 360,
+          "scrollHeight": 45139,
+          "pageOverflow": false
+        },
+        "overflows": [
+          {
+            "path": "html.dark.civ-motion > body.static > div.page.column-page",
+            "scrollWidth": 330,
+            "clientWidth": 328,
+            "delta": 2,
+            "overflowX": "visible",
+            "internal": false
+          },
+          {
+            "path": "div.page.column-page > div.chrome > header.masthead > form.search-bar > label.sr-only",
+            "scrollWidth": 32,
+            "clientWidth": 1,
+            "delta": 31,
+            "overflowX": "hidden",
+            "internal": false
+          },
+          {
+            "path": "main#content > article.civ-article.chronicle-page",
+            "scrollWidth": 546,
+            "clientWidth": 328,
+            "delta": 218,
+            "overflowX": "auto",
+            "internal": true
+          }
+        ],
+        "logoImgs": [
+          {
+            "cls": "logo-full logo-light",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-full logo-dark",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x68",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-light",
+            "alt": "",
+            "shown": false,
+            "w": 0,
+            "h": 0,
+            "left": 0,
+            "right": 0,
+            "natural": "185x50",
+            "complete": true
+          },
+          {
+            "cls": "logo-compact logo-dark",
+            "alt": "",
+            "shown": true,
+            "w": 104,
+            "h": 28,
+            "left": 16,
+            "right": 120,
+            "natural": "185x50",
+            "complete": true
+          }
+        ],
+        "brandText": "",
+        "svgLabel": "|||",
+        "title": "文明編年 — 文明編年史",
+        "htmlDark": true,
+        "dom": {
+          "axisHero": false,
+          "axisSlim": false,
+          "axisCta": 0,
+          "axisCtaText": [],
+          "volumeCards": 0,
+          "chronicleBand": 0,
+          "volumeBoard": 0,
+          "axisRails": 0,
+          "patternAxis": 0,
+          "caseAxis": 0,
+          "slice": false,
+          "chAncient": true,
+          "chNow": true,
+          "chFuture": true,
+          "stages": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "patternCards": 3
+        },
+        "stages": {
+          "8": {
+            "present": true,
+            "h2": "現代金融與全球體系",
+            "proseChars": 1817,
+            "proseSample": "約十九世紀後期至二十世紀中葉，跨國貿易與工業生產把「遠距結算如何維持可核對的信用」推到制度前線。金本位安排以金屬為錨，使匯價在較長時間內相對可預期；匯票、清算所",
+            "cardHits": [],
+            "h2Clipped": false
+          },
+          "9": {
+            "present": true,
+            "h2": "信息革命",
+            "proseChars": 1821,
+            "proseSample": "約二十世紀七十年代至二十一世紀第一個十年，信息處理與遠距協作的成本驟降。分組交換把長訊息切成可獨立轉發的小包，使網絡不必為每一對通信方預留整條專線；開放的互聯協",
+            "cardHits": [],
+            "h2Clipped": false
+          },
+          "10": {
+            "present": true,
+            "h2": "本世紀／當代",
+            "proseChars": 2544,
+            "proseSample": "數字貨幣形態、生命科學工具與人工智能的通用化，是本世紀已經進入公共機構頁面的工具事實，不是對以後世紀的預測。本節把年代收到約公元二零一零年起，只寫可核對的形態，",
+            "cardHits": [],
+            "h2Clipped": false
+          }
+        },
+        "simplifiedHits": [],
+        "ink": [
+          {
+            "sel": ".chrome",
+            "color": "rgb(243, 246, 250)",
+            "bg": "color(srgb 0.054902 0.0784314 0.109804 / 0.92)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".chapter-band",
+            "color": "rgb(247, 241, 230)",
+            "bg": "rgb(22, 28, 36)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": ".pattern-card",
+            "color": "rgb(243, 234, 220)",
+            "bg": "rgb(42, 35, 27)",
+            "fontSize": "16px"
+          },
+          {
+            "sel": "#stage-8 h2",
+            "color": "rgb(243, 234, 220)",
+            "bg": "rgb(42, 35, 27)",
+            "fontSize": "24px"
+          },
+          {
+            "sel": "#stage-8 p",
+            "color": "rgb(196, 165, 114)",
+            "bg": "rgba(0, 0, 0, 0)",
+            "fontSize": "12px"
+          },
+          {
+            "sel": ".logo-link",
+            "color": "rgb(243, 246, 250)",
+            "bg": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        ]
+      },
+      "logs": [],
+      "anchors": [
+        {
+          "id": "#stage-8",
+          "text": "現代金融與全球體系",
+          "gap": 40.8,
+          "chromeBottom": 161,
+          "chromeHeight": 161,
+          "headingTop": 201.8,
+          "headingHeight": 35,
+          "inViewport": true,
+          "fontSize": "24px",
+          "color": "rgb(243, 234, 220)",
+          "clippedRight": false,
+          "file": "2026-10-23-chronicle-360-dark-stage-8.png"
+        },
+        {
+          "id": "#stage-9",
+          "text": "信息革命",
+          "gap": 41,
+          "chromeBottom": 161,
+          "chromeHeight": 161,
+          "headingTop": 202,
+          "headingHeight": 35,
+          "inViewport": true,
+          "fontSize": "24px",
+          "color": "rgb(243, 234, 220)",
+          "clippedRight": false,
+          "file": "2026-10-23-chronicle-360-dark-stage-9.png"
+        },
+        {
+          "id": "#stage-10",
+          "text": "本世紀／當代",
+          "gap": 40.7,
+          "chromeBottom": 161,
+          "chromeHeight": 161,
+          "headingTop": 201.7,
+          "headingHeight": 35,
+          "inViewport": true,
+          "fontSize": "24px",
+          "color": "rgb(243, 234, 220)",
+          "clippedRight": false,
+          "file": "2026-10-23-chronicle-360-dark-stage-10.png"
+        }
+      ]
+    }
+  ],
+  "clickSlice": {
+    "before": "http://127.0.0.1:4173/civilization/",
+    "url": "/#slice",
+    "heading": "今日切片軸上今日軸上今日只列公開標題與出處，方便對照文明編年；不另起一面牆。近層",
+    "gap": 16.4,
+    "file": "2026-10-23-civ-360-dark-click-slice.png"
+  }
+}
