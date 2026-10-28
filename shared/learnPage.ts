@@ -3,10 +3,14 @@ import {
   LEARN_LESSONS,
   LEARN_PROGRESS_KEY,
   LEARN_SUBJECTS,
+  learnLeafId,
   learnLesson,
-  learnLessonsFor,
+  learnPathGroups,
+  learnPathPlan,
   learnSubject,
+  learnNextLeaf,
   type LearnLesson,
+  type LearnPathPlanEntry,
   type LearnSubject,
 } from './learn/catalog.js';
 
@@ -14,9 +18,24 @@ const ORIGIN = 'https://world-news.xyz';
 
 const MOTTO = '開蒙——森羅萬象，由一葉始。';
 
-/** P0 shell stays out of the index until the tree is thick enough to stand alone. */
+/** P0→P1 過渡：樹尚在加厚，learn 全線維持 noindex，不進 sitemap。 */
 export function learnIndexable(): boolean {
   return false;
+}
+
+/** 與文明／懶人包只走軟鏈：葉底 0–2 條，只列名，不貼正文。 */
+const CIV_LABELS: Record<string, string> = {
+  '/civilization/': '文明軸',
+  '/civilization/chronicle/': '文明編年',
+  '/civilization/origins/': '人類起源時間線',
+  '/civilization/tech/': '科技與發現',
+  '/civilization/city/': '城市・基建・民生',
+  '/civilization/cosmos/': '宇宙與深時間',
+  '/civilization/earth/': '地球與生命',
+};
+
+function civLabel(href: string): string {
+  return CIV_LABELS[href] ?? '文明軸';
 }
 
 const PROGRESS_SCRIPT = `<script>
@@ -40,8 +59,56 @@ const PROGRESS_SCRIPT = `<script>
   function paint() {
     var data = read();
     var list = completed(data);
+    var done = {};
+    for (var i = 0; i < list.length; i++) done[list[i]] = true;
     var line = document.querySelector('[data-learn-progress]');
-    if (line) line.textContent = list.length ? ('本機已展開 ' + list.length + ' 葉。') : '本機尚未記下進度。';
+    if (line) {
+      line.textContent = list.length
+        ? ('本機已展開 ' + list.length + ' 葉 · 本機文明點 ' + list.length + '（記在本機，不作兌換）。')
+        : '本機尚未記下進度。文明點只記本機，不作兌換。';
+    }
+    document.querySelectorAll('[data-learn-leaf]').forEach(function (card) {
+      var id = card.getAttribute('data-learn-leaf');
+      var state = card.querySelector('[data-learn-leaf-state]');
+      if (!id || !state) return;
+      if (done[id]) {
+        card.classList.add('is-done');
+        state.textContent = '本機已讀。';
+        return;
+      }
+      card.classList.remove('is-done');
+      var prereq = card.getAttribute('data-learn-prereq');
+      if (prereq && !done[prereq]) {
+        card.classList.add('is-pending');
+        state.textContent = '建議先讀前一葉，再回來。';
+      } else {
+        card.classList.remove('is-pending');
+        state.textContent = '可讀。';
+      }
+    });
+    document.querySelectorAll('[data-learn-path]').forEach(function (section) {
+      var groups = [];
+      try { groups = JSON.parse(section.getAttribute('data-learn-path') || '[]'); } catch (e) {}
+      var walked = false;
+      for (var g = 0; g < groups.length; g++) {
+        var group = groups[g] || [];
+        if (group.length) {
+          var all = true;
+          for (var k = 0; k < group.length; k++) {
+            if (!done[group[k]]) { all = false; break; }
+          }
+          if (all) { walked = true; break; }
+        }
+      }
+      var marker = section.querySelector('[data-learn-path-state]');
+      if (walked) {
+        section.classList.add('is-walked');
+        if (marker) marker.textContent = '本機已走通一條區塊。';
+      } else {
+        section.classList.remove('is-walked');
+        if (marker) marker.textContent = '';
+      }
+    });
   }
   document.querySelectorAll('[data-learn-done]').forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -51,9 +118,10 @@ const PROGRESS_SCRIPT = `<script>
       var list = completed(data);
       if (list.indexOf(id) < 0) list.push(id);
       data.completed = list;
+      data.civPoints = list.length;
       write(data);
       var note = document.querySelector('[data-learn-status]');
-      if (note) note.textContent = '本機已記下這一葉。';
+      if (note) note.textContent = '本機已記下這一葉。文明點顯示＋1（記在本機，不作兌換）。';
       paint();
     });
   });
@@ -107,7 +175,7 @@ export function renderLearnHub(): { html: string; status: number; indexable: boo
     <header class="learn-hero">
       <h1>開蒙 · 森羅</h1>
       <p class="learn-motto">${esc(MOTTO)}</p>
-      <p class="learn-progress" data-learn-progress>本機尚未記下進度。</p>
+      <p class="learn-progress" data-learn-progress>本機尚未記下進度。文明點只記本機，不作兌換。</p>
     </header>
     <section class="learn-map-section" aria-label="萬有地圖">
       <h2>萬有地圖</h2>
@@ -125,11 +193,37 @@ export function renderLearnHub(): { html: string; status: number; indexable: boo
   });
 }
 
-function lessonCard(lesson: LearnLesson): string {
-  return `<article class="learn-leaf">
-    <h2><a href="/learn/${esc(lesson.subjectId)}/${esc(lesson.id)}/">${esc(lesson.title)}</a></h2>
+function leafCard(lesson: LearnLesson): string {
+  const fullId = learnLeafId(lesson.subjectId, lesson.id);
+  const prereqAttr = lesson.prereq ? ` data-learn-prereq="${esc(learnLeafId(lesson.subjectId, lesson.prereq))}"` : '';
+  const state = lesson.prereq ? '建議先讀前一葉' : '可讀';
+  return `<article class="learn-leaf" data-learn-leaf="${esc(fullId)}"${prereqAttr}>
+    <h4><a href="/learn/${esc(lesson.subjectId)}/${esc(lesson.id)}/">${esc(lesson.title)}</a></h4>
     <p>${esc(lesson.summary)}</p>
+    <span class="learn-state" data-learn-leaf-state>${state}</span>
   </article>`;
+}
+
+function blockSection(entry: { block: { id: string; name: string }; lessons: LearnLesson[] }): string {
+  const inner = entry.lessons.length
+    ? entry.lessons.map(leafCard).join('')
+    : '<p class="learn-sprout">方位示意，正文未種。不假裝已有內容。</p>';
+  const cls = entry.lessons.length ? 'learn-block' : 'learn-block is-sprout';
+  return `<section class="${cls}">
+    <h3>${esc(entry.block.name)}</h3>
+    ${inner}
+  </section>`;
+}
+
+function pathSection(subjectId: string, entry: LearnPathPlanEntry): string {
+  const groups = learnPathGroups(subjectId, entry.path);
+  const blocks = entry.blocks.map(blockSection).join('');
+  const sprout = entry.path.blocks.length ? '' : '<p class="learn-sprout">方位示意，區塊與正文未種。</p>';
+  return `<section class="learn-path" data-learn-path="${esc(JSON.stringify(groups))}">
+    <h2>${esc(entry.path.name)}<span class="learn-path-state" data-learn-path-state></span></h2>
+    ${blocks}
+    ${sprout}
+  </section>`;
 }
 
 export function renderLearnSubject(id: string): { html: string; status: number; indexable: boolean } {
@@ -148,11 +242,15 @@ export function renderLearnSubject(id: string): { html: string; status: number; 
       body,
     });
   }
-  const lessons = learnLessonsFor(subject.id).map(lessonCard).join('');
+  const tree = learnPathPlan(subject.id).map((entry) => pathSection(subject.id, entry)).join('');
+  const growth = subject.growth ? `<p class="learn-growth">可再長（示意）：${esc(subject.growth)}。</p>` : '';
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/learn/">開蒙 · 森羅</a> · ${esc(subject.name)}</nav>
     <h1>${esc(subject.name)}</h1>
     <p class="learn-note">${esc(subject.orientation)} 方位：${esc(subject.bearing)}。</p>
-    ${lessons}
+    <section class="learn-tree" aria-label="${esc(subject.name)}門徑">
+      ${tree}
+    </section>
+    ${growth}
     <p><a href="/learn/">返回萬有地圖</a></p>`;
   return shell({
     title: subject.name,
@@ -162,18 +260,30 @@ export function renderLearnSubject(id: string): { html: string; status: number; 
   });
 }
 
+function softLinksParagraph(lesson: LearnLesson): string {
+  const civilization = lesson.softLinks?.civilization ?? [];
+  if (!civilization.length) return '';
+  const links = civilization.map((href) => `<a href="${esc(href)}">${esc(civLabel(href))}</a>`).join('、');
+  return `<p class="learn-soft">敘事上，見 ${links}。今日事件不在這一葉重寫。</p>`;
+}
+
 export function renderLearnLeaf(subjectId: string, lessonId: string): { html: string; status: number; indexable: boolean } {
   const subject = learnSubject(subjectId);
   const lesson = subject?.open ? learnLesson(subjectId, lessonId) : undefined;
   if (!subject || !lesson) return renderLearnMiss();
   const paragraphs = lesson.body.map((paragraph) => `<p>${esc(paragraph)}</p>`).join('');
+  const next = learnNextLeaf(subject.id, lesson.id);
+  const nextLine = next
+    ? `<p class="learn-next">下一葉（建議）：<a href="/learn/${esc(subject.id)}/${esc(next.id)}/">${esc(next.title)}</a></p>`
+    : '';
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/learn/">開蒙 · 森羅</a> · <a href="/learn/${esc(subject.id)}/">${esc(subject.name)}</a> · ${esc(lesson.title)}</nav>
     <article class="learn-article">
       <h1>${esc(lesson.title)}</h1>
       <p class="learn-summary">${esc(lesson.summary)}</p>
       ${paragraphs}
-      <p class="learn-soft">敘事上，見 <a href="/civilization/chronicle/">文明編年</a>。今日事件不在這一葉重寫。</p>
-      <p class="learn-actions"><button type="button" data-learn-done="${esc(`${subject.id}:${lesson.id}`)}">本節讀完</button> <span data-learn-status></span></p>
+      ${softLinksParagraph(lesson)}
+      ${nextLine}
+      <p class="learn-actions"><button type="button" data-learn-done="${esc(learnLeafId(subject.id, lesson.id))}">本節讀完</button> <span data-learn-status></span></p>
       <p><a href="/learn/${esc(subject.id)}/">返回${esc(subject.name)}</a></p>
     </article>`;
   return shell({
