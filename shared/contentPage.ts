@@ -429,6 +429,18 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
           </span>
         </a>
       </div>
+      <div class="tab-bar">
+        <div class="chip-scroller">
+          ${primary}
+        </div>
+        <details class="nav-more">
+          <summary>更多</summary>
+          <nav class="filters" aria-label="更多欄目">
+            ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/" title="多方報道時間線，不是軸上的今天"${current('today')}>多方時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a><a class="chip${active === 'quiz' ? ' active' : ''}" href="/quiz/"${active === 'quiz' ? ' aria-current="page"' : ''}>小測</a>
+          </nav>
+        </details>
+        ${subscribeMenu()}
+      </div>
       <form class="search-bar" role="search" action="/search/" method="get">
         <label class="sr-only" for="news-search">搜尋</label>
         <button type="button" class="icon-btn search-toggle" aria-label="搜尋" aria-expanded="false">
@@ -436,25 +448,16 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
         </button>
         <input id="news-search" name="q" placeholder="搜尋" />
       </form>
-      <div class="header-actions">
-        <button type="button" class="icon-btn theme-toggle" aria-label="切換深淺色模式">
-          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A7.5 7.5 0 1 1 9.5 4 6 6 0 0 0 20 14.5z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" /></svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.75" /><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" /></svg>
-        </button>
-      </div>
-    </header>
-    <div class="tab-bar">
-      <div class="chip-scroller">
-        ${primary}
-      </div>
-      <details class="nav-more">
-        <summary>更多</summary>
-        <nav class="filters" aria-label="更多欄目">
-          ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/" title="多方報道時間線，不是軸上的今天"${current('today')}>多方時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a><a class="chip${active === 'quiz' ? ' active' : ''}" href="/quiz/"${active === 'quiz' ? ' aria-current="page"' : ''}>小測</a>
-        </nav>
+      <details class="chrome-overflow">
+        <summary class="chrome-overflow-btn" aria-label="工具">⋯</summary>
+        <div class="header-actions">
+          <button type="button" class="icon-btn theme-toggle" aria-label="切換深淺色模式">
+            <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A7.5 7.5 0 1 1 9.5 4 6 6 0 0 0 20 14.5z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" /></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.75" /><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" /></svg>
+          </button>
+        </div>
       </details>
-      ${subscribeMenu()}
-    </div>
+    </header>
     <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"></div>
   </div>
   <div id="major-slot"></div>
@@ -568,8 +571,16 @@ export function igCard(inner: string, kind = ''): string {
 /**
  * Index deck: lead, then one card per item, then the close card.
  * Dots are a sibling of the deck so they stay put while the deck scrolls.
+ * `mergeLead` puts the first item on the lead card so the opening viewport
+ * is not an empty intro. Later items stay one full-height snap card each.
  */
-export function igIndexDeck(head: string, items: string[], emptyHtml: string, closeTitle: string, tail = ''): string {
+export function igIndexDeck(head: string, items: string[], emptyHtml: string, closeTitle: string, tail = '', mergeLead = false): string {
+  if (mergeLead) {
+    const [first, ...rest] = items;
+    const lead = igCard(first ? `${head}${first}` : `${head}${emptyHtml}`, 'ig-card-lead');
+    const stories = rest.map((item) => igCard(item, 'ig-card-story')).join('');
+    return `${igDotsNav()}<div class="ig-deck" id="ig-deck">${lead}${stories}${igCloseCard(closeTitle, tail)}</div>`;
+  }
   const body = items.length ? items.map((item) => igCard(item, 'ig-card-story')).join('') : igCard(emptyHtml);
   return `${igDotsNav()}<div class="ig-deck" id="ig-deck">${igCard(head, 'ig-card-lead')}${body}${igCloseCard(closeTitle, tail)}</div>`;
 }
@@ -946,7 +957,7 @@ ${head(meta.title, meta.description, canonical, entries.find((entry) => entry.im
   <div class="page column-page ig-snap" data-kind="${kind}-index">
   ${chrome(kind)}
   <main id="content" class="column-index ig-frame">
-    ${igIndexDeck(headHtml, itemCards, `<p class="notice">${esc(meta.empty)}</p>`, meta.title, footer(false))}
+    ${igIndexDeck(headHtml, itemCards, `<p class="notice">${esc(meta.empty)}</p>`, meta.title, footer(false), kind === 'briefing')}
   </main>
   </div>
   ${igDotsScript()}

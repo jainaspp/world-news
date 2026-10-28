@@ -81,8 +81,9 @@ button, input { font: inherit; color: inherit; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .skip-link { position: absolute; left: 12px; top: -40px; }
 .page { width: min(100% - 32px, var(--main-col)); margin: 0 auto; padding: 0 0 var(--space-7); }
-.chrome { min-height: 96px; }
-.masthead { display: flex; align-items: center; gap: 8px; min-height: 52px; }
+.chrome { min-height: 52px; }
+.masthead { display: flex; align-items: center; gap: 8px; min-height: 48px; flex-wrap: nowrap; }
+.masthead .tab-bar { flex: 1 1 0; min-width: 0; }
 .masthead-title { margin: 0; line-height: 1; flex: none; }
 .logo-link { display: flex; align-items: center; min-height: 40px; text-decoration: none; color: inherit; }
 .logo-link img { height: 36px; width: auto; }
@@ -157,8 +158,8 @@ button, input { font: inherit; color: inherit; }
 .listen[hidden] { display: flex !important; }
 .favicon { width: 16px; height: 16px; }
 @media (max-width: 700px) {
-  /* QA mobile (~390px layout): .chrome grew 104→178 when site.css painted the weather row. */
-  .chrome { min-height: 178px; }
+  /* T8: one bar plus the reserved weather row. The old 178px held the icon row and channel row. */
+  .chrome { min-height: 96px; }
   .chrome > .hk-info {
     display: flex; align-items: center; flex-wrap: nowrap; box-sizing: border-box;
     min-width: 0; max-width: 100%; min-height: 40px; margin: 4px 0 0; padding: 4px 12px;
@@ -168,7 +169,7 @@ button, input { font: inherit; color: inherit; }
   }
   .chrome > .hk-info > * { flex: none; }
   .chrome > .hk-info[hidden] { display: flex !important; }
-  .masthead { min-height: 44px; flex-wrap: wrap; }
+  .masthead { min-height: 44px; flex-wrap: nowrap; }
   .logo-link .logo-full { display: none !important; }
   .logo-link .logo-compact.logo-light { display: block; }
   html.dark .logo-link .logo-compact.logo-light { display: none !important; }
@@ -178,8 +179,8 @@ button, input { font: inherit; color: inherit; }
   .search-bar > .search-toggle { display: inline-flex; min-height: 44px; min-width: 44px; }
   .search-bar input { display: none; }
   .layout { margin-top: 4px; gap: 8px; }
-  .chrome > .tab-bar {
-    flex-wrap: nowrap; align-items: center; gap: 8px; min-width: 0; padding: 8px 0;
+  .chrome .tab-bar {
+    flex: 1 1 0; flex-wrap: nowrap; align-items: center; gap: 8px; min-width: 0; padding: 0;
   }
   .chrome .chip-scroller {
     display: flex; flex: 1 1 0%; width: 0; min-width: 0; overflow: hidden; align-items: center;
@@ -187,11 +188,12 @@ button, input { font: inherit; color: inherit; }
   .chrome .chip-scroller .civ-nav { flex-wrap: nowrap; width: max-content; gap: 8px; }
   .chrome .civ-nav .chip, .chrome .nav-more > summary {
     min-width: 44px; min-height: 44px; padding: 3px 8px; font-size: 13px;
+    background: transparent; border-color: transparent; color: #5c6570;
   }
   .chrome .nav-more > summary,
   .chrome .subscribe-menu > summary {
     display: inline-flex; align-items: center; justify-content: center;
-    border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--muted); font-weight: 500;
+    border: 0; border-radius: var(--radius-pill); background: transparent;
   }
   .column-title { min-height: 56px; }
   .column-hero.pack-shell .column-title,

@@ -116,8 +116,46 @@ img { max-width: 100%; }
   backdrop-filter: blur(10px); margin: 0 -2px; padding: 0 2px 2px;
   border-bottom: 1px solid var(--line);
 }
-.masthead { display: flex; align-items: center; gap: var(--space-2); min-height: 52px; }
+.masthead { display: flex; align-items: center; gap: var(--space-2); min-height: 48px; flex-wrap: nowrap; }
 .masthead-title { margin: 0; font-size: inherit; font-weight: inherit; line-height: 1; flex: none; }
+.masthead .civ-nav-row,
+.masthead .tab-bar { flex: 1 1 0; min-width: 0; flex-wrap: nowrap; padding: 0; gap: 4px; }
+.masthead .search-bar { flex: 0 1 200px; }
+.masthead .civ-nav { flex-wrap: nowrap; padding: 0; overflow: visible; }
+.masthead .chip-scroller {
+  display: flex; flex: 1 1 0%; width: 0; min-width: 0; align-items: center; gap: 4px;
+  overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.masthead .chip-scroller::-webkit-scrollbar { display: none; }
+.masthead .chip-scroller .civ-nav { flex: none; width: max-content; }
+.chrome-overflow { position: relative; flex: none; }
+.chrome-overflow > summary { list-style: none; cursor: pointer; }
+.chrome-overflow > summary::-webkit-details-marker { display: none; }
+.chrome-overflow-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px; padding: 0 4px; border: 0; background: transparent;
+  color: var(--muted); font-size: 1.35rem; line-height: 1; letter-spacing: 0.12em;
+}
+.chrome-overflow:not([open]) > .header-actions { display: none; }
+.chrome-overflow > .header-actions {
+  position: absolute; right: 0; top: calc(100% + 6px); z-index: 32;
+  display: flex; flex-direction: column; align-items: stretch; gap: 4px;
+  min-width: 180px; padding: 6px; background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-md);
+}
+.masthead .civ-nav .chip,
+.masthead .tab-bar .chip,
+.masthead .civ-more > summary,
+.masthead .nav-more > summary,
+.masthead .subscribe-menu > summary,
+.masthead .chip.civ-chip {
+  background: transparent; border-color: transparent; box-shadow: none;
+  color: var(--muted); font-weight: 500;
+}
+.masthead .chip.active,
+.masthead .chip.civ-chip {
+  color: var(--text); font-weight: 700; box-shadow: inset 0 -2px 0 #9a7b4f;
+}
 .logo-link { display: flex; align-items: center; min-height: 40px; text-decoration: none; color: inherit; }
 .logo-link img { height: 36px; width: auto; }
 .logo-frame { position: relative; display: inline-flex; align-items: center; line-height: 0; flex: none; }
@@ -346,7 +384,8 @@ html.dark .thumb-neutral {
 
 @media (max-width: 700px) {
   .chrome { padding-bottom: 0; }
-  .masthead { min-height: 44px; max-height: none; flex-wrap: wrap; row-gap: 8px; }
+  .masthead { min-height: 44px; max-height: none; flex-wrap: nowrap; row-gap: 0; }
+  .masthead .search-bar { flex: none; }
   .logo-link { min-height: 0; }
   .logo-link .logo-full { display: none !important; }
   .logo-link .logo-compact.logo-light { display: block; }
@@ -1858,13 +1897,13 @@ html.dark .more-today span { color: var(--color-muted); }
    The track is only the leftover width, so a scrolled chip cannot paint under a pin.
    padding-inline-end keeps the last chip clear of that slot. */
 @media (max-width: 720px) {
-  .chrome > .civ-nav-row,
-  .chrome > .tab-bar {
+  .chrome .civ-nav-row,
+  .chrome .tab-bar {
     flex-wrap: nowrap;
     align-items: center;
     gap: 8px;
     min-width: 0;
-    padding: 8px 0;
+    padding: 0;
     overflow: visible;
   }
   .chrome .chip-scroller {
@@ -1901,10 +1940,10 @@ html.dark .more-today span { color: var(--color-muted); }
     flex: none;
     scroll-snap-align: start;
   }
-  .chrome > .civ-nav-row .civ-more,
-  .chrome > .civ-nav-row .subscribe-menu,
-  .chrome > .tab-bar .subscribe-menu,
-  .chrome > .tab-bar .nav-more {
+  .chrome .civ-nav-row .civ-more,
+  .chrome .civ-nav-row .subscribe-menu,
+  .chrome .tab-bar .subscribe-menu,
+  .chrome .tab-bar .nav-more {
     flex: none;
     margin-left: 0;
   }
@@ -1938,10 +1977,11 @@ html.dark .more-today span { color: var(--color-muted); }
     box-shadow: inset 0 -2px 0 #9a7b4f;
     border-radius: 8px;
   }
-  html.dark .chrome .chip {
-    background: #121820;
-    border-color: #3d4a5c;
-    color: #e8e4dc;
+  html.dark .chrome .chip,
+  html.dark .chrome .nav-more > summary {
+    background: transparent;
+    border-color: transparent;
+    color: #9aa3ad;
   }
   html.dark .chrome .nav-more > summary,
   html.dark .chrome .civ-more > summary,
@@ -1958,10 +1998,10 @@ html.dark .more-today span { color: var(--color-muted); }
     box-shadow: inset 0 -2px 0 #9a7b4f;
   }
   html.dark .chrome .chip.civ-chip {
-    background: #161c24;
-    color: #f7f1e6;
-    border-color: #c4a572;
-    box-shadow: none;
+    background: transparent;
+    color: #c4a572;
+    border-color: transparent;
+    box-shadow: inset 0 -2px 0 #9a7b4f;
   }
 }
 .coord-chip {
@@ -2310,6 +2350,30 @@ html.dark .more-today span { color: var(--color-muted); }
 }
 .chapter-band .era { margin: 0 0 8px; color: #c4a572; }
 .chapter-band p { margin: 0 0 10px; color: #e8e4dc; line-height: 1.6; }
+/* T9: article snap paints var(--bg) on p/h2/li. On the ink chapter door that
+   puts cream body and brass dates on page grey (~1.2:1 and ~2.2:1). Clearing
+   the paint puts them back on #161c24 (body #e8e4dc, date #c4a572, both ≥4.5:1).
+   Paper cards (volume, stage, milestone, pattern, case) keep their own fill
+   the same way, so body and date stay ink on paper. Dark cards keep their colors.
+   Snap height and the card contract are unchanged. */
+.page.ig-snap :is(
+  .chapter-band,
+  .volume-card,
+  .stage-card,
+  .deep-time-card,
+  .milestone-block,
+  .pattern-card,
+  .civ-block,
+  .case-study,
+  .question-index,
+  .future-panel,
+  .future-card,
+  .future-domain,
+  .future-bridge,
+  .future-legend
+) :is(p, h1, h2, h3, h4, li, summary) {
+  background-color: transparent;
+}
 .chapter-band .chronicle-nav { margin-top: 4px; }
 .stage-ask { font-weight: 700; }
 .stage-sources { margin: 8px 0 0; padding-left: 1.2em; }
@@ -3244,16 +3308,16 @@ a.question-line:hover { text-decoration: underline; }
 .civ-node-hero img[hidden] { display: none; }
 @media (max-width: 720px) {
   .masthead {
-    flex-wrap: wrap;
-    row-gap: 8px;
+    flex-wrap: nowrap;
+    row-gap: 0;
     column-gap: 8px;
     align-items: center;
     min-height: 44px;
     max-height: none;
   }
-  .masthead-title { flex: 1 1 auto; min-width: 0; }
+  .masthead-title { flex: none; min-width: 0; }
   .logo-word { font-size: 1.05rem; letter-spacing: 0; }
-  .header-actions { flex: 1 1 auto; justify-content: flex-end; gap: 8px; }
+  .header-actions { flex: none; justify-content: flex-end; gap: 8px; }
   .header-actions .icon-btn { min-width: 44px; min-height: 44px; padding: 6px; }
   .pattern-axis,
   .case-axis {
@@ -4048,6 +4112,51 @@ html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
 .page.ig-snap .hero-line { margin: 0 0 0.25em; }
 .page.ig-snap .hero-cta { margin-top: 14px; }
 .page.ig-snap .ig-card-lead .ig-sheet { background: transparent; padding: 0; }
+/* T9 briefing index (default A): the lead card is the intro plus the first
+   story, top-aligned, so ×390 opens on the first card's image or title.
+   Later cards stay full-height always-snap. The empty search stays the
+   chrome icon (max-width 700px); it is not a second row. */
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .ig-sheet {
+  justify-content: flex-start;
+  gap: 8px;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .index-head {
+  flex: 0 0 auto;
+  gap: 4px;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .column-title {
+  font-size: 22px;
+  line-height: 1.25;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .dek {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .story {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .story-body { flex: 0 0 auto; }
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .story-media {
+  flex: 1 1 auto;
+  min-height: 140px;
+  max-height: none;
+  height: auto;
+  aspect-ratio: auto;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .thumb,
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .thumb-fallback {
+  max-height: none;
+  height: 100%;
+  min-height: 140px;
+}
 .page.ig-snap .ig-card-axis { background: #161c24; padding-left: 0; padding-right: 0; }
 .page.ig-snap .ig-card.ig-card-axis > .ig-sheet,
 .page.ig-snap .ig-card.ig-card-axis > .axis-mount {
@@ -4150,11 +4259,21 @@ html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
   white-space: normal;
   scroll-snap-align: none;
 }
-.page.ig-snap .ig-card .civ-block-figure,
 .page.ig-snap .ig-card .milestone-figure,
 .page.ig-snap .ig-card .future-cover {
   overflow: hidden;
   max-height: 168px;
+}
+/* Keep the pattern caption inside the figure box. Clipping the whole figure
+   at 168px laid 「複製與校驗 · 紙感」 past the sheet edge once the bar got shorter. */
+.page.ig-snap .ig-card .civ-block-figure {
+  overflow: visible;
+  max-height: none;
+}
+.page.ig-snap .ig-card .civ-block-figure .civ-block-frame {
+  height: 120px;
+  max-height: 120px;
+  aspect-ratio: auto;
 }
 .page.ig-snap .ig-card .civ-block-figure img,
 .page.ig-snap .ig-card .milestone-figure img,

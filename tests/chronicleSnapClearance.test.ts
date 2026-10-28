@@ -82,7 +82,7 @@ describe('chronicle snap clearance', () => {
     expect(script).toContain('document.fonts.addEventListener("loadingdone"');
     expect(script).toContain('visualViewport.addEventListener("resize"');
     expect(script).toContain('var restore=chronicle&&deck.scrollTop>1');
-    expect(swCacheName).toBe('wn-v24');
+    expect(swCacheName).toBe('wn-v25');
     expect(renderChroniclePage().html).toContain('class="civ-article chronicle-page"');
     expect(renderOriginsPage().html).not.toContain('class="civ-article chronicle-page"');
     expect(readFileSync('src/App.css', 'utf8')).toContain('.page.ig-snap:has(.chronicle-page) .ig-deck { overflow-anchor: none; }');

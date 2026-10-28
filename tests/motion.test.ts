@@ -171,7 +171,7 @@ describe('shared header wordmark', () => {
     expect(narrow).toContain('#9a7b4f');
     expect(narrow).toContain('#161c24');
     expect(narrow).toContain('#e8e4dc');
-    expect(narrow).toContain('.chrome > .civ-nav-row .subscribe-menu');
+    expect(narrow).toContain('.chrome .civ-nav-row .subscribe-menu');
     const app = readFileSync('src/App.tsx', 'utf8');
     expect(app).toContain('className="chip-scroller"');
     expect(app).not.toContain('世界頭條');
