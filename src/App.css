@@ -1571,6 +1571,29 @@ html.dark .nav-more summary { color: var(--color-muted); }
 .learn-state { font-size: 12px; }
 .learn-article p,
 .learn-leaf p { max-width: 40rem; }
+/* Hub「重設本機進度」and leaf「本節讀完」were the UA button (112×30). */
+.learn-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.learn-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid #9a7b4f;
+  border-radius: 999px;
+  background: #f7f1e6;
+  color: #161c24;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+}
 html.dark .bulletin-clock {
   background: #161c24;
   color: #f7f1e6;
@@ -1591,6 +1614,11 @@ html.dark .learn-locked,
 html.dark .learn-bearings { color: var(--color-muted); }
 html.dark .learn-door { background: #1c2430; color: #f7f1e6; }
 html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
+html.dark .learn-actions button {
+  background: #161c24;
+  color: #f7f1e6;
+  border-color: #c4a572;
+}
 @media (min-width: 720px) {
   .learn-map { grid-template-columns: repeat(3, 1fr); }
 }
@@ -3835,7 +3863,13 @@ html.dark .civ-progress { background: #c4a572; }
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  background: radial-gradient(130% 95% at 50% 38%, #1c2431 0%, #161c24 55%, #121820 100%);
+  /* Ink under the night-sky gradient. A gradient-only background leaves
+     background-color transparent, so .hero-kicker (#c4a572) is scored against
+     the page paper #f4f6f8 at 2.16:1. The gradient stops are opaque, so painted
+     pixels stay the sky. --brass-on-paper (#7a5a32) is 2.72:1 on this ink and
+     would wash the brand brass out; #c4a572 on #161c24 is 7.32:1. */
+  background-color: #161c24;
+  background-image: radial-gradient(130% 95% at 50% 38%, #1c2431 0%, #161c24 55%, #121820 100%);
   color: #e8e4dc;
   border-bottom: 1px solid color-mix(in srgb, var(--era-ancient) 35%, transparent);
   text-align: center;

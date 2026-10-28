@@ -363,6 +363,8 @@ function measureFixture(appCss: string, columnsCss: string): string {
   <div class="line-filter"><div class="line-filter-row">${chips}</div></div>
   <div class="story-actions"><a class="primary" href="https://example.com/story">閱讀原文</a></div>
   <form class="search-page-form"><button class="primary" type="submit">搜尋</button></form>
+  <section class="hero-opening"><p class="hero-kicker">文明編年史 · 開場</p></section>
+  <p class="learn-actions"><button type="button" data-learn-reset>重設本機進度</button></p>
 </div>
 </body>
 </html>`;
@@ -381,9 +383,38 @@ const EDGE_GAPS = `(() => {
     }
     return found;
   }
+  function lin(channel) {
+    const s = channel / 255;
+    return s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  }
+  function lum(rgb) {
+    return 0.2126 * lin(rgb[0]) + 0.7152 * lin(rgb[1]) + 0.0722 * lin(rgb[2]);
+  }
+  function contrast(fg, bg) {
+    const hi = Math.max(lum(fg), lum(bg));
+    const lo = Math.min(lum(fg), lum(bg));
+    return (hi + 0.05) / (lo + 0.05);
+  }
+  function parseColor(value) {
+    const match = String(value).match(/rgba?\\((\\d+),\\s*(\\d+),\\s*(\\d+)(?:,\\s*([\\d.]+))?\\)/);
+    if (!match) return null;
+    return { rgb: [Number(match[1]), Number(match[2]), Number(match[3])], alpha: match[4] == null ? 1 : Number(match[4]) };
+  }
+  function opaqueBackground(el) {
+    for (let node = el; node; node = node.parentElement) {
+      const parsed = parseColor(getComputedStyle(node).backgroundColor);
+      if (parsed && parsed.alpha >= 0.99) return parsed.rgb;
+    }
+    return null;
+  }
   const search = document.querySelector('.search-bar input');
   const story = document.querySelector('.story-actions .primary');
   const submit = document.querySelector('.search-page-form .primary');
+  const learn = document.querySelector('.learn-actions button');
+  const learnBox = learn ? learn.getBoundingClientRect() : { width: 0, height: 0 };
+  const kicker = document.querySelector('.hero-kicker');
+  const kickerFg = kicker ? parseColor(getComputedStyle(kicker).color) : null;
+  const kickerBg = kicker ? opaqueBackground(kicker) : null;
   const axisNodes = Array.from(document.querySelectorAll('.milestones > li > .axis-node')).map((node) => {
     const box = node.getBoundingClientRect();
     return { t: Math.round(box.top), l: Math.round(box.left), w: Math.round(box.width) };
@@ -397,6 +428,9 @@ const EDGE_GAPS = `(() => {
     searchDisplay: search ? getComputedStyle(search).display : '',
     story: story ? story.getBoundingClientRect().height : 0,
     submit: submit ? submit.getBoundingClientRect().height : 0,
+    learnW: learnBox.width,
+    learnH: learnBox.height,
+    kicker: kickerFg && kickerBg ? contrast(kickerFg.rgb, kickerBg) : 0,
   });
 })()`;
 
@@ -427,7 +461,7 @@ describe('headless R2 measurements', () => {
       await probe.viewport(768, 900);
       await probe.navigate(pathToFileURL(path.join(dir, 'measure.html')).href);
       expect(await probe.evaluate<number>('window.innerWidth')).toBe(768);
-      const at768 = JSON.parse(await probe.evaluate<string>(EDGE_GAPS)) as { axis: number[]; lines: number[]; search: number; story: number; submit: number };
+      const at768 = JSON.parse(await probe.evaluate<string>(EDGE_GAPS)) as { axis: number[]; lines: number[]; search: number; story: number; submit: number; learnW: number; learnH: number; kicker: number };
       expect(at768.axis.length, JSON.stringify(at768)).toBeGreaterThanOrEqual(6);
       expect(at768.lines.length, JSON.stringify(at768)).toBeGreaterThanOrEqual(4);
       expect(Math.min(...at768.axis), JSON.stringify(at768)).toBeGreaterThanOrEqual(7.5);
@@ -435,6 +469,9 @@ describe('headless R2 measurements', () => {
       expect(at768.search, JSON.stringify(at768)).toBeGreaterThanOrEqual(44);
       expect(at768.story, JSON.stringify(at768)).toBeGreaterThanOrEqual(44);
       expect(at768.submit, JSON.stringify(at768)).toBeGreaterThanOrEqual(44);
+      expect(at768.learnW, JSON.stringify(at768)).toBeGreaterThanOrEqual(44);
+      expect(at768.learnH, JSON.stringify(at768)).toBeGreaterThanOrEqual(44);
+      expect(at768.kicker, JSON.stringify(at768)).toBeGreaterThanOrEqual(4.5);
 
       await probe.viewport(1024, 900);
       await probe.evaluate<void>('new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
@@ -447,10 +484,13 @@ describe('headless R2 measurements', () => {
       await probe.viewport(390, 800);
       await probe.evaluate<void>('new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
       expect(await probe.evaluate<number>('window.innerWidth')).toBe(390);
-      const narrow = JSON.parse(await probe.evaluate<string>(EDGE_GAPS)) as { lines: number[]; story: number; searchDisplay: string };
+      const narrow = JSON.parse(await probe.evaluate<string>(EDGE_GAPS)) as { lines: number[]; story: number; searchDisplay: string; learnW: number; learnH: number; kicker: number };
       expect(narrow.lines.length, JSON.stringify(narrow)).toBeGreaterThanOrEqual(4);
       expect(Math.min(...narrow.lines), JSON.stringify(narrow)).toBeGreaterThanOrEqual(7.5);
       expect(narrow.story, JSON.stringify(narrow)).toBeGreaterThanOrEqual(44);
+      expect(narrow.learnW, JSON.stringify(narrow)).toBeGreaterThanOrEqual(44);
+      expect(narrow.learnH, JSON.stringify(narrow)).toBeGreaterThanOrEqual(44);
+      expect(narrow.kicker, JSON.stringify(narrow)).toBeGreaterThanOrEqual(4.5);
       expect(narrow.searchDisplay).toBe('none');
 
       await probe.viewport(1280, 900);
