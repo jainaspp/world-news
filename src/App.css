@@ -1965,22 +1965,16 @@ html.dark .more-today span { color: var(--color-muted); }
 .ia-mega:not([open]) > .ia-mega-panel,
 .ia-today:not([open]) > .ia-today-sheet,
 .ia-today:not([open]) > .ia-wide-news { display: none; }
-.ia-mega[open] > .ia-mega-panel {
-  display: grid;
-  position: absolute;
-  z-index: 40;
-  top: calc(100% + 8px);
-  left: 0;
-  width: max-content;
-  min-width: 220px;
-  max-width: min(320px, calc(100vw - 24px));
-  padding: 10px 8px;
-  background: #f7f1e6;
-  color: #161c24;
-  border: 1px solid #c4a572;
-  border-radius: 14px;
-  box-shadow: 0 10px 28px rgba(22, 28, 36, 0.16);
-  overflow: visible;
+.ia-mega[open] > .ia-mega-panel,
+.ia-today[open] > .ia-today-sheet,
+.ia-today-sheet,
+.ia-mega-panel {
+  position: static;
+  transform: none;
+  left: auto;
+  top: auto;
+  right: auto;
+  z-index: auto;
 }
 .ia-mega-panel > a,
 .ia-mega-now {
@@ -2044,22 +2038,17 @@ html.dark .more-today span { color: var(--color-muted); }
 }
 .ia-today[open] > .ia-today-sheet {
   display: block;
-  position: absolute;
-  z-index: 40;
-  left: 50%;
-  right: auto;
-  top: calc(100% + 6px);
-  transform: translateX(-50%);
-  width: min(280px, calc(100vw - 32px));
-  max-width: calc(100vw - 32px);
+  position: static;
+  transform: none;
+  width: min(420px, 100%);
+  margin-top: 8px;
   padding: 12px 12px 8px;
   text-align: left;
   background: #f7f1e6;
   color: #161c24;
   border: 1px solid #c4a572;
   border-radius: 14px;
-  box-shadow: 0 10px 28px rgba(22, 28, 36, 0.16);
-  overflow: visible;
+  box-shadow: none;
 }
 .ia-today-kicker { margin: 0 0 2px; color: #9a7b4f; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; }
 .ia-news-label { margin: 0 0 6px; color: #5c5346; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
@@ -2073,10 +2062,8 @@ html.dark .masthead .ia-mega > summary.civ-chip {
 }
 /* In-flow earth branch. The 今日 panel grows the masthead; it does not float over the hero. */
 .ia-branch {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: start;
-  width: max-content;
+  display: block;
+  width: 100%;
   max-width: 100%;
   margin-top: 2px;
   padding: 4px 8px 2px;
@@ -2084,17 +2071,37 @@ html.dark .masthead .ia-mega > summary.civ-chip {
   overflow: visible;
 }
 .ia-branch[hidden] { display: none !important; }
-.ia-ancient { grid-column: 1; grid-row: 1; justify-self: end; z-index: 1; }
-.ia-future { grid-column: 3; grid-row: 1; justify-self: start; z-index: 1; }
-.ia-today {
-  grid-column: 1 / -1;
-  grid-row: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 0;
-  pointer-events: none;
+.ia-today { display: block; width: max-content; max-width: 100%; }
+.ia-l2-summary {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  padding: 0;
+  cursor: default;
+  list-style: none;
 }
+.ia-l2-summary::-webkit-details-marker { display: none; }
+.ia-l2 {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.ia-ancient,
+.ia-now,
+.ia-future {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+}
+.ia-now { cursor: pointer; }
+.ia-now::after { content: " ▸"; font-size: 12px; }
 .ia-seg {
   display: inline-flex;
   align-items: center;
@@ -2117,14 +2124,13 @@ html.dark .masthead .ia-mega > summary.civ-chip {
   font-weight: 700;
   box-shadow: inset 0 -2px 0 #9a7b4f;
 }
-.ia-today > summary { list-style: none; pointer-events: auto; }
+.ia-today > summary { list-style: none; }
 .ia-today > summary::-webkit-details-marker { display: none; }
-.ia-today > summary::after { content: " ▸"; font-size: 12px; }
 .ia-today:not([open]) > .ia-today-panel { display: none !important; }
 .ia-today[open] > .ia-today-panel {
   display: block;
   position: static;
-  width: min(420px, 100%);
+  width: min(420px, calc(100vw - 48px));
   margin: 8px 0 4px;
   padding: 10px 12px 8px;
   pointer-events: auto;
@@ -2133,6 +2139,12 @@ html.dark .masthead .ia-mega > summary.civ-chip {
   border: 1px solid #c4a572;
   border-radius: 14px;
   box-shadow: none;
+}
+@media (max-width: 899px) {
+  .ia-wide-only { display: none !important; }
+}
+@media (min-width: 900px) {
+  .ia-mobile-only { display: none !important; }
 }
 .ia-today-panel .ia-news .chip {
   justify-content: flex-start;

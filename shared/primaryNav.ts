@@ -128,7 +128,6 @@ export function primaryNavHtml(active: string): string {
   const links = newsLinks(state);
   const ancient = `<a class="${segClass(ancientOn)} ia-ancient" href="${IA_ANCIENT_HREF}" data-ia-l2="ancient"${aria(ancientOn ? state.l2Current : '')}>古</a>`;
   const future = `<a class="${segClass(futureOn)} ia-future" href="${IA_FUTURE_HREF}" data-ia-l2="future"${aria(futureOn ? state.l2Current : '')}>未來</a>`;
-  const nowSummary = `<summary class="${segClass(nowOn)} ia-now" data-ia-l2="now"${aria(nowOn ? state.l2Current : '')}>今</summary>`;
   return `<div class="ia-shell" data-ia-active="${active}">
     <div class="ia-l1-row">
       <div class="chip-scroller">
@@ -137,15 +136,15 @@ export function primaryNavHtml(active: string): string {
     </div>
     <div class="ia-branch"${state.showL2 ? '' : ' hidden'}>
       <details class="ia-today"${todayOpen}>
-        ${nowSummary}
+        <summary class="ia-l2-summary">
+          <span class="ia-l2">${ancient}<span class="${segClass(nowOn)} ia-now" data-ia-l2="now"${aria(nowOn ? state.l2Current : '')}>今</span>${future}</span>
+        </summary>
         <div class="ia-today-panel" role="group" aria-label="新聞">
           <p class="ia-today-kicker">今日 · 當下</p>
           <p class="ia-news-label">新聞</p>
           <div class="ia-news">${links}</div>
         </div>
       </details>
-      ${ancient}
-      ${future}
     </div>
   </div>`;
 }
@@ -217,6 +216,12 @@ export function channelChipScrollScript(): string {
       scroller.scrollLeft=target;
     }
   }
+  document.addEventListener("click",function(event){
+    var node=event.target;
+    var link=node&&node.closest?node.closest(".ia-l2 a"):null;
+    if(!link)return;
+    event.stopPropagation();
+  },true);
   function markFuture(){
     var path=(location.pathname||"").replace(/\\/+$/,"");
     if(path!=="/civilization"||location.hash!=="#future")return;

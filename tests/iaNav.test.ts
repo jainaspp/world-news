@@ -45,6 +45,15 @@ describe('IAa nav shell', () => {
       expect(briefing).toContain(`>${item.label}<`);
     }
     expect(briefing).toContain('<details class="ia-today" open>');
+    expect(briefing).not.toContain('ia-mega');
+    expect(briefing).not.toContain('ia-today-sheet');
+    expect(briefing).not.toContain('ia-wide-only');
+    const ancientAt = briefing.indexOf('data-ia-l2="ancient"');
+    const nowAt = briefing.indexOf('data-ia-l2="now"');
+    const futureAt = briefing.indexOf('data-ia-l2="future"');
+    expect(ancientAt).toBeGreaterThan(-1);
+    expect(ancientAt).toBeLessThan(nowAt);
+    expect(nowAt).toBeLessThan(futureAt);
     expect(briefing).toContain('class="chip active" href="/briefing/" aria-current="page"');
     expect(briefing).not.toContain('class="chip active" href="/#slice"');
     expect(briefing).not.toContain('>今天<');
