@@ -407,7 +407,7 @@ html.dark .thumb-neutral {
   .bookmark { margin-left: auto; }
   .layout { margin-top: 4px; gap: 8px; }
   .hk-info-wrap { margin-top: 4px; }
-  .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 8px; font-size: 13px; overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; white-space: nowrap; }
+  .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 20px 2px 8px; font-size: 13px; overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; white-space: nowrap; scroll-padding-inline: 16px; }
   .digest-strip {
     width: 100%; margin-top: 14px; padding: 6px 8px;
     flex-wrap: wrap; overflow: visible;
@@ -475,8 +475,11 @@ html.dark .thumb-neutral {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
   font-size: 0.9rem; font-variant-numeric: tabular-nums; white-space: nowrap;
   overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  scroll-padding-inline: 16px;
+  padding-inline-end: 20px;
 }
 .hk-info::-webkit-scrollbar { display: none; height: 0; }
+.hk-info::after { content: ""; flex: 0 0 12px; width: 12px; }
 .hk-info > * { flex: none; }
 .hk-info-bit { display: inline-flex; align-items: center; gap: 8px; flex: none; max-width: none; white-space: nowrap; }
 .sidebar .hk-info-wrap { margin-top: 0; }
@@ -534,11 +537,11 @@ html.dark .hk-info-hsi.hsi-down { color: #7fd6b4; }
 .wx-meta a { font-weight: 700; display: inline-flex; align-items: center; min-height: 40px; }
 .column-hk { margin: 4px 0 0; }
 .major-banner {
-  position: static; display: flex; align-items: center; gap: 8px; margin: 8px 0 0;
+  position: static; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 8px 0 0;
   padding: 6px 8px 6px 12px; background: var(--color-breaking); color: #fff;
   border-radius: var(--radius-lg); font-size: 0.92rem; line-height: 1.35;
 }
-.major-banner a { color: inherit; font-weight: 700; text-decoration: none; min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.major-banner a { color: inherit; font-weight: 700; text-decoration: none; min-width: 0; flex: 1 1 12em; overflow: visible; text-overflow: clip; white-space: normal; }
 .major-kicker { flex: none; font-weight: 700; }
 .major-dismiss { flex: none; border: 0; background: transparent; color: #fff; cursor: pointer; min-width: 36px; min-height: 32px; font-size: 1.2rem; }
 .alert-row {
@@ -1878,17 +1881,78 @@ html.dark .more-today span { color: var(--color-muted); }
 }
 .masthead > .tab-bar,
 .masthead > .civ-nav-row { flex: 0 0 auto; }
-.ia-shell { display: flex; flex-direction: column; min-width: 0; width: 100%; gap: 2px; }
-.ia-l1-row { display: flex; align-items: center; justify-content: flex-start; min-width: 0; width: 100%; }
-.masthead .ia-l1-row > .chip-scroller { flex: 0 1 auto; width: auto; max-width: 100%; min-width: 0; }
-.ia-l1-row > .ia-mega { position: relative; flex: none; }
+.ia-shell { display: flex; flex-direction: column; min-width: 0; width: 100%; gap: 0; overflow: visible; position: relative; z-index: 2; }
+.ia-l1-row { display: flex; align-items: center; justify-content: flex-start; min-width: 0; width: 100%; overflow: visible; }
+.masthead .ia-l1-row > .chip-scroller {
+  flex: 0 1 auto;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 4px 2px 6px;
+  scroll-padding-inline: 12px;
+}
+.ia-l1 { align-items: center; gap: 8px; padding: 0; overflow: visible; }
+.masthead .ia-l1 .chip,
+.masthead .ia-mega > summary {
+  flex: none;
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 6px 12px;
+}
+.masthead .ia-l1 .chip.civ-chip,
+.masthead .ia-mega > summary.civ-chip {
+  background: #f7f1e6;
+  color: #161c24;
+  border: 1px solid #c4a572;
+  border-radius: 999px;
+  box-shadow: none;
+}
+.ia-l1-row > .ia-mega { position: relative; flex: none; overflow: visible; }
 .ia-l2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2px;
+  flex-wrap: wrap;
+  gap: 0;
   min-width: 0;
   position: relative;
+  overflow: visible;
+  margin-top: 2px;
+  padding: 2px 4px 4px;
+  border-top: 1px solid color-mix(in srgb, #9a7b4f 55%, var(--line));
+}
+.masthead .ia-l2 .chip,
+.masthead .ia-l2 .ia-today > summary {
+  max-width: none;
+  overflow: visible;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  min-height: 44px;
+  padding: 4px 12px;
+}
+.masthead .ia-l2 .chip.active,
+.masthead .ia-l2 .ia-today > summary.active {
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: inset 0 -2px 0 #9a7b4f;
+  border-radius: 0;
 }
 .ia-l2[hidden] { display: none !important; }
 .ia-mega > summary,
@@ -1897,73 +1961,216 @@ html.dark .more-today span { color: var(--color-muted); }
 .ia-today > summary::-webkit-details-marker { display: none; }
 .ia-mega > summary::after { content: " ▾"; font-size: 0.75em; }
 .ia-l2 .ia-today > summary::after,
-.ia-today-summary::after { content: " ▸"; font-size: 0.75em; }
+.ia-today-summary::after { content: " ▸"; font-size: 12px; }
 .ia-mega:not([open]) > .ia-mega-panel,
 .ia-today:not([open]) > .ia-today-sheet,
 .ia-today:not([open]) > .ia-wide-news { display: none; }
 .ia-mega[open] > .ia-mega-panel {
   display: grid;
   position: absolute;
-  z-index: 32;
-  top: calc(100% + 6px);
+  z-index: 40;
+  top: calc(100% + 8px);
   left: 0;
   width: max-content;
-  max-width: min(640px, 86vw);
-  padding: 8px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  box-shadow: var(--shadow-md);
+  min-width: 220px;
+  max-width: min(320px, calc(100vw - 24px));
+  padding: 10px 8px;
+  background: #f7f1e6;
+  color: #161c24;
+  border: 1px solid #c4a572;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(22, 28, 36, 0.16);
+  overflow: visible;
 }
 .ia-mega-panel > a,
 .ia-mega-now {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 44px;
-  padding: 2px 8px;
+  min-height: 40px;
+  padding: 2px 10px;
   border-radius: 8px;
-  color: inherit;
+  color: #161c24;
   text-decoration: none;
+  white-space: nowrap;
 }
-.ia-mega-now { flex-wrap: nowrap; }
-.ia-mega-now > .ia-today[open] { display: flex; flex-wrap: nowrap; align-items: center; gap: 6px; }
-.ia-now-name { font-weight: 600; }
-.ia-now-name.active { font-weight: 700; box-shadow: inset 0 -2px 0 #9a7b4f; }
+.ia-mega-panel > a.active { font-weight: 700; box-shadow: inset 3px 0 0 #9a7b4f; }
+.ia-mega-now {
+  display: grid;
+  align-items: start;
+  gap: 2px 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-top: 1px solid #e4d3b4;
+  border-bottom: 1px solid #e4d3b4;
+}
+.ia-mega-now > .ia-today[open] { display: grid; gap: 2px; min-width: 0; }
+.ia-now-name { font-weight: 600; letter-spacing: 0.12em; color: #5c5346; padding: 8px 10px 0; }
+.ia-now-name.active { font-weight: 700; color: #161c24; box-shadow: inset 3px 0 0 #9a7b4f; }
 .ia-today-summary {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: 0 8px;
-  color: inherit;
-  font-weight: 600;
+  padding: 0 10px;
+  color: #9a7b4f;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
 }
-.ia-today[open] > .ia-wide-news { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.ia-today[open] > .ia-wide-news { display: grid; gap: 2px; }
+.ia-wide-news .chip,
+.ia-news .chip {
+  justify-content: flex-start;
+  width: auto;
+  max-width: none;
+  min-height: 40px;
+  padding: 6px 12px;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  background: transparent;
+  border-color: transparent;
+  color: #161c24;
+  font-weight: 600;
+  box-shadow: none;
+}
+.ia-wide-news .chip.active,
+.ia-news .chip.active {
+  background: #161c24;
+  color: #f7f1e6;
+  border-color: #161c24;
+  border-radius: 999px;
+  box-shadow: none;
+}
 .ia-today[open] > .ia-today-sheet {
   display: block;
   position: absolute;
-  z-index: 32;
+  z-index: 40;
   left: 50%;
-  top: calc(100% + 4px);
+  right: auto;
+  top: calc(100% + 6px);
   transform: translateX(-50%);
-  width: min(280px, 88vw);
-  padding: 10px 12px;
+  width: min(280px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  padding: 12px 12px 8px;
   text-align: left;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  box-shadow: var(--shadow-md);
+  background: #f7f1e6;
+  color: #161c24;
+  border: 1px solid #c4a572;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(22, 28, 36, 0.16);
+  overflow: visible;
 }
-.ia-today-kicker { margin: 0 0 4px; color: #9a7b4f; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; }
-.ia-news-label { margin: 0 0 4px; color: var(--muted); font-size: 12px; font-weight: 700; }
-.ia-news { display: grid; }
-.ia-news .chip { justify-content: flex-start; width: 100%; }
+.ia-today-kicker { margin: 0 0 2px; color: #9a7b4f; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; }
+.ia-news-label { margin: 0 0 6px; color: #5c5346; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+.ia-news { display: grid; gap: 2px; }
+html.dark .masthead .ia-l1 .chip.civ-chip,
+html.dark .masthead .ia-mega > summary.civ-chip {
+  background: #2a241c;
+  color: #f7f1e6;
+  border-color: #c4a572;
+  box-shadow: none;
+}
+/* In-flow earth branch. The 今日 panel grows the masthead; it does not float over the hero. */
+.ia-branch {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+  width: max-content;
+  max-width: 100%;
+  margin-top: 2px;
+  padding: 4px 8px 2px;
+  border-top: 1px solid color-mix(in srgb, #9a7b4f 50%, var(--line));
+  overflow: visible;
+}
+.ia-branch[hidden] { display: none !important; }
+.ia-ancient { grid-column: 1; grid-row: 1; justify-self: end; z-index: 1; }
+.ia-future { grid-column: 3; grid-row: 1; justify-self: start; z-index: 1; }
+.ia-today {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  pointer-events: none;
+}
+.ia-seg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 6px 12px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ia-seg.active {
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: inset 0 -2px 0 #9a7b4f;
+}
+.ia-today > summary { list-style: none; pointer-events: auto; }
+.ia-today > summary::-webkit-details-marker { display: none; }
+.ia-today > summary::after { content: " ▸"; font-size: 12px; }
+.ia-today:not([open]) > .ia-today-panel { display: none !important; }
+.ia-today[open] > .ia-today-panel {
+  display: block;
+  position: static;
+  width: min(420px, 100%);
+  margin: 8px 0 4px;
+  padding: 10px 12px 8px;
+  pointer-events: auto;
+  background: #f7f1e6;
+  color: #161c24;
+  border: 1px solid #c4a572;
+  border-radius: 14px;
+  box-shadow: none;
+}
+.ia-today-panel .ia-news .chip {
+  justify-content: flex-start;
+  width: 100%;
+  max-width: none;
+  min-height: 40px;
+  padding: 6px 12px;
+  background: transparent;
+  border-color: transparent;
+  color: #161c24;
+  font-weight: 600;
+  box-shadow: none;
+  white-space: nowrap;
+}
+.ia-today-panel .ia-news .chip.active {
+  background: color-mix(in srgb, #9a7b4f 18%, #f7f1e6);
+  color: #161c24;
+  border-color: transparent;
+  box-shadow: inset 3px 0 0 #9a7b4f;
+  border-radius: 8px;
+}
+.masthead .ia-l1 .chip.civ-chip,
+.chrome .ia-l1 .chip.civ-chip {
+  background: #161c24;
+  color: #f7f1e6;
+  border: 1px solid #c4a572;
+  border-radius: 999px;
+  box-shadow: none;
+}
+html.dark .masthead .ia-l1 .chip.civ-chip,
+html.dark .chrome .ia-l1 .chip.civ-chip {
+  background: #f7f1e6;
+  color: #161c24;
+  border-color: #c4a572;
+  box-shadow: none;
+}
 @media (max-width: 899px) {
   .masthead { flex-wrap: wrap; }
-  .ia-wide-only { display: none !important; }
-}
-@media (min-width: 900px) {
-  .ia-mobile-only { display: none !important; }
 }
 /* Desktop keeps the old flex children. Phones turn this into the horizontal scroller. */
 .chip-scroller { display: contents; }
@@ -2054,6 +2261,35 @@ html.dark .more-today span { color: var(--color-muted); }
     padding: 3px 8px;
     font-size: 13px;
   }
+  /* IAa labels stay whole. The shared 13px chip rule must not shrink or clip them. */
+  .chrome .ia-l1-row > .chip-scroller {
+    width: auto;
+    flex: 0 1 auto;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 4px 12px 6px 2px;
+  }
+  .chrome .ia-l1 .chip,
+  .chrome .ia-mega > summary,
+  .chrome .ia-l2 .chip,
+  .chrome .ia-news .chip,
+  .chrome .ia-wide-news .chip {
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+    font-size: 15px;
+    padding: 6px 12px;
+  }
+  .chrome .ia-l2 .chip,
+  .chrome .ia-l2 .ia-today > summary { font-size: 14px; }
+  .chrome .ia-news .chip.active,
+  .chrome .ia-wide-news .chip.active {
+    background: #161c24;
+    color: #f7f1e6;
+    border-color: #161c24;
+    box-shadow: none;
+  }
   .chrome .nav-more > summary,
   .chrome .civ-more > summary,
   .chrome .subscribe-menu > summary {
@@ -2072,6 +2308,25 @@ html.dark .more-today span { color: var(--color-muted); }
     border-color: transparent;
     box-shadow: inset 0 -2px 0 #9a7b4f;
     border-radius: 8px;
+  }
+  .chrome .ia-today-panel .ia-news .chip,
+  .chrome .ia-today-panel .ia-news .chip.active {
+    background: transparent;
+    color: #161c24;
+    border-color: transparent;
+    box-shadow: none;
+    border-radius: 8px;
+  }
+  .chrome .ia-today-panel .ia-news .chip.active {
+    background: color-mix(in srgb, #9a7b4f 18%, #f7f1e6);
+    color: #161c24;
+    box-shadow: inset 3px 0 0 #9a7b4f;
+  }
+  html.dark .chrome .ia-l1 .chip.civ-chip {
+    background: #f7f1e6;
+    color: #161c24;
+    border-color: #c4a572;
+    box-shadow: none;
   }
   html.dark .chrome .chip,
   html.dark .chrome .nav-more > summary {

@@ -101,13 +101,13 @@ function l1Class(on: boolean): string {
 }
 
 function segClass(on: boolean): string {
-  return on ? 'chip active' : 'chip';
+  return on ? 'ia-seg active' : 'ia-seg';
 }
 
 function newsLinks(state: IaState): string {
   return IA_NEWS.map((item) => {
     const on = state.news === item.key;
-    return `<a class="${segClass(on)}" href="${item.href}"${on ? ' aria-current="page"' : ''} data-ia-news="${item.key}">${item.label}</a>`;
+    return `<a class="${on ? 'chip active' : 'chip'}" href="${item.href}"${on ? ' aria-current="page"' : ''} data-ia-news="${item.key}">${item.label}</a>`;
   }).join('');
 }
 
@@ -125,42 +125,26 @@ export function primaryNavHtml(active: string): string {
   const earthData = ' data-ia-level="1" data-ia-l1="earth"';
   const earthLink = `<a class="${l1Class(earthOn)}" href="${IA_L1[2].href}"${earthAria}${earthData}>地球生物</a>`;
   const todayOpen = state.expandToday ? ' open' : '';
-  const earthOpen = state.expandEarth ? ' open' : '';
   const links = newsLinks(state);
-  const ancient = `<a class="${segClass(ancientOn)}" href="${IA_ANCIENT_HREF}" data-ia-l2="ancient"${aria(ancientOn ? state.l2Current : '')}>古</a>`;
-  const future = `<a class="${segClass(futureOn)}" href="${IA_FUTURE_HREF}" data-ia-l2="future"${aria(futureOn ? state.l2Current : '')}>未來</a>`;
-  const nowSummary = `<summary class="${segClass(nowOn)}" data-ia-l2="now"${aria(nowOn ? state.l2Current : '')}>今</summary>`;
-  const nowLabel = `<span class="ia-now-name${nowOn ? ' active' : ''}" data-ia-l2="now"${aria(nowOn ? state.l2Current : '')}>今</span>`;
+  const ancient = `<a class="${segClass(ancientOn)} ia-ancient" href="${IA_ANCIENT_HREF}" data-ia-l2="ancient"${aria(ancientOn ? state.l2Current : '')}>古</a>`;
+  const future = `<a class="${segClass(futureOn)} ia-future" href="${IA_FUTURE_HREF}" data-ia-l2="future"${aria(futureOn ? state.l2Current : '')}>未來</a>`;
+  const nowSummary = `<summary class="${segClass(nowOn)} ia-now" data-ia-l2="now"${aria(nowOn ? state.l2Current : '')}>今</summary>`;
   return `<div class="ia-shell" data-ia-active="${active}">
     <div class="ia-l1-row">
       <div class="chip-scroller">
-        <nav class="civ-nav ia-l1" aria-label="主欄目">${l1}<span class="ia-mobile-only">${earthLink}</span></nav>
+        <nav class="civ-nav ia-l1" aria-label="主欄目">${l1}${earthLink}</nav>
       </div>
-      <details class="ia-mega ia-wide-only"${earthOpen}>
-        <summary class="${l1Class(earthOn)}"${earthAria}${earthData}>地球生物</summary>
-        <div class="ia-mega-panel" role="group" aria-label="地球生物">
-          ${ancient}
-          <div class="ia-mega-now">
-            ${nowLabel}
-            <details class="ia-today"${todayOpen}>
-              <summary class="ia-today-summary">今日</summary>
-              <div class="ia-wide-news" aria-label="新聞">${links}</div>
-            </details>
-          </div>
-          ${future}
-        </div>
-      </details>
     </div>
-    <div class="ia-l2 ia-l2-mobile ia-mobile-only"${state.showL2 ? '' : ' hidden'}>
-      ${ancient}
+    <div class="ia-branch"${state.showL2 ? '' : ' hidden'}>
       <details class="ia-today"${todayOpen}>
         ${nowSummary}
-        <div class="ia-today-sheet" role="group" aria-label="新聞">
+        <div class="ia-today-panel" role="group" aria-label="新聞">
           <p class="ia-today-kicker">今日 · 當下</p>
           <p class="ia-news-label">新聞</p>
           <div class="ia-news">${links}</div>
         </div>
       </details>
+      ${ancient}
       ${future}
     </div>
   </div>`;
@@ -180,12 +164,14 @@ export function revealActiveChannelChip(root: ParentNode = document): void {
     const port = scroller.getBoundingClientRect();
     const chip = active.getBoundingClientRect();
     if (port.width < 1 || chip.width < 1) return;
+    const slack = 12;
     const chipLeft = chip.left - port.left + scroller.scrollLeft;
     const chipRight = chipLeft + chip.width;
     const view = port.width;
     let target = 0;
-    if (chip.width > view + 0.5) target = chipLeft;
-    else if (chipRight > view + 0.5) target = chipRight - view;
+    if (chip.width > view - slack * 2) target = Math.max(0, chipLeft - slack);
+    else if (chipRight + slack > view) target = chipRight + slack - view;
+    else if (chipLeft < slack) target = 0;
     const max = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
     if (target < 0) target = 0;
     if (target > max) target = max;
@@ -216,12 +202,14 @@ export function channelChipScrollScript(): string {
       var port=scroller.getBoundingClientRect();
       var chip=active.getBoundingClientRect();
       if(port.width<1||chip.width<1)continue;
+      var slack=12;
       var chipLeft=chip.left-port.left+scroller.scrollLeft;
       var chipRight=chipLeft+chip.width;
       var view=port.width;
       var target=0;
-      if(chip.width>view+0.5)target=chipLeft;
-      else if(chipRight>view+0.5)target=chipRight-view;
+      if(chip.width>view-slack*2)target=Math.max(0,chipLeft-slack);
+      else if(chipRight+slack>view)target=chipRight+slack-view;
+      else if(chipLeft<slack)target=0;
       var max=Math.max(0,scroller.scrollWidth-scroller.clientWidth);
       if(target<0)target=0;
       if(target>max)target=max;
@@ -232,11 +220,9 @@ export function channelChipScrollScript(): string {
   function markFuture(){
     var path=(location.pathname||"").replace(/\\/+$/,"");
     if(path!=="/civilization"||location.hash!=="#future")return;
-    var row=document.querySelector(".ia-l2-mobile");
+    var row=document.querySelector(".ia-branch");
     if(row)row.hidden=false;
-    var megas=document.querySelectorAll(".ia-mega");
     var i;
-    for(i=0;i<megas.length;i++)megas[i].open=true;
     var l1=document.querySelectorAll("[data-ia-l1=\\"earth\\"]");
     for(i=0;i<l1.length;i++){
       l1[i].classList.add("civ-chip","active");
