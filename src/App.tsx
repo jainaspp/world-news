@@ -425,6 +425,12 @@ export default function App() {
                 <Logo />
               </a>
             </h1>
+            <CivNav
+              lang={lang}
+              filtersOpen={filtersOpen}
+              filtersActive={filtersActive}
+              onToggleFilters={() => setFiltersOpen((open) => !open)}
+            />
             <form
               className={searchOpen ? 'search-bar open' : 'search-bar'}
               role="search"
@@ -451,6 +457,8 @@ export default function App() {
               </button>
               <input id="news-search" value={view.q} placeholder={t('search', lang)} onChange={(event) => go({ ...view, q: event.target.value }, 'replace')} />
             </form>
+            <details className="chrome-overflow">
+              <summary className="chrome-overflow-btn" aria-label="工具">⋯</summary>
             <div className="header-actions">
               <button type="button" className={refreshing ? 'icon-btn refresh-btn is-refreshing' : 'icon-btn refresh-btn'} aria-label={t('refresh', lang)} onClick={() => { spinRefresh(); void refresh(); }} disabled={loading}>
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -485,14 +493,8 @@ export default function App() {
               </button>
               <LanguageSelector value={lang} onChange={chooseLang} />
             </div>
+            </details>
           </header>
-
-          <CivNav
-            lang={lang}
-            filtersOpen={filtersOpen}
-            filtersActive={filtersActive}
-            onToggleFilters={() => setFiltersOpen((open) => !open)}
-          />
 
           {filtersOpen && !view.bookmarks && (
             <div className="filter-panel" id="filter-panel">

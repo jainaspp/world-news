@@ -386,7 +386,12 @@ describe('T6a snap layout', () => {
           if (sample.worst.minRatio < 0.98 || sample.worst.maxRatio > 1.02) {
             failures.push(`${label} card ratio ${sample.worst.minRatio}-${sample.worst.maxRatio} deck ${sample.deckH}`);
           }
-          const foreign = sample.scrollers.filter((row) => row.id !== 'ig-deck');
+          const foreign = sample.scrollers.filter((row) => {
+            if (row.id === 'ig-deck') return false;
+            // T8 channel track scrolls sideways inside the one bar. It is not a second snap deck.
+            if (row.cls.includes('chip-scroller') && row.x && !row.y) return false;
+            return true;
+          });
           if (foreign.length) failures.push(`${label} extra scrollers ${JSON.stringify(foreign)}`);
           if (!sample.scrollers.some((row) => row.id === 'ig-deck' && row.y)) failures.push(`${label} deck does not scroll`);
           if (sample.docScroll > 2) failures.push(`${label} document scroll ${sample.docScroll}`);
