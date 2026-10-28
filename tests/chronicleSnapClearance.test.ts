@@ -20,7 +20,14 @@ function chromeBin(): string {
 function withLocalCss(html: string): string {
   const appCss = pathToFileURL(path.resolve('src/App.css')).href;
   const columnsCss = pathToFileURL(path.resolve('public/columns.css')).href;
-  return html.replaceAll('href="/site.css"', `href="${appCss}"`).replaceAll('href="/columns.css"', `href="${columnsCss}"`);
+  // Drop the Google font stylesheet. Its media=print onload swap finishes after
+  // readyState complete and fires loadingdone, which clears the chronicle clip
+  // before this test can read it. The test dispatches that event itself.
+  return html
+    .replaceAll('href="/site.css"', `href="${appCss}"`)
+    .replaceAll('href="/columns.css"', `href="${columnsCss}"`)
+    .replace(/<link rel="preconnect" href="https:\/\/fonts\.gstatic\.com"[^>]*>\s*/g, '')
+    .replace(/<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com[^>]*>\s*/g, '');
 }
 
 const GAPS = `(() => {
@@ -152,20 +159,23 @@ describe('chronicle snap clearance', () => {
       }
       throw new Error(`navigation timed out: ${file}`);
     }
-    const swell = `(() => {
-      const style = document.createElement('style');
-      style.id = 'late-metrics';
-      style.textContent = '.ig-card-flow, .ig-card-flow * { font-size: 22px !important; line-height: 36px !important; }';
-      document.head.appendChild(style);
-    })()`;
+    // One turn: the style change and the gap read. A rAF in between lets the
+    // chronicle loadingdone listener paginate the clip away before the assert.
+    async function swellAndRead(): Promise<string> {
+      return evaluate<string>(`(() => {
+        const style = document.createElement('style');
+        style.id = 'late-metrics';
+        style.textContent = '.ig-card-flow, .ig-card-flow * { font-size: 22px !important; line-height: 36px !important; }';
+        document.head.appendChild(style);
+        return ${GAPS};
+      })()`);
+    }
     try {
       await rpc('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
       await open('chronicle.html');
       await evaluate<void>(`(() => { const deck = document.getElementById('ig-deck'); const card = deck.querySelectorAll(':scope > .ig-card')[1]; deck.style.scrollBehavior = 'auto'; deck.scrollTop = card.offsetTop; })()`);
-      await evaluate<void>(swell);
-      await evaluate<void>('new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
-      const clipped = JSON.parse(await evaluate<string>(GAPS)) as { rows: { idx: number; gap: number }[] };
-      expect(clipped.rows.some((row) => row.gap < -4)).toBe(true);
+      const clipped = JSON.parse(await swellAndRead()) as { rows: { idx: number; gap: number }[] };
+      expect(clipped.rows.some((row) => row.gap < -4), JSON.stringify(clipped.rows)).toBe(true);
       await evaluate<void>('document.fonts.dispatchEvent(new Event("loadingdone"))');
       await evaluate<void>('new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
       const healed = JSON.parse(await evaluate<string>(GAPS)) as { scroll: number; rows: { idx: number; gap: number; top: number; sample: string }[] };
@@ -175,10 +185,8 @@ describe('chronicle snap clearance', () => {
       expect(next && Math.abs(next.top) < 2, JSON.stringify(healed)).toBe(true);
 
       await open('origins.html');
-      await evaluate<void>(swell);
-      await evaluate<void>('new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
-      const originsBefore = JSON.parse(await evaluate<string>(GAPS)) as { rows: { gap: number }[] };
-      expect(originsBefore.rows.some((row) => row.gap < -4)).toBe(true);
+      const originsBefore = JSON.parse(await swellAndRead()) as { rows: { gap: number }[] };
+      expect(originsBefore.rows.some((row) => row.gap < -4), JSON.stringify(originsBefore.rows)).toBe(true);
       await evaluate<void>('document.fonts.dispatchEvent(new Event("loadingdone"))');
       await evaluate<void>('new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
       const originsAfter = JSON.parse(await evaluate<string>(GAPS)) as { rows: { gap: number }[] };
