@@ -17,6 +17,7 @@ import { renderNearBridge, renderSliceReturns } from './civilization/renderSlice
 import { homeFacts, hktMmdd, labelMmdd, type HeritageFact } from './heritage.js';
 import { landmarkBySlug } from './heritage.js';
 import { renderHeroOpening } from './heroOpening.js';
+import { primaryNavHtml } from './primaryNav.js';
 
 export { chronicleIndexable, chronicleProse } from './civilization/chronicle.js';
 export { cityIndexable, cityProse } from './civilization/city.js';
@@ -192,10 +193,10 @@ function originsArticle(body: string): string {
   return html;
 }
 
-/** Primary row: 文明｜編年｜今天｜開蒙. Column links stay in 更多, outside this nav. */
+/** Primary row: 文明｜編年｜今天｜開蒙. The homepage highlights 文明. Column links stay in 更多. */
 export function renderCivNav(topic = false): string {
   void topic;
-  return `<nav class="civ-nav" aria-label="主欄目"><a class="chip civ-chip" href="/civilization/">文明</a><a class="chip" href="/civilization/chronicle/">編年</a><a class="chip" href="/#slice">今天</a><a class="chip" href="/learn/">開蒙</a></nav>`;
+  return primaryNavHtml('home');
 }
 
 /** Pattern and case chips sit below the clock and the chronicle, not inside the hero. */
@@ -350,6 +351,8 @@ function shell(options: {
   status?: number;
   /** Hub and detail pages snap. The 404 miss stays a short document. */
   snap?: boolean;
+  /** Chronicle highlights 編年. Other civilization pages highlight 文明. */
+  channel?: 'civilization' | 'chronicle';
 }): { html: string; status: number; indexable: boolean } {
   const canonical = `${ORIGIN}${options.path}`;
   const robots = `<meta name="robots" content="${options.indexable ? 'index,follow' : 'noindex,follow'}" />`;
@@ -359,7 +362,7 @@ function shell(options: {
 ${head(options.title, options.description, canonical, '', 'website', `${robots}\n  ${CIV_MOTION_BOOT}`, '', false)}
 <body>
   <div class="page column-page heritage-page civ-page${snap ? ' ig-snap' : ''}" data-kind="civilization">
-  ${chrome('civilization')}
+  ${chrome(options.channel ?? 'civilization')}
   <main id="content" class="column-index civ-main-page${snap ? ' ig-frame' : ''}">
     ${options.body}
   </main>
@@ -371,14 +374,12 @@ ${head(options.title, options.description, canonical, '', 'website', `${robots}\
   return { html, status: options.status ?? 200, indexable: options.indexable };
 }
 
-/** Weather ticker and 重大更新 sit under the axis, not in the chrome above it. */
-function moveHubSignalsBelowAxis(html: string): string {
-  const hkRe = /<div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"><\/div>/;
+/** 重大更新 stays under the axis. The weather ticker stays in the chrome, above the hero. */
+function moveMajorBelowAxis(html: string): string {
   const majorRe = /<div id="major-slot"><\/div>/;
-  const hk = html.match(hkRe)?.[0];
   const major = html.match(majorRe)?.[0];
-  if (!hk || !major) return html;
-  const stripped = html.replace(hkRe, '').replace(majorRe, '');
+  if (!major) return html;
+  const stripped = html.replace(majorRe, '');
   const start = stripped.indexOf('id="civ"');
   if (start < 0) return html;
   const open = stripped.lastIndexOf('<section', start);
@@ -391,7 +392,7 @@ function moveHubSignalsBelowAxis(html: string): string {
       depth -= 1;
       if (depth === 0) {
         const at = match.index + match[0].length;
-        const block = `\n    <div class="civ-hub-signals">${hk}${major}</div>`;
+        const block = `\n    <div class="civ-hub-signals">${major}</div>`;
         return stripped.slice(0, at) + block + stripped.slice(at);
       }
     } else {
@@ -414,7 +415,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
   const indexable = hubIndexable();
   const sections = [
     igCard(`<nav class="crumb"><a href="/">首頁</a> · 文明</nav>
-    ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice', strip: false })}`, 'ig-card-lead'),
+    ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice', strip: false, rails: false })}`, 'ig-card-lead'),
     igCard(`${hubHero()}<h1 class="column-title civ-page-title">人類文明</h1>`),
     igCard(renderDeepTimeBoard()),
     igCard(renderVolumeBoard()),
@@ -425,7 +426,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
     igCard(`<article class="civ-article"><h2>導語</h2><p>${esc(HUB_LEDE)}</p></article>`, 'ig-card-body'),
     igCard(`<h2>里程碑</h2>${milestoneList()}`, 'ig-card-body'),
     igCard(`<h2>怎樣讀這條軸</h2><p>${esc(HUB_READ)}</p>`, 'ig-card-body'),
-    igCard(`<h2>本地科普節點</h2><p>${esc(HUB_LOCAL)}</p><p><a href="/civilization/tech/">科技與發現</a> · <a href="/civilization/city/">城市・基建・民生</a></p><p><a href="/hk/landmarks/science-museum/">香港科學館</a> · <a href="/hk/landmarks/space-museum/">香港太空館</a></p>${renderPatternBoard()}`, 'ig-card-body'),
+    igCard(`<h2>本地科普節點</h2><p>${esc(HUB_LOCAL)}</p><p><a href="/civilization/tech/">科技與發現</a> · <a href="/civilization/city/">城市・基建・民生</a></p><p><a href="/hk/landmarks/science-museum/">香港科學館</a> · <a href="/hk/landmarks/space-museum/">香港太空館</a></p>${renderPatternBoard()}${renderAxisRails()}`, 'ig-card-body'),
     igCard(renderLayerAside()),
     igCard(`<div class="ig-close-only"><p class="ig-kicker">收束</p><h2 class="column-h2">完</h2><p class="dek">人類文明</p><a class="chip" href="/">返回首頁</a></div>${footer(false)}`, 'ig-card-close'),
   ];
@@ -438,7 +439,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
     indexable,
     snap: true,
   });
-  return { ...page, html: moveHubSignalsBelowAxis(page.html) };
+  return { ...page, html: moveMajorBelowAxis(page.html) };
 }
 
 export function renderCosmosPage(): { html: string; status: number; indexable: boolean } {
@@ -480,6 +481,7 @@ export function renderChroniclePage(): { html: string; status: number; indexable
     body: snapDetail(body, '文明編年'),
     indexable,
     snap: true,
+    channel: 'chronicle',
   });
 }
 

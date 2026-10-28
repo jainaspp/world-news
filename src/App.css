@@ -268,6 +268,14 @@ a.chip { color: inherit; text-decoration: none; }
   background: linear-gradient(155deg, color-mix(in srgb, var(--ph, var(--accent)) 28%, var(--color-surface)), color-mix(in srgb, var(--ph, var(--accent)) 8%, var(--color-bg)));
   color: color-mix(in srgb, var(--ph, var(--accent)) 82%, var(--color-text));
 }
+.thumb-neutral {
+  background: linear-gradient(160deg, #e6e0d4, #cfc6b8);
+  color: #4e4942;
+}
+html.dark .thumb-neutral {
+  background: linear-gradient(160deg, #2c3440, #1a212b);
+  color: #d5dbe3;
+}
 .thumb-source {
   max-width: 100%; font-size: 0.8rem; font-weight: 700; line-height: 1.25; text-align: center;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
@@ -399,7 +407,7 @@ a.chip { color: inherit; text-decoration: none; }
   .bookmark { margin-left: auto; }
   .layout { margin-top: 4px; gap: 8px; }
   .hk-info-wrap { margin-top: 4px; }
-  .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 8px; font-size: 13px; overflow: visible; flex-wrap: wrap; white-space: normal; }
+  .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 8px; font-size: 13px; overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; white-space: nowrap; }
   .digest-strip {
     width: 100%; margin-top: 14px; padding: 6px 8px;
     flex-wrap: wrap; overflow: visible;
@@ -462,11 +470,15 @@ a.chip { color: inherit; text-decoration: none; }
 .filter-label { margin: 8px 0 0; color: var(--muted); font-size: 0.78rem; font-weight: 700; }
 .hk-info-wrap { position: relative; min-width: 0; margin-top: 8px; }
 .hk-info {
-  display: flex; align-items: center; gap: 4px 8px; flex-wrap: wrap; min-height: 40px; margin-top: 0; padding: 4px 12px;
+  display: flex; align-items: center; gap: 4px 8px; flex-wrap: nowrap; min-height: 40px; min-width: 0; max-width: 100%;
+  margin-top: 0; padding: 4px 12px;
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
-  font-size: 0.9rem; font-variant-numeric: tabular-nums; white-space: normal; overflow: visible;
+  font-size: 0.9rem; font-variant-numeric: tabular-nums; white-space: nowrap;
+  overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 }
-.hk-info-bit { display: inline-flex; align-items: center; gap: 8px; flex: none; max-width: 100%; white-space: nowrap; }
+.hk-info::-webkit-scrollbar { display: none; height: 0; }
+.hk-info > * { flex: none; }
+.hk-info-bit { display: inline-flex; align-items: center; gap: 8px; flex: none; max-width: none; white-space: nowrap; }
 .sidebar .hk-info-wrap { margin-top: 0; }
 .hk-info a { color: inherit; text-decoration: none; font-weight: 700; }
 .hk-info-sep { color: var(--muted); }
@@ -474,7 +486,7 @@ a.chip { color: inherit; text-decoration: none; }
 .hk-info-hsi.hsi-down { color: #0b6b4f; }
 html.dark .hk-info-hsi.hsi-down { color: #7fd6b4; }
 .hk-info-hsi.hsi-flat { color: var(--muted); }
-.wx-cluster { position: relative; display: inline-flex; align-items: center; flex-wrap: wrap; gap: 2px; max-width: 100%; }
+.wx-cluster { position: relative; display: inline-flex; align-items: center; flex-wrap: nowrap; gap: 2px; max-width: none; }
 .wx-loc, .wx-more, .wx-summary {
   border: 0; background: transparent; color: inherit; font: inherit; font-weight: 700; cursor: pointer;
   min-height: 40px; padding: 4px 8px; border-radius: var(--radius-pill);
@@ -1440,6 +1452,16 @@ html.dark .detail-hero { box-shadow: none; }
 }
 .nav-more { margin: 4px 0 8px; }
 .nav-more summary { cursor: pointer; color: #5c6570; font-size: 13px; }
+/* T10 secondary controls. These selectors still match after T8 moves .tab-bar into .masthead. */
+.chrome .nav-more > summary,
+.chrome .civ-more > summary,
+.chrome .subscribe-menu > summary {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--muted);
+  font-weight: 500;
+}
 /* ≥768 the summary sits on the page, not the ≤720 chip. Dark #5c6570 on #0e141c was 3.13:1
    (3.02:1 on the learn ground #121820). --color-muted is #c9d3df: 12.21:1 and 11.78:1. */
 html.dark .nav-more summary { color: var(--color-muted); }
@@ -1936,14 +1958,18 @@ html.dark .more-today span { color: var(--color-muted); }
     padding: 3px 8px;
     font-size: 13px;
   }
-  .chrome .nav-more > summary {
+  .chrome .nav-more > summary,
+  .chrome .civ-more > summary,
+  .chrome .subscribe-menu > summary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--chip-border);
+    border: 0;
     border-radius: var(--radius-pill);
-    background: var(--card);
-    color: var(--text);
+    background: transparent;
+    color: var(--muted);
+    font-weight: 500;
+    box-shadow: none;
     font-size: inherit;
   }
   .chrome .chip.active:not(.civ-chip) {
@@ -1956,6 +1982,14 @@ html.dark .more-today span { color: var(--color-muted); }
     background: transparent;
     border-color: transparent;
     color: #9aa3ad;
+  }
+  html.dark .chrome .nav-more > summary,
+  html.dark .chrome .civ-more > summary,
+  html.dark .chrome .subscribe-menu > summary {
+    background: transparent;
+    border-color: transparent;
+    color: #9aa3ad;
+    box-shadow: none;
   }
   html.dark .chrome .chip.active:not(.civ-chip) {
     background: transparent;
@@ -3671,8 +3705,8 @@ html.dark .line-filter-status.is-empty {
 }
 
 @keyframes ig-swipe-hint {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-8px); }
+  0% { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  100% { opacity: 0.72; transform: translateX(-50%) translateY(0); }
 }
 
 /* Civilization axis motion (P0).
@@ -4282,21 +4316,46 @@ html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
   max-width: calc(100% - 72px);
   padding: 8px 14px;
   border-radius: 999px;
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: transparent;
+  color: #9a7b4f;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-align: center;
   pointer-events: none;
   transform: translateX(-50%);
 }
 .page.ig-snap .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after {
   content: "↑ 上滑";
+  opacity: 0;
   animation: ig-swipe-hint 0.6s ease-out 1;
+  animation-delay: 2.8s;
+  animation-fill-mode: forwards;
 }
 .page.ig-snap .ig-card-close::after { content: none; animation: none; }
+/* T10 opening cards: one loud CTA. The second control is a text link. Spine dots tuck; year plates keep their contrast. */
+.page.ig-snap .ig-card-lead .hero-btn-ghost,
+.page.ig-snap .ig-card-lead .axis-hero .btn-ghost,
+.page.ig-snap .ig-card-axis .axis-hero .btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: #b7b1a6;
+  box-shadow: none;
+  font-weight: 600;
+}
+.page.ig-snap .ig-card-lead .axis-node .dot,
+.page.ig-snap .ig-card-axis .axis-node .dot {
+  width: 8px;
+  height: 8px;
+  margin-bottom: 6px;
+  border-width: 1px;
+  box-shadow: none;
+}
+.page.ig-snap .ig-card-lead .axis-node .dot.now,
+.page.ig-snap .ig-card-axis .axis-node .dot.now {
+  box-shadow: none;
+}
 /* Detail-page figures and chips stay inside the card. No inner scroller. */
 .page.ig-snap .ig-card-flow .civ-figure,
 .page.ig-snap .ig-card-flow .civ-origins-hero,
@@ -4379,4 +4438,5 @@ html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
   .page.ig-snap .ig-deck { scroll-behavior: auto; }
   .page.ig-snap .ig-card::after,
   .page.ig-snap .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after { animation: none; }
+  .page.ig-snap .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after { opacity: 0.72; }
 }

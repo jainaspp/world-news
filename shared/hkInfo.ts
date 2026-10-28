@@ -11,11 +11,11 @@ export interface HkInfoParts {
 
 const HKO_URL = 'https://www.hko.gov.hk/tc/wxinfo/currwx/current.htm';
 
-/** One line: `24°C · AQHI 4` and/or `恒生 24,280.56  +1.00%`. Empty when both sides are missing. */
+/** One line: `24°C · 空氣質素 4` and/or `恒生 24,280.56  +1.00%`. Empty when both sides are missing. */
 export function hkInfoParts(hk: HkNow | null | undefined, quote: HsiQuote | null | undefined): HkInfoParts | null {
   const weatherBits: string[] = [];
   if (hk && typeof hk.temperature === 'number') weatherBits.push(`${hk.temperature}°C`);
-  if (hk?.aqhi && Number.isFinite(hk.aqhi.value)) weatherBits.push(`AQHI ${Math.floor(hk.aqhi.value)}`);
+  if (hk?.aqhi && Number.isFinite(hk.aqhi.value)) weatherBits.push(`空氣質素 ${Math.floor(hk.aqhi.value)}`);
   const weather = weatherBits.join(' · ');
   const hsi = quote && Number.isFinite(quote.price) && Number.isFinite(quote.changePercent)
     ? `恒生 ${formatIndex(quote.price)}  ${formatSigned(quote.changePercent)}%`
@@ -32,7 +32,8 @@ export function renderHkInfo(hk: HkNow | null | undefined, quote: HsiQuote | nul
   const parts = hkInfoParts(hk, quote);
   const bits: string[] = [];
   if (parts?.weather) {
-    bits.push(`<a class="hk-info-wx" href="${HKO_URL}" target="_blank" rel="noopener noreferrer">${esc(parts.weather)}</a>`);
+    const aqhiTitle = parts.weather.includes('空氣質素') ? ' title="空氣質素健康指數（AQHI）"' : '';
+    bits.push(`<a class="hk-info-wx" href="${HKO_URL}"${aqhiTitle} target="_blank" rel="noopener noreferrer">${esc(parts.weather)}</a>`);
   }
   if (parts?.hsi) {
     bits.push(`<a class="hk-info-hsi hsi-${parts.direction}" href="${HSI_QUOTE_URL}" target="_blank" rel="noopener noreferrer">${esc(parts.hsi)}</a>`);

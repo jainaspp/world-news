@@ -290,7 +290,7 @@ export function hkDetailRows(input: {
   if (input.aqhi && Number.isFinite(input.aqhi.value)) {
     const risk = input.aqhi.risk ? ` ${input.aqhi.risk}` : '';
     const station = input.aqhi.station ? ` · ${input.aqhi.station}` : '';
-    rows.push({ label: 'AQHI', value: `${Math.floor(input.aqhi.value)}${risk}${station}`.trim() });
+    rows.push({ label: '空氣質素', value: `AQHI ${Math.floor(input.aqhi.value)}${risk}${station}`.trim() });
   }
   if (input.rain) rows.push({ label: '雨量', value: `${input.rain.label} ${input.rain.max} 毫米` });
   const warning = input.warnings.map((row) => row.name).filter(Boolean).join('、');

@@ -67,14 +67,15 @@ describe('快訊 cap', () => {
 describe('merged HK strip', () => {
   it('joins weather and the Hang Seng on one line', () => {
     expect(hkInfoParts(hk, quote)).toEqual({
-      weather: '24°C · AQHI 4',
+      weather: '24°C · 空氣質素 4',
       hsi: '恒生 24,280.56  +1.00%',
       direction: 'up',
     });
     const html = renderHkInfo(hk, quote);
     expect(html).toContain('hk-info');
     expect(html).toContain('hsi-up');
-    expect(html).toContain('24°C · AQHI 4');
+    expect(html).toContain('24°C · 空氣質素 4');
+    expect(html).toContain('空氣質素健康指數（AQHI）');
     expect(html).toContain('恒生 24,280.56  +1.00%');
   });
 

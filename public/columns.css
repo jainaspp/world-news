@@ -438,6 +438,16 @@ html.dark .pack-shell { box-shadow: none; }
   background: var(--chip);
   color: var(--text);
 }
+.briefing-card .story-body { padding-top: 8px; }
+.briefing-card .story-title { margin: 0; }
+.briefing-card .thumb-neutral {
+  background: linear-gradient(160deg, #e6e0d4, #cfc6b8);
+  color: #4e4942;
+}
+html.dark .briefing-card .thumb-neutral {
+  background: linear-gradient(160deg, #2c3440, #1a212b);
+  color: #d5dbe3;
+}
 .column-page[data-kind="compare"] .timeline li,
 .column-page[data-kind="analysis"] .timeline li,
 .column-page[data-kind="topic"] .timeline li { padding-bottom: 8px; }
@@ -968,8 +978,8 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   font-weight: 700;
 }
 @keyframes ig-swipe-hint {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-8px); }
+  0% { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  100% { opacity: 0.72; transform: translateX(-50%) translateY(0); }
 }
 .ig-card::after {
   content: none;
@@ -982,19 +992,22 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   max-width: calc(100% - 72px);
   padding: 8px 14px;
   border-radius: 999px;
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: transparent;
+  color: #9a7b4f;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-align: center;
   pointer-events: none;
   transform: translateX(-50%);
 }
 .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after {
   content: "↑ 上滑";
+  opacity: 0;
   animation: ig-swipe-hint 0.6s ease-out 1;
+  animation-delay: 2.8s;
+  animation-fill-mode: forwards;
 }
 .ig-card-close::after { content: none; animation: none; }
 .ig-card > .story,
@@ -1170,4 +1183,5 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   .page.column-page[data-kind="story"]:has(.ig-deck) .ig-deck { scroll-behavior: auto; }
   .ig-card::after { animation: none; }
   .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after { animation: none; }
+  .ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after { opacity: 0.72; }
 }

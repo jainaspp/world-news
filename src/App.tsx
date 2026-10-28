@@ -17,6 +17,7 @@ import { columnHref, DEFAULT_BRIEFING_LINKS, homeDigestLinks, type HomeColumnLin
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
 import { siteBrand, siteTitle, swCacheName } from '../shared/brand';
+import { primaryAriaCurrent, primaryChipClass, primaryKeyFor } from '../shared/primaryNav';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
@@ -163,14 +164,17 @@ function CivNav({
   onToggleFilters: () => void;
 }) {
   const columns = useMemo(readHomeColumns, []);
+  const current = primaryKeyFor('home');
+  const mark = (key: 'civilization' | 'chronicle' | 'today' | 'learn') =>
+    primaryAriaCurrent('home', key) ? 'page' as const : undefined;
   return (
     <div className="civ-nav-row">
       <div className="chip-scroller">
         <nav className="civ-nav" aria-label="主欄目">
-          <a className="chip civ-chip" href="/civilization/">文明</a>
-          <a className="chip" href="/civilization/chronicle/">編年</a>
-          <a className="chip" href="/#slice">今天</a>
-          <a className="chip" href="/learn/">開蒙</a>
+          <a className={primaryChipClass(current, 'civilization')} href="/civilization/" aria-current={mark('civilization')}>文明</a>
+          <a className={primaryChipClass(current, 'chronicle')} href="/civilization/chronicle/" aria-current={mark('chronicle')}>編年</a>
+          <a className={primaryChipClass(current, 'today')} href="/#slice" aria-current={mark('today')}>今天</a>
+          <a className={primaryChipClass(current, 'learn')} href="/learn/" aria-current={mark('learn')}>開蒙</a>
         </nav>
       </div>
       <details className="civ-more">

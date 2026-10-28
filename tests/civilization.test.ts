@@ -298,8 +298,9 @@ describe('civilization thick pages', () => {
     expect(hub.html).not.toContain('class="chronicle-strip"');
     expect(hub.html.indexOf('class="volume-board"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
     const axisEnd = hub.html.indexOf('</section>', hub.html.indexOf('id="civ"'));
-    expect(hub.html.indexOf('id="hk-info"')).toBeGreaterThan(axisEnd);
-    expect(hub.html.indexOf('id="major-slot"')).toBeGreaterThan(hub.html.indexOf('id="hk-info"'));
+    expect(hub.html.indexOf('id="hk-info"')).toBeGreaterThan(-1);
+    expect(hub.html.indexOf('id="hk-info"')).toBeLessThan(hub.html.indexOf('id="civ"'));
+    expect(hub.html.indexOf('id="major-slot"')).toBeGreaterThan(axisEnd);
     expect(hub.html.indexOf('id="major-slot"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
     expect(hub.html.match(/id="major-slot"/g)).toHaveLength(1);
     const more = hub.html.slice(hub.html.indexOf('aria-label="更多欄目"'), hub.html.indexOf('</nav>', hub.html.indexOf('aria-label="更多欄目"')));
@@ -328,6 +329,8 @@ describe('civilization thick pages', () => {
     expect(page.indexable).toBe(true);
     expect(page.html).toContain('index,follow');
     expect(page.html).toContain('文明編年：從採集到智能工具');
+    expect(page.html).toContain('class="chip active" href="/civilization/chronicle/" aria-current="page"');
+    expect(page.html).not.toContain('civ-chip');
     expect(page.html).toContain('href="/civilization/"');
     expect(page.html).toContain('href="/civilization/origins/"');
     expect(page.html).toContain('href="/#slice"');
