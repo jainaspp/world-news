@@ -193,7 +193,7 @@ function originsArticle(body: string): string {
   return html;
 }
 
-/** Primary row: 文明｜編年｜今天｜開蒙. The homepage highlights 文明. Column links stay in 更多. */
+/** Homepage masthead. `/` is 今日切片, nested under 地球生物 → 今 → 今日. */
 export function renderCivNav(topic = false): string {
   void topic;
   return primaryNavHtml('home');
@@ -342,6 +342,14 @@ function snapDetail(body: string, title: string): string {
   return `${igDotsNav()}<div class="ig-deck" id="ig-deck">${igCard(body, 'ig-card-lead ig-card-flow')}${igCloseCard(title, footer(false))}</div>`;
 }
 
+/** Path segment under /civilization/. The hub itself stays `civilization` (overview, not an L1). */
+export function civRouteKey(path: string): 'civilization' | 'cosmos' | 'galaxy' | 'earth' | 'origins' | 'tech' | 'city' | 'chronicle' {
+  const rest = path.replace(/\/+$/, '').replace(/^\/civilization\/?/, '');
+  const key = rest.split('/').filter(Boolean)[0] ?? '';
+  if (key === 'cosmos' || key === 'galaxy' || key === 'earth' || key === 'origins' || key === 'tech' || key === 'city' || key === 'chronicle') return key;
+  return 'civilization';
+}
+
 function shell(options: {
   title: string;
   description: string;
@@ -351,8 +359,6 @@ function shell(options: {
   status?: number;
   /** Hub and detail pages snap. The 404 miss stays a short document. */
   snap?: boolean;
-  /** Chronicle highlights 編年. Other civilization pages highlight 文明. */
-  channel?: 'civilization' | 'chronicle';
 }): { html: string; status: number; indexable: boolean } {
   const canonical = `${ORIGIN}${options.path}`;
   const robots = `<meta name="robots" content="${options.indexable ? 'index,follow' : 'noindex,follow'}" />`;
@@ -362,7 +368,7 @@ function shell(options: {
 ${head(options.title, options.description, canonical, '', 'website', `${robots}\n  ${CIV_MOTION_BOOT}`, '', false)}
 <body>
   <div class="page column-page heritage-page civ-page${snap ? ' ig-snap' : ''}" data-kind="civilization">
-  ${chrome(options.channel ?? 'civilization')}
+  ${chrome(civRouteKey(options.path))}
   <main id="content" class="column-index civ-main-page${snap ? ' ig-frame' : ''}">
     ${options.body}
   </main>
@@ -481,7 +487,6 @@ export function renderChroniclePage(): { html: string; status: number; indexable
     body: snapDetail(body, '文明編年'),
     indexable,
     snap: true,
-    channel: 'chronicle',
   });
 }
 
@@ -530,6 +535,23 @@ export function renderOriginsPage(): { html: string; status: number; indexable: 
     body: snapDetail(body, '人類起源時間線'),
     indexable,
     snap: true,
+  });
+}
+
+/** IAa stub. The thick 銀河系誕生 page is IAb and stays out of this shell. */
+export function renderGalaxyPage(): { html: string; status: number; indexable: boolean } {
+  const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明總覽</a> · 銀河系誕生</nav>
+    <article class="civ-article">
+      <h1>銀河系誕生</h1>
+      <p>這一級是導航入口。完整頁面稍後獨立成頁。</p>
+      <p>星系與大尺度結構的現有長文仍在<a href="/civilization/cosmos/">宇宙起源</a>。</p>
+    </article>`;
+  return shell({
+    title: '銀河系誕生',
+    description: '銀河系誕生是文明編年史的一級分類入口。',
+    path: '/civilization/galaxy/',
+    body,
+    indexable: false,
   });
 }
 

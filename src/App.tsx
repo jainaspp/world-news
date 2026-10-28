@@ -17,7 +17,7 @@ import { columnHref, DEFAULT_BRIEFING_LINKS, homeDigestLinks, type HomeColumnLin
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
 import { siteBrand, siteTitle, swCacheName } from '../shared/brand';
-import { bindChannelChipScroll, primaryAriaCurrent, primaryChipClass, primaryKeyFor } from '../shared/primaryNav';
+import { bindChannelChipScroll, primaryNavHtml } from '../shared/primaryNav';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
@@ -164,25 +164,14 @@ function CivNav({
   onToggleFilters: () => void;
 }) {
   const columns = useMemo(readHomeColumns, []);
-  const current = primaryKeyFor('home');
   useLayoutEffect(() => bindChannelChipScroll(), []);
-  const mark = (key: 'civilization' | 'chronicle' | 'today' | 'learn') =>
-    primaryAriaCurrent('home', key) ? 'page' as const : undefined;
   return (
     <div className="civ-nav-row">
-      <div className="chip-scroller">
-        <nav className="civ-nav" aria-label="主欄目">
-          <a className={primaryChipClass(current, 'civilization')} href="/civilization/" aria-current={mark('civilization')}>文明</a>
-          <a className={primaryChipClass(current, 'chronicle')} href="/civilization/chronicle/" aria-current={mark('chronicle')}>編年</a>
-          <a className={primaryChipClass(current, 'today')} href="/#slice" aria-current={mark('today')}>今天</a>
-          <a className={primaryChipClass(current, 'learn')} href="/learn/" aria-current={mark('learn')}>開蒙</a>
-        </nav>
-      </div>
       <details className="civ-more">
         <summary className={filtersActive ? 'chip active' : 'chip'}>更多</summary>
         <nav className="filters" aria-label="更多欄目">
-          <a className="chip" href="/briefing/">導讀</a>
-          <a className="chip" href="/explainer/">懶人包</a>
+          <a className="chip" href="/learn/">開蒙</a>
+          <a className="chip" href="/civilization/">文明總覽</a>
           {columns.topic ? <a className="chip" href="/topic/">專題</a> : null}
           <a className="chip" href="/data/">數據</a>
           <a className="chip" href="/today/" title="多方報道時間線，不是軸上的今天">多方時間線</a>
@@ -499,6 +488,7 @@ export default function App() {
               <LanguageSelector value={lang} onChange={chooseLang} />
             </div>
             </details>
+            <div className="ia-mount" dangerouslySetInnerHTML={{ __html: primaryNavHtml('home') }} />
           </header>
 
           {filtersOpen && !view.bookmarks && (

@@ -75,8 +75,9 @@ describe('T4 home, list, and civ hub snap deck', () => {
     expect(lead).toContain('href="/briefing/2026-10-25-pm/"');
     expect(index.match(/class="ig-card ig-card-story"/g)).toHaveLength(1);
     expect(index.indexOf('每日香港導讀')).toBeLessThan(index.indexOf('早上導讀'));
-    expect(index).toContain('class="chip active" href="/#slice"');
-    expect(index).not.toContain('civ-chip');
+    expect(index).not.toContain('class="chip active" href="/#slice"');
+    expect(index).toContain('class="chip active" href="/briefing/" aria-current="page"');
+    expect(index).toContain('class="chip civ-chip active" href="/civilization/earth/" aria-current="location"');
     const story = index.slice(index.indexOf('class="ig-card ig-card-story"'));
     const card = story.slice(story.indexOf('<article'), story.indexOf('</article>'));
     expect(card).toContain('briefing-card');

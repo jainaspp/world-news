@@ -413,11 +413,11 @@ export function withLcpShell(html: string, options: { imageId?: string; adsSrc?:
 }
 
 /** Civilization deep pages are not 「今日」. The Hang Seng strip stays on news and briefing chrome only. */
-function showsHkInfo(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'chronicle' | 'learn' | 'home'): boolean {
-  return active !== 'civilization' && active !== 'chronicle';
+function showsHkInfo(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'chronicle' | 'learn' | 'home' | 'cosmos' | 'galaxy' | 'earth' | 'origins' | 'tech' | 'city'): boolean {
+  return active !== 'civilization' && active !== 'chronicle' && active !== 'cosmos' && active !== 'galaxy' && active !== 'earth' && active !== 'origins' && active !== 'tech' && active !== 'city';
 }
 
-export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'chronicle' | 'learn' | 'home'): string {
+export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'chronicle' | 'learn' | 'home' | 'cosmos' | 'galaxy' | 'earth' | 'origins' | 'tech' | 'city'): string {
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   const current = (key: typeof active) => active === key ? ' aria-current="page"' : '';
   const primary = primaryNavHtml(active);
@@ -438,13 +438,10 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
         </a>
       </div>
       <div class="tab-bar">
-        <div class="chip-scroller">
-          ${primary}
-        </div>
         <details class="nav-more">
           <summary>更多</summary>
           <nav class="filters" aria-label="更多欄目">
-            ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}${column('briefing', '/briefing/')}${column('compare', '/explainer/')}<a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/" title="多方報道時間線，不是軸上的今天"${current('today')}>多方時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a><a class="chip${active === 'quiz' ? ' active' : ''}" href="/quiz/"${active === 'quiz' ? ' aria-current="page"' : ''}>小測</a>
+            ${column('digest', '/digest/')}${column('weekly', '/weekly/')}${column('analysis', '/analysis/')}<a class="chip${active === 'learn' ? ' active' : ''}" href="/learn/"${active === 'learn' ? ' aria-current="page"' : ''}>開蒙</a><a class="chip${active === 'civilization' ? ' active' : ''}" href="/civilization/"${active === 'civilization' ? ' aria-current="page"' : ''}>文明總覽</a><a class="chip${active === 'topic' ? ' active' : ''}" href="/topic/"${active === 'topic' ? ' aria-current="page"' : ''}>專題</a><a class="chip${active === 'today' ? ' active' : ''}" href="/today/" title="多方報道時間線，不是軸上的今天"${current('today')}>多方時間線</a><a class="chip${active === 'data' ? ' active' : ''}" href="/data/"${active === 'data' ? ' aria-current="page"' : ''}>數據</a><a class="chip${active === 'quiz' ? ' active' : ''}" href="/quiz/"${active === 'quiz' ? ' aria-current="page"' : ''}>小測</a>
           </nav>
         </details>
         ${subscribeMenu()}
@@ -465,6 +462,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
           </button>
         </div>
       </details>
+      ${primary}
     </header>${hkInfo}
   </div>
   <div id="major-slot"></div>

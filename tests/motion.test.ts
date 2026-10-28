@@ -173,7 +173,8 @@ describe('shared header wordmark', () => {
     expect(narrow).toContain('#e8e4dc');
     expect(narrow).toContain('.chrome .civ-nav-row .subscribe-menu');
     const app = readFileSync('src/App.tsx', 'utf8');
-    expect(app).toContain('className="chip-scroller"');
+    expect(app).toContain("primaryNavHtml('home')");
+    expect(readFileSync('shared/primaryNav.ts', 'utf8')).toContain('class="chip-scroller"');
     expect(app).not.toContain('世界頭條');
     expect(app).not.toContain('logo-live');
     expect(app).not.toContain('filters-primary');
@@ -181,13 +182,14 @@ describe('shared header wordmark', () => {
     expect(app).not.toContain('className="tab-bar"');
     expect(app).not.toContain('1小時');
     const row = app.slice(app.indexOf('className="civ-nav-row"'), app.indexOf('function DigestStrip'));
-    expect(row).toContain('href="/#slice"');
     expect(row).toContain('href="/learn/"');
+    expect(readFileSync('shared/primaryNav.ts', 'utf8')).toContain("href: '/#slice'");
     expect(row).toContain('aria-label="更多欄目"');
     expect(row.indexOf('aria-label="更多欄目"')).toBeLessThan(row.indexOf('aria-controls="filter-panel"'));
     expect(row.indexOf('</details>')).toBeLessThan(row.indexOf('<SubscribeMenu />'));
     const page = readFileSync('shared/contentPage.ts', 'utf8');
-    expect(page).toContain('class="chip-scroller"');
+    expect(page).toContain('primaryNavHtml');
+    expect(readFileSync('shared/primaryNav.ts', 'utf8')).toContain('class="chip-scroller"');
     expect(page).not.toContain('filters-primary');
     expect(page).not.toContain('aria-label="time"');
     const html = chrome('digest');
