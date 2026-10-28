@@ -568,8 +568,16 @@ export function igCard(inner: string, kind = ''): string {
 /**
  * Index deck: lead, then one card per item, then the close card.
  * Dots are a sibling of the deck so they stay put while the deck scrolls.
+ * `mergeLead` puts the first item on the lead card so the opening viewport
+ * is not an empty intro. Later items stay one full-height snap card each.
  */
-export function igIndexDeck(head: string, items: string[], emptyHtml: string, closeTitle: string, tail = ''): string {
+export function igIndexDeck(head: string, items: string[], emptyHtml: string, closeTitle: string, tail = '', mergeLead = false): string {
+  if (mergeLead) {
+    const [first, ...rest] = items;
+    const lead = igCard(first ? `${head}${first}` : `${head}${emptyHtml}`, 'ig-card-lead');
+    const stories = rest.map((item) => igCard(item, 'ig-card-story')).join('');
+    return `${igDotsNav()}<div class="ig-deck" id="ig-deck">${lead}${stories}${igCloseCard(closeTitle, tail)}</div>`;
+  }
   const body = items.length ? items.map((item) => igCard(item, 'ig-card-story')).join('') : igCard(emptyHtml);
   return `${igDotsNav()}<div class="ig-deck" id="ig-deck">${igCard(head, 'ig-card-lead')}${body}${igCloseCard(closeTitle, tail)}</div>`;
 }
@@ -924,7 +932,7 @@ ${head(meta.title, meta.description, canonical, entries.find((entry) => entry.im
   <div class="page column-page ig-snap" data-kind="${kind}-index">
   ${chrome(kind)}
   <main id="content" class="column-index ig-frame">
-    ${igIndexDeck(headHtml, itemCards, `<p class="notice">${esc(meta.empty)}</p>`, meta.title, footer(false))}
+    ${igIndexDeck(headHtml, itemCards, `<p class="notice">${esc(meta.empty)}</p>`, meta.title, footer(false), kind === 'briefing')}
   </main>
   </div>
   ${igDotsScript()}

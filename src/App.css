@@ -2316,6 +2316,30 @@ html.dark .more-today span { color: var(--color-muted); }
 }
 .chapter-band .era { margin: 0 0 8px; color: #c4a572; }
 .chapter-band p { margin: 0 0 10px; color: #e8e4dc; line-height: 1.6; }
+/* T9: article snap paints var(--bg) on p/h2/li. On the ink chapter door that
+   puts cream body and brass dates on page grey (~1.2:1 and ~2.2:1). Clearing
+   the paint puts them back on #161c24 (body #e8e4dc, date #c4a572, both ≥4.5:1).
+   Paper cards (volume, stage, milestone, pattern, case) keep their own fill
+   the same way, so body and date stay ink on paper. Dark cards keep their colors.
+   Snap height and the card contract are unchanged. */
+.page.ig-snap :is(
+  .chapter-band,
+  .volume-card,
+  .stage-card,
+  .deep-time-card,
+  .milestone-block,
+  .pattern-card,
+  .civ-block,
+  .case-study,
+  .question-index,
+  .future-panel,
+  .future-card,
+  .future-domain,
+  .future-bridge,
+  .future-legend
+) :is(p, h1, h2, h3, h4, li, summary) {
+  background-color: transparent;
+}
 .chapter-band .chronicle-nav { margin-top: 4px; }
 .stage-ask { font-weight: 700; }
 .stage-sources { margin: 8px 0 0; padding-left: 1.2em; }
@@ -4054,6 +4078,51 @@ html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
 .page.ig-snap .hero-line { margin: 0 0 0.25em; }
 .page.ig-snap .hero-cta { margin-top: 14px; }
 .page.ig-snap .ig-card-lead .ig-sheet { background: transparent; padding: 0; }
+/* T9 briefing index (default A): the lead card is the intro plus the first
+   story, top-aligned, so ×390 opens on the first card's image or title.
+   Later cards stay full-height always-snap. The empty search stays the
+   chrome icon (max-width 700px); it is not a second row. */
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .ig-sheet {
+  justify-content: flex-start;
+  gap: 8px;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .index-head {
+  flex: 0 0 auto;
+  gap: 4px;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .column-title {
+  font-size: 22px;
+  line-height: 1.25;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .dek {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .story {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .story-body { flex: 0 0 auto; }
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .story-media {
+  flex: 1 1 auto;
+  min-height: 140px;
+  max-height: none;
+  height: auto;
+  aspect-ratio: auto;
+}
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .thumb,
+.page.ig-snap[data-kind="briefing-index"] .ig-card-lead .thumb-fallback {
+  max-height: none;
+  height: 100%;
+  min-height: 140px;
+}
 .page.ig-snap .ig-card-axis { background: #161c24; padding-left: 0; padding-right: 0; }
 .page.ig-snap .ig-card.ig-card-axis > .ig-sheet,
 .page.ig-snap .ig-card.ig-card-axis > .axis-mount {

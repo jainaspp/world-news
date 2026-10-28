@@ -146,6 +146,36 @@ describe('R1 critical union in CSS', () => {
     expect(css).toContain('color: #c4a572');
     expect(css).toMatch(/border: 1\.5px solid #9a7b4f/);
   });
+
+  it('keeps chronicle ink-door and paper-card type on the card fill', () => {
+    const paint = css.slice(css.indexOf('T9: article snap paints'));
+    expect(paint.startsWith('T9: article snap paints')).toBe(true);
+    expect(paint).toContain('background-color: transparent');
+    expect(paint).toContain('.chapter-band');
+    expect(paint).toContain('.volume-card');
+    expect(paint).toContain('.case-study');
+    expect(paint).toContain('.milestone-block');
+    // Article snap's page fill must not win: this rule is more specific than `.ig-card p`.
+    expect(paint).toContain('.page.ig-snap :is(');
+    const door = '#161c24';
+    const paper = '#f7f1e6';
+    expect(contrast('#e8e4dc', door)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#f7f1e6', door)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#c4a572', door)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#e8e4dc', paper)).toBeLessThan(4.5);
+    expect(contrast('#161c24', paper)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#5c6570', paper)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#7a5a32', paper)).toBeGreaterThanOrEqual(4.5);
+    const darkDoor = block(css, 'html.dark .chapter-band,', 'html.dark .bulletin-clock .bulletin-kicker');
+    expect(darkDoor).toContain('background: #161c24');
+    const darkPaper = block(css, 'html.dark .stage-card,', 'html.dark .volume-card h3');
+    expect(darkPaper).toContain('background: #2a231b');
+    expect(darkPaper).toContain('color: #f3eadc');
+    const snap = css.slice(css.indexOf('T4 always-snap'));
+    expect(snap).toContain('flex: 0 0 100%');
+    expect(snap).toContain('height: 100%');
+    expect(snap).not.toContain('--ig-band');
+  });
 });
 
 describe('R4 dark figcaption contrast', () => {
