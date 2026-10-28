@@ -6,7 +6,7 @@ import { bestImage, repairDoubledScheme } from './media.js';
 import { listens } from './listen.js';
 import { adsRuntimeEnabled } from './adPolicy.js';
 import { adSlotMarkup, hasManualSlots, validAdSlot } from './adSlot.js';
-import { primaryNavHtml } from './primaryNav.js';
+import { channelChipScrollScript, primaryNavHtml } from './primaryNav.js';
 import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
 import { renderCivilizationSlice } from './civilization/renderSlice.js';
@@ -461,7 +461,8 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
     <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"></div>
   </div>
   <div id="major-slot"></div>
-  <div id="alert-slot"></div>`;
+  <div id="alert-slot"></div>
+  ${channelChipScrollScript()}`;
 }
 
 export function footer(note = true): string {

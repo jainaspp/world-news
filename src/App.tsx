@@ -17,7 +17,7 @@ import { columnHref, DEFAULT_BRIEFING_LINKS, homeDigestLinks, type HomeColumnLin
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
 import { siteBrand, siteTitle, swCacheName } from '../shared/brand';
-import { primaryAriaCurrent, primaryChipClass, primaryKeyFor } from '../shared/primaryNav';
+import { bindChannelChipScroll, primaryAriaCurrent, primaryChipClass, primaryKeyFor } from '../shared/primaryNav';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
@@ -165,6 +165,7 @@ function CivNav({
 }) {
   const columns = useMemo(readHomeColumns, []);
   const current = primaryKeyFor('home');
+  useLayoutEffect(() => bindChannelChipScroll(), []);
   const mark = (key: 'civilization' | 'chronicle' | 'today' | 'learn') =>
     primaryAriaCurrent('home', key) ? 'page' as const : undefined;
   return (
