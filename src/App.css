@@ -1571,6 +1571,31 @@ html.dark .nav-more summary { color: var(--color-muted); }
 .learn-state { font-size: 12px; }
 .learn-article p,
 .learn-leaf p { max-width: 40rem; }
+.learn-leaf { padding: 12px 0; border-top: 1px solid #d4cbb8; }
+.learn-gate,
+.learn-license { font-size: 12px; color: #5c6570; }
+.learn-license a { color: inherit; }
+.learn-level { font-size: 12px; font-weight: 700; color: var(--brass-on-paper); }
+.learn-leaf.is-gated h2 a { color: #3d4550; pointer-events: none; }
+.learn-gate-note {
+  font-size: 12px;
+  color: #7a5a32;
+  border: 1px solid #c4a572;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.learn-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.learn-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px 12px;
+  border: 1px solid #c4a572;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #161c24;
+}
+.learn-nav-end { align-self: center; font-size: 12px; color: #5c6570; }
 html.dark .bulletin-clock {
   background: #161c24;
   color: #f7f1e6;
@@ -1591,6 +1616,14 @@ html.dark .learn-locked,
 html.dark .learn-bearings { color: var(--color-muted); }
 html.dark .learn-door { background: #1c2430; color: #f7f1e6; }
 html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
+html.dark .learn-gate,
+html.dark .learn-license,
+html.dark .learn-nav-end { color: var(--color-muted); }
+html.dark .learn-level { color: #c4a572; }
+html.dark .learn-leaf { border-top-color: #2a3542; }
+html.dark .learn-leaf.is-gated h2 a { color: var(--color-muted); }
+html.dark .learn-gate-note { color: #c4a572; border-color: #9a7b4f; }
+html.dark .learn-nav a { color: #f7f1e6; border-color: #9a7b4f; }
 @media (min-width: 720px) {
   .learn-map { grid-template-columns: repeat(3, 1fr); }
 }
