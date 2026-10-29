@@ -478,6 +478,7 @@ html.dark .thumb-neutral {
 }
 .filter-label { margin: 8px 0 0; color: var(--muted); font-size: 0.78rem; font-weight: 700; }
 .hk-info-wrap { position: relative; min-width: 0; margin-top: 8px; }
+.hk-info[hidden] { display: none !important; }
 .hk-info {
   display: flex; align-items: center; gap: 4px 8px; flex-wrap: nowrap; min-height: 40px; min-width: 0; max-width: 100%;
   margin-top: 0; padding: 4px 12px;
@@ -2050,18 +2051,19 @@ html.dark .more-today span { color: var(--color-muted); }
   display: block;
   position: static;
   transform: none;
-  width: min(420px, 100%);
-  margin-top: 8px;
-  padding: 12px 12px 8px;
+  width: 100%;
+  margin-top: 2px;
+  padding: 6px 0 2px 10px;
   text-align: left;
-  background: #f7f1e6;
-  color: #161c24;
-  border: 1px solid #c4a572;
-  border-radius: 14px;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-left: 1px solid #9a7b4f;
+  border-radius: 0;
   box-shadow: none;
 }
-.ia-today-kicker { margin: 0 0 2px; color: #9a7b4f; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; }
-.ia-news-label { margin: 0 0 6px; color: #5c5346; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+.ia-today-kicker { margin: 0 0 2px; padding: 0; background: none; border: 0; color: #9a7b4f; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; }
+.ia-news-label { margin: 0 0 4px; padding: 0; background: none; border: 0; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; }
 .ia-news { display: grid; gap: 2px; }
 html.dark .masthead .ia-l1 .chip.civ-chip,
 html.dark .masthead .ia-mega > summary.civ-chip {
@@ -2081,7 +2083,7 @@ html.dark .masthead .ia-mega > summary.civ-chip {
   overflow: visible;
 }
 .ia-branch[hidden] { display: none !important; }
-.ia-today { display: block; width: max-content; max-width: 100%; }
+.ia-today { display: block; width: 100%; max-width: 100%; }
 .ia-l2-summary {
   display: block;
   width: max-content;
@@ -2140,16 +2142,17 @@ html.dark .masthead .ia-mega > summary.civ-chip {
 .ia-today[open] > .ia-today-panel {
   display: block;
   position: static;
-  width: min(420px, calc(100vw - 48px));
-  margin: 8px 0 4px;
-  padding: 10px 12px 8px;
+  width: 100%;
+  max-width: 100%;
+  margin: 2px 0 0;
+  padding: 6px 0 2px 10px;
   pointer-events: auto;
-  background: #f7f1e6;
-  color: #161c24;
-  border: 1px solid #c4a572;
-  border-top: 2px solid #9a7b4f;
-  border-radius: 14px;
-  box-shadow: var(--ia-lift);
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-left: 1px solid #9a7b4f;
+  border-radius: 0;
+  box-shadow: none;
 }
 @keyframes ia-fade-rise {
   from { opacity: 0; transform: translateY(8px); }
@@ -2214,23 +2217,36 @@ body.static .ia-seg {
 }
 .ia-today-panel .ia-news .chip {
   justify-content: flex-start;
-  width: 100%;
-  max-width: none;
+  width: max-content;
+  max-width: 100%;
   min-height: 40px;
   padding: 6px 12px;
   background: transparent;
   border-color: transparent;
-  color: #161c24;
+  border-radius: 8px;
+  color: var(--muted);
   font-weight: 600;
   box-shadow: none;
   white-space: nowrap;
+}
+html.dark .ia-today-panel .ia-news .chip {
+  background: transparent;
+  color: var(--muted);
+  border-color: transparent;
+  box-shadow: none;
+}
+html.dark .ia-today-panel .ia-news .chip.active {
+  background: #f7f1e6;
+  color: #161c24;
+  border-color: #f7f1e6;
+  box-shadow: none;
 }
 .ia-today-panel .ia-news .chip.active {
   background: #161c24;
   color: #f7f1e6;
   border-color: #161c24;
-  box-shadow: var(--ia-lift);
-  border-radius: 12px;
+  box-shadow: none;
+  border-radius: 8px;
 }
 .masthead .ia-l1 .chip.civ-chip,
 .chrome .ia-l1 .chip.civ-chip,
@@ -2385,7 +2401,7 @@ html.dark .chrome .ia-l1 .chip.civ-chip {
   .chrome .ia-today-panel .ia-news .chip,
   .chrome .ia-today-panel .ia-news .chip.active {
     background: transparent;
-    color: #161c24;
+    color: var(--muted);
     border-color: transparent;
     box-shadow: none;
     border-radius: 8px;
@@ -2394,7 +2410,13 @@ html.dark .chrome .ia-l1 .chip.civ-chip {
     background: #161c24;
     color: #f7f1e6;
     border-color: #161c24;
-    box-shadow: var(--ia-lift);
+    box-shadow: none;
+  }
+  html.dark .chrome .ia-today-panel .ia-news .chip.active {
+    background: #f7f1e6;
+    color: #161c24;
+    border-color: #f7f1e6;
+    box-shadow: none;
   }
   html.dark .chrome .ia-l1 .chip.civ-chip {
     background: #f7f1e6;
@@ -3155,11 +3177,13 @@ a.stage-cover { text-decoration: none; }
 }
 .cosmo-hero,
 .earth-hero {
-  margin: 0 0 16px;
-  padding: 18px 16px 14px;
-  border-radius: 14px;
-  background: #161c24;
-  color: #f7f1e6;
+  margin: 0 0 12px;
+  padding: 0 0 8px;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, #9a7b4f 55%, var(--line));
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
 }
 .cosmo-hero .kicker,
 .earth-hero .kicker {
@@ -3168,10 +3192,15 @@ a.stage-cover { text-decoration: none; }
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #c4a572;
+  color: var(--brass-on-paper);
 }
 .cosmo-hero .civ-page-title,
-.earth-hero .civ-page-title { margin: 0; color: #f7f1e6; }
+.earth-hero .civ-page-title {
+  margin: 0;
+  color: inherit;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
 .cosmo-stage,
 .earth-stage { scroll-margin-top: var(--civ-anchor-offset); }
 .earth-part { margin: 0 0 14px; }
@@ -3691,11 +3720,13 @@ a.question-line:hover { text-decoration: underline; }
 }
 .tech-hero,
 .city-hero {
-  margin: 0 0 16px;
-  padding: 18px 16px 14px;
-  border-radius: 14px;
-  background: #161c24;
-  color: #f7f1e6;
+  margin: 0 0 12px;
+  padding: 0 0 8px;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, #9a7b4f 55%, var(--line));
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
 }
 .tech-hero .kicker,
 .city-hero .kicker {
@@ -3704,10 +3735,15 @@ a.question-line:hover { text-decoration: underline; }
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #c4a572;
+  color: var(--brass-on-paper);
 }
 .tech-hero .civ-page-title,
-.city-hero .civ-page-title { margin: 0; color: #f7f1e6; }
+.city-hero .civ-page-title {
+  margin: 0;
+  color: inherit;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
 .tech-stage,
 .city-stage { scroll-margin-top: var(--civ-anchor-offset); }
 .civ-node-hero {
@@ -3924,9 +3960,11 @@ html.dark .civ-slice-return a,
 html.dark .civ-near-index a { color: #f7f1e6; }
 html.dark .civ-page-title { color: var(--color-text); }
 html.dark .cosmo-hero,
-html.dark .earth-hero { background: #161c24; color: #f7f1e6; }
+html.dark .earth-hero { background: transparent; color: inherit; }
+html.dark .cosmo-hero .kicker,
+html.dark .earth-hero .kicker { color: #c4a572; }
 html.dark .cosmo-hero .civ-page-title,
-html.dark .earth-hero .civ-page-title { color: #f7f1e6; }
+html.dark .earth-hero .civ-page-title { color: inherit; }
 html.dark .cosmo-starmap,
 html.dark .cosmo-scale-nest {
   background: #2a231b;
@@ -3937,9 +3975,11 @@ html.dark .cosmo-scale-note,
 html.dark .cosmo-scale-size { color: #d2c4b0; }
 html.dark .cosmo-scale-name { color: #f7f1e6; }
 html.dark .tech-hero,
-html.dark .city-hero { background: #161c24; color: #f7f1e6; }
+html.dark .city-hero { background: transparent; color: inherit; }
+html.dark .tech-hero .kicker,
+html.dark .city-hero .kicker { color: #c4a572; }
 html.dark .tech-hero .civ-page-title,
-html.dark .city-hero .civ-page-title { color: #f7f1e6; }
+html.dark .city-hero .civ-page-title { color: inherit; }
 html.dark .civ-node-hero { background: #161c24; }
 html.dark .civ-node-hero figcaption { color: #d2c4b0; background: #2a231b; }
 html.dark .axis-vignette::after {
@@ -4495,12 +4535,18 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   line-height: 1.35;
 }
 .page.ig-snap .ig-card-story .ig-sheet { justify-content: center; }
+.page.ig-snap .ig-card-lead:has(.hero-opening) {
+  padding: 0;
+  background: #161c24;
+}
 .page.ig-snap .ig-card-lead .hero-opening {
   min-height: 0;
   height: 100%;
   margin: 0;
   flex: 1 1 auto;
-  padding: 20px 8px 8px;
+  padding: 20px 16px 8px;
+  border-radius: 0;
+  border-bottom: 0;
 }
 /* T6a: the lead is a settled card. The long intro no longer hides the CTAs,
    and the duplicate downward hint stays off the title row. */
