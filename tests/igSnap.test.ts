@@ -75,8 +75,9 @@ describe('T4 home, list, and civ hub snap deck', () => {
     expect(lead).toContain('href="/briefing/2026-10-25-pm/"');
     expect(index.match(/class="ig-card ig-card-story"/g)).toHaveLength(1);
     expect(index.indexOf('每日香港導讀')).toBeLessThan(index.indexOf('早上導讀'));
-    expect(index).toContain('class="chip active" href="/#slice"');
-    expect(index).not.toContain('civ-chip');
+    expect(index).not.toContain('class="chip active" href="/#slice"');
+    expect(index).toContain('class="chip active" href="/briefing/" aria-current="page"');
+    expect(index).toContain('class="chip civ-chip active" href="/civilization/earth/" aria-current="location"');
     const story = index.slice(index.indexOf('class="ig-card ig-card-story"'));
     const card = story.slice(story.indexOf('<article'), story.indexOf('</article>'));
     expect(card).toContain('briefing-card');
@@ -134,7 +135,7 @@ describe('T4 home, list, and civ hub snap deck', () => {
     expect(renderCivilizationMiss().html).not.toContain('id="ig-deck"');
   });
 
-  it('keeps the shared snap rules full-height, with no peek band and a 420px frame', () => {
+  it('keeps the shared snap rules full-height and flush on wide screens', () => {
     const css = readFileSync('src/App.css', 'utf8');
     const ig = css.slice(css.indexOf('T4 always-snap'));
     expect(ig.startsWith('T4 always-snap')).toBe(true);
@@ -143,8 +144,15 @@ describe('T4 home, list, and civ hub snap deck', () => {
     expect(ig).toContain('flex: 0 0 100%');
     expect(ig).toContain('height: 100%');
     expect(ig).toContain('overflow: hidden;');
-    expect(ig).toContain('width: min(420px, 100%)');
     expect(ig).toContain('min-width: 901px');
+    expect(ig).not.toContain('width: min(420px, 100%)');
+    expect(ig).not.toContain('border-radius: 28px');
+    const wide = ig.slice(ig.indexOf('@media (min-width: 901px)'));
+    expect(wide).toContain('width: 100%');
+    expect(wide).toContain('max-width: none');
+    expect(wide).toContain('margin: 0');
+    expect(wide).toContain('border-radius: 0');
+    expect(wide).toContain('box-shadow: none');
     expect(ig).toContain('content: "↑ 上滑"');
     expect(ig).toContain('.ig-deck:not([data-ig-hint="done"]) > .ig-card:first-child::after');
     expect(ig).toContain('ig-swipe-hint 0.6s ease-out 1');

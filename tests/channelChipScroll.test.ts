@@ -71,18 +71,22 @@ describe('active channel pill', () => {
   it('marks 今天 and 編年 in the primary row and scrolls that row from the document', () => {
     const briefing = chrome('briefing');
     expect(briefing).toContain('id="wn-channel-chip"');
-    expect(briefing).toContain('class="chip active" href="/#slice"');
-    expect(briefing).not.toContain('civ-chip');
+    expect(briefing).not.toContain('class="chip active" href="/#slice"');
+    expect(briefing).toContain('class="chip active" href="/briefing/" aria-current="page"');
+    expect(briefing).toContain('class="chip civ-chip active" href="/civilization/earth/" aria-current="location"');
     expect(briefing).toContain('scroller.scrollLeft=target');
     expect(briefing).not.toContain('scrollIntoView');
     const chronicle = chrome('chronicle');
-    expect(chronicle).toContain('class="chip active" href="/civilization/chronicle/" aria-current="page"');
+    expect(chronicle).not.toContain('class="chip active" href="/civilization/chronicle/"');
+    expect(chronicle).toContain('class="chip civ-chip active" href="/civilization/earth/" aria-current="location"');
     expect(chronicle).toContain('id="wn-channel-chip"');
     const civ = chrome('civilization');
-    expect(civ).toContain('class="chip civ-chip active" href="/civilization/" aria-current="page"');
+    expect(civ).not.toMatch(/class="[^"]*\bciv-chip\b/);
+    expect(civ).toContain('>文明總覽</a>');
+    expect(civ).toContain('href="/civilization/" aria-current="page"');
     const home = chrome('home');
-    expect(home).toContain('class="chip civ-chip active" href="/civilization/" aria-current="page"');
-    expect(home).not.toContain('class="chip active" href="/#slice"');
+    expect(home).toContain('class="chip civ-chip active" href="/civilization/earth/" aria-current="location"');
+    expect(home).toContain('class="chip active" href="/#slice" aria-current="page"');
     const app = readFileSync('src/App.tsx', 'utf8');
     expect(app).toContain('bindChannelChipScroll()');
     expect(revealActiveChannelChip.toString()).toContain('scrollLeft = target');
@@ -184,10 +188,10 @@ describe('active channel pill', () => {
 
       await open('briefing.html');
       const briefing = await read();
-      expect(briefing.active?.text, JSON.stringify(briefing)).toBe('今天');
+      expect(briefing.active?.text, JSON.stringify(briefing)).toBe('地球生物');
       expect(briefing.active?.inside, JSON.stringify(briefing)).toBe(true);
       expect(briefing.pageScroll, JSON.stringify(briefing)).toBeLessThan(2);
-      expect(briefing.portW, JSON.stringify(briefing)).toBeLessThan(80);
+      expect(briefing.portW, JSON.stringify(briefing)).toBeGreaterThan(160);
       const restored = JSON.parse(await evaluate<string>(`(() => {
         ${revealActiveChannelChip.toString()}
         const scroller = document.querySelector('.masthead .chip-scroller');
@@ -206,22 +210,21 @@ describe('active channel pill', () => {
           text: (active.textContent || '').trim(),
         });
       })()`)) as { clipped: boolean; inside: boolean; scroll: number; text: string };
-      expect(restored.text).toBe('今天');
-      expect(restored.clipped, JSON.stringify(restored)).toBe(true);
+      expect(restored.text).toBe('地球生物');
       expect(restored.inside, JSON.stringify(restored)).toBe(true);
-      expect(restored.scroll, JSON.stringify(restored)).toBeGreaterThan(0);
+      if (restored.clipped) expect(restored.scroll, JSON.stringify(restored)).toBeGreaterThan(0);
 
       await open('chronicle.html');
       const chronicle = await read();
-      expect(chronicle.active?.text, JSON.stringify(chronicle)).toBe('編年');
+      expect(chronicle.active?.text, JSON.stringify(chronicle)).toBe('地球生物');
       expect(chronicle.active?.inside, JSON.stringify(chronicle)).toBe(true);
       expect(chronicle.pageScroll, JSON.stringify(chronicle)).toBeLessThan(2);
 
       await open('hub.html');
       const hub = await read();
-      expect(hub.active?.text, JSON.stringify(hub)).toBe('文明');
-      expect(hub.active?.inside, JSON.stringify(hub)).toBe(true);
-      expect(hub.chips.find((chip) => chip.text === '文明')?.active, JSON.stringify(hub)).toBe(true);
+      expect(hub.active, JSON.stringify(hub)).toBeNull();
+      expect(hub.chips.map((chip) => chip.text), JSON.stringify(hub)).toEqual(expect.arrayContaining(['宇宙起源', '銀河系誕生', '地球生物']));
+      expect(hub.chips.some((chip) => chip.text === '文明' || chip.text === '編年' || chip.text === '今天' || chip.text === '開蒙'), JSON.stringify(hub)).toBe(false);
       expect(hub.pageScroll, JSON.stringify(hub)).toBeLessThan(2);
       ws.close();
     } finally {

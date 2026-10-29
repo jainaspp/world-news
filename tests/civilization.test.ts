@@ -356,8 +356,9 @@ describe('civilization thick pages', () => {
     expect(page.indexable).toBe(true);
     expect(page.html).toContain('index,follow');
     expect(page.html).toContain('文明編年：從採集到智能工具');
-    expect(page.html).toContain('class="chip active" href="/civilization/chronicle/" aria-current="page"');
-    expect(page.html).not.toContain('civ-chip');
+    expect(page.html).not.toContain('class="chip active" href="/civilization/chronicle/"');
+    expect(page.html).toContain('class="chip civ-chip active" href="/civilization/earth/" aria-current="location"');
+    expect(page.html).toContain('data-ia-active="chronicle"');
     expect(page.html).toContain('href="/civilization/"');
     expect(page.html).toContain('href="/civilization/origins/"');
     expect(page.html).toContain('href="/#slice"');
@@ -435,7 +436,8 @@ describe('civilization thick pages', () => {
     expect(page.html).toContain('https://home.cern/science/computing/the-birth-of-the-web/short-history-web/');
     expect(page.html.match(/AI 整合/g)).toHaveLength(1);
     expect([...CHRONICLE_STAGES.map((stage) => stage.short)].every((name) => [...name].length <= 6 && [...name].length > 0)).toBe(true);
-    expect(page.html).not.toContain('/civilization/cosmos/');
+    const chronicleBody = page.html.slice(page.html.indexOf('<main'));
+    expect(chronicleBody).not.toContain('/civilization/cosmos/');
     expect(page.html).not.toContain('#cosmo-');
   });
 
@@ -930,9 +932,13 @@ describe('homepage today slice', () => {
     expect(html.indexOf('id="slice"')).toBeLessThan(html.indexOf('今日落點'));
     expect(html.indexOf('id="slice"')).toBeLessThan(html.indexOf('aria-label="文明層"'));
     const primary = html.slice(html.indexOf('aria-label="主欄目"'), html.indexOf('</nav>'));
-    expect(primary).toContain('>文明<');
-    expect(primary).toContain('>今天<');
-    expect(primary).toContain('>開蒙<');
+    expect(primary).toContain('>宇宙起源<');
+    expect(primary).toContain('>銀河系誕生<');
+    expect(primary).toContain('>地球生物<');
+    expect(primary).not.toContain('>文明<');
+    expect(primary).not.toContain('>編年<');
+    expect(primary).not.toContain('>今天<');
+    expect(primary).not.toContain('>開蒙<');
     expect(primary).not.toContain('導讀');
     expect(primary).not.toContain('/briefing/');
     const hero = html.slice(html.indexOf('class="axis-hero"'), html.indexOf('class="bulletin-clock"'));

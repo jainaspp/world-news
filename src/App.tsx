@@ -17,7 +17,7 @@ import { columnHref, DEFAULT_BRIEFING_LINKS, homeDigestLinks, type HomeColumnLin
 import { demoteGraphic } from '../shared/mustRead';
 import { focusTarget } from '../shared/focusView';
 import { siteBrand, siteTitle, swCacheName } from '../shared/brand';
-import { bindChannelChipScroll, primaryAriaCurrent, primaryChipClass, primaryKeyFor } from '../shared/primaryNav';
+import { bindChannelChipScroll, primaryNavHtml } from '../shared/primaryNav';
 import { HOME_INTRO, HOME_INTRO_LINE, HOME_SECTIONS } from '../shared/homeCopy';
 import { FOOTER_LINKS } from '../shared/siteNav';
 import { AdSlot } from './components/AdSlot';
@@ -113,32 +113,6 @@ function useSpinOnce() {
   return [on, start] as const;
 }
 
-function SubscribeMenu() {
-  const [telegram, setTelegram] = useState('');
-  useEffect(() => {
-    let cancel = false;
-    void fetch('/api/subscribe')
-      .then((response) => (response.ok ? response.json() : null))
-      .then((data: { telegram?: string | null } | null) => {
-        const href = data?.telegram || '';
-        if (!cancel && /^https:\/\/(t\.me|telegram\.me|telegram\.dog)\//.test(href)) setTelegram(href);
-      })
-      .catch(() => undefined);
-    return () => {
-      cancel = true;
-    };
-  }, []);
-  return (
-    <details className="subscribe-menu">
-      <summary className="chip">訂閱</summary>
-      <div className="subscribe-panel" role="group" aria-label="訂閱">
-        <a href="/feed.xml">RSS</a>
-        {telegram ? <a className="subscribe-telegram" href={telegram} rel="noopener noreferrer">Telegram</a> : null}
-      </div>
-    </details>
-  );
-}
-
 const clearSpecial = { bookmarks: false, following: false };
 
 function readHomeColumns(): HomeColumnLinks {
@@ -152,7 +126,7 @@ function readHomeColumns(): HomeColumnLinks {
   }
 }
 
-function CivNav({
+function ColumnMenu({
   lang,
   filtersOpen,
   filtersActive,
@@ -164,48 +138,30 @@ function CivNav({
   onToggleFilters: () => void;
 }) {
   const columns = useMemo(readHomeColumns, []);
-  const current = primaryKeyFor('home');
-  useLayoutEffect(() => bindChannelChipScroll(), []);
-  const mark = (key: 'civilization' | 'chronicle' | 'today' | 'learn') =>
-    primaryAriaCurrent('home', key) ? 'page' as const : undefined;
   return (
-    <div className="civ-nav-row">
-      <div className="chip-scroller">
-        <nav className="civ-nav" aria-label="主欄目">
-          <a className={primaryChipClass(current, 'civilization')} href="/civilization/" aria-current={mark('civilization')}>文明</a>
-          <a className={primaryChipClass(current, 'chronicle')} href="/civilization/chronicle/" aria-current={mark('chronicle')}>編年</a>
-          <a className={primaryChipClass(current, 'today')} href="/#slice" aria-current={mark('today')}>今天</a>
-          <a className={primaryChipClass(current, 'learn')} href="/learn/" aria-current={mark('learn')}>開蒙</a>
-        </nav>
-      </div>
-      <details className="civ-more">
-        <summary className={filtersActive ? 'chip active' : 'chip'}>更多</summary>
-        <nav className="filters" aria-label="更多欄目">
-          <a className="chip" href="/briefing/">導讀</a>
-          <a className="chip" href="/explainer/">懶人包</a>
-          {columns.topic ? <a className="chip" href="/topic/">專題</a> : null}
-          <a className="chip" href="/data/">數據</a>
-          <a className="chip" href="/today/" title="多方報道時間線，不是軸上的今天">多方時間線</a>
-          <button
-            type="button"
-            className={filtersOpen || filtersActive ? 'chip active' : 'chip'}
-            aria-expanded={filtersOpen}
-            aria-controls="filter-panel"
-            onClick={(event) => {
-              onToggleFilters();
-              const menu = event.currentTarget.closest('details');
-              if (!(menu instanceof HTMLDetailsElement)) return;
-              menu.open = false;
-              const summary = menu.querySelector('summary');
-              if (summary instanceof HTMLElement) summary.focus();
-            }}
-          >
-            {t('filter', lang)}
-          </button>
-        </nav>
-      </details>
-      <SubscribeMenu />
-    </div>
+    <nav className="filters" aria-label="更多欄目">
+      <a className="chip" href="/learn/">開蒙</a>
+      <a className="chip" href="/civilization/">文明總覽</a>
+      {columns.topic ? <a className="chip" href="/topic/">專題</a> : null}
+      <a className="chip" href="/data/">數據</a>
+      <a className="chip" href="/today/" title="多方報道時間線，不是軸上的今天">多方時間線</a>
+      <button
+        type="button"
+        className={filtersOpen || filtersActive ? 'chip active' : 'chip'}
+        aria-expanded={filtersOpen}
+        aria-controls="filter-panel"
+        onClick={(event) => {
+          onToggleFilters();
+          const menu = event.currentTarget.closest('details');
+          if (!(menu instanceof HTMLDetailsElement)) return;
+          menu.open = false;
+          const summary = menu.querySelector('summary');
+          if (summary instanceof HTMLElement) summary.focus();
+        }}
+      >
+        {t('filter', lang)}
+      </button>
+    </nav>
   );
 }
 
@@ -265,6 +221,8 @@ export default function App() {
     document.documentElement.lang = lang === 'en' ? 'en' : lang === 'zh-CN' ? 'zh-CN' : 'zh-HK';
     (window as Window & { __wnApplyLive?: () => void }).__wnApplyLive?.();
   }, [lang]);
+
+  useLayoutEffect(() => bindChannelChipScroll(), []);
 
   useLayoutEffect(() => bindHomeHashScroll(), []);
 
@@ -430,12 +388,6 @@ export default function App() {
                 <Logo />
               </a>
             </h1>
-            <CivNav
-              lang={lang}
-              filtersOpen={filtersOpen}
-              filtersActive={filtersActive}
-              onToggleFilters={() => setFiltersOpen((open) => !open)}
-            />
             <form
               className={searchOpen ? 'search-bar open' : 'search-bar'}
               role="search"
@@ -465,6 +417,13 @@ export default function App() {
             <details className="chrome-overflow">
               <summary className="chrome-overflow-btn" aria-label="工具">⋯</summary>
             <div className="header-actions">
+              <ColumnMenu
+                lang={lang}
+                filtersOpen={filtersOpen}
+                filtersActive={filtersActive}
+                onToggleFilters={() => setFiltersOpen((open) => !open)}
+              />
+              <a href="/feed.xml">RSS</a>
               <button type="button" className={refreshing ? 'icon-btn refresh-btn is-refreshing' : 'icon-btn refresh-btn'} aria-label={t('refresh', lang)} onClick={() => { spinRefresh(); void refresh(); }} disabled={loading}>
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                   <path d="M20 12a8 8 0 1 1-2.2-5.5" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
@@ -499,6 +458,7 @@ export default function App() {
               <LanguageSelector value={lang} onChange={chooseLang} />
             </div>
             </details>
+            <div className="ia-mount" dangerouslySetInnerHTML={{ __html: primaryNavHtml('home') }} />
           </header>
 
           {filtersOpen && !view.bookmarks && (
@@ -593,7 +553,7 @@ export default function App() {
                 <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false, rails: false }) }} />
               </div>
             )}
-            <section className="today-slice ig-card ig-card-slice" id="slice" aria-label={special ? (view.bookmarks ? t('bookmarks', lang) : t('following', lang)) : '今日切片'}>
+            <section className="today-slice ig-card ig-card-slice motion-fade-rise" id="slice" aria-label={special ? (view.bookmarks ? t('bookmarks', lang) : t('following', lang)) : '今日切片'}>
               <div className="ig-sheet">
                 {!special && (
                   <>

@@ -82,18 +82,27 @@ button, input { font: inherit; color: inherit; }
 .skip-link { position: absolute; left: 12px; top: -40px; }
 .page { width: min(100% - 32px, var(--main-col)); margin: 0 auto; padding: 0 0 var(--space-7); }
 .chrome { min-height: 52px; }
-.masthead { display: flex; align-items: center; gap: 8px; min-height: 48px; flex-wrap: nowrap; }
+.masthead { display: flex; align-items: center; gap: 8px; min-height: 48px; flex-wrap: wrap; }
+.masthead > .ia-shell { flex: 1 0 100%; width: 100%; min-width: 0; }
 .masthead .tab-bar { flex: 1 1 0; min-width: 0; }
 .masthead-title { margin: 0; line-height: 1; flex: none; }
 .logo-link { display: flex; align-items: center; min-height: 40px; text-decoration: none; color: inherit; }
 .logo-link img { height: 36px; width: auto; }
 .logo-link .logo-compact, .logo-link .logo-dark { display: none; }
 .search-bar { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; }
-.search-bar > .search-toggle { display: none; }
+.search-bar > .search-toggle { display: inline-flex; min-width: 44px; min-height: 44px; }
+.search-bar input { display: none; }
 .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .header-actions .icon-btn { min-width: 44px; min-height: 44px; }
 .tab-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
 .civ-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.ia-shell { display: flex; flex-direction: column; min-width: 0; width: 100%; }
+.ia-l1-row { display: flex; align-items: center; min-width: 0; }
+.ia-l2 { display: flex; justify-content: center; gap: 4px; }
+.ia-l2[hidden] { display: none !important; }
+.ia-mega:not([open]) > .ia-mega-panel, .ia-today:not([open]) > .ia-today-sheet, .ia-today:not([open]) > .ia-wide-news { display: none; }
+@media (max-width: 899px) { .ia-wide-only { display: none !important; } }
+@media (min-width: 900px) { .ia-mobile-only { display: none !important; } }
 .chip, .icon-btn, .primary {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 40px; min-width: 40px; padding: 6px 12px;

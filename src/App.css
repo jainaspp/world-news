@@ -47,6 +47,9 @@
   --motion-pulse: 2.4s;
   --motion-stagger: 120ms;
   --motion-dismiss: 420ms;
+  --motion-nav: 200ms;
+  --motion-sheet: 240ms;
+  --ia-lift: 0 1px 2px rgba(22, 28, 36, .08), 0 4px 12px rgba(22, 28, 36, .06);
   /* Civ hash targets clear sticky .chrome before JS measures it.
      220px covers a ~188px mobile chrome (masthead, tabs, wrapped market row). */
   --civ-anchor-offset: 220px;
@@ -116,11 +119,15 @@ img { max-width: 100%; }
   backdrop-filter: blur(10px); margin: 0 -2px; padding: 0 2px 2px;
   border-bottom: 1px solid var(--line);
 }
-.masthead { display: flex; align-items: center; gap: var(--space-2); min-height: 48px; flex-wrap: nowrap; }
+.masthead { display: flex; align-items: center; gap: var(--space-2); min-height: 48px; flex-wrap: wrap; }
 .masthead-title { margin: 0; font-size: inherit; font-weight: inherit; line-height: 1; flex: none; }
 .masthead .civ-nav-row,
 .masthead .tab-bar { flex: 1 1 0; min-width: 0; flex-wrap: nowrap; padding: 0; gap: 4px; }
-.masthead .search-bar { flex: 0 1 200px; }
+.masthead .search-bar { flex: none; margin-left: auto; }
+.search-bar.open {
+  position: absolute; right: 0; left: auto; top: calc(100% + 4px); z-index: 24;
+  width: min(280px, calc(100vw - 24px)); background: var(--bg); padding: 6px;
+}
 .masthead .civ-nav { flex-wrap: nowrap; padding: 0; overflow: visible; }
 .masthead .chip-scroller {
   display: flex; flex: 1 1 0%; width: 0; min-width: 0; align-items: center; gap: 4px;
@@ -209,7 +216,9 @@ a.chip { color: inherit; text-decoration: none; }
 /* News-page primary (P0-NEWS-CHROME). The shared row above stays 40 for chips. */
 .primary { min-height: 44px; min-width: 44px; }
 /* After .icon-btn's display, so the desktop search field stays the control. */
-.search-bar > .search-toggle { display: none; }
+.search-bar > .search-toggle { display: inline-flex; min-width: 44px; min-height: 44px; }
+.search-bar:has(.search-toggle) input { display: none; }
+.search-bar.open input { display: block; }
 .header-actions .icon-btn { min-width: 44px; min-height: 44px; padding: 6px; position: relative; }
 .icon-btn.active, .primary, .bookmark.on {
   background: var(--accent); color: var(--accent-ink); border-color: transparent;
@@ -384,7 +393,7 @@ html.dark .thumb-neutral {
 
 @media (max-width: 700px) {
   .chrome { padding-bottom: 0; }
-  .masthead { min-height: 44px; max-height: none; flex-wrap: nowrap; row-gap: 0; }
+  .masthead { min-height: 44px; max-height: none; flex-wrap: wrap; row-gap: 0; }
   .masthead .search-bar { flex: none; }
   .logo-link { min-height: 0; }
   .logo-link .logo-full { display: none !important; }
@@ -407,7 +416,7 @@ html.dark .thumb-neutral {
   .bookmark { margin-left: auto; }
   .layout { margin-top: 4px; gap: 8px; }
   .hk-info-wrap { margin-top: 4px; }
-  .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 8px; font-size: 13px; overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; white-space: nowrap; }
+  .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 20px 2px 8px; font-size: 13px; overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; white-space: nowrap; scroll-padding-inline: 16px; }
   .digest-strip {
     width: 100%; margin-top: 14px; padding: 6px 8px;
     flex-wrap: wrap; overflow: visible;
@@ -469,14 +478,18 @@ html.dark .thumb-neutral {
 }
 .filter-label { margin: 8px 0 0; color: var(--muted); font-size: 0.78rem; font-weight: 700; }
 .hk-info-wrap { position: relative; min-width: 0; margin-top: 8px; }
+.hk-info[hidden] { display: none !important; }
 .hk-info {
   display: flex; align-items: center; gap: 4px 8px; flex-wrap: nowrap; min-height: 40px; min-width: 0; max-width: 100%;
   margin-top: 0; padding: 4px 12px;
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
   font-size: 0.9rem; font-variant-numeric: tabular-nums; white-space: nowrap;
   overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  scroll-padding-inline: 16px;
+  padding-inline-end: 20px;
 }
 .hk-info::-webkit-scrollbar { display: none; height: 0; }
+.hk-info::after { content: ""; flex: 0 0 12px; width: 12px; }
 .hk-info > * { flex: none; }
 .hk-info-bit { display: inline-flex; align-items: center; gap: 8px; flex: none; max-width: none; white-space: nowrap; }
 .sidebar .hk-info-wrap { margin-top: 0; }
@@ -534,11 +547,11 @@ html.dark .hk-info-hsi.hsi-down { color: #7fd6b4; }
 .wx-meta a { font-weight: 700; display: inline-flex; align-items: center; min-height: 40px; }
 .column-hk { margin: 4px 0 0; }
 .major-banner {
-  position: static; display: flex; align-items: center; gap: 8px; margin: 8px 0 0;
+  position: static; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 8px 0 0;
   padding: 6px 8px 6px 12px; background: var(--color-breaking); color: #fff;
   border-radius: var(--radius-lg); font-size: 0.92rem; line-height: 1.35;
 }
-.major-banner a { color: inherit; font-weight: 700; text-decoration: none; min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.major-banner a { color: inherit; font-weight: 700; text-decoration: none; min-width: 0; flex: 1 1 12em; overflow: visible; text-overflow: clip; white-space: normal; }
 .major-kicker { flex: none; font-weight: 700; }
 .major-dismiss { flex: none; border: 0; background: transparent; color: #fff; cursor: pointer; min-width: 36px; min-height: 32px; font-size: 1.2rem; }
 .alert-row {
@@ -1869,6 +1882,385 @@ a.axis-node:hover { color: #f7f1e6; }
 html.dark .more-today span { color: var(--color-muted); }
 .civ-nav-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .civ-nav-row .civ-nav { flex: 1 1 auto; }
+/* IAa shell. L1 stays in the scroller. L2 and the wide menu sit outside it so a sheet is not clipped. */
+.masthead > .ia-mount,
+.masthead > .ia-shell {
+  flex: 1 0 100%;
+  width: 100%;
+  min-width: 0;
+}
+.masthead > .tab-bar,
+.masthead > .civ-nav-row { flex: 0 0 auto; }
+.ia-shell { display: flex; flex-direction: column; min-width: 0; width: 100%; gap: 0; overflow: visible; position: relative; z-index: 2; }
+.ia-l1-row { display: flex; align-items: center; justify-content: flex-start; min-width: 0; width: 100%; overflow: visible; }
+.masthead .ia-l1-row > .chip-scroller {
+  flex: 0 1 auto;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 4px 2px 6px;
+  scroll-padding-inline: 12px;
+}
+.ia-l1 { align-items: center; gap: 8px; padding: 0; overflow: visible; }
+.masthead .ia-l1 .chip,
+.masthead .ia-mega > summary {
+  flex: none;
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 6px 12px;
+}
+.masthead .ia-l1 .chip.civ-chip,
+.chrome .ia-l1 .chip.civ-chip {
+  background: #f7f1e6;
+  color: #161c24;
+  border: 1px solid #c4a572;
+  border-radius: 14px;
+  font-weight: 700;
+  box-shadow: var(--ia-lift), inset 0 1px 0 rgba(255, 255, 255, .7);
+}
+.ia-l1-row > .ia-mega { position: relative; flex: none; overflow: visible; }
+.ia-l2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  min-width: 0;
+  position: relative;
+  overflow: visible;
+  margin-top: 2px;
+  padding: 2px 4px 4px;
+  border-top: 1px solid color-mix(in srgb, #9a7b4f 55%, var(--line));
+}
+.masthead .ia-l2 .chip,
+.masthead .ia-l2 .ia-today > summary {
+  max-width: none;
+  overflow: visible;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  min-height: 44px;
+  padding: 4px 12px;
+}
+.masthead .ia-l2 .chip.active,
+.masthead .ia-l2 .ia-today > summary.active {
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: inset 0 -2px 0 #9a7b4f;
+  border-radius: 0;
+}
+.ia-l2[hidden] { display: none !important; }
+.ia-mega > summary,
+.ia-today > summary { list-style: none; cursor: pointer; }
+.ia-mega > summary::-webkit-details-marker,
+.ia-today > summary::-webkit-details-marker { display: none; }
+.ia-mega > summary::after { content: " ▾"; font-size: 0.75em; }
+.ia-l2 .ia-today > summary::after,
+.ia-today-summary::after { content: " ▸"; font-size: 12px; }
+.ia-mega:not([open]) > .ia-mega-panel,
+.ia-today:not([open]) > .ia-today-sheet,
+.ia-today:not([open]) > .ia-wide-news { display: none; }
+.ia-mega[open] > .ia-mega-panel,
+.ia-today[open] > .ia-today-sheet,
+.ia-today-sheet,
+.ia-mega-panel {
+  position: static;
+  transform: none;
+  left: auto;
+  top: auto;
+  right: auto;
+  z-index: auto;
+}
+.ia-mega-panel > a,
+.ia-mega-now {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 2px 10px;
+  border-radius: 8px;
+  color: #161c24;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ia-mega-panel > a.active { font-weight: 700; box-shadow: inset 3px 0 0 #9a7b4f; }
+.ia-mega-now {
+  display: grid;
+  align-items: start;
+  gap: 2px 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-top: 1px solid #e4d3b4;
+  border-bottom: 1px solid #e4d3b4;
+}
+.ia-mega-now > .ia-today[open] { display: grid; gap: 2px; min-width: 0; }
+.ia-now-name { font-weight: 600; letter-spacing: 0.12em; color: #5c5346; padding: 8px 10px 0; }
+.ia-now-name.active { font-weight: 700; color: #161c24; box-shadow: inset 3px 0 0 #9a7b4f; }
+.ia-today-summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 10px;
+  color: #9a7b4f;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+.ia-today[open] > .ia-wide-news { display: grid; gap: 2px; }
+.ia-wide-news .chip,
+.ia-news .chip {
+  justify-content: flex-start;
+  width: auto;
+  max-width: none;
+  min-height: 40px;
+  padding: 6px 12px;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  background: transparent;
+  border-color: transparent;
+  color: #161c24;
+  font-weight: 600;
+  box-shadow: none;
+}
+.ia-wide-news .chip.active,
+.ia-news .chip.active {
+  background: #161c24;
+  color: #f7f1e6;
+  border-color: #161c24;
+  border-radius: 999px;
+  box-shadow: none;
+}
+.ia-today[open] > .ia-today-sheet {
+  display: block;
+  position: static;
+  transform: none;
+  width: 100%;
+  margin-top: 2px;
+  padding: 6px 0 2px 10px;
+  text-align: left;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-left: 1px solid #9a7b4f;
+  border-radius: 0;
+  box-shadow: none;
+}
+.ia-today-kicker { margin: 0 0 2px; padding: 0; background: none; border: 0; color: #9a7b4f; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; }
+.ia-news-label { margin: 0 0 4px; padding: 0; background: none; border: 0; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; }
+.ia-news { display: grid; gap: 2px; }
+html.dark .masthead .ia-l1 .chip.civ-chip,
+html.dark .masthead .ia-mega > summary.civ-chip {
+  background: #2a241c;
+  color: #f7f1e6;
+  border-color: #c4a572;
+  box-shadow: none;
+}
+/* In-flow earth branch. The 今日 panel grows the masthead; it does not float over the hero. */
+.ia-branch {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 2px;
+  padding: 4px 8px 2px;
+  border-top: 1px solid color-mix(in srgb, #9a7b4f 50%, var(--line));
+  overflow: visible;
+}
+.ia-branch[hidden] { display: none !important; }
+.ia-today { display: block; width: 100%; max-width: 100%; }
+.ia-l2-summary {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  padding: 0;
+  cursor: default;
+  list-style: none;
+}
+.ia-l2-summary::-webkit-details-marker { display: none; }
+.ia-l2 {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.ia-ancient,
+.ia-now,
+.ia-future {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+}
+.ia-now { cursor: pointer; }
+.ia-now::after { content: " ▸"; font-size: 12px; }
+.ia-seg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 6px 12px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ia-seg.active {
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: inset 0 -3px 0 #9a7b4f;
+}
+.ia-today > summary { list-style: none; }
+.ia-today > summary::-webkit-details-marker { display: none; }
+.ia-today:not([open]) > .ia-today-panel { display: none !important; }
+.ia-today[open] > .ia-today-panel {
+  display: block;
+  position: static;
+  width: 100%;
+  max-width: 100%;
+  margin: 2px 0 0;
+  padding: 6px 0 2px 10px;
+  pointer-events: auto;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-left: 1px solid #9a7b4f;
+  border-radius: 0;
+  box-shadow: none;
+}
+@keyframes ia-fade-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ia-row-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ia-sheet-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+.masthead .ia-l1 .chip,
+.ia-seg {
+  transition: color var(--motion-nav) var(--motion-ease), background-color var(--motion-nav) var(--motion-ease), box-shadow var(--motion-nav) var(--motion-ease), border-color var(--motion-nav) var(--motion-ease);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  body:not(.static) .masthead .ia-l1 .chip:hover:not(.civ-chip) {
+    background: color-mix(in srgb, #f7f1e6 8%, transparent);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  body:not(.static) .ia-l1 > .chip {
+    animation: ia-fade-rise var(--motion-nav) var(--motion-ease) both;
+  }
+  body:not(.static) .ia-l1 > .chip:nth-child(2) { animation-delay: 50ms; }
+  body:not(.static) .ia-l1 > .chip:nth-child(3) { animation-delay: 100ms; }
+  body:not(.static) .ia-branch:not([hidden]) .ia-l2 {
+    animation: ia-row-in var(--motion-nav) var(--motion-ease) both;
+  }
+  body:not(.static) .ia-today[open] > .ia-today-panel {
+    animation: ia-sheet-in var(--motion-sheet) var(--motion-ease) both;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ia-l1 > .chip,
+  .ia-l2,
+  .ia-today-panel,
+  .ia-seg,
+  .motion-fade-rise {
+    animation: none;
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+body.static .ia-l1 > .chip,
+body.static .ia-l2,
+body.static .ia-today-panel,
+body.static .ia-seg {
+  animation: none;
+  transition: none;
+  opacity: 1;
+  transform: none;
+}
+@media (max-width: 899px) {
+  .ia-wide-only { display: none !important; }
+}
+@media (min-width: 900px) {
+  .ia-mobile-only { display: none !important; }
+}
+.ia-today-panel .ia-news .chip {
+  justify-content: flex-start;
+  width: max-content;
+  max-width: 100%;
+  min-height: 40px;
+  padding: 6px 12px;
+  background: transparent;
+  border-color: transparent;
+  border-radius: 8px;
+  color: var(--muted);
+  font-weight: 600;
+  box-shadow: none;
+  white-space: nowrap;
+}
+html.dark .ia-today-panel .ia-news .chip {
+  background: transparent;
+  color: var(--muted);
+  border-color: transparent;
+  box-shadow: none;
+}
+html.dark .ia-today-panel .ia-news .chip.active {
+  background: #f7f1e6;
+  color: #161c24;
+  border-color: #f7f1e6;
+  box-shadow: none;
+}
+.ia-today-panel .ia-news .chip.active {
+  background: #161c24;
+  color: #f7f1e6;
+  border-color: #161c24;
+  box-shadow: none;
+  border-radius: 8px;
+}
+.masthead .ia-l1 .chip.civ-chip,
+.chrome .ia-l1 .chip.civ-chip,
+html.dark .masthead .ia-l1 .chip.civ-chip,
+html.dark .chrome .ia-l1 .chip.civ-chip {
+  background: #f7f1e6;
+  color: #161c24;
+  border: 1px solid #c4a572;
+  border-radius: 14px;
+  box-shadow: var(--ia-lift), inset 0 1px 0 rgba(255, 255, 255, .7);
+}
+@media (max-width: 899px) {
+  .masthead { flex-wrap: wrap; }
+}
 /* Desktop keeps the old flex children. Phones turn this into the horizontal scroller. */
 .chip-scroller { display: contents; }
 .civ-more { position: relative; flex: none; }
@@ -1958,6 +2350,35 @@ html.dark .more-today span { color: var(--color-muted); }
     padding: 3px 8px;
     font-size: 13px;
   }
+  /* IAa labels stay whole. The shared 13px chip rule must not shrink or clip them. */
+  .chrome .ia-l1-row > .chip-scroller {
+    width: auto;
+    flex: 0 1 auto;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 4px 12px 6px 2px;
+  }
+  .chrome .ia-l1 .chip,
+  .chrome .ia-mega > summary,
+  .chrome .ia-l2 .chip,
+  .chrome .ia-news .chip,
+  .chrome .ia-wide-news .chip {
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+    font-size: 15px;
+    padding: 6px 12px;
+  }
+  .chrome .ia-l2 .chip,
+  .chrome .ia-l2 .ia-today > summary { font-size: 14px; }
+  .chrome .ia-news .chip.active,
+  .chrome .ia-wide-news .chip.active {
+    background: #161c24;
+    color: #f7f1e6;
+    border-color: #161c24;
+    box-shadow: none;
+  }
   .chrome .nav-more > summary,
   .chrome .civ-more > summary,
   .chrome .subscribe-menu > summary {
@@ -1976,6 +2397,33 @@ html.dark .more-today span { color: var(--color-muted); }
     border-color: transparent;
     box-shadow: inset 0 -2px 0 #9a7b4f;
     border-radius: 8px;
+  }
+  .chrome .ia-today-panel .ia-news .chip,
+  .chrome .ia-today-panel .ia-news .chip.active {
+    background: transparent;
+    color: var(--muted);
+    border-color: transparent;
+    box-shadow: none;
+    border-radius: 8px;
+  }
+  .chrome .ia-today-panel .ia-news .chip.active {
+    background: #161c24;
+    color: #f7f1e6;
+    border-color: #161c24;
+    box-shadow: none;
+  }
+  html.dark .chrome .ia-today-panel .ia-news .chip.active {
+    background: #f7f1e6;
+    color: #161c24;
+    border-color: #f7f1e6;
+    box-shadow: none;
+  }
+  html.dark .chrome .ia-l1 .chip.civ-chip {
+    background: #f7f1e6;
+    color: #161c24;
+    border-color: #c4a572;
+    border-radius: 14px;
+    box-shadow: var(--ia-lift), inset 0 1px 0 rgba(255, 255, 255, .7);
   }
   html.dark .chrome .chip,
   html.dark .chrome .nav-more > summary {
@@ -2729,11 +3177,13 @@ a.stage-cover { text-decoration: none; }
 }
 .cosmo-hero,
 .earth-hero {
-  margin: 0 0 16px;
-  padding: 18px 16px 14px;
-  border-radius: 14px;
-  background: #161c24;
-  color: #f7f1e6;
+  margin: 0 0 12px;
+  padding: 0 0 8px;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, #9a7b4f 55%, var(--line));
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
 }
 .cosmo-hero .kicker,
 .earth-hero .kicker {
@@ -2742,10 +3192,15 @@ a.stage-cover { text-decoration: none; }
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #c4a572;
+  color: var(--brass-on-paper);
 }
 .cosmo-hero .civ-page-title,
-.earth-hero .civ-page-title { margin: 0; color: #f7f1e6; }
+.earth-hero .civ-page-title {
+  margin: 0;
+  color: inherit;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
 .cosmo-stage,
 .earth-stage { scroll-margin-top: var(--civ-anchor-offset); }
 .earth-part { margin: 0 0 14px; }
@@ -3265,11 +3720,13 @@ a.question-line:hover { text-decoration: underline; }
 }
 .tech-hero,
 .city-hero {
-  margin: 0 0 16px;
-  padding: 18px 16px 14px;
-  border-radius: 14px;
-  background: #161c24;
-  color: #f7f1e6;
+  margin: 0 0 12px;
+  padding: 0 0 8px;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, #9a7b4f 55%, var(--line));
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
 }
 .tech-hero .kicker,
 .city-hero .kicker {
@@ -3278,10 +3735,15 @@ a.question-line:hover { text-decoration: underline; }
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #c4a572;
+  color: var(--brass-on-paper);
 }
 .tech-hero .civ-page-title,
-.city-hero .civ-page-title { margin: 0; color: #f7f1e6; }
+.city-hero .civ-page-title {
+  margin: 0;
+  color: inherit;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
 .tech-stage,
 .city-stage { scroll-margin-top: var(--civ-anchor-offset); }
 .civ-node-hero {
@@ -3308,7 +3770,7 @@ a.question-line:hover { text-decoration: underline; }
 .civ-node-hero img[hidden] { display: none; }
 @media (max-width: 720px) {
   .masthead {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     row-gap: 0;
     column-gap: 8px;
     align-items: center;
@@ -3498,9 +3960,11 @@ html.dark .civ-slice-return a,
 html.dark .civ-near-index a { color: #f7f1e6; }
 html.dark .civ-page-title { color: var(--color-text); }
 html.dark .cosmo-hero,
-html.dark .earth-hero { background: #161c24; color: #f7f1e6; }
+html.dark .earth-hero { background: transparent; color: inherit; }
+html.dark .cosmo-hero .kicker,
+html.dark .earth-hero .kicker { color: #c4a572; }
 html.dark .cosmo-hero .civ-page-title,
-html.dark .earth-hero .civ-page-title { color: #f7f1e6; }
+html.dark .earth-hero .civ-page-title { color: inherit; }
 html.dark .cosmo-starmap,
 html.dark .cosmo-scale-nest {
   background: #2a231b;
@@ -3511,9 +3975,11 @@ html.dark .cosmo-scale-note,
 html.dark .cosmo-scale-size { color: #d2c4b0; }
 html.dark .cosmo-scale-name { color: #f7f1e6; }
 html.dark .tech-hero,
-html.dark .city-hero { background: #161c24; color: #f7f1e6; }
+html.dark .city-hero { background: transparent; color: inherit; }
+html.dark .tech-hero .kicker,
+html.dark .city-hero .kicker { color: #c4a572; }
 html.dark .tech-hero .civ-page-title,
-html.dark .city-hero .civ-page-title { color: #f7f1e6; }
+html.dark .city-hero .civ-page-title { color: inherit; }
 html.dark .civ-node-hero { background: #161c24; }
 html.dark .civ-node-hero figcaption { color: #d2c4b0; background: #2a231b; }
 html.dark .axis-vignette::after {
@@ -3976,7 +4442,8 @@ html.dark .civ-progress { background: #c4a572; }
 
 /* T4 always-snap deck for the homepage, list indexes, the civilization hub, and
    T6a detail pages. Article pages keep the T5b rules in columns.css.
-   Wide screens use this same snap inside a 420px frame. There is no document-scroll fallback.
+   Wide screens keep this same snap flush under the masthead, with no device frame.
+   There is no document-scroll fallback.
    One deck scrolls; cards fill it. */
 html:has(.ig-deck),
 body:has(.ig-deck) { height: 100%; overflow: hidden; }
@@ -4069,12 +4536,18 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   line-height: 1.35;
 }
 .page.ig-snap .ig-card-story .ig-sheet { justify-content: center; }
+.page.ig-snap .ig-card-lead:has(.hero-opening) {
+  padding: 0;
+  background: #161c24;
+}
 .page.ig-snap .ig-card-lead .hero-opening {
   min-height: 0;
   height: 100%;
   margin: 0;
   flex: 1 1 auto;
-  padding: 20px 8px 8px;
+  padding: 20px 16px 8px;
+  border-radius: 0;
+  border-bottom: 0;
 }
 /* T6a: the lead is a settled card. The long intro no longer hides the CTAs,
    and the duplicate downward hint stays off the title row. */
@@ -4264,6 +4737,11 @@ html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
   overflow: hidden;
   max-height: 168px;
 }
+.page.ig-snap .ig-card .milestone-frame {
+  height: 120px;
+  max-height: 120px;
+  aspect-ratio: auto;
+}
 /* Keep the pattern caption inside the figure box. Clipping the whole figure
    at 168px laid 「複製與校驗 · 紙感」 past the sheet edge once the bar got shorter. */
 .page.ig-snap .ig-card .civ-block-figure {
@@ -4416,17 +4894,17 @@ html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
 }
 @media (min-width: 901px) {
   .page.ig-snap:has(.ig-deck) {
-    background: color-mix(in srgb, var(--text) 8%, var(--bg));
+    background: var(--bg);
   }
   .page.ig-snap:has(.ig-deck) .ig-frame {
-    width: min(420px, 100%);
-    align-self: center;
-    margin: 12px 0 16px;
-    border: 1px solid var(--line);
-    border-radius: 28px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
-    background: var(--bg);
-    overflow: hidden;
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
   }
   .page.ig-snap .ig-deck {
     scroll-snap-type: y mandatory;

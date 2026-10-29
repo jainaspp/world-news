@@ -1,4 +1,4 @@
-import { renderChroniclePage, renderCityPage, renderCivilizationHub, renderCivilizationMiss, renderCosmosPage, renderEarthPage, renderOriginsPage, renderTechPage } from '../../shared/civilizationPage.js';
+import { renderChroniclePage, renderCityPage, renderCivilizationHub, renderCivilizationMiss, renderCosmosPage, renderEarthPage, renderGalaxyPage, renderOriginsPage, renderTechPage } from '../../shared/civilizationPage.js';
 import type { PagesContext } from '../env.js';
 
 function headers(status: number): HeadersInit {
@@ -15,6 +15,7 @@ type CivPage = { html: string; status: number; indexable: boolean };
 export const PAGES: Record<string, () => CivPage> = {
   '': renderCivilizationHub,
   cosmos: renderCosmosPage,
+  galaxy: renderGalaxyPage,
   earth: renderEarthPage,
   origins: renderOriginsPage,
   tech: renderTechPage,
