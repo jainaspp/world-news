@@ -404,8 +404,12 @@ describe('T6a snap layout', () => {
           if (sample.overlaps.length) failures.push(`${label} hint overlaps ${sample.overlaps.join('|')}`);
           if (deep && sample.cont < 2) failures.push(`${label} continuations ${sample.cont}`);
           if (deep && sample.cards > 140) failures.push(`${label} too many cards ${sample.cards} stat ${sample.stat}`);
-          if (viewport.name === 'wide' && (sample.deckW < 300 || sample.deckW > 440)) {
+          const articlePhone = name === 'story';
+          if (viewport.name === 'wide' && articlePhone && (sample.deckW < 300 || sample.deckW > 440)) {
             failures.push(`${label} deck width ${sample.deckW} frame ${sample.frameW}`);
+          }
+          if (viewport.name === 'wide' && !articlePhone && (sample.deckW < 1100 || sample.frameW < 1100)) {
+            failures.push(`${label} deck not flush ${sample.deckW} frame ${sample.frameW}`);
           }
         }
       }

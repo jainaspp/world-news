@@ -4442,7 +4442,8 @@ html.dark .civ-progress { background: #c4a572; }
 
 /* T4 always-snap deck for the homepage, list indexes, the civilization hub, and
    T6a detail pages. Article pages keep the T5b rules in columns.css.
-   Wide screens use this same snap inside a 420px frame. There is no document-scroll fallback.
+   Wide screens keep this same snap flush under the masthead, with no device frame.
+   There is no document-scroll fallback.
    One deck scrolls; cards fill it. */
 html:has(.ig-deck),
 body:has(.ig-deck) { height: 100%; overflow: hidden; }
@@ -4736,6 +4737,11 @@ html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
   overflow: hidden;
   max-height: 168px;
 }
+.page.ig-snap .ig-card .milestone-frame {
+  height: 120px;
+  max-height: 120px;
+  aspect-ratio: auto;
+}
 /* Keep the pattern caption inside the figure box. Clipping the whole figure
    at 168px laid 「複製與校驗 · 紙感」 past the sheet edge once the bar got shorter. */
 .page.ig-snap .ig-card .civ-block-figure {
@@ -4888,17 +4894,17 @@ html.civ-motion body:not(.static) .page.ig-snap .civ-reveal .civ-figure img {
 }
 @media (min-width: 901px) {
   .page.ig-snap:has(.ig-deck) {
-    background: color-mix(in srgb, var(--text) 8%, var(--bg));
+    background: var(--bg);
   }
   .page.ig-snap:has(.ig-deck) .ig-frame {
-    width: min(420px, 100%);
-    align-self: center;
-    margin: 12px 0 16px;
-    border: 1px solid var(--line);
-    border-radius: 28px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
-    background: var(--bg);
-    overflow: hidden;
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
   }
   .page.ig-snap .ig-deck {
     scroll-snap-type: y mandatory;
