@@ -63,11 +63,12 @@ describe('homepage list choice', () => {
     expect(app).not.toContain("id: 'hour'");
     expect(app).not.toContain("id: 'week'");
     expect(app).toContain("time: 'today'");
-    const row = app.slice(app.indexOf('className="civ-nav-row"'), app.indexOf('function DigestStrip'));
+    const row = app.slice(app.indexOf('aria-label="更多欄目"'), app.indexOf('function DigestStrip'));
     expect(app).toContain("primaryNavHtml('home')");
     expect(row).toContain('href="/learn/"');
     expect(readFileSync('shared/primaryNav.ts', 'utf8')).toContain("href: '/#slice'");
-    expect(row.indexOf('</details>')).toBeLessThan(row.indexOf('<SubscribeMenu />'));
+    expect(app).toContain('href="/feed.xml"');
+    expect(app).not.toContain('>訂閱</summary>');
   });
 
   it('keeps the switch labels short', () => {

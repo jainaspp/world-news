@@ -181,12 +181,12 @@ describe('shared header wordmark', () => {
     expect(app).not.toContain('aria-label="time"');
     expect(app).not.toContain('className="tab-bar"');
     expect(app).not.toContain('1小時');
-    const row = app.slice(app.indexOf('className="civ-nav-row"'), app.indexOf('function DigestStrip'));
+    const row = app.slice(app.indexOf('aria-label="更多欄目"'), app.indexOf('function DigestStrip'));
     expect(row).toContain('href="/learn/"');
     expect(readFileSync('shared/primaryNav.ts', 'utf8')).toContain("href: '/#slice'");
-    expect(row).toContain('aria-label="更多欄目"');
+    expect(row).toContain('aria-controls="filter-panel"');
     expect(row.indexOf('aria-label="更多欄目"')).toBeLessThan(row.indexOf('aria-controls="filter-panel"'));
-    expect(row.indexOf('</details>')).toBeLessThan(row.indexOf('<SubscribeMenu />'));
+    expect(app).not.toContain('>訂閱</summary>');
     const page = readFileSync('shared/contentPage.ts', 'utf8');
     expect(page).toContain('primaryNavHtml');
     expect(readFileSync('shared/primaryNav.ts', 'utf8')).toContain('class="chip-scroller"');
@@ -197,7 +197,9 @@ describe('shared header wordmark', () => {
     expect(html).toContain('civ-nav');
     expect(html).toContain('href="/#slice"');
     expect(html).toContain('href="/learn/"');
-    expect(html).toContain('>訂閱</summary>');
+    expect(html).toContain('href="/feed.xml"');
+    expect(html).not.toContain('>訂閱</summary>');
+    expect(html).not.toContain('>更多</summary>');
     expect(html).not.toContain('世界頭條');
     expect(html).not.toContain('filters-primary');
     expect(html).not.toContain('>篩選<');

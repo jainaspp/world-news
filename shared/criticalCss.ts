@@ -90,7 +90,8 @@ button, input { font: inherit; color: inherit; }
 .logo-link img { height: 36px; width: auto; }
 .logo-link .logo-compact, .logo-link .logo-dark { display: none; }
 .search-bar { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; }
-.search-bar > .search-toggle { display: none; }
+.search-bar > .search-toggle { display: inline-flex; min-width: 44px; min-height: 44px; }
+.search-bar input { display: none; }
 .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .header-actions .icon-btn { min-width: 44px; min-height: 44px; }
 .tab-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }

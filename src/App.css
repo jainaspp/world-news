@@ -47,6 +47,9 @@
   --motion-pulse: 2.4s;
   --motion-stagger: 120ms;
   --motion-dismiss: 420ms;
+  --motion-nav: 200ms;
+  --motion-sheet: 240ms;
+  --ia-lift: 0 1px 2px rgba(22, 28, 36, .08), 0 4px 12px rgba(22, 28, 36, .06);
   /* Civ hash targets clear sticky .chrome before JS measures it.
      220px covers a ~188px mobile chrome (masthead, tabs, wrapped market row). */
   --civ-anchor-offset: 220px;
@@ -120,7 +123,11 @@ img { max-width: 100%; }
 .masthead-title { margin: 0; font-size: inherit; font-weight: inherit; line-height: 1; flex: none; }
 .masthead .civ-nav-row,
 .masthead .tab-bar { flex: 1 1 0; min-width: 0; flex-wrap: nowrap; padding: 0; gap: 4px; }
-.masthead .search-bar { flex: 0 1 200px; }
+.masthead .search-bar { flex: none; margin-left: auto; }
+.search-bar.open {
+  position: absolute; right: 0; left: auto; top: calc(100% + 4px); z-index: 24;
+  width: min(280px, calc(100vw - 24px)); background: var(--bg); padding: 6px;
+}
 .masthead .civ-nav { flex-wrap: nowrap; padding: 0; overflow: visible; }
 .masthead .chip-scroller {
   display: flex; flex: 1 1 0%; width: 0; min-width: 0; align-items: center; gap: 4px;
@@ -209,7 +216,9 @@ a.chip { color: inherit; text-decoration: none; }
 /* News-page primary (P0-NEWS-CHROME). The shared row above stays 40 for chips. */
 .primary { min-height: 44px; min-width: 44px; }
 /* After .icon-btn's display, so the desktop search field stays the control. */
-.search-bar > .search-toggle { display: none; }
+.search-bar > .search-toggle { display: inline-flex; min-width: 44px; min-height: 44px; }
+.search-bar:has(.search-toggle) input { display: none; }
+.search-bar.open input { display: block; }
 .header-actions .icon-btn { min-width: 44px; min-height: 44px; padding: 6px; position: relative; }
 .icon-btn.active, .primary, .bookmark.on {
   background: var(--accent); color: var(--accent-ink); border-color: transparent;
@@ -1911,12 +1920,13 @@ html.dark .more-today span { color: var(--color-muted); }
   padding: 6px 12px;
 }
 .masthead .ia-l1 .chip.civ-chip,
-.masthead .ia-mega > summary.civ-chip {
+.chrome .ia-l1 .chip.civ-chip {
   background: #f7f1e6;
   color: #161c24;
   border: 1px solid #c4a572;
-  border-radius: 999px;
-  box-shadow: none;
+  border-radius: 14px;
+  font-weight: 700;
+  box-shadow: var(--ia-lift), inset 0 1px 0 rgba(255, 255, 255, .7);
 }
 .ia-l1-row > .ia-mega { position: relative; flex: none; overflow: visible; }
 .ia-l2 {
@@ -2122,7 +2132,7 @@ html.dark .masthead .ia-mega > summary.civ-chip {
 .ia-seg.active {
   color: var(--text);
   font-weight: 700;
-  box-shadow: inset 0 -2px 0 #9a7b4f;
+  box-shadow: inset 0 -3px 0 #9a7b4f;
 }
 .ia-today > summary { list-style: none; }
 .ia-today > summary::-webkit-details-marker { display: none; }
@@ -2137,8 +2147,64 @@ html.dark .masthead .ia-mega > summary.civ-chip {
   background: #f7f1e6;
   color: #161c24;
   border: 1px solid #c4a572;
+  border-top: 2px solid #9a7b4f;
   border-radius: 14px;
-  box-shadow: none;
+  box-shadow: var(--ia-lift);
+}
+@keyframes ia-fade-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ia-row-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ia-sheet-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+.masthead .ia-l1 .chip,
+.ia-seg {
+  transition: color var(--motion-nav) var(--motion-ease), background-color var(--motion-nav) var(--motion-ease), box-shadow var(--motion-nav) var(--motion-ease), border-color var(--motion-nav) var(--motion-ease);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  body:not(.static) .masthead .ia-l1 .chip:hover:not(.civ-chip) {
+    background: color-mix(in srgb, #f7f1e6 8%, transparent);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  body:not(.static) .ia-l1 > .chip {
+    animation: ia-fade-rise var(--motion-nav) var(--motion-ease) both;
+  }
+  body:not(.static) .ia-l1 > .chip:nth-child(2) { animation-delay: 50ms; }
+  body:not(.static) .ia-l1 > .chip:nth-child(3) { animation-delay: 100ms; }
+  body:not(.static) .ia-branch:not([hidden]) .ia-l2 {
+    animation: ia-row-in var(--motion-nav) var(--motion-ease) both;
+  }
+  body:not(.static) .ia-today[open] > .ia-today-panel {
+    animation: ia-sheet-in var(--motion-sheet) var(--motion-ease) both;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ia-l1 > .chip,
+  .ia-l2,
+  .ia-today-panel,
+  .ia-seg,
+  .motion-fade-rise {
+    animation: none;
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+body.static .ia-l1 > .chip,
+body.static .ia-l2,
+body.static .ia-today-panel,
+body.static .ia-seg {
+  animation: none;
+  transition: none;
+  opacity: 1;
+  transform: none;
 }
 @media (max-width: 899px) {
   .ia-wide-only { display: none !important; }
@@ -2160,26 +2226,21 @@ html.dark .masthead .ia-mega > summary.civ-chip {
   white-space: nowrap;
 }
 .ia-today-panel .ia-news .chip.active {
-  background: color-mix(in srgb, #9a7b4f 18%, #f7f1e6);
-  color: #161c24;
-  border-color: transparent;
-  box-shadow: inset 3px 0 0 #9a7b4f;
-  border-radius: 8px;
-}
-.masthead .ia-l1 .chip.civ-chip,
-.chrome .ia-l1 .chip.civ-chip {
   background: #161c24;
   color: #f7f1e6;
-  border: 1px solid #c4a572;
-  border-radius: 999px;
-  box-shadow: none;
+  border-color: #161c24;
+  box-shadow: var(--ia-lift);
+  border-radius: 12px;
 }
+.masthead .ia-l1 .chip.civ-chip,
+.chrome .ia-l1 .chip.civ-chip,
 html.dark .masthead .ia-l1 .chip.civ-chip,
 html.dark .chrome .ia-l1 .chip.civ-chip {
   background: #f7f1e6;
   color: #161c24;
-  border-color: #c4a572;
-  box-shadow: none;
+  border: 1px solid #c4a572;
+  border-radius: 14px;
+  box-shadow: var(--ia-lift), inset 0 1px 0 rgba(255, 255, 255, .7);
 }
 @media (max-width: 899px) {
   .masthead { flex-wrap: wrap; }
@@ -2330,15 +2391,17 @@ html.dark .chrome .ia-l1 .chip.civ-chip {
     border-radius: 8px;
   }
   .chrome .ia-today-panel .ia-news .chip.active {
-    background: color-mix(in srgb, #9a7b4f 18%, #f7f1e6);
-    color: #161c24;
-    box-shadow: inset 3px 0 0 #9a7b4f;
+    background: #161c24;
+    color: #f7f1e6;
+    border-color: #161c24;
+    box-shadow: var(--ia-lift);
   }
   html.dark .chrome .ia-l1 .chip.civ-chip {
     background: #f7f1e6;
     color: #161c24;
     border-color: #c4a572;
-    box-shadow: none;
+    border-radius: 14px;
+    box-shadow: var(--ia-lift), inset 0 1px 0 rgba(255, 255, 255, .7);
   }
   html.dark .chrome .chip,
   html.dark .chrome .nav-more > summary {

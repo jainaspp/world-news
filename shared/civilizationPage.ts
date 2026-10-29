@@ -218,7 +218,7 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
   const strip = options.strip ? renderVolumeCards() : '';
   const rails = options.rails === false ? '' : `${renderPatternAxisLinks()}${renderCaseAxisLinks()}`;
   const slim = options.rails === false ? ' axis-slim' : '';
-  return `<section class="axis-hero${slim}" id="civ" aria-label="文明軸">
+  return `<section class="axis-hero${slim} motion-fade-rise" id="civ" aria-label="文明軸">
     <div class="axis-vignette" aria-hidden="true"></div>
     <p class="kicker">Human span · 溫和史</p>
     ${title}
