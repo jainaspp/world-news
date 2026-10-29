@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { renderContentPage, type ContentDoc } from '../shared/content';
-import { cjkChars } from '../shared/contentPage';
+import { chrome, cjkChars, renderColumnIndex } from '../shared/contentPage';
 import { coordinateChipHtml, renderCivilizationSlice, renderNearBridge } from '../shared/civilization/renderSlice';
 import { PATTERN_CARDS } from '../shared/civilization/patterns';
 import { CIV_QUESTIONS, questionHrefAllowed, questionIndexIssues, questionTargets, renderQuestionIndex } from '../shared/civilization/questions';
@@ -298,8 +298,8 @@ describe('civilization thick pages', () => {
     expect(hub.html).not.toContain('class="chronicle-strip"');
     expect(hub.html.indexOf('class="volume-board"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
     const axisEnd = hub.html.indexOf('</section>', hub.html.indexOf('id="civ"'));
-    expect(hub.html.indexOf('id="hk-info"')).toBeGreaterThan(-1);
-    expect(hub.html.indexOf('id="hk-info"')).toBeLessThan(hub.html.indexOf('id="civ"'));
+    expect(hub.html).not.toContain('id="hk-info"');
+    expect(hub.html).not.toContain('恒生');
     expect(hub.html.indexOf('id="major-slot"')).toBeGreaterThan(axisEnd);
     expect(hub.html.indexOf('id="major-slot"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
     expect(hub.html.match(/id="major-slot"/g)).toHaveLength(1);
@@ -321,6 +321,33 @@ describe('civilization thick pages', () => {
     expect(volumes).toContain('>未來<');
     expect(volumes).not.toContain('civ-stage-');
     expect(volumes).not.toContain('<img');
+  });
+
+  it('omits the Hang Seng strip on civilization deep pages and keeps it on today surfaces', () => {
+    const deep = [
+      ['hub', renderCivilizationHub()],
+      ['cosmos', renderCosmosPage()],
+      ['earth', renderEarthPage()],
+      ['origins', renderOriginsPage()],
+      ['chronicle', renderChroniclePage()],
+      ['tech', renderTechPage()],
+      ['city', renderCityPage()],
+      ['miss', renderCivilizationMiss()],
+    ] as const;
+    for (const [name, page] of deep) {
+      expect(page.html, name).not.toContain('id="hk-info"');
+      expect(page.html, name).not.toContain('hk-info-hsi');
+      expect(page.html, name).not.toContain('恒生');
+    }
+    const home = renderHomeFeed([], new Map(), null, '', null, '', [], [], new Date('2026-10-17T04:00:00.000Z'), true);
+    expect(home).not.toContain('id="hk-info"');
+    expect(renderColumnIndex('briefing', [], 'https://world-news.xyz/briefing/')).toContain('id="hk-info"');
+    expect(chrome('today')).toContain('id="hk-info"');
+    expect(chrome('digest')).toContain('id="hk-info"');
+    expect(chrome('briefing')).toContain('id="hk-info"');
+    expect(chrome('compare')).toContain('id="hk-info"');
+    expect(chrome('civilization')).not.toContain('id="hk-info"');
+    expect(chrome('chronicle')).not.toContain('id="hk-info"');
   });
 
   it('publishes an indexable ten-stage chronicle and keeps the copy inside the red lines', () => {

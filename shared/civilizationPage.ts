@@ -374,7 +374,7 @@ ${head(options.title, options.description, canonical, '', 'website', `${robots}\
   return { html, status: options.status ?? 200, indexable: options.indexable };
 }
 
-/** 重大更新 stays under the axis. The weather ticker stays in the chrome, above the hero. */
+/** 重大更新 stays under the axis. Civilization chrome does not include the weather / HSI strip. */
 function moveMajorBelowAxis(html: string): string {
   const majorRe = /<div id="major-slot"><\/div>/;
   const major = html.match(majorRe)?.[0];
