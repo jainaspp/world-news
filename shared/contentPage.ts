@@ -412,10 +412,18 @@ export function withLcpShell(html: string, options: { imageId?: string; adsSrc?:
   return parked.includes('</body>') ? parked.replace('</body>', `${boot}</body>`) : `${parked}${boot}`;
 }
 
+/** Civilization deep pages are not 「今日」. The Hang Seng strip stays on news and briefing chrome only. */
+function showsHkInfo(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'chronicle' | 'learn' | 'home'): boolean {
+  return active !== 'civilization' && active !== 'chronicle';
+}
+
 export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'chronicle' | 'learn' | 'home'): string {
   const column = (kind: ContentDoc['kind'], href: string) => `<a class="chip${active === kind ? ' active' : ''}" href="${href}"${active === kind ? ' aria-current="page"' : ''}>${KIND_LABEL[kind]}</a>`;
   const current = (key: typeof active) => active === key ? ' aria-current="page"' : '';
   const primary = primaryNavHtml(active);
+  const hkInfo = showsHkInfo(active)
+    ? '\n    <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"></div>'
+    : '';
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
     <header class="masthead">
@@ -457,8 +465,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
           </button>
         </div>
       </details>
-    </header>
-    <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"></div>
+    </header>${hkInfo}
   </div>
   <div id="major-slot"></div>
   <div id="alert-slot"></div>
