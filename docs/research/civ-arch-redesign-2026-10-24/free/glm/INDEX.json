@@ -1,0 +1,62 @@
+[
+  {
+    "id": "Z01",
+    "title": "千年三卷",
+    "one_liner": "全站做成一部可翻閱的三卷巨著：洪荒卷、煙火卷、星塵卷，新聞是卷二夾頁「今日一頁」，開蒙是卷末由淺入深的注疏學程。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/glm/P01.md"
+  },
+  {
+    "id": "Z02",
+    "title": "十界星圖",
+    "one_liner": "全站是一張可平移縮放的深空星圖：十階文明是十座星系，新聞是唯一觀測站，開蒙是逐星點亮的登陸圖鑑。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/glm/P02.md"
+  },
+  {
+    "id": "Z03",
+    "title": "文明地層柱",
+    "one_liner": "一根垂直地層軸：向下挖是遠古岩層，地表是當代煙火，頭頂星空是未來——新聞是地表每日風化層，開蒙是發掘筆記學科冊。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/glm/P03.md"
+  },
+  {
+    "id": "Z04",
+    "title": "文明機芯",
+    "one_liner": "全站是一座透明鐘芯：十階文明是鐘面十刻度，新聞是日晷今日切片，開蒙是替主發條上鏈的發條學堂，只報紀元、不做倒數。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/glm/P04.md"
+  },
+  {
+    "id": "Z05",
+    "title": "文明巨樹",
+    "one_liner": "全站是一棵不斷生長的巨樹：根是洪荒、幹是現在、冠是未來，新聞是每日落葉簿，開蒙即「抽新芽」——學科樹與站體樹合一。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/glm/P05.md"
+  },
+  {
+    "id": "Z06",
+    "title": "文明檔案館",
+    "one_liner": "全站是夜間開放的檔案館：十階文明是十冊編號卷宗，新聞是每日入藏登記簿，開蒙是研究員升等制度，升級即開新密室。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/glm/P06.md"
+  },
+  {
+    "id": "Z07",
+    "title": "文明長河",
+    "one_liner": "全站是一條從雪源流向星海的大河：順流即從過去駛向未來，新聞是河面每日浮標，開蒙是沿岸匯入的支流學院。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/glm/P07.md"
+  },
+  {
+    "id": "Z08",
+    "title": "文明進度盤",
+    "one_liner": "全站是十域棋盤式進度盤：使用者持文明護照逐域蓋章，新聞是每日戰報，開蒙是護照內的任務徽章系統，集滿十域達全景印記。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/glm/P08.md"
+  },
+  {
+    "id": "Z09",
+    "title": "文明劇院",
+    "one_liner": "全站是三幕劇院：序幕即宇宙大爆炸投影，新聞是每日場刊，開蒙是後台排練場，通過排練即登台蓋幕印。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/glm/P09.md"
+  },
+  {
+    "id": "Z10",
+    "title": "演化沙盤",
+    "one_liner": "全站是一台可推拉的時間沙盤：主時間桿一拉即快轉文明史，鬆手落成厚文頁，新聞是「今日」格的每日快照，開蒙是實驗室手冊。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/glm/P10.md"
+  }
+]
