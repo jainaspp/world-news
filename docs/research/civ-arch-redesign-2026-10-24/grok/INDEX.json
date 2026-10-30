@@ -1,0 +1,62 @@
+[
+  {
+    "id": "G01",
+    "title": "序章獨佔首屏",
+    "one_liner": "全螢幕宇宙序章獨佔第一屏，三卷、監測、開蒙與今日切片在第二屏一次交接。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/grok/P01.md"
+  },
+  {
+    "id": "G02",
+    "title": "封面三卷書脊",
+    "one_liner": "全螢幕序章做裡頁，第二屏用三條書脊打開古、今與未來章門。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/grok/P02.md"
+  },
+  {
+    "id": "G03",
+    "title": "底緣時間尺",
+    "one_liner": "全螢幕序章之下，用一條三卷尺決定讀古、讀今或打開未來章門。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/grok/P03.md"
+  },
+  {
+    "id": "G04",
+    "title": "編年開蒙雙廳",
+    "one_liner": "全螢幕序章之後分成編年廳與開蒙廳，切片只屬於編年廳。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/grok/P04.md"
+  },
+  {
+    "id": "G05",
+    "title": "回訪抽屜目錄",
+    "one_liner": "序章只對本節首次全螢幕播放，回訪首頁是一組預設收合的目錄抽屜。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/grok/P05.md"
+  },
+  {
+    "id": "G06",
+    "title": "錨點星圖索引",
+    "one_liner": "全螢幕序章之後，用一張只連既有錨點的星圖做全站索引。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/grok/P06.md"
+  },
+  {
+    "id": "G07",
+    "title": "三枚章門極簡",
+    "one_liner": "全螢幕序章之後，首頁只留三枚章門、切片窄條、開蒙印章與監測鐘。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/grok/P07.md"
+  },
+  {
+    "id": "G08",
+    "title": "紙刊目錄體例",
+    "one_liner": "全螢幕序章做封面，第二屏用編號目錄把三卷、切片與開蒙分成條目。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/grok/P08.md"
+  },
+  {
+    "id": "G09",
+    "title": "觀測臺開機",
+    "one_liner": "序章當作觀測臺開機，落幕後用三枚卷旋鈕與一座靜止監測儀閱讀。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/grok/P09.md"
+  },
+  {
+    "id": "G10",
+    "title": "雙軌進度橋",
+    "one_liner": "序章之後分文明軌與開蒙軌，兩軌進度不相通，切片只做文明軌腳註。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/grok/P10.md"
+  }
+]
