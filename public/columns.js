@@ -573,7 +573,7 @@
       if (id) track(id);
     });
     var majorSlot = document.getElementById('major-slot');
-    if (majorSlot && !document.querySelector('.major-banner')) {
+    if (majorSlot && !document.querySelector('.civ-page') && !document.querySelector('.major-banner')) {
       fetch('/api/major').then(function (r) { return r.ok ? r.json() : null; }).then(function (json) {
         var banner = json && json.banner;
         if (!banner || !banner.id || !banner.href) return;

@@ -74,6 +74,8 @@ describe('IAa nav shell', () => {
     const hub = primaryNavHtml('civilization');
     expect(hub).not.toMatch(/class="[^"]*\bciv-chip\b/);
     expect(hub).toContain('class="ia-branch" hidden');
+    expect(hub).not.toContain('ia-today');
+    expect(hub).not.toContain('ia-news');
     expect(renderCivilizationHub().html).not.toMatch(/class="[^"]*\bciv-chip\b/);
   });
 
@@ -89,7 +91,9 @@ describe('IAa nav shell', () => {
 
     const cosmos = renderCosmosPage().html;
     expect(cosmos).toContain('aria-current="page" data-ia-level="1" data-ia-l1="cosmos">宇宙起源<');
-    expect(cosmos).toContain('class="ia-branch" hidden');
+    expect(cosmos).not.toContain('class="ia-branch"');
+    expect(cosmos).not.toContain('ia-today');
+    expect(cosmos).not.toContain('ia-news');
     const earth = renderEarthPage().html;
     expect(earth).toContain('data-ia-l2="ancient" aria-current="true"');
     expect(earth).toContain('>古<');
