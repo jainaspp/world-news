@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { onRequest } from '../functions/civilization/[[path]]';
+import { galaxyAliasRedirect, onRequest as edgeOnRequest } from '../functions/_middleware';
 import type { PagesContext } from '../functions/env';
 import {
   GALAXY_MIN_CHARS,
@@ -91,5 +92,32 @@ describe('galaxy thick page', () => {
     const child = onRequest(context('/civilization/galaxy/01/'));
     expect(child.status).toBe(404);
     expect(child.headers.get('x-robots-tag')).toBe('noindex, follow');
+  });
+
+  it('redirects the /galaxy dead aliases to the canonical thick page', async () => {
+    expect(galaxyAliasRedirect('world-news.xyz', '/galaxy', '')).toBe('https://world-news.xyz/civilization/galaxy/');
+    expect(galaxyAliasRedirect('world-news.xyz', '/galaxy/', '')).toBe('https://world-news.xyz/civilization/galaxy/');
+    expect(galaxyAliasRedirect('world-news.xyz', '/galaxy/', '?q=1')).toBe('https://world-news.xyz/civilization/galaxy/?q=1');
+    expect(galaxyAliasRedirect('www.world-news.xyz', '/galaxy', '')).toBe('https://world-news.xyz/civilization/galaxy/');
+    expect(galaxyAliasRedirect('world-news-b5e.pages.dev', '/galaxy/', '')).toBe('https://world-news.xyz/civilization/galaxy/');
+    expect(galaxyAliasRedirect('cursor-galaxy.world-news-b5e.pages.dev', '/galaxy', '')).toBe('https://cursor-galaxy.world-news-b5e.pages.dev/civilization/galaxy/');
+    expect(galaxyAliasRedirect('world-news.xyz', '/galaxy/01', '')).toBeNull();
+    expect(galaxyAliasRedirect('world-news.xyz', '/civilization/galaxy/', '')).toBeNull();
+
+    for (const path of ['/galaxy', '/galaxy/']) {
+      let nextCalled = false;
+      const response = await edgeOnRequest({
+        request: new Request(`https://world-news.xyz${path}`),
+        env: {},
+        waitUntil() {},
+        next: async () => {
+          nextCalled = true;
+          return new Response('missing', { status: 404 });
+        },
+      });
+      expect(nextCalled).toBe(false);
+      expect(response.status).toBe(301);
+      expect(response.headers.get('location')).toBe('https://world-news.xyz/civilization/galaxy/');
+    }
   });
 });
