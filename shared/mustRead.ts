@@ -1,6 +1,7 @@
 import { coordinateChipHtml } from './civilization/renderSlice.js';
 import { esc } from './contentPage.js';
 import type { IndexEntry } from './content.js';
+import { packageToolTitle } from './packageNews.js';
 import type { NewsItem } from './types.js';
 
 export interface MustReadLink {
@@ -33,9 +34,13 @@ export function mustReadLink(row: IndexEntry): MustReadLink {
   };
 }
 
+function newsMustRead(links: MustReadLink[]): MustReadLink[] {
+  return links.filter((link) => !packageToolTitle(link.title)).slice(0, 5);
+}
+
 /** Category pages prefer a matching pack, and still show the homepage set when none match. */
 export function mustReadForSurface(links: MustReadLink[], category?: string): MustReadLink[] {
-  const rows = links.slice(0, 5);
+  const rows = newsMustRead(links);
   if (!category || category === 'all') return rows;
   const matched = rows.filter((link) => link.category === category);
   return matched.length ? matched : rows;
@@ -43,7 +48,7 @@ export function mustReadForSurface(links: MustReadLink[], category?: string): Mu
 
 /** Server HTML for the homepage review block. Titles and deks only. */
 export function renderMustRead(links: MustReadLink[]): string {
-  const rows = links.slice(0, 5);
+  const rows = newsMustRead(links);
   if (!rows.length) return '';
   const cards = rows.map((link, index) => `<article class="story must-read-card">
       <div class="story-body">
@@ -56,5 +61,5 @@ export function renderMustRead(links: MustReadLink[]): string {
 }
 
 export function mustReadBootstrap(links: MustReadLink[]): string {
-  return `<script id="wn-must-read" type="application/json">${JSON.stringify(links.slice(0, 5)).replace(/</g, '\\u003c')}</script>`;
+  return `<script id="wn-must-read" type="application/json">${JSON.stringify(newsMustRead(links)).replace(/</g, '\\u003c')}</script>`;
 }

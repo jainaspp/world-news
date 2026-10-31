@@ -1,6 +1,7 @@
 import { edgeCache } from '../env.js';
 import { mergeIndex, type ContentDoc, type IndexEntry } from '../../shared/content.js';
 import { settleBriefingHeadline } from '../../shared/headlineNumbers.js';
+import { omitPackageExplainerEntries, packageToolTitle, rejectPackageExplainer } from '../../shared/packageNews.js';
 
 export interface ContentEnv {
   CONTENT?: {
@@ -218,11 +219,12 @@ const INDEX_LIMIT: Record<ContentDoc['kind'], number> = {
 
 /** One read and one write for several docs of the same kind (parallel writers would lose rows). */
 export async function rememberIndexMany(env: ContentEnv, docs: ContentDoc[]): Promise<void> {
-  const rows = docs.filter((doc) => doc.blocks.length);
-  const kind = rows[0]?.kind;
+  const rows = docs.filter((doc) => doc.blocks.length && !(doc.kind === 'compare' && rejectPackageExplainer(doc)));
+  const kind = docs.find((doc) => doc.blocks.length)?.kind;
   if (!kind) return;
   let index = await readIndex(env, kind);
   for (const doc of rows) if (doc.kind === kind) index = mergeIndex(index, doc, INDEX_LIMIT[kind]);
+  if (kind === 'compare') index = index.filter((entry) => !packageToolTitle(entry.title));
   await writeValue(env, indexKey(kind), JSON.stringify(index));
 }
 
@@ -230,9 +232,7 @@ export function indexKey(kind: ContentDoc['kind']): string {
   return `index:${kind}`;
 }
 
-/** Archive list for a column, newest first. Built up by writeDoc; empty until the next write. */
-export async function readIndex(env: ContentEnv, kind: ContentDoc['kind']): Promise<IndexEntry[]> {
-  const raw = await readValue(env, indexKey(kind));
+function parseIndex(raw: string | null): IndexEntry[] {
   if (!raw) return [];
   try {
     const parsed = JSON.parse(raw) as IndexEntry[];
@@ -240,6 +240,12 @@ export async function readIndex(env: ContentEnv, kind: ContentDoc['kind']): Prom
   } catch {
     return [];
   }
+}
+
+/** Archive list for a column, newest first. Built up by writeDoc; empty until the next write. Package-tool explainers stay off the news index. */
+export async function readIndex(env: ContentEnv, kind: ContentDoc['kind']): Promise<IndexEntry[]> {
+  const rows = parseIndex(await readValue(env, indexKey(kind)));
+  return kind === 'compare' ? omitPackageExplainerEntries(rows) : rows;
 }
 
 export function docKey(kind: ContentDoc['kind'], key: string): string {

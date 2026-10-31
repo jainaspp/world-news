@@ -9,6 +9,7 @@ import { bracketNames, englishNames, fixOutlets, scrubPlaces } from './grounding
 export { bestImage, imageScore } from './media.js';
 import type { StoryCluster } from './trending';
 import { blockedHkChinaStory, dropBlockedHkChinaOutlets } from './feeds.js';
+import { rejectPackageExplainer } from './packageNews.js';
 
 /** Cheap Qwen MoE on Workers AI. Traditional Chinese is strong, and the neuron rate stays inside the free 10k/day. */
 export const AI_MODEL = '@cf/qwen/qwen3-30b-a3b-fp8';
@@ -105,9 +106,10 @@ export function heldMiniMax(doc: ContentDoc): boolean {
   return doc.provider === 'minimax' && doc.mode === 'ai' && doc.verified !== 'grok';
 }
 
-/** A comparison that is thin, old-format, or still Cantonese stays out of the public list. */
+/** A comparison that is thin, old-format, still Cantonese, or a package-tool piece stays out of the public list. */
 export function explainerCurrent(stored: ContentDoc): boolean {
   if (stored.kind !== 'compare' || stored.mode !== 'ai' || heldMiniMax(stored)) return false;
+  if (rejectPackageExplainer(stored)) return false;
   const doc = tidyStored(stored);
   if ((doc.points?.length ?? 0) < MIN_PUBLIC_POINTS) return false;
   if (!hasChinese(doc.title)) return false;

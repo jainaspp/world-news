@@ -15,6 +15,7 @@ import {
   explainerFloor,
 } from './content.js';
 import { FEEDS, blockedHkChinaStory } from './feeds.js';
+import { rejectPackageExplainer } from './packageNews.js';
 import { stableId } from './rss.js';
 import type { NewsItem } from './types.js';
 
@@ -416,6 +417,7 @@ export function structureComplete(doc: ContentDoc): boolean {
 
 /** Publish only at the 500-character floor, with the sections a reader needs. */
 export function pieceReady(doc: ContentDoc): boolean {
+  if (doc.kind === 'compare' && rejectPackageExplainer(doc)) return false;
   if (doc.kind !== 'briefing' && doc.kind !== 'compare') return richness(doc) >= MIN_AI_CHARS;
   const floor = doc.kind === 'compare' ? Math.min(MIN_AI_CHARS, explainerFloor(doc)) : MIN_AI_CHARS;
   return bodyChars(doc) >= floor && structureComplete(doc) && narrativeSane(doc);
