@@ -2112,8 +2112,8 @@ html.dark .masthead .ia-mega > summary.civ-chip {
   z-index: 1;
   flex: 0 0 auto;
 }
-.ia-now { cursor: pointer; }
-.ia-now::after { content: " ▸"; font-size: 12px; }
+.ia-today .ia-now { cursor: pointer; }
+.ia-today .ia-now::after { content: " ▸"; font-size: 12px; }
 .ia-seg {
   display: inline-flex;
   align-items: center;
