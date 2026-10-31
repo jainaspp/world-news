@@ -90,6 +90,7 @@ import {
   scopedBriefingKey,
   type ArticleWriter,
 } from '../../shared/writers.js';
+import { rejectPackageCluster, rejectPackageExplainer } from '../../shared/packageNews.js';
 
 const HTML_HEADERS = {
   'content-type': 'text/html; charset=utf-8',
@@ -123,6 +124,18 @@ function emptyDoc(kind: 'briefing' | 'compare', key: string, title: string): Con
     hkt: formatHkt(now),
     mode: 'sources',
   };
+}
+
+function absentExplainer(
+  key: string,
+  canonical: string,
+  env: ContentEnv,
+  archive: Awaited<ReturnType<typeof readIndex>>,
+): Response {
+  const response = htmlPage(emptyDoc('compare', key, '未有這則懶人包'), canonical, env, archive, 404);
+  const headers = new Headers(response.headers);
+  headers.set('x-robots-tag', 'noindex, follow');
+  return new Response(response.body, { status: 404, headers });
 }
 
 function htmlPage(
@@ -660,6 +673,7 @@ async function legacyCompareDocs(env: ContentEnv, onlyKey = ''): Promise<Content
   return saved
     .map((row) => row?.doc)
     .filter((doc): doc is ContentDoc => Boolean(doc))
+    .filter((doc) => !rejectPackageExplainer(doc))
     .filter((doc) => (onlyKey ? doc.key === onlyKey : !explainerCurrent(doc)));
 }
 
@@ -881,7 +895,7 @@ async function runUpdates(
   if (capReached(usage) || !key || writerFor({ costUsd: usage.costUsd, hasKey: Boolean(key) }) !== 'grok') {
     return { keys: [], costs: [], events };
   }
-  const ranked = [...clusters].filter((cluster) => cluster.count >= 2).sort((a, b) => b.count - a.count || b.latest - a.latest);
+  const ranked = [...clusters].filter((cluster) => cluster.count >= 2 && !rejectPackageCluster(cluster)).sort((a, b) => b.count - a.count || b.latest - a.latest);
   const picked: { cluster: StoryCluster; event: StoredEvent; links: string[] }[] = [];
   for (const cluster of ranked) {
     const event = matchEvent(cluster, events, now.getTime());
@@ -900,7 +914,7 @@ async function runUpdates(
   let nextUsage = usage;
   for (const row of picked) {
     const existing = await readDoc(env, docKey('compare', row.event.key));
-    if (!existing) continue;
+    if (!existing || rejectPackageExplainer(existing.doc)) continue;
     const material = row.cluster.items.filter((item) => row.links.includes(item.link)).map((item) => ({
       source: item.source,
       title: item.title,
@@ -1046,16 +1060,29 @@ export async function generateCompare(
   if (options.force) {
     const legacy = await legacyCompareDocs(env, options.key || '');
     if (options.key && !legacy.length) {
+      const forcedDoc = (await readDoc(env, docKey('compare', options.key)).catch(() => null))?.doc;
+      if (forcedDoc && rejectPackageExplainer(forcedDoc)) {
+        return delivered(columnDelivery({ skipped: 'none' }), {
+          kind: 'compare',
+          keys: [],
+          skipped: 'package-news',
+          key: options.key,
+          packageRejected: [options.key],
+        });
+      }
       return delivered(columnDelivery({ skipped: 'none' }), { kind: 'compare', keys: [], skipped: 'missing', key: options.key });
     }
     const forced = legacy.slice(0, take);
     if (!forced.length) return delivered(columnDelivery({ skipped: 'none' }), { kind: 'compare', keys: [], skipped: 'none' });
     candidates = forced.flatMap((doc) => {
       const cluster = matchCluster(doc, material.clusters) ?? clusterFromDoc(doc);
-      return cluster ? [{ cluster, keepKey: doc.key }] : [];
+      if (!cluster || rejectPackageCluster(cluster) || rejectPackageExplainer(doc)) return [];
+      return [{ cluster, keepKey: doc.key }];
     });
   } else {
-    const fresh = material.clusters.filter((cluster) => !matchEvent(cluster, events, now.getTime()));
+    const unseen = material.clusters.filter((cluster) => !matchEvent(cluster, events, now.getTime()));
+    const packageBlocked = unseen.filter((cluster) => rejectPackageCluster(cluster));
+    const fresh = unseen.filter((cluster) => !rejectPackageCluster(cluster));
     // Only clusters that pass the same-event check, so a call is not spent re-picking ones prepareExplainers drops.
     const miniPool = fresh.filter((cluster) => cluster.count >= MINIMAX_MIN_OUTLETS && clusterWriter(cluster) === 'minimax' && coherentCluster(cluster));
     // One spare candidate: a story below the material bar is skipped without a MiniMax call.
@@ -1071,7 +1098,8 @@ export async function generateCompare(
         keys: [],
         updates: update.keys,
         costs: update.costs,
-        skipped: 'none',
+        skipped: fresh.length === 0 && packageBlocked.length > 0 ? 'package-news' : 'none',
+        ...(packageBlocked.length ? { packageRejected: packageBlocked.map((cluster) => cluster.lead.title) } : {}),
       });
     }
     candidates = picked.map((cluster) => ({ cluster }));
@@ -1095,11 +1123,27 @@ export async function generateCompare(
   const { docs, grokStatus, grokError, capped, costs, steps } = await composeBatch(env, jobs, Date.now(), requestStart + MINIMAX_DEADLINE_MS);
   const saved: ContentDoc[] = [];
   const kept: string[] = [];
+  const packageRejected: string[] = [];
   let nextWritten: WrittenStory[] = [...written];
   for (const [index, doc] of docs.entries()) {
     const job = jobs[index];
     if (!job || !doc) continue;
     if (job.keepKey) doc.key = job.keepKey;
+    if (rejectPackageExplainer(doc) || rejectPackageCluster(job.cluster)) {
+      packageRejected.push(doc.key);
+      nextWritten = upsertWritten(nextWritten, {
+        key: doc.key,
+        signature: storySignature(job.cluster),
+        links: [...new Set(job.cluster.items.map((item) => item.link))],
+        mode: 'sources',
+        at: now.getTime(),
+        chars: 0,
+        provider: job.writer === 'minimax' ? 'minimax' : 'grok',
+        ready: true,
+      }, job.cluster, now);
+      await writeValue(env, writtenKey(now), JSON.stringify(nextWritten));
+      continue;
+    }
     // MiniMax pieces from English leads take a Chinese slug from their written headline.
     if (job.writer === 'minimax' && doc.mode === 'ai' && !/[\u3400-\u9fff]/.test(doc.key) && /[\u3400-\u9fff]/.test(doc.title)) {
       const oldKey = doc.key;
@@ -1157,6 +1201,8 @@ export async function generateCompare(
     kind: 'compare',
     keys: saved.map((doc) => doc.key),
     ...(kept.length ? { kept } : {}),
+    ...(packageRejected.length ? { packageRejected } : {}),
+    ...(packageRejected.length && !saved.length ? { skipped: 'package-news' as const } : {}),
     updates: update.keys,
     modes: saved.map((doc) => doc.mode),
     routes: jobs.map((job) => job.route),
@@ -1232,9 +1278,9 @@ export async function serveCompare(context: PagesContext): Promise<Response> {
   const key = decodeURIComponent(new URL(context.request.url).pathname.split('/').filter(Boolean)[1] || '');
   const canonical = `${siteUrl(env)}/explainer/${encodeURIComponent(key)}`;
   const archive = await visibleExplainers(env, await readIndex(env, 'compare').catch(() => []));
-  if (!compareOk(key)) return htmlPage(emptyDoc('compare', key, '未有這則懶人包'), canonical, env, archive, 404);
+  if (!compareOk(key)) return absentExplainer(key, canonical, env, archive);
   const saved = await readDoc(env, docKey('compare', key)).catch(() => null);
-  if (!saved) return htmlPage(emptyDoc('compare', key, '未有這則懶人包'), canonical, env, archive, 404);
+  if (!saved || rejectPackageExplainer(saved.doc)) return absentExplainer(key, canonical, env, archive);
   return htmlPage(saved.doc, canonical, env, archive);
 }
 
