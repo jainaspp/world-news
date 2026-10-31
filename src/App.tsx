@@ -144,7 +144,7 @@ function ColumnMenu({
       <a className="chip" href="/civilization/">文明總覽</a>
       {columns.topic ? <a className="chip" href="/topic/">專題</a> : null}
       <a className="chip" href="/data/">數據</a>
-      <a className="chip" href="/today/" title="多方報道時間線，不是軸上的今天">多方時間線</a>
+      <a className="chip" href="/today/" title="港聞時間線">港聞時間線</a>
       <button
         type="button"
         className={filtersOpen || filtersActive ? 'chip active' : 'chip'}

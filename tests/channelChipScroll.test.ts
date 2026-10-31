@@ -86,7 +86,9 @@ describe('active channel pill', () => {
     expect(civ).toContain('href="/civilization/" aria-current="page"');
     const home = chrome('home');
     expect(home).toContain('class="chip civ-chip active" href="/civilization/earth/" aria-current="location"');
-    expect(home).toContain('class="chip active" href="/#slice" aria-current="page"');
+    expect(home).toContain('href="/today/" data-ia-news="slice"');
+    expect(home).not.toContain('class="chip active" href="/#slice"');
+    expect(home).not.toContain('class="chip active" href="/today/"');
     const app = readFileSync('src/App.tsx', 'utf8');
     expect(app).toContain('bindChannelChipScroll()');
     expect(revealActiveChannelChip.toString()).toContain('scrollLeft = target');

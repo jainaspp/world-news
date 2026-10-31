@@ -162,7 +162,9 @@ describe('civilization future P0', () => {
   });
 
   it('places future on the spine and the hub, and bridges stage 10 without a new route', () => {
-    expect(SPINE.map((node) => node.id)).toEqual(['cosmos', 'earth', 'origins', 'tech', 'city', 'today', 'future']);
+    expect(SPINE.map((node) => node.id)).toEqual(['cosmos', 'galaxy', 'earth', 'origins', 'tech', 'city', 'today', 'future']);
+    expect(SPINE.find((node) => node.id === 'galaxy')?.href).toBe('/civilization/galaxy/');
+    expect(SPINE.find((node) => node.id === 'today')?.href).toBe('/today/');
     expect(SPINE.find((node) => node.id === 'future')?.href).toBe('/civilization/#future');
     const hub = renderCivilizationHub(NOW);
     const chronicle = renderChroniclePage();

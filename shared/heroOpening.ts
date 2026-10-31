@@ -87,11 +87,11 @@ export const HERO_SETTLE_AT = 15600;
 export const HERO_SEEN_KEY = 'wn_hero_seen';
 
 /**
- * Spine handoff is #civ (古→今→未來). The slice stays a secondary control.
- * Copy matches the destination: 開始編年 does not point at today's slice.
+ * Spine handoff is #civ (古→今→未來). 「進入今日切片」lands on /today/.
+ * Copy matches the destination: 開始編年 does not point at the news timeline.
  */
 export const HERO_PRIMARY = { href: '#civ', label: '開始編年' } as const;
-export const HERO_SECONDARY = { href: '#slice', label: '進入今日切片' } as const;
+export const HERO_SECONDARY = { href: '/today/', label: '進入今日切片' } as const;
 export const HERO_HINT = { href: '#civ', label: '向下滾動，開始編年' } as const;
 
 /** Where the opening is on the timeline `elapsedMs` after boot. */

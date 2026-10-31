@@ -66,7 +66,7 @@ describe('homepage list choice', () => {
     const row = app.slice(app.indexOf('aria-label="更多欄目"'), app.indexOf('function DigestStrip'));
     expect(app).toContain("primaryNavHtml('home')");
     expect(row).toContain('href="/learn/"');
-    expect(readFileSync('shared/primaryNav.ts', 'utf8')).toContain("href: '/#slice'");
+    expect(readFileSync('shared/primaryNav.ts', 'utf8')).toContain("href: '/today/'");
     expect(app).toContain('href="/feed.xml"');
     expect(app).not.toContain('>訂閱</summary>');
   });

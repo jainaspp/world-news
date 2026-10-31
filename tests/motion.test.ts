@@ -183,7 +183,7 @@ describe('shared header wordmark', () => {
     expect(app).not.toContain('1小時');
     const row = app.slice(app.indexOf('aria-label="更多欄目"'), app.indexOf('function DigestStrip'));
     expect(row).toContain('href="/learn/"');
-    expect(readFileSync('shared/primaryNav.ts', 'utf8')).toContain("href: '/#slice'");
+    expect(readFileSync('shared/primaryNav.ts', 'utf8')).toContain("href: '/today/'");
     expect(row).toContain('aria-controls="filter-panel"');
     expect(row.indexOf('aria-label="更多欄目"')).toBeLessThan(row.indexOf('aria-controls="filter-panel"'));
     expect(app).not.toContain('>訂閱</summary>');
@@ -195,7 +195,9 @@ describe('shared header wordmark', () => {
     const html = chrome('digest');
     expect(html).toContain('chip-scroller');
     expect(html).toContain('civ-nav');
-    expect(html).toContain('href="/#slice"');
+    expect(html).toContain('href="/today/"');
+    expect(html).toContain('>今日切片<');
+    expect(html).not.toContain('href="/#slice"');
     expect(html).toContain('href="/learn/"');
     expect(html).toContain('href="/feed.xml"');
     expect(html).not.toContain('>訂閱</summary>');

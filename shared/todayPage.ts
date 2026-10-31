@@ -200,27 +200,13 @@ function chip(href: string, label: string, count: number, current: boolean): str
 }
 
 function timeline(model: TodayModel): string {
-  const rest = model.stories.slice(model.filtered ? 0 : 1);
-  if (!rest.length) return '';
-  const rows = rest.map((story) => {
+  if (!model.stories.length) return '';
+  const rows = model.stories.map((story) => {
     const sources = story.sources.map((source) => `<a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">${esc(source.source)}</a>`).join('、');
     const pack = story.explainerKey ? ` <a href="/explainer/${encodeURIComponent(story.explainerKey)}/">懶人包</a>` : '';
-    return `<li><time datetime="${esc(story.time)}">${esc(hkt(story.time, false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body"><strong>${esc(story.title)}</strong><span class="source-title">${sources}${pack}</span><span class="source-name">${story.outlets} 間媒體</span></span></li>`;
+    return `<li><time datetime="${esc(story.time)}">${esc(hkt(story.time, false))}</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-body"><strong class="today-title">${esc(story.title)}</strong><span class="source-title">${sources}${pack}</span><span class="source-name">${story.outlets} 間媒體</span></span></li>`;
   }).join('');
-  return `<section class="story column-block timeline-card" aria-label="時間線"><div class="story-body"><h2 class="column-h2">報道時間線</h2><ol class="timeline">${rows}</ol></div></section>`;
-}
-
-function lead(story: TodayStory | undefined): string {
-  if (!story) return '';
-  const sources = story.sources.map((source) => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer"><span class="source-name">${esc(source.source)}</span><span class="source-title">${esc(source.title)}</span></a></li>`).join('');
-  const pack = story.explainerKey ? `<p><a class="read-original" href="/explainer/${encodeURIComponent(story.explainerKey)}/">閱讀懶人包</a></p>` : '';
-  return `<article class="story story-hero column-hero"><div class="story-body">
-    <div class="story-kicker"><span class="badge">標題匯編</span><span class="kicker-region">${esc(categoryLabel(story.category))}</span></div>
-    <h2 class="story-title">${esc(story.title)}</h2>
-    <div class="story-meta"><time datetime="${esc(story.time)}">${esc(hkt(story.time))} 香港時間</time><span>· ${story.outlets} 間媒體</span></div>
-    <ul class="source-list">${sources}</ul>
-    ${pack}
-  </div></article>`;
+  return `<section class="today-stream" aria-label="港聞時間線"><ol class="timeline">${rows}</ol></section>`;
 }
 
 export function renderToday(model: TodayModel, canonical: string): string {
@@ -233,16 +219,14 @@ export function renderToday(model: TodayModel, canonical: string): string {
   const empty = model.stories.length
     ? ''
     : '<p class="notice">這一日尚未有足夠的多方報道。稍後會按已收錄標題再排列。</p>';
-  const featured = model.filtered ? '' : lead(model.stories[0]);
   const body = `<div class="layout">
     <main id="content" class="column-main">
       <header class="index-head">
-        <div class="story-kicker"><span class="kicker-region">時間線</span><span class="badge">標題匯編</span></div>
+        <div class="story-kicker"><span class="kicker-region">港聞時間線</span><span class="badge">標題匯編</span></div>
         <h1 class="column-title">${esc(model.title)}</h1>
         <p class="dek">${esc(model.description)} 本頁只列標題、時間與出處，不轉載內文，亦不經模型生成。</p>
       </header>
       ${model.notice ? `<p class="notice">${esc(model.notice.text)} <a href="${esc(model.notice.href)}">${esc(model.notice.label)} →</a></p>` : ''}
-      ${featured}
       ${timeline(model)}
       ${empty}
       <section class="story column-block"><div class="story-body"><h2 class="column-h2">當日其他欄目</h2><ul class="points"><li><a href="/briefing/">每日香港導讀</a></li><li><a href="/explainer/">新聞懶人包</a></li><li><a href="/data/">香港數據</a></li></ul></div></section>
