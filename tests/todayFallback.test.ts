@@ -44,9 +44,17 @@ describe('/today/ on a thin morning', () => {
   it('shows the previous day overnight with a link to today', async () => {
     vi.useFakeTimers({ toFake: ['Date'] });
     vi.setSystemTime(new Date('2026-10-07T20:00:00.000Z')); // 04:00 HKT 10/8
-    const html = await (await onRequest(context())).text();
+    const response = await onRequest(context());
+    expect(response.status).toBe(200);
+    const html = await response.text();
     expect(html).toContain('2026年10月7日');
     expect(html).toContain('href="/today/2026-10-08/"');
+    expect(html).toContain('東涌公屋地盤工人墮斃');
+    expect(html).toContain('class="today-title"');
+    expect(html).not.toContain('story-hero');
+    expect(html).not.toContain('hero-opening');
+    expect(html).toContain('>今日切片<');
+    expect(html).toContain('href="/today/"');
   });
 
   it('shows today from 07:00 HKT even when thin, linking yesterday', async () => {

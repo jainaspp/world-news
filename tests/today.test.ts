@@ -71,6 +71,13 @@ describe('today timeline', () => {
     expect(buildToday({ clusters: [world, hk, ...extra], date: '2026-10-07', today: true }).index).toBe(true);
     const html = renderToday(model, 'https://world-news.xyz/today/2026-10-07/');
     expect(html).toContain('今日香港十大新聞時間線');
+    expect(html).toContain('港聞時間線');
+    expect(html).toContain('class="today-title"');
+    expect(html.indexOf('東涌公屋地盤工人墮斃')).toBeLessThan(html.indexOf('當日其他欄目'));
+    expect(html).toContain('諾貝爾化學獎公布');
+    expect(html).not.toContain('story-hero');
+    expect(html).not.toContain('hero-opening');
+    expect(html).not.toContain('ig-snap');
     expect(html).toContain('/explainer/2026-10-07-site-death/');
     expect(html).toContain('href="/today/2026-10-07/region/HKG/"');
     expect(html).toContain('不經模型生成');

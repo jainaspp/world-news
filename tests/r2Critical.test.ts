@@ -47,10 +47,10 @@ describe('R2 critical CSS', () => {
     expect(columns).toContain('.search-page-form .primary { min-height: 44px; min-width: 44px; }');
   });
 
-  it('points the overview CTA at /#slice and arms the homepage hash scroll', () => {
+  it('points the overview CTA at /today/ and arms the homepage hash scroll', () => {
     const hub = renderCivilizationHub(new Date('2026-10-22T02:00:00.000Z')).html;
     expect(hub).toContain('>跳到今日切片</a>');
-    expect(hub).toContain('class="btn btn-ghost" href="/#slice"');
+    expect(hub).toContain('class="btn btn-ghost" href="/today/"');
     const app = readFileSync('src/App.tsx', 'utf8');
     expect(app).toContain('bindHomeHashScroll');
     const shell = readFileSync('index.html', 'utf8');

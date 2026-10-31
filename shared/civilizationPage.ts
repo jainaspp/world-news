@@ -193,7 +193,7 @@ function originsArticle(body: string): string {
   return html;
 }
 
-/** Homepage masthead. `/` is 今日切片, nested under 地球生物 → 今 → 今日. */
+/** Homepage masthead. 「今日切片」is /today/, nested under 地球生物 → 今, not this page. */
 export function renderCivNav(topic = false): string {
   void topic;
   return primaryNavHtml('home');
@@ -211,7 +211,7 @@ export function renderHomeChronicle(): string {
 export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: string; todayHref?: string; asHeading?: boolean; strip?: boolean; rails?: boolean } = {}): string {
   const primaryHref = options.primaryHref ?? '/civilization/';
   const primaryLabel = options.primaryLabel ?? '打開文明總覽';
-  const todayHref = options.todayHref ?? '#slice';
+  const todayHref = options.todayHref ?? '/today/';
   const title = options.asHeading === false
     ? '<p class="axis-title">站在一條很長的時間軸上</p>'
     : '<h1 class="axis-title">站在一條很長的時間軸上</h1>';
@@ -304,7 +304,7 @@ export function sliceHeadHtml(): string {
 }
 
 export function moreTodayHtml(): string {
-  return `<p class="more-today"><a href="/today/">更多今日</a><span>全日多方時間線在此；軸上今日仍是標題切片，不是整站皮膚。</span></p>`;
+  return `<p class="more-today"><a href="/today/">更多今日</a><span>港聞時間線在此，按報道時間列標題與出處。</span></p>`;
 }
 
 export function wrapCivilizationHome(inner: string, now = new Date(), topic = false, options: { pageH1?: string; hero?: boolean; stories?: string; close?: string } = {}): string {
@@ -421,7 +421,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
   const indexable = hubIndexable();
   const sections = [
     igCard(`<nav class="crumb"><a href="/">首頁</a> · 文明</nav>
-    ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/#slice', strip: false, rails: false })}`, 'ig-card-lead'),
+    ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/today/', strip: false, rails: false })}`, 'ig-card-lead'),
     igCard(`${hubHero()}<h1 class="column-title civ-page-title">人類文明</h1>`),
     igCard(renderDeepTimeBoard()),
     igCard(renderVolumeBoard()),

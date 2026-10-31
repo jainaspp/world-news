@@ -116,7 +116,9 @@ describe('當年今日 pages', () => {
     expect(pin).toBeGreaterThan(digest);
     expect(home).not.toContain('今日必讀');
     expect(home).toContain('class="chip civ-chip active" href="/civilization/earth/" aria-current="location"');
-    expect(home).toContain('class="chip active" href="/#slice" aria-current="page"');
+    expect(home).toContain('href="/today/" data-ia-news="slice"');
+    expect(home).not.toContain('class="chip active" href="/#slice"');
+    expect(home).not.toContain('class="chip active" href="/today/"');
     const shell = home.slice(home.indexOf('class="ia-shell"'), home.indexOf('id="ig-deck"'));
     expect(shell).not.toContain('>今天<');
     expect(shell).not.toContain('>開蒙<');

@@ -56,6 +56,12 @@ export const SPINE: SpineNode[] = [
     },
   },
   {
+    id: 'galaxy',
+    label: '銀河',
+    year: '誕生',
+    href: '/civilization/galaxy/',
+  },
+  {
     id: 'earth',
     label: '地球',
     year: '~40億',
@@ -98,9 +104,9 @@ export const SPINE: SpineNode[] = [
   },
   {
     id: 'today',
-    label: '今天',
-    year: '切片',
-    href: '#slice',
+    label: '今日切片',
+    year: '標題',
+    href: '/today/',
     now: true,
   },
   {
