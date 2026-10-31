@@ -20,6 +20,7 @@ import {
   renderCivilizationHub,
   renderCosmosPage,
   renderEarthPage,
+  renderGalaxyPage,
   renderOriginsPage,
   renderTechPage,
 } from '../shared/civilizationPage';
@@ -119,12 +120,12 @@ describe('civilization hub four-line filter', () => {
       expect(at).toBeGreaterThan(gridAt);
     }
 
-    for (const page of [renderChroniclePage(), renderEarthPage(), renderCosmosPage(), renderCityPage(), renderTechPage(), renderOriginsPage()]) {
+    for (const page of [renderChroniclePage(), renderEarthPage(), renderCosmosPage(), renderGalaxyPage(), renderCityPage(), renderTechPage(), renderOriginsPage()]) {
       expect(page.html).not.toContain('class="line-filter"');
       expect(page.html).not.toContain('line-filter-echo');
       expect(page.html).not.toContain('line-filter-status');
     }
-    for (const page of [renderEarthPage(), renderCosmosPage(), renderCityPage(), renderOriginsPage()]) {
+    for (const page of [renderEarthPage(), renderCosmosPage(), renderGalaxyPage(), renderCityPage(), renderOriginsPage()]) {
       expect(page.html).not.toContain('data-lines=');
     }
     for (const item of CASE_STUDIES) {
@@ -139,6 +140,7 @@ describe('civilization hub four-line filter', () => {
     expect(civilizationPublicPaths()).toEqual([
       '/civilization/',
       '/civilization/cosmos/',
+      '/civilization/galaxy/',
       '/civilization/earth/',
       '/civilization/origins/',
       '/civilization/tech/',

@@ -25,6 +25,24 @@ const WWW_HOST = 'www.world-news.xyz';
  */
 export const BARE_HUB_REDIRECTS = ['/focus', '/focus/', '/board', '/board/', '/story', '/story/'];
 
+/** Dead aliases of the galaxy thick page. Same pair lives in public/_redirects. */
+const GALAXY_ALIASES = new Set(['/galaxy', '/galaxy/']);
+const GALAXY_CANONICAL = '/civilization/galaxy/';
+
+/**
+ * 301 /galaxy and /galaxy/ onto the canonical thick page.
+ * www and the production pages.dev host collapse to the apex in the same hop.
+ * Any other host (branch previews) keeps its host so the alias still lands
+ * on that deploy's thick page.
+ */
+export function galaxyAliasRedirect(hostname: string, pathname: string, search: string): string | null {
+  if (!GALAXY_ALIASES.has(pathname)) return null;
+  const host = hostname.toLowerCase();
+  const publicHost = host === WWW_HOST || host === APEX_HOST || host === PRODUCTION_PAGES_DEV;
+  const targetHost = publicHost ? APEX_HOST : host;
+  return `https://${targetHost}${GALAXY_CANONICAL}${search}`;
+}
+
 export function shouldRedirect(hostname: string, pathname: string, setting: unknown): boolean {
   if (setting === 'false') return false;
   if (pathname.startsWith('/api/')) return false; // the warm workflow may POST to pages.dev
@@ -68,6 +86,13 @@ function clientResponse(request: Request, response: Response): Response {
 
 export async function onRequest(context: PagesContext): Promise<Response> {
   const url = new URL(context.request.url);
+  const alias = galaxyAliasRedirect(url.hostname, url.pathname, url.search);
+  if (alias) {
+    return new Response(null, {
+      status: 301,
+      headers: { location: alias, 'cache-control': 'public, max-age=86400' },
+    });
+  }
   const target = apexRedirect(url.hostname, url.pathname, url.search);
   if (target) {
     return new Response(null, {
