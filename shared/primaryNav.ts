@@ -15,6 +15,8 @@
  * - 每日導讀 → /briefing/
  * - 懶人包 → /explainer/
  * 今 is a disclosure, not its own URL.
+ * Civilization deep routes keep L1 and, on the earth tree, 古｜今｜未來.
+ * They do not mount the 今日 news sheet (切片／導讀／懶人包／今日·當下).
  */
 
 export type IaL1 = 'cosmos' | 'galaxy' | 'earth';
@@ -60,6 +62,22 @@ const NEWS_ROUTES: Record<string, IaNews> = {
 const ANCIENT = new Set(['earth', 'origins']);
 const NOW = new Set(['tech', 'city', 'home', 'briefing', 'compare']);
 const EARTH_TREE = new Set(['earth', 'origins', 'tech', 'city', 'chronicle', 'home', 'briefing', 'compare']);
+
+const CIVILIZATION_DEEP = new Set([
+  'civilization',
+  'cosmos',
+  'galaxy',
+  'earth',
+  'origins',
+  'tech',
+  'city',
+  'chronicle',
+]);
+
+/** `/civilization/*` is deep time. Home and `/today` are not. */
+export function isCivilizationDeep(active: string): boolean {
+  return CIVILIZATION_DEEP.has(active);
+}
 
 const EMPTY: IaState = {
   l1: '',
@@ -125,27 +143,36 @@ export function primaryNavHtml(active: string): string {
   const earthData = ' data-ia-level="1" data-ia-l1="earth"';
   const earthLink = `<a class="${l1Class(earthOn)}" href="${IA_L1[2].href}"${earthAria}${earthData}>地球生物</a>`;
   const todayOpen = state.expandToday ? ' open' : '';
-  const links = newsLinks(state);
   const ancient = `<a class="${segClass(ancientOn)} ia-ancient" href="${IA_ANCIENT_HREF}" data-ia-l2="ancient"${aria(ancientOn ? state.l2Current : '')}>古</a>`;
   const future = `<a class="${segClass(futureOn)} ia-future" href="${IA_FUTURE_HREF}" data-ia-l2="future"${aria(futureOn ? state.l2Current : '')}>未來</a>`;
+  const l2 = `<span class="ia-l2">${ancient}<span class="${segClass(nowOn)} ia-now" data-ia-l2="now"${aria(nowOn ? state.l2Current : '')}>今</span>${future}</span>`;
+  const deep = isCivilizationDeep(active);
+  // Hub keeps a hidden L2 row so #future can reveal 古｜今｜未來. Cosmos and galaxy have no earth branch.
+  const showBranch = deep ? (state.showL2 || active === 'civilization') : true;
+  const branchBody = deep
+    ? `<div class="ia-l2-summary">${l2}</div>`
+    : `<details class="ia-today"${todayOpen}>
+        <summary class="ia-l2-summary">
+          ${l2}
+        </summary>
+        <div class="ia-today-panel" role="group" aria-label="新聞">
+          <p class="ia-today-kicker">今日 · 當下</p>
+          <p class="ia-news-label">新聞</p>
+          <div class="ia-news">${newsLinks(state)}</div>
+        </div>
+      </details>`;
+  const branch = showBranch
+    ? `<div class="ia-branch"${state.showL2 ? '' : ' hidden'}>
+      ${branchBody}
+    </div>`
+    : '';
   return `<div class="ia-shell" data-ia-active="${active}">
     <div class="ia-l1-row">
       <div class="chip-scroller">
         <nav class="civ-nav ia-l1" aria-label="主欄目">${l1}${earthLink}</nav>
       </div>
     </div>
-    <div class="ia-branch"${state.showL2 ? '' : ' hidden'}>
-      <details class="ia-today"${todayOpen}>
-        <summary class="ia-l2-summary">
-          <span class="ia-l2">${ancient}<span class="${segClass(nowOn)} ia-now" data-ia-l2="now"${aria(nowOn ? state.l2Current : '')}>今</span>${future}</span>
-        </summary>
-        <div class="ia-today-panel" role="group" aria-label="新聞">
-          <p class="ia-today-kicker">今日 · 當下</p>
-          <p class="ia-news-label">新聞</p>
-          <div class="ia-news">${links}</div>
-        </div>
-      </details>
-    </div>
+    ${branch}
   </div>`;
 }
 

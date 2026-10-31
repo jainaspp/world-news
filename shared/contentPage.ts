@@ -6,7 +6,7 @@ import { bestImage, repairDoubledScheme } from './media.js';
 import { listens } from './listen.js';
 import { adsRuntimeEnabled } from './adPolicy.js';
 import { adSlotMarkup, hasManualSlots, validAdSlot } from './adSlot.js';
-import { channelChipScrollScript, primaryNavHtml } from './primaryNav.js';
+import { channelChipScrollScript, isCivilizationDeep, primaryNavHtml } from './primaryNav.js';
 import { FOOTER_LINKS } from './siteNav.js';
 import { relatedTopics } from './topicPack.js';
 import { renderCivilizationSlice } from './civilization/renderSlice.js';
@@ -412,9 +412,9 @@ export function withLcpShell(html: string, options: { imageId?: string; adsSrc?:
   return parked.includes('</body>') ? parked.replace('</body>', `${boot}</body>`) : `${parked}${boot}`;
 }
 
-/** Civilization deep pages are not 「今日」. The Hang Seng strip stays on news and briefing chrome only. */
+/** Civilization deep pages are not 「今日」. The Hang Seng strip and the breaking-news bar stay on news chrome only. */
 function showsHkInfo(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'chronicle' | 'learn' | 'home' | 'cosmos' | 'galaxy' | 'earth' | 'origins' | 'tech' | 'city'): boolean {
-  return active !== 'civilization' && active !== 'chronicle' && active !== 'cosmos' && active !== 'galaxy' && active !== 'earth' && active !== 'origins' && active !== 'tech' && active !== 'city';
+  return !isCivilizationDeep(active);
 }
 
 export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 'topic' | 'quiz' | 'search' | 'saved' | 'civilization' | 'chronicle' | 'learn' | 'home' | 'cosmos' | 'galaxy' | 'earth' | 'origins' | 'tech' | 'city'): string {
@@ -424,6 +424,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
   const hkInfo = showsHkInfo(active)
     ? '\n    <div class="hk-info column-hk" id="hk-info" hidden aria-label="香港天氣與恒生指數"></div>'
     : '';
+  const majorSlot = isCivilizationDeep(active) ? '' : '\n  <div id="major-slot"></div>';
   return `<a class="skip-link" href="#content">跳到內容</a>
   <div class="chrome">
     <header class="masthead">
@@ -460,8 +461,7 @@ export function chrome(active: ContentDoc['kind'] | 'none' | 'data' | 'today' | 
       </details>
       ${primary}
     </header>${hkInfo}
-  </div>
-  <div id="major-slot"></div>
+  </div>${majorSlot}
   <div id="alert-slot"></div>
   ${channelChipScrollScript()}`;
 }

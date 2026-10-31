@@ -36,6 +36,7 @@ import {
   renderCivilizationMiss,
   renderCosmosPage,
   renderEarthPage,
+  renderGalaxyPage,
   renderOriginsPage,
   renderTechPage,
   renderTodayPin,
@@ -297,12 +298,10 @@ describe('civilization thick pages', () => {
     expect(deep).not.toContain('civ-stage-');
     expect(hub.html).not.toContain('class="chronicle-strip"');
     expect(hub.html.indexOf('class="volume-board"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
-    const axisEnd = hub.html.indexOf('</section>', hub.html.indexOf('id="civ"'));
     expect(hub.html).not.toContain('id="hk-info"');
     expect(hub.html).not.toContain('恒生');
-    expect(hub.html.indexOf('id="major-slot"')).toBeGreaterThan(axisEnd);
-    expect(hub.html.indexOf('id="major-slot"')).toBeLessThan(hub.html.indexOf('class="today-pin"'));
-    expect(hub.html.match(/id="major-slot"/g)).toHaveLength(1);
+    expect(hub.html).not.toContain('id="major-slot"');
+    expect(hub.html).not.toContain('major-banner');
     const more = hub.html.slice(hub.html.indexOf('aria-label="更多欄目"'), hub.html.indexOf('</nav>', hub.html.indexOf('aria-label="更多欄目"')));
     expect(more).not.toContain('頭條');
     expect(more.indexOf('>日報</a>')).toBeGreaterThan(-1);
@@ -348,6 +347,63 @@ describe('civilization thick pages', () => {
     expect(chrome('compare')).toContain('id="hk-info"');
     expect(chrome('civilization')).not.toContain('id="hk-info"');
     expect(chrome('chronicle')).not.toContain('id="hk-info"');
+  });
+
+  it('drops the today news branch on civilization deep pages and keeps it on today surfaces (R-P3 / R-P9)', () => {
+    const deep = [
+      ['hub', renderCivilizationHub()],
+      ['galaxy', renderGalaxyPage()],
+      ['cosmos', renderCosmosPage()],
+      ['earth', renderEarthPage()],
+      ['origins', renderOriginsPage()],
+      ['chronicle', renderChroniclePage()],
+      ['tech', renderTechPage()],
+      ['city', renderCityPage()],
+      ['miss', renderCivilizationMiss()],
+    ] as const;
+    const branch = ['ia-news', 'ia-today', 'major-banner', 'id="major-slot"', 'data-ia-news', '今日 · 當下'];
+    const chromeBlock = (html: string) => html.slice(html.indexOf('<div class="chrome">'), html.indexOf('<main'));
+    for (const [name, page] of deep) {
+      for (const marker of branch) expect(page.html, `${name} ${marker}`).not.toContain(marker);
+      const chromeHtml = chromeBlock(page.html);
+      expect(chromeHtml, name).not.toContain('今日切片');
+      expect(chromeHtml, name).not.toContain('每日導讀');
+      expect(chromeHtml, name).not.toContain('>懶人包<');
+      expect(chromeHtml, name).toContain('aria-label="主欄目"');
+    }
+    for (const [name, page] of [
+      ['earth', renderEarthPage()],
+      ['origins', renderOriginsPage()],
+      ['chronicle', renderChroniclePage()],
+      ['tech', renderTechPage()],
+      ['city', renderCityPage()],
+    ] as const) {
+      const chromeHtml = chromeBlock(page.html);
+      expect(chromeHtml, name).toContain('>古<');
+      expect(chromeHtml, name).toContain('>今<');
+      expect(chromeHtml, name).toContain('>未來<');
+      expect(chromeHtml, name).not.toContain('<details class="ia-today"');
+    }
+    for (const name of ['galaxy', 'cosmos'] as const) {
+      const page = name === 'galaxy' ? renderGalaxyPage() : renderCosmosPage();
+      expect(chromeBlock(page.html), name).not.toContain('class="ia-branch"');
+    }
+    for (const key of ['home', 'today', 'briefing', 'compare'] as const) {
+      const html = chrome(key);
+      expect(html, key).toContain('id="major-slot"');
+      expect(html, key).toContain('class="ia-news"');
+      expect(html, key).toContain('ia-today');
+      expect(html, key).toContain('今日 · 當下');
+      expect(html, key).toContain('>今日切片<');
+      expect(html, key).toContain('>每日導讀<');
+      expect(html, key).toContain('>懶人包<');
+    }
+    expect(readFileSync('public/columns.js', 'utf8')).toContain("!document.querySelector('.civ-page')");
+    expect(readFileSync('src/App.tsx', 'utf8')).toContain('<MajorBanner />');
+    expect(readFileSync('src/App.tsx', 'utf8')).toContain("primaryNavHtml('home')");
+    const css = readFileSync('src/App.css', 'utf8');
+    expect(css).toContain('.ia-today .ia-now::after');
+    expect(css).not.toMatch(/^\.ia-now::after/m);
   });
 
   it('publishes an indexable ten-stage chronicle and keeps the copy inside the red lines', () => {

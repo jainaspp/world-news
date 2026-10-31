@@ -380,34 +380,6 @@ ${head(options.title, options.description, canonical, '', 'website', `${robots}\
   return { html, status: options.status ?? 200, indexable: options.indexable };
 }
 
-/** 重大更新 stays under the axis. Civilization chrome does not include the weather / HSI strip. */
-function moveMajorBelowAxis(html: string): string {
-  const majorRe = /<div id="major-slot"><\/div>/;
-  const major = html.match(majorRe)?.[0];
-  if (!major) return html;
-  const stripped = html.replace(majorRe, '');
-  const start = stripped.indexOf('id="civ"');
-  if (start < 0) return html;
-  const open = stripped.lastIndexOf('<section', start);
-  let depth = 0;
-  const re = /<\/?section\b[^>]*>/g;
-  re.lastIndex = open;
-  let match: RegExpExecArray | null;
-  while ((match = re.exec(stripped))) {
-    if (match[0].startsWith('</')) {
-      depth -= 1;
-      if (depth === 0) {
-        const at = match.index + match[0].length;
-        const block = `\n    <div class="civ-hub-signals">${major}</div>`;
-        return stripped.slice(0, at) + block + stripped.slice(at);
-      }
-    } else {
-      depth += 1;
-    }
-  }
-  return html;
-}
-
 function milestoneList(): string {
   return `<ol class="civ-milestone-list">${HUB_MILESTONES.map((row) => `<li><p class="era">${esc(row.era)}</p><h3>${esc(row.title)}</h3><p>${esc(row.text)}</p></li>`).join('')}</ol>`;
 }
@@ -437,7 +409,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
     igCard(`<div class="ig-close-only"><p class="ig-kicker">收束</p><h2 class="column-h2">完</h2><p class="dek">人類文明</p><a class="chip" href="/">返回首頁</a></div>${footer(false)}`, 'ig-card-close'),
   ];
   const body = `${igDotsNav()}<div class="ig-deck" id="ig-deck">${sections.join('')}</div>`;
-  const page = shell({
+  return shell({
     title: '人類文明',
     description: '從深時間到今日切片的溫和文明總覽。',
     path: '/civilization/',
@@ -445,7 +417,6 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
     indexable,
     snap: true,
   });
-  return { ...page, html: moveMajorBelowAxis(page.html) };
 }
 
 export function renderCosmosPage(): { html: string; status: number; indexable: boolean } {
