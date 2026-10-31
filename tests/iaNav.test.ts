@@ -77,7 +77,7 @@ describe('IAa nav shell', () => {
     expect(renderCivilizationHub().html).not.toMatch(/class="[^"]*\bciv-chip\b/);
   });
 
-  it('maps existing routes onto the earth tree and gives 銀河系誕生 its own stub', () => {
+  it('maps existing routes onto the earth tree and gives 銀河系誕生 its own thick page', () => {
     expect(iaStateFor('cosmos')).toMatchObject({ l1: 'cosmos', l1Current: 'page', showL2: false });
     expect(iaStateFor('earth')).toMatchObject({ l1: 'earth', l1Current: 'page', l2: 'ancient', showL2: true, expandToday: false });
     expect(iaStateFor('origins')).toMatchObject({ l1: 'earth', l2: 'ancient', showL2: true });
@@ -101,13 +101,15 @@ describe('IAa nav shell', () => {
 
     const galaxy = renderGalaxyPage();
     expect(galaxy.status).toBe(200);
-    expect(galaxy.indexable).toBe(false);
-    expect(galaxy.html).toContain('noindex,follow');
-    expect(galaxy.html).toContain('<h1>銀河系誕生</h1>');
+    expect(galaxy.indexable).toBe(true);
+    expect(galaxy.html).toContain('index,follow');
+    expect(galaxy.html).toContain('<h1 class="column-title civ-page-title">銀河系誕生</h1>');
+    expect(galaxy.html).not.toContain('稍後獨立成頁');
     expect(galaxy.html).toContain('aria-current="page" data-ia-level="1" data-ia-l1="galaxy">銀河系誕生<');
     expect(galaxy.html).toContain('href="/civilization/galaxy/"');
     expect(galaxy.html).toContain('href="/civilization/cosmos/"');
-    expect(civilizationPublicPaths()).not.toContain('/civilization/galaxy/');
+    expect(galaxy.html).toContain('href="/civilization/earth/"');
+    expect(civilizationPublicPaths()).toContain('/civilization/galaxy/');
     expect(readFileSync('functions/civilization/[[path]].ts', 'utf8')).toContain('galaxy: renderGalaxyPage');
   });
 

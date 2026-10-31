@@ -26,6 +26,8 @@ import {
   cosmosProse,
   earthIndexable,
   earthProse,
+  galaxyIndexable,
+  galaxyProse,
   hubIndexable,
   hubProse,
   originsIndexable,
@@ -36,6 +38,7 @@ import {
   renderCivilizationMiss,
   renderCosmosPage,
   renderEarthPage,
+  renderGalaxyPage,
   renderOriginsPage,
   renderTechPage,
   renderTodayPin,
@@ -79,6 +82,8 @@ describe('civilization thick pages', () => {
     expect(chronicleIndexable()).toBe(true);
     expect(cjkChars(cosmosProse())).toBeGreaterThanOrEqual(1200);
     expect(cosmosIndexable()).toBe(true);
+    expect(cjkChars(galaxyProse())).toBeGreaterThanOrEqual(3000);
+    expect(galaxyIndexable()).toBe(true);
     expect(cjkChars(techProse())).toBeGreaterThanOrEqual(1200);
     expect(techIndexable()).toBe(true);
     expect(cjkChars(cityProse())).toBeGreaterThanOrEqual(1200);
@@ -86,6 +91,7 @@ describe('civilization thick pages', () => {
     expect(civilizationPublicPaths()).toEqual([
       '/civilization/',
       '/civilization/cosmos/',
+      '/civilization/galaxy/',
       '/civilization/earth/',
       '/civilization/origins/',
       '/civilization/tech/',
@@ -95,6 +101,7 @@ describe('civilization thick pages', () => {
     const xml = staticSitemapXml();
     expect(xml).toContain('https://world-news.xyz/civilization/</loc>');
     expect(xml).toContain('https://world-news.xyz/civilization/cosmos/</loc>');
+    expect(xml).toContain('https://world-news.xyz/civilization/galaxy/</loc>');
     expect(xml).toContain('https://world-news.xyz/civilization/earth/</loc>');
     expect(xml).toContain('https://world-news.xyz/civilization/origins/</loc>');
     expect(xml).toContain('https://world-news.xyz/civilization/tech/</loc>');
@@ -327,6 +334,7 @@ describe('civilization thick pages', () => {
     const deep = [
       ['hub', renderCivilizationHub()],
       ['cosmos', renderCosmosPage()],
+      ['galaxy', renderGalaxyPage()],
       ['earth', renderEarthPage()],
       ['origins', renderOriginsPage()],
       ['chronicle', renderChroniclePage()],
@@ -1145,6 +1153,7 @@ describe('civilization slice', () => {
     const pages = [
       { html: renderEarthPage().html, first: 'id="earth-1"', count: 8 },
       { html: renderCosmosPage().html, first: 'id="cosmo-1"', count: 10 },
+      { html: renderGalaxyPage().html, first: 'id="define"', count: 5 },
       { html: renderChroniclePage().html, first: 'id="stage-1"', count: 10 },
       { html: renderTechPage().html, first: 'id="tech-1"', count: 10 },
       { html: renderCityPage().html, first: 'id="city-1"', count: 10 },
