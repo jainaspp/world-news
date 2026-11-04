@@ -1,0 +1,987 @@
+{
+  "civ-light": {
+    "axis": {
+      "left": 16,
+      "right": 344,
+      "top": 343,
+      "width": 328,
+      "scrollWidth": 571,
+      "clientWidth": 328
+    },
+    "hero": {
+      "top": 196,
+      "bottom": 766,
+      "height": 570,
+      "maxHeight": "none",
+      "overflow": "hidden"
+    },
+    "titleBottom": 277,
+    "cta": {
+      "top": 428,
+      "bottom": 472,
+      "text": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ]
+    },
+    "nodes": [
+      {
+        "text": "宇宙 ~138億",
+        "left": 24,
+        "right": 93,
+        "lab": {
+          "left": 24,
+          "right": 93,
+          "text": "宇宙"
+        },
+        "ink": {
+          "left": 46,
+          "right": 71,
+          "width": 24
+        },
+        "yr": {
+          "left": 34,
+          "right": 83,
+          "text": "~138億"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "地球 ~40億",
+        "left": 105,
+        "right": 174,
+        "lab": {
+          "left": 105,
+          "right": 174,
+          "text": "地球"
+        },
+        "ink": {
+          "left": 127,
+          "right": 152,
+          "width": 24
+        },
+        "yr": {
+          "left": 119,
+          "right": 160,
+          "text": "~40億"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "起源 ~300ka",
+        "left": 186,
+        "right": 255,
+        "lab": {
+          "left": 186,
+          "right": 255,
+          "text": "起源"
+        },
+        "ink": {
+          "left": 208,
+          "right": 233,
+          "width": 24
+        },
+        "yr": {
+          "left": 195,
+          "right": 246,
+          "text": "~300ka"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "技術 發現",
+        "left": 267,
+        "right": 336,
+        "lab": {
+          "left": 267,
+          "right": 336,
+          "text": "技術"
+        },
+        "ink": {
+          "left": 289,
+          "right": 314,
+          "width": 24
+        },
+        "yr": {
+          "left": 285,
+          "right": 318,
+          "text": "發現"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "城市 基建",
+        "left": 348,
+        "right": 417,
+        "lab": {
+          "left": 348,
+          "right": 417,
+          "text": "城市"
+        },
+        "ink": {
+          "left": 370,
+          "right": 395,
+          "width": 24
+        },
+        "yr": {
+          "left": 366,
+          "right": 399,
+          "text": "基建"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      },
+      {
+        "text": "今天 切片",
+        "left": 429,
+        "right": 498,
+        "lab": {
+          "left": 429,
+          "right": 498,
+          "text": "今天"
+        },
+        "ink": {
+          "left": 451,
+          "right": 476,
+          "width": 24
+        },
+        "yr": {
+          "left": 447,
+          "right": 480,
+          "text": "切片"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      },
+      {
+        "text": "未來 展望",
+        "left": 510,
+        "right": 579,
+        "lab": {
+          "left": 510,
+          "right": 579,
+          "text": "未來"
+        },
+        "ink": {
+          "left": 532,
+          "right": 557,
+          "width": 24
+        },
+        "yr": {
+          "left": 528,
+          "right": 561,
+          "text": "展望"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      }
+    ]
+  },
+  "civ-dark": {
+    "axis": {
+      "left": 16,
+      "right": 344,
+      "top": 343,
+      "width": 328,
+      "scrollWidth": 571,
+      "clientWidth": 328
+    },
+    "hero": {
+      "top": 196,
+      "bottom": 766,
+      "height": 570,
+      "maxHeight": "none",
+      "overflow": "hidden"
+    },
+    "titleBottom": 277,
+    "cta": {
+      "top": 428,
+      "bottom": 472,
+      "text": [
+        "閱讀人類起源",
+        "跳到今日切片"
+      ]
+    },
+    "nodes": [
+      {
+        "text": "宇宙 ~138億",
+        "left": 24,
+        "right": 93,
+        "lab": {
+          "left": 24,
+          "right": 93,
+          "text": "宇宙"
+        },
+        "ink": {
+          "left": 46,
+          "right": 71,
+          "width": 24
+        },
+        "yr": {
+          "left": 34,
+          "right": 83,
+          "text": "~138億"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "地球 ~40億",
+        "left": 105,
+        "right": 174,
+        "lab": {
+          "left": 105,
+          "right": 174,
+          "text": "地球"
+        },
+        "ink": {
+          "left": 127,
+          "right": 152,
+          "width": 24
+        },
+        "yr": {
+          "left": 119,
+          "right": 160,
+          "text": "~40億"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "起源 ~300ka",
+        "left": 186,
+        "right": 255,
+        "lab": {
+          "left": 186,
+          "right": 255,
+          "text": "起源"
+        },
+        "ink": {
+          "left": 208,
+          "right": 233,
+          "width": 24
+        },
+        "yr": {
+          "left": 195,
+          "right": 246,
+          "text": "~300ka"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "技術 發現",
+        "left": 267,
+        "right": 336,
+        "lab": {
+          "left": 267,
+          "right": 336,
+          "text": "技術"
+        },
+        "ink": {
+          "left": 289,
+          "right": 314,
+          "width": 24
+        },
+        "yr": {
+          "left": 285,
+          "right": 318,
+          "text": "發現"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "城市 基建",
+        "left": 348,
+        "right": 417,
+        "lab": {
+          "left": 348,
+          "right": 417,
+          "text": "城市"
+        },
+        "ink": {
+          "left": 370,
+          "right": 395,
+          "width": 24
+        },
+        "yr": {
+          "left": 366,
+          "right": 399,
+          "text": "基建"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      },
+      {
+        "text": "今天 切片",
+        "left": 429,
+        "right": 498,
+        "lab": {
+          "left": 429,
+          "right": 498,
+          "text": "今天"
+        },
+        "ink": {
+          "left": 451,
+          "right": 476,
+          "width": 24
+        },
+        "yr": {
+          "left": 447,
+          "right": 480,
+          "text": "切片"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      },
+      {
+        "text": "未來 展望",
+        "left": 510,
+        "right": 579,
+        "lab": {
+          "left": 510,
+          "right": 579,
+          "text": "未來"
+        },
+        "ink": {
+          "left": 532,
+          "right": 557,
+          "width": 24
+        },
+        "yr": {
+          "left": 528,
+          "right": 561,
+          "text": "展望"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      }
+    ]
+  },
+  "home-light": {
+    "axis": {
+      "left": 16,
+      "right": 344,
+      "top": 366,
+      "width": 328,
+      "scrollWidth": 571,
+      "clientWidth": 328
+    },
+    "hero": {
+      "top": 238,
+      "bottom": 507,
+      "height": 269,
+      "maxHeight": "300px",
+      "overflow": "hidden"
+    },
+    "titleBottom": 308,
+    "cta": {
+      "top": 451,
+      "bottom": 495,
+      "text": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ]
+    },
+    "nodes": [
+      {
+        "text": "宇宙 ~138億",
+        "left": 24,
+        "right": 93,
+        "lab": {
+          "left": 24,
+          "right": 93,
+          "text": "宇宙"
+        },
+        "ink": {
+          "left": 47,
+          "right": 71,
+          "width": 24
+        },
+        "yr": {
+          "left": 35,
+          "right": 82,
+          "text": "~138億"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "地球 ~40億",
+        "left": 105,
+        "right": 174,
+        "lab": {
+          "left": 105,
+          "right": 174,
+          "text": "地球"
+        },
+        "ink": {
+          "left": 128,
+          "right": 152,
+          "width": 24
+        },
+        "yr": {
+          "left": 119,
+          "right": 160,
+          "text": "~40億"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "起源 ~300ka",
+        "left": 186,
+        "right": 255,
+        "lab": {
+          "left": 186,
+          "right": 255,
+          "text": "起源"
+        },
+        "ink": {
+          "left": 209,
+          "right": 233,
+          "width": 24
+        },
+        "yr": {
+          "left": 196,
+          "right": 245,
+          "text": "~300ka"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "技術 發現",
+        "left": 267,
+        "right": 336,
+        "lab": {
+          "left": 267,
+          "right": 336,
+          "text": "技術"
+        },
+        "ink": {
+          "left": 290,
+          "right": 314,
+          "width": 24
+        },
+        "yr": {
+          "left": 286,
+          "right": 318,
+          "text": "發現"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "城市 基建",
+        "left": 348,
+        "right": 417,
+        "lab": {
+          "left": 348,
+          "right": 417,
+          "text": "城市"
+        },
+        "ink": {
+          "left": 371,
+          "right": 395,
+          "width": 24
+        },
+        "yr": {
+          "left": 367,
+          "right": 399,
+          "text": "基建"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      },
+      {
+        "text": "今天 切片",
+        "left": 429,
+        "right": 498,
+        "lab": {
+          "left": 429,
+          "right": 498,
+          "text": "今天"
+        },
+        "ink": {
+          "left": 452,
+          "right": 476,
+          "width": 24
+        },
+        "yr": {
+          "left": 448,
+          "right": 480,
+          "text": "切片"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      },
+      {
+        "text": "未來 展望",
+        "left": 510,
+        "right": 579,
+        "lab": {
+          "left": 510,
+          "right": 579,
+          "text": "未來"
+        },
+        "ink": {
+          "left": 533,
+          "right": 557,
+          "width": 24
+        },
+        "yr": {
+          "left": 529,
+          "right": 561,
+          "text": "展望"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      }
+    ]
+  },
+  "home-dark": {
+    "axis": {
+      "left": 16,
+      "right": 344,
+      "top": 366,
+      "width": 328,
+      "scrollWidth": 571,
+      "clientWidth": 328
+    },
+    "hero": {
+      "top": 238,
+      "bottom": 507,
+      "height": 269,
+      "maxHeight": "300px",
+      "overflow": "hidden"
+    },
+    "titleBottom": 308,
+    "cta": {
+      "top": 451,
+      "bottom": 495,
+      "text": [
+        "打開文明總覽",
+        "跳到今日切片"
+      ]
+    },
+    "nodes": [
+      {
+        "text": "宇宙 ~138億",
+        "left": 24,
+        "right": 93,
+        "lab": {
+          "left": 24,
+          "right": 93,
+          "text": "宇宙"
+        },
+        "ink": {
+          "left": 47,
+          "right": 71,
+          "width": 24
+        },
+        "yr": {
+          "left": 35,
+          "right": 82,
+          "text": "~138億"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "地球 ~40億",
+        "left": 105,
+        "right": 174,
+        "lab": {
+          "left": 105,
+          "right": 174,
+          "text": "地球"
+        },
+        "ink": {
+          "left": 128,
+          "right": 152,
+          "width": 24
+        },
+        "yr": {
+          "left": 119,
+          "right": 160,
+          "text": "~40億"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "起源 ~300ka",
+        "left": 186,
+        "right": 255,
+        "lab": {
+          "left": 186,
+          "right": 255,
+          "text": "起源"
+        },
+        "ink": {
+          "left": 209,
+          "right": 233,
+          "width": 24
+        },
+        "yr": {
+          "left": 196,
+          "right": 245,
+          "text": "~300ka"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "技術 發現",
+        "left": 267,
+        "right": 336,
+        "lab": {
+          "left": 267,
+          "right": 336,
+          "text": "技術"
+        },
+        "ink": {
+          "left": 290,
+          "right": 314,
+          "width": 24
+        },
+        "yr": {
+          "left": 286,
+          "right": 318,
+          "text": "發現"
+        },
+        "fullyInAxis": true,
+        "inkCut": false
+      },
+      {
+        "text": "城市 基建",
+        "left": 348,
+        "right": 417,
+        "lab": {
+          "left": 348,
+          "right": 417,
+          "text": "城市"
+        },
+        "ink": {
+          "left": 371,
+          "right": 395,
+          "width": 24
+        },
+        "yr": {
+          "left": 367,
+          "right": 399,
+          "text": "基建"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      },
+      {
+        "text": "今天 切片",
+        "left": 429,
+        "right": 498,
+        "lab": {
+          "left": 429,
+          "right": 498,
+          "text": "今天"
+        },
+        "ink": {
+          "left": 452,
+          "right": 476,
+          "width": 24
+        },
+        "yr": {
+          "left": 448,
+          "right": 480,
+          "text": "切片"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      },
+      {
+        "text": "未來 展望",
+        "left": 510,
+        "right": 579,
+        "lab": {
+          "left": 510,
+          "right": 579,
+          "text": "未來"
+        },
+        "ink": {
+          "left": 533,
+          "right": 557,
+          "width": 24
+        },
+        "yr": {
+          "left": 529,
+          "right": 561,
+          "text": "展望"
+        },
+        "fullyInAxis": false,
+        "inkCut": true
+      }
+    ]
+  },
+  "chronicleWide": {
+    "article": {
+      "width": 328,
+      "right": 344,
+      "left": 16,
+      "scrollWidth": 546,
+      "clientWidth": 328,
+      "overflowX": "auto"
+    },
+    "wide": [
+      {
+        "path": "table.civ-table",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "thead",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tbody",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      },
+      {
+        "path": "tr",
+        "width": 546,
+        "right": 562,
+        "scrollWidth": 546,
+        "clientWidth": 546,
+        "text": ""
+      }
+    ],
+    "prose": [
+      {
+        "cls": "era",
+        "width": 328,
+        "right": 344,
+        "left": 16,
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "cut": false
+      },
+      {
+        "cls": "",
+        "width": 328,
+        "right": 344,
+        "left": 16,
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "cut": false
+      },
+      {
+        "cls": "stage-meaning",
+        "width": 328,
+        "right": 344,
+        "left": 16,
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "cut": false
+      },
+      {
+        "cls": "line-chips",
+        "width": 328,
+        "right": 344,
+        "left": 16,
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "cut": false
+      },
+      {
+        "cls": "stage-ask",
+        "width": 328,
+        "right": 344,
+        "left": 16,
+        "scrollWidth": 328,
+        "clientWidth": 328,
+        "cut": false
+      },
+      {
+        "cls": "",
+        "width": 298,
+        "right": 329,
+        "left": 31,
+        "scrollWidth": 298,
+        "clientWidth": 298,
+        "cut": false
+      },
+      {
+        "cls": "",
+        "width": 298,
+        "right": 329,
+        "left": 31,
+        "scrollWidth": 298,
+        "clientWidth": 298,
+        "cut": false
+      },
+      {
+        "cls": "line-chips milestone-lines",
+        "width": 298,
+        "right": 329,
+        "left": 31,
+        "scrollWidth": 298,
+        "clientWidth": 298,
+        "cut": false
+      }
+    ],
+    "scrollbar": true
+  },
+  "contrast": {
+    "bodyBg": "rgb(14, 20, 28)",
+    "bodyColor": "rgb(243, 246, 250)",
+    "era": {
+      "sel": "#stage-8 .era",
+      "color": "rgb(196, 165, 114)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontSize": "12px",
+      "weight": "700",
+      "top": 165,
+      "text": "08 · 約公元 1870 年至 1969 年"
+    },
+    "h2": {
+      "sel": "#stage-8 h2",
+      "color": "rgb(243, 234, 220)",
+      "bg": "rgb(42, 35, 27)",
+      "fontSize": "24px",
+      "weight": "700",
+      "top": 190,
+      "text": "現代金融與全球體系"
+    },
+    "prose": {
+      "sel": "#stage-8 p:not(.era)",
+      "color": "rgb(243, 234, 220)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontSize": "16px",
+      "weight": "400",
+      "top": 572,
+      "text": "約十九世紀後期至二十世紀中葉，跨國貿易與工業生產"
+    },
+    "meaning": {
+      "sel": "#stage-8 .stage-meaning",
+      "color": "rgb(210, 196, 176)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontSize": "14px",
+      "weight": "400",
+      "top": 2100,
+      "text": "貨幣與信用在全球尺度上被重新編排。"
+    },
+    "kicker": null,
+    "chapter": {
+      "sel": ".chapter-band",
+      "color": "rgb(247, 241, 230)",
+      "bg": "rgb(22, 28, 36)",
+      "fontSize": "16px",
+      "weight": "400",
+      "top": -22421,
+      "text": "卷一\n    古\n    約三百萬年前至約公元一"
+    }
+  }
+}
