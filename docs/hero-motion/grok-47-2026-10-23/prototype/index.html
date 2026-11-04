@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>文明編年史 · 開場原型（Grok 4.7）</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect fill='%23161c24' width='16' height='16'/%3E%3C/svg%3E">
+  <script>
+    (function () {
+      var KEY = 'wn_hero_grok47_proto_seen';
+      var q = new URLSearchParams(location.search);
+      var reduce = false;
+      try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+      if (q.get('reduce') === '1') reduce = true;
+      var scrub = q.has('t');
+      var replay = q.get('replay') === '1';
+      var seen = false;
+      try { seen = sessionStorage.getItem(KEY) === '1'; } catch (e) {}
+      var root = document.documentElement;
+      if (reduce) root.dataset.reduce = '1';
+      root.dataset.seen = seen ? '1' : '0';
+      if (scrub) root.dataset.scrub = '1';
+      if (replay) root.dataset.replay = '1';
+      root.dataset.hero = (scrub || (!reduce && (replay || !seen))) ? 'boot' : 'settled';
+    })();
+  </script>
+  <style>
+    :root {
+      --ink: #161c24;
+      --paper: #f7f1e6;
+      --brass: #c4a572;
+      --brass-fill: #a18256;
+      --now: #9ec0ef;
+      --future: #2a2140;
+      --seam: #b7a8d6;
+      --aside: #a8b0ba;
+      --serif: "Iowan Old Style", Palatino, "Songti TC", "PMingLiU", "Noto Serif CJK TC", "Times New Roman", serif;
+      --sans: "PingFang TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", "Microsoft JhengHei", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--paper); }
+    body {
+      margin: 0;
+      /* 正式站首頁夠長，錨點能捲到上緣。原型較短，留白只為讓檔內錨點落得準。 */
+      padding-bottom: 80vh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.5;
+    }
+    :focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+    .hero-opening {
+      position: relative;
+      min-height: clamp(430px, 84vh, 780px);
+      min-height: clamp(430px, 84svh, 780px);
+      padding: 20px 16px 28px;
+      background: radial-gradient(130% 95% at 50% 38%, #1c2431 0%, #161c24 55%, #121820 100%);
+      color: var(--paper);
+      border-bottom: 1px solid rgba(196, 165, 114, 0.35);
+    }
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .hero-bar,
+    .review-hud,
+    .hero-grid { position: relative; z-index: 1; }
+    .hero-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .hero-kicker {
+      margin: 0;
+      color: var(--brass);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .hero-toggle {
+      flex: 0 0 auto;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(247, 241, 230, 0.35);
+      background: rgba(22, 28, 36, 0.55);
+      color: var(--paper);
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .review-hud {
+      margin: 10px 0 0;
+      padding: 8px 10px;
+      border: 1px solid rgba(196, 165, 114, 0.45);
+      border-radius: 10px;
+      color: var(--brass);
+      font-size: 13px;
+    }
+    .review-hud[hidden] { display: none; }
+    .hero-grid {
+      display: grid;
+      grid-template-areas:
+        "title"
+        "mouth"
+        "cta"
+        "stack"
+        "hint"
+        "script"
+        "route";
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .hero-title { grid-area: title; }
+    .mouth { grid-area: mouth; }
+    .stack { grid-area: stack; }
+    .hero-cta { grid-area: cta; }
+    .hero-hint-row { grid-area: hint; }
+    .transcript { grid-area: script; }
+    .route-note { grid-area: route; }
+    .hero-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      line-height: 1.25;
+      font-weight: 700;
+      color: var(--paper);
+    }
+    .mouth { min-height: 6.6rem; }
+    .mouth-main,
+    .mouth-aside { margin: 0; }
+    .mouth-main {
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 2.4vw, 1.45rem);
+      line-height: 1.6;
+      color: var(--paper);
+    }
+    .mouth-aside {
+      margin-top: 6px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--aside);
+    }
+    .stack {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+      padding-left: 14px;
+    }
+    .stack::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 3px;
+      border-radius: 2px;
+      background: linear-gradient(#c4a572 0 34%, #9ec0ef 34% 67%, #b7a8d6 67%);
+      pointer-events: none;
+    }
+    .cosmos-anchor {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      pointer-events: none;
+    }
+    .plate {
+      min-width: 0;
+      padding: 8px 10px 10px;
+      border: 1px solid rgba(247, 241, 230, 0.18);
+      border-radius: 16px;
+      background: rgba(247, 241, 230, 0.03);
+    }
+    .plate[data-on="false"] { opacity: 0.38; }
+    .plate[data-volume="ancient"][data-on="true"] {
+      border-color: var(--brass);
+      background: rgba(196, 165, 114, 0.08);
+    }
+    .plate[data-volume="now"][data-on="true"] {
+      border-color: var(--now);
+      background: rgba(158, 192, 239, 0.08);
+    }
+    .plate[data-volume="future"][data-on="true"] {
+      border-color: var(--seam);
+      background: var(--future);
+      box-shadow: inset 0 0 0 1px var(--seam), inset 0 0 36px rgba(183, 168, 214, 0.28);
+    }
+    .plate-head {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 44px;
+      color: var(--paper);
+      text-decoration: none;
+      gap: 2px;
+    }
+    .plate-vol { font-size: 16px; font-weight: 700; }
+    .plate-era { font-size: 13px; color: var(--aside); }
+    .rungs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      margin: 10px 0 0;
+      padding: 0;
+    }
+    .rungs a {
+      flex: 1 1 calc((100% - 32px) / 5);
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 4px 2px;
+      border-radius: 12px;
+      border: 1px solid rgba(247, 241, 230, 0.28);
+      color: var(--paper);
+      text-decoration: none;
+    }
+    .rung[data-on="false"] { color: rgba(247, 241, 230, 0.72); }
+    .plate[data-volume="ancient"] .rung[data-on="true"] {
+      border-color: var(--brass);
+      background: rgba(196, 165, 114, 0.16);
+    }
+    .plate[data-volume="now"] .rung[data-on="true"] {
+      border-color: var(--now);
+      background: rgba(158, 192, 239, 0.14);
+    }
+    .idx { font-size: 12px; line-height: 1; }
+    .name { font-size: 14px; line-height: 1.1; }
+    .plate[data-volume="ancient"] .idx { color: var(--brass); }
+    .plate[data-volume="now"] .idx { color: var(--now); }
+    .gloss { margin-top: 10px; }
+    .gloss[data-on="false"] { opacity: 0; }
+    .gloss-kicker {
+      margin: 0;
+      color: var(--paper);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .gloss-line {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 4px 0;
+    }
+    .gloss-num {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--brass);
+    }
+    .gloss-unit { font-size: 14px; color: var(--paper); }
+    .gloss-jump {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin: 4px 0;
+      padding: 0 12px;
+      border: 1px solid var(--seam);
+      border-radius: 999px;
+      color: var(--paper);
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .gloss-meta,
+    .gloss-note {
+      margin: 4px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .gloss-meta { color: var(--aside); }
+    .gloss-note { color: var(--paper); }
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hero-cta[data-on="false"],
+    .hero-hint-row[data-on="false"] { visibility: hidden; }
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .hero-btn-brass { background: var(--brass-fill); color: var(--ink); }
+    .hero-btn-ghost {
+      background: transparent;
+      color: var(--paper);
+      border-color: rgba(247, 241, 230, 0.4);
+    }
+    .hero-hint-row { margin: 0; }
+    .hero-hint {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 8px;
+      color: var(--brass);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+    .hero-hint::after { content: " ↓"; letter-spacing: 0; }
+    .transcript summary {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--brass);
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .transcript ol { margin: 0; padding: 0; list-style: none; }
+    .beat-when {
+      display: block;
+      margin-top: 8px;
+      color: var(--brass);
+      font-size: 12px;
+    }
+    .beat-main { display: block; color: var(--paper); font-size: 15px; }
+    .beat-aside {
+      display: block;
+      margin: 2px 0 10px;
+      color: var(--aside);
+      font-size: 14px;
+    }
+    .route-note {
+      margin: 0;
+      min-height: 0;
+      color: var(--aside);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+    a[aria-disabled="true"] { pointer-events: none; }
+    html[data-hero="boot"] .plate { opacity: 0.38; }
+    html[data-hero="boot"] .gloss { opacity: 0; }
+    html[data-hero="boot"] .mouth,
+    html[data-hero="boot"] .hero-cta,
+    html[data-hero="boot"] .hero-hint-row,
+    html[data-hero="boot"] .transcript { visibility: hidden; }
+    .landing,
+    .proto-foot {
+      max-width: 40rem;
+      margin: 0 auto;
+      padding: 28px 16px 8px;
+    }
+    .landing h2 {
+      margin: 0 0 8px;
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      line-height: 1.3;
+    }
+    .landing p,
+    .proto-foot p {
+      margin: 0 0 12px;
+      color: #3d4c5f;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .bulletin {
+      max-width: 40rem;
+      margin: 8px auto;
+      padding: 14px 18px 16px;
+      border: 1px solid var(--brass);
+      border-radius: 14px;
+      background: var(--paper);
+      color: var(--ink);
+      scroll-margin-top: 16px;
+    }
+    .bulletin-kicker {
+      margin: 0 0 4px;
+      color: #7a5a32;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .bulletin-face {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin: 0;
+    }
+    .bulletin-num {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #9a7b4f;
+    }
+    .bulletin-unit { font-size: 1.25rem; }
+    .bulletin-seconds { color: #6e675c; font-size: 14px; }
+    .bulletin-asof {
+      margin: 8px 0 0;
+      color: #5c6570;
+      font-size: 13px;
+    }
+    .bulletin-caption { margin: 8px 0 0; font-size: 15px; }
+    .bulletin-link { margin: 8px 0 0; font-size: 15px; }
+    .bulletin-link a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--ink);
+    }
+    #civ, #slice { scroll-margin-top: 16px; }
+    code { font-size: 0.95em; }
+    @media (min-width: 900px) {
+      .hero-opening { padding: 28px 28px 36px; }
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas:
+          "title stack"
+          "mouth stack"
+          "cta stack"
+          "hint stack"
+          "script stack"
+          "route stack";
+        column-gap: 36px;
+        align-items: start;
+      }
+      .plate[data-volume="now"] { margin-left: 16px; }
+      .plate[data-volume="future"] { margin-left: 32px; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      html:not([data-reduce="1"]):not([data-instant="1"]) .plate,
+      html:not([data-reduce="1"]):not([data-instant="1"]) .rung,
+      html:not([data-reduce="1"]):not([data-instant="1"]) .gloss,
+      html:not([data-reduce="1"]):not([data-instant="1"]) .hero-cta,
+      html:not([data-reduce="1"]):not([data-instant="1"]) .hero-hint-row {
+        transition: opacity 420ms ease, background-color 420ms ease, border-color 420ms ease, box-shadow 420ms ease;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+    html[data-reduce="1"] *,
+    html[data-reduce="1"] *::before,
+    html[data-reduce="1"] *::after,
+    html[data-instant="1"] *,
+    html[data-instant="1"] *::before,
+    html[data-instant="1"] *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero-opening" id="hero-opening" data-settle="17200" data-mode="settled" data-phase="settled" aria-label="開場：十階疊在三卷上">
+    <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-bar no-star">
+      <p class="hero-kicker">文明編年史 · 開場</p>
+      <button class="hero-toggle" id="hero-toggle" type="button" data-action="replay">重播開場</button>
+    </div>
+    <p class="review-hud" id="review-hud" hidden>評審定格</p>
+    <div class="hero-grid">
+      <h2 class="hero-title no-star">十階疊在三卷上</h2>
+      <div class="mouth no-star" aria-live="polite">
+        <p class="mouth-main" id="mouth-main">三卷仍疊在一處。要讀哪一階，就點那一級。</p>
+        <p class="mouth-aside" id="mouth-aside">課在這裡停下，書從這裡打開。</p>
+      </div>
+      <div class="stack" id="stack">
+        <div class="cosmos-anchor" id="cosmos-anchor" aria-hidden="true"></div>
+        <article class="plate" data-volume="ancient" data-on="true" data-at="6800">
+          <a class="plate-head" data-prod="1" href="/civilization/chronicle/#ch-ancient">
+            <span class="plate-vol">卷一 · 古</span>
+            <span class="plate-era">暖金 · 階段一至五</span>
+          </a>
+          <ol class="rungs">
+            <li><a class="rung" data-rung="1" data-at="6800" data-on="true" data-prod="1" href="/civilization/chronicle/#stage-1" aria-label="階段一　史前／採集狩獵"><span class="idx">1</span><span class="name">史前</span></a></li>
+            <li><a class="rung" data-rung="2" data-at="7440" data-on="true" data-prod="1" href="/civilization/chronicle/#stage-2" aria-label="階段二　農業革命"><span class="idx">2</span><span class="name">農業</span></a></li>
+            <li><a class="rung" data-rung="3" data-at="8080" data-on="true" data-prod="1" href="/civilization/chronicle/#stage-3" aria-label="階段三　城市與文字"><span class="idx">3</span><span class="name">城市</span></a></li>
+            <li><a class="rung" data-rung="4" data-at="8720" data-on="true" data-prod="1" href="/civilization/chronicle/#stage-4" aria-label="階段四　古典帝國與軸心時代"><span class="idx">4</span><span class="name">古典</span></a></li>
+            <li><a class="rung" data-rung="5" data-at="9360" data-on="true" data-prod="1" href="/civilization/chronicle/#stage-5" aria-label="階段五　中世紀與跨區域交流"><span class="idx">5</span><span class="name">跨區</span></a></li>
+          </ol>
+        </article>
+        <article class="plate" data-volume="now" data-on="true" data-at="10400">
+          <a class="plate-head" data-prod="1" href="/civilization/chronicle/#ch-now">
+            <span class="plate-vol">卷二 · 今</span>
+            <span class="plate-era">冷藍 · 階段六至十</span>
+          </a>
+          <ol class="rungs">
+            <li><a class="rung" data-rung="6" data-at="10400" data-on="true" data-prod="1" href="/civilization/chronicle/#stage-6" aria-label="階段六　科學革命與啟蒙"><span class="idx">6</span><span class="name">啟蒙</span></a></li>
+            <li><a class="rung" data-rung="7" data-at="11040" data-on="true" data-prod="1" href="/civilization/chronicle/#stage-7" aria-label="階段七　工業革命"><span class="idx">7</span><span class="name">工業</span></a></li>
+            <li><a class="rung" data-rung="8" data-at="11680" data-on="true" data-prod="1" href="/civilization/chronicle/#stage-8" aria-label="階段八　現代金融與全球體系"><span class="idx">8</span><span class="name">金融</span></a></li>
+            <li><a class="rung" data-rung="9" data-at="12320" data-on="true" data-prod="1" href="/civilization/chronicle/#stage-9" aria-label="階段九　信息革命"><span class="idx">9</span><span class="name">信息</span></a></li>
+            <li><a class="rung" data-rung="10" data-at="12960" data-on="true" data-prod="1" href="/civilization/chronicle/#stage-10" aria-label="階段十　本世紀／當代"><span class="idx">10</span><span class="name">當代</span></a></li>
+          </ol>
+        </article>
+        <article class="plate" data-volume="future" data-on="true" data-at="14000">
+          <a class="plate-head" data-prod="1" href="/civilization/chronicle/#ch-future">
+            <span class="plate-vol">卷三 · 未來</span>
+            <span class="plate-era">章門 · 不設第十一階</span>
+          </a>
+          <div class="gloss" id="gloss" data-on="true" data-at="15800">
+            <p class="gloss-kicker">監測</p>
+            <p class="gloss-line"><span class="gloss-num">一分</span><span class="gloss-unit">距午夜</span></p>
+            <a class="gloss-jump" href="#monitor">秒數見下方儀表</a>
+            <p class="gloss-meta">資料日期 <time datetime="2025-01-28">2025-01-28</time></p>
+            <p class="gloss-note">此為編輯寫定的監測刻度，對照公開公報，並不逐秒走動。</p>
+          </div>
+        </article>
+      </div>
+      <div class="hero-cta no-star" id="hero-cta" data-on="true" data-at="17200">
+        <a class="hero-btn hero-btn-brass" href="#civ">開始編年</a>
+        <a class="hero-btn hero-btn-ghost" href="#slice">進入今日切片</a>
+      </div>
+      <p class="hero-hint-row no-star" id="hero-hint" data-on="true" data-at="17200"><a class="hero-hint" href="#civ">向下滾動，開始編年</a></p>
+      <details class="transcript no-star" id="transcript" open>
+        <summary>本幕逐字</summary>
+        <ol id="beats">
+          <li data-at="0"><span class="beat-when">奇點 · 0</span><span class="beat-main">約一百三十八億年前，講臺中央只有一點。</span><span class="beat-aside">那一點小得還沒有名字。</span></li>
+          <li data-at="2400"><span class="beat-when">砰 · 2.4 秒</span><span class="beat-main">接著，這一點把自己講成一聲「砰」。</span><span class="beat-aside">講臺上沒有空氣，這聲便只有字幕。</span></li>
+          <li data-at="4600"><span class="beat-when">星塵 · 4.6 秒</span><span class="beat-main">其後，恆星把碳和氧寫進後來的骨頭。</span><span class="beat-aside">各位身體裡的碳，比各位更老。</span></li>
+          <li data-at="6800"><span class="beat-when">卷一 · 6.8 秒</span><span class="beat-main">卷一用暖金記下五階：史前、農業、城市、古典、跨區。</span><span class="beat-aside">火、田、城、幣與路，都在這一卷排隊。</span></li>
+          <li data-at="10400"><span class="beat-when">卷二 · 10.4 秒</span><span class="beat-main">卷二改用冷藍，再記五階：啟蒙、工業、金融、信息、當代。</span><span class="beat-aside">同一條銅線，先送電報，後送貓的照片。</span></li>
+          <li data-at="14000"><span class="beat-when">卷三 · 14.0 秒</span><span class="beat-main">卷三不添第十一階。章門後面是條件，不是劇情。</span><span class="beat-aside">門縫的光只負責照路。</span></li>
+          <li data-at="15800"><span class="beat-when">頁邊 · 15.8 秒</span><span class="beat-main">頁邊記著監測：距午夜一分。秒數留在下方的正式儀表。</span><span class="beat-aside">這一行由編輯對照公開公報改寫，本幕不另畫鐘面。</span></li>
+          <li data-at="17200"><span class="beat-when">落定 · 17.2 秒</span><span class="beat-main">三卷仍疊在一處。要讀哪一階，就點那一級。</span><span class="beat-aside">課在這裡停下，書從這裡打開。</span></li>
+        </ol>
+      </details>
+      <p class="route-note" id="route-note" aria-live="polite"></p>
+    </div>
+  </section>
+  <section class="landing" id="civ">
+    <h2>編年軸落點</h2>
+    <p>這是原型裡的落點。正式站此處接上既有編年軸。本幕不另畫一條軸。</p>
+  </section>
+  <section class="bulletin" id="monitor" aria-label="監測讀數">
+    <p class="bulletin-kicker">監測</p>
+    <p class="bulletin-face" aria-label="距午夜 1 分 29 秒"><span class="bulletin-minutes"><span class="bulletin-num">1</span><span class="bulletin-unit">分</span></span><span class="bulletin-seconds"><span>29</span><span class="bulletin-unit">秒</span></span></p>
+    <p class="bulletin-asof">資料日期 <time datetime="2025-01-28">2025-01-28</time></p>
+    <p class="bulletin-caption">此為編輯寫定的監測刻度，對照公開公報，並不逐秒走動。</p>
+    <p class="bulletin-link"><a data-prod="1" href="/civilization/#future">展望見文明總覽</a></p>
+  </section>
+  <section class="landing" id="slice">
+    <h2>今日切片落點</h2>
+    <p>這是原型裡的落點。正式站此處是今日切片。</p>
+  </section>
+  <p class="landing proto-caption">上一塊是既有監測儀表的靜態複本，供頁邊連結落點。數字不走。接線時刪去，改接首頁的儀表。</p>
+  <footer class="proto-foot">
+    <p>原型 · Grok 4.7 · 2026-10-23 · 只供合議，不上線。</p>
+    <p>定格在網址加 <code>?t=</code> 與毫秒，例如 <code>?t=8080</code>。靜態全稿用 <code>?reduce=1</code>。從頭播放用 <code>?replay=1</code>。</p>
+  </footer>
+  <script>
+    (function () {
+      var KEY = 'wn_hero_grok47_proto_seen';
+      var root = document.documentElement;
+      var section = document.getElementById('hero-opening');
+      var canvas = document.getElementById('hero-canvas');
+      var ctx = canvas.getContext('2d', { alpha: true });
+      var toggle = document.getElementById('hero-toggle');
+      var hud = document.getElementById('review-hud');
+      var mouthMain = document.getElementById('mouth-main');
+      var mouthAside = document.getElementById('mouth-aside');
+      var transcript = document.getElementById('transcript');
+      var gloss = document.getElementById('gloss');
+      var cta = document.getElementById('hero-cta');
+      var hint = document.getElementById('hero-hint');
+      var SETTLE = Number(section.getAttribute('data-settle'));
+      var reduce = root.dataset.reduce === '1';
+      var scrubbing = root.dataset.scrub === '1';
+      var replay = root.dataset.replay === '1';
+      var beats = Array.prototype.map.call(document.querySelectorAll('#beats li'), function (li) {
+        return {
+          at: Number(li.getAttribute('data-at')),
+          main: li.querySelector('.beat-main').textContent,
+          aside: li.querySelector('.beat-aside').textContent
+        };
+      });
+      if (beats.length !== 8) throw new Error('hero beats');
+      var plates = section.querySelectorAll('.plate');
+      var rungs = section.querySelectorAll('.rung');
+      var prodLinks = section.querySelectorAll('a[data-prod], a.gloss-jump, a.plate-head');
+      var width = 1;
+      var height = 1;
+      var stars = [];
+      var current = SETTLE;
+      var lastBeat = -1;
+      var t0 = 0;
+      var raf = 0;
+      var frozen = true;
+      var inView = true;
+      var invalidT = false;
+
+      function mulberry32(seed) {
+        var a = seed >>> 0;
+        return function () {
+          a = (a + 0x6d2b79f5) | 0;
+          var t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      function phaseId(ms) {
+        if (ms >= 17200) return 'settled';
+        if (ms >= 15800) return 'gloss';
+        if (ms >= 14000) return 'future';
+        if (ms >= 10400) return 'now';
+        if (ms >= 6800) return 'ancient';
+        if (ms >= 4600) return 'dust';
+        if (ms >= 2400) return 'bang';
+        return 'singularity';
+      }
+
+      function phaseLabel(ms) {
+        return {
+          singularity: '奇點',
+          bang: '砰',
+          dust: '星塵',
+          ancient: '卷一 · 古',
+          now: '卷二 · 今',
+          future: '卷三 · 章門',
+          gloss: '頁邊',
+          settled: '落定'
+        }[phaseId(ms)];
+      }
+
+      function parseT(raw) {
+        if (raw === 'settled') return { value: SETTLE, invalid: false };
+        var n = Number(raw);
+        if (!isFinite(n)) return { value: SETTLE, invalid: true };
+        if (n < 0) n = 0;
+        if (n > SETTLE) n = SETTLE;
+        return { value: n, invalid: false };
+      }
+
+      function writeSeen() {
+        if (scrubbing) return;
+        try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+      }
+
+      function setLinkLive(el, live) {
+        if (live) {
+          el.removeAttribute('aria-disabled');
+          if (el.getAttribute('tabindex') === '-1') el.removeAttribute('tabindex');
+        } else {
+          el.setAttribute('aria-disabled', 'true');
+          el.setAttribute('tabindex', '-1');
+        }
+      }
+
+      function layoutStars() {
+        var rnd = mulberry32(20261023);
+        var heroBox = section.getBoundingClientRect();
+        var rects = [];
+        var nodes = section.querySelectorAll('.no-star');
+        for (var i = 0; i < nodes.length; i++) {
+          var b = nodes[i].getBoundingClientRect();
+          rects.push({
+            l: b.left - heroBox.left - 8,
+            t: b.top - heroBox.top - 8,
+            r: b.right - heroBox.left + 8,
+            b: b.bottom - heroBox.top + 8
+          });
+        }
+        stars = [];
+        var guard = 0;
+        while (stars.length < 56 && guard < 900) {
+          guard += 1;
+          var x = rnd() * width;
+          var y = rnd() * height;
+          var hit = false;
+          for (var j = 0; j < rects.length; j++) {
+            var box = rects[j];
+            if (x >= box.l && x <= box.r && y >= box.t && y <= box.b) { hit = true; break; }
+          }
+          if (hit) continue;
+          stars.push({
+            x: x / Math.max(1, width),
+            y: y / Math.max(1, height),
+            r: 0.8 + rnd() * 1.1,
+            gold: rnd() < 0.22,
+            delay: rnd()
+          });
+        }
+      }
+
+      function resizeCanvas() {
+        if (!ctx) return;
+        var dpr = Math.min(2, window.devicePixelRatio || 1);
+        width = Math.max(1, section.clientWidth);
+        height = Math.max(1, section.clientHeight);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        layoutStars();
+      }
+
+      function paint(elapsed) {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        var anchor = document.getElementById('cosmos-anchor').getBoundingClientRect();
+        var heroBox = section.getBoundingClientRect();
+        var cx = anchor.left - heroBox.left + anchor.width / 2;
+        var cy = anchor.top - heroBox.top + anchor.height / 2;
+        var dot = 0;
+        if (elapsed < 2400) dot = 0.35 + 0.65 * (elapsed / 2400);
+        else if (elapsed < 4600) dot = 1 - (elapsed - 2400) / 2200;
+        if (dot > 0.02) {
+          var rad = 18 + dot * 72;
+          var glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, rad);
+          glow.addColorStop(0, 'rgba(196,165,114,' + (0.34 * dot) + ')');
+          glow.addColorStop(1, 'rgba(196,165,114,0)');
+          ctx.fillStyle = glow;
+          ctx.beginPath();
+          ctx.arc(cx, cy, rad, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = 'rgba(247,241,230,' + (0.92 * Math.min(1, dot)) + ')';
+          ctx.beginPath();
+          ctx.arc(cx, cy, 1.6 + dot * 2.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        if (elapsed >= 2400 && elapsed < 4000) {
+          var p = (elapsed - 2400) / 1600;
+          var eased = 1 - Math.pow(1 - p, 3);
+          ctx.strokeStyle = 'rgba(247,241,230,' + (0.5 * (1 - p)) + ')';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.arc(cx, cy, 8 + eased * Math.hypot(width, height) * 0.46, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        var dust = 0;
+        if (elapsed >= 4600) dust = elapsed >= 6800 ? 0.42 : Math.min(1, (elapsed - 4600) / 1800);
+        for (var i = 0; i < stars.length; i++) {
+          var star = stars[i];
+          var gate = Math.min(1, Math.max(0, (dust - star.delay * 0.35) / 0.65));
+          if (gate <= 0) continue;
+          ctx.fillStyle = star.gold
+            ? 'rgba(196,165,114,' + (0.8 * gate) + ')'
+            : 'rgba(247,241,230,' + (0.5 * gate) + ')';
+          ctx.beginPath();
+          ctx.arc(star.x * width, star.y * height, star.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function sync(elapsed) {
+        var beatIndex = 0;
+        for (var i = 0; i < beats.length; i++) if (elapsed >= beats[i].at) beatIndex = i;
+        if (beatIndex !== lastBeat) {
+          lastBeat = beatIndex;
+          mouthMain.textContent = beats[beatIndex].main;
+          mouthAside.textContent = beats[beatIndex].aside;
+        }
+        var settled = elapsed >= SETTLE;
+        plates.forEach(function (plate) {
+          plate.setAttribute('data-on', elapsed >= Number(plate.getAttribute('data-at')) ? 'true' : 'false');
+        });
+        rungs.forEach(function (rung) {
+          rung.setAttribute('data-on', elapsed >= Number(rung.getAttribute('data-at')) ? 'true' : 'false');
+        });
+        gloss.setAttribute('data-on', elapsed >= Number(gloss.getAttribute('data-at')) ? 'true' : 'false');
+        gloss.setAttribute('aria-hidden', elapsed >= Number(gloss.getAttribute('data-at')) ? 'false' : 'true');
+        cta.setAttribute('data-on', settled ? 'true' : 'false');
+        hint.setAttribute('data-on', settled ? 'true' : 'false');
+        prodLinks.forEach(function (link) { setLinkLive(link, settled); });
+        transcript.open = settled;
+        toggle.textContent = settled ? '重播開場' : '跳過開場';
+        toggle.setAttribute('data-action', settled ? 'replay' : 'skip');
+        section.dataset.mode = settled ? 'settled' : 'playing';
+        section.dataset.phase = phaseId(elapsed);
+        if (scrubbing) {
+          hud.hidden = false;
+          hud.textContent = '評審定格 · ' + Math.round(elapsed) + ' 毫秒 · ' + phaseLabel(elapsed) + (invalidT ? ' · 參數 t 無法讀取，已停在落定' : '');
+        } else {
+          hud.hidden = true;
+        }
+        window.__HERO.elapsed = elapsed;
+        window.__HERO.phase = phaseId(elapsed);
+      }
+
+      function stopLoop() {
+        if (raf) cancelAnimationFrame(raf);
+        raf = 0;
+        window.__HERO.frame = 0;
+      }
+
+      function startLoop() {
+        if (raf || frozen || reduce || scrubbing || !inView || document.hidden) return;
+        t0 = performance.now() - current;
+        raf = requestAnimationFrame(loop);
+      }
+
+      function loop(now) {
+        if (frozen) return;
+        if (!t0) t0 = now;
+        current = Math.min(SETTLE, now - t0);
+        sync(current);
+        paint(current);
+        window.__HERO.frame = raf;
+        if (current >= SETTLE) {
+          frozen = true;
+          stopLoop();
+          writeSeen();
+          root.dataset.hero = 'settled';
+          return;
+        }
+        raf = requestAnimationFrame(loop);
+        window.__HERO.frame = raf;
+      }
+
+      function skip() {
+        stopLoop();
+        frozen = true;
+        current = SETTLE;
+        lastBeat = -1;
+        root.dataset.instant = '1';
+        root.dataset.hero = 'settled';
+        sync(SETTLE);
+        paint(SETTLE);
+        if (!scrubbing) writeSeen();
+      }
+
+      function replayAction() {
+        if (reduce) {
+          skip();
+          return;
+        }
+        if (scrubbing) {
+          location.href = location.pathname + location.hash + '?replay=1';
+          return;
+        }
+        try { sessionStorage.removeItem(KEY); } catch (e) {}
+        frozen = false;
+        current = 0;
+        lastBeat = -1;
+        root.dataset.hero = 'playing';
+        root.dataset.instant = '1';
+        sync(0);
+        paint(0);
+        void section.offsetWidth;
+        delete root.dataset.instant;
+        stopLoop();
+        startLoop();
+      }
+
+      window.__HERO = {
+        settle: SETTLE,
+        elapsed: SETTLE,
+        phase: 'settled',
+        reduce: reduce,
+        scrubbing: scrubbing,
+        frame: 0
+      };
+
+      toggle.addEventListener('click', function () {
+        if (toggle.getAttribute('data-action') === 'skip') skip();
+        else replayAction();
+      });
+
+      document.body.addEventListener('click', function (event) {
+        var target = event.target;
+        var link = target.closest ? target.closest('a[data-prod]') : null;
+        if (!link) return;
+        if (new URLSearchParams(location.search).get('live') === '1') return;
+        event.preventDefault();
+        document.getElementById('route-note').textContent = '正式站將前往 ' + link.getAttribute('href');
+      });
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stopLoop();
+        else startLoop();
+      });
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          inView = entries[0] ? entries[0].isIntersecting : true;
+          if (inView) startLoop();
+          else stopLoop();
+        });
+        observer.observe(section);
+      }
+
+      window.addEventListener('resize', function () {
+        resizeCanvas();
+        paint(current);
+      });
+
+      var startAt = SETTLE;
+      var mode = 'settled';
+      if (scrubbing) {
+        var parsed = parseT(new URLSearchParams(location.search).get('t'));
+        startAt = parsed.value;
+        invalidT = parsed.invalid;
+        mode = 'scrub';
+      } else if (reduce) {
+        mode = 'settled';
+        startAt = SETTLE;
+      } else if (replay || root.dataset.seen !== '1') {
+        mode = 'playing';
+        startAt = 0;
+      }
+
+      root.dataset.instant = '1';
+      current = startAt;
+      sync(startAt);
+      root.dataset.hero = mode === 'playing' ? 'playing' : mode === 'scrub' ? 'scrub' : 'settled';
+      resizeCanvas();
+      paint(startAt);
+      section.dataset.ready = '1';
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          resizeCanvas();
+          paint(current);
+        });
+      }
+      if (mode === 'playing') {
+        void section.offsetWidth;
+        delete root.dataset.instant;
+        frozen = false;
+        startLoop();
+      } else if (mode === 'settled' && !scrubbing) {
+        writeSeen();
+      }
+    })();
+  </script>
+</body>
+</html>
