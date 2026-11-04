@@ -7,6 +7,7 @@ import { renderPatternAxisLinks, renderPatternBoard } from './civilization/patte
 import { renderCityArticle, cityIndexable } from './civilization/city.js';
 import { cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
 import { earthIndexable, renderEarthArticle } from './civilization/earth.js';
+import { galaxyIndexable, renderGalaxyArticle } from './civilization/galaxy.js';
 import { renderFuturePanel } from './civilization/future.js';
 import { renderDeepTimeBoardFromSpine, renderSpineAxis } from './civilization/spine.js';
 import { ORIGINS_BODY, ORIGINS_SOURCES } from './civilization/originsSource.js';
@@ -23,6 +24,7 @@ export { chronicleIndexable, chronicleProse } from './civilization/chronicle.js'
 export { cityIndexable, cityProse } from './civilization/city.js';
 export { cosmosIndexable, cosmosProse } from './civilization/cosmos.js';
 export { earthIndexable, earthProse } from './civilization/earth.js';
+export { galaxyIndexable, galaxyProse } from './civilization/galaxy.js';
 export { techIndexable, techProse } from './civilization/tech.js';
 
 const ORIGIN = 'https://world-news.xyz';
@@ -86,6 +88,7 @@ export function civilizationPublicPaths(): string[] {
   const paths: string[] = [];
   if (hubIndexable()) paths.push('/civilization/');
   if (cosmosIndexable()) paths.push('/civilization/cosmos/');
+  if (galaxyIndexable()) paths.push('/civilization/galaxy/');
   if (earthIndexable()) paths.push('/civilization/earth/');
   if (originsIndexable()) paths.push('/civilization/origins/');
   if (techIndexable()) paths.push('/civilization/tech/');
@@ -538,20 +541,18 @@ export function renderOriginsPage(): { html: string; status: number; indexable: 
   });
 }
 
-/** IAa stub. The thick 銀河系誕生 page is IAb and stays out of this shell. */
+/** Independent thick page. Same snap shell as cosmos and earth. */
 export function renderGalaxyPage(): { html: string; status: number; indexable: boolean } {
-  const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明總覽</a> · 銀河系誕生</nav>
-    <article class="civ-article">
-      <h1>銀河系誕生</h1>
-      <p>這一級是導航入口。完整頁面稍後獨立成頁。</p>
-      <p>星系與大尺度結構的現有長文仍在<a href="/civilization/cosmos/">宇宙起源</a>。</p>
-    </article>`;
+  const indexable = galaxyIndexable();
+  const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 銀河系誕生</nav>
+    ${renderGalaxyArticle()}`;
   return shell({
     title: '銀河系誕生',
-    description: '銀河系誕生是文明編年史的一級分類入口。',
+    description: '本星系如何在暗物質暈與氣體冷卻中成形，並如何銜接宇宙長河與地球生命。年代一律為約。',
     path: '/civilization/galaxy/',
-    body,
-    indexable: false,
+    body: snapDetail(body, '銀河系誕生'),
+    indexable,
+    snap: true,
   });
 }
 

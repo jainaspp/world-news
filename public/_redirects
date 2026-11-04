@@ -16,5 +16,9 @@
 /board/ https://world-news.xyz/ 301
 /story https://world-news.xyz/ 301
 /story/ https://world-news.xyz/ 301
+# Dead alias of the galaxy thick page. Also redirected in functions/_middleware.ts
+# because Pages does not apply this file to responses served by Functions.
+/galaxy https://world-news.xyz/civilization/galaxy/ 301
+/galaxy/ https://world-news.xyz/civilization/galaxy/ 301
 /region/:code / 200
 /category/:slug / 200

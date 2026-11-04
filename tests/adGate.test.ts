@@ -11,6 +11,7 @@ import {
   renderCivilizationMiss,
   renderCosmosPage,
   renderEarthPage,
+  renderGalaxyPage,
   renderOriginsPage,
   renderTechPage,
 } from '../shared/civilizationPage';
@@ -175,6 +176,7 @@ describe('AdSense gates', () => {
       renderTechPage(),
       renderCityPage(),
       renderCosmosPage(),
+      renderGalaxyPage(),
       renderEarthPage(),
     ];
     for (const page of pages) {

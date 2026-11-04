@@ -2886,6 +2886,7 @@ a.stage-cover { text-decoration: none; }
 .deep-time-card.cosmo-card .stage-seal,
 .earth-stage .stage-seal,
 .deep-time-card.earth-card .stage-seal,
+.galaxy-stage .stage-seal,
 .tech-stage .stage-seal,
 .city-stage .stage-seal {
   visibility: hidden;
@@ -2894,6 +2895,7 @@ a.stage-cover { text-decoration: none; }
 .deep-time-card.cosmo-card .stage-cover:has(img[hidden]) .stage-seal,
 .earth-stage .stage-frame:has(img[hidden]) .stage-seal,
 .deep-time-card.earth-card .stage-cover:has(img[hidden]) .stage-seal,
+.galaxy-stage .stage-frame:has(img[hidden]) .stage-seal,
 .tech-stage .stage-frame:has(img[hidden]) .stage-seal,
 .city-stage .stage-frame:has(img[hidden]) .stage-seal {
   visibility: visible;
@@ -3155,6 +3157,7 @@ a.stage-cover { text-decoration: none; }
 .chronicle-page .civ-figure,
 .cosmos-page .civ-figure,
 .earth-page .civ-figure,
+.galaxy-page .civ-figure,
 .tech-page .civ-figure,
 .city-page .civ-figure { margin: 12px 0 16px; }
 .civ-page .today-pin { margin-top: 16px; }
@@ -3176,7 +3179,8 @@ a.stage-cover { text-decoration: none; }
   text-decoration: none;
 }
 .cosmo-hero,
-.earth-hero {
+.earth-hero,
+.galaxy-hero {
   margin: 0 0 12px;
   padding: 0 0 8px;
   border: 0;
@@ -3186,7 +3190,8 @@ a.stage-cover { text-decoration: none; }
   color: inherit;
 }
 .cosmo-hero .kicker,
-.earth-hero .kicker {
+.earth-hero .kicker,
+.galaxy-hero .kicker {
   margin: 0 0 6px;
   font-size: 12px;
   font-weight: 700;
@@ -3195,22 +3200,28 @@ a.stage-cover { text-decoration: none; }
   color: var(--brass-on-paper);
 }
 .cosmo-hero .civ-page-title,
-.earth-hero .civ-page-title {
+.earth-hero .civ-page-title,
+.galaxy-hero .civ-page-title {
   margin: 0;
   color: inherit;
   font-weight: 700;
   letter-spacing: 0.04em;
 }
 .cosmo-stage,
-.earth-stage { scroll-margin-top: var(--civ-anchor-offset); }
-.earth-part { margin: 0 0 14px; }
-.earth-part h3 {
+.earth-stage,
+.galaxy-stage { scroll-margin-top: var(--civ-anchor-offset); }
+.earth-part,
+.galaxy-part { margin: 0 0 14px; }
+.earth-part h3,
+.galaxy-part h3 {
   margin: 0 0 6px;
   font-family: var(--font-serif);
   font-size: 1.05rem;
   color: #161c24;
 }
 .earth-part p { margin: 0; }
+.galaxy-part p { margin: 0 0 8px; }
+.galaxy-part p:last-child { margin-bottom: 0; }
 .civ-block {
   margin: 8px 0 14px;
   border: 1px solid #d4cbb8;
@@ -3960,11 +3971,14 @@ html.dark .civ-slice-return a,
 html.dark .civ-near-index a { color: #f7f1e6; }
 html.dark .civ-page-title { color: var(--color-text); }
 html.dark .cosmo-hero,
-html.dark .earth-hero { background: transparent; color: inherit; }
+html.dark .earth-hero,
+html.dark .galaxy-hero { background: transparent; color: inherit; }
 html.dark .cosmo-hero .kicker,
-html.dark .earth-hero .kicker { color: #c4a572; }
+html.dark .earth-hero .kicker,
+html.dark .galaxy-hero .kicker { color: #c4a572; }
 html.dark .cosmo-hero .civ-page-title,
-html.dark .earth-hero .civ-page-title { color: inherit; }
+html.dark .earth-hero .civ-page-title,
+html.dark .galaxy-hero .civ-page-title { color: inherit; }
 html.dark .cosmo-starmap,
 html.dark .cosmo-scale-nest {
   background: #2a231b;
@@ -4112,6 +4126,7 @@ html.dark .case-related a { color: #f3eadc; }
 html.dark .case-kicker { color: #c4a572; }
 html.dark .case-axis .chip { background: #f7f1e6; color: #161c24; border-color: #c4a572; }
 html.dark .earth-part h3,
+html.dark .galaxy-part h3,
 html.dark .chronicle-board-head h2 { color: #f7f1e6; }
 html.dark .chronicle-board-note,
 html.dark .stage-meaning,
@@ -4191,6 +4206,7 @@ html.dark .line-filter-status.is-empty {
 .civ-page .chapter-band h2,
 .civ-page #jurassic,
 .civ-page .earth-part,
+.civ-page .galaxy-part,
 .civ-page .milestone-block,
 .civ-page .civ-block,
 .civ-page .civ-block-h,

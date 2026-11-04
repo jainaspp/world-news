@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { swCacheName } from '../shared/brand';
-import { renderCivilizationHub, renderCivilizationMiss, renderCityPage, renderCosmosPage, renderChroniclePage, renderEarthPage, renderOriginsPage, renderTechPage } from '../shared/civilizationPage';
+import { renderCivilizationHub, renderCivilizationMiss, renderCityPage, renderCosmosPage, renderChroniclePage, renderEarthPage, renderGalaxyPage, renderOriginsPage, renderTechPage } from '../shared/civilizationPage';
 import { renderColumnIndex, renderContentPage, type ContentDoc } from '../shared/content';
 import { renderHomeFeed } from '../shared/homePage';
 import type { NewsItem } from '../shared/types';
@@ -119,6 +119,7 @@ describe('T4 home, list, and civ hub snap deck', () => {
       renderOriginsPage(),
       renderChroniclePage(),
       renderCosmosPage(),
+      renderGalaxyPage(),
       renderEarthPage(),
       renderTechPage(),
       renderCityPage(),

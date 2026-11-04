@@ -23,6 +23,8 @@ describe('Cloudflare Pages', () => {
       '/board/ https://world-news.xyz/ 301',
       '/story https://world-news.xyz/ 301',
       '/story/ https://world-news.xyz/ 301',
+      '/galaxy https://world-news.xyz/civilization/galaxy/ 301',
+      '/galaxy/ https://world-news.xyz/civilization/galaxy/ 301',
       '/region/:code / 200',
       '/category/:slug / 200',
     ]);

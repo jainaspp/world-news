@@ -7,7 +7,7 @@
  * Provisional slugs, preferring routes that already exist (BRIEF §2).
  * SA lock: /civilization/ is the site-root overview, not an L1 pill.
  * - 宇宙起源 → /civilization/cosmos/
- * - 銀河系誕生 → /civilization/galaxy/ (stub shell; full page is IAb)
+ * - 銀河系誕生 → /civilization/galaxy/ (independent thick page)
  * - 地球生物 → /civilization/earth/
  * - 古 → /civilization/earth/ (natural-history shell)
  * - 未來 → /civilization/#future
