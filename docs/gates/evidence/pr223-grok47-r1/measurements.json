@@ -1,0 +1,1520 @@
+[
+  {
+    "id": "exec-card",
+    "page": "home",
+    "vp": 360,
+    "theme": "light",
+    "path": "/",
+    "file": "/tmp/pr223-evidence/2026-10-23-home-360-light-full.png",
+    "ok": false,
+    "overlap": [],
+    "clips": [
+      ".axis-node .lab:城市",
+      ".axis-node .lab:今天",
+      ".axis-node .lab:未來",
+      ".axis-node .yr:基建",
+      ".axis-node .yr:切片",
+      ".axis-node .yr:展望"
+    ],
+    "touchFails": [],
+    "touchCount": 23,
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "dom": {
+      "axis": true,
+      "axisCta": 1,
+      "volumeCards": 3,
+      "chronicleBand": true,
+      "axisRails": true,
+      "patternAxis": true,
+      "caseAxis": true,
+      "slice": true,
+      "axisTitle": true,
+      "deepAxis": true,
+      "volumeBoard": true,
+      "chAncient": false,
+      "chNow": false,
+      "chFuture": false,
+      "stages": [],
+      "dark": false,
+      "title": "文明編年史 — 從宇宙到今天"
+    },
+    "brand": {
+      "aria": "文明編年史",
+      "title": "文明編年史 — 從宇宙到今天",
+      "imgW": 103.6,
+      "imgH": 28,
+      "imgLeft": 16,
+      "imgRight": 119.6,
+      "linkW": 276,
+      "linkH": 28,
+      "clipped": false,
+      "simplified": false,
+      "five": true
+    },
+    "cta": [
+      "打開文明總覽",
+      "跳到今日切片"
+    ],
+    "pageErrors": [],
+    "note": "overlap 0; clips 6; touchFail 0; hscroll false"
+  },
+  {
+    "id": "exec-card",
+    "page": "home",
+    "vp": 360,
+    "theme": "dark",
+    "path": "/",
+    "file": "/tmp/pr223-evidence/2026-10-23-home-360-dark-full.png",
+    "ok": false,
+    "overlap": [],
+    "clips": [
+      ".axis-node .lab:城市",
+      ".axis-node .lab:今天",
+      ".axis-node .lab:未來",
+      ".axis-node .yr:基建",
+      ".axis-node .yr:切片",
+      ".axis-node .yr:展望"
+    ],
+    "touchFails": [],
+    "touchCount": 23,
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "dom": {
+      "axis": true,
+      "axisCta": 1,
+      "volumeCards": 3,
+      "chronicleBand": true,
+      "axisRails": true,
+      "patternAxis": true,
+      "caseAxis": true,
+      "slice": true,
+      "axisTitle": true,
+      "deepAxis": true,
+      "volumeBoard": true,
+      "chAncient": false,
+      "chNow": false,
+      "chFuture": false,
+      "stages": [],
+      "dark": true,
+      "title": "文明編年史 — 從宇宙到今天"
+    },
+    "brand": {
+      "aria": "文明編年史",
+      "title": "文明編年史 — 從宇宙到今天",
+      "imgW": 103.6,
+      "imgH": 28,
+      "imgLeft": 16,
+      "imgRight": 119.6,
+      "linkW": 276,
+      "linkH": 28,
+      "clipped": false,
+      "simplified": false,
+      "five": true
+    },
+    "cta": [
+      "打開文明總覽",
+      "跳到今日切片"
+    ],
+    "pageErrors": [],
+    "note": "overlap 0; clips 6; touchFail 0; hscroll false"
+  },
+  {
+    "id": "exec-card",
+    "page": "civ",
+    "vp": 360,
+    "theme": "light",
+    "path": "/civilization/",
+    "file": "/tmp/pr223-evidence/2026-10-23-civ-360-light-full.png",
+    "ok": false,
+    "overlap": [],
+    "clips": [
+      ".axis-node .lab:城市",
+      ".axis-node .lab:今天",
+      ".axis-node .lab:未來",
+      ".axis-node .yr:基建",
+      ".axis-node .yr:切片",
+      ".axis-node .yr:展望"
+    ],
+    "touchFails": [],
+    "touchCount": 25,
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "dom": {
+      "axis": true,
+      "axisCta": 1,
+      "volumeCards": 3,
+      "chronicleBand": false,
+      "axisRails": false,
+      "patternAxis": true,
+      "caseAxis": true,
+      "slice": false,
+      "axisTitle": true,
+      "deepAxis": true,
+      "volumeBoard": true,
+      "chAncient": false,
+      "chNow": false,
+      "chFuture": false,
+      "stages": [],
+      "dark": false,
+      "title": "人類文明 — 文明編年史"
+    },
+    "brand": {
+      "aria": "文明編年史",
+      "title": "人類文明 — 文明編年史",
+      "imgW": 103.6,
+      "imgH": 28,
+      "imgLeft": 16,
+      "imgRight": 119.6,
+      "linkW": 137.8,
+      "linkH": 28,
+      "clipped": false,
+      "simplified": false,
+      "five": true
+    },
+    "cta": [
+      "閱讀人類起源",
+      "跳到今日切片"
+    ],
+    "pageErrors": [],
+    "note": "overlap 0; clips 6; touchFail 0; hscroll false"
+  },
+  {
+    "id": "exec-card",
+    "page": "civ",
+    "vp": 360,
+    "theme": "dark",
+    "path": "/civilization/",
+    "file": "/tmp/pr223-evidence/2026-10-23-civ-360-dark-full.png",
+    "ok": false,
+    "overlap": [],
+    "clips": [
+      ".axis-node .lab:城市",
+      ".axis-node .lab:今天",
+      ".axis-node .lab:未來",
+      ".axis-node .yr:基建",
+      ".axis-node .yr:切片",
+      ".axis-node .yr:展望"
+    ],
+    "touchFails": [],
+    "touchCount": 25,
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "dom": {
+      "axis": true,
+      "axisCta": 1,
+      "volumeCards": 3,
+      "chronicleBand": false,
+      "axisRails": false,
+      "patternAxis": true,
+      "caseAxis": true,
+      "slice": false,
+      "axisTitle": true,
+      "deepAxis": true,
+      "volumeBoard": true,
+      "chAncient": false,
+      "chNow": false,
+      "chFuture": false,
+      "stages": [],
+      "dark": true,
+      "title": "人類文明 — 文明編年史"
+    },
+    "brand": {
+      "aria": "文明編年史",
+      "title": "人類文明 — 文明編年史",
+      "imgW": 103.6,
+      "imgH": 28,
+      "imgLeft": 16,
+      "imgRight": 119.6,
+      "linkW": 137.8,
+      "linkH": 28,
+      "clipped": false,
+      "simplified": false,
+      "five": true
+    },
+    "cta": [
+      "閱讀人類起源",
+      "跳到今日切片"
+    ],
+    "pageErrors": [],
+    "note": "overlap 0; clips 6; touchFail 0; hscroll false"
+  },
+  {
+    "id": "exec-card",
+    "page": "home",
+    "vp": 390,
+    "theme": "dark",
+    "path": "/",
+    "file": null,
+    "ok": false,
+    "overlap": [],
+    "clips": [
+      ".axis-node .lab:城市",
+      ".axis-node .lab:今天",
+      ".axis-node .lab:未來",
+      ".axis-node .yr:基建",
+      ".axis-node .yr:切片",
+      ".axis-node .yr:展望"
+    ],
+    "touchFails": [],
+    "touchCount": 23,
+    "scroll": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingScrollWidth": 390,
+      "innerWidth": 390,
+      "pageOverflow": false
+    },
+    "dom": {
+      "axis": true,
+      "axisCta": 1,
+      "volumeCards": 3,
+      "chronicleBand": true,
+      "axisRails": true,
+      "patternAxis": true,
+      "caseAxis": true,
+      "slice": true,
+      "axisTitle": true,
+      "deepAxis": true,
+      "volumeBoard": true,
+      "chAncient": false,
+      "chNow": false,
+      "chFuture": false,
+      "stages": [],
+      "dark": true,
+      "title": "文明編年史 — 從宇宙到今天"
+    },
+    "brand": {
+      "aria": "文明編年史",
+      "title": "文明編年史 — 從宇宙到今天",
+      "imgW": 103.6,
+      "imgH": 28,
+      "imgLeft": 16,
+      "imgRight": 119.6,
+      "linkW": 306,
+      "linkH": 28,
+      "clipped": false,
+      "simplified": false,
+      "five": true
+    },
+    "cta": [
+      "打開文明總覽",
+      "跳到今日切片"
+    ],
+    "pageErrors": [],
+    "note": "overlap 0; clips 6; touchFail 0; hscroll false"
+  },
+  {
+    "id": "exec-card",
+    "page": "civ",
+    "vp": 390,
+    "theme": "dark",
+    "path": "/civilization/",
+    "file": null,
+    "ok": false,
+    "overlap": [],
+    "clips": [
+      ".axis-node .lab:城市",
+      ".axis-node .lab:今天",
+      ".axis-node .lab:未來",
+      ".axis-node .yr:基建",
+      ".axis-node .yr:切片",
+      ".axis-node .yr:展望"
+    ],
+    "touchFails": [],
+    "touchCount": 25,
+    "scroll": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollingScrollWidth": 390,
+      "innerWidth": 390,
+      "pageOverflow": false
+    },
+    "dom": {
+      "axis": true,
+      "axisCta": 1,
+      "volumeCards": 3,
+      "chronicleBand": false,
+      "axisRails": false,
+      "patternAxis": true,
+      "caseAxis": true,
+      "slice": false,
+      "axisTitle": true,
+      "deepAxis": true,
+      "volumeBoard": true,
+      "chAncient": false,
+      "chNow": false,
+      "chFuture": false,
+      "stages": [],
+      "dark": true,
+      "title": "人類文明 — 文明編年史"
+    },
+    "brand": {
+      "aria": "文明編年史",
+      "title": "人類文明 — 文明編年史",
+      "imgW": 103.6,
+      "imgH": 28,
+      "imgLeft": 16,
+      "imgRight": 119.6,
+      "linkW": 152.8,
+      "linkH": 28,
+      "clipped": false,
+      "simplified": false,
+      "five": true
+    },
+    "cta": [
+      "閱讀人類起源",
+      "跳到今日切片"
+    ],
+    "pageErrors": [],
+    "note": "overlap 0; clips 6; touchFail 0; hscroll false"
+  },
+  {
+    "id": "stage-8",
+    "page": "chronicle",
+    "vp": 360,
+    "theme": "light",
+    "path": "/civilization/chronicle/#stage-8",
+    "file": "/tmp/pr223-evidence/2026-10-23-chronicle-360-light-stage-8.png",
+    "ok": false,
+    "name": "現代金融與全球體系",
+    "proseChars": 17,
+    "proseHead": "08 · 約公元 1870 年至 1969 年",
+    "proseTail": "08 · 約公元 1870 年至 1969 年",
+    "gap": 40.8,
+    "chromeH": 161,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "國際貨幣基金組織｜機構年表",
+        "w": 169,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "美國聯邦儲備史｜布雷頓森林的創立",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "世界銀行檔案｜機構史",
+        "w": 160,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "美國聯邦儲備｜關於聯邦儲備",
+        "w": 208,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "國際清算銀行｜機構史",
+        "w": 160,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 40.8; prose 17; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-9",
+    "page": "chronicle",
+    "vp": 360,
+    "theme": "light",
+    "path": "/civilization/chronicle/#stage-9",
+    "file": "/tmp/pr223-evidence/2026-10-23-chronicle-360-light-stage-9.png",
+    "ok": false,
+    "name": "信息革命",
+    "proseChars": 17,
+    "proseHead": "09 · 約公元 1970 年至 2009 年",
+    "proseTail": "09 · 約公元 1970 年至 2009 年",
+    "gap": 41,
+    "chromeH": 161,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "歐洲核子研究組織｜萬維網簡史",
+        "w": 182,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "萬維網聯盟｜網頁史",
+        "w": 144,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "互聯網工程任務組｜互聯網協議說明",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "互聯網協會｜互聯網簡史",
+        "w": 176,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 41; prose 17; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-10",
+    "page": "chronicle",
+    "vp": 360,
+    "theme": "light",
+    "path": "/civilization/chronicle/#stage-10",
+    "file": "/tmp/pr223-evidence/2026-10-23-chronicle-360-light-stage-10.png",
+    "ok": false,
+    "name": "本世紀／當代",
+    "proseChars": 12,
+    "proseHead": "10 · 約公元 2010 年起",
+    "proseTail": "10 · 約公元 2010 年起",
+    "gap": 40.7,
+    "chromeH": 161,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "總覽展望",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "能量宜居",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "信息可信",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "制度協作",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "生物譜系",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "技術能力階",
+        "w": 65,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "生存風險",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "美國國家標準與技術研究院｜物理測量實驗室",
+        "w": 260,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "美國國家人類基因組研究所｜測序成本數據",
+        "w": 304,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "世界衛生組織｜氣候變化與健康實況",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "國際貨幣基金組織｜機構年表",
+        "w": 208,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 40.7; prose 12; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-8",
+    "page": "chronicle",
+    "vp": 360,
+    "theme": "dark",
+    "path": "/civilization/chronicle/#stage-8",
+    "file": "/tmp/pr223-evidence/2026-10-23-chronicle-360-dark-stage-8.png",
+    "ok": false,
+    "name": "現代金融與全球體系",
+    "proseChars": 17,
+    "proseHead": "08 · 約公元 1870 年至 1969 年",
+    "proseTail": "08 · 約公元 1870 年至 1969 年",
+    "gap": 40.8,
+    "chromeH": 161,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "國際貨幣基金組織｜機構年表",
+        "w": 169,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "美國聯邦儲備史｜布雷頓森林的創立",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "世界銀行檔案｜機構史",
+        "w": 160,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "美國聯邦儲備｜關於聯邦儲備",
+        "w": 208,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "國際清算銀行｜機構史",
+        "w": 160,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 40.8; prose 17; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-9",
+    "page": "chronicle",
+    "vp": 360,
+    "theme": "dark",
+    "path": "/civilization/chronicle/#stage-9",
+    "file": "/tmp/pr223-evidence/2026-10-23-chronicle-360-dark-stage-9.png",
+    "ok": false,
+    "name": "信息革命",
+    "proseChars": 17,
+    "proseHead": "09 · 約公元 1970 年至 2009 年",
+    "proseTail": "09 · 約公元 1970 年至 2009 年",
+    "gap": 41,
+    "chromeH": 161,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "歐洲核子研究組織｜萬維網簡史",
+        "w": 182,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "萬維網聯盟｜網頁史",
+        "w": 144,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "互聯網工程任務組｜互聯網協議說明",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "互聯網協會｜互聯網簡史",
+        "w": 176,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 41; prose 17; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-10",
+    "page": "chronicle",
+    "vp": 360,
+    "theme": "dark",
+    "path": "/civilization/chronicle/#stage-10",
+    "file": "/tmp/pr223-evidence/2026-10-23-chronicle-360-dark-stage-10.png",
+    "ok": false,
+    "name": "本世紀／當代",
+    "proseChars": 12,
+    "proseHead": "10 · 約公元 2010 年起",
+    "proseTail": "10 · 約公元 2010 年起",
+    "gap": 40.7,
+    "chromeH": 161,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "總覽展望",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "能量宜居",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "信息可信",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "制度協作",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "生物譜系",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "技術能力階",
+        "w": 65,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "生存風險",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "美國國家標準與技術研究院｜物理測量實驗室",
+        "w": 260,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "美國國家人類基因組研究所｜測序成本數據",
+        "w": 304,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "世界衛生組織｜氣候變化與健康實況",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "國際貨幣基金組織｜機構年表",
+        "w": 208,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollingScrollWidth": 360,
+      "innerWidth": 360,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 40.7; prose 12; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-8",
+    "page": "chronicle",
+    "vp": 768,
+    "theme": "dark",
+    "path": "/civilization/chronicle/#stage-8",
+    "file": null,
+    "ok": false,
+    "name": "現代金融與全球體系",
+    "proseChars": 17,
+    "proseHead": "08 · 約公元 1870 年至 1969 年",
+    "proseTail": "08 · 約公元 1870 年至 1969 年",
+    "gap": 40.6,
+    "chromeH": 155,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "國際貨幣基金組織｜機構年表",
+        "w": 169,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "美國聯邦儲備史｜布雷頓森林的創立",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "世界銀行檔案｜機構史",
+        "w": 160,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "美國聯邦儲備｜關於聯邦儲備",
+        "w": 208,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "國際清算銀行｜機構史",
+        "w": 160,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingScrollWidth": 768,
+      "innerWidth": 768,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 40.6; prose 17; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-8",
+    "page": "chronicle",
+    "vp": 1280,
+    "theme": "light",
+    "path": "/civilization/chronicle/#stage-8",
+    "file": null,
+    "ok": false,
+    "name": "現代金融與全球體系",
+    "proseChars": 17,
+    "proseHead": "08 · 約公元 1870 年至 1969 年",
+    "proseTail": "08 · 約公元 1870 年至 1969 年",
+    "gap": 41.4,
+    "chromeH": 155,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "國際貨幣基金組織｜機構年表",
+        "w": 169,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "美國聯邦儲備史｜布雷頓森林的創立",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "世界銀行檔案｜機構史",
+        "w": 160,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "美國聯邦儲備｜關於聯邦儲備",
+        "w": 208,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "國際清算銀行｜機構史",
+        "w": 160,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingScrollWidth": 1280,
+      "innerWidth": 1280,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 41.4; prose 17; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-9",
+    "page": "chronicle",
+    "vp": 768,
+    "theme": "dark",
+    "path": "/civilization/chronicle/#stage-9",
+    "file": null,
+    "ok": false,
+    "name": "信息革命",
+    "proseChars": 17,
+    "proseHead": "09 · 約公元 1970 年至 2009 年",
+    "proseTail": "09 · 約公元 1970 年至 2009 年",
+    "gap": 41.1,
+    "chromeH": 155,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "歐洲核子研究組織｜萬維網簡史",
+        "w": 182,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "萬維網聯盟｜網頁史",
+        "w": 144,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "互聯網工程任務組｜互聯網協議說明",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "互聯網協會｜互聯網簡史",
+        "w": 176,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingScrollWidth": 768,
+      "innerWidth": 768,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 41.1; prose 17; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-9",
+    "page": "chronicle",
+    "vp": 1280,
+    "theme": "light",
+    "path": "/civilization/chronicle/#stage-9",
+    "file": null,
+    "ok": false,
+    "name": "信息革命",
+    "proseChars": 17,
+    "proseHead": "09 · 約公元 1970 年至 2009 年",
+    "proseTail": "09 · 約公元 1970 年至 2009 年",
+    "gap": 41.1,
+    "chromeH": 155,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "歐洲核子研究組織｜萬維網簡史",
+        "w": 182,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "萬維網聯盟｜網頁史",
+        "w": 144,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "互聯網工程任務組｜互聯網協議說明",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "互聯網協會｜互聯網簡史",
+        "w": 176,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingScrollWidth": 1280,
+      "innerWidth": 1280,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 41.1; prose 17; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-10",
+    "page": "chronicle",
+    "vp": 768,
+    "theme": "dark",
+    "path": "/civilization/chronicle/#stage-10",
+    "file": "/tmp/pr223-evidence/2026-10-23-chronicle-768-dark-stage-10.png",
+    "ok": false,
+    "name": "本世紀／當代",
+    "proseChars": 12,
+    "proseHead": "10 · 約公元 2010 年起",
+    "proseTail": "10 · 約公元 2010 年起",
+    "gap": 41.2,
+    "chromeH": 155,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "總覽展望",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "能量宜居",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "信息可信",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "制度協作",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "生物譜系",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "技術能力階",
+        "w": 65,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "生存風險",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "美國國家標準與技術研究院｜物理測量實驗室",
+        "w": 260,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "美國國家人類基因組研究所｜測序成本數據",
+        "w": 304,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "政府間氣候變化專門委員會｜第六次評估綜合",
+        "w": 352,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "世界衛生組織｜氣候變化與健康實況",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "國際貨幣基金組織｜機構年表",
+        "w": 208,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollingScrollWidth": 768,
+      "innerWidth": 768,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 41.2; prose 12; hscroll false; hits 0; h2clip false; pclip false"
+  },
+  {
+    "id": "stage-10",
+    "page": "chronicle",
+    "vp": 1280,
+    "theme": "light",
+    "path": "/civilization/chronicle/#stage-10",
+    "file": "/tmp/pr223-evidence/2026-10-23-chronicle-1280-light-stage-10.png",
+    "ok": false,
+    "name": "本世紀／當代",
+    "proseChars": 12,
+    "proseHead": "10 · 約公元 2010 年起",
+    "proseTail": "10 · 約公元 2010 年起",
+    "gap": 40.7,
+    "chromeH": 155,
+    "h2Clipped": false,
+    "proseClipped": false,
+    "proseOverflow": false,
+    "fontSize": "12px",
+    "lineHeight": "21px",
+    "localHits": [],
+    "inlineTouchFails": [
+      {
+        "text": "總覽展望",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "能量宜居",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "信息可信",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "制度協作",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "生物譜系",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "技術能力階",
+        "w": 65,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "生存風險",
+        "w": 52,
+        "h": 23,
+        "fail": true
+      },
+      {
+        "text": "美國國家標準與技術研究院｜物理測量實驗室",
+        "w": 260,
+        "h": 19,
+        "fail": true
+      },
+      {
+        "text": "美國國家人類基因組研究所｜測序成本數據",
+        "w": 304,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "政府間氣候變化專門委員會｜第六次評估綜合",
+        "w": 352,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "世界衛生組織｜氣候變化與健康實況",
+        "w": 256,
+        "h": 24,
+        "fail": true
+      },
+      {
+        "text": "國際貨幣基金組織｜機構年表",
+        "w": 208,
+        "h": 24,
+        "fail": true
+      }
+    ],
+    "scroll": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollingScrollWidth": 1280,
+      "innerWidth": 1280,
+      "pageOverflow": false
+    },
+    "anchors": {
+      "ch": [
+        "ch-ancient",
+        "ch-now",
+        "ch-future"
+      ],
+      "stages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "simplified": false,
+    "bodySimplified": false,
+    "pageErrors": [],
+    "note": "gap 40.7; prose 12; hscroll false; hits 0; h2clip false; pclip false"
+  }
+]
