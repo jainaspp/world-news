@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>文明編年史 · 開場動效預覽（Grok 4.7）</title>
+  <style>
+    :root {
+      --ink: #161c24;
+      --paper: #f7f1e6;
+      --page: #f4f6f8;
+      --gold: #c4a572;
+      --brass: #a18256;
+      --blue: #9ec0ef;
+      --aside: #a8b0ba;
+      --body: #e8e4dc;
+      --title: #f7f1e6;
+      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--page);
+      color: #142033;
+      font-family: "PingFang HK", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.5;
+    }
+    .proto-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 14px;
+      padding: 10px 16px;
+      background: #fff;
+      border-bottom: 1px solid #d5dce6;
+    }
+    .proto-title { margin: 0; font-size: 14px; font-weight: 700; }
+    .proto-title span { font-weight: 500; color: #3d4c5f; }
+    .proto-toolbar button,
+    .proto-toolbar label {
+      font: inherit;
+      font-size: 14px;
+    }
+    .proto-toolbar button {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid #6b7789;
+      background: #fff;
+      color: #142033;
+      cursor: pointer;
+    }
+    .proto-toolbar label { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+    .proto-toolbar input[type="number"] {
+      width: 4.2rem;
+      min-height: 44px;
+      font: inherit;
+      padding: 0 8px;
+    }
+    .proto-status { margin: 0; flex-basis: 100%; font-size: 13px; color: #3d4c5f; }
+    .hero-opening {
+      --gold-a: 0.1;
+      --blue-a: 0.22;
+      --violet-a: 0.34;
+      --era-ancient: #c4a572;
+      --era-now: #9ec0ef;
+      --era-future: #2a2140;
+      position: relative;
+      min-height: calc(100svh - 64px);
+      min-height: calc(100dvh - 64px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 168px 20px 28px;
+      overflow: hidden;
+      background-color: #12161c;
+      background-image:
+        radial-gradient(34% 22% at 50% 78px, rgba(226, 196, 140, var(--gold-a)), transparent 68%),
+        radial-gradient(18% 14% at 24% 86px, rgba(158, 192, 239, var(--blue-a)), transparent 72%),
+        linear-gradient(to top, rgba(110, 90, 170, var(--violet-a)), transparent 16%),
+        radial-gradient(rgba(255, 255, 255, 0.14) 0.55px, transparent 0.55px);
+      background-size: auto, auto, auto, 3px 3px;
+      color: var(--body);
+      text-align: center;
+    }
+    .hero-opening[data-chapter="ancient"] { --gold-a: 0.62; --blue-a: 0; --violet-a: 0; }
+    .hero-opening[data-chapter="now"] { --gold-a: 0.18; --blue-a: 0.48; --violet-a: 0.06; }
+    .hero-opening[data-chapter="future"] { --gold-a: 0.1; --blue-a: 0.22; --violet-a: 0.34; }
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+    }
+    .hero-canvas.is-drawn { opacity: 1; }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 620px);
+      margin: 0 auto;
+    }
+    .hero-kicker {
+      margin: 0 0 6px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+    }
+    .hero-title {
+      margin: 0 0 8px;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Songti TC", "Noto Serif TC", serif;
+      font-size: clamp(1.7rem, 4.6vw, 2.7rem);
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--title);
+    }
+    .hero-reading {
+      margin: 0 0 8px;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Songti TC", "Noto Serif TC", serif;
+      font-size: 1rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--title);
+    }
+    .hero-minute { font-weight: 700; }
+    .hero-lines {
+      margin: 0 auto;
+      max-width: 36em;
+      font-size: 1rem;
+      line-height: 1.45;
+    }
+    .hero-line { margin: 0 0 0.28rem; }
+    .hero-line .hero-main { display: block; color: var(--body); }
+    .hero-line .hero-aside {
+      display: block;
+      margin-top: 0.05em;
+      font-size: max(12px, 0.8125rem);
+      line-height: 1.35;
+      color: var(--aside);
+    }
+    .hero-opening[data-mode="playing"] .hero-line,
+    .hero-opening[data-mode="playing"] .hero-reading {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .hero-opening[data-mode="playing"] .hero-line[data-on="true"],
+    .hero-opening[data-mode="playing"] .hero-reading[data-on="true"] {
+      opacity: 1;
+      transform: none;
+    }
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+    .hero-btn-brass { background: var(--brass); color: var(--ink); }
+    .hero-btn-ghost {
+      background: transparent;
+      color: var(--body);
+      border-color: rgba(232, 228, 220, 0.35);
+    }
+    .hero-hint-row { margin: 4px 0 0; }
+    .hero-hint {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 6px 10px;
+      color: var(--aside);
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-decoration: none;
+    }
+    .hero-hint::after { content: "↓"; margin-left: 0.6em; letter-spacing: 0; }
+    .hero-skip,
+    .hero-replay {
+      position: absolute;
+      top: 10px;
+      right: 16px;
+      z-index: 2;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(232, 228, 220, 0.28);
+      background: rgba(22, 28, 36, 0.55);
+      color: #c5c0b6;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .hero-opening[data-mode="settled"] .hero-skip { display: none; }
+    .hero-opening[data-mode="playing"] .hero-replay { display: none; }
+    .hero-opening[data-mode="playing"] .hero-cta,
+    .hero-opening[data-mode="playing"] .hero-hint-row {
+      opacity: 0;
+      transform: translateY(8px);
+      visibility: hidden;
+    }
+    .hero-opening :focus-visible,
+    .proto-toolbar :focus-visible,
+    .proto-stage :focus-visible {
+      outline: 2px solid #f7f1e6;
+      outline-offset: 3px;
+    }
+    .proto-toolbar :focus-visible,
+    .proto-stage :focus-visible { outline-color: #1d4f91; }
+    .proto-stage {
+      width: min(960px, calc(100% - 32px));
+      margin: 28px auto 64px;
+    }
+    .proto-stage h2 {
+      margin: 28px 0 8px;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Songti TC", serif;
+      font-size: 1.35rem;
+    }
+    .proto-note { margin: 0 0 12px; color: #3d4c5f; font-size: 14px; }
+    .proto-note code { font-size: 0.92em; }
+    .proto-axis {
+      margin: 0;
+      padding: 18px 16px;
+      background: var(--ink);
+      color: var(--body);
+    }
+    .proto-axis p { margin: 0; }
+    .bulletin-clock {
+      display: grid;
+      grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+      grid-template-areas: "kicker date" "face date" "note note" "link link";
+      align-items: end;
+      column-gap: 16px;
+      margin: 20px 0 0;
+      padding: 14px 18px 12px;
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--gold);
+      border-radius: 14px;
+    }
+    .bulletin-kicker {
+      grid-area: kicker;
+      margin: 0 0 4px;
+      color: #7a5a32;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .bulletin-face {
+      grid-area: face;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Songti TC", serif;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .bulletin-minutes .bulletin-num { font-size: clamp(1.7rem, 3vw, 2.2rem); font-weight: 700; color: #9a7b4f; }
+    .bulletin-minutes .bulletin-unit { margin-left: 2px; font-size: 1.05rem; }
+    .bulletin-seconds { color: #6e675c; font-size: 12px; font-weight: 500; }
+    .bulletin-asof { grid-area: date; justify-self: end; margin: 0; font-size: 12px; color: #5c6570; }
+    .bulletin-caption,
+    .bulletin-link { margin: 8px 0 0; font-size: 14px; }
+    .bulletin-caption { grid-area: note; }
+    .bulletin-link { grid-area: link; }
+    .bulletin-clock a { color: var(--ink); }
+    .volume-grid { display: grid; gap: 12px; }
+    .volume-card {
+      border: 1px solid #d4cbb8;
+      border-radius: 14px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .volume-card a {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-height: 44px;
+      padding: 14px 14px 16px;
+      color: inherit;
+      text-decoration: none;
+    }
+    .volume-card .era { margin: 0; font-size: 12px; letter-spacing: 0.08em; color: #5c6570; }
+    .volume-card h3 {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Songti TC", serif;
+      font-size: 1.35rem;
+      line-height: 1.3;
+    }
+    .volume-card p { margin: 0; font-size: 14px; line-height: 1.55; }
+    .proto-slice {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid #d5dce6;
+    }
+    @media (min-width: 720px) {
+      .volume-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 480px) {
+      .hero-opening { padding: 156px 16px 20px; }
+      .hero-skip, .hero-replay { right: 12px; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-opening .hero-line,
+      .hero-opening .hero-reading,
+      .hero-opening .hero-cta,
+      .hero-opening .hero-hint-row,
+      .hero-canvas.is-drawn {
+        transition: opacity 880ms var(--ease), transform 880ms var(--ease);
+      }
+      .hero-canvas.is-drawn { transition: opacity 180ms linear; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-opening,
+      .hero-opening .hero-line,
+      .hero-opening .hero-reading,
+      .hero-opening .hero-cta,
+      .hero-opening .hero-hint-row,
+      .hero-canvas {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+    html.proto-reduce .hero-opening .hero-line,
+    html.proto-reduce .hero-opening .hero-reading,
+    html.proto-reduce .hero-opening .hero-cta,
+    html.proto-reduce .hero-opening .hero-hint-row,
+    html.proto-reduce .hero-canvas {
+      animation: none !important;
+      transition: none !important;
+    }
+    html.preview-hold .hero-opening .hero-line,
+    html.preview-hold .hero-opening .hero-reading,
+    html.preview-hold .hero-opening .hero-cta,
+    html.preview-hold .hero-opening .hero-hint-row,
+    html.preview-hold .hero-canvas,
+    html.preview-hold .hero-canvas.is-drawn {
+      transition: none !important;
+    }
+    html.preview-hold .hero-canvas.is-drawn { opacity: 1; }
+    html.preview-bare .proto-toolbar { display: none; }
+    html.preview-bare .hero-opening {
+      min-height: 100svh;
+      min-height: 100dvh;
+    }
+    html.preview-compact .hero-opening { min-height: 760px; }
+  </style>
+</head>
+<body>
+  <header class="proto-toolbar">
+    <p class="proto-title">合議預覽 <span>· Grok 4.7 · 不接入生產</span></p>
+    <button type="button" id="proto-replay">重播</button>
+    <label><input type="checkbox" id="proto-reduce"> 減少動態</label>
+    <label>監測分針
+      <input id="proto-minute" type="number" min="1" max="30" step="1" value="1" inputmode="numeric">
+    </label>
+    <button type="button" id="proto-apply">套用分鐘</button>
+    <p class="proto-status" id="proto-status">預設午夜前 1 分，對齊 MONITOR_READING.minutes。播放中不會自己減少。</p>
+  </header>
+
+  <section class="hero-opening" id="hero-opening" data-mode="settled" data-phase="handoff" data-chapter="future" aria-label="開場：從奇點到今天">
+    <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <p class="hero-kicker">文明編年史 · 開場</p>
+      <h2 class="hero-title">從宇宙到今天</h2>
+      <p class="hero-reading" data-on="true">監測刻度 · 午夜前 <span class="hero-minute">1</span> 分</p>
+      <div class="hero-lines">
+        <p class="hero-line" data-beat="1" data-on="true"><span class="hero-main">甚麼都還沒有名字。</span><span class="hero-aside">膨脹已經開始。鐘更晚。</span></p>
+        <p class="hero-line" data-beat="2" data-on="true"><span class="hero-main">空間忽然多出來。</span><span class="hero-aside">沒有空氣，就沒有響聲。</span></p>
+        <p class="hero-line" data-beat="3" data-on="true"><span class="hero-main">碳是恆星煉成的。</span><span class="hero-aside">包括這一行裡的碳。</span></p>
+        <p class="hero-line" data-beat="4" data-on="true"><span class="hero-main">然後，人類才開始看分鐘。</span><span class="hero-aside">地球並不趕時間。</span></p>
+        <p class="hero-line" data-beat="5" data-on="true"><span class="hero-main">這一格由編輯寫定。</span><span class="hero-aside">對照公開公報，並不逐秒走動。</span></p>
+        <p class="hero-line" data-beat="6" data-on="true"><span class="hero-main">三卷仍在這一屏之下。</span><span class="hero-aside">刻度交給編年，不交給秒針。</span></p>
+      </div>
+      <div class="hero-cta">
+        <a class="hero-btn hero-btn-brass" href="#civ">開始編年</a>
+        <a class="hero-btn hero-btn-ghost" href="#slice">進入今日切片</a>
+      </div>
+      <p class="hero-hint-row"><a class="hero-hint" href="#civ">向下滾動，開始編年</a></p>
+    </div>
+    <button class="hero-skip" type="button" data-hero-skip>跳過開場</button>
+    <button class="hero-replay" type="button" data-hero-replay>重播開場</button>
+  </section>
+  <script>
+    (function () {
+      var h = document.getElementById('hero-opening');
+      if (!h) return;
+      var reduce = false;
+      try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+      function paint(on) {
+        var list = h.querySelectorAll('.hero-line, .hero-reading');
+        for (var i = 0; i < list.length; i++) list[i].setAttribute('data-on', on ? 'true' : 'false');
+      }
+      if (reduce) {
+        document.documentElement.classList.add('proto-reduce');
+        paint(true);
+        h.dataset.mode = 'settled';
+        h.dataset.phase = 'handoff';
+        h.dataset.chapter = 'future';
+        return;
+      }
+      paint(false);
+      h.dataset.mode = 'playing';
+      h.dataset.phase = 'singularity';
+      h.dataset.chapter = 'ancient';
+    })();
+  </script>
+
+  <main class="proto-stage">
+    <h2>下游骨架（示意，不是生產標記）</h2>
+    <p class="proto-note">順序對齊 <code>wrapCivilizationHome</code>：開場、軸槽、監測鐘、三張卷卡、今日切片。卷卡不在 <code>#hero-opening</code> 裡。下面的連結停在本頁，避免靜態預覽跳走；生產連結寫在各段說明裡。</p>
+
+    <section class="proto-axis" id="civ" aria-label="文明軸位置">
+      <p>此處是生產頁的 <code>#civ</code>／<code>.axis-hero</code>。預覽不複製軸的內部節點。首頁的 <code>h1</code> 仍是軸標題，不是上面的 <code>h2</code>。</p>
+    </section>
+
+    <section class="bulletin-clock" id="monitor" aria-label="監測讀數">
+      <p class="bulletin-kicker">監測</p>
+      <p class="bulletin-face" aria-label="靜態刻度 1 分 29 秒"><span class="bulletin-minutes"><span class="bulletin-num">1</span><span class="bulletin-unit">分</span></span><span class="bulletin-seconds"><span class="bulletin-sec">29</span><span class="bulletin-unit">秒</span></span></p>
+      <p class="bulletin-asof">資料日期 <time datetime="2025-01-28">2025-01-28</time></p>
+      <p class="bulletin-caption">此為編輯寫定的監測刻度，對照公開公報，並不逐秒走動。</p>
+      <p class="bulletin-link">既有生產鐘，預覽不改它、不讓它走動。生產連結：<a href="#civ">/civilization/#future</a></p>
+    </section>
+    <p class="proto-note">開場只取分鐘。秒數 29 留在這只鐘上，作為靜態印刷。</p>
+
+    <div class="chronicle-band">
+      <section class="volume-board" aria-label="三卷入口">
+        <div class="volume-grid">
+          <article class="volume-card"><a href="#civ"><p class="era">卷一</p><h3>古</h3><p>採集、農業、城市、帝國與商路，在此收成可核對的刻度。本卷維持既有正文，深時間仍交起源長頁。</p></a></article>
+          <article class="volume-card"><a href="#civ"><p class="era">卷二</p><h3>今</h3><p>科學方法、工業能量、全球信用、信息網絡與本世紀工具，是仍可對照新聞切片的一章。章名是今。新聞切片在首頁。</p></a></article>
+          <article class="volume-card"><a href="#civ"><p class="era">卷三</p><h3>未來</h3><p>未來章門只連到總覽既有展望。面板全文留在總覽，本頁不搬移，也不另立第十一階。</p></a></article>
+        </div>
+      </section>
+    </div>
+    <p class="proto-note">生產 href：<code>/civilization/chronicle/#ch-ancient</code>、<code>/civilization/chronicle/#ch-now</code>、<code>/civilization/chronicle/#ch-future</code>。章門不收開場台詞。</p>
+
+    <section class="proto-slice" id="slice" aria-label="今日切片位置">
+      <p>此處是生產頁的 <code>#slice</code>。次按鈕「進入今日切片」指向這裡。</p>
+    </section>
+  </main>
+  <noscript><p class="proto-note">腳本未執行：開場停在終態全文。</p></noscript>
+
+  <script>
+    (function () {
+      var section = document.getElementById('hero-opening');
+      var canvas = document.getElementById('hero-canvas');
+      var minuteNodes = section.querySelectorAll('.hero-minute');
+      var reduceBox = document.getElementById('proto-reduce');
+      var minuteInput = document.getElementById('proto-minute');
+      var status = document.getElementById('proto-status');
+      var ctx = canvas.getContext('2d');
+      var HERO_STAR_SEED = 0xb17c0de;
+      var SETTLE_AT = 12000;
+      var READING_AT = 8800;
+      var BEATS = [
+        { id: 1, at: 400 },
+        { id: 2, at: 2500 },
+        { id: 3, at: 4600 },
+        { id: 4, at: 6700 },
+        { id: 5, at: 8800 },
+        { id: 6, at: 10500 }
+      ];
+      var STAGES = [
+        { at: 0, chapter: 'ancient', phase: 'singularity', gold: 0.62, blue: 0, violet: 0, stars: 0.12, earth: 0, dial: 0, hand: 0, rail: 0, glow: 1 },
+        { at: 2500, chapter: 'ancient', phase: 'bloom', gold: 0.48, blue: 0, violet: 0, stars: 0.42, earth: 0, dial: 0, hand: 0, rail: 0, glow: 0.72, ring: true },
+        { at: 4600, chapter: 'now', phase: 'ignition', gold: 0.2, blue: 0.42, violet: 0.04, stars: 1, earth: 0.35, dial: 0, hand: 0, rail: 0, glow: 0.18 },
+        { at: 6700, chapter: 'now', phase: 'earth', gold: 0.16, blue: 0.5, violet: 0.08, stars: 1, earth: 1, dial: 1, hand: 1, rail: 0.15, glow: 0.08 },
+        { at: 8800, chapter: 'future', phase: 'handoff', gold: 0.12, blue: 0.26, violet: 0.4, stars: 1, earth: 1, dial: 1, hand: 1, rail: 0.62, glow: 0.04 },
+        { at: 10500, chapter: 'future', phase: 'handoff', gold: 0.1, blue: 0.2, violet: 0.34, stars: 1, earth: 1, dial: 1, hand: 1, rail: 1, glow: 0.02 }
+      ];
+      var KEYS = ['gold', 'blue', 'violet', 'stars', 'earth', 'dial', 'hand', 'rail', 'glow'];
+      var levels = { gold: 0.62, blue: 0, violet: 0, stars: 0.12, earth: 0, dial: 0, hand: 0, rail: 0, glow: 1 };
+      var field = null;
+      var stars = [];
+      var width = 0;
+      var height = 0;
+      var mode = section.dataset.mode === 'playing' ? 'playing' : 'settled';
+      var osReduce = false;
+      try { osReduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+      var simReduce = osReduce;
+      var origin = performance.now();
+      var paused = 0;
+      var pauseBegan = 0;
+      var ringAt = -1;
+      var ringUsed = false;
+      var forcedRingAge = -1;
+      var minuteTarget = 1;
+      var minuteShown = 1;
+      var raf = 0;
+      var running = false;
+      var inView = true;
+      var frozenT = 4000;
+      var lastRing = -1;
+      var frames = 0;
+      var frameSum = 0;
+      var worstFrame = 0;
+      var reduceForced = osReduce;
+
+      function heroStarRng(seed) {
+        var state = seed >>> 0;
+        return function () {
+          state = (state + 0x6d2b79f5) | 0;
+          var t = Math.imul(state ^ (state >>> 15), 1 | state);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      function heroStarCount(w, h) {
+        return Math.max(90, Math.min(210, Math.round((w * h) / 8500)));
+      }
+      function rollHeroStars(w, h) {
+        var random = heroStarRng(HERO_STAR_SEED);
+        var count = heroStarCount(w, h);
+        var next = [];
+        for (var i = 0; i < count; i++) {
+          next.push({
+            u: random(),
+            v: random(),
+            r: random() * 1.1 + 0.35,
+            born: random(),
+            speed: 0.4 + random() * 1.1,
+            phase: random() * Math.PI * 2,
+            gold: random() < 0.16
+          });
+        }
+        return next;
+      }
+      function stageAt(elapsed) {
+        var stage = STAGES[0];
+        for (var i = 0; i < STAGES.length; i++) {
+          if (elapsed >= STAGES[i].at) stage = STAGES[i];
+        }
+        return stage;
+      }
+      function elapsedMs(now) {
+        if (mode !== 'playing') return SETTLE_AT;
+        var end = pauseBegan ? pauseBegan : now;
+        return Math.max(0, end - origin - paused);
+      }
+      function reduced() { return osReduce || simReduce; }
+      function paintWash() {
+        section.style.setProperty('--gold-a', levels.gold.toFixed(3));
+        section.style.setProperty('--blue-a', levels.blue.toFixed(3));
+        section.style.setProperty('--violet-a', levels.violet.toFixed(3));
+      }
+      function reveal(elapsed) {
+        var nodes = section.querySelectorAll('.hero-line');
+        for (var i = 0; i < nodes.length; i++) {
+          var beat = BEATS[i];
+          nodes[i].setAttribute('data-on', elapsed >= beat.at ? 'true' : 'false');
+        }
+        var reading = section.querySelector('.hero-reading');
+        if (reading) reading.setAttribute('data-on', elapsed >= READING_AT ? 'true' : 'false');
+      }
+      function applyStage(elapsed, dt, snap) {
+        var stage = stageAt(elapsed);
+        section.dataset.chapter = stage.chapter;
+        section.dataset.phase = stage.phase;
+        var ease = snap ? 1 : 1 - Math.exp(-dt / 480);
+        for (var i = 0; i < KEYS.length; i++) {
+          var key = KEYS[i];
+          levels[key] += (stage[key] - levels[key]) * ease;
+        }
+        if (stage.ring && !ringUsed && !snap && !reduced()) {
+          ringUsed = true;
+          ringAt = performance.now();
+        }
+        paintWash();
+        reveal(elapsed);
+      }
+      function softGlow(x, y, radius, rgb, alpha) {
+        if (alpha <= 0.01 || radius <= 1) return;
+        var g = ctx.createRadialGradient(x, y, 0, x, y, radius);
+        g.addColorStop(0, 'rgba(' + rgb + ',' + alpha + ')');
+        g.addColorStop(0.55, 'rgba(' + rgb + ',' + (alpha * 0.28) + ')');
+        g.addColorStop(1, 'rgba(' + rgb + ',0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      function drawHand(x, y, length, angle, widthPx, color, alpha) {
+        if (alpha <= 0.02) return;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = widthPx;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(0, length * 0.14);
+        ctx.lineTo(0, -length);
+        ctx.stroke();
+        ctx.restore();
+      }
+      function drawEarth(x, y, radius, alpha) {
+        if (alpha <= 0.02) return;
+        softGlow(x, y, radius * 4.4, '158,192,239', 0.4 * alpha);
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.clip();
+        var body = ctx.createRadialGradient(x - radius * 0.35, y - radius * 0.4, radius * 0.1, x, y, radius);
+        body.addColorStop(0, 'rgba(244,249,255,' + alpha + ')');
+        body.addColorStop(0.45, 'rgba(158,192,239,' + alpha + ')');
+        body.addColorStop(1, 'rgba(46,74,120,' + alpha + ')');
+        ctx.fillStyle = body;
+        ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+        ctx.fillStyle = 'rgba(14,22,36,' + (0.42 * alpha) + ')';
+        ctx.beginPath();
+        ctx.arc(x + radius * 0.62, y + radius * 0.08, radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+        ctx.strokeStyle = 'rgba(214,230,248,' + (0.55 * alpha) + ')';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      function drawDial(x, y, radius, alpha, handAlpha, minutes) {
+        if (alpha <= 0.02) return;
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = 'rgba(232,228,220,0.72)';
+        ctx.lineWidth = 1.25;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.globalAlpha = alpha * 0.35;
+        ctx.beginPath();
+        ctx.arc(x, y, radius - 5, 0, Math.PI * 2);
+        ctx.stroke();
+        for (var i = 0; i < 12; i++) {
+          var ang = -Math.PI / 2 + i * (Math.PI / 6);
+          var outer = radius - 2;
+          var inner = i === 0 ? radius - 11 : radius - 6.5;
+          ctx.globalAlpha = alpha;
+          ctx.strokeStyle = i === 0 ? '#c4a572' : 'rgba(232,228,220,0.75)';
+          ctx.lineWidth = i === 0 ? 2 : 1;
+          ctx.beginPath();
+          ctx.moveTo(x + Math.cos(ang) * inner, y + Math.sin(ang) * inner);
+          ctx.lineTo(x + Math.cos(ang) * outer, y + Math.sin(ang) * outer);
+          ctx.stroke();
+        }
+        ctx.restore();
+        drawHand(x, y, radius * 0.38, 0, 2.4, '#c4a572', alpha);
+        var minuteAngle = -minutes * (Math.PI / 30);
+        var minuteLen = radius * 0.78;
+        drawHand(x, y, minuteLen, minuteAngle, 1.5, '#f7f1e6', handAlpha);
+        if (handAlpha > 0.2) {
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(minuteAngle);
+          ctx.globalAlpha = handAlpha;
+          ctx.fillStyle = '#f7f1e6';
+          ctx.beginPath();
+          ctx.arc(0, -minuteLen, 2.6, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+        ctx.save();
+        ctx.globalAlpha = Math.max(alpha, handAlpha);
+        ctx.fillStyle = '#f7f1e6';
+        ctx.beginPath();
+        ctx.arc(x, y, 2.4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+      function drawRail(alpha) {
+        if (alpha <= 0.02) return;
+        var y = height - 2;
+        var span = width * Math.min(1, alpha);
+        var left = (width - span) / 2;
+        var g = ctx.createLinearGradient(left, 0, left + span, 0);
+        g.addColorStop(0, 'rgba(196,165,114,0)');
+        g.addColorStop(0.32, 'rgba(196,165,114,0.95)');
+        g.addColorStop(0.5, 'rgba(232,228,220,0.92)');
+        g.addColorStop(0.68, 'rgba(196,165,114,0.95)');
+        g.addColorStop(1, 'rgba(196,165,114,0)');
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, alpha);
+        ctx.fillStyle = g;
+        ctx.fillRect(left, y, span, 2);
+        ctx.restore();
+      }
+      function draw(now) {
+        var t = mode === 'playing' ? now : frozenT;
+        if (mode === 'playing') frozenT = now;
+        ctx.clearRect(0, 0, width, height);
+        var dialR = Math.min(60, Math.max(46, width * 0.07));
+        var cx = width * 0.5;
+        var cy = 22 + dialR;
+        for (var i = 0; i < stars.length; i++) {
+          var star = stars[i];
+          var gate = Math.min(1, Math.max(0, (levels.stars - star.born * 0.85) / 0.15));
+          if (gate <= 0) continue;
+          var twinkle = 0.66 + 0.34 * Math.sin(t * 0.0011 * star.speed + star.phase);
+          var warm = star.gold ? 1 : levels.gold * 0.85;
+          var r = Math.round(224 + (196 - 224) * warm);
+          var gch = Math.round(229 + (165 - 229) * warm);
+          var b = Math.round(238 + (114 - 238) * warm);
+          var alpha = gate * twinkle * (star.gold ? 0.95 : 0.78);
+          ctx.fillStyle = 'rgba(' + r + ',' + gch + ',' + b + ',' + alpha + ')';
+          ctx.beginPath();
+          ctx.arc(star.u * width, star.v * height, star.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        var earthR = 14 * (0.35 + 0.65 * levels.earth);
+        drawEarth(Math.max(36, cx - dialR - 52), cy - 4, earthR, levels.earth);
+        var point = levels.glow * (1 - levels.dial);
+        softGlow(cx, cy, dialR * 1.35, '226,196,140', 0.42 * point);
+        if (point > 0.04) {
+          ctx.fillStyle = 'rgba(247,241,230,' + point + ')';
+          ctx.beginPath();
+          ctx.arc(cx, cy, 1.8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        var age = forcedRingAge >= 0 ? forcedRingAge : (ringAt >= 0 ? now - ringAt : -1);
+        lastRing = age;
+        if (age >= 0 && age < 1500) {
+            var p = age / 1500;
+            var reach = Math.min(Math.max(width, height) * 0.42, 520);
+            ctx.save();
+            ctx.globalAlpha = 1;
+            ctx.strokeStyle = 'rgba(232,210,160,' + (0.62 * (1 - p)) + ')';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.arc(cx, cy, Math.max(12, p * reach), 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+          }
+        var handAlpha = Math.max(0, Math.min(1, (levels.hand - 0.42) / 0.58));
+        drawDial(cx, cy, dialR, levels.dial, handAlpha, minuteShown);
+        if (levels.violet > 0.01) {
+          var vg = ctx.createLinearGradient(0, height * 0.84, 0, height);
+          vg.addColorStop(0, 'rgba(42,33,64,0)');
+          vg.addColorStop(1, 'rgba(110,90,170,' + (0.22 * levels.violet) + ')');
+          ctx.fillStyle = vg;
+          ctx.fillRect(0, height * 0.84, width, height * 0.16);
+        }
+        drawRail(levels.rail);
+      }
+      function resize() {
+        var rect = section.getBoundingClientRect();
+        var dprCap = rect.width < 800 ? 1.25 : 1.5;
+        var dpr = Math.min(dprCap, window.devicePixelRatio || 1);
+        var nextW = Math.max(1, Math.round(rect.width));
+        var nextH = Math.max(1, Math.round(rect.height));
+        if (!field || field.width !== nextW) {
+          field = { stars: rollHeroStars(nextW, nextH), width: nextW, height: nextH };
+        } else if (field.height !== nextH) {
+          field = { stars: field.stars, width: nextW, height: nextH };
+        }
+        stars = field.stars;
+        width = nextW;
+        height = nextH;
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      function stop() {
+        running = false;
+        if (raf) cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      function minuteSettled() { return Math.abs(minuteShown - minuteTarget) < 0.02; }
+      function frame(now) {
+        var t0 = performance.now();
+        if (!pauseBegan && mode === 'playing') {
+          /* elapsed advances only while this loop runs */
+        }
+        var dt = 16;
+        if (frame.last) dt = Math.min(64, now - frame.last);
+        frame.last = now;
+        if (mode === 'playing') minuteShown += (minuteTarget - minuteShown) * (1 - Math.exp(-dt / 320));
+        else minuteShown += (minuteTarget - minuteShown) * (1 - Math.exp(-dt / 320));
+        var elapsed = elapsedMs(now);
+        if (mode === 'playing' && elapsed >= SETTLE_AT) finish(false);
+        applyStage(mode === 'playing' ? elapsedMs(now) : SETTLE_AT, dt, reduced() || mode !== 'playing');
+        if (mode !== 'playing') {
+          for (var k = 0; k < KEYS.length; k++) levels[KEYS[k]] = stageAt(SETTLE_AT)[KEYS[k]];
+          paintWash();
+        }
+        draw(now);
+        if (!canvas.classList.contains('is-drawn')) canvas.classList.add('is-drawn');
+        var spent = performance.now() - t0;
+        frames += 1;
+        frameSum += spent;
+        if (spent > worstFrame) worstFrame = spent;
+        var keep = mode === 'playing' || !minuteSettled();
+        if (reduced() && mode !== 'playing') keep = !minuteSettled();
+        if (keep && inView && !document.hidden) raf = requestAnimationFrame(frame);
+        else stop();
+      }
+      function start() {
+        if (running || !inView || document.hidden) return;
+        if (mode !== 'playing' && minuteSettled()) return;
+        running = true;
+        frame.last = 0;
+        raf = requestAnimationFrame(frame);
+      }
+      function finish(fromSkip) {
+        mode = 'settled';
+        section.dataset.mode = 'settled';
+        if (fromSkip) {
+          ringAt = -1;
+          forcedRingAge = -1;
+        }
+        frozenT = frozenT || performance.now();
+        applyStage(SETTLE_AT, 16, true);
+        for (var i = 0; i < KEYS.length; i++) levels[KEYS[i]] = STAGES[STAGES.length - 1][KEYS[i]];
+        paintWash();
+        reveal(SETTLE_AT);
+        draw(performance.now());
+        canvas.classList.add('is-drawn');
+        document.documentElement.dataset.frames = String(frames);
+        document.documentElement.dataset.worst = String(Math.round(worstFrame * 10) / 10);
+        document.documentElement.dataset.avg = String(frames ? Math.round((frameSum / frames) * 10) / 10 : 0);
+        if (!minuteSettled()) start();
+        else stop();
+      }
+      function replay() {
+        if (reduced()) {
+          finish(true);
+          return;
+        }
+        mode = 'playing';
+        section.dataset.mode = 'playing';
+        origin = performance.now();
+        paused = 0;
+        pauseBegan = 0;
+        ringAt = -1;
+        ringUsed = false;
+        forcedRingAge = -1;
+        levels = { gold: 0.62, blue: 0, violet: 0, stars: 0.12, earth: 0, dial: 0, hand: 0, rail: 0, glow: 1 };
+        reveal(0);
+        applyStage(0, 16, true);
+        levels.gold = 0.62;
+        start();
+      }
+      function setPause(flag) {
+        if (flag) {
+          if (!pauseBegan) pauseBegan = performance.now();
+          stop();
+        } else if (pauseBegan) {
+          paused += performance.now() - pauseBegan;
+          pauseBegan = 0;
+          start();
+        }
+      }
+      function applyMinute() {
+        var next = Math.round(Number(minuteInput.value));
+        if (!Number.isFinite(next)) return;
+        next = Math.max(1, Math.min(30, next));
+        minuteInput.value = String(next);
+        if (next === minuteTarget && minuteSettled()) return;
+        minuteTarget = next;
+        for (var i = 0; i < minuteNodes.length; i++) minuteNodes[i].textContent = String(next);
+        status.textContent = '已改為午夜前 ' + next + ' 分。分針走到該格後停止，不逐秒走動。';
+        start();
+      }
+      function onKey(event) {
+        if (event.key !== 'Escape' || mode !== 'playing') return;
+        var tag = event.target && event.target.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+        finish(true);
+      }
+      if (osReduce) {
+        reduceBox.checked = true;
+        reduceBox.disabled = true;
+      }
+      reduceBox.addEventListener('change', function () {
+        if (osReduce) return;
+        simReduce = reduceBox.checked;
+        document.documentElement.classList.toggle('proto-reduce', simReduce);
+        if (simReduce) finish(true);
+        else replay();
+      });
+      document.getElementById('proto-replay').addEventListener('click', replay);
+      section.querySelector('[data-hero-replay]').addEventListener('click', replay);
+      section.querySelector('[data-hero-skip]').addEventListener('click', function () { finish(true); });
+      document.getElementById('proto-apply').addEventListener('click', applyMinute);
+      minuteInput.addEventListener('change', applyMinute);
+      document.addEventListener('keydown', onKey);
+      document.addEventListener('visibilitychange', function () {
+        setPause(document.hidden);
+      });
+      var observer = new IntersectionObserver(function (entries) {
+        inView = entries[0] ? entries[0].isIntersecting : true;
+        setPause(!inView);
+      });
+      observer.observe(section);
+      var resizeObserver = new ResizeObserver(function () {
+        resize();
+        draw(performance.now());
+        if (!canvas.classList.contains('is-drawn')) canvas.classList.add('is-drawn');
+      });
+      resizeObserver.observe(section);
+      resize();
+      var params = new URLSearchParams(location.search);
+      if (!osReduce && params.get('reduce') === '1') {
+        simReduce = true;
+        reduceBox.checked = true;
+        document.documentElement.classList.add('proto-reduce');
+      }
+      var preset = Math.round(Number(params.get('minute')));
+      if (params.get('chrome') === '0') document.documentElement.classList.add('preview-bare');
+      if (params.get('compact') === '1') document.documentElement.classList.add('preview-compact');
+      if (preset >= 1 && preset <= 30) {
+        minuteTarget = preset;
+        minuteShown = preset;
+        minuteInput.value = String(preset);
+        for (var n = 0; n < minuteNodes.length; n++) minuteNodes[n].textContent = String(preset);
+        status.textContent = '已停在午夜前 ' + preset + ' 分。分針不走動。';
+      }
+      var seekRaw = params.get('at');
+      var seek = seekRaw === null || seekRaw === '' ? NaN : Number(seekRaw);
+      var hold = params.get('hold') === '1';
+      resize();
+      if (reduced() || params.get('settle') === '1' || mode === 'settled') {
+        finish(true);
+      } else if (Number.isFinite(seek) && seek >= 0) {
+        var at = Math.max(0, Math.min(seek, SETTLE_AT));
+        origin = performance.now() - at;
+        if (at >= 2500 && at < 4000) {
+          ringUsed = true;
+          forcedRingAge = at - 2500;
+        } else if (at >= 4000) {
+          ringUsed = true;
+          forcedRingAge = -1;
+        }
+        if (at >= SETTLE_AT) finish(false);
+        else if (hold) {
+          document.documentElement.classList.add('preview-hold');
+          mode = 'playing';
+          section.dataset.mode = 'playing';
+          applyStage(at, 16, true);
+          reveal(at);
+          draw(performance.now());
+          canvas.classList.add('is-drawn');
+        } else start();
+      } else start();
+      if (params.get('debug') === '1') {
+        var inner = section.querySelector('.hero-inner');
+        var dialR = Math.min(60, Math.max(46, width * 0.07));
+        var gap = inner.getBoundingClientRect().top - section.getBoundingClientRect().top - (22 + dialR * 2);
+        document.documentElement.dataset.dialGap = String(Math.round(gap));
+        document.documentElement.dataset.overflow = String(document.documentElement.scrollWidth - document.documentElement.clientWidth);
+        document.documentElement.dataset.heroH = String(Math.round(section.getBoundingClientRect().height));
+        document.documentElement.dataset.onCount = String(section.querySelectorAll('[data-on="true"]').length);
+        var benchAt = performance.now();
+        for (var b = 0; b < 30; b++) draw(benchAt);
+        document.documentElement.dataset.draw30 = String(Math.round((performance.now() - benchAt) * 10) / 10);
+        document.documentElement.dataset.ringAge = String(Math.round(lastRing));
+        document.documentElement.dataset.canvasOpacity = getComputedStyle(canvas).opacity;
+        var dialRpx = Math.min(60, Math.max(46, width * 0.07));
+        var ringP = lastRing >= 0 && lastRing < 1500 ? lastRing / 1500 : -1;
+        var ringRad = ringP >= 0 ? Math.max(12, ringP * Math.min(Math.max(width, height) * 0.42, 520)) : 0;
+        var dpr = width > 0 ? canvas.width / width : 1;
+        var core = ctx.getImageData(Math.round(width * 0.5 * dpr), Math.round((22 + dialRpx) * dpr), 1, 1).data;
+        var ringPx = ctx.getImageData(
+          Math.round((width * 0.5 + ringRad) * dpr),
+          Math.round((22 + dialRpx) * dpr),
+          1, 1
+        ).data;
+        document.documentElement.dataset.canvasCore = core[0] + ',' + core[1] + ',' + core[2] + ',' + core[3];
+        document.documentElement.dataset.canvasRing = ringPx[0] + ',' + ringPx[1] + ',' + ringPx[2] + ',' + ringPx[3];
+        document.documentElement.dataset.ringRadius = String(Math.round(ringRad));
+      }
+      window.__HERO_PREVIEW = {
+        settleAt: SETTLE_AT,
+        state: function () {
+          return {
+            mode: mode,
+            elapsed: Math.round(elapsedMs(performance.now())),
+            chapter: section.dataset.chapter,
+            phase: section.dataset.phase,
+            minute: Math.round(minuteShown * 10) / 10,
+            minuteTarget: minuteTarget,
+            reduced: reduced(),
+            frames: frames,
+            worstFrame: Math.round(worstFrame * 10) / 10,
+            avgFrame: frames ? Math.round((frameSum / frames) * 10) / 10 : 0
+          };
+        }
+      };
+    })();
+  </script>
+</body>
+</html>
