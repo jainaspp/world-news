@@ -341,6 +341,20 @@ describe('homepage anchor and brass', () => {
     expect(127).toBe(111 + 16);
   });
 
+  it('scores the opening kicker on ink, not the page paper', () => {
+    const css = readFileSync('src/App.css', 'utf8');
+    const opening = css.slice(css.indexOf('.hero-opening {'), css.indexOf('}', css.indexOf('.hero-opening {')));
+    const kicker = css.slice(css.indexOf('.hero-kicker {'), css.indexOf('}', css.indexOf('.hero-kicker {')));
+    expect(opening).toContain('background-color: #161c24');
+    expect(opening).toContain('background-image: radial-gradient(130% 95% at 50% 38%, #1c2431 0%, #161c24 55%, #121820 100%)');
+    expect(opening).not.toMatch(/background:\s*radial-gradient/);
+    expect(kicker).toContain('color: var(--era-ancient)');
+    expect(kicker).not.toContain('brass-on-paper');
+    expect(contrast('#c4a572', '#161c24')).toBeGreaterThanOrEqual(4.5);
+    expect(contrast('#c4a572', '#f4f6f8')).toBeLessThan(4.5);
+    expect(contrast('#7a5a32', '#161c24')).toBeLessThan(4.5);
+  });
+
   it('keeps ink on a brass fill that clears 4.5:1', () => {
     const css = readFileSync('src/App.css', 'utf8');
     const fill = css.match(/--brass-ink-fill:\s*(#[0-9a-fA-F]{6})/)?.[1];

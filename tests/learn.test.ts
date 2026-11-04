@@ -52,6 +52,27 @@ describe('learn map shell', () => {
   });
 });
 
+describe('learn controls', () => {
+  it('gives the reset and done buttons a 44px ink-and-paper target', () => {
+    const css = readFileSync('src/App.css', 'utf8');
+    const rule = css.slice(css.indexOf('.learn-actions button {'), css.indexOf('}', css.indexOf('.learn-actions button {')));
+    expect(rule).toContain('min-height: 44px');
+    expect(rule).toContain('min-width: 44px');
+    expect(rule).toContain('background: #f7f1e6');
+    expect(rule).toContain('color: #161c24');
+    const dark = css.slice(css.indexOf('html.dark .learn-actions button {'), css.indexOf('}', css.indexOf('html.dark .learn-actions button {')));
+    expect(dark).toContain('background: #161c24');
+    expect(dark).toContain('color: #f7f1e6');
+    const hub = renderLearnPath('');
+    const lesson = LEARN_LESSONS[0];
+    const leaf = renderLearnPath(`${lesson?.subjectId}/${lesson?.id}`);
+    expect(hub.html).toContain('class="learn-actions"');
+    expect(hub.html).toContain('重設本機進度');
+    expect(leaf.html).toContain('本節讀完');
+    expect(leaf.html).toContain('class="learn-actions"');
+  });
+});
+
 describe('monitoring clock', () => {
   it('is a static ink reading that links to the future anchor', () => {
     const html = renderBulletinClock();
