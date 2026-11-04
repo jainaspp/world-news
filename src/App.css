@@ -3803,7 +3803,7 @@ a.question-line:hover { text-decoration: underline; }
   .today-slice .thumb-fallback { max-height: 64px; }
 }
 /* Phone hub: the axis hero is a grid item on .column-index. Its min-content
-   (seven spine labels plus nowrap chips) was wider than the viewport, so the
+   (spine labels plus nowrap chips) was wider than the viewport, so the
    hero, chronicle dots, CTAs, and pattern pills shared one overflowing band.
    min-width: 0 lets the column win. Each band then scrolls or stacks on its own. */
 @media (max-width: 640px) {
@@ -3849,7 +3849,7 @@ a.question-line:hover { text-decoration: underline; }
   .milestones li {
     flex: 0 0 auto;
     /* 4 slots + 3 gaps of 12px fill the content box inside the 8px inset,
-       so a resting view ends in the gap before 城市, not through a glyph. */
+       so a resting view ends in the gap after the fourth node, not through a glyph. */
     width: calc((100cqi - 36px) / 4);
     min-width: 0;
     scroll-snap-align: start;
@@ -4525,6 +4525,10 @@ body:has(.ig-deck) { height: 100%; overflow: hidden; }
   gap: 12px;
   overflow: hidden;
 }
+/* Closed 今日 panel leaves a taller deck. Keep the slice chip inside the card. */
+.page.ig-snap .ig-card-slice .ig-sheet { gap: 4px; }
+.page.ig-snap .ig-card-slice .civ-near { margin: 0; }
+.page.ig-snap .ig-card-slice .slice-note { margin-bottom: 0; }
 .page.ig-snap .ig-card-story .rank-row {
   align-items: center;
   border: 0;

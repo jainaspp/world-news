@@ -164,6 +164,8 @@ html.dark .heat-badge:not(.heat-3) { color: #ff8a9b; }
 .angle-text { margin: 0; line-height: 1.6; }
 .angle-card .read-original { font-size: 0.82rem; font-weight: 400; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 /* Timeline */
+.today-stream { min-width: 0; background: none; }
+.today-stream .today-title { display: block; font-size: 1.05rem; line-height: 1.45; font-weight: 700; }
 .timeline { list-style: none; margin: 4px 0 0; padding: 0; display: grid; }
 .timeline li { display: grid; grid-template-columns: 92px 14px minmax(0, 1fr); gap: 8px; align-items: start; padding-bottom: 12px; position: relative; }
 .timeline time { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; padding-top: 1px; }

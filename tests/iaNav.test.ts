@@ -56,6 +56,7 @@ describe('IAa nav shell', () => {
     expect(nowAt).toBeLessThan(futureAt);
     expect(briefing).toContain('class="chip active" href="/briefing/" aria-current="page"');
     expect(briefing).not.toContain('class="chip active" href="/#slice"');
+    expect(briefing).toContain('href="/today/" data-ia-news="slice"');
     expect(briefing).not.toContain('>今天<');
     const more = moreNav(briefing);
     expect(more).not.toContain('每日導讀');
@@ -69,8 +70,18 @@ describe('IAa nav shell', () => {
     expect(home).toContain('data-ia-active="home"');
     expect(home).toContain('class="chip civ-chip active" href="/civilization/earth/" aria-current="location"');
     expect(home).toContain('data-ia-l2="now" aria-current="true"');
-    expect(home).toContain('class="chip active" href="/#slice" aria-current="page"');
+    expect(home).toContain('href="/today/" data-ia-news="slice"');
+    expect(home).not.toContain('class="chip active" href="/today/"');
+    expect(home).not.toContain('href="/#slice"');
+    expect(home).not.toContain('<details class="ia-today" open>');
     expect(home).not.toContain(' hidden');
+    const today = primaryNavHtml('today');
+    expect(today).toContain('<details class="ia-today" open>');
+    expect(today).toContain('class="chip active" href="/today/" aria-current="page" data-ia-news="slice"');
+    expect(chrome('today')).toContain('>港聞時間線<');
+    expect(chrome('today')).not.toContain('>多方時間線<');
+    expect(chrome('today')).not.toContain('href="/#slice"');
+    expect(chrome('today')).not.toContain('hero-opening');
     const hub = primaryNavHtml('civilization');
     expect(hub).not.toMatch(/class="[^"]*\bciv-chip\b/);
     expect(hub).toContain('class="ia-branch" hidden');
@@ -85,6 +96,8 @@ describe('IAa nav shell', () => {
     expect(iaStateFor('city')).toMatchObject({ l1: 'earth', l2: 'now', showL2: true });
     expect(iaStateFor('chronicle')).toMatchObject({ l1: 'earth', l2: '', showL2: true, expandToday: false });
     expect(iaStateFor('compare')).toMatchObject({ news: 'explainer', expandToday: true, l2: 'now' });
+    expect(iaStateFor('today')).toMatchObject({ news: 'slice', expandToday: true, l2: 'now', l1: 'earth' });
+    expect(iaStateFor('home')).toMatchObject({ news: '', expandToday: false, l2: 'now', l1: 'earth' });
     expect(iaStateFor('learn')).toMatchObject({ l1: '', showL2: false });
 
     const cosmos = renderCosmosPage().html;

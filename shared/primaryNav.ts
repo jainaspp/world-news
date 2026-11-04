@@ -11,10 +11,10 @@
  * - 地球生物 → /civilization/earth/
  * - 古 → /civilization/earth/ (natural-history shell)
  * - 未來 → /civilization/#future
- * - 今日切片 → /#slice
+ * - 今日切片 → /today/ （港聞時間線。/#slice 只可作軸內次級錨，唔做新聞入口）
  * - 每日導讀 → /briefing/
  * - 懶人包 → /explainer/
- * 今 is a disclosure, not its own URL.
+ * 今 is a disclosure, not its own URL. Home is the demo spine, not the news surface.
  */
 
 export type IaL1 = 'cosmos' | 'galaxy' | 'earth';
@@ -43,7 +43,7 @@ export const IA_L1: readonly { key: IaL1; href: string; label: string }[] = [
 ];
 
 export const IA_NEWS: readonly { key: IaNews; href: string; label: string }[] = [
-  { key: 'slice', href: '/#slice', label: '今日切片' },
+  { key: 'slice', href: '/today/', label: '今日切片' },
   { key: 'briefing', href: '/briefing/', label: '每日導讀' },
   { key: 'explainer', href: '/explainer/', label: '懶人包' },
 ];
@@ -52,14 +52,14 @@ export const IA_ANCIENT_HREF = '/civilization/earth/';
 export const IA_FUTURE_HREF = '/civilization/#future';
 
 const NEWS_ROUTES: Record<string, IaNews> = {
-  home: 'slice',
+  today: 'slice',
   briefing: 'briefing',
   compare: 'explainer',
 };
 
 const ANCIENT = new Set(['earth', 'origins']);
-const NOW = new Set(['tech', 'city', 'home', 'briefing', 'compare']);
-const EARTH_TREE = new Set(['earth', 'origins', 'tech', 'city', 'chronicle', 'home', 'briefing', 'compare']);
+const NOW = new Set(['tech', 'city', 'home', 'briefing', 'compare', 'today']);
+const EARTH_TREE = new Set(['earth', 'origins', 'tech', 'city', 'chronicle', 'home', 'briefing', 'compare', 'today']);
 
 const EMPTY: IaState = {
   l1: '',

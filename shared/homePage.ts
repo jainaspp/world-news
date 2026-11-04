@@ -173,7 +173,7 @@ export function renderHomeFeed(
     close,
   });
   const list = demoteGraphic(items).slice(0, SSR_COUNT);
-  const shell = (body: string) => `<a class="skip-link" href="#slice">跳到今日切片</a>
+  const shell = (body: string) => `<a class="skip-link" href="/today/">跳到今日切片</a>
   <div class="page ssr-home ig-snap">
     <main id="today" class="ig-frame">
       ${body}
