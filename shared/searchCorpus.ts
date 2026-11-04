@@ -1,4 +1,5 @@
 import { briefingScopeOf, type IndexEntry } from './content.js';
+import { packageToolTitle } from './packageNews.js';
 import { regionsForSource, type SearchArticle, type SearchCorpus, type SearchHeadline } from './siteSearch.js';
 import type { NewsItem } from './types.js';
 
@@ -89,7 +90,7 @@ export function buildCorpus(input: {
   }
   const articles = [
     ...(input.briefings ?? []).map((entry) => fromEntry('briefing', entry)),
-    ...(input.explainers ?? []).map((entry) => fromEntry('explainer', entry)),
+    ...(input.explainers ?? []).filter((entry) => !packageToolTitle(entry.title)).map((entry) => fromEntry('explainer', entry)),
     ...(input.analyses ?? []).map((entry) => fromEntry('analysis', entry)),
     ...(input.digests ?? []).map((entry) => fromEntry('digest', entry)),
     ...(input.topics ?? []).map((entry) => fromEntry('topic', entry)),

@@ -13,6 +13,7 @@ import { renderCivilizationSlice } from './civilization/renderSlice.js';
 import { jdToolCardMarkup } from './jdToolCard.js';
 import { afterLcpBootstrap, criticalStyleTag, parkNonLcpImages } from './criticalCss.js';
 import { isMostlyEnglish } from './zh.js';
+import { packageToolTitle } from './packageNews.js';
 
 /**
  * Server-rendered pages for the AI columns (/digest/, /weekly/, /analysis/).
@@ -931,7 +932,8 @@ const LISTING: Record<'briefing' | 'compare', { title: string; description: stri
 export function renderColumnIndex(kind: 'briefing' | 'compare', entries: IndexEntry[], canonical: string, _options: PageOptions = {}): string {
   const meta = LISTING[kind];
   const path = kind === 'compare' ? 'explainer' : kind;
-  const sorted = [...entries].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
+  const listed = kind === 'compare' ? entries.filter((entry) => !packageToolTitle(entry.title)) : entries;
+  const sorted = [...listed].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
   const cardKicker = kind === 'compare' ? '新聞懶人包' : meta.kicker;
   const itemCards = sorted.map((entry, index) => columnPackCard(entry, `/${path}/${encodeURIComponent(entry.key)}/`, cardKicker, index, '來源', false, kind === 'briefing'));
   const ld = `<script type="application/ld+json">${JSON.stringify({

@@ -1,5 +1,6 @@
 import { applyRuntimeEnv } from '../../server/runtimeEnv.js';
 import { angleClusters } from '../../shared/angles.js';
+import { packageToolTitle } from '../../shared/packageNews.js';
 import { hktParts } from '../../shared/content.js';
 import { materialFromBoard } from '../../shared/grok.js';
 import {
@@ -44,7 +45,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     clusters: angleClusters((material?.items ?? []).filter((item) => onHktDate(item, date))),
     date,
     explainers: index
-      .filter((entry) => entry.key.startsWith(date))
+      .filter((entry) => entry.key.startsWith(date) && !packageToolTitle(entry.title))
       .map((entry) => ({ key: entry.key, title: entry.title })),
     ...(parsed.region ? { region: parsed.region } : {}),
     ...(parsed.category ? { category: parsed.category } : {}),

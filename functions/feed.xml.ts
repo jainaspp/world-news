@@ -1,5 +1,6 @@
 import { applyRuntimeEnv } from '../server/runtimeEnv.js';
 import { renderFeed, type FeedEntry } from '../shared/feedXml.js';
+import { packageToolTitle } from '../shared/packageNews.js';
 import { articlePath } from '../shared/searchCorpus.js';
 import type { IndexEntry } from '../shared/content.js';
 import { edgeCache, type PagesContext } from './env.js';
@@ -33,7 +34,8 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     readIndex(env, 'briefing').catch(() => []),
     readIndex(env, 'compare').catch(() => []),
   ]);
-  const entries = [...rows('briefing', briefings), ...rows('explainer', explainers)]
+  const newsExplainers = explainers.filter((entry) => !packageToolTitle(entry.title));
+  const entries = [...rows('briefing', briefings), ...rows('explainer', newsExplainers)]
     .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
   const response = new Response(renderFeed(entries), {
     headers: {
