@@ -414,6 +414,12 @@ html.dark .pack-shell { box-shadow: none; }
   .chip, .pack-fold > summary, .topic-fold > summary, .otd-pack > summary, .sources summary {
     min-height: 36px;
   }
+  /* Source fold only. At 390 the summary was 324×36; the 44px floor is the
+     tap target. Other folds stay 36px. The AA ring stays on :focus-visible. */
+  .topic-fold:has(.source-list) > summary {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 /* Art 2026-10-11: one card language. H1 28 / section 18 / card title 16–17 / body 15 / meta 13. */
