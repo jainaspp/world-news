@@ -190,3 +190,165 @@ describe('HK, mainland, and ASI homepage bootstrap', () => {
     ]);
   });
 });
+
+/** The 2026-11-06 Now 兩岸 headline that reached `#wn-bootstrap` after #299. */
+const STRAIT_TITLE = '特朗普雙輸美國國會 台海局勢底定看向習近平';
+const STRAIT_CLASSIC_TITLE = '美國國會消息 臺海局勢底定';
+const NOW_TRADE_TITLE = '北京召開經貿會議';
+
+describe('Taiwan Strait tokens on HK and mainland desks', () => {
+  it('blocks a title that contains 台海', () => {
+    expect(blockedHkChinaStory({
+      title: STRAIT_TITLE,
+      source: 'Now 兩岸',
+      link: 'https://news.now.com/home/strait',
+    })).toBe(true);
+    expect(mentionsTaiwanCoverage({ title: STRAIT_TITLE })).toBe(true);
+  });
+
+  it('blocks 臺海 in the title, excerpt, description, and link', () => {
+    expect(blockedHkChinaStory({
+      title: STRAIT_CLASSIC_TITLE,
+      source: 'Now 兩岸',
+      link: 'https://news.now.com/home/classic',
+    })).toBe(true);
+    expect(blockedHkChinaStory({
+      title: '美國國會消息',
+      excerpt: '評論提及臺海',
+      source: 'Now 兩岸',
+      link: 'https://news.now.com/home/excerpt',
+    })).toBe(true);
+    expect(blockedHkChinaStory({
+      title: '美國國會消息',
+      description: '評論提及臺海',
+      source: 'Now 兩岸',
+      link: 'https://news.now.com/home/description',
+    })).toBe(true);
+    expect(blockedHkChinaStory({
+      title: '美國國會消息',
+      source: 'Now 兩岸',
+      link: 'https://news.now.com/news/%E8%87%BA%E6%B5%B7',
+    })).toBe(true);
+    expect(blockedHkChinaStory({
+      title: '美國國會消息',
+      source: 'Now 兩岸',
+      link: 'https://news.now.com/news/%E5%8F%B0%E6%B5%B7',
+    })).toBe(true);
+    expect(mentionsTaiwanCoverage({ title: '局勢', excerpt: '臺海' })).toBe(true);
+    expect(mentionsTaiwanCoverage({ title: '局勢', description: '台海' })).toBe(true);
+  });
+
+  it('does not block a Now 兩岸 story that lacks 台海, 臺海, and Taiwan tokens', () => {
+    expect(blockedHkChinaStory({
+      title: NOW_TRADE_TITLE,
+      excerpt: '與會代表討論貿易數字。',
+      description: '論壇在廈門閉幕。',
+      source: 'Now 兩岸',
+      sourceUrl: 'https://news.now.com',
+      link: 'https://news.now.com/home/finance',
+    })).toBe(false);
+    expect(mentionsTaiwanCoverage({
+      title: NOW_TRADE_TITLE,
+      excerpt: '與會代表討論貿易數字。',
+      description: '論壇在廈門閉幕。',
+      link: 'https://news.now.com/home/finance',
+    })).toBe(false);
+  });
+
+  it('still blocks 台灣 and Taiwan', () => {
+    expect(blockedHkChinaStory({
+      title: '台灣影展公布片單',
+      source: 'Now 兩岸',
+      link: 'https://news.now.com/home/fest',
+    })).toBe(true);
+    expect(blockedHkChinaStory({
+      title: '臺灣影展消息',
+      source: 'Now 兩岸',
+      link: 'https://news.now.com/home/fest-classic',
+    })).toBe(true);
+    expect(blockedHkChinaStory({
+      title: VARIETY_TITLE,
+      source: 'Variety',
+      link: 'https://variety.com/fest',
+    })).toBe(true);
+  });
+
+  it('drops the 台海 headline from the homepage bootstrap and keeps it on the Taiwan desk', () => {
+    const strait = item({
+      id: '0b0f93ac7825',
+      title: STRAIT_TITLE,
+      source: 'Now 兩岸',
+      sourceUrl: 'https://news.now.com',
+      regions: ['HKG'],
+      category: 'china',
+      link: 'https://news.now.com/home/strait',
+    });
+    const classic = item({
+      id: 'strait-classic',
+      title: STRAIT_CLASSIC_TITLE,
+      source: 'Now 兩岸',
+      sourceUrl: 'https://news.now.com',
+      regions: ['HKG'],
+      category: 'china',
+      link: 'https://news.now.com/home/classic',
+    });
+    const trade = item({
+      id: 'now-trade',
+      title: NOW_TRADE_TITLE,
+      source: 'Now 兩岸',
+      sourceUrl: 'https://news.now.com',
+      regions: ['HKG'],
+      category: 'china',
+      link: 'https://news.now.com/home/finance',
+      excerpt: '與會代表討論貿易數字。',
+    });
+    const twnStrait = item({
+      id: 'twn-strait',
+      title: STRAIT_TITLE,
+      source: '其他',
+      sourceUrl: 'https://example.com',
+      regions: ['TWN'],
+      category: 'world',
+      link: 'https://example.com/strait',
+    });
+
+    expect(filterNews([strait, classic, trade], {}).map((row) => row.id)).toEqual(['now-trade']);
+    expect(filterNews([strait, classic, trade], { region: 'HKG' }).map((row) => row.id)).toEqual(['now-trade']);
+    expect(filterNews([strait, classic, trade], { category: 'china' }).map((row) => row.id)).toEqual(['now-trade']);
+    expect(filterNews([strait, classic, trade, twnStrait], { region: 'TWN' }).map((row) => row.id)).toEqual(['twn-strait']);
+    expect(homeBootstrap([twnStrait], true)).toContain(STRAIT_TITLE);
+
+    const shell = '<html><head></head><body><div id="root"></div></body></html>';
+    const html = injectHomeShell(shell, [strait, classic, trade]);
+    expect(html).toContain(NOW_TRADE_TITLE);
+    expect(html).not.toContain(STRAIT_TITLE);
+    expect(html).not.toContain(STRAIT_CLASSIC_TITLE);
+    expect(html).not.toContain('0b0f93ac7825');
+    expect(bootstrapIds(html)).toEqual(['now-trade']);
+    const boot = html.match(/<script id="wn-bootstrap" type="application\/json">([\s\S]*?)<\/script>/)?.[1] ?? '';
+    expect(boot).not.toContain('台海');
+    expect(boot).not.toContain('臺海');
+
+    const nowFeed: Feed = {
+      id: 'now-china',
+      label: 'Now 兩岸',
+      homepage: 'https://news.now.com',
+      url: 'https://news.now.com/feed',
+      regions: ['HKG'],
+      terms: 'uncertain',
+      category: 'china',
+    };
+    const xml = `<rss><channel>
+      <item><title>${STRAIT_TITLE}</title><link>https://news.now.com/home/strait</link><pubDate>Fri, 06 Nov 2026 01:00:00 GMT</pubDate><description>局勢評論。</description></item>
+      <item><title>${STRAIT_CLASSIC_TITLE}</title><link>https://news.now.com/home/classic</link><pubDate>Fri, 06 Nov 2026 01:00:00 GMT</pubDate></item>
+      <item><title>${NOW_TRADE_TITLE}</title><link>https://news.now.com/home/finance</link><pubDate>Fri, 06 Nov 2026 01:00:00 GMT</pubDate><description>與會代表討論貿易數字。</description></item>
+    </channel></rss>`;
+    expect(parseFeed(xml, nowFeed).map((row) => row.title)).toEqual([NOW_TRADE_TITLE]);
+    const twnFeed: Feed = { ...nowFeed, id: 'twn-desk', regions: ['TWN'] };
+    expect(parseFeed(xml, twnFeed).map((row) => row.title)).toEqual([
+      STRAIT_TITLE,
+      STRAIT_CLASSIC_TITLE,
+      NOW_TRADE_TITLE,
+    ]);
+  });
+});
