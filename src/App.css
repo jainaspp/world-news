@@ -424,7 +424,7 @@ html.dark .thumb-neutral {
   }
   .digest-strip .badge { display: none; }
   .digest-strip .chip {
-    min-height: 36px; padding: 4px 10px; font-size: 14px; line-height: 1.35;
+    min-width: 44px; min-height: 44px; padding: 4px 10px; font-size: 14px; line-height: 1.35;
   }
   .home-intro.home-intro-top { margin-top: 4px; padding: 6px 10px; }
   .home-intro-line { font-size: 14px; }
