@@ -1668,6 +1668,30 @@ html.dark .learn-edge { background: #171d26; border-color: #2e3b4c; }
 @media (min-width: 720px) {
   .learn-map { grid-template-columns: repeat(3, 1fr); }
 }
+@media (max-width: 700px) {
+  /* Learn subject list. At 390 a lesson title was 35×216 and a crumb
+     link was 24px tall (首頁 was 32×24). The 44px floor is the tap
+     target. From 701px up the titles stay inline and the crumbs stay
+     on the line. The AA ring stays on :focus-visible. */
+  .learn-page .crumb a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 4px;
+  }
+  .learn-leaf h2 a {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 4px;
+  }
+}
 .chip.civ-chip {
   background: #161c24;
   color: #f0ebe3;
