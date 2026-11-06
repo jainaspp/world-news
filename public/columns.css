@@ -242,6 +242,22 @@ html.dark .heat-badge:not(.heat-3) { color: #ff8a9b; }
     min-height: 44px;
   }
 }
+@media (max-width: 700px) {
+  /* Topic footer sentence and photo credit. At 390 「數據」was 17×32 inline,
+     「重大更新」was 17×64 inline, and the site link was 36×348 inline.
+     The photo credit was 14×278 inline. Each hit box matches its border
+     box. The 44px floor is the tap target. From 701px up they stay on the
+     line. The AA ring stays on :focus-visible. */
+  .page.column-page[data-kind="topic"] .app-footer > p a,
+  .page.column-page[data-kind="topic"] .photo-credit a {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
 @media (min-width: 700px) {
   .angle-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 }
