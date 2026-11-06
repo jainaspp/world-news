@@ -1791,22 +1791,44 @@ a.axis-node:hover { color: #f7f1e6; }
 .axis-micro {
   flex: 0 0 auto;
   margin: 0 -16px 0;
-  padding: 0 16px;
+  /* 18px matches the fade-rise travel, so the 44px target stays below the hero
+     while the axis settles. The plate is the same ink as the hero. */
+  padding: 18px 16px 0;
   background: #161c24;
   font-size: 14px;
   line-height: 1.4;
 }
-/* .ig-card p paints the page background. This sentence stays on the axis ink. */
+/* .ig-card p paints the page background. This sentence stays on the axis ink.
+   The snap sheet's 12px gap would show the page between the two plates. */
 .ig-card .axis-micro { background: #161c24; }
+.page.ig-snap .ig-sheet > .axis-micro { margin-top: -12px; }
+/* Snap cards set flex 1 1 auto and min-height 0 on direct children. Keep this
+   line at 44px on the home axis card and the civilization lead card. */
+.page.ig-snap .ig-card .axis-micro {
+  flex: 0 0 auto;
+  min-height: 44px;
+  background: #161c24;
+}
 .axis-micro a {
   display: inline-flex;
   align-items: center;
   box-sizing: border-box;
   min-width: 44px;
   min-height: 44px;
+  padding: 0 4px;
   color: #c4a572;
+  background: #161c24;
   font-weight: 700;
   text-underline-offset: 3px;
+}
+/* Light --accent #1d4f91 is 2.10:1 on the axis plate #161c24 and 2.27:1 on the
+   dark page #0e141c. --civ-link-on-ink is 9.17:1 on the plate and 9.90:1 on
+   #0e141c, and 1.72:1 on the light page #f4f6f8, so the ring stays inset on
+   the link fill. Home and /civilization/ share this plate in both themes.
+   Brass #c4a572 on the plate is 7.32:1; on #f4f6f8 it is 2.16:1. */
+.axis-micro a:focus-visible {
+  outline: 3px solid var(--civ-link-on-ink);
+  outline-offset: -3px;
 }
 @media (min-width: 960px) {
   .axis-micro { padding-left: 22px; padding-right: 22px; }
