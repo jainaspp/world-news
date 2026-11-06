@@ -188,6 +188,25 @@ html.dark .heat-badge:not(.heat-3) { color: #ff8a9b; }
 .tl-body { font-size: 0.92rem; line-height: 1.5; }
 .tl-body a { color: var(--muted); text-decoration: none; }
 .tl-body a:hover { text-decoration: underline; }
+@media (max-width: 700px) {
+  /* Analysis outlet links and timeline links. At 390 an angle-card
+     read-original was 19×290 on one line and 38×290 on two lines, and a
+     wrapped timeline link was 43×197. A one-line timeline link sits on the
+     21px line. The 44px floor is the tap target. The outlet link keeps its
+     two-line clamp. From 701px up both stay on the line. The AA ring stays
+     on :focus-visible. */
+  .page.column-page[data-kind="analysis"] .angle-card .read-original {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .page.column-page[data-kind="analysis"] .timeline .tl-body a {
+    display: inline-block;
+    max-width: 100%;
+    min-width: 44px;
+    min-height: 44px;
+    vertical-align: middle;
+  }
+}
 @media (min-width: 700px) {
   .angle-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 }
