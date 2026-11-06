@@ -422,9 +422,20 @@ html.dark .pack-shell { box-shadow: none; }
   }
   /* Every topic-fold summary, not only the source list. 「背景」and the
      sibling toggles were 324×36 on a phone. The 44px floor is the tap
-     target. Chips, pack-only folds, and on-this-day packs stay on the
-     36px rule above. The AA ring stays on :focus-visible. */
+     target. Pack-only folds and on-this-day packs stay on the 36px rule
+     above. The AA ring stays on :focus-visible. */
   .topic-fold > summary {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  /* Chips the grouped rule still painted at 36px. At 390: topic filters
+     and heritage filters were 58×36, topic links and loose share chips
+     were 36px tall. The 44px floor is the tap target. The pack toolbar
+     keeps its own 32px row (a later, more specific rule). On-this-day
+     summaries already lay out at least 48px from their padding, so they
+     stay on the 36px floor. The AA ring stays on :focus-visible. */
+  .chip,
+  .share-buttons .chip {
     min-width: 44px;
     min-height: 44px;
   }
