@@ -12,6 +12,7 @@ import type { HkNow } from './hk.js';
 import type { HsiQuote } from './hsi.js';
 import type { NewsItem } from './types.js';
 import { wrapCivilizationHome } from './civilizationPage.js';
+import { omitBlockedHomeStories } from './filter.js';
 import { titleLang } from './zh.js';
 
 export interface HomeMarket {
@@ -195,9 +196,9 @@ export function renderHomeFeed(
   return shell(frame(inner, rankList(list, counts, feedSlot)));
 }
 
-export function homeBootstrap(items: NewsItem[]): string {
+export function homeBootstrap(items: NewsItem[], keepTaiwan = false): string {
   const payload = {
-    items: items.slice(0, 80).map((item) => ({
+    items: omitBlockedHomeStories(items, keepTaiwan).slice(0, 80).map((item) => ({
       id: item.id,
       title: item.title,
       link: item.link,
@@ -241,9 +242,11 @@ export function injectHomeShell(
   settled = false,
   columns: HomeColumnLinks = {},
   pageH1 = '',
+  keepTaiwan = false,
 ): string {
-  const feed = renderHomeFeed(items, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead, new Date(), settled, columns, pageH1);
-  const boot = homeBootstrap(items) + marketBootstrap(market) + signalBootstrap(banner) + mustReadBootstrap(mustRead) + columnsBootstrap(columns);
+  const rows = omitBlockedHomeStories(items, keepTaiwan);
+  const feed = renderHomeFeed(rows, counts, market, feedSlot, banner, focusHtml, briefingLinks, mustRead, new Date(), settled, columns, pageH1);
+  const boot = homeBootstrap(rows, keepTaiwan) + marketBootstrap(market) + signalBootstrap(banner) + mustReadBootstrap(mustRead) + columnsBootstrap(columns);
   const html = shell.replace('<div id="root"></div>', `<div id="root">${feed}</div>${boot}`);
   return gateHomeAds(html);
 }

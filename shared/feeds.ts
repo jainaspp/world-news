@@ -177,10 +177,13 @@ const BLOCKED_HK_CHINA_LABELS = new Set([
 const BLOCKED_HK_CHINA_HOST = /(?:^|\/\/)(?:www\.)?(?:rfi\.fr|voachinese\.com|voanews\.com|rfa\.org|nytimes\.com|cn\.nytimes\.com|bbc\.com\/zhongwen|feeds\.bbci\.co\.uk\/zhongwen|dw\.com\/zh|rss\.dw\.com|ftchinese\.com|hongkongfp\.com)(?=$|[/?#\s])/i;
 
 /**
- * Taiwan coverage and sensitive political keywords — stripped from HK/mainland pipelines
- * (category hk/china, HKG focus, briefings, hk/china explainers). Not a legal opinion.
+ * Taiwan coverage and sensitive political keywords. Every desk except the Taiwan
+ * region page drops a match. Not a legal opinion.
  */
-const HK_CHINA_STORY_BLOCK_RE = /台灣|臺灣|台湾|Taiwan|Taipei|台北|臺北|高雄|台南|臺南|台中|臺中|新北|桃園|民進黨|國民黨(?!軍)|蔡英文|賴清德|馬英九|陳水扁|台獨|臺獨|台独|兩岸|两岸|兩岸關係|两岸关系|九二共識|九二共识|武統|護國神山|Free Tibet|西藏流亡|達賴|达赖|Dalai|法輪|法轮|Falun|六四|八九民運|天安門事件|天安门事件|Tiananmen|疆獨|疆独|藏獨|藏独|港獨|港独|自焚.*藏|新疆.*再教育|再教育營|集中營.*新疆|Xinjiang.*(camp|genocide)|活摘|正確記憶|支那/i;
+const HK_CHINA_STORY_BLOCK_RE = /台灣|臺灣|台湾|Taiwan|Tai\s*wan|Taipei|台北|臺北|高雄|台南|臺南|台中|臺中|新北|桃園|民進黨|國民黨(?!軍)|蔡英文|賴清德|馬英九|陳水扁|台獨|臺獨|台独|兩岸|两岸|兩岸關係|两岸关系|九二共識|九二共识|武統|護國神山|Free Tibet|西藏流亡|達賴|达赖|Dalai|法輪|法轮|Falun|六四|八九民運|天安門事件|天安门事件|Tiananmen|疆獨|疆独|藏獨|藏独|港獨|港独|自焚.*藏|新疆.*再教育|再教育營|集中營.*新疆|Xinjiang.*(camp|genocide)|活摘|正確記憶|支那/i;
+
+/** Title, description, or link. `Tai\s*wan` also matches a spaced "Tai wan". */
+const TAIWAN_COVERAGE_RE = /臺灣|台灣|台湾|Taiwan|Tai\s*wan/i;
 
 export function blockedHkChinaOutlet(item: { source: string; sourceUrl?: string; link?: string }): boolean {
   if (BLOCKED_HK_CHINA_LABELS.has(item.source.trim())) return true;
@@ -197,9 +200,36 @@ export function dropBlockedHkChinaOutlets<T extends { source: string; sourceUrl?
   }));
 }
 
-export function blockedHkChinaStory(item: { title: string; excerpt?: string; source: string; sourceUrl?: string; link?: string }): boolean {
+function decodedLink(link: string): string {
+  try {
+    return decodeURIComponent(link);
+  } catch {
+    return link;
+  }
+}
+
+export function mentionsTaiwanCoverage(item: {
+  title?: string;
+  excerpt?: string;
+  description?: string;
+  link?: string;
+}): boolean {
+  const link = item.link ? decodedLink(item.link) : '';
+  return TAIWAN_COVERAGE_RE.test(`${item.title ?? ''}\n${item.excerpt ?? ''}\n${item.description ?? ''}\n${link}`);
+}
+
+export function blockedHkChinaStory(item: {
+  title: string;
+  excerpt?: string;
+  description?: string;
+  source: string;
+  sourceUrl?: string;
+  link?: string;
+}): boolean {
   if (blockedHkChinaOutlet(item)) return true;
-  return HK_CHINA_STORY_BLOCK_RE.test(`${item.title}\n${item.excerpt || ''}`);
+  const copy = `${item.title}\n${item.excerpt || ''}\n${item.description || ''}`;
+  if (HK_CHINA_STORY_BLOCK_RE.test(copy)) return true;
+  return mentionsTaiwanCoverage(item);
 }
 
 /**

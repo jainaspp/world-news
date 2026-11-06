@@ -5,6 +5,19 @@ const TODAY_MS = 24 * 60 * 60 * 1000;
 /** Retired chip values. They no longer open their own window; they use today. */
 const TODAY_PRESETS = new Set(['today', 'all', 'hour', 'week']);
 
+/** Taiwan region page keeps its own headlines. Every other desk, including ALL, ASI, and entertainment, strips them. */
+export function keepsTaiwanDesk(region?: string): boolean {
+  return region?.toUpperCase() === 'TWN';
+}
+
+export function omitBlockedHomeStories<T extends { title: string; excerpt?: string; description?: string; source: string; sourceUrl?: string; link?: string }>(
+  items: T[],
+  keepTaiwan = false,
+): T[] {
+  if (keepTaiwan) return items;
+  return items.filter((item) => !blockedHkChinaStory(item));
+}
+
 export function filterNews(
   items: NewsItem[],
   opts: { region?: string; source?: string; category?: string; q?: string; time?: string; now?: number },
@@ -15,12 +28,12 @@ export function filterNews(
   const query = opts.q?.trim().toLowerCase() ?? '';
   const now = opts.now ?? Date.now();
   const windowMs = opts.time && TODAY_PRESETS.has(opts.time) ? TODAY_MS : 0;
-  const hkChinaDesk = category === 'hk' || category === 'china' || region === 'HKG';
+  const keepTaiwan = keepsTaiwanDesk(region);
 
   return items.filter((item) => {
     if (region && !item.regions.includes(region)) return false;
     if (region === 'TWN' && removedFromTaiwanPage(item)) return false;
-    if (hkChinaDesk && blockedHkChinaStory(item)) return false;
+    if (!keepTaiwan && blockedHkChinaStory(item)) return false;
     if (category && item.category !== category) return false;
     if (source && item.source !== source) return false;
     if (query && !`${item.title} ${item.source}`.toLowerCase().includes(query)) return false;

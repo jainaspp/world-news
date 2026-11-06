@@ -122,6 +122,7 @@ export async function serveFocusHome(context: PagesContext, page: FocusPage): Pr
       true,
       columns,
       known?.label || page.label,
+      page.scope === 'region' && page.id === 'twn',
     ),
     path,
     known?.label || page.label,

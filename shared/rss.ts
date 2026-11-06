@@ -174,8 +174,9 @@ function addItem(items: NewsItem[], feed: Feed, title: string, link: string, pub
   };
   if (image) item.image = image;
   if (traditionalExcerpt) item.excerpt = traditionalExcerpt;
-  // Mainland-compliance: drop Taiwan / sensitive / blocked outlets from hk & china desks at ingest.
-  if ((item.category === 'hk' || item.category === 'china') && blockedHkChinaStory(item)) return;
+  // Site-wide strip except a TWN-region feed, which the Taiwan desk still lists.
+  // Variety (USA + entertainment) never entered the old hk/china category check.
+  if (!feed.regions.includes('TWN') && blockedHkChinaStory(item)) return;
   items.push(item);
 }
 
