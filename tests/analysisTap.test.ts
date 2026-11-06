@@ -182,6 +182,7 @@ const MEASURE = `(() => {
     reads: Array.from(document.querySelectorAll('.angle-card .read-original')).map(box),
     timeline: Array.from(document.querySelectorAll('.timeline .tl-body a')).map(box),
     archive: Array.from(document.querySelectorAll('.side-card.archive > a.read-original')).map(box),
+    titles: Array.from(document.querySelectorAll('.side-card.archive li a')).map(box),
     storyRead: Array.from(document.querySelectorAll('.pack-toolbar > a.chip')).filter((el) => (el.textContent || '').includes('閱讀原文')).map(box),
     storyTimelineLinks: document.querySelectorAll('.timeline a').length,
   });
@@ -207,6 +208,7 @@ interface PageBox {
   reads: ControlBox[];
   timeline: ControlBox[];
   archive: ControlBox[];
+  titles: ControlBox[];
   storyRead: ControlBox[];
   storyTimelineLinks: number;
 }
@@ -219,8 +221,10 @@ describe('analysis read-original and timeline tap target', () => {
     const outlet = rule(phone, '.page.column-page[data-kind="analysis"] .angle-card .read-original {');
     const timeline = rule(phone, '.page.column-page[data-kind="analysis"] .timeline .tl-body a {');
     const archiveLink = rule(phone, '.page.column-page[data-kind="analysis"] .side-card.archive > a.read-original {');
+    const archiveTitle = rule(phone, '.page.column-page[data-kind="analysis"] .side-card.archive li a {');
     const baseOutlet = rule(columns, '.angle-card .read-original {');
     const baseTimeline = rule(columns, '.tl-body a {');
+    const baseTitle = rule(columns, '.archive li a {');
     const baseRead = rule(app, '.read-original { font-size:');
     const focus = rule(app, ':focus-visible {');
 
@@ -241,10 +245,17 @@ describe('analysis read-original and timeline tap target', () => {
     expect(archiveLink).toContain('min-width: 44px');
     expect(archiveLink).toContain('min-height: 44px');
     expect(archiveLink).not.toContain('outline');
+    expect(archiveTitle).toContain('display: flex');
+    expect(archiveTitle).toContain('align-items: center');
+    expect(archiveTitle).toContain('min-width: 44px');
+    expect(archiveTitle).toContain('min-height: 44px');
+    expect(archiveTitle).not.toContain('outline');
     expect(baseOutlet).toContain('-webkit-line-clamp: 2');
     expect(baseOutlet).not.toContain('44px');
     expect(baseTimeline).not.toContain('44px');
     expect(baseTimeline).toContain('text-decoration: none');
+    expect(baseTitle).not.toContain('44px');
+    expect(baseTitle).toContain('font-weight: 700');
     expect(baseRead).not.toContain('44px');
     expect(baseRead).toContain('font-size: 0.92rem');
     expect(focus).toContain('outline: 3px solid var(--accent)');
@@ -254,6 +265,7 @@ describe('analysis read-original and timeline tap target', () => {
     expect(page).toContain('>閱讀原文 →</a>');
     expect(page).toContain('>加價</a>');
     expect(page).toContain('全部分析 →');
+    expect(page).toContain('>早前港聞</a>');
     expect(page).toContain('data-kind="analysis"');
     const timelineAt = page.indexOf('class="timeline"');
     expect(page.slice(timelineAt, page.indexOf('</ol>', timelineAt)).match(/<a /g)).toHaveLength(3);
@@ -359,7 +371,7 @@ describe('analysis read-original and timeline tap target', () => {
         const root = await rpc('DOM.getDocument', { depth: 0 }) as { root: { nodeId: number } };
         const selector = file.startsWith('story')
           ? '.pack-toolbar > a.chip'
-          : '.angle-card .read-original, .timeline .tl-body a, .side-card.archive > a.read-original';
+          : '.angle-card .read-original, .timeline .tl-body a, .side-card.archive > a.read-original, .side-card.archive li a';
         const found = await rpc('DOM.querySelectorAll', { nodeId: root.root.nodeId, selector }) as { nodeIds: number[] };
         for (const nodeId of found.nodeIds) {
           await rpc('CSS.forcePseudoState', { nodeId, forcedPseudoClasses: ['focus', 'focus-visible'] });
@@ -382,6 +394,7 @@ describe('analysis read-original and timeline tap target', () => {
           '信報把諮詢程序、票價建議與對乘客日常通勤的影響分開來寫',
         ]);
         expect(box.archive.map((control) => control.text), label).toEqual(['全部分析 →']);
+        expect(box.titles.map((control) => control.text), label).toEqual(['早前港聞']);
         for (const control of [...box.reads, ...box.timeline]) {
           const name = `${label} ${control.text}`;
           expect(control.h, name).toBeGreaterThanOrEqual(44);
@@ -411,6 +424,20 @@ describe('analysis read-original and timeline tap target', () => {
           expect(control.outline, name).toContain('2px');
           expect(control.scrollH, name).toBeLessThanOrEqual(control.h + 1);
         }
+        for (const control of box.titles) {
+          const name = `${label} title ${control.text}`;
+          expect(control.h, name).toBeGreaterThanOrEqual(44);
+          expect(control.w, name).toBeGreaterThanOrEqual(44);
+          expect(control.hitH, name).toBeGreaterThanOrEqual(44);
+          expect(control.hitW, name).toBeGreaterThanOrEqual(44);
+          expect(control.minH, name).toBe('44px');
+          expect(control.minW, name).toBe('44px');
+          expect(control.display, name).toBe('flex');
+          expect(control.outline, name).toContain('solid');
+          expect(control.outline, name).toContain('3px');
+          expect(control.outline, name).toContain('2px');
+          expect(control.scrollH, name).toBeLessThanOrEqual(control.h + 1);
+        }
       }
 
       for (const dark of [false, true]) {
@@ -432,13 +459,17 @@ describe('analysis read-original and timeline tap target', () => {
       expect(desktop.innerW).toBe(1100);
       const short = [...desktop.reads, ...desktop.timeline].filter((control) => control.text === '閱讀原文 →' || control.text === '加價' || control.text === '港鐵建議票價加幅');
       expect(short.map((control) => control.text).sort()).toEqual(['加價', '港鐵建議票價加幅', '閱讀原文 →']);
-      for (const control of [...desktop.reads, ...desktop.timeline, ...desktop.archive]) {
+      for (const control of [...desktop.reads, ...desktop.timeline, ...desktop.archive, ...desktop.titles]) {
         expect(control.minH, `desktop ${control.text}`).not.toBe('44px');
       }
       for (const control of short) expect(control.h, `desktop ${control.text}`).toBeLessThan(44);
       for (const control of desktop.archive) {
         expect(control.h, `desktop ${control.text}`).toBeLessThan(44);
         expect(control.display, `desktop ${control.text}`).not.toBe('inline-flex');
+      }
+      for (const control of desktop.titles) {
+        expect(control.h, `desktop ${control.text}`).toBeLessThan(44);
+        expect(control.display, `desktop ${control.text}`).toBe('block');
       }
       ws.close();
     } finally {
