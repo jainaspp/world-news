@@ -2363,6 +2363,33 @@ html.dark .chrome .ia-l1 .chip.civ-chip {
   border-radius: 14px;
   box-shadow: var(--ia-lift), inset 0 1px 0 rgba(255, 255, 255, .7);
 }
+/* Phone masthead tap floor. At 390 the logo link was 28px tall, 古 was
+   40×40, 未來 and the 今 summary were 40px tall, header text links were
+   18px, language options were 40px, the skip link was 40px, footer links
+   were 31px, and the news links under 今 stayed 40px under a more specific
+   chip rule. The theme toggle, language button, search toggle, overflow
+   summary, and L1 chips were already 44px. From 701px up those sizes stay
+   as they are. The AA ring stays on :focus-visible. */
+@media (max-width: 700px) {
+  .logo-link,
+  .skip-link,
+  .ia-seg,
+  .ia-l2-summary,
+  .header-actions > a,
+  .lang-menu button,
+  .footer-nav a,
+  .ia-today-panel .ia-news .chip,
+  .ia-news .chip,
+  .ia-wide-news .chip {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .header-actions > a:not([hidden]),
+  .footer-nav a:not([hidden]) {
+    display: inline-flex;
+    align-items: center;
+  }
+}
 @media (max-width: 899px) {
   .masthead { flex-wrap: wrap; }
 }
