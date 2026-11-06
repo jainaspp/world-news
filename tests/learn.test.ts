@@ -43,6 +43,17 @@ describe('learn map shell', () => {
       expect(page.html).toContain('本節讀完');
       expect(page.html).toContain('noindex,follow');
     }
+    const nextHint = '下一葉尚未開啓。第二節只標方位：聲音如何按同一字形被再次讀出。正文未寫入，不另開一葉。';
+    const glyph = renderLearnPath('zh/glyph');
+    const zh = renderLearnPath('zh');
+    expect(glyph.html).toContain(`class="learn-note learn-next">${nextHint}`);
+    expect(zh.html).toContain(`class="learn-note learn-next">${nextHint}`);
+    expect(renderLearnPath('math/count').html).not.toContain('learn-next');
+    expect(renderLearnPath('en/script').html).not.toContain('learn-next');
+    expect(hub.html).not.toContain('learn-next');
+    expect(nextHint).not.toMatch(/我哋|嘅|喺|咗|台灣|臺灣|台湾|Taiwan/);
+    const learnCss = readFileSync('src/App.css', 'utf8');
+    expect(learnCss).toContain('.learn-actions button {\n  min-width: 44px;\n  min-height: 44px;');
     expect(renderLearnPath('nope').status).toBe(404);
     expect(readFileSync('shared/sitemap.ts', 'utf8')).not.toContain('/learn/');
     const home = renderHomeFeed([]);
