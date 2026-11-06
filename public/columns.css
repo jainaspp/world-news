@@ -430,10 +430,11 @@ html.dark .pack-shell { box-shadow: none; }
   }
   /* Chips the grouped rule still painted at 36px. At 390: topic filters
      and heritage filters were 58×36, topic links and loose share chips
-     were 36px tall. The 44px floor is the tap target. The pack toolbar
-     keeps its own 32px row (a later, more specific rule). On-this-day
-     summaries already lay out at least 48px from their padding, so they
-     stay on the 36px floor. The AA ring stays on :focus-visible. */
+     were 36px tall. The 44px floor is the tap target. Pack-toolbar
+     controls stay 32px from 701px up; the phone hit boxes are in the
+     mobile pack block. On-this-day summaries already lay out at least
+     48px from their padding, so they stay on the 36px floor. The AA
+     ring stays on :focus-visible. */
   .chip,
   .share-buttons .chip {
     min-width: 44px;
@@ -717,6 +718,31 @@ html.dark .jd-tool-card { box-shadow: none; }
   .page.column-page[data-kind="briefing"] .pack-toolbar,
   .page.column-page[data-kind="story"] .pack-toolbar {
     margin-top: 8px;
+  }
+  /* Focusable controls on the pack toolbar. At 390 the row rule kept
+     複製連結, WhatsApp, 分享, 收聽, 停止, 收藏, and the speed select at
+     32px (the select was 66×32). min-height lifts each button, link, and
+     select to 44px; the row grows with the box and may wrap. Horizontal
+     scroll on the toolbar is unchanged. From 701px up the row stays 32px.
+     The AA ring stays on :focus-visible. */
+  .pack-toolbar {
+    height: auto;
+    max-height: none;
+  }
+  .pack-toolbar .share-buttons,
+  .pack-toolbar .listen {
+    height: auto;
+    max-height: none;
+  }
+  .pack-toolbar .share-buttons .chip,
+  .pack-toolbar .listen .chip,
+  .pack-toolbar > .chip,
+  .pack-toolbar .bookmark-article,
+  .pack-toolbar .listen-rate,
+  .pack-toolbar .listen-rate select {
+    min-height: 44px;
+    height: auto;
+    max-height: none;
   }
   .page.column-page[data-kind="compare"] .timeline[data-timeline="scroll"],
   .page.column-page[data-kind="briefing"] .timeline[data-timeline="scroll"],
