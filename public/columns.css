@@ -440,6 +440,20 @@ html.dark .pack-shell { box-shadow: none; }
     min-width: 44px;
     min-height: 44px;
   }
+  /* Search page field and result titles. At 390 the field was 40px, a
+     one-line result link was 17×32, and a wrapped result stayed 40px tall.
+     The 44px floor is the tap target. From 701px up the field stays 40px
+     and the titles stay inline. The AA ring stays on :focus-visible. */
+  .search-page-form input {
+    min-height: 44px;
+  }
+  #search-results .story-title a {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 /* Art 2026-10-11: one card language. H1 28 / section 18 / card title 16–17 / body 15 / meta 13. */
