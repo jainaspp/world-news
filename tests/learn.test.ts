@@ -196,6 +196,43 @@ describe('learn edge notes 04/05/08', () => {
   });
 });
 
+describe('learn map doors', () => {
+  it('gives each hub door a 44px target and an AA focus ring on the door surface', () => {
+    const css = readFileSync('src/App.css', 'utf8');
+    const door = rule(css, '.learn-door {');
+    const focus = rule(css, '.learn-door:focus-visible {');
+    const lightAccent = declared(rule(css, ':root {'), '--color-primary');
+    const darkAccent = declared(rule(css, 'html.dark {'), '--color-primary');
+    const lightOpen = declared(door, 'background');
+    const lightLocked = declared(rule(css, '.learn-door.is-locked {'), 'background');
+    const darkOpen = declared(rule(css, 'html.dark .learn-door {'), 'background');
+    const darkLocked = declared(rule(css, 'html.dark .learn-door.is-locked {'), 'background');
+    const lightPage = declared(rule(css, '.learn-page {'), 'background');
+    const darkPage = declared(rule(css, 'html.dark .learn-page {'), 'background');
+
+    expect(door).toContain('min-width: 44px');
+    expect(door).toContain('min-height: 96px');
+    expect(door).not.toContain('outline');
+    expect(rule(css, '.learn-map {')).toContain('grid-template-columns: 1fr');
+    expect(css).toContain('@media (min-width: 720px) {\n  .learn-map { grid-template-columns: repeat(3, 1fr); }');
+    expect(rule(css, ':root {')).toContain('--accent: var(--color-primary)');
+    expect(focus).toContain('outline: 3px solid var(--accent)');
+    expect(focus).toContain('outline-offset: 2px');
+    expect(contrast(lightAccent, lightOpen)).toBeGreaterThanOrEqual(3);
+    expect(contrast(lightAccent, lightLocked)).toBeGreaterThanOrEqual(3);
+    expect(contrast(darkAccent, darkOpen)).toBeGreaterThanOrEqual(3);
+    expect(contrast(darkAccent, darkLocked)).toBeGreaterThanOrEqual(3);
+    expect(contrast(lightAccent, lightPage)).toBeGreaterThanOrEqual(3);
+    expect(contrast(darkAccent, darkPage)).toBeGreaterThanOrEqual(3);
+
+    const hub = renderLearnPath('').html;
+    const mapAt = hub.indexOf('<div class="learn-map">');
+    const map = hub.slice(mapAt, hub.indexOf('</div>', mapAt));
+    expect(map.match(/<a class="learn-door /g)).toHaveLength(12);
+    expect(LEARN_SUBJECTS).toHaveLength(12);
+  });
+});
+
 describe('learn progress buttons', () => {
   it('gives the read-done and reset controls a 44px target and an AA focus ring', () => {
     const css = readFileSync('src/App.css', 'utf8');
