@@ -4,6 +4,7 @@ import { CHRONICLE_BRIDGE, CHRONICLE_CHAPTERS, CHRONICLE_EXTRA_SOURCES, CHRONICL
 import { CHRONICLE_MILESTONE_BLOCKS } from '../chronicleMilestones.js';
 import { CITY_HANDOFF, CITY_LEDE, CITY_LOCAL_LINKS, CITY_SOURCE_NOTE, CITY_SOURCES, CITY_STAGES, CITY_TITLE, cityProse } from '../city.js';
 import { CITY_READINGS } from '../content/cityReadings.js';
+import { COUNTDOWN_LEAD, FUTURE_LONGFORM } from '../content/futureLongform.js';
 import { EARTH_HANDOFF, EARTH_LEDE, EARTH_SOURCE_NOTE, EARTH_SOURCES, EARTH_STAGES, EARTH_TITLE, earthProse } from '../earth.js';
 import { BAND_NOTES, FUTURE_CLADE, FUTURE_COUNTDOWNS, FUTURE_DOMAINS, FUTURE_HORIZONS, FUTURE_INSTANCES, FUTURE_OPENING, FUTURE_TIER_CARD, FUTURE_TIER_ROWS, LEVEL_LEGEND, STAGE10_BRIDGE, STAGE10_BRIDGE_EXTRA } from '../future.js';
 import { COSMOS_HANDOFF, COSMOS_LEDE, COSMOS_SCALES, COSMOS_SOURCE_NOTE, COSMOS_SOURCES, COSMOS_STAGES, COSMOS_TITLE, cosmosProse } from '../cosmos.js';
@@ -40,8 +41,8 @@ const TECH_NEXT = [
   '熱源讓群體可以圍坐。口傳把圍坐時說出的經驗交給尚未親自動手的人，知識開始不必每次重新發現。',
   '口傳會走樣。文字把計數、清單與契約壓成可以翻回去的物件，校驗才有底本。',
   '有了可翻回去的記錄，儀器才值得把一次觀察固定成別人也能重做的刻度。',
-  '儀器延長了眼與手。工業能量要問的是：多出來的功率能否被儲存、送出，並在斷掉之後修得回來。',
-  '功率上去之後，印刷與報刊把同一份文字送到更多互不相識的讀者。印得便宜，仍不等於每一句都對過底本。',
+  '儀器延長了眼與手。下一節轉入工業能量，問的是功率能否被儲存、送出，並在斷掉之後修得回來。印刷術的年代更早，本卷把它留到再下一節，與報刊一併按媒介書寫，不把它算成蒸汽機的後果。',
+  '能量一節按主題先寫完。印刷與報刊的窗口其實更早，這裡才補上媒介：同一份文字如何送到互不相識的讀者。印得便宜，仍不等於每一句都對過底本。',
   '報刊仍受交通與截稿限制。電氣與電報開始讓消息在人不親至時送達。',
   '點對點的電路之後，分組交換讓網絡可以繞過單點故障。這一節收到約二零零九年，不把後來的通用工具提前寫入。',
   '網絡成為日常之後，新聞標題本身就是這一條發現弧的薄層：只列題與出處，不把模型輸出當成已經核對的事實。',
@@ -56,7 +57,7 @@ const CITY_NEXT = [
   '場館是公共生活的一角。步行、廣場與街道仍是大多數人每天使用的部分。',
   '街道在白天能走，還要在夜間能夠辨認。照明與城市公用把這一件事變成持續的維修。',
   '全球尺度寫到這裡為止。香港的碼頭、隧道與場館只作為一座城市如何把上述尺度收成可走進去的地方，不代替整頁。',
-  '本地案例之後，今日的城市標題仍只是薄層。要看工具與能源如何走到街上，應回技術長文；要看四線編年，應回文明編年。',
+  '本地案例之後，今日的城市標題仍只是薄層。工具與能源如何走到街上，見〈科技與發現〉第二節用火、第六節工業能量與第八節電氣；能量、信息、制度與貨幣四線如何重讀城市，見〈文明編年〉。',
 ];
 
 const COSMOS_NEXT = [
@@ -74,7 +75,7 @@ const COSMOS_NEXT = [
 const EARTH_NEXT = [
   '含氧的水體與大氣準備好化學餘地之後，寒武紀要寫的是身體構型與捕食如何進入化石記錄。那是地質時間上的相對加快，不是一日之內的事件。',
   '海洋食物網成立之後，古生代把初級生產推上陸地。森林、有頜魚類與四足動物是這一長段的主線，二疊紀末的類群更替只記自然史後果。',
-  '陸地生態已經在場。三疊紀是災後的重新組織，也是侏羅紀的直接前鄰。早期恐龍出現，卻尚未在許多陸相群落裡獨占優勢。',
+  '陸地生態已經在場。三疊紀是災後的重新組織，也是侏羅紀的直接前鄰。早期恐龍出現，卻尚未在許多陸相群落裡獨佔優勢。',
   '三疊紀留下的身體構型，在大陸張裂與暖室氣候裡展開為侏羅紀的食物網。沒有一個類群單獨定義這個紀。',
   '侏羅紀的裸子植物林與淺海，到白堊紀遇上開花植物與更高的海平面。紀末的類群更替空出生態位，卻不是敘事上的終點。',
   '白堊紀讓出的生態位，在新生代被哺乳動物、鳥類與開花植物森林重新填上。草地與高冠牙是較晚的陸相主線。',
@@ -98,6 +99,8 @@ function summaryOf(text: string): string {
   return flat.slice(0, 80);
 }
 
+let formulaLeft = 2;
+
 function links(rows: readonly NamedUrl[]): string {
   const https = rows.filter((row) => row.url.startsWith('https://'));
   const http = rows.filter((row) => row.url.startsWith('http://'));
@@ -119,7 +122,12 @@ function weaveFacts(input: {
 }): string {
   const productText = input.products.map((item) => `${item.name}：${item.detail}`).join('');
   const driverText = input.drivers.map((item) => `${item.name}方面，${item.detail}`).join('');
-  return [input.detail, productText ? `就當時可以留下來、也可以事後核對的事物而言，${productText}` : '', driverText ? `推動這一步的條件，可以分開看。${driverText}` : '', input.impact].filter(Boolean).join('\n\n');
+  const useFormula = formulaLeft > 0 && Boolean(productText);
+  if (useFormula) formulaLeft -= 1;
+  const productPara = productText
+    ? (useFormula ? `就當時可以留下來、也可以事後核對的事物而言，${productText}` : productText)
+    : '';
+  return [input.detail, productPara, driverText ? `推動這一步的條件，可以分開看。${driverText}` : '', input.impact].filter(Boolean).join('\n\n');
 }
 
 function patternBody(stageN: number): string {
@@ -129,6 +137,7 @@ function patternBody(stageN: number): string {
     const drivers = card.drivers.map((item) => `${item.name}。${item.detail}`).join('\n\n');
     return [
       `### ${card.title} {#pattern-${card.id}}`,
+      `這一節裡的機制是「${card.title}」。`,
       card.eventDetail,
       card.mechanism,
       '### 關鍵產物',
@@ -189,14 +198,14 @@ function pushSource(bag: Bag, threadId: string, entrySlug: string | null, row: N
   });
 }
 
-function addEntry(bag: Bag, threadId: string, slug: string, title: string, time: string, sort: number, body: string, sources: readonly NamedUrl[] = [], alsoId: string | null = null, parent: string | null = null): void {
+function addEntry(bag: Bag, threadId: string, slug: string, title: string, time: string, sort: number, body: string, sources: readonly NamedUrl[] = [], alsoId: string | null = null, parent: string | null = null, summary?: string): void {
   const text = body.trim();
   bag.entries.push({
     id: `${threadId}:${slug}`,
     thread_id: threadId,
     slug,
     title,
-    summary: summaryOf(text),
+    summary: summary ?? summaryOf(text),
     body: text,
     sort_key: sort,
     time_label: time,
@@ -210,6 +219,13 @@ function addThread(bag: Bag, thread: ChronicleThread): void {
   bag.threads.push(thread);
 }
 
+function closeMilestones(milestones: readonly string[], meaning: string, keepFormula: boolean): string {
+  if (keepFormula) return `就公共敘事可以對上的事物而言，包括${milestones.join('、')}。把這一節收成一句：${meaning}`;
+  const [first, ...rest] = milestones;
+  const restText = rest.length ? `，並一併寫到${rest.join('、')}` : '';
+  return `${meaning}落到具體歷史上，是${first ?? ''}${restText}。`;
+}
+
 function readingBlocks(readings: readonly { event: string; eventDetail: string; products: readonly CivProduct[]; drivers: readonly CivDriver[]; impact: string }[] | undefined): string {
   if (!readings?.length) return '';
   return readings.map((reading) => [`### ${reading.event}`, weaveFacts({
@@ -221,25 +237,23 @@ function readingBlocks(readings: readonly { event: string; eventDetail: string; 
 }
 
 function buildBag(): Bag {
+  formulaLeft = 2;
   const bag: Bag = { threads: [], entries: [], sources: [] };
 
   addThread(bag, {
     id: 'cosmos',
     slug: 'cosmos',
     title: COSMOS_TITLE,
-    lede: `${COSMOS_LEDE}\n\n這一卷按時間連續書寫，不再分成可跳轉的階段卡片。年代一律寫作約數或主流綜述。銀河系是其中一座星系的特寫，地球生命從生命化學寫起，兩者都另有長文，此處只保留銜接。`,
+    lede: `${COSMOS_LEDE}\n\n閱讀時按時間往下走：從熱密開端到輕核、第一代恆星、星系網，再收到太陽、海洋、生命與含氧大氣。年代寫作約數。銀河系是星系一節裡一座星系的特寫，地球生命從生命化學另寫長文，約七百萬年前再交人類起源。`,
     sort_key: 10,
     path: '/civilization/cosmos/',
     ai_note: '本頁由公開科普與主流綜述入口整合，僅供研究與編輯參考。',
   });
   COSMOS_STAGES.forEach((stage, index) => {
     const next = COSMOS_NEXT[index] ?? '';
-    const body = [
-      stage.prose,
-      `這一窗口裡可以對上公共敘事的事物，包括${stage.milestones.join('、')}。其意義在於：${stage.meaning}`,
-      next,
-    ].filter(Boolean).join('\n\n');
-    addEntry(bag, 'cosmos', `cosmo-${stage.n}`, stage.name, stage.era, (index + 1) * 10, body, COSMOS_SOURCES);
+    const body = [stage.prose, next].filter(Boolean).join('\n\n');
+    const summary = `${stage.era}：${stage.meaning}可核對的範圍停在主流綜述，不把單一模型寫成定論。`;
+    addEntry(bag, 'cosmos', `cosmo-${stage.n}`, stage.name, stage.era, (index + 1) * 10, body, COSMOS_SOURCES, null, null, summary);
   });
   addEntry(bag, 'cosmos', 'scales', '空間尺度', '由大到小', 200, [
     '把上面的時間讀完，還需要一把空間的尺子。下列數字都是約數，上一級包含下一級所在的區域，並不表示宇宙是一套套盒玩具。',
@@ -257,19 +271,19 @@ function buildBag(): Bag {
     id: 'galaxy',
     slug: 'galaxy',
     title: GALAXY_TITLE,
-    lede: `${GALAXY_LEDE}\n\n本頁是連續的三節，加上詞義旁註與交接，不再提供章節跳轉。年代、直徑與質量一律為約。`,
+    lede: `${GALAXY_LEDE}\n\n本頁先定義星系，再寫形成，最後寫從盤內看到的結構。詞義旁註與地球生命的交接放在三節之後。年代、直徑與質量一律為約。`,
     sort_key: 20,
     path: '/civilization/galaxy/',
     ai_note: '本頁由公開科普與主流綜述入口整理，作為文明記載的深時間頁。授權跟隨站級 CC BY 4.0。',
   });
   const galaxyJoin = [
-    '定義寫清之後，才談得上這座星系如何在宇宙網的節點裡冷却成盤。形態標籤是觀測分類，不是價值排序。',
+    '定義寫清之後，才談得上這座星系如何在宇宙網的節點裡冷卻成盤。形態標籤是觀測分類，不是價值排序。',
     '形成史給出時間。結構一節改寫我們從盤內如何描繪它：旋臂、棒與暈都是示跡，不是剛體輪輻。',
   ];
   GALAXY_STAGES.forEach((stage, index) => {
     const parts = stage.parts.map((part) => [`### ${part.heading}`, ...part.paragraphs].join('\n\n')).join('\n\n');
     const body = [
-      `本節要記住的是：${stage.meaning}可對照的事物包括${stage.milestones.join('、')}。`,
+      closeMilestones(stage.milestones, `本節要記住的是：${stage.meaning}`, false),
       parts,
       galaxyJoin[index] ?? '',
     ].filter(Boolean).join('\n\n');
@@ -293,18 +307,24 @@ function buildBag(): Bag {
     `${HANDOFF_UP_BEFORE}[星系與大尺度結構](/civilization/cosmos/#cosmo-4)${HANDOFF_UP_AFTER}`,
     `${HANDOFF_DOWN_BEFORE}[地球生命](/civilization/earth/)${HANDOFF_DOWN_MID}[人類起源時間線](/civilization/origins/)${HANDOFF_DOWN_AFTER}`,
     HANDOFF_THIN,
-    GALAXY_QUESTIONS.map((question) => question.endsWith('？') ? question : `${question}？`).join(''),
-    '今日仍可問的，是上面這些句子，而不是一排章節按鈕。',
+    '形成與結構留下的機制，下面另寫成還能對著觀測繼續追問的句子。',
     GALAXY_SOURCE_NOTE,
     links(GALAXY_SOURCES),
   ].join('\n\n'), GALAXY_SOURCES);
-  addEntry(bag, 'galaxy', 'ask', '今日可問', '問題', 70, GALAXY_QUESTIONS.map((question) => question).join('\n\n'));
+  addEntry(bag, 'galaxy', 'ask', '今日可問', '問題', 70, [
+    '三節正文寫完，還有幾件機制沒有在敘事裡展開完。它們不是一組待辦清單，而是拿著現有觀測仍可以追下去的句子。每一問都對著上面某一節的證據邊界。',
+    `轉動曲線為何在盤的外圍仍不下降？${GALAXY_QUESTIONS[0]}可見物質的光已經數過，引力卻像還有一份質量。這份質量幾乎不發光，模型仍在改，問句先停在曲線本身。`,
+    `旋臂看起來像固定的輪輻，恆星卻不會永遠停在臂上。${GALAXY_QUESTIONS[1]}密度波只是一種解釋：氣體在臂區被壓縮、形成年輕恆星，恆星隨後離開。臂是示跡，不是剛體。`,
+    `同一團氣體裡，重元素多寡並不相同。${GALAXY_QUESTIONS[2]}天文把氫氦以外的元素稱為金屬。豐度高，通常意味著更多世代的恆星已經把產物送回來；它聯繫年齡與誕生環境，卻不是一把可以直接讀出歲數的尺。`,
+    `銀河系周圍的衛星星系並不都完整。${GALAXY_QUESTIONS[3]}拉長的恆星流是引力把小星系撕開之後留下的痕跡，用來討論合併，不用來給星系排座次。`,
+    `太陽與地球的岩石、水與鐵，都不是原初核合成的產物。${GALAXY_QUESTIONS[4]}前代恆星的核合成、超新星與恆星風，決定了這片分子雲裡有什麼可以凝成行星。化學是原料廠的流水賬，不是地球的出生證明。`,
+  ].join('\n\n'));
 
   addThread(bag, {
     id: 'earth',
     slug: 'earth',
     title: EARTH_TITLE,
-    lede: `${EARTH_LEDE}\n\n本卷把各紀寫成前後相接的長文。侏羅紀仍可從文內[侏羅紀](#jurassic)抵達，但不再另設階段跳轉列。`,
+    lede: `${EARTH_LEDE}\n\n各紀按時間前後相接。文內可以從[侏羅紀](#jurassic)一節讀起。年代一律標約，不把單一塊化石寫成全球定論。`,
     sort_key: 30,
     path: '/civilization/earth/',
     ai_note: '本頁由公開科普與主流綜述入口整合，僅供研究與編輯參考。',
@@ -316,7 +336,7 @@ function buildBag(): Bag {
     }).join('\n\n');
     const body = [
       stage.prose,
-      `這一時期可以核對的事物，包括${stage.milestones.join('、')}。其意義在於：${stage.meaning}`,
+      closeMilestones(stage.milestones, stage.meaning, false),
       parts,
       EARTH_NEXT[index] ?? '',
     ].filter(Boolean).join('\n\n');
@@ -339,19 +359,25 @@ function buildBag(): Bag {
     ai_note: '本頁由公開科普與學術綜述入口整理，只供對照深時間。',
   });
   addEntry(bag, 'origins', 'body', '人類起源時間線', '約七百萬年前起', 10, `${ORIGINS_BODY}\n\n## 與地球生命、文明編年的連續\n\n地球生命頁寫到約七百萬年前的人族分途為止。本頁從那裡接上，寫化石、石器與基因組所能支持的約略過程，直到全新世農業的門口。文明編年的開篇只保留銜接所需的窗口，深時間的細節留在這裡。兩頁前後相接，不把同一段故事寫成兩套互相否定的年表。新測年仍可能把節點前移或後移；有爭議的地方繼續標明，不為了故事完整而刪去。`);
-  addEntry(bag, 'origins', 'sources', '參考與研究入口', '來源', 20, ORIGINS_SOURCES);
+  addEntry(bag, 'origins', 'sources', '參考與研究入口', '來源', 20, [
+    '這些入口用來核對正文裡的約數，不是另一套年表。公共時間線與博物館頁面適合先建立尺度；學術綜述與關鍵化石研究用來查看仍有爭議的節點。站內的香港科學館與太空館只說明一座城市如何向公眾講解自然史，不取代測年。表中的年份會隨新標本移動。正文已在有分歧處標明，這裡不另造更精確的數字。',
+    '文中的三階段框架是化石、石器與基因組的閱讀分層：先看總覽，再看非洲內外的分化與擴張，最後才對照本地的公共科普。它是年表的讀法，隨證據改寫。',
+    ORIGINS_SOURCES,
+  ].join('\n\n'));
 
   addThread(bag, {
     id: 'chronicle',
     slug: 'chronicle',
     title: CHRONICLE_TITLE,
-    lede: `${CHRONICLE_LEDE}\n\n${CHRONICLE_HOW}\n\n能量、信息、制度與貨幣仍是閱讀時可以放在心裡的四條線索。它們是敘事裡的基礎設施，不是頁面上的篩選按鈕。古、今、未來三節順序閱讀；未來一節只開門，條件句的全文在總覽的展望。`,
+    lede: `${CHRONICLE_LEDE}\n\n${CHRONICLE_HOW}\n\n能量、信息、制度與貨幣是閱讀時可以放在心裡的四條線索，用來分辨一節主要改寫了哪一類基礎設施。古、今兩段順序閱讀；未來一節把條件句交到總覽的展望，編年本身停在本世紀已經可以核對的工具。`,
     sort_key: 50,
     path: '/civilization/chronicle/',
     ai_note: '本頁由公開博物館與國際組織頁面整合，僅供研究與編輯對照；年代均為約數。',
   });
   addEntry(bag, 'chronicle', 'ch-ancient', '古', CHRONICLE_CHAPTERS[0]?.era ?? '', 5, [
-    '卷一寫採集到商路。深時間的化石與基因組仍以人類起源長文為準，這裡只保留文明得以積累的那些窗口。五節前後相接：用火與語言、定居與剩餘、城市與文字、跨區域的制度與金屬貨幣、然後是造紙、印刷與遠距貿易。',
+    '古這一段從用火與語言寫到商路。時間跨度最長，證據也最不整齊：前兩節的化石、火塘與基因組細節在人類起源長文，這裡只保留文明得以積累的窗口。',
+    '人先學會把熱留在營地旁邊，再用語言把不在場的步驟說給別人聽。全新世的氣候相對穩定之後，多地才把這種經驗用在作物與牲畜上。剩餘糧食使一部分人可以不親自耕作，倉儲與分工才有地方生長。城市把倉儲、清單與契約壓進泥板，記錄第一次可以離開說話的人。跨區域的道路、鑄幣與成文法把同一套規則送到陌生人面前。造紙、印刷與海港則讓知識和支付走得更遠。',
+    '五節前後相接：用火與語言、定居與剩餘、城市與文字、跨區域的制度與金屬貨幣，然後是造紙、印刷與遠距貿易。讀的時候按這個順序。每一節改寫的基礎設施並不相同，能量、信息、制度與貨幣四線只是幫讀者記住差別。',
     CHRONICLE_CHAPTERS[0]?.lede ?? '',
   ].join('\n\n'));
   CHRONICLE_STAGES.forEach((stage) => {
@@ -372,7 +398,7 @@ function buildBag(): Bag {
     const origin = stage.origins ? '這一窗口的深時間細節，見[人類起源時間線](/civilization/origins/)。' : '';
     const body = [
       stage.prose,
-      `就公共敘事可以對上的事物而言，包括${stage.milestones.join('、')}。把這一節收成一句：${stage.meaning}`,
+      closeMilestones(stage.milestones, stage.meaning, stage.n === 1),
       deep,
       patternBody(stage.n),
       caseBody('/civilization/chronicle/', `stage-${stage.n}`),
@@ -386,10 +412,13 @@ function buildBag(): Bag {
   });
   for (const row of CHRONICLE_EXTRA_SOURCES) pushSource(bag, 'chronicle', null, row);
   addEntry(bag, 'chronicle', 'ch-now', '今', CHRONICLE_CHAPTERS[1]?.era ?? '', 55, [
-    '卷二從科學方法寫到本世紀已經可以核對的工具。新聞標題仍在首頁，不在這一章裡重排。年代在第八節與第九節之間切開，避免把貨幣安排和信息網絡寫成同一段。',
+    '今這一段從可重複的觀察寫到本世紀已經進入公共頁面的工具。科學方法把一部分知識權威改放到證據上。蒸汽、鐵路與電報同時抬高功率與消息的速度。',
+    '全球貨幣安排收到約一九六九年，避免與後來的信息網絡疊成同一段年代。分組交換與萬維網把複製的成本再降一次，卻還沒有把約二零一零年以後的通用工具算進前一節。最後一節只寫測量、支付、測序與氣候說明裡已經可以核對的部分。新聞標題仍在首頁，不在這一章裡重排。',
     CHRONICLE_CHAPTERS[1]?.lede ?? '',
   ].join('\n\n'));
   addEntry(bag, 'chronicle', 'ch-future', '未來', '章門', 200, [
+    '未來這一節是章門。編年寫到本世紀已經可以核對的工具為止；往後的句子改成條件句，分六個方面寫在總覽的展望裡。能量宜居問功率受什麼收支約束，信息可信問底本靠什麼留下，制度協作問規則如何維修，生物譜系問延續而不分高下，技術能力階問證據成熟到哪一檔，生存風險問風險如何被事後核對。',
+    '六個方面各有自己的機制與日期戳。氣候評估、生物多樣性盤點、耐藥性自評與淡水進度不是同一份日曆，全文不在編年裡複製。下面只把門打開，指到總覽裡已經寫好的各節。',
     CHRONICLE_CHAPTERS[2]?.lede ?? '',
     '### 展望分域 {#stage-10-bridge}',
     STAGE10_BRIDGE,
@@ -398,7 +427,7 @@ function buildBag(): Bag {
     '### 分帶如何閱讀 {#stage-10-bands}',
     LEVEL_LEGEND,
     ...BAND_NOTES.map((note) => note.text),
-    '這些句子只說明某一層在記什麼，避免被讀成文明等級。頁面不設合成分數，也不做倒數。',
+    '這些句子只說明某一層在記什麼，避免被讀成文明等級。各帶不換算，也不相加成一個分數。',
   ].join('\n\n'));
   addEntry(bag, 'chronicle', 'summary', '四線總結', '總結', 210, `${CHRONICLE_SUMMARY}\n\n${CHRONICLE_BRIDGE}\n\n今日標題見[今日切片](/#slice)。`);
 
@@ -406,17 +435,23 @@ function buildBag(): Bag {
     id: 'tech',
     slug: 'tech',
     title: TECH_TITLE,
-    lede: `${TECH_LEDE}\n\n${TECH_HANDOFF}\n\n本卷沿工具、能源、媒介與知識連續書寫，不重排文明編年，也不再提供階段跳轉。`,
+    lede: `${TECH_LEDE}\n\n${TECH_HANDOFF}\n\n本卷沿工具、能源、媒介與知識往下寫。印刷與工業能量兩節按主題並置：活字與報刊的年代早於蒸汽工廠，正文在這兩節寫明，節次不是嚴格年序。`,
     sort_key: 60,
     path: '/civilization/tech/',
     ai_note: '本頁由公開科普入口整合，年代均為約數。',
   });
   TECH_STAGES.forEach((stage, index) => {
-    const chronicle = stage.chronicle ? `若改以能量、信息、制度與貨幣重讀同一段，見[文明編年](/civilization/chronicle/#stage-${stage.chronicle})。` : '';
+    const chronicle = stage.chronicle ? `若改用能量、信息、制度與貨幣重讀同一段，見〈文明編年〉第${stage.chronicle}節（[文明編年](/civilization/chronicle/#stage-${stage.chronicle})）。` : '';
     const origins = stage.origins ? '化石與基因組仍以[人類起源時間線](/civilization/origins/)為準。' : '';
+    const chrono = stage.n === 6
+      ? '本卷從這一節起按主題並置，不是嚴格年序。蒸汽與電力的窗口約在一七六〇至一九一四年；活字與報刊約在一四五〇至一九〇〇年，年代更早，卻放在下一節，因為下一節收的是媒介，這一節收的是能量。兩段年份互相重疊，節次不表示因果。'
+      : stage.n === 7
+        ? '印刷與報刊的年代早於上一節的工業能量。東亞雕版更早於歐洲金屬活字。把它們排在工業能量之後，是媒介主題跟在能源主題後面，屬於並置，不是年表上的先後。'
+        : '';
     const body = [
+      chrono,
       stage.prose,
-      `可以對上的事物包括${stage.milestones.join('、')}。一句收束：${stage.meaning}`,
+      closeMilestones(stage.milestones, stage.meaning, false),
       readingBlocks(TECH_READINGS[stage.n]),
       caseBody('/civilization/tech/', `tech-${stage.n}`),
       chronicle,
@@ -425,23 +460,29 @@ function buildBag(): Bag {
     ].filter(Boolean).join('\n\n');
     addEntry(bag, 'tech', `tech-${stage.n}`, stage.name, stage.era, (index + 1) * 10, body, TECH_SOURCES);
   });
-  addEntry(bag, 'tech', 'sources', '來源', '來源', 200, `### 交接編年與今日\n\n${TECH_HANDOFF}見[人類起源時間線](/civilization/origins/)、[文明編年](/civilization/chronicle/)與[城市・基建・民生](/civilization/city/)。\n\n${TECH_SOURCE_NOTE}\n\n${links(TECH_SOURCES)}`, TECH_SOURCES);
+  addEntry(bag, 'tech', 'sources', '來源', '來源', 200, [
+    '### 交接編年與今日',
+    '工具、能源、媒介與知識寫到今日的新聞切片為止。化石與譜系見〈人類起源時間線〉；若改用能量、信息、制度與貨幣重讀，見〈文明編年〉各節；街道與場館見〈城市・基建・民生〉。印刷在第七節，工業能量在第六節，兩節並置，讀年表時以各節標明的年份為準。',
+    `${TECH_HANDOFF}見[人類起源時間線](/civilization/origins/)、[文明編年](/civilization/chronicle/)與[城市・基建・民生](/civilization/city/)。`,
+    TECH_SOURCE_NOTE,
+    links(TECH_SOURCES),
+  ].join('\n\n'), TECH_SOURCES);
 
   addThread(bag, {
     id: 'city',
     slug: 'city',
     title: CITY_TITLE,
-    lede: `${CITY_LEDE}\n\n${CITY_HANDOFF}\n\n香港地標只作本地案例，放在全球城市線之後。本卷不再提供階段跳轉。`,
+    lede: `${CITY_LEDE}\n\n${CITY_HANDOFF}\n\n香港的碼頭、隧道與場館只作本地案例，放在全球城市線之後。工具與能源見〈科技與發現〉第二節、第六節與第八節；四線如何重讀城市與文字，見〈文明編年〉。`,
     sort_key: 70,
     path: '/civilization/city/',
     ai_note: '本頁由公共遺產與博物館頁面整理，年代均為約數。',
   });
   CITY_STAGES.forEach((stage, index) => {
-    const chronicle = stage.chronicle ? `城市與文字的四線寫法，見[文明編年](/civilization/chronicle/#stage-${stage.chronicle})。` : '';
+    const chronicle = stage.chronicle ? `能量、信息、制度與貨幣四線裡，這一節見〈文明編年〉第${stage.chronicle}節（[文明編年](/civilization/chronicle/#stage-${stage.chronicle})）。` : '';
     const local = stage.local ? `本地目錄：${CITY_LOCAL_LINKS.map((link) => `[${link.label}](${link.href})`).join('、')}。` : '';
     const body = [
       stage.prose,
-      `可以對上的事物包括${stage.milestones.join('、')}。一句收束：${stage.meaning}`,
+      closeMilestones(stage.milestones, stage.meaning, false),
       readingBlocks(CITY_READINGS[stage.n]),
       chronicle,
       local,
@@ -449,18 +490,28 @@ function buildBag(): Bag {
     ].filter(Boolean).join('\n\n');
     addEntry(bag, 'city', `city-${stage.n}`, stage.name, stage.era, (index + 1) * 10, body);
   });
-  addEntry(bag, 'city', 'sources', '來源', '來源', 200, `### 交接編年與本地案例\n\n${CITY_HANDOFF}見[科技與發現](/civilization/tech/)、[文明編年](/civilization/chronicle/)與[香港地標](/hk/landmarks/)。\n\n${CITY_SOURCE_NOTE}\n\n${links(CITY_SOURCES)}`, CITY_SOURCES);
+  addEntry(bag, 'city', 'sources', '來源', '來源', 200, [
+    '### 交接編年與本地案例',
+    '全球城市線從定居寫到照明與本地案例。工具與能源如何走到街上，見〈科技與發現〉[第二節用火](/civilization/tech/#tech-2)、[第六節工業能量](/civilization/tech/#tech-6)與[第八節電氣](/civilization/tech/#tech-8)。四線如何重讀城市與文字，見〈文明編年〉第三節。香港地標只作可以走進去的例子，不代替整頁。',
+    `${CITY_HANDOFF}見[科技與發現](/civilization/tech/)、[文明編年](/civilization/chronicle/)與[香港地標](/hk/landmarks/)。`,
+    CITY_SOURCE_NOTE,
+    links(CITY_SOURCES),
+  ].join('\n\n'), CITY_SOURCES);
 
   addThread(bag, {
     id: 'future',
     slug: 'future',
     title: '展望',
-    lede: `${FUTURE_OPENING}\n\n這裡是連續的說明文字，不是分域卡片、成熟度階梯或倒數時鐘。六個方面各自回答一件事。日期過了的檢查點改讀下一份公開報告，頁面不保留秒針，也不寫只剩多少天。`,
+    lede: `${FUTURE_OPENING}\n\n六節順序讀下來：先是行星能量收支，再是底本與更正，然後是標準與公共機構，生物譜系，能力的條件帶，最後是可以事後核對的風險窗口。日期過了的報告，改讀該機構的下一份公開文本。`,
     sort_key: 80,
     path: '/civilization/#future',
     ai_note: '展望由公開機構頁面整理，標明約、示意或假說。不另開網址。',
   });
-  addEntry(bag, 'future', 'future', '展望', '條件句', 1, `${FUTURE_OPENING}\n\n${FUTURE_DOMAINS.map((domain) => `[${domain.title}](#${domain.anchor})`).join('、')}。`);
+  addEntry(bag, 'future', 'future', '展望', '條件句', 1, [
+    FUTURE_OPENING,
+    '六節沿同一條閱讀順序展開。能量宜居先寫行星還能維持多少可用功率，信息可信接着寫底本與更正在複製之後還能不能被認出，制度協作寫度量、標準與跨代機構如何把陌生人放進同一套規則。生物譜系只寫延續與共演化，不排座次。技術能力階把觀測、試點與基建分開，避免把測得到誤讀成已經改寫了運行條件。生存風險把氣候、空間天氣、生物多樣性、耐藥性、淡水與極端熱各自的機構文本留在原處，日期過了就改讀下一份。',
+    `各節的入口是${FUTURE_DOMAINS.map((domain) => `[${domain.title}](#${domain.anchor})`).join('、')}。`,
+  ].join('\n\n'));
   FUTURE_DOMAINS.forEach((domain, index) => {
     const instances = FUTURE_INSTANCES.filter((card) => card.domainId === domain.id);
     const horizons = FUTURE_HORIZONS.filter((row) => row.domainId === domain.id);
@@ -482,6 +533,15 @@ function buildBag(): Bag {
     const horizonText = horizons.map((row) => {
       const kind = row.kind ? HORIZON_KIND[row.kind] ?? row.kind : '';
       const family = row.band.startsWith('e') ? '能量帶' : row.band.startsWith('i') ? '信息帶' : '能動帶';
+      const checkpoint = FUTURE_COUNTDOWNS.find((item) => item.horizonId === row.id);
+      const checkpointText = checkpoint
+        ? [
+          `### ${checkpoint.title} {#${checkpoint.anchor}}`,
+          COUNTDOWN_LEAD[checkpoint.id] ?? '',
+          `檢查點日期是 ${checkpoint.checkpoint}。對照[${row.title}](#${row.anchor})。`,
+          checkpoint.pending,
+        ].filter(Boolean).join('\n\n')
+        : '';
       return [
         `### ${row.title} {#${row.anchor}}`,
         `這一則放在${family} ${row.band}${kind ? `，種類是${kind}` : ''}${row.timeBand ? `，時間帶 ${row.timeBand}` : ''}。信心標為${CONFIDENCE[row.confidence] ?? row.confidence}。日期戳 ${row.dataAsOf}。時間帶不是等級。`,
@@ -489,33 +549,33 @@ function buildBag(): Bag {
         `緩解：${row.mitigation}`,
         `不確定：${row.uncertainty}`,
         links(row.sources),
-      ].join('\n\n');
+        checkpointText,
+      ].filter(Boolean).join('\n\n');
     }).join('\n\n');
     const alsoText = also.length
       ? `並見${also.map((row) => `[${row.title}](#${row.anchor})`).join('、')}。那些段落寫在各自的主域裡，這裡不重複。`
       : '';
-    const body = [domain.blurb, instanceText, horizonText, alsoText].filter(Boolean).join('\n\n');
-    addEntry(bag, 'future', domain.anchor, domain.title, domain.code, (index + 1) * 10, body, [], null, 'future');
+    const narrative = FUTURE_LONGFORM[domain.id] ?? '';
+    const body = [narrative, domain.blurb, instanceText, horizonText, alsoText].filter(Boolean).join('\n\n');
+    const summary = `${domain.title}寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。`;
+    addEntry(bag, 'future', domain.anchor, domain.title, domain.code, (index + 1) * 10, body, [], null, 'future', summary);
   });
   addEntry(bag, 'future', FUTURE_TIER_CARD.anchor, FUTURE_TIER_CARD.title, '成熟度', 80, [
     FUTURE_TIER_CARD.note,
+    '讀的時候先看證據停在哪一檔。觀測只表示記錄還在、出處還能打開。試點只表示有限範圍裡做過，句子不能外推。基建表示維修、備件與記錄同時在場，能力才可能離開單點。三檔之間不相加，也不能換成文明等級。',
     ...FUTURE_TIER_ROWS.filter((row) => row.shown).map((row) => `${row.mark ?? ''} ${row.label}。${row.blurb}`),
-    '文明尺度一檔留在說明裡，不畫成可以攀登的等級，也不與前三檔相加。',
+    '文明尺度一檔留在說明裡，不畫成可以攀登的等級，也不與前三檔相加。文獻裡的能量量級對照同樣不提供當代的測量程序。',
   ].join('\n\n'), [], null, 'future');
-  addEntry(bag, 'future', 'future-bands', '分帶如何閱讀', '圖例', 85, [LEVEL_LEGEND, ...BAND_NOTES.map((note) => note.text)].join('\n\n'), [], null, 'future');
-  FUTURE_COUNTDOWNS.forEach((item, index) => {
-    const horizon = FUTURE_HORIZONS.find((row) => row.id === item.horizonId);
-    const back = horizon ? `對照[${horizon.title}](#${horizon.anchor})。` : '';
-    addEntry(bag, 'future', item.anchor, item.title, item.checkpoint, 90 + index, [
-      `檢查點日期是 ${item.checkpoint}。這是機構窗口，不是災變時鐘。${back}`,
-      item.pending,
-      '日期過後改讀下一份公開報告。頁面不顯示秒針，也不寫只剩多少天。',
-    ].join('\n\n'), [], null, 'future');
-  });
+  addEntry(bag, 'future', 'future-bands', '分帶如何閱讀', '圖例', 85, [
+    LEVEL_LEGEND,
+    ...BAND_NOTES.map((note) => note.text),
+    '各帶只說明某一層在記什麼，避免被讀成文明等級。帶與帶之間不換算，也不相加成一個分數。能量帶回答功率與水，信息帶回答底本與更正，能動帶回答擾動能不能被寫成可核對的維修條件。讀新聞時先對上其中一層，再決定標題能夠承擔多大的句子。',
+  ].join('\n\n'), [], null, 'future');
   addEntry(bag, 'future', FUTURE_CLADE.anchor, FUTURE_CLADE.title, '譜系', 100, [
-    `這裡同時看${FUTURE_CLADE.kinds.map((kind) => CLADE_KIND[kind] ?? kind).join('與')}。`,
+    `這裡同時看${FUTURE_CLADE.kinds.map((kind) => CLADE_KIND[kind] ?? kind).join('與')}。工具可以離開發明者，成為後來者能夠核對的公共底本；生態位可以延續，人與微生物、作物、景觀互相改寫。兩件事都沒有座次。`,
     `邊界：${FUTURE_CLADE.boundary}`,
     ...FUTURE_CLADE.layers.map((layer) => `### ${layer.title}\n\n${layer.text}`),
+    '地外技術信號的公開搜尋至今沒有可複核的接觸確證。未確證保持為未確證。譜系一節因此只保留延續與共演化，不把沉默或差異寫成等級。',
   ].join('\n\n'), [], null, 'future');
 
   return bag;
@@ -568,6 +628,15 @@ export function buildChronicleDb(): ChronicleDb {
     entries: bag.entries,
     sources: bag.sources,
   };
+  const voice = /不再提供階段跳轉|不再提供章節跳轉|不再分成可跳轉|不再另設階段跳轉|篩選按鈕|分域卡片|倒數時鐘|模式卡|已铺就|回技術長文|可以對上的事物包括|章節按鈕|這是機構窗口/;
+  const voiced = JSON.stringify(db).match(voice);
+  if (voiced) throw new Error(`product voice in chronicle db: ${voiced[0]}`);
+  for (const entry of db.entries) {
+    if (!entry.slug.startsWith('cosmo-')) continue;
+    const flatBody = entry.body.replace(/\s+/g, '');
+    const flatSummary = entry.summary.replace(/\s+/g, '');
+    if (flatSummary.length > 20 && flatBody.startsWith(flatSummary)) throw new Error(`summary clones ${entry.slug}`);
+  }
   const banned = JSON.stringify(db).match(BANNED);
   if (banned) throw new Error(`banned token in chronicle db: ${banned[0]}`);
   return db;

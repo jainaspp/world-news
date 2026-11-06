@@ -274,7 +274,7 @@ describe('civilization future P0', () => {
     const amrCard = panel.slice(panel.indexOf('id="future-horizon-amr"'), panel.indexOf('id="future-horizon-freshwater"'));
     expect(amrCard).not.toContain('future-cover');
     expect(amrCard).toContain('抗微生物藥物耐藥性（AMR）');
-    const freshCard = panel.slice(panel.indexOf('id="future-horizon-freshwater"'), panel.indexOf('id="future-countdown-wmo"'));
+    const freshCard = panel.slice(panel.indexOf('id="future-horizon-freshwater"'), panel.indexOf('id="future-horizon-heat-health"'));
     expect(freshCard).not.toContain('future-cover');
     expect(freshCard).toContain('淡水可用量與衛生服務壓力');
     expect(panel).toContain('id="future-horizon-biodiversity"');

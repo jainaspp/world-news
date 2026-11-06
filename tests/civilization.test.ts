@@ -552,7 +552,7 @@ describe('civilization thick pages', () => {
     expect(page.html).toContain('href="/civilization/chronicle/"');
     expect(page.html).toContain('交接地球生命');
     expect(page.html).toContain('約七百萬年前，演化進入人族階段');
-    expect(page.html).toContain('已铺就宜居地球');
+    expect(page.html).toContain('已鋪就宜居地球');
     expect(page.html).toContain('假說並存');
     expect(page.html).toContain('能量');
     expect(page.html).toContain('物質');
