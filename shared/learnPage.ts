@@ -115,6 +115,7 @@ export function renderLearnHub(): { html: string; status: number; indexable: boo
       <p class="learn-note">已開的門可以讀。其餘是淡門，只標方位，不假裝已有正文。地圖可以再長，這一版先把已登錄的門畫全。</p>
       <p class="learn-bearings" aria-label="方位">${legend}</p>
       <div class="learn-map">${LEARN_SUBJECTS.map(door).join('')}</div>
+      <p class="learn-note learn-map-help">淡門沒有可讀的葉：入內只標方位，不記入本機進度，亦不另開一門。</p>
     </section>
     ${edgeNotes()}
     <p class="learn-bound">敘事見文明軸。今日事件見懶人包。此處是能力樹。</p>
