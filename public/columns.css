@@ -55,6 +55,20 @@ html.dark .highlight-box h2 { color: #ff8a9b; }
   color: inherit; text-decoration: none; padding: 8px 10px; border-radius: var(--radius-md); background: var(--chip); font-size: 0.92rem; line-height: 1.45;
 }
 .source-list a:hover .source-title { text-decoration: underline; }
+/* Source-fold summary and source links. Light --accent #1d4f91 is 7.51:1 on
+   the page #f4f6f8 and 6.91:1 on the chip #e7edf5. Dark --accent #9ec0ef is
+   9.90:1 on #0e141c and 7.08:1 on #243140. Both clear AA for the 3px ring.
+   The snap sources card clips overflow, so a focused link lets the ring
+   paint into the card padding. */
+.pack-sources .source-list a:focus-visible,
+.topic-fold:has(.source-list) > summary:focus-visible,
+.topic-fold:has(.source-list) .source-list a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+.ig-card-sources:has(.source-list a:focus-visible) > .pack-sources {
+  overflow: visible;
+}
 .source-list .favicon { align-self: center; }
 .source-name { font-weight: 700; white-space: nowrap; }
 .source-title { color: var(--muted); }
