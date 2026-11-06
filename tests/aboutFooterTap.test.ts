@@ -145,7 +145,7 @@ describe('about footer sentence tap target', () => {
     const columns = readFileSync('public/columns.css', 'utf8');
     const app = readFileSync('src/App.css', 'utf8');
     const phone = mediaBlock(columns, PHONE);
-    const links = rule(phone, '.page.column-page[data-kind="site"] .app-footer > p a[href="/data/"],');
+    const links = rule(phone, '.page.column-page[data-kind="site"] .app-footer > p a {');
     const baseFooter = rule(app, '.app-footer { display: grid;');
     const focus = rule(app, ':focus-visible {');
 
@@ -159,9 +159,8 @@ describe('about footer sentence tap target', () => {
     expect(phone).not.toContain('hero');
     expect(phone).not.toContain('footer-nav');
     expect(phone).not.toContain('feed-sources');
-    expect(phone).not.toContain('.app-footer > p a,');
-    expect(phone).not.toContain('.app-footer > p a {');
-    expect(links).toContain('.page.column-page[data-kind="site"] .app-footer > p a[href="/major/"]');
+    expect(phone).not.toContain('a[href=');
+    expect(links).toContain('.page.column-page[data-kind="site"] .app-footer > p a');
     expect(links).toContain('display: inline-flex');
     expect(links).toContain('align-items: center');
     expect(links).toContain('box-sizing: border-box');
@@ -274,13 +273,7 @@ describe('about footer sentence tap target', () => {
         expect(box.scrollW, label).toBeLessThanOrEqual(390);
         expect(box.footer.map((control) => control.text), label).toEqual(['world-news.xyz', '數據', '重大更新']);
         const [site, data, major] = box.footer;
-        expect(site.h, `${label} site`).toBeGreaterThanOrEqual(44);
-        expect(site.w, `${label} site`).toBeGreaterThanOrEqual(44);
-        expect(site.hitH, `${label} site`).toBe(site.h);
-        expect(site.hitW, `${label} site`).toBe(site.w);
-        expect(site.minH, `${label} site`).toBe('0px');
-        expect(site.display, `${label} site`).toBe('inline');
-        for (const control of [data, major]) {
+        for (const control of [site, data, major]) {
           const name = `${label} ${control.text}`;
           expect(control.h, name).toBeGreaterThanOrEqual(44);
           expect(control.w, name).toBeGreaterThanOrEqual(44);
@@ -296,7 +289,9 @@ describe('about footer sentence tap target', () => {
           expect(control.outline, name).toContain('2px');
           expect(control.scrollH, name).toBeLessThanOrEqual(control.h + 1);
         }
+        expect(separated(site, data), `${label} site/data`).toBe(true);
         expect(separated(data, major), `${label} data/major`).toBe(true);
+        expect(separated(site, major), `${label} site/major`).toBe(true);
       }
 
       for (const dark of [false, true]) {
