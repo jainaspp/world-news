@@ -220,7 +220,7 @@ describe('daily Hong Kong briefing sources', () => {
 });
 
 describe('mocked Grok generation', () => {
-  it('turns a model JSON reply into a long comparison with sources, a table and a model credit', () => {
+  it('turns a model JSON reply into a long comparison with sources and a timeline', () => {
     const items = [
       { ...story('rthk', '港鐵建議票價加幅 3.2%', '香港電台', 'hk', '2026-10-07T00:05:00Z'), excerpt: '香港電台報道，港鐵建議票價加幅 3.2%，並交諮詢。' },
       { ...story('ming', '港鐵票價擬上調約 3%', '明報', 'hk', '2026-10-07T00:20:00Z'), excerpt: '明報指加幅約 3%，強調對日常通勤的影響。' },
@@ -256,7 +256,9 @@ describe('mocked Grok generation', () => {
     const html = renderContentPage(doc!, 'https://world-news.xyz/explainer/2026-10-07-demo');
     expect(html).toContain('AI 整合');
     expect(html).toContain('新聞懶人包');
-    expect(html).toContain('xAI Grok 4.3');
+    expect(html).not.toContain('xAI Grok 4.3');
+    expect(html).not.toContain('model-credit');
+    expect(html).toContain('class="pack-sources"');
     expect(html).toContain('事件時間線');
     expect(html).toContain('class="timeline" data-timeline="scroll"');
     expect(html).toContain('class="pack-body"');

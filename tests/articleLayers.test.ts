@@ -76,6 +76,21 @@ describe('T1 four-layer article', () => {
     expect(html).not.toContain('<details class="topic-fold pack-fold"><summary>各方回應</summary>');
   });
 
+  it('keeps the AI label and source list without a provider badge', () => {
+    const html = renderContentPage(
+      { ...explainer(), provider: 'minimax', model: 'MiniMax-M2.5' },
+      'https://world-news.xyz/explainer/2026-10-07-fare/',
+    );
+    expect(html).toContain('<span class="badge ai-badge">AI 整合</span>');
+    expect(html).toContain('class="pack-sources"');
+    expect(html).toContain('https://example.com/rthk');
+    expect(html).toContain('https://example.com/ming');
+    expect(html).not.toContain('MiniMax');
+    expect(html).not.toContain('model-credit');
+    expect(html).not.toContain('xAI Grok');
+    expect(html).not.toContain('Workers AI');
+  });
+
   it('uses the same order on a briefing and a story page', () => {
     const briefing = renderContentPage({ ...explainer(), kind: 'briefing', key: '2026-10-07-am' }, 'https://world-news.xyz/briefing/2026-10-07-am/');
     order(briefing, [

@@ -301,6 +301,8 @@ const KIND_NAME: Record<ContentDoc['kind'], string> = {
 };
 
 function modelCredit(doc: ContentDoc): string {
+  // Explainers keep the small「AI 整合」label. A provider name is marketing chrome.
+  if (doc.kind === 'compare') return '';
   if (doc.mode !== 'ai') return '';
   if (doc.provider === 'minimax' || doc.model?.toLowerCase().includes('minimax')) return 'MiniMax';
   if (doc.provider === 'grok' || doc.model?.includes('grok')) return 'xAI Grok 4.3';
