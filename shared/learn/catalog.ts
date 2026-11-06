@@ -18,6 +18,8 @@ export interface LearnLesson {
   title: string;
   summary: string;
   body: string[];
+  /** N2 micro hint for one seed. Orientation only; not a new leaf. */
+  nextHint?: string;
 }
 
 export const LEARN_PROGRESS_KEY = 'wn.edu.progress.v1';
@@ -119,6 +121,7 @@ export const LEARN_LESSONS: readonly LearnLesson[] = [
       '一張紙上的字，先是一組可以重複的筆畫。讀者不必在場，後來的人仍能按同一組筆畫把句子讀出來。這就是文字作為記錄的位置：它把一次說出的話，留成可以核對的形狀。',
       '開蒙由這一葉開始，不求把整部文字史講完。下一級尚未寫入。敘事上，文字如何進入城市與印刷，見文明編年，兩處正文不相貼。',
     ],
+    nextHint: '下一葉尚未開啓。第二節只標方位：聲音如何按同一字形被再次讀出。正文未寫入，不另開一葉。',
   },
   {
     id: 'count',

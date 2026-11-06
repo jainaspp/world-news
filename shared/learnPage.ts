@@ -125,10 +125,16 @@ export function renderLearnHub(): { html: string; status: number; indexable: boo
   });
 }
 
+function nextLeafHint(lesson: LearnLesson): string {
+  if (!lesson.nextHint) return '';
+  return `<p class="learn-note learn-next">${esc(lesson.nextHint)}</p>`;
+}
+
 function lessonCard(lesson: LearnLesson): string {
   return `<article class="learn-leaf">
     <h2><a href="/learn/${esc(lesson.subjectId)}/${esc(lesson.id)}/">${esc(lesson.title)}</a></h2>
     <p>${esc(lesson.summary)}</p>
+    ${nextLeafHint(lesson)}
   </article>`;
 }
 
@@ -172,6 +178,7 @@ export function renderLearnLeaf(subjectId: string, lessonId: string): { html: st
       <h1>${esc(lesson.title)}</h1>
       <p class="learn-summary">${esc(lesson.summary)}</p>
       ${paragraphs}
+      ${nextLeafHint(lesson)}
       <p class="learn-soft">敘事上，見 <a href="/civilization/chronicle/">文明編年</a>。今日事件不在這一葉重寫。</p>
       <p class="learn-actions"><button type="button" data-learn-done="${esc(`${subject.id}:${lesson.id}`)}">本節讀完</button> <span data-learn-status></span></p>
       <p><a href="/learn/${esc(subject.id)}/">返回${esc(subject.name)}</a></p>

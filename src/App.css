@@ -1580,6 +1580,11 @@ html.dark .nav-more summary { color: var(--color-muted); }
   border-color: #d4cbb8;
 }
 .learn-door strong { font-size: 1.05rem; }
+.learn-actions button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 14px;
+}
 .learn-bearing,
 .learn-state { font-size: 12px; }
 .learn-article p,
