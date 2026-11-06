@@ -80,11 +80,10 @@ export function itemsForFocus(items: NewsItem[], page: FocusPage, now = new Date
       if (!Number.isFinite(time) || time < cutoff) return false;
       if (page.scope === 'region') {
         if (!item.regions.includes(code)) return false;
-        if (code === 'TWN' && removedFromTaiwanPage(item)) return false;
-        if (code === 'HKG' && blockedHkChinaStory(item)) return false;
-        return true;
+        if (code === 'TWN') return !removedFromTaiwanPage(item);
+        return !blockedHkChinaStory(item);
       }
-      if ((page.id === 'hk' || page.id === 'china') && blockedHkChinaStory(item)) return false;
+      if (blockedHkChinaStory(item)) return false;
       return item.category === page.id;
     })
     .sort((a, b) => Date.parse(b.pubDate) - Date.parse(a.pubDate))

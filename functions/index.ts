@@ -64,8 +64,9 @@ export async function onRequest(context: PagesContext): Promise<Response> {
       loadHsiQuote().catch(() => null),
       readBoard(context.env as ContentEnv),
     ]);
+    const feedRegion = view.bookmarks || view.following ? 'ALL' : view.region;
     items = filterNews(list, {
-      region: view.bookmarks || view.following ? 'ALL' : view.region,
+      region: feedRegion,
       category: view.bookmarks || view.following ? 'all' : view.category,
       source: view.bookmarks || view.following ? '' : view.source,
       q: view.q,
@@ -93,6 +94,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
   } catch {
     briefings = undefined;
   }
+  const keepTaiwan = !view.bookmarks && !view.following && view.region === 'TWN';
   const html = injectHomeShell(
     shell,
     items,
@@ -105,6 +107,8 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     mustReadForSurface(mustRead),
     !allowAds,
     columns,
+    '',
+    keepTaiwan,
   );
   const headers = new Headers({
     'content-type': 'text/html; charset=utf-8',
