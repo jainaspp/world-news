@@ -414,9 +414,17 @@ html.dark .pack-shell { box-shadow: none; }
   .chip, .pack-fold > summary, .topic-fold > summary, .otd-pack > summary, .sources summary {
     min-height: 36px;
   }
-  /* Source fold only. At 390 the summary was 324×36; the 44px floor is the
-     tap target. Other folds stay 36px. The AA ring stays on :focus-visible. */
+  /* Source fold. At 390 the summary was 324×36; the 44px floor is the tap
+     target. The AA ring stays on :focus-visible. */
   .topic-fold:has(.source-list) > summary {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  /* Every topic-fold summary, not only the source list. 「背景」and the
+     sibling toggles were 324×36 on a phone. The 44px floor is the tap
+     target. Chips, pack-only folds, and on-this-day packs stay on the
+     36px rule above. The AA ring stays on :focus-visible. */
+  .topic-fold > summary {
     min-width: 44px;
     min-height: 44px;
   }
