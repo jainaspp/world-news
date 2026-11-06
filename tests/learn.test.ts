@@ -65,6 +65,27 @@ describe('learn map shell', () => {
     expect(beside).not.toContain('learn-door');
     expect(home).toContain('href="/learn/"');
   });
+
+  it('explains locked leaves in one written line under the hub map', () => {
+    const line = '淡門沒有可讀的葉：入內只標方位，不記入本機進度，亦不另開一門。';
+    const hub = renderLearnPath('');
+    const heroEnd = hub.html.indexOf('</header>');
+    const mapAt = hub.html.indexOf('<div class="learn-map">');
+    const helpAt = hub.html.indexOf(`class="learn-note learn-map-help">${line}`);
+    expect(heroEnd).toBeGreaterThan(0);
+    expect(mapAt).toBeGreaterThan(heroEnd);
+    expect(helpAt).toBeGreaterThan(mapAt);
+    expect(hub.html.slice(0, heroEnd)).not.toContain('learn-map-help');
+    expect(hub.html.slice(mapAt, helpAt)).not.toContain('learn-hero');
+    expect(hub.html.match(/learn-map-help/g)).toHaveLength(1);
+    expect(renderLearnPath('zh').html).not.toContain('learn-map-help');
+    expect(renderLearnPath('phy').html).not.toContain('learn-map-help');
+    expect(renderLearnPath('zh/glyph').html).not.toContain('learn-map-help');
+    expect(line).not.toMatch(/我哋|嘅|喺|咗|台灣|臺灣|台湾|Taiwan/);
+    expect(LEARN_SUBJECTS).toHaveLength(12);
+    expect(LEARN_LESSONS).toHaveLength(3);
+    expect(learnCatalogIssues()).toEqual([]);
+  });
 });
 
 describe('monitoring clock', () => {
