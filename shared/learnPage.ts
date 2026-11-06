@@ -9,6 +9,7 @@ import {
   type LearnLesson,
   type LearnSubject,
 } from './learn/catalog.js';
+import { LEARN_EDGE_NOTES } from './learn/edgeNotes.js';
 
 const ORIGIN = 'https://world-news.xyz';
 
@@ -115,6 +116,7 @@ export function renderLearnHub(): { html: string; status: number; indexable: boo
       <p class="learn-bearings" aria-label="方位">${legend}</p>
       <div class="learn-map">${LEARN_SUBJECTS.map(door).join('')}</div>
     </section>
+    ${edgeNotes()}
     <p class="learn-bound">敘事見文明軸。今日事件見懶人包。此處是能力樹。</p>
     <p class="learn-actions"><button type="button" data-learn-reset>重設本機進度</button></p>`;
   return shell({
@@ -123,6 +125,19 @@ export function renderLearnHub(): { html: string; status: number; indexable: boo
     path: '/learn/',
     body,
   });
+}
+
+function edgeNotes(): string {
+  const cards = LEARN_EDGE_NOTES.map((note) => `<article class="learn-note learn-edge" id="edge-${esc(note.id)}">
+      <h3>${esc(note.title)}</h3>
+      <p>${esc(note.body)}</p>
+      <p><a href="${esc(note.href)}">${esc(note.linkLabel)}</a></p>
+    </article>`).join('');
+  return `<section class="learn-edges" aria-label="頁緣短箋">
+      <h2>頁緣短箋</h2>
+      <p class="learn-note">三則短箋對應淡門 04、05、08。只連回開蒙門頁，不開門，不加葉。</p>
+      ${cards}
+    </section>`;
 }
 
 function nextLeafHint(lesson: LearnLesson): string {
