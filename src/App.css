@@ -1585,6 +1585,13 @@ html.dark .nav-more summary { color: var(--color-muted); }
   min-height: 44px;
   padding: 8px 14px;
 }
+/* Progress buttons sit on the learn page, not the app card. Light --accent
+   #1d4f91 on #f7f1e6 is 7.24:1. Dark --accent #9ec0ef on #121820 is 9.55:1.
+   Both clear AA for this 3px ring. */
+.learn-actions button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
 .learn-bearing,
 .learn-state { font-size: 12px; }
 .learn-article p,
