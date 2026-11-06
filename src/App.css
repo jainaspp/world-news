@@ -1566,6 +1566,7 @@ html.dark .nav-more summary { color: var(--color-muted); }
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 44px;
   min-height: 96px;
   padding: 14px;
   background: #f7f1e6;
@@ -1578,6 +1579,14 @@ html.dark .nav-more summary { color: var(--color-muted); }
   background: #efe8da;
   color: #5c6570;
   border-color: #d4cbb8;
+}
+/* Door fills are the control surface. Light --accent #1d4f91 is 7.24:1 on the
+   open door #f7f1e6 and 6.68:1 on the locked door #efe8da. Dark --accent
+   #9ec0ef is 8.36:1 on #1c2430 and 9.06:1 on #171d26. The 2px offset also
+   sits on the page (#f7f1e6 is 7.24:1, #121820 is 9.55:1). All clear AA. */
+.learn-door:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
 }
 .learn-door strong { font-size: 1.05rem; }
 .learn-actions button {
