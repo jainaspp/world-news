@@ -221,6 +221,7 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
   const strip = options.strip ? renderVolumeCards() : '';
   const rails = options.rails === false ? '' : `${renderPatternAxisLinks()}${renderCaseAxisLinks()}`;
   const slim = options.rails === false ? ' axis-slim' : '';
+  // N2 sits after the hero. The slim axis box and the eight spine nodes stay as they are.
   return `<section class="axis-hero${slim} motion-fade-rise" id="civ" aria-label="文明軸">
     <div class="axis-vignette" aria-hidden="true"></div>
     <p class="kicker">Human span · 溫和史</p>
@@ -236,7 +237,8 @@ export function renderAxisBand(options: { primaryHref?: string; primaryLabel?: s
     </div>
     ${strip}
     ${rails}
-  </section>`;
+  </section>
+  <p class="axis-micro"><a href="/learn/">想由基礎立起來？</a></p>`;
 }
 
 function pinFact(fact: HeritageFact): string {

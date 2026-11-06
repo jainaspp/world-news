@@ -935,6 +935,37 @@ describe('civilization thick pages', () => {
   });
 });
 
+describe('axis-adjacent 開蒙 microlink', () => {
+  it('places one N2 sentence beside the axis and leaves the spine at eight nodes', () => {
+    const sentence = '<p class="axis-micro"><a href="/learn/">想由基礎立起來？</a></p>';
+    const home = renderHomeFeed([]);
+    const hub = renderCivilizationHub(new Date('2026-10-17T04:00:00.000Z')).html;
+    for (const html of [home, hub]) {
+      const at = html.indexOf('<section class="axis-hero');
+      const end = html.indexOf('</section>', at);
+      const section = html.slice(at, end);
+      expect(section).not.toContain('/learn/');
+      expect(section).not.toContain('axis-micro');
+      expect(section).not.toContain('>開蒙<');
+      expect(section.match(/class="axis-node/g)).toHaveLength(8);
+      const microAt = html.indexOf(sentence, end);
+      expect(microAt).toBeGreaterThan(end);
+      expect(microAt).toBeLessThan(end + 24);
+      expect(html.match(/class="axis-micro"/g)).toHaveLength(1);
+    }
+    const primary = home.slice(home.indexOf('aria-label="主欄目"'), home.indexOf('</nav>', home.indexOf('aria-label="主欄目"')));
+    expect(primary.match(/data-ia-level="1"/g)).toHaveLength(3);
+    expect(primary).not.toContain('開蒙');
+    expect(sentence).not.toMatch(/我哋|嘅|喺|咗|台灣|臺灣|台湾|Taiwan/);
+    const css = readFileSync('src/App.css', 'utf8');
+    const rule = css.slice(css.indexOf('.axis-micro a {'), css.indexOf('}', css.indexOf('.axis-micro a {')));
+    expect(rule).toContain('min-height: 44px');
+    expect(rule).toContain('min-width: 44px');
+    expect(css).toContain('.axis-micro {\n  flex: 0 0 auto;');
+    expect(css).toContain('.ig-card .axis-micro { background: #161c24; }');
+  });
+});
+
 describe('homepage today slice', () => {
   it('keeps real briefing and explainer paths inside the slice, with no invented coordinate', () => {
     const item: NewsItem = {
@@ -1008,8 +1039,15 @@ describe('homepage today slice', () => {
     expect(primary).not.toContain('>開蒙<');
     expect(primary).not.toContain('導讀');
     expect(primary).not.toContain('/briefing/');
-    const hero = html.slice(html.indexOf('class="axis-hero"'), html.indexOf('class="bulletin-clock"'));
-    expect(hero).not.toContain('/learn/');
+    const axisAt = html.indexOf('<section class="axis-hero');
+    const axisEnd = html.indexOf('</section>', axisAt);
+    const axisSection = html.slice(axisAt, axisEnd);
+    expect(axisSection).not.toContain('/learn/');
+    expect(axisSection).not.toContain('axis-micro');
+    const hero = html.slice(axisAt, html.indexOf('class="bulletin-clock"'));
+    expect(hero).toContain('<p class="axis-micro"><a href="/learn/">想由基礎立起來？</a></p>');
+    expect(hero.match(/class="axis-micro"/g)).toHaveLength(1);
+    expect(hero).not.toContain('learn-door');
     expect(hero).not.toContain('pattern-axis');
     expect(hero).not.toContain('case-axis');
     expect(html).toContain('href="/civilization/#future"');

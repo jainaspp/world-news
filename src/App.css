@@ -1788,6 +1788,29 @@ a.axis-node:hover { color: #f7f1e6; }
 }
 .axis-hero .btn-brass { background: var(--brass-ink-fill); color: #161c24; }
 .axis-hero .btn-ghost { background: transparent; color: #e8e4dc; border-color: rgba(232, 228, 220, 0.35); }
+.axis-micro {
+  flex: 0 0 auto;
+  margin: 0 -16px 0;
+  padding: 0 16px;
+  background: #161c24;
+  font-size: 14px;
+  line-height: 1.4;
+}
+/* .ig-card p paints the page background. This sentence stays on the axis ink. */
+.ig-card .axis-micro { background: #161c24; }
+.axis-micro a {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+  color: #c4a572;
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+@media (min-width: 960px) {
+  .axis-micro { padding-left: 22px; padding-right: 22px; }
+}
 .today-pin {
   position: relative;
   z-index: 2;
