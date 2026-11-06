@@ -16,8 +16,8 @@ function inline(raw: string): string {
   }).join('');
   let text = raw;
   text = text.replace(/`([^`]+)`/g, (_match, value: string) => hold(`<code>${esc(value)}</code>`));
-  text = text.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_match, label: string, href: string) => {
-    if (!href.startsWith('/') && !href.startsWith('https://')) return label;
+  text = text.replace(/\[([^\]]+)\]\((https?:\/\/(?:[^()\s]|\([^()\s]*\))+|\/[^)\s]+|#[^)\s]+)\)/g, (_match, label: string, href: string) => {
+    if (!href.startsWith('/') && !href.startsWith('#') && !href.startsWith('https://')) return label;
     return hold(`<a href="${esc(href)}">${pieces(label)}</a>`);
   });
   text = text.replace(/\*\*([^*]+)\*\*/g, (_match, value: string) => hold(`<strong>${pieces(value)}</strong>`));
@@ -71,7 +71,14 @@ export function renderMildMarkdown(source: string): string {
     const heading = /^(#{1,3})\s+(.+)$/.exec(line);
     if (heading) {
       const level = heading[1]?.length ?? 2;
-      html.push(`<h${level}>${inline(heading[2] ?? '')}</h${level}>`);
+      let text = heading[2] ?? '';
+      let idAttr = '';
+      const named = /^(.*)\s+\{#([a-z0-9]+(?:-[a-z0-9]+)*)\}$/.exec(text);
+      if (named) {
+        text = named[1] ?? '';
+        idAttr = ` id="${esc(named[2] ?? '')}"`;
+      }
+      html.push(`<h${level}${idAttr}>${inline(text)}</h${level}>`);
       index += 1;
       continue;
     }

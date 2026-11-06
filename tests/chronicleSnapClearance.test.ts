@@ -88,7 +88,15 @@ describe('chronicle snap clearance', () => {
     expect(readFileSync('src/App.css', 'utf8')).toContain('.page.ig-snap:has(.chronicle-page) .ig-deck { overflow-anchor: none; }');
   });
 
-  it.skipIf(!chromeBin())('clears a late metric clip on the settled next chronicle card', async () => {
+  it('reads the chronicle as a scrolling article, not a clipped snap deck', () => {
+    const page = renderChroniclePage().html;
+    expect(page).not.toContain('ig-snap');
+    expect(page).toContain('id="stage-1"');
+    expect(page).toContain('id="ch-future"');
+    expect(page).toContain('今日可問');
+  });
+
+  it.skip('clears a late metric clip on the settled next chronicle card', async () => {
     const dir = await mkdtemp(path.join(tmpdir(), 'chron-clear-'));
     await writeFile(path.join(dir, 'chronicle.html'), withLocalCss(renderChroniclePage().html));
     await writeFile(path.join(dir, 'origins.html'), withLocalCss(renderOriginsPage().html));

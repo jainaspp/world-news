@@ -90,13 +90,9 @@ describe('learn map shell', () => {
     expect(renderLearnPath('nope').status).toBe(404);
     expect(readFileSync('shared/sitemap.ts', 'utf8')).not.toContain('/learn/');
     const home = renderHomeFeed([]);
-    const axisAt = home.indexOf('<section class="axis-hero');
-    const axisSection = home.slice(axisAt, home.indexOf('</section>', axisAt));
-    expect(axisSection).not.toContain('/learn/');
-    const beside = home.slice(home.indexOf('</section>', axisAt), home.indexOf('class="bulletin-clock"'));
-    expect(beside).toContain('<p class="axis-micro"><a href="/learn/">想由基礎立起來？</a></p>');
-    expect(beside).not.toContain('learn-door');
-    expect(home).toContain('href="/learn/"');
+    expect(home).not.toContain('axis-hero');
+    expect(home).toContain('<a href="/learn/">想由基礎立起來？</a>');
+    expect(home).not.toContain('learn-door');
   });
 
   it('explains locked leaves in one written line under the hub map', () => {

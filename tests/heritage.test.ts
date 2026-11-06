@@ -106,7 +106,7 @@ describe('當年今日 pages', () => {
     const home = renderHomeFeed([item()], new Map(), null, '', null, '', [], [
       { href: '/explainer/a/', title: '睡蓮新種', description: '雨林發現新品種。' },
     ], now);
-    const axis = home.indexOf('id="civ"');
+    const axis = home.indexOf('文明長文');
     const pin = home.indexOf('今日落點');
     const slice = home.indexOf('id="slice"');
     const digest = home.indexOf('class="digest-strip"');
@@ -122,7 +122,7 @@ describe('當年今日 pages', () => {
     const shell = home.slice(home.indexOf('class="ia-shell"'), home.indexOf('id="ig-deck"'));
     expect(shell).not.toContain('>今天<');
     expect(shell).not.toContain('>開蒙<');
-    expect(home).toContain('站在一條很長的時間軸上');
+    expect(home).toContain('文明長文');
     expect(home).not.toContain('otd-pack');
     expect(home).not.toContain('MOCK');
     expect(home).not.toContain('adsbygoogle');

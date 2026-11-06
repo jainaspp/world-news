@@ -9,8 +9,7 @@ import { clusterStories, sourceCounts } from '../shared/trending';
 import { displayTitle, normalizeLang, type UiLang } from '../shared/zh';
 import type { NewsItem } from '../shared/types';
 import { FEED_AD_EVERY, homeAllowsAds } from '../shared/adPolicy';
-import { renderBulletinClock } from '../shared/civilization/clock';
-import { moreTodayHtml, renderAxisBand, renderAxisRails, renderHomeChronicle, renderLayerAside, sliceHeadHtml } from '../shared/civilizationPage';
+import { moreTodayHtml, renderLayerAside, renderReadingLink, sliceHeadHtml } from '../shared/civilizationPage';
 import { renderNearBridge } from '../shared/civilization/renderSlice';
 import { igDotsScript } from '../shared/contentPage';
 import { columnHref, DEFAULT_BRIEFING_LINKS, homeDigestLinks, type HomeColumnLinks } from '../shared/homePage';
@@ -549,8 +548,8 @@ export default function App() {
               </div>
             )}
             {!special && (
-              <div className="ig-card ig-card-axis">
-                <div className="axis-mount" dangerouslySetInnerHTML={{ __html: renderAxisBand({ asHeading: poeticAxis, strip: false, rails: false }) }} />
+              <div className="ig-card">
+                <div className="ig-sheet" dangerouslySetInnerHTML={{ __html: renderReadingLink(focusLabel ? 'h2' : 'h1') }} />
               </div>
             )}
             <section className="today-slice ig-card ig-card-slice motion-fade-rise" id="slice" aria-label={special ? (view.bookmarks ? t('bookmarks', lang) : t('following', lang)) : '今日切片'}>
@@ -629,9 +628,6 @@ export default function App() {
             )}
             {!special && (
               <>
-                <div className="ig-card"><div className="ig-sheet" dangerouslySetInnerHTML={{ __html: renderBulletinClock() }} /></div>
-                <div className="ig-card"><div className="ig-sheet" dangerouslySetInnerHTML={{ __html: renderHomeChronicle() }} /></div>
-                <div className="ig-card"><div className="ig-sheet" dangerouslySetInnerHTML={{ __html: renderAxisRails() }} /></div>
                 <div className="ig-card"><OnThisDay /></div>
                 <div className="ig-card"><div className="ig-sheet" dangerouslySetInnerHTML={{ __html: moreTodayHtml() }} /></div>
                 <div className="ig-card">
@@ -647,7 +643,7 @@ export default function App() {
                 {allowAds && <HomeIntroFoot />}
                 <footer className="app-footer">
                   <p>
-                    {siteBrand}{lang === 'en' ? ' is a civilization axis. News is one slice of today: titles and source links only.' : '是文明時間軸。新聞是軸上的今天一片，只列出標題與出處連結，不轉載內文。'}
+                    {siteBrand}{lang === 'en' ? ' keeps a long-form civilization reading beside the news. Headlines are titles and source links only.' : '把新聞放在文明長文旁邊。標題只列出題與出處連結，不轉載內文。'}
                     <a href={SITE_URL}> {SITE_URL.replace('https://', '')}</a>
                     {' · '}
                     <a href="/major/">{lang === 'en' ? 'Major updates' : '重大更新'}</a>

@@ -80,7 +80,8 @@ describe('hero opening SSR', () => {
   it('mounts the hero on the pure homepage only, before the axis band', () => {
     const home = renderHomeFeed([]);
     expect(home).toContain('hero-opening');
-    expect(home.indexOf('hero-opening')).toBeLessThan(home.indexOf('axis-hero'));
+    expect(home.indexOf('hero-opening')).toBeLessThan(home.indexOf('文明長文'));
+    expect(home).not.toContain('axis-hero');
     const focus = renderHomeFeed([], new Map(), null, '', null, '', undefined, [], new Date(), false, {}, '香港');
     expect(focus).not.toContain('hero-opening');
   });
@@ -90,7 +91,8 @@ describe('hero opening client wiring', () => {
   it('mounts HeroOpening on the poetic home view before the axis mount', () => {
     const app = readFileSync('src/App.tsx', 'utf8');
     expect(app).toContain('poeticAxis && <HeroOpening />');
-    expect(app.indexOf('<HeroOpening />')).toBeLessThan(app.indexOf('className="axis-mount"'));
+    expect(app.indexOf('<HeroOpening />')).toBeLessThan(app.indexOf('renderReadingLink(focusLabel'));
+    expect(app).not.toContain('axis-mount');
   });
 
   it('drives canvas, timers, reduced motion and the seen flag in the component', () => {

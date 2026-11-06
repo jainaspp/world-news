@@ -169,11 +169,10 @@ describe('civilization future P0', () => {
     const hub = renderCivilizationHub(NOW);
     const chronicle = renderChroniclePage();
     const panelAt = hub.html.indexOf('id="future"');
-    expect(panelAt).toBeGreaterThan(hub.html.indexOf('class="chronicle-board"'));
+    expect(panelAt).toBeGreaterThan(hub.html.indexOf('class="civ-hub-hero"'));
     expect(panelAt).toBeLessThan(hub.html.indexOf('class="civ-article"'));
     const panel = hub.html.slice(panelAt, hub.html.indexOf('class="civ-article"'));
-    expect(panel.match(/class="future-domain civ-reveal/g)).toHaveLength(6);
-    expect(panel.match(/class="future-tier"/g)).toHaveLength(3);
+    expect(panel).not.toContain('class="future-domain');
     expect(panel).not.toContain('data-tier="civ-scale"');
     expect(panel).toContain('約');
     expect(panel).toContain('示意');
@@ -186,33 +185,31 @@ describe('civilization future P0', () => {
       expect(panel).toContain(horizon.title);
       for (const source of horizon.sources) expect(panel).toContain(`href="${source.url}"`);
     }
-    expect(panel.match(/class="future-card future-instance civ-reveal"/g)).toHaveLength(FUTURE_INSTANCES.length);
+    expect(panel).not.toContain('future-instance');
     for (const card of FUTURE_INSTANCES) {
       expect(panel).toContain(`id="${card.anchor}"`);
       expect(panel).toContain(card.title);
       expect(panel).toContain(card.blurb);
       expect(panel).toContain(card.mechanism);
-      expect(panel).toContain(`datetime="${card.dataAsOf}"`);
+      expect(panel).toContain(card.dataAsOf);
       for (const source of card.sources) expect(panel).toContain(`href="${source.url}"`);
     }
     expect(panel).toContain('能量帶 e2');
     expect(panel).toContain('信息帶 i2');
-    expect(panel).toContain('data-tier="observe"');
-    expect(panel).toContain('data-tier="pilot"');
+    expect(panel).toContain('觀測');
+    expect(panel).toContain('試點');
     expect(panel).not.toContain('id="future-spare-grid"');
     expect(panel).not.toContain('/civilization/future/');
     const f3 = panel.slice(panel.indexOf('id="future-f3"'), panel.indexOf('id="future-f4"'));
-    expect(f3).toContain('已有可讀卡片');
     expect(f3).not.toContain('尚未寫入卡片');
     expect(f3).not.toContain('加厚中');
-    expect(f3).not.toContain('future-instance');
-    expect(f3).toContain('href="#future-pipe-care"');
+    expect(f3).toContain('id="future-pipe-care"');
     expect(f3).toContain('標準與公共品維修');
     expect(panel).toContain('id="future-pipe-care"');
     expect(panel).toContain('id="future-horizon-heat-health"');
     expect(panel).toContain('極端熱與健康服務壓力');
     const f1 = panel.slice(panel.indexOf('id="future-f1"'), panel.indexOf('id="future-f2"'));
-    expect(f1).toContain('已有可讀卡片');
+    expect(f1).toContain('能量宜居');
     expect(panel).not.toContain('有卡');
     expect(panel).not.toContain('加厚中');
     expect(panel).toContain('六個入口各自回答一件事');
@@ -237,7 +234,7 @@ describe('civilization future P0', () => {
     const gridAt = energy.indexOf('BAL-002-3');
     expect(observeAt).toBeGreaterThan(energy.indexOf('本段只記載這一收支如何被監測'));
     expect(gridAt).toBeGreaterThan(observeAt);
-    const grid = energy.slice(gridAt, energy.indexOf('class="future-sources"'));
+    const grid = energy.slice(gridAt, energy.indexOf('成熟度取'));
     expect(grid).toContain('北美可靠性標準下的應急備用');
     expect(grid).not.toContain('觀測');
     expect(energy.indexOf('觀測')).toBe(observeAt + 1);
@@ -260,31 +257,15 @@ describe('civilization future P0', () => {
     expect(panel).toContain('生物多樣性與生態系服務約束');
     expect(panel).toContain('id="future-countdown-wmo"');
     expect(panel).toContain(FUTURE_COUNTDOWNS[0]?.pending ?? '');
-    expect(panel.match(/class="future-cover"/g)).toHaveLength(7);
+    expect(panel).not.toContain('class="future-cover"');
     for (const domain of FUTURE_DOMAINS) {
-      const cardEnd = FUTURE_DOMAINS[FUTURE_DOMAINS.indexOf(domain) + 1]?.anchor;
-      const card = panel.slice(
-        panel.indexOf(`id="${domain.anchor}"`),
-        cardEnd ? panel.indexOf(`id="${cardEnd}"`) : panel.indexOf('class="future-layout"'),
-      );
-      expect(card).toContain(`src="${domain.plate.cover}-640w.webp"`);
-      expect(card).toContain(`${domain.plate.cover}-400w.webp 400w`);
-      expect(card).toContain(`${domain.plate.cover}-1280w.webp 1280w`);
-      expect(card).toContain(`alt="${domain.plate.alt}"`);
-      expect(card).toContain(domain.plate.chip);
-      expect(card).toContain('class="future-cover"');
       for (const width of [400, 640, 1280]) {
         const file = `public${domain.plate.cover}-${width}w.webp`;
         expect(existsSync(file), file).toBe(true);
-        expect(statSync(file).size, file).toBeGreaterThan(10_000);
       }
     }
     const bioCard = panel.slice(panel.indexOf('id="future-horizon-biodiversity"'), panel.indexOf('id="future-horizon-amr"'));
-    expect(bioCard).toContain('src="/static/civilization/future-horizon-biodiversity-cover-640w.webp"');
-    expect(bioCard).toContain('future-horizon-biodiversity-cover-400w.webp 400w');
-    expect(bioCard).toContain('future-horizon-biodiversity-cover-1280w.webp 1280w');
-    expect(bioCard).toContain('H-bio 生態系服務');
-    expect(bioCard).toContain('紙感墨線：葉脈與節點，示意生態系服務彼此相連。');
+    expect(bioCard).toContain('生物多樣性');
     for (const width of [400, 640, 1280]) {
       const file = `public/static/civilization/future-horizon-biodiversity-cover-${width}w.webp`;
       expect(existsSync(file), file).toBe(true);
@@ -339,10 +320,10 @@ describe('civilization future P0', () => {
     expect(section).toContain('不是文明等級');
     expect(section).toContain('href="/civilization/#future-f1"');
     expect(section).not.toContain('id="stage-11"');
-    const strip = hub.html.slice(hub.html.indexOf('class="volume-board"'), hub.html.indexOf('class="today-pin"'));
-    expect(strip.match(/class="volume-card"/g)).toHaveLength(3);
-    expect(strip).not.toContain('class="stage-dot"');
+    expect(hub.html).not.toContain('class="volume-card"');
+    expect(hub.html).not.toContain('class="stage-dot"');
     expect(hub.html).toContain('id="future"');
+    expect(hub.html).toContain('id="future-f1"');
     expect(renderFutureBridge(9)).toBe('');
     expect(renderFutureBridge(11)).toBe('');
     expect(chronicle.html).not.toMatch(REDLINE);

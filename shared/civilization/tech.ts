@@ -1,8 +1,7 @@
-import { cjkChars, esc, safeHttp } from '../contentPage.js';
-import { axisReadingProse, renderStageReadings, stageReadingJump } from './axisReading.js';
-import { caseSourceRows, renderCaseNav, renderCasesBeside } from './cases.js';
+import { cjkChars, esc } from '../contentPage.js';
+import { renderThreadArticle } from './db/render.js';
+import { axisReadingProse } from './axisReading.js';
 import { TECH_READINGS } from './content/techReadings.js';
-import { renderSliceReturns } from './renderSlice.js';
 
 /** Thick-page floor. Below this the page stays noindex. */
 export const TECH_MIN_CHARS = 1200;
@@ -197,19 +196,8 @@ export function techIndexable(): boolean {
   return TECH_STAGES.length === 10 && cjkChars(techProse()) >= TECH_MIN_CHARS;
 }
 
-function ordinal(n: number): string {
-  return String(n).padStart(2, '0');
-}
-
-function lineChips(lines: readonly string[]): string {
-  return `<p class="line-chips">${lines.map((line) => `<span class="line-chip">${esc(line)}</span>`).join('')}</p>`;
-}
 
 const CIV = '/static/civilization';
-
-function paperSeal(n: number): string {
-  return `<span class="stage-seal">${ordinal(n)}</span>`;
-}
 
 /** 640×400 stage cover, with a 1280w candidate for high-DPR. onerror hides a missing file so the paper seal remains. */
 export function techCoverImg(stage: TechStage, eager: boolean): string {
@@ -220,73 +208,7 @@ export function techCoverImg(stage: TechStage, eager: boolean): string {
   return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w, ${base}-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
 }
 
-function sourceHref(url: string): string {
-  const safe = safeHttp(url);
-  return safe ? esc(safe) : '';
-}
-
-function nodeHero(): string {
-  return `<figure class="civ-node-hero"><img src="${CIV}/node-tech-v1.jpg" width="1280" height="720" alt="科技與發現：公共科普示意" loading="eager" fetchpriority="high" decoding="async" onerror="this.hidden=true" /><figcaption>科技與發現 · 示意</figcaption></figure>`;
-}
-
-function stageSection(stage: TechStage): string {
-  const points = stage.milestones.map((item) => `<li>${esc(item)}</li>`).join('');
-  const readings = TECH_READINGS[stage.n] ?? [];
-  const extra: string[] = [];
-  const readingJump = stageReadingJump('tech', stage.n, readings);
-  if (readingJump) extra.push(readingJump);
-  if (stage.origins) extra.push('<a href="/civilization/origins/">人類起源時間線</a>');
-  if (stage.chronicle) extra.push(`<a href="/civilization/chronicle/#stage-${stage.chronicle}">對照文明編年</a>`);
-  const links = extra.length ? `<p class="stage-links">${extra.join('')}</p>` : '';
-  const reveal = stage.n === 1 ? ' civ-reveal civ-reveal--above-fold is-inview' : ' civ-reveal';
-  return `<section class="chronicle-stage tech-stage${reveal}" id="tech-${stage.n}" data-stage="${stage.n}">
-    <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
-    <h2>${esc(stage.name)}</h2>
-    <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${techCoverImg(stage, false)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
-    <ul class="stage-milestones">${points}</ul>
-    <p>${esc(stage.prose)}</p>
-    <p class="stage-meaning">${esc(stage.meaning)}</p>
-    ${lineChips(stage.lines)}
-    ${renderStageReadings('tech', stage.n, readings)}
-    ${links}
-    ${renderCasesBeside('/civilization/tech/', `tech-${stage.n}`)}
-  </section>`;
-}
-
-function sourceTable(): string {
-  const rows = [
-    ...TECH_SOURCES,
-    ...caseSourceRows('/civilization/tech/').map((row) => ({ name: row.name, note: row.note, url: row.url })),
-  ];
-  const body = rows.map((row, index) => {
-    const href = sourceHref(row.url);
-    const link = href ? `<a href="${href}">${esc(row.url)}</a>` : esc(row.url);
-    return `<tr><td>${index + 1}</td><td>${esc(row.name)}</td><td>${esc(row.note)}</td><td>${link}</td></tr>`;
-  }).join('');
-  return `<table class="civ-table"><thead><tr><th>#</th><th>機構／入口</th><th>說明</th><th>網址</th></tr></thead><tbody>${body}</tbody></table>`;
-}
 
 export function renderTechArticle(): string {
-  const nav = TECH_STAGES.map((stage) => `<a class="chip" href="#tech-${stage.n}">${ordinal(stage.n)} ${esc(stage.short)}</a>`).join('');
-  return `<article class="civ-article tech-page">
-    <header class="tech-hero">
-      <p class="kicker">Discovery · 發現</p>
-      <h1 class="column-title civ-page-title">${esc(TECH_TITLE)}</h1>
-    </header>
-    ${nodeHero()}
-    <p>${esc(LEDE_BEFORE)}<a href="/#slice">${LEDE_LINK}</a>${esc(LEDE_AFTER)}</p>
-    ${lineChips(TECH_LINES)}
-    <nav class="chronicle-nav tech-nav" aria-label="跳到技術階段">${nav}</nav>
-    ${renderCaseNav('/civilization/tech/')}
-    <div class="civ-progress" aria-hidden="true"></div>
-    ${TECH_STAGES.map(stageSection).join('')}
-    <h2>交接編年與今日</h2>
-    <p>${esc(HANDOFF_A)}<a href="/civilization/origins/">人類起源時間線</a>${esc(HANDOFF_B)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_C)}<a href="/civilization/city/">城市・基建・民生</a>${esc(HANDOFF_D)}<a href="/#slice">今日切片</a>${esc(HANDOFF_E)}</p>
-    <p class="stage-links"><a href="/civilization/origins/">人類起源時間線</a><a href="/civilization/chronicle/">文明編年</a><a href="/civilization/city/">城市・基建・民生</a><a href="/civilization/">返回文明總覽</a><a href="/#slice">今日切片</a></p>
-    ${renderSliceReturns('tech')}
-    <h2>來源</h2>
-    ${sourceTable()}
-    <p class="stage-source">${esc(TECH_SOURCE_NOTE)}</p>
-    <p class="civ-ai"><span class="badge">AI 整合</span> 本頁由公開科普與主流綜述入口整合，僅供研究與編輯參考。</p>
-  </article>`;
+  return renderThreadArticle('tech');
 }

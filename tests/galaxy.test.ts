@@ -69,7 +69,7 @@ describe('galaxy thick page', () => {
     expect(page.html).toContain('地球生命');
     expect(page.html).toContain('href="/civilization/origins/"');
     expect(page.html).toContain('人類起源時間線');
-    expect(page.html).toContain('onerror="this.hidden=true"');
+    expect(page.html).not.toContain('跳到銀河系章節');
     expect(page.html).toContain('href="https://science.nasa.gov/universe/galaxies/"');
     expect(page.html).toContain('CC BY 4.0');
     expect(page.html).not.toContain('id="hk-info"');

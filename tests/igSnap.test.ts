@@ -30,7 +30,7 @@ describe('T4 home, list, and civ hub snap deck', () => {
     expect(html).toContain('id="ig-dots"');
     expect(html).toContain('id="ig-dots-boot"');
     const hero = html.indexOf('hero-opening');
-    const axis = html.indexOf('id="civ"');
+    const axis = html.indexOf('文明長文');
     const slice = html.indexOf('id="slice"');
     const first = html.indexOf('港鐵宣布加價');
     const second = html.indexOf('立法會恢復二讀');
@@ -50,7 +50,8 @@ describe('T4 home, list, and civ hub snap deck', () => {
     const app = readFileSync('src/App.tsx', 'utf8');
     expect(app).toContain('id="ig-deck"');
     expect(app).toContain('className="ig-card ig-card-lead"');
-    expect(app.indexOf('<HeroOpening />')).toBeLessThan(app.indexOf('className="axis-mount"'));
+    expect(app.indexOf('<HeroOpening />')).toBeLessThan(app.indexOf('renderReadingLink(focusLabel'));
+    expect(app).not.toContain('axis-mount');
     expect(app.indexOf('id="slice"')).toBeLessThan(app.indexOf('className="home-list"'));
   });
 
@@ -108,11 +109,13 @@ describe('T4 home, list, and civ hub snap deck', () => {
 
   it('snaps the civilization hub and every detail page on the same deck', () => {
     const hub = renderCivilizationHub(new Date('2026-10-17T04:00:00.000Z')).html;
-    expect(hub).toContain('class="page column-page heritage-page civ-page ig-snap"');
+    expect(hub).toContain('class="page column-page heritage-page civ-page"');
+    expect(hub).not.toContain('ig-snap');
     expect(hub).toContain('id="ig-deck"');
     expect(hub).toContain('class="ig-card ig-card-lead"');
     expect(hub).toContain('class="ig-card ig-card-close"');
-    expect(hub.indexOf('class="axis-hero"')).toBeLessThan(hub.indexOf('class="civ-hub-hero"'));
+    expect(hub.indexOf('文明長文')).toBeLessThan(hub.indexOf('class="civ-hub-hero"'));
+    expect(hub).not.toContain('axis-hero');
     expect(hub.indexOf('class="civ-hub-hero"')).toBeLessThan(hub.indexOf('class="civ-article"'));
     expect(hub.indexOf('id="future"')).toBeLessThan(hub.indexOf('class="civ-article"'));
     const details = [
@@ -125,12 +128,9 @@ describe('T4 home, list, and civ hub snap deck', () => {
       renderCityPage(),
     ];
     for (const page of details) {
-      expect(page.html).toContain('class="page column-page heritage-page civ-page ig-snap"');
-      expect(page.html).toContain('id="ig-deck"');
-      expect(page.html).toContain('ig-card-flow');
-      expect(page.html).toContain('class="ig-card ig-card-close"');
-      expect(page.html).toContain('id="ig-dots-boot"');
-      expect(page.html.match(/id="ig-deck"/g)).toHaveLength(1);
+      expect(page.html).toContain('class="page column-page heritage-page civ-page"');
+      expect(page.html).not.toContain('ig-snap');
+      expect(page.html).toContain('class="civ-article');
     }
     expect(renderOriginsPage().html).toContain('人類起源時間線');
     expect(renderCivilizationMiss().html).not.toContain('id="ig-deck"');

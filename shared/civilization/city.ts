@@ -1,5 +1,6 @@
-import { cjkChars, esc, safeHttp } from '../contentPage.js';
-import { axisReadingProse, renderStageReadings, stageReadingJump } from './axisReading.js';
+import { cjkChars, esc } from '../contentPage.js';
+import { renderThreadArticle } from './db/render.js';
+import { axisReadingProse } from './axisReading.js';
 import { CITY_READINGS } from './content/cityReadings.js';
 
 /** Thick-page floor. Below this the page stays noindex. */
@@ -210,19 +211,8 @@ export function cityIndexable(): boolean {
   return CITY_STAGES.length === 10 && cjkChars(cityProse()) >= CITY_MIN_CHARS;
 }
 
-function ordinal(n: number): string {
-  return String(n).padStart(2, '0');
-}
-
-function lineChips(lines: readonly string[]): string {
-  return `<p class="line-chips">${lines.map((line) => `<span class="line-chip">${esc(line)}</span>`).join('')}</p>`;
-}
 
 const CIV = '/static/civilization';
-
-function paperSeal(n: number): string {
-  return `<span class="stage-seal">${ordinal(n)}</span>`;
-}
 
 /** 640×400 stage cover, with a 1280w candidate for high-DPR. onerror hides a missing file so the paper seal remains. */
 export function cityCoverImg(stage: CityStage, eager: boolean): string {
@@ -233,71 +223,7 @@ export function cityCoverImg(stage: CityStage, eager: boolean): string {
   return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w, ${base}-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
 }
 
-function sourceHref(url: string): string {
-  const safe = safeHttp(url);
-  return safe ? esc(safe) : '';
-}
-
-function nodeHero(): string {
-  return `<figure class="civ-node-hero"><img src="${CIV}/node-city-v1.jpg" width="1280" height="720" alt="城市・基建・民生示意" loading="eager" fetchpriority="high" decoding="async" onerror="this.hidden=true" /><figcaption>城市・基建・民生 · 示意</figcaption></figure>`;
-}
-
-function localLinks(): string {
-  return `<p class="stage-links">${CITY_LOCAL_LINKS.map((row) => `<a href="${esc(row.href)}">${esc(row.label)}</a>`).join('')}</p>`;
-}
-
-function stageSection(stage: CityStage): string {
-  const points = stage.milestones.map((item) => `<li>${esc(item)}</li>`).join('');
-  const readings = CITY_READINGS[stage.n] ?? [];
-  const extra: string[] = [];
-  const readingJump = stageReadingJump('city', stage.n, readings);
-  if (readingJump) extra.push(readingJump);
-  if (stage.chronicle) extra.push(`<a href="/civilization/chronicle/#stage-${stage.chronicle}">對照文明編年</a>`);
-  const chronicle = extra.length ? `<p class="stage-links">${extra.join('')}</p>` : '';
-  const local = stage.local ? localLinks() : '';
-  const reveal = stage.n === 1 ? ' civ-reveal civ-reveal--above-fold is-inview' : ' civ-reveal';
-  return `<section class="chronicle-stage city-stage${reveal}" id="city-${stage.n}" data-stage="${stage.n}">
-    <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
-    <h2>${esc(stage.name)}</h2>
-    <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${cityCoverImg(stage, false)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
-    <ul class="stage-milestones">${points}</ul>
-    <p>${esc(stage.prose)}</p>
-    <p class="stage-meaning">${esc(stage.meaning)}</p>
-    ${lineChips(stage.lines)}
-    ${renderStageReadings('city', stage.n, readings)}
-    ${chronicle}
-    ${local}
-  </section>`;
-}
-
-function sourceTable(): string {
-  const body = CITY_SOURCES.map((row, index) => {
-    const href = sourceHref(row.url);
-    const link = href ? `<a href="${href}">${esc(row.url)}</a>` : esc(row.url);
-    return `<tr><td>${index + 1}</td><td>${esc(row.name)}</td><td>${esc(row.note)}</td><td>${link}</td></tr>`;
-  }).join('');
-  return `<table class="civ-table"><thead><tr><th>#</th><th>機構／入口</th><th>說明</th><th>網址</th></tr></thead><tbody>${body}</tbody></table>`;
-}
 
 export function renderCityArticle(): string {
-  const nav = CITY_STAGES.map((stage) => `<a class="chip" href="#city-${stage.n}">${ordinal(stage.n)} ${esc(stage.short)}</a>`).join('');
-  return `<article class="civ-article city-page">
-    <header class="city-hero">
-      <p class="kicker">Civic life · 公共生活</p>
-      <h1 class="column-title civ-page-title">${esc(CITY_TITLE)}</h1>
-    </header>
-    ${nodeHero()}
-    <p>${esc(LEDE_BEFORE)}<a href="/civilization/tech/">${LEDE_TECH}</a>${esc(LEDE_MID)}<a href="/civilization/chronicle/">${LEDE_CHRONICLE}</a>${esc(LEDE_AFTER)}</p>
-    ${lineChips(CITY_LINES)}
-    <nav class="chronicle-nav city-nav" aria-label="跳到城市階段">${nav}</nav>
-    <div class="civ-progress" aria-hidden="true"></div>
-    ${CITY_STAGES.map(stageSection).join('')}
-    <h2>交接編年與本地案例</h2>
-    <p>${esc(HANDOFF_A)}<a href="/civilization/chronicle/">文明編年</a>${esc(HANDOFF_B)}<a href="/civilization/tech/">科技與發現</a>${esc(HANDOFF_C)}<a href="/hk/landmarks/">香港地標</a>${esc(HANDOFF_D)}<a href="/on-this-day/">當年今日</a>${esc(HANDOFF_E)}<a href="/#slice">今日切片</a>${esc(HANDOFF_F)}</p>
-    <p class="stage-links"><a href="/civilization/tech/">科技與發現</a><a href="/civilization/chronicle/">文明編年</a><a href="/hk/landmarks/">香港地標</a><a href="/on-this-day/">當年今日</a><a href="/civilization/">返回文明總覽</a><a href="/#slice">今日切片</a></p>
-    <h2>來源</h2>
-    ${sourceTable()}
-    <p class="stage-source">${esc(CITY_SOURCE_NOTE)}</p>
-    <p class="civ-ai"><span class="badge">AI 整合</span> 本頁由公開遺產名錄、博物館入口與站內地標頁整合，僅供研究與編輯參考。</p>
-  </article>`;
+  return renderThreadArticle('city');
 }
