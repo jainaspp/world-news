@@ -218,8 +218,10 @@ describe('analysis read-original and timeline tap target', () => {
     const phone = mediaBlock(columns, PHONE);
     const outlet = rule(phone, '.page.column-page[data-kind="analysis"] .angle-card .read-original {');
     const timeline = rule(phone, '.page.column-page[data-kind="analysis"] .timeline .tl-body a {');
+    const archiveLink = rule(phone, '.page.column-page[data-kind="analysis"] .side-card.archive > a.read-original {');
     const baseOutlet = rule(columns, '.angle-card .read-original {');
     const baseTimeline = rule(columns, '.tl-body a {');
+    const baseRead = rule(app, '.read-original { font-size:');
     const focus = rule(app, ':focus-visible {');
 
     expect(phone.startsWith('@media (max-width: 700px)')).toBe(true);
@@ -234,10 +236,17 @@ describe('analysis read-original and timeline tap target', () => {
     expect(timeline).toContain('display: inline-block');
     expect(timeline).toContain('min-width: 44px');
     expect(timeline).toContain('min-height: 44px');
+    expect(archiveLink).toContain('display: inline-flex');
+    expect(archiveLink).toContain('align-items: center');
+    expect(archiveLink).toContain('min-width: 44px');
+    expect(archiveLink).toContain('min-height: 44px');
+    expect(archiveLink).not.toContain('outline');
     expect(baseOutlet).toContain('-webkit-line-clamp: 2');
     expect(baseOutlet).not.toContain('44px');
     expect(baseTimeline).not.toContain('44px');
     expect(baseTimeline).toContain('text-decoration: none');
+    expect(baseRead).not.toContain('44px');
+    expect(baseRead).toContain('font-size: 0.92rem');
     expect(focus).toContain('outline: 3px solid var(--accent)');
     expect(focus).toContain('outline-offset: 2px');
 
@@ -350,7 +359,7 @@ describe('analysis read-original and timeline tap target', () => {
         const root = await rpc('DOM.getDocument', { depth: 0 }) as { root: { nodeId: number } };
         const selector = file.startsWith('story')
           ? '.pack-toolbar > a.chip'
-          : '.angle-card .read-original, .timeline .tl-body a';
+          : '.angle-card .read-original, .timeline .tl-body a, .side-card.archive > a.read-original';
         const found = await rpc('DOM.querySelectorAll', { nodeId: root.root.nodeId, selector }) as { nodeIds: number[] };
         for (const nodeId of found.nodeIds) {
           await rpc('CSS.forcePseudoState', { nodeId, forcedPseudoClasses: ['focus', 'focus-visible'] });
@@ -389,8 +398,18 @@ describe('analysis read-original and timeline tap target', () => {
         for (const control of box.reads) expect(control.display, `${label} ${control.text}`).not.toBe('inline');
         for (const control of box.timeline) expect(control.display, `${label} ${control.text}`).toBe('inline-block');
         for (const control of box.archive) {
-          expect(control.h, `${label} archive`).toBeLessThan(44);
-          expect(control.minH, `${label} archive`).not.toBe('44px');
+          const name = `${label} archive ${control.text}`;
+          expect(control.h, name).toBeGreaterThanOrEqual(44);
+          expect(control.w, name).toBeGreaterThanOrEqual(44);
+          expect(control.hitH, name).toBeGreaterThanOrEqual(44);
+          expect(control.hitW, name).toBeGreaterThanOrEqual(44);
+          expect(control.minH, name).toBe('44px');
+          expect(control.minW, name).toBe('44px');
+          expect(control.display, name).toBe('inline-flex');
+          expect(control.outline, name).toContain('solid');
+          expect(control.outline, name).toContain('3px');
+          expect(control.outline, name).toContain('2px');
+          expect(control.scrollH, name).toBeLessThanOrEqual(control.h + 1);
         }
       }
 
@@ -417,6 +436,10 @@ describe('analysis read-original and timeline tap target', () => {
         expect(control.minH, `desktop ${control.text}`).not.toBe('44px');
       }
       for (const control of short) expect(control.h, `desktop ${control.text}`).toBeLessThan(44);
+      for (const control of desktop.archive) {
+        expect(control.h, `desktop ${control.text}`).toBeLessThan(44);
+        expect(control.display, `desktop ${control.text}`).not.toBe('inline-flex');
+      }
       ws.close();
     } finally {
       browser.kill('SIGKILL');

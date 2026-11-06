@@ -192,9 +192,9 @@ html.dark .heat-badge:not(.heat-3) { color: #ff8a9b; }
   /* Analysis outlet links and timeline links. At 390 an angle-card
      read-original was 19×290 on one line and 38×290 on two lines, and a
      wrapped timeline link was 43×197. A one-line timeline link sits on the
-     21px line. The 44px floor is the tap target. The outlet link keeps its
-     two-line clamp. From 701px up both stay on the line. The AA ring stays
-     on :focus-visible. */
+     21px line. The sidebar archive link was 21×77. The 44px floor is the
+     tap target. The outlet link keeps its two-line clamp. From 701px up
+     these stay on the line. The AA ring stays on :focus-visible. */
   .page.column-page[data-kind="analysis"] .angle-card .read-original {
     min-width: 44px;
     min-height: 44px;
@@ -205,6 +205,13 @@ html.dark .heat-badge:not(.heat-3) { color: #ff8a9b; }
     min-width: 44px;
     min-height: 44px;
     vertical-align: middle;
+  }
+  .page.column-page[data-kind="analysis"] .side-card.archive > a.read-original {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
   }
 }
 @media (min-width: 700px) {
