@@ -337,8 +337,9 @@ describe('phone home list tap target', () => {
           expect(control.display, `${label} ${control.cls}`).toBe('flex');
         }
         for (const control of box.pins) {
-          expect(control.h, `${label} pin ${control.text}`).toBeLessThan(44);
-          expect(control.minH, `${label} pin ${control.text}`).not.toBe('44px');
+          expect(control.h, `${label} pin ${control.text}`).toBeGreaterThanOrEqual(44);
+          expect(control.hitH, `${label} pin ${control.text}`).toBeGreaterThanOrEqual(44);
+          expect(control.minH, `${label} pin ${control.text}`).toBe('44px');
         }
       }
 
