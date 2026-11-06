@@ -1692,6 +1692,21 @@ html.dark .learn-edge { background: #171d26; border-color: #2e3b4c; }
     padding: 0 4px;
   }
 }
+@media (max-width: 700px) {
+  /* Learn paragraph returns. At 390 a subject-page return was 24×96
+     and a leaf return was 24×112. The 44px floor is the tap target.
+     From 701px up they stay inline. The AA ring stays on :focus-visible. */
+  .learn-main > p > a[href="/learn/"],
+  .learn-article > p > a[href^="/learn/"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 4px;
+  }
+}
 .chip.civ-chip {
   background: #161c24;
   color: #f0ebe3;
