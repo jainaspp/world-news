@@ -1,9 +1,16 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { LEARN_LESSONS, LEARN_SUBJECTS, learnCatalogIssues } from '../shared/learn/catalog';
+import { LEARN_EDGE_NOTES } from '../shared/learn/edgeNotes';
 import { renderLearnPath } from '../shared/learnPage';
 import { renderHomeFeed } from '../shared/homePage';
 import { renderBulletinClock } from '../shared/civilization/clock';
+import { renderCivilizationHub } from '../shared/civilizationPage';
+import { SPINE } from '../shared/civilization/spine';
+
+function hanCount(text: string): number {
+  return [...text].filter((ch) => /\p{Script=Han}/u.test(ch)).length;
+}
 
 describe('learn map shell', () => {
   it('draws twelve doors, three readable seeds, and leaves the rest closed', () => {
@@ -60,6 +67,50 @@ describe('learn map shell', () => {
     const hero = home.slice(home.indexOf('class="axis-hero"'), home.indexOf('class="bulletin-clock"'));
     expect(hero).not.toContain('/learn/');
     expect(home).toContain('href="/learn/"');
+  });
+});
+
+describe('learn edge notes 04/05/08', () => {
+  it('thickens the hub with three in-learn notes and leaves the tree locked', () => {
+    expect(learnCatalogIssues()).toEqual([]);
+    expect(LEARN_EDGE_NOTES.map((note) => note.id)).toEqual(['04', '05', '08']);
+    expect(LEARN_EDGE_NOTES.map((note) => note.subjectId)).toEqual(['phy', 'chem', 'geo']);
+    expect(LEARN_SUBJECTS.filter((subject) => subject.open).map((subject) => subject.id)).toEqual(['zh', 'math', 'en']);
+    expect(LEARN_LESSONS).toHaveLength(3);
+    expect(SPINE).toHaveLength(8);
+    expect(SPINE.map((node) => node.label)).not.toContain('開蒙');
+
+    const hub = renderLearnPath('');
+    const edges = hub.html.slice(hub.html.indexOf('class="learn-edges"'), hub.html.indexOf('class="learn-bound"'));
+    expect(edges).toContain('頁緣短箋');
+    expect(edges).toContain('不開門，不加葉');
+    expect(edges).not.toMatch(/href="(?!\/learn\/)/);
+    expect(edges).not.toMatch(/我哋|嘅|喺|咗|台灣|臺灣|台湾|Taiwan|補習|選課|必考|衝刺|名師/);
+    expect(hub.html.match(/class="learn-door is-open"/g)).toHaveLength(3);
+    expect(hub.html.match(/class="learn-door is-locked"/g)).toHaveLength(9);
+    expect(hub.html).not.toContain('learn-next');
+    expect(hub.indexable).toBe(false);
+
+    for (const note of LEARN_EDGE_NOTES) {
+      expect(hanCount(note.body)).toBeGreaterThanOrEqual(145);
+      expect(hanCount(note.body)).toBeLessThanOrEqual(165);
+      expect(edges).toContain(`id="edge-${note.id}"`);
+      expect(edges).toContain(note.title);
+      expect(edges).toContain(note.body);
+      expect(edges).toContain(`href="${note.href}"`);
+      const door = renderLearnPath(note.subjectId);
+      expect(door.status).toBe(200);
+      expect(door.html).toContain('尚未開啓之路');
+      expect(door.html).not.toContain(`id="edge-${note.id}"`);
+    }
+
+    const nextHint = '下一葉尚未開啓。第二節只標方位：聲音如何按同一字形被再次讀出。正文未寫入，不另開一葉。';
+    expect(renderLearnPath('zh/glyph').html).toContain(`class="learn-note learn-next">${nextHint}`);
+    expect(renderLearnPath('zh').html).toContain(`class="learn-note learn-next">${nextHint}`);
+    expect(readFileSync('src/App.css', 'utf8')).toContain('.learn-edge {\n  max-width: 40rem;');
+    expect(readFileSync('src/App.css', 'utf8')).toContain('scroll-margin-top: 128px;');
+    expect(renderHomeFeed([])).not.toContain('頁緣短箋');
+    expect(renderCivilizationHub().html).not.toContain('頁緣短箋');
   });
 });
 

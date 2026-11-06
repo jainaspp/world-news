@@ -1589,6 +1589,33 @@ html.dark .nav-more summary { color: var(--color-muted); }
 .learn-state { font-size: 12px; }
 .learn-article p,
 .learn-leaf p { max-width: 40rem; }
+.learn-edges {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0 0;
+}
+.learn-edge {
+  max-width: 40rem;
+  padding: 14px 16px;
+  background: #efe8da;
+  border: 1px solid #d4cbb8;
+  border-radius: 12px;
+  scroll-margin-top: 128px;
+}
+.learn-edge h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.learn-edge p { margin: 0 0 8px; }
+.learn-edge p:last-child { margin-bottom: 0; }
+.learn-edge a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+}
 html.dark .bulletin-clock {
   background: #161c24;
   color: #f7f1e6;
@@ -1609,6 +1636,7 @@ html.dark .learn-locked,
 html.dark .learn-bearings { color: var(--color-muted); }
 html.dark .learn-door { background: #1c2430; color: #f7f1e6; }
 html.dark .learn-door.is-locked { background: #171d26; color: #b7b1a6; }
+html.dark .learn-edge { background: #171d26; border-color: #2e3b4c; }
 @media (min-width: 720px) {
   .learn-map { grid-template-columns: repeat(3, 1fr); }
 }
