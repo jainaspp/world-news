@@ -418,6 +418,18 @@ html.dark .thumb-neutral {
   .layout { margin-top: 4px; gap: 8px; }
   .hk-info-wrap { margin-top: 4px; }
   .hk-info { height: auto; max-height: none; margin-top: 0; padding: 2px 20px 2px 8px; font-size: 13px; overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; white-space: nowrap; scroll-padding-inline: 16px; }
+  /* Weather strip links. At 390 a weather link, an index link, and a
+     tick were 16px tall in the 40px bar. The hit box matched the border
+     box. The 44px floor is the tap target. The bar grows with the links
+     and keeps its sideways scroll. From 701px up the links stay on the
+     line. The AA ring stays on :focus-visible. */
+  .hk-info a {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+  }
   .digest-strip {
     width: 100%; margin-top: 14px; padding: 6px 8px;
     flex-wrap: wrap; overflow: visible;
