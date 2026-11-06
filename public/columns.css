@@ -258,6 +258,21 @@ html.dark .heat-badge:not(.heat-3) { color: #ff8a9b; }
     min-height: 44px;
   }
 }
+@media (max-width: 700px) {
+  /* Site footer sentence. At 390 「數據」was 24×32 inline and 「重大更新」
+     was 24×64 inline. Each hit box matches its border box. The site link
+     already wraps to 48×353. The 44px floor is the tap target. From 701px
+     up they stay on the line. The AA ring stays on :focus-visible. */
+  .page.column-page[data-kind="site"] .app-footer > p a[href="/data/"],
+  .page.column-page[data-kind="site"] .app-footer > p a[href="/major/"] {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
 @media (min-width: 700px) {
   .angle-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 }
