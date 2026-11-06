@@ -12,6 +12,32 @@ function hanCount(text: string): number {
   return [...text].filter((ch) => /\p{Script=Han}/u.test(ch)).length;
 }
 
+function lin(channel: number): number {
+  const s = channel / 255;
+  return s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+}
+
+function contrast(foreground: string, background: string): number {
+  const lum = (hex: string) => {
+    const value = parseInt(hex.slice(1), 16);
+    return 0.2126 * lin((value >> 16) & 255) + 0.7152 * lin((value >> 8) & 255) + 0.0722 * lin(value & 255);
+  };
+  const [hi, lo] = [lum(foreground), lum(background)].sort((a, b) => b - a);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+function rule(css: string, selector: string): string {
+  const at = css.indexOf(selector);
+  expect(at, selector).toBeGreaterThanOrEqual(0);
+  return css.slice(at, css.indexOf('}', at));
+}
+
+function declared(block: string, prop: string): string {
+  const match = block.match(new RegExp(`${prop}:\\s*(#[0-9a-fA-F]{6})`));
+  expect(match, prop).toBeTruthy();
+  return match![1].toLowerCase();
+}
+
 describe('learn map shell', () => {
   it('draws twelve doors, three readable seeds, and leaves the rest closed', () => {
     expect(learnCatalogIssues()).toEqual([]);
@@ -136,6 +162,37 @@ describe('learn edge notes 04/05/08', () => {
     expect(readFileSync('src/App.css', 'utf8')).toContain('scroll-margin-top: 128px;');
     expect(renderHomeFeed([])).not.toContain('頁緣短箋');
     expect(renderCivilizationHub().html).not.toContain('頁緣短箋');
+  });
+
+  it('gives each edge-note link a 44px target and an AA focus ring on learn chrome', () => {
+    const css = readFileSync('src/App.css', 'utf8');
+    const link = rule(css, '.learn-edge a {');
+    const focus = rule(css, '.learn-edge a:focus-visible {');
+    const lightAccent = declared(rule(css, ':root {'), '--color-primary');
+    const darkAccent = declared(rule(css, 'html.dark {'), '--color-primary');
+    const lightCard = declared(rule(css, '.learn-edge {'), 'background');
+    const darkCard = declared(rule(css, 'html.dark .learn-edge {'), 'background');
+    const lightPage = declared(rule(css, '.learn-page {'), 'background');
+    const darkPage = declared(rule(css, 'html.dark .learn-page {'), 'background');
+
+    expect(link).toContain('min-width: 44px');
+    expect(link).toContain('min-height: 44px');
+    expect(link).toContain('color: var(--accent)');
+    expect(rule(css, ':root {')).toContain('--accent: var(--color-primary)');
+    expect(focus).toContain('outline: 3px solid var(--accent)');
+    expect(focus).toContain('outline-offset: 2px');
+    expect(contrast(lightAccent, lightCard)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(darkAccent, darkCard)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(lightAccent, lightPage)).toBeGreaterThanOrEqual(3);
+    expect(contrast(darkAccent, darkPage)).toBeGreaterThanOrEqual(3);
+
+    const hub = renderLearnPath('');
+    for (const note of LEARN_EDGE_NOTES) {
+      const idAt = hub.html.indexOf(`id="edge-${note.id}"`);
+      const article = hub.html.slice(idAt, hub.html.indexOf('</article>', idAt));
+      expect(article.match(/<a /g)).toHaveLength(1);
+      expect(article).toContain(`href="${note.href}"`);
+    }
   });
 });
 
