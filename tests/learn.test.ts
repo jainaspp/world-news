@@ -196,6 +196,39 @@ describe('learn edge notes 04/05/08', () => {
   });
 });
 
+describe('learn progress buttons', () => {
+  it('gives the read-done and reset controls a 44px target and an AA focus ring', () => {
+    const css = readFileSync('src/App.css', 'utf8');
+    const button = rule(css, '.learn-actions button {');
+    const focus = rule(css, '.learn-actions button:focus-visible {');
+    const lightAccent = declared(rule(css, ':root {'), '--color-primary');
+    const darkAccent = declared(rule(css, 'html.dark {'), '--color-primary');
+    const lightPage = declared(rule(css, '.learn-page {'), 'background');
+    const darkPage = declared(rule(css, 'html.dark .learn-page {'), 'background');
+
+    expect(button).toContain('min-width: 44px');
+    expect(button).toContain('min-height: 44px');
+    expect(button).not.toContain('outline');
+    expect(rule(css, ':root {')).toContain('--accent: var(--color-primary)');
+    expect(focus).toContain('outline: 3px solid var(--accent)');
+    expect(focus).toContain('outline-offset: 2px');
+    expect(contrast(lightAccent, lightPage)).toBeGreaterThanOrEqual(3);
+    expect(contrast(darkAccent, darkPage)).toBeGreaterThanOrEqual(3);
+
+    const main = (html: string) => html.slice(html.indexOf('<main'), html.indexOf('</main>'));
+    const hub = main(renderLearnPath('').html);
+    expect(hub).toContain('<button type="button" data-learn-reset>重設本機進度</button>');
+    expect(hub).not.toContain('data-learn-done');
+    expect(hub.match(/<button /g)).toHaveLength(1);
+    for (const lesson of LEARN_LESSONS) {
+      const page = main(renderLearnPath(`${lesson.subjectId}/${lesson.id}`).html);
+      expect(page).toContain(`<button type="button" data-learn-done="${lesson.subjectId}:${lesson.id}">本節讀完</button>`);
+      expect(page).not.toContain('data-learn-reset');
+      expect(page.match(/<button /g)).toHaveLength(1);
+    }
+  });
+});
+
 describe('monitoring clock', () => {
   it('is a static ink reading that links to the future anchor', () => {
     const html = renderBulletinClock();
