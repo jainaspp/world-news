@@ -222,6 +222,26 @@ html.dark .heat-badge:not(.heat-3) { color: #ff8a9b; }
     min-height: 44px;
   }
 }
+@media (max-width: 700px) {
+  /* Topic sidebar archive. At 390 「全部專題 →」 was 21×77 inline and an
+     archive title was 24×324 block. Neither box is clipped. The 44px floor
+     is the tap target. From 701px up both stay on the line. The AA ring
+     stays on :focus-visible. */
+  .page.column-page[data-kind="topic"] .side-card.archive > a.read-original {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .page.column-page[data-kind="topic"] .side-card.archive li a {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
 @media (min-width: 700px) {
   .angle-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 }
