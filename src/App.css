@@ -1006,6 +1006,30 @@ html.dark mark { background: color-mix(in srgb, var(--accent) 50%, #0e141c); }
 }
 
 @media (max-width: 700px) {
+  /* Home list links. At 390 the title was 29×266, 懶人包 was 14×36,
+     原文 was 19×32, and the outlet count was 15×7. The 44px floor is
+     the tap target. From 701px up the title stays a two-line clamp and
+     the side links stay on the meta line. The AA ring stays on :focus-visible. */
+  .rank-main { align-items: center; }
+  .rank-pack,
+  .rank-original,
+  .rank-heat {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 4px;
+  }
+  .rank-title {
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 700px) {
   .tab-bar .template-switch button { min-height: 32px; padding: 2px 10px; font-size: 14px; }
 }
 
