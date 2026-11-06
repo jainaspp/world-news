@@ -1,0 +1,62 @@
+[
+  {
+    "id": "K01",
+    "title": "一軸到底·單頁史詩長卷",
+    "one_liner": "首頁即文明軸本身，一頁從宇宙大爆炸滾到未來章門。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/kimi/P01.md"
+  },
+  {
+    "id": "K02",
+    "title": "三門分卷·門戶子站",
+    "one_liner": "一座門廳三扇門，古、今、未來各是一個可獨立演化的子站。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/kimi/P02.md"
+  },
+  {
+    "id": "K03",
+    "title": "監測中控·鐘錶儀表",
+    "one_liner": "一隻鐘看文明處境，三卷是鐘面外圈的時間刻度環。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/kimi/P03.md"
+  },
+  {
+    "id": "K04",
+    "title": "三卷切換·一頁三面",
+    "one_liner": "一個首頁三種卷色，切換列一按就換一個世界。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/kimi/P04.md"
+  },
+  {
+    "id": "K05",
+    "title": "卡池星圖·Bento 模組",
+    "one_liner": "三卷、切片、鐘、開蒙統一成一副可以重排的卡。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/kimi/P05.md"
+  },
+  {
+    "id": "K06",
+    "title": "章回書頁·書籍目錄",
+    "one_liner": "文明編年史不是一個網站，是一本日日續寫的書。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/kimi/P06.md"
+  },
+  {
+    "id": "K07",
+    "title": "雙層模式·敘事索引",
+    "one_liner": "講故事模式與查資料模式，一個開關兩個首頁。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/kimi/P07.md"
+  },
+  {
+    "id": "K08",
+    "title": "十階刻度·階梯骨架",
+    "one_liner": "三卷是書脊，十階是脊上十格刻度，首頁逐格走一遍。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/kimi/P08.md"
+  },
+  {
+    "id": "K09",
+    "title": "回望未來·倒敘首頁",
+    "one_liner": "首頁由未來望返轉頭，正典仍然由古到今。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/kimi/P09.md"
+  },
+  {
+    "id": "K10",
+    "title": "開蒙先導·學習首頁",
+    "one_liner": "首頁先問「今天想學什麼」，文明軸做它的世界觀底座。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/kimi/P10.md"
+  }
+]
