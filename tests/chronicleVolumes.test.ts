@@ -76,6 +76,40 @@ describe('chronicle three volumes P0', () => {
     expect(cjkChars(stage10?.prose ?? '')).toBeGreaterThanOrEqual(400);
   });
 
+  it('thickens volume 2 stage prose into deep-read bodies', () => {
+    const page = renderChroniclePage().html;
+    const expected = [
+      { n: 6, name: '科學革命與啟蒙', era: '約公元 1500–1800 年', ask: '一次觀測如何變成可覆核的公共記錄？' },
+      { n: 7, name: '工業革命', era: '約公元 1760–1914 年', ask: '貨物與訊息如何對上同一張時間表？' },
+      { n: 8, name: '現代金融與全球體系', era: '約公元 1870 年至 1969 年', ask: '遠距結算如何維持可核對的信用？' },
+      { n: 9, name: '信息革命', era: '約公元 1970 年至 2009 年', ask: '分組交換如何繞過單點故障？' },
+      { n: 10, name: '本世紀／當代', era: '約公元 2010 年起', ask: '公開工具改寫之後，出處如何被核對？' },
+    ];
+    for (const item of expected) {
+      const stage = CHRONICLE_STAGES.find((entry) => entry.n === item.n);
+      const prose = stage?.prose ?? '';
+      expect(stage?.name).toBe(item.name);
+      expect(stage?.era).toBe(item.era);
+      expect(stage?.mechanismAsk).toBe(item.ask);
+      expect(cjkChars(prose), `stage ${item.n}`).toBeGreaterThanOrEqual(500);
+      expect(cjkChars(prose), `stage ${item.n}`).toBeLessThanOrEqual(700);
+      expect(prose.split('\n').filter(Boolean).length).toBeGreaterThanOrEqual(4);
+      const section = stageSlice(page, item.n);
+      for (const paragraph of prose.split('\n').filter(Boolean)) {
+        expect(section).toContain(paragraph.slice(0, 12));
+      }
+      expect(section).toContain(`機制問題：${item.ask}`);
+      expect(section).toContain('class="stage-sources"');
+      expect(section).toContain('class="civ-figure"');
+      expect(section).toContain('class="stage-milestones"');
+      expect(prose).not.toMatch(/台灣|臺灣|台湾|Taiwan/i);
+    }
+    const chapter = page.slice(page.indexOf('id="ch-now"'), page.indexOf('id="stage-6"'));
+    expect(chapter).toContain('卷二');
+    expect(chapter).toContain('>今<');
+    expect(chapter).toContain('科學方法、工業能量、全球信用、信息網絡與本世紀工具');
+  });
+
   it('thickens volume 2 and leaves the future door on the existing anchors', () => {
     const page = renderChroniclePage().html;
     for (const n of [6, 7, 8, 9, 10]) {
