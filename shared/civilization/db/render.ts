@@ -62,13 +62,25 @@ function figureHtml(fig: ChronicleFigure): string {
       <figcaption><strong>示意</strong> ${esc(fig.caption_zh)} 此圖為生成圖像，不是觀測或文物照片。</figcaption>
     </figure>`;
   }
-  return `<figure class="real-photo" data-kind="real_photo" data-figure="${esc(fig.id)}">
+  return `<figure class="real-photo" id="fig-${esc(fig.id)}" data-kind="real_photo" data-figure="${esc(fig.id)}">
     <img src="${esc(fig.src)}" width="${fig.width}" height="${fig.height}" alt="${esc(fig.alt_zh)}" loading="lazy" decoding="async" />
     <figcaption>
+      <span class="real-photo-kicker">真實照片</span>
       <span class="real-photo-caption">圖說：${esc(fig.caption_zh)}</span>
       <span class="real-photo-credit">來源：${esc(fig.credit)}。授權：${esc(fig.license)}。原始頁：${link}。檢索日：${esc(fig.retrieved)}。</span>
     </figcaption>
   </figure>`;
+}
+
+/** Volume-top list so the photographs are not only buried in the essay. */
+export function realPhotoIndex(volume: string): string {
+  const figs = (seed.figures ?? []).filter((fig) => fig.embed && fig.kind === 'real_photo' && fig.volume === volume);
+  if (!figs.length) return '';
+  const items = figs.map((fig) => {
+    const label = (fig.caption_zh.split('。')[0] ?? fig.title).slice(0, 42);
+    return `<a href="#fig-${esc(fig.id)}">${esc(label)}</a>`;
+  }).join('、');
+  return `<nav class="real-photo-index" aria-label="本卷真實照片"><p>本卷真實照片　${items}</p></nav>`;
 }
 
 /** Place real photos and labeled schematics for one entry. Real photos never use the schematic class. */
@@ -127,6 +139,7 @@ export function renderThreadArticle(threadId: string): string {
   return `<article class="${ARTICLE_CLASS[threadId] ?? 'civ-article'}">
     <h1 class="column-title civ-page-title">${esc(thread.title)}</h1>
     ${ledeHtml(thread.lede)}
+    ${realPhotoIndex(threadId)}
     ${sections}
     ${sourceTable(threadId)}
     <p class="civ-ai"><span class="badge">AI 整合</span> ${esc(thread.ai_note)}</p>
@@ -142,6 +155,7 @@ export function renderFutureReading(): string {
   return `<section class="civ-reading" id="future" aria-label="展望">
     <h2>${esc(thread.title)}</h2>
     ${ledeHtml(thread.lede)}
+    ${realPhotoIndex('future')}
     ${opening ? renderMildMarkdown(opening.body) : ''}
     ${sections}
     ${sourceTable('future')}

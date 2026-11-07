@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { chronicleSeed, metaValue, renderThreadArticle, threadsInOrder } from '../shared/civilization/db/render';
-import { renderChroniclePage, renderCivilizationHub } from '../shared/civilizationPage';
+import { renderChroniclePage, renderCityPage, renderCivilizationHub, renderCosmosPage, renderEarthPage, renderGalaxyPage, renderOriginsPage, renderTechPage } from '../shared/civilizationPage';
 
 const BANNED = /台灣|臺灣|台海|臺海|台湾|xAI|Grok/;
 
@@ -42,5 +42,40 @@ describe('chronicle content database', () => {
     expect(renderThreadArticle('earth')).toContain('侏羅紀');
     expect(chronicle.html).not.toMatch(BANNED);
     expect(hub.html).not.toMatch(BANNED);
+  });
+
+  it('puts each real photo on its scale heading, not only at the end of the volume', () => {
+    const pages: Record<string, string> = {
+      cosmos: renderCosmosPage().html,
+      galaxy: renderGalaxyPage().html,
+      earth: renderEarthPage().html,
+      origins: renderOriginsPage().html,
+      chronicle: renderChroniclePage().html,
+      tech: renderTechPage().html,
+      city: renderCityPage().html,
+      future: renderCivilizationHub().html,
+    };
+    const photos = chronicleSeed().figures.filter((fig) => fig.kind === 'real_photo' && fig.embed);
+    expect(photos).toHaveLength(22);
+    for (const fig of photos) {
+      const html = pages[fig.volume] ?? '';
+      const marker = `id="fig-${fig.id}"`;
+      expect(html, fig.id).toContain('class="real-photo"');
+      expect(html, fig.id).toContain(marker);
+      expect(html, fig.id).toContain('真實照片');
+      expect(html.slice(html.indexOf(marker), html.indexOf(marker) + 1200), fig.id).toContain(fig.license);
+      expect(html, fig.id).toContain(fig.source_url);
+      expect(fig.after_heading, fig.id).toBeTruthy();
+      const heading = new RegExp(`<h[1-3][^>]*>[^<]*${fig.after_heading}[^<]*</h[1-3]>`).exec(html);
+      expect(heading, fig.id).toBeTruthy();
+      const figAt = html.indexOf(marker);
+      expect(figAt, fig.id).toBeGreaterThan(heading?.index ?? -1);
+      expect(figAt - (heading?.index ?? figAt), fig.id).toBeLessThan(600);
+    }
+    for (const plate of chronicleSeed().figures.filter((fig) => fig.kind === 'ai_illustration' && fig.embed)) {
+      const html = pages[plate.volume] ?? '';
+      expect(html, plate.id).toContain(`data-kind="ai_illustration" data-figure="${plate.id}"`);
+      expect(html, plate.id).toContain('示意');
+    }
   });
 });

@@ -14,8 +14,8 @@ import { CITY_BULK, COSMOS_BULK, FUTURE_BULK, GALAXY_BULK, ORIGINS_BULK } from '
 import { COSMOS_LAST, GALAXY_LAST, ORIGINS_LAST } from '../content/thickenLast.js';
 import { CITY_FILL, COSMOS_FILL, FUTURE_FILL, GALAXY_FILL, ORIGINS_FILL } from '../content/thickenFill.js';
 import { EARTH_HABITABILITY } from '../content/thickenEarth.js';
-import { COSMOS_THICK, GALAXY_THICK, HANDOFF_CARD } from '../content/thickenEarly.js';
-import { ORIGINS_THICK } from '../content/thickenOrigins.js';
+import { COSMOS_THICK, GALAXY_THICK, HANDOFF_CARD, SCALE_BEAT } from '../content/thickenEarly.js';
+import { ORIGINS_THICK, ORIGINS_ZOOM } from '../content/thickenOrigins.js';
 import { ORIGINS_BODY, ORIGINS_SOURCES } from '../originsSource.js';
 import { CHRONICLE_FIGURES } from './figures.js';
 import { PATTERN_CARDS } from '../patterns.js';
@@ -291,6 +291,7 @@ function buildBag(): Bag {
   GALAXY_STAGES.forEach((stage, index) => {
     const parts = stage.parts.map((part) => [`### ${part.heading}`, ...part.paragraphs].join('\n\n')).join('\n\n');
     const body = [
+      SCALE_BEAT[`galaxy:${stage.id}`] ?? '',
       closeMilestones(stage.milestones, `本節要記住的是：${stage.meaning}`, false),
       parts,
       galaxyJoin[index] ?? '',
@@ -366,7 +367,11 @@ function buildBag(): Bag {
     path: '/civilization/origins/',
     ai_note: '本頁由公開科普與學術綜述入口整理，只供對照深時間。',
   });
-  addEntry(bag, 'origins', 'body', '人類起源時間線', '約七百萬年前起', 10, `${HANDOFF_CARD.origins}\n\n${ORIGINS_BODY}\n\n${ORIGINS_THICK}\n\n${ORIGINS_GAP}\n\n${ORIGINS_FILL}\n\n${ORIGINS_BULK}\n\n${ORIGINS_LAST}\n\n## 與地球生命、文明編年的連續\n\n地球生命頁寫到約七百萬年前的人族分途為止。本頁從那裡接上，寫化石、石器與基因組所能支持的約略過程，直到全新世農業的門口。文明編年的開篇只保留銜接所需的窗口，深時間的細節留在這裡。兩頁前後相接，不把同一段故事寫成兩套互相否定的年表。新測年仍可能把節點前移或後移；有爭議的地方繼續標明，不為了故事完整而刪去。`);
+  const originsBody = ORIGINS_BODY.replace(
+    '# 人類起源時間線：從深時間到今日切片\n\n',
+    `# 人類起源時間線：從深時間到今日切片\n\n${ORIGINS_ZOOM}\n\n`,
+  );
+  addEntry(bag, 'origins', 'body', '人類起源時間線', '約七百萬年前起', 10, `${HANDOFF_CARD.origins}\n\n${originsBody}\n\n${ORIGINS_THICK}\n\n${ORIGINS_GAP}\n\n${ORIGINS_FILL}\n\n${ORIGINS_BULK}\n\n${ORIGINS_LAST}\n\n## 與地球生命、文明編年的連續\n\n地球生命頁寫到約七百萬年前的人族分途為止。本頁從那裡接上，寫化石、石器與基因組所能支持的約略過程，直到全新世農業的門口。文明編年的開篇只保留銜接所需的窗口，深時間的細節留在這裡。兩頁前後相接，不把同一段故事寫成兩套互相否定的年表。新測年仍可能把節點前移或後移；有爭議的地方繼續標明，不為了故事完整而刪去。`);
   addEntry(bag, 'origins', 'sources', '參考與研究入口', '來源', 20, [
     '這些入口用來核對正文裡的約數，不是另一套年表。公共時間線與博物館頁面適合先建立尺度；學術綜述與關鍵化石研究用來查看仍有爭議的節點。站內的香港科學館與太空館只說明一座城市如何向公眾講解自然史，不取代測年。表中的年份會隨新標本移動。正文已在有分歧處標明，這裡不另造更精確的數字。',
     '文中的三階段框架是化石、石器與基因組的閱讀分層：先看總覽，再看非洲內外的分化與擴張，最後才對照本地的公共科普。它是年表的讀法，隨證據改寫。',
@@ -405,6 +410,7 @@ function buildBag(): Bag {
     }
     const origin = stage.origins ? '這一窗口的深時間細節，見[人類起源時間線](/civilization/origins/)。' : '';
     const body = [
+      SCALE_BEAT[`chronicle:${stage.n}`] ?? '',
       stage.prose,
       closeMilestones(stage.milestones, stage.meaning, stage.n === 1),
       deep,
@@ -457,6 +463,7 @@ function buildBag(): Bag {
         ? '印刷與報刊的年代早於上一節的工業能量。東亞雕版更早於歐洲金屬活字。把它們排在工業能量之後，是媒介主題跟在能源主題後面，屬於並置，不是年表上的先後。'
         : '';
     const body = [
+      SCALE_BEAT[`tech:${stage.n}`] ?? '',
       chrono,
       stage.prose,
       closeMilestones(stage.milestones, stage.meaning, false),
@@ -489,6 +496,7 @@ function buildBag(): Bag {
     const chronicle = stage.chronicle ? `能量、信息、制度與貨幣四線裡，這一節見〈文明編年〉第${stage.chronicle}節（[文明編年](/civilization/chronicle/#stage-${stage.chronicle})）。` : '';
     const local = stage.local ? `本地目錄：${CITY_LOCAL_LINKS.map((link) => `[${link.label}](${link.href})`).join('、')}。` : '';
     const body = [
+      SCALE_BEAT[`city:${stage.n}`] ?? '',
       stage.prose,
       closeMilestones(stage.milestones, stage.meaning, false),
       readingBlocks(CITY_READINGS[stage.n]),
@@ -564,7 +572,8 @@ function buildBag(): Bag {
       ? `並見${also.map((row) => `[${row.title}](#${row.anchor})`).join('、')}。那些段落寫在各自的主域裡，這裡不重複。`
       : '';
     const narrative = FUTURE_LONGFORM[domain.id] ?? '';
-    const body = [narrative, domain.blurb, instanceText, horizonText, alsoText].filter(Boolean).join('\n\n');
+    const beat = domain.anchor === 'future-f1' ? SCALE_BEAT['future:f1'] : '';
+    const body = [beat, narrative, domain.blurb, instanceText, horizonText, alsoText].filter(Boolean).join('\n\n');
     const summary = `${domain.title}寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。`;
     addEntry(bag, 'future', domain.anchor, domain.title, domain.code, (index + 1) * 10, body, [], null, 'future', summary);
   });

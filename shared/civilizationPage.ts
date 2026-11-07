@@ -3,7 +3,7 @@ import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head, igCard, igCloseCard
 import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderVolumeCards } from './civilization/chronicle.js';
 import { CASE_STUDIES, caseHref, renderCaseAxisLinks } from './civilization/cases.js';
 import { PATTERN_CARDS, renderPatternAxisLinks } from './civilization/patterns.js';
-import { originsSeedBody, originsSeedSources, placeFigures, renderFutureReading, renderReadingIndex } from './civilization/db/render.js';
+import { originsSeedBody, originsSeedSources, placeFigures, realPhotoIndex, renderFutureReading, renderReadingIndex } from './civilization/db/render.js';
 import { renderCityArticle, cityIndexable } from './civilization/city.js';
 import { cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
 import { earthIndexable, renderEarthArticle } from './civilization/earth.js';
@@ -188,6 +188,7 @@ function originsArticle(body: string): string {
   let html = body;
   html = insertAfterHeading(html, 1, '人類起源時間線', originsHero());
   html = insertAfterHeading(html, 1, '人類起源時間線', '<p class="deep-time-return"><a href="/civilization/earth/">上一層：地球生命</a><a href="/civilization/cosmos/">更早的深時間：宇宙長河</a></p>');
+  html = insertAfterHeading(html, 1, '人類起源時間線', realPhotoIndex('origins'));
   html = insertAfterHeading(html, 3, '一、深層分離', stageFigure(1, '一、深層分離：譜系分叉示意（約 100–30 萬年前）', '深層分離 · 示意 · 約數'));
   html = insertAfterHeading(html, 3, '二、非洲現代人多樣性', stageFigure(2, '二、非洲現代人多樣性：多點柔光示意（約 30–6 萬年前）', '非洲內部多樣 · 示意 · 約數'));
   html = insertAfterHeading(html, 3, '三、全球擴張', stageFigure(3, '三、全球擴張：粒子輻射示意（非遷徙路線、非政治疆界）', '全球擴張 · 示意·非遷徙路線 · 約數'));

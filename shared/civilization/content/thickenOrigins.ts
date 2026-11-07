@@ -2,6 +2,22 @@ const SI = 'https://humanorigins.si.edu/evidence/human-fossils';
 const SI_TOOLS = 'https://humanorigins.si.edu/evidence/behavior/stone-tools';
 const NHM = 'https://www.nhm.ac.uk/discover/human-evolution.html';
 
+export const ORIGINS_ZOOM = `### 縮到一具頭骨
+
+觀測。生物圈太大。先縮到南非一具約二百萬年前的頭骨。它不是最早的人族，也不能代表整塊大陸。
+
+### 再縮到一件石器
+
+觀測。頭骨不說明步驟。再縮到一件兩面打過的手斧，步驟留在石頭上。
+
+### 拉到非洲南岸的一個洞
+
+觀測。一件石器不能代表非洲。拉到南岸的岩壁。東非的裂谷和北非的尖狀器要一起讀。
+
+### 再拉遠到另一塊大陸的岩壁
+
+觀測。擴張之後很久，另一塊大陸的人把手印留在岩石上。這不是遷徙路線圖。`;
+
 export const ORIGINS_THICK = `## 直立行走與雙足
 
 人族和黑猩猩譜系分途的時間，分子鐘與化石並用，主流放在約七百萬至五百萬年前的非洲。這個區間會隨新標本移動。（分級：模型與化石並用。見 [史密森學會人類起源](${SI}) 與 [倫敦自然史博物館](${NHM})。）分途不是某一天有一個人站了起來。它是兩條譜系不再共享同一套繁殖群體。

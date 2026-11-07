@@ -2775,13 +2775,18 @@ html.dark .chrome .ia-l1 .chip.civ-chip {
 .civ-figure img { aspect-ratio: 8 / 5; }
 .real-photo,
 .ai-plate {
-  margin: 1rem 0 1.25rem;
+  margin: 1.5rem 0 1.75rem;
+}
+.real-photo {
+  padding: 12px 12px 14px;
+  background: #f7f1e6;
+  border-radius: 16px;
 }
 .real-photo img,
 .ai-plate img {
   display: block;
   width: 100%;
-  max-width: 720px;
+  max-width: 960px;
   height: auto;
   object-fit: contain;
   background: #161c24;
@@ -2789,14 +2794,35 @@ html.dark .chrome .ia-l1 .chip.civ-chip {
 }
 .real-photo figcaption,
 .ai-plate figcaption {
-  font-size: 14px;
-  color: #5c6570;
-  margin-top: 6px;
+  font-size: 16px;
+  color: #3c4450;
+  margin-top: 10px;
   line-height: 1.65;
+  max-width: 960px;
+}
+.real-photo-kicker {
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
 }
 .real-photo-caption,
 .real-photo-credit {
   display: block;
+}
+.real-photo-index {
+  margin: 0 0 1.5rem;
+  padding: 12px 16px;
+  border-left: 3px solid #8a6a3b;
+  background: #f7f1e6;
+}
+.real-photo-index p {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+.real-photo-index a {
+  overflow-wrap: anywhere;
 }
 .ai-plate figcaption strong {
   letter-spacing: 0.04em;
@@ -4272,6 +4298,8 @@ html.dark .civ-figure figcaption,
 html.dark .civ-figure-credit,
 html.dark .real-photo figcaption,
 html.dark .ai-plate figcaption { color: #d2c4b0; }
+html.dark .real-photo,
+html.dark .real-photo-index { background: #1c2430; }
 html.dark .civ-hub-hero figcaption {
   color: #161c24;
   background: rgba(22, 28, 36, 0.12);

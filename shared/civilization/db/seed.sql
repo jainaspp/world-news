@@ -4,39 +4,23 @@ DELETE FROM sources;
 DELETE FROM entries;
 DELETE FROM threads;
 DELETE FROM meta;
-INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('cosmos', 'cosmos', '宇宙長河・深時間', '上卷已成立｜這是全冊起點。可觀測宇宙以前的初始條件，觀測上仍屬未知。
-
-本卷回答｜熱密開端、輕核、第一代恆星與宇宙網，如何成為銀河得以形成的條件。
-
-下卷待解｜本銀河如何組裝，以及太陽系在盤內哪一步誕生。
+INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('cosmos', 'cosmos', '宇宙長河・深時間', '尺度標尺。本卷站在可觀測宇宙：從最後散射面到星系網，尺子是億光年。再往前沒有觀測面，初始條件仍屬未知。讀的時候先縮到一張微波全天圖，再縮到一顆高紅移星系，然後拉遠，看那些光點如何連成網。網裡面的銀河和太陽系，是下一層才打開的門。
 
 在銀河與地球之前，尚有更深的時間長河：宇宙如何展開能量與時空，冷凝出輕核與第一代恆星，並結成星系網。本頁沿能量、物質、信息與時間四條線索，按主流綜述寫到銀河形成的門口；年代一律作約。地球的水、氧與生命詳敘見地球生命，不在本卷展開。人類對起源亦有文化與信仰想像，本頁只述科學共識。
 
 閱讀時按時間往下走：從熱密開端到輕核、第一代恆星、星系網，再交到銀河如何組裝。地球的水、氧與生命詳敘見地球生命。年代寫作約數。', 10, '/civilization/cosmos/', '本頁由公開科普與主流綜述入口整合，僅供研究與編輯參考。');
-INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('galaxy', 'galaxy', '銀河系誕生', '上卷已成立｜宇宙已有輕核、再電離與大尺度網。銀河只是網上的一個節點。
-
-本卷回答｜銀盤、棒旋與化學豐度如何組裝，以及原行星盤如何誕生太陽系。
-
-下卷待解｜約四十六億年之後，地球哪些門檻讓表面可以維持液態水，並在很久以後承載生物圈。
+INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('galaxy', 'galaxy', '銀河系誕生', '尺度標尺。上一層把宇宙收到一張星系網。本卷走進其中一個節點。先看盤內這一側的亮帶，再縮到銀心的一小塊天區，最後縮到一張年輕星的原行星盤。那張盤是太陽系誕生的層次門。過了門，才談地球的水與氧。
 
 在文明編年史的時間軸上，宇宙長河先交代能量、時空與大尺度結構如何展開；地球生命頁則厚寫宜居星球上的生物信息如何累積。夾在兩者之間的，是我們所在的銀河系。本頁把敘事尺度收束到本星系：它如何在暗物質暈與氣體冷卻中成形，銀盤、核球、暈與旋臂如何分工，重元素如何一代代在恆星與超新星中富集，以及為何約四十六億年前的太陽系與後來的地球生命，都必須放回這座星系的化學與動力學背景裡理解。宇宙長河裡的「星系與大尺度結構」，描述的是宇宙網中無數星系的共通物理；本頁不重複那一層的絲狀網總論，而回答更貼近讀者的問題：我們這座棒旋星系本身，經歷了怎樣的約略年表？它的結構今日如何被觀測描繪？它向上如何接回宇宙長河的星系一節，向下如何交接地球生命與開蒙旁註？年代與數字皆為約數，細節隨觀測與模擬修訂；本頁只取可公眾核對的科普粗線。
 
 本頁先定義星系，再寫形成與從盤內看到的結構，然後寫太陽系誕生。詞義旁註與地球生命的交接放在其後。年代、直徑與質量一律為約。', 20, '/civilization/galaxy/', '本頁由公開科普與主流綜述入口整理，作為文明記載的深時間頁。授權跟隨站級 CC BY 4.0。');
-INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('earth', 'earth', '地球生命・深時間', '上卷已成立｜太陽系已在銀河的金屬豐度與原行星盤裡成形。地球得到一條相對穩定的軌道。
-
-本卷回答｜能量、水、大氣、氧與陸地生產力如何逐步跨過宜居門檻，生命如何變得可以在化石裡被看見。
-
-下卷待解｜約七百萬年前，哪一條非洲譜系可以被稱為人族，以及「我是誰」能否被化石、石器與基因組追溯。
+INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('earth', 'earth', '地球生命・深時間', '尺度標尺。銀河卷已經把太陽系交到軌道和原料。本卷先拉遠看行星家庭，再縮到這一顆藍色行星，然後縮到一處潮坪和一塊化石，最後拉遠，看氧和陸地生產力如何變成門檻。人族的名字留給下一層。
 
 宇宙長河已把能量、物質與時空寫到生命起源為止，本頁不再重述暴脹、核合成與星系。這裡接上的是地球生命本身：早期代謝與含氧大氣、寒武紀的身體構型、古生代的海洋與陸地植物，然後是三疊紀、侏羅紀、白堊紀，以及新生代的哺乳動物輻射。年代一律標「約」，採主流綜述，不把單一化石點寫成全球定論。約七百萬年前交接入類起源。本頁只寫自然史。
 
 各紀按時間前後相接。文內可以從[侏羅紀](#jurassic)一節讀起。宜居門檻寫在各紀之前。年代一律標約，不把單一塊化石寫成全球定論。', 30, '/civilization/earth/', '本頁由公開科普與主流綜述入口整合，僅供研究與編輯參考。');
 INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('origins', 'origins', '人類起源時間線', '從深時間到解剖學現代人與全球擴張的約略年表。正文保持連續敘述。生成圖像標為示意，真實照片另標授權。', 40, '/civilization/origins/', '本頁由公開科普與學術綜述入口整理，只供對照深時間。');
-INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('chronicle', 'chronicle', '文明編年：從採集到智能工具', '上卷已成立｜人族的身體、工具與擴張已有化石、石器與基因組可以追溯。
-
-本卷回答｜能量、信息、制度與貨幣如何交會在同一條事件鏈上，從用火寫到本世紀已經可以核對的工具。
-
-下卷待解｜這些事件的量級與單位見技術卷，街道上的水、糧與照顧見城市卷，尚未發生的事只留條件。
+INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('chronicle', 'chronicle', '文明編年：從採集到智能工具', '尺度標尺。起源卷已經能指出化石、石器和有限的基因交流。本卷把尺度從一塊燒骨換到一把石刃，再換到一塊泥板，然後拉遠，看能量、信息、制度和貨幣如何在不止一地交會。量級留給技術卷，街道留給城市卷。
 
 人類文明不是一夜之間出現的城市燈光，而是一條可被分段閱讀的長河。本頁分作三段：古，寫採集到商路的積累；今，寫科學方法到本世紀的工具；未來只開門，條件句的全文在總覽的展望。每一節抓住一至兩個界定性的變化——沒有它們，其後的社會形態很難想像——並用能量、信息、制度與貨幣四條線索，提示該節主要改寫了哪一類基礎設施。
 年代一律寫作「約」或「主流綜述」：考古測年、文獻與基因組證據持續更新，精確到年往往並無意義。用火與定居兩節的深時間細節，另見人類起源時間線；本頁只保留銜接所需的約略窗口。本頁只提供溫和的科技、經濟與文化史觀察，方便讀者把首頁的今日切片掛回從前到今的連續故事。
@@ -44,33 +28,21 @@ INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('ch
 讀的時候可以帶著四個問題：這一節改寫的是能量、信息、制度，還是貨幣。例如工業革命同時拉高能量與信息的速度，紙幣與跨國清算主要落在貨幣。需要核對時，用頁底來源表；博物館與國際組織的公共頁面是優先入口。香港科學館、太空館是城市向公眾講解自然史與技術史的地方，不代替學術年表。
 
 能量、信息、制度與貨幣是閱讀時可以放在心裡的四條線索，用來分辨一節主要改寫了哪一類基礎設施。古、今兩段順序閱讀；未來一節把條件句交到總覽的展望，編年本身停在本世紀已經可以核對的工具。', 50, '/civilization/chronicle/', '本頁由公開博物館與國際組織頁面整合，僅供研究與編輯對照；年代均為約數。');
-INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('tech', 'tech', '科技與發現', '上卷已成立｜編年已把能量與信息放進可以重讀的事件，而不是一張互不相關的發明清單。
-
-本卷回答｜一件工具的輸入、輸出、單位與誤差，以及它如何反過來要求記錄和維修。
-
-下卷待解｜這些量級如何落在某一座城市的水網、街道與日常勞動裡。
+INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('tech', 'tech', '科技與發現', '尺度標尺。編年給了事件。本卷把事件縮成可以重做的單位：先是一具幾厘米口徑的管子，再是一台以千瓦計的機器，然後拉遠，問誤差會要求什麼記錄。這些量級落在水網和夜路上，是城市那一層。
 
 人類把身體以外的能力一層層做出來：先是石器與用火，再是可以傳給下一代的口傳與文字，其後是把觀察固定下來的科學儀器、把熱與電引入生產的工業能量，以及把消息送到遠處的印刷、電波與網絡。本頁以十階段勾勒這條發現弧，標以「工具 · 能源 · 媒介 · 知識」。年代一律寫作「約」或「主流綜述」。文明編年用能量、信息、制度與貨幣重讀同一條長河；本頁不重寫編年三卷的刻度，只沿工具、能源、媒介與知識把節點收緊，並在末端交回今日的新聞切片。
 
 石器以前的深時間化石與譜系，請讀人類起源時間線。若要改以能量、信息、制度與貨幣重讀同一條長河，請讀文明編年；本頁不重寫編年三卷。技術如何落到街道、場館與日常往來，請讀城市・基建・民生。今日的標題在今日切片。
 
 本卷沿工具、能源、媒介與知識往下寫。印刷與工業能量兩節按主題並置：活字與報刊的年代早於蒸汽工廠，正文在這兩節寫明，節次不是嚴格年序。', 60, '/civilization/tech/', '本頁由公開科普入口整合，年代均為約數。');
-INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('city', 'city', '城市・基建・民生', '上卷已成立｜技術卷已給出功率、媒介與儀器的量級。城市不能只靠紀念碑被理解。
-
-本卷回答｜多地的人如何把水、糧、勞動與照顧放進同一座可居住的地方。
-
-下卷待解｜今日已經可以核對的行星約束，以及尚未寫成結局的條件。
+INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('city', 'city', '城市・基建・民生', '尺度標尺。技術卷給了功率和媒介。本卷縮到一座浴場和一條排水溝，再拉遠，問糧從多遠運來、夜裡誰還醒著。紀念碑是結果。水、糧和照顧才是人留不留得下的條件。行星尺度的約束留給展望。
 
 城市不是一座紀念碑，而是人把聚落、工程、交通與日常公共生活疊在同一塊地上。本頁先寫這條全球尺度的粗線：定居形成聚落，聚落長出文字與公共工程，道路與港口變成交通樞紐，博物館和公民場館把知識開放給不特定的訪客，街道則承擔買菜、通勤與散步。香港的碼頭、隧道、大會堂與科學館，只作為本地案例放在後段，用來說明一座城市怎樣把上述尺度收成可走進去的地方，而不是用本地地名代替整頁。年代一律寫作「約」。技術細節見科技與發現，四線編年見文明編年。
 
 定居以前的深時間不在本頁。城市與文字的四線寫法，請讀文明編年。工具、能源與媒介的發現弧，請讀科技與發現。香港的場館與交通只作本地案例，目錄在香港地標；分日紀事在當年今日。今日標題在今日切片。
 
 香港的碼頭、隧道與場館只作本地案例，放在全球城市線之後。工具與能源見〈科技與發現〉第二節、第六節與第八節；四線如何重讀城市與文字，見〈文明編年〉。', 70, '/civilization/city/', '本頁由公共遺產與博物館頁面整理，年代均為約數。');
-INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('future', 'future', '展望', '上卷已成立｜編年停在本世紀可以核對的工具，城市寫到日常仍須維修的水與路。
-
-本卷回答｜六個方面如何互相依賴，檢查點如何帶日期，以及「我承擔什麼」如何收回前面的尺度。
-
-下卷待解｜尚未發生的事沒有下一卷。能寫的只有條件、出處和下一次該改讀的公開文本。
+INSERT INTO threads (id, slug, title, lede, sort_key, path, ai_note) VALUES ('future', 'future', '展望', '尺度標尺。城市寫到仍須維修的一天。本卷先拉遠到北極的海冰，再拉遠到旅行者鏡頭裡的一個淡藍點，然後收回來：為何此刻的你站在這條線上。沒有下一卷。能寫的只有帶日期的條件，過期就改讀下一份。
 
 六個入口各自回答一件事。能量宜居回答功率受什麼收支約束。信息可信回答底本靠什麼留下。制度協作回答規則如何維修。生物譜系回答延續而不分高下。技術能力階回答成熟到哪一檔。生存風險回答如何被事後核對。這裡不另開網址。
 
@@ -130,7 +102,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 年代與事件表述均採「約／主流綜述」；上表僅列可公眾核對的科普入口，不作絕對精準年表。
 
 可核對的入口包括[NASA Science · Universe Overview](https://science.nasa.gov/universe/overview/)、[NASA Science · The Big Bang](https://science.nasa.gov/universe/the-big-bang/)、[ESA · Cosmic eras](https://www.esa.int/Science_Exploration/Space_Science/Cosmic_eras)、[中國科學院國家天文台 · 科學傳播資源](https://www.nao.cas.cn/ncb/kx/)、[NASA Science · Solar System Facts](https://science.nasa.gov/solar-system/solar-system-facts/)、[NASA Science · Early Universe (Webb)](https://science.nasa.gov/mission/webb/early-universe/)。', 200, '由大到小', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:define', 'galaxy', 'define', '定義：什麼是星系，什麼是銀河系', '本節要記住的是：看見星光，並不等於理解勢阱、軌道與化學。落到具體歷史上，是引力束縛的恆星、氣體、塵埃與暗物質暈，並一併寫到盤的特徵尺度約十萬光年量級。星系作為引', '本節要記住的是：看見星光，並不等於理解勢阱、軌道與化學。落到具體歷史上，是引力束縛的恆星、氣體、塵埃與暗物質暈，並一併寫到盤的特徵尺度約十萬光年量級。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:define', 'galaxy', 'define', '定義：什麼是星系，什麼是銀河系', '縮到盤內這一側觀測。上一層的網大到不能步行。這裡縮到抬頭看見的那條亮帶。它是盤的側視，不是俯視圖。本節要記住的是：看見星光，並不等於理解勢阱、軌道與化學。落到具', '### 縮到盤內這一側
+
+觀測。上一層的網大到不能步行。這裡縮到抬頭看見的那條亮帶。它是盤的側視，不是俯視圖。
+
+本節要記住的是：看見星光，並不等於理解勢阱、軌道與化學。落到具體歷史上，是引力束縛的恆星、氣體、塵埃與暗物質暈，並一併寫到盤的特徵尺度約十萬光年量級。
 
 ### 星系作為引力束縛的恆星系統
 
@@ -176,7 +152,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 約數十億年的尺度上，銀河系逐漸具備今日科普圖常見的棒旋輪廓；與此同時，低水平的吸積與衛星星系擾動仍在發生。形成史沒有乾淨的完工日期，只有可階段化的約略里程碑。約四十六億年前太陽系誕生時，這座星系已經是一個化學上相當富集的盤，而不是第一代恆星剛點燃時的貧金屬環境。
 
 形成史給出時間。結構一節改寫我們從盤內如何描繪它：旋臂、棒與暈都是示跡，不是剛體輪輻。', 20, '約一百至一百三十億年前起', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:structure', 'galaxy', 'structure', '結構：我們如何描繪這座星系', '本節要記住的是：先有勢阱，才有長期束縛的盤；化學與軌道要合在同一顆星上讀。落到具體歷史上，是暗物質暈撐起轉動曲線，並一併寫到本星系群把宇宙網收到太陽系。暗物質暈', '本節要記住的是：先有勢阱，才有長期束縛的盤；化學與軌道要合在同一顆星上讀。落到具體歷史上，是暗物質暈撐起轉動曲線，並一併寫到本星系群把宇宙網收到太陽系。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:structure', 'galaxy', 'structure', '結構：我們如何描繪這座星系', '再縮到銀心這一小塊觀測。亮帶仍是側視。再縮到銀心的一小塊天區：可見光與紅外看見的不是同一群星。本節要記住的是：先有勢阱，才有長期束縛的盤；化學與軌道要合在同一顆', '### 再縮到銀心這一小塊
+
+觀測。亮帶仍是側視。再縮到銀心的一小塊天區：可見光與紅外看見的不是同一群星。
+
+本節要記住的是：先有勢阱，才有長期束縛的盤；化學與軌道要合在同一顆星上讀。落到具體歷史上，是暗物質暈撐起轉動曲線，並一併寫到本星系群把宇宙網收到太陽系。
 
 ### 暗物質暈
 
@@ -450,13 +430,25 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 年代與事件表述均採「約／主流綜述」；上表僅列可公眾核對的地質與古生物入口，不作絕對精準年表。
 
 可核對的入口包括[International Commission on Stratigraphy · Chart](https://stratigraphy.org/chart)、[UCMP · The Jurassic Period](https://ucmp.berkeley.edu/mesozoic/jurassic/jurassic.php)、[UCMP · The Triassic Period](https://ucmp.berkeley.edu/mesozoic/triassic/triassic.php)、[UCMP · The Cretaceous Period](https://ucmp.berkeley.edu/mesozoic/cretaceous/cretaceous.php)、[UCMP · The Proterozoic Eon](https://ucmp.berkeley.edu/precambrian/proterozoic.php)、[British Geological Survey · Geological time](https://www.bgs.ac.uk/discovering-geology/fossils-and-geological-time/geological-time/)、[Smithsonian · Paleontology teaching resources](https://naturalhistory.si.edu/education/teaching-resources/paleontology)、[中國科學院南京地質古生物研究所](https://www.nigpas.cas.cn/)。', 200, '約七百萬年前', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('origins:body', 'origins', 'body', '人類起源時間線', '上卷已成立｜地球生物圈已在含氧大氣與可保存的身體構型之後運行。本卷回答｜直立行走、腦與飲食、石器、協作、非洲內部的多樣，以及擴張時的基因交流。下卷待解｜用火、語', '上卷已成立｜地球生物圈已在含氧大氣與可保存的身體構型之後運行。
-
-本卷回答｜直立行走、腦與飲食、石器、協作、非洲內部的多樣，以及擴張時的基因交流。
-
-下卷待解｜用火、語言、農業與城市如何把這條譜系編成可以協調的人群。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('origins:body', 'origins', 'body', '人類起源時間線', '尺度標尺。地球卷停在生物圈。本卷縮到一具頭骨、一件石器、非洲南岸的一個洞，再拉遠到另一塊大陸的岩壁。問的是為何此刻的你站在這條線上，而不是站在某一座洞穴的榮譽裡', '尺度標尺。地球卷停在生物圈。本卷縮到一具頭骨、一件石器、非洲南岸的一個洞，再拉遠到另一塊大陸的岩壁。問的是為何此刻的你站在這條線上，而不是站在某一座洞穴的榮譽裡。火、語言和糧如何把陌生人編成群體，是下一層。
 
 # 人類起源時間線：從深時間到今日切片
+
+### 縮到一具頭骨
+
+觀測。生物圈太大。先縮到南非一具約二百萬年前的頭骨。它不是最早的人族，也不能代表整塊大陸。
+
+### 再縮到一件石器
+
+觀測。頭骨不說明步驟。再縮到一件兩面打過的手斧，步驟留在石頭上。
+
+### 拉到非洲南岸的一個洞
+
+觀測。一件石器不能代表非洲。拉到南岸的岩壁。東非的裂谷和北非的尖狀器要一起讀。
+
+### 再拉遠到另一塊大陸的岩壁
+
+觀測。擴張之後很久，另一塊大陸的人把手印留在岩石上。這不是遷徙路線圖。
 
 人類從何處來、如何逐步分布到全球，是理解「今日文明何以如此」的遠景背景。本頁整理主流學術與公共科普機構常用的約略年表，屬於世界新聞站「人類文明」軸上的深時間（L0）觀察頁。年代均為約數：文中 **Ma** 指百萬年前，**ka** 指千年前；括注另附「約 X 萬年前」等白話對照，方便非專業讀者對照尺度。化石、石器與古代基因組證據持續更新，因此本頁刻意避免單一「起點」敘事，並在仍有分歧的節點標明「約數」或「學術爭議」。
 
@@ -705,6 +697,8 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 窗口則比較穩。雙足的討論在約七百萬至三百萬年前已經有材料。石器從約三百三十萬年的爭議標本，到約二百六十萬年較清楚的石片，再到約一百七十六萬年的手斧，是三個不同的窗口，不是一個發明日。現代人形態在非洲的窗口約三十萬年前打開，主要擴張的窗口約六萬至四萬年前。基因交流的比例是群體統計，個體不能用這個比例被排名。
 
+為何此刻的你站在這條線上：因為直立、打石和現代人的形態先在非洲多地發生，後來的糧、文字和城市又在不止一個地方把陌生人編成可以核對的群體。你讀到這一句，用的是那條鏈還在維修的記錄。這不是某一座洞穴的榮譽，也不是基因片段的等級。
+
 我是誰，用窗口說，比用一個學名說更誠實：我屬於這些窗口都能找到材料的那條譜系。材料有保存偏差。偏差以外是未知，不是空白的榮耀，也不是空白的缺席。編年要接的是窗口的末端，也就是火、語言和糧如何把人留在原地，而不是再把學名表抄一遍。
 
 再把六個里程碑收成可以指認的目錄，避免它們散在長文裡看不見。一，直立行走：足跡與骨盆早於大腦。二，腦與飲食：容量上升，菜單的配比未知。三，石器：石片與手斧並存，不是單日升級。四，協作與語言：產品可以傳遞，句法沒有化石。五，非洲內部的多樣：北、東、南至少三塊區域的形態和技術傳統。六，擴張與交流：較晚的主要出非洲，加上有限的尼安德特與丹尼索瓦貢獻，比例不是等級。
@@ -738,7 +732,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 五節前後相接：用火與語言、定居與剩餘、城市與文字、跨區域的制度與金屬貨幣，然後是造紙、印刷與遠距貿易。讀的時候按這個順序。每一節改寫的基礎設施並不相同，能量、信息、制度與貨幣四線只是幫讀者記住差別。
 
 採集、農業、城市、帝國與商路，在此收成可核對的刻度。本卷維持既有正文，深時間仍交起源長頁。', 5, '約三百萬年前至約公元一五〇〇年', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('chronicle:stage-1', 'chronicle', 'stage-1', '史前／採集狩獵', '早期人族在非洲與歐亞長期分化。控制用火擴大可食資源、延長夜間活動，並改變群體圍繞火堆協作的方式；複雜語言與虛構故事則讓彼此陌生的個體能夠共享規範與計劃。這是生物', '早期人族在非洲與歐亞長期分化。控制用火擴大可食資源、延長夜間活動，並改變群體圍繞火堆協作的方式；複雜語言與虛構故事則讓彼此陌生的個體能夠共享規範與計劃。這是生物演化向文化演化傾斜的關鍵轉折。年代均為約數，詳情與里程碑表見起源長頁。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('chronicle:stage-1', 'chronicle', 'stage-1', '史前／採集狩獵', '縮到一塊燒過的骨觀測。人族的譜系太大。這一層先縮到可以核對的材料：受熱的動物骨，不是一座保存完好的灶。早期人族在非洲與歐亞長期分化。控制用火擴大可食資源、延長夜', '### 縮到一塊燒過的骨
+
+觀測。人族的譜系太大。這一層先縮到可以核對的材料：受熱的動物骨，不是一座保存完好的灶。
+
+早期人族在非洲與歐亞長期分化。控制用火擴大可食資源、延長夜間活動，並改變群體圍繞火堆協作的方式；複雜語言與虛構故事則讓彼此陌生的個體能夠共享規範與計劃。這是生物演化向文化演化傾斜的關鍵轉折。年代均為約數，詳情與里程碑表見起源長頁。
 
 就公共敘事可以對上的事物而言，包括控制用火、複雜語言與虛構協作。把這一節收成一句：生物演化轉向文化演化，為其後農業與城市奠基。
 
@@ -755,7 +753,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 火與語言把經驗留在群體裡。氣候進入相對穩定的全新世之後，多地才把這種經驗用在作物與牲畜上。剩餘不是突然出現的，而是可存放的食物慢慢改變了人能否留在原地。
 
 可核對的入口包括[亞利桑那州立大學人類起源研究所](https://iho.asu.edu/)。', 10, '約 300 萬年前至約 1.2 萬年前', 'ch-ancient', NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('chronicle:stage-2', 'chronicle', 'stage-2', '農業革命', '全新世氣候相對穩定後，多地先後出現定居農耕與動物馴化。剩餘糧食支撐人口增長與專門分工，為後來的城市與國家組織奠基。恰塔霍裕克等新石器遺址，被聯合國教科文組織列為', '全新世氣候相對穩定後，多地先後出現定居農耕與動物馴化。剩餘糧食支撐人口增長與專門分工，為後來的城市與國家組織奠基。恰塔霍裕克等新石器遺址，被聯合國教科文組織列為理解早期定居農業生活的關鍵見證。路徑因地而異，時間宜標「約」。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('chronicle:stage-2', 'chronicle', 'stage-2', '農業革命', '縮到一把石刃觀測。從火再縮到一件收割用具。單件石器不能代表所有農業，只說明步驟曾經被做成物件。全新世氣候相對穩定後，多地先後出現定居農耕與動物馴化。剩餘糧食支撐', '### 縮到一把石刃
+
+觀測。從火再縮到一件收割用具。單件石器不能代表所有農業，只說明步驟曾經被做成物件。
+
+全新世氣候相對穩定後，多地先後出現定居農耕與動物馴化。剩餘糧食支撐人口增長與專門分工，為後來的城市與國家組織奠基。恰塔霍裕克等新石器遺址，被聯合國教科文組織列為理解早期定居農業生活的關鍵見證。路徑因地而異，時間宜標「約」。
 
 剩餘與人口增長，為城市與國家組織奠基。落到具體歷史上，是定居農耕，並一併寫到動物馴化。
 
@@ -772,7 +774,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 人能留在原地，倉儲與分工才有地方生長。下一節要處理的，是陌生人如何共用一份不會隨口述消失的記錄。
 
 可核對的入口包括[聯合國教科文組織世界遺產「恰塔霍裕克新石器遺址」](https://whc.unesco.org/en/list/1405/)。', 20, '約 1.2 萬年前至約 5000 年前', 'ch-ancient', NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('chronicle:stage-3', 'chronicle', 'stage-3', '城市與文字', '大型聚落集中倉儲、神廟與工匠，形成早期城市。泥板等文字最初多服務計數、清單與行政，使債務、契約與知識可跨代保存。史前與有史的分界，往往由此劃開。美索不達米亞古城', '大型聚落集中倉儲、神廟與工匠，形成早期城市。泥板等文字最初多服務計數、清單與行政，使債務、契約與知識可跨代保存。史前與有史的分界，往往由此劃開。美索不達米亞古城遺址群提供可公眾核對的物質證據。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('chronicle:stage-3', 'chronicle', 'stage-3', '城市與文字', '縮到一塊泥板觀測。再縮到一塊可以離開說話者的記錄。兩河的泥板與後來各地的文字不是同一套符號，解決的是同一件核對問題。大型聚落集中倉儲、神廟與工匠，形成早期城市。', '### 縮到一塊泥板
+
+觀測。再縮到一塊可以離開說話者的記錄。兩河的泥板與後來各地的文字不是同一套符號，解決的是同一件核對問題。
+
+大型聚落集中倉儲、神廟與工匠，形成早期城市。泥板等文字最初多服務計數、清單與行政，使債務、契約與知識可跨代保存。史前與有史的分界，往往由此劃開。美索不達米亞古城遺址群提供可公眾核對的物質證據。
 
 記錄、行政與法律使「史前」與「有史」分界。落到具體歷史上，是城市出現，並一併寫到文字發明。
 
@@ -1183,7 +1189,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 若改用能量、信息、制度與貨幣重讀同一段，見〈文明編年〉第3節（[文明編年](/civilization/chronicle/#stage-3)）。
 
 有了可翻回去的記錄，儀器才值得把一次觀察固定成別人也能重做的刻度。', 40, '約公元前 3400–2000 年', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-5', 'tech', 'tech-5', '科學儀器', '望遠鏡把星空拉近，顯微鏡把細小結構露出來。儀器的重點不是某一位製作人的軼事，而是觀察可以被重複：別人用相近的工具，可以核對同一現象。印刷同時讓圖表與通信傳開。印', '望遠鏡把星空拉近，顯微鏡把細小結構露出來。儀器的重點不是某一位製作人的軼事，而是觀察可以被重複：別人用相近的工具，可以核對同一現象。印刷同時讓圖表與通信傳開。印刷術的年代早於後面的蒸汽工廠，本卷把它留到媒介一節，與報刊並置，不把它寫成儀器的下一站；這裡先寫感官被工具延長。科學方法如何成為公共規範，文明編年的科學與啟蒙階段寫得更完整。本頁只把儀器看成發現史上的工具節點，年代仍標「約」。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-5', 'tech', 'tech-5', '科學儀器', '縮到一具管子觀測。編年裡的「科學」太大。這裡縮到一具口徑只有幾厘米的管子，問的是別人能不能重做同一次觀看。望遠鏡把星空拉近，顯微鏡把細小結構露出來。儀器的重點不', '### 縮到一具管子
+
+觀測。編年裡的「科學」太大。這裡縮到一具口徑只有幾厘米的管子，問的是別人能不能重做同一次觀看。
+
+望遠鏡把星空拉近，顯微鏡把細小結構露出來。儀器的重點不是某一位製作人的軼事，而是觀察可以被重複：別人用相近的工具，可以核對同一現象。印刷同時讓圖表與通信傳開。印刷術的年代早於後面的蒸汽工廠，本卷把它留到媒介一節，與報刊並置，不把它寫成儀器的下一站；這裡先寫感官被工具延長。科學方法如何成為公共規範，文明編年的科學與啟蒙階段寫得更完整。本頁只把儀器看成發現史上的工具節點，年代仍標「約」。
 
 工具開始延長感官，知識改以觀察與實驗來核對。落到具體歷史上，是望遠鏡與顯微鏡，並一併寫到可重複的觀測。
 
@@ -1200,7 +1210,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 若改用能量、信息、制度與貨幣重讀同一段，見〈文明編年〉第6節（[文明編年](/civilization/chronicle/#stage-6)）。
 
 儀器延長了眼與手。下一節轉入工業能量，問的是功率能否被儲存、送出，並在斷掉之後修得回來。印刷術的年代更早，本卷把它留到再下一節，與報刊一併按媒介書寫，不把它算成蒸汽機的後果。', 50, '約公元 1500–1800 年', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-6', 'tech', 'tech-6', '工業能量', '本卷從這一節起按主題並置，不是嚴格年序。蒸汽與電力的窗口約在一七六〇至一九一四年；活字與報刊約在一四五〇至一九〇〇年，年代更早，卻放在下一節，因為下一節收的是媒', '本卷從這一節起按主題並置，不是嚴格年序。蒸汽與電力的窗口約在一七六〇至一九一四年；活字與報刊約在一四五〇至一九〇〇年，年代更早，卻放在下一節，因為下一節收的是媒介，這一節收的是能量。兩段年份互相重疊，節次不表示因果。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-6', 'tech', 'tech-6', '工業能量', '再縮到千瓦觀測。從眼睛的工具拉到功率。這一層的單位是瓦，不是軼事。機器可以離開發明者被裝到別處。本卷從這一節起按主題並置，不是嚴格年序。蒸汽與電力的窗口約在一七', '### 再縮到千瓦
+
+觀測。從眼睛的工具拉到功率。這一層的單位是瓦，不是軼事。機器可以離開發明者被裝到別處。
+
+本卷從這一節起按主題並置，不是嚴格年序。蒸汽與電力的窗口約在一七六〇至一九一四年；活字與報刊約在一四五〇至一九〇〇年，年代更早，卻放在下一節，因為下一節收的是媒介，這一節收的是能量。兩段年份互相重疊，節次不表示因果。
 
 蒸汽機把燃料裡的熱轉成持續的機械功，工廠與礦場的節奏隨之改變。十九世紀後期，電力又把能量送到較遠的車間與街道。這仍是人類調度身體以外的能量，只是尺度已不是一堆營火。鐵路與電報如何同時壓縮貨物與消息，見文明編年的工業革命階段；本頁把鐵路裡的訊息部分留給媒介線，這裡集中寫能量。公共博物館對蒸汽機與早期鐵路的陳列，是可核對的入口，不作單一製作人的英雄敘事。
 
@@ -1388,7 +1402,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 能量、信息、制度與貨幣四線裡，這一節見〈文明編年〉第3節（[文明編年](/civilization/chronicle/#stage-3)）。
 
 城市一旦要維持陌生人共居，水、路與城牆就不再只是家戶自己的事。', 20, '約公元前 4000–2000 年', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('city:city-3', 'city', 'city-3', '供水與公共工程', '一座城市要每天成立，就得解決水從哪裡來、路通到哪裡、糧食放在哪裡。引水渠、公共水池、道路、港口與倉儲，都是把個人無法單獨維持的條件做成公共工程。加爾橋一類遺址，', '一座城市要每天成立，就得解決水從哪裡來、路通到哪裡、糧食放在哪裡。引水渠、公共水池、道路、港口與倉儲，都是把個人無法單獨維持的條件做成公共工程。加爾橋一類遺址，今天仍以遺產名錄向公眾說明引水如何服務城市，而不是只作為風景。工程尺度因地而異，重修也很常見；本頁不把任何一項工程寫成永不改變，只說明城市依賴可共享的基礎設施。這是全球城市線上的工程，不是某一地的專名表。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('city:city-3', 'city', 'city-3', '供水與公共工程', '縮到一座浴場觀測。功率的數字太大。這裡縮到印度河流域一座城的浴場和排水。它不代替兩河，也不代替東亞。一座城市要每天成立，就得解決水從哪裡來、路通到哪裡、糧食放在', '### 縮到一座浴場
+
+觀測。功率的數字太大。這裡縮到印度河流域一座城的浴場和排水。它不代替兩河，也不代替東亞。
+
+一座城市要每天成立，就得解決水從哪裡來、路通到哪裡、糧食放在哪裡。引水渠、公共水池、道路、港口與倉儲，都是把個人無法單獨維持的條件做成公共工程。加爾橋一類遺址，今天仍以遺產名錄向公眾說明引水如何服務城市，而不是只作為風景。工程尺度因地而異，重修也很常見；本頁不把任何一項工程寫成永不改變，只說明城市依賴可共享的基礎設施。這是全球城市線上的工程，不是某一地的專名表。
 
 城市用工程把水、路與儲存變成眾人共用的條件。落到具體歷史上，是引水與公共水源，並一併寫到道路、港口與倉儲。
 
@@ -1522,7 +1540,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 六節沿同一條閱讀順序展開。能量宜居先寫行星還能維持多少可用功率，信息可信接着寫底本與更正在複製之後還能不能被認出，制度協作寫度量、標準與跨代機構如何把陌生人放進同一套規則。生物譜系只寫延續與共演化，不排座次。技術能力階把觀測、試點與基建分開，避免把測得到誤讀成已經改寫了運行條件。生存風險把氣候、空間天氣、生物多樣性、耐藥性、淡水與極端熱各自的機構文本留在原處，日期過了就改讀下一份。
 
 各節的入口是[能量宜居](#future-f1)、[信息可信](#future-f2)、[制度協作](#future-f3)、[生物譜系](#future-f4)、[技術能力階](#future-f5)、[生存風險](#future-f6)。', 1, '條件句', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-f1', 'future', 'future-f1', '能量宜居', '能量宜居寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。', '能量宜居要回答的，是行星還能把多少功率維持在液態水與可居住的地表溫度裡。入射的短波被地面與海洋吸收，地表再以長波向外放出。溫室氣體改變的是長波離開大氣層頂的效率，失衡的能量多半先進入海洋。衛星上的輻射收支與海裡的溫鹽剖面，量的是同一組能量的兩個側面：一個看大氣層頂，一個看海水暖了多少。兩者對得上，修訂的才是失衡的幅度；對不上，就先查校準與覆蓋。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-f1', 'future', 'future-f1', '能量宜居', '能量宜居寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。', '### 從街道拉遠到北極
+
+觀測。城市的一天依賴行星還能維持什麼。拉遠到二零一二年九月二日的北極海冰，這是拼接的衛星圖，不是永久地圖。
+
+能量宜居要回答的，是行星還能把多少功率維持在液態水與可居住的地表溫度裡。入射的短波被地面與海洋吸收，地表再以長波向外放出。溫室氣體改變的是長波離開大氣層頂的效率，失衡的能量多半先進入海洋。衛星上的輻射收支與海裡的溫鹽剖面，量的是同一組能量的兩個側面：一個看大氣層頂，一個看海水暖了多少。兩者對得上，修訂的才是失衡的幅度；對不上，就先查校準與覆蓋。
 
 宜居帶在行星科學裡原指恆星周圍能維持液態水的軌道區間。用到當代地球上，它是熱量、水循環與極端事件共同畫出的活動邊界。區域可以比全球平均更早碰到濕熱、乾旱或冰蓋的閾值，不能從一條全球平均直接讀出某一座城市的結果。政府間氣候變化專門委員會的評估寫的是區間與信心，世界氣象組織的年度全球氣候說明則把上一個日曆年的觀測收成可公開核對的文本。下一份報告替換上一份的數字。檢查點是出版日曆，用來對照序列有沒有更新。
 
@@ -1755,7 +1777,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 搜尋地外技術信號的公開計劃，至今沒有可複核的接觸確證。未確證不寫成已經相遇。
 
 地外技術信號的公開搜尋至今沒有可複核的接觸確證。未確證保持為未確證。譜系一節因此只保留延續與共演化，不把沉默或差異寫成等級。', 100, '譜系', 'future', NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('cosmos:cmb-map', 'cosmos', 'cmb-map', '最早能整張看見的光', '再結合之後，宇宙對可見光變得透明。那一刻留下的光子今天落在微波波段，被稱為宇宙微波背景。它不是一張星空照片。它是大約三十八萬年時、紅移約一千的最後散射面，被投影', '再結合之後，宇宙對可見光變得透明。那一刻留下的光子今天落在微波波段，被稱為宇宙微波背景。它不是一張星空照片。它是大約三十八萬年時、紅移約一千的最後散射面，被投影到今天的天球上。（分級：觀測／實驗。見 [ESA Planck](https://www.esa.int/Science_Exploration/Space_Science/Planck) 與 [NASA 宇宙綜述](https://science.nasa.gov/universe/overview/)。）
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('cosmos:cmb-map', 'cosmos', 'cmb-map', '最早能整張看見的光', '縮到最後散射面觀測。沒有邊緣可站。我們先縮到再結合留下的那張微波全天圖。再結合之後，宇宙對可見光變得透明。那一刻留下的光子今天落在微波波段，被稱為宇宙微波背景。', '### 縮到最後散射面
+
+觀測。沒有邊緣可站。我們先縮到再結合留下的那張微波全天圖。
+
+再結合之後，宇宙對可見光變得透明。那一刻留下的光子今天落在微波波段，被稱為宇宙微波背景。它不是一張星空照片。它是大約三十八萬年時、紅移約一千的最後散射面，被投影到今天的天球上。（分級：觀測／實驗。見 [ESA Planck](https://www.esa.int/Science_Exploration/Space_Science/Planck) 與 [NASA 宇宙綜述](https://science.nasa.gov/universe/overview/)。）
 
 溫度的絕對值比起伏更早被測準。遠紅外絕對分光光度計一類的儀器把背景溫度定在約二點七二五開爾文。這個數字是輻射譜的擬合，不是某一顆恆星的表面溫度。全天幾乎一樣熱，差別在十萬分之一的量級。普朗克衛星把這些冷熱畫成全天地圖。圖上的斑塊對應最後散射面上密度略高或略低的地方。密度高的地方後來更容易長出星系，但「更容易」是統計，不是每一塊斑都有一張出生證明。
 
@@ -1777,7 +1803,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 氘很脆弱，恆星會摧毀它，所以今天測到的氘多半更接近原初值，常被用來反推重子密度。這個反推與微波背景給出的重子密度同量級，是另一條獨立的線。它仍然依賴原子物理的反應率。反應率若改版，數字會挪一點，不會把氦從四分之一附近搬走。
 
 我在這裡的位置仍然只是物質帳：身體裡的氫，大部分可以追溯到這幾分鐘；身體裡的碳、氧、鐵不行。那些要等恆星。把兩筆帳寫在一起，是這一節對「我由什麼構成」能負的責任。未知的是重子不對稱本身從何而來。核合成假設正物質已經多過反物質，但不解釋為什麼。', 25, '最初數分鐘', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('cosmos:first-light', 'cosmos', 'first-light', '第一代星與再電離', '中性原子形成之後，有一段幾乎不發光的黑暗時代。氣體在暗物質暈裡冷卻、塌縮，第一代恆星才點起來。它們理論上幾乎只由氫和氦組成，質量偏大，壽命偏短，死後把碳、氧和更', '中性原子形成之後，有一段幾乎不發光的黑暗時代。氣體在暗物質暈裡冷卻、塌縮，第一代恆星才點起來。它們理論上幾乎只由氫和氦組成，質量偏大，壽命偏短，死後把碳、氧和更重的核送進周圍氣體。（分級：第一代星的質量譜是模型推論。重元素來自恆星而不是原初核合成，是與光譜一致的結論。）
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('cosmos:first-light', 'cosmos', 'first-light', '第一代星與再電離', '縮到一顆高紅移星系觀測。全天圖沒有面孔。再縮到深場裡的一個光點，紅移來自譜線，不是來自彩圖的顏色。中性原子形成之後，有一段幾乎不發光的黑暗時代。氣體在暗物質暈裡', '### 縮到一顆高紅移星系
+
+觀測。全天圖沒有面孔。再縮到深場裡的一個光點，紅移來自譜線，不是來自彩圖的顏色。
+
+中性原子形成之後，有一段幾乎不發光的黑暗時代。氣體在暗物質暈裡冷卻、塌縮，第一代恆星才點起來。它們理論上幾乎只由氫和氦組成，質量偏大，壽命偏短，死後把碳、氧和更重的核送進周圍氣體。（分級：第一代星的質量譜是模型推論。重元素來自恆星而不是原初核合成，是與光譜一致的結論。）
 
 直接看見一顆純粹的第一代星，仍然困難。金屬線一旦出現，就說明至少有過一代核合成。韋伯太空望遠鏡的近紅外深場把極高紅移的星系推進公共討論。JADES 計畫裡的 JADES-GS-z14-0，光譜紅移被報告在十四附近，對應大爆炸後約三億年的宇宙時間。（分級：紅移本身是光譜觀測。恆星質量、是否含有第一代星、光度為什麼偏高，仍是模型推論，部分結論標爭議中。見 [NASA 韋伯早期宇宙頁](https://science.nasa.gov/mission/webb/early-universe/)。）
 
@@ -1786,7 +1816,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 高紅移星系偏亮、偏多，一度被說成「過早」。更穩妥的說法是：光度距離、初始質量函數和塵埃改正都還在改。把一張彩圖讀成「宇宙形成比模型快」之前，要先分開測到的紅移和模型給出的恆星質量。本卷保持這個分開。
 
 身份在這裡多一層化學：若沒有這一代星把氦以外的元素送出來，後來的岩石行星沒有原料。我不是第一代星的居民。我依賴它們的灰。哪些天體算嚴格的第一代，今天仍屬未知。', 35, '黑暗時代之後', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('cosmos:web-of-galaxies', 'cosmos', 'web-of-galaxies', '宇宙網，以及銀河之前的最後一層', '星系不是均勻撒在空間裡。紅移巡天把它們畫成絲、節點和空洞。絲的典型尺度以億光年計。這個圖案來自早期微小起伏在引力下的增長，暗物質暈提供了坍縮的骨架，氣體在暈裡冷', '星系不是均勻撒在空間裡。紅移巡天把它們畫成絲、節點和空洞。絲的典型尺度以億光年計。這個圖案來自早期微小起伏在引力下的增長，暗物質暈提供了坍縮的骨架，氣體在暈裡冷卻成恆星。（分級：大尺度網的圖案是觀測。單個暈裡有多少衛星星系，模擬與計數之間仍常需修正，屬模型推論。）
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('cosmos:web-of-galaxies', 'cosmos', 'web-of-galaxies', '宇宙網，以及銀河之前的最後一層', '拉遠到星系網推論。光點並不散落。拉遠之後，它們連成絲、節點和空洞。這一層的尺子回到億光年。星系不是均勻撒在空間裡。紅移巡天把它們畫成絲、節點和空洞。絲的典型尺度', '### 拉遠到星系網
+
+推論。光點並不散落。拉遠之後，它們連成絲、節點和空洞。這一層的尺子回到億光年。
+
+星系不是均勻撒在空間裡。紅移巡天把它們畫成絲、節點和空洞。絲的典型尺度以億光年計。這個圖案來自早期微小起伏在引力下的增長，暗物質暈提供了坍縮的骨架，氣體在暈裡冷卻成恆星。（分級：大尺度網的圖案是觀測。單個暈裡有多少衛星星系，模擬與計數之間仍常需修正，屬模型推論。）
 
 重子 acoustic 振盪在星系分布裡留下約一百五十百萬秒差距的偏好尺度。它是早期等離子體裡聲波凍結後的尺子，今天用來測膨脹歷史。尺子的存在是觀測；用它外推暗能量狀態方程，每多一個參數就多一層模型。
 
@@ -1880,7 +1914,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 我是誰，在這份單一樣本裡沒有特權位置。各向同性加上我們測到的運動，只說明我們不是靜止在一個特殊中心。它不說明每一個星系都一樣，更不說明生命是宇宙的目的。目的不在數據裡。數據裡有的是譜、峰、上限，以及還沒拍到的中微子背景。
 
 交接時再核對一次尺度，避免讀者把光年當成可以相加的分數。微波背景的最後散射面在紅移約一千。星系網的絲以億光年計。本銀河的恆星盤約十萬光年。這三個數描述的是不同層，不能加總，也不能排成進化的等級。等級是後面的文明史才要小心避開的錯誤，在這裡先擋住。下一問只許是：這一座星系如何把氣體收成盤，並在盤裡留下太陽。太陽系的原行星盤、隕石時鐘和遷移不在本卷加長，讀者應轉到銀河卷末的太陽系誕生。地球的水、氧與化石只留時間窗口，詳敘已經移走，避免宇宙史在中途改寫成生命史。本卷就此停筆。讀者若要核對，先看分級，再看年份，最後才決定這一句能不能離開本卷。', 17, '方法的邊界', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:solar-bridge', 'galaxy', 'solar-bridge', '太陽系誕生', '上卷把宇宙寫到星系網。本節從那張網的一個節點往下，寫到太陽這顆恆星和它的行星為止。地球表面的海洋、氧氣和化石不在這裡展開。它們要等軌道和原料都已經在場。我們在盤', '上卷把宇宙寫到星系網。本節從那張網的一個節點往下，寫到太陽這顆恆星和它的行星為止。地球表面的海洋、氧氣和化石不在這裡展開。它們要等軌道和原料都已經在場。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:solar-bridge', 'galaxy', 'solar-bridge', '太陽系誕生', '再縮到一張別人的盤觀測。這是銀河卷的層次門。再縮到一張年輕星的原行星盤。它不是太陽系的出生照。過了這扇門，地球的水與氧才開始算數。上卷把宇宙寫到星系網。本節從那', '### 再縮到一張別人的盤
+
+觀測。這是銀河卷的層次門。再縮到一張年輕星的原行星盤。它不是太陽系的出生照。過了這扇門，地球的水與氧才開始算數。
+
+上卷把宇宙寫到星系網。本節從那張網的一個節點往下，寫到太陽這顆恆星和它的行星為止。地球表面的海洋、氧氣和化石不在這裡展開。它們要等軌道和原料都已經在場。
 
 ### 我們在盤的哪一圈
 
@@ -1968,6 +2006,8 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 原行星盤的照片是別人的年輕星。太陽系自己的盤已經散了。這個區分必須跟著三件事一起交出去，避免讀者以為我們保存著一張四十六億年前的照片。下一卷從門檻寫起，不從這張不存在的照片寫起。', 37, '約四十六億年前', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('earth:habitability', 'earth', 'habitability', '宜居是一串門檻', '銀河卷把太陽系停在軌道和原料。本卷從那裡接著問：一顆岩石行星要讓表面長期有液態水、後來有游離氧、再後來有可以化石化的身體，中間要跨過哪些門檻。每一道門檻都有地區', '銀河卷把太陽系停在軌道和原料。本卷從那裡接著問：一顆岩石行星要讓表面長期有液態水、後來有游離氧、再後來有可以化石化的身體，中間要跨過哪些門檻。每一道門檻都有地區性的岩石記錄，沒有一道是全球同一天發生的。年代表的名稱以 [國際地層委員會](https://stratigraphy.org/chart) 的圖表為準，年份仍是約數。
 
+我們現在從軌道縮到這一顆行星。藍色只說明今天有海和雲。
+
 ### 宜居不是預設
 
 今天的地球從太空看是藍色的。阿波羅十七號的「藍色彈珠」顯示海洋、雲和陸地同時在場。（分級：觀測。）它不證明四十億年前就是這樣。宜居帶只說明在現在的太陽光度下，約一天文單位處的行星若有合適的大氣，表面可以討論液態水。（分級：模型推論。）沒有大氣、沒有水的庫存、沒有某種調節碳的方式，同一條軌道可以是冰球或蒸氣室。
@@ -1975,6 +2015,8 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 能量門檻是恆星的長期輸出。太陽的主序壽命以十億年計，這是恆星結構的模型，不是已經看到的終局。水的門檻是溶劑：有機化學需要液體來運輸離子。大氣的門檻是壓力與成分，它們決定溫室效應和水能不能留在表面。氧的門檻來得很晚，而且對早期生命並不是禮物。陸地生產力的門檻更晚，要等植物把光合作用搬上陸地。
 
 我依賴的氧、液態水和陸地食物，是這些門檻先後成立的結果。這句話可以追溯到岩石和同位素，不是一種預設的舞台。
+
+先拉遠一層。地球不是單獨掛在空裡，它是行星家庭的一員。
 
 ### 太陽系家庭
 
@@ -1989,6 +2031,8 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 到約四十億年前後，地表已經可以討論水循環，但撞擊、火山和局部蒸發使環境遠不如後來的穩定海洋。生命起源沒有一塊可以指認為第一個細胞的化石。約三十五億年前的疊層石與碳同位素偏移，被不少綜述視為生命活動的跡象，也有人認為部分構造可以用非生物過程解釋。（分級：爭議中。）更早的疑似跡象爭議更大。
 
 化學路徑假說並存。有的從核糖核酸的模板複製出發，有的從鹼性熱液的質子梯度出發，有的把濕乾循環放在陸地水池。這些路徑要求的溫度、酸鹼和金屬離子不同。目前沒有一個實驗把從無機物到可遺傳細胞的全程做完。（分級：實驗只覆蓋片段。全程仍屬未知。）西澳大利亞的皮爾巴拉和南非的巴伯頓都有太古宙的沉積與可能的微生物構造。兩地並讀，是為了避免把一個露頭寫成全球定論。
+
+再縮到一處潮坪。氧不是行星形成那天的附贈。
 
 ### 氧氣上升
 
@@ -2005,6 +2049,8 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 碳循環是另一道慢門檻。火山把碳送進大氣，風化把碳送進沉積。這個負反饋在模型裡可以在百萬年尺度上調節溫度。（分級：模型推論。某一次具體的暖事件是否被風化拉回，要看那一段的同位素。）大陸的面積影響風化速率。陸地若長期只有裸岩，初級生產就主要在水裡。
 
 植物上陸地之後，情況改變。古生代中後期的森林增加了陸地生產力，也改變了風化、土壤和氧的源匯。這不是單一大陸的故事：當時的大陸配置和今天不同，煤炭層在多個古陸都有保存。二疊紀末的類群更替清空過大量海洋與陸地類群。原因討論包括火山省、缺氧和碳循環擾動，沒有單一句子可以收束。（分級：滅絕的化石記錄是觀測；驅動的配比爭議中。）本卷只把它記成門檻被打亂之後的重組，不把它寫成懲罰。
+
+再縮到一塊頁岩上的一隻動物。硬殼讓身體可以被看見，軟體的更早歷史仍在。
 
 ### 可保存的身體
 
@@ -2045,7 +2091,9 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 蒸汽與電報是能量和信息同時加速。鐵路把煤的功率變成班次，電報把命令變成可以在人不親至時送達。全球貨幣安排處理的是遠方的支付還能不能對上，不是日常錢包的產品史。互聯網把複製的成本再降一次。本世紀已經進入公共頁面的測量、支付、測序和氣候說明，是這四條線的薄層，不是終點。
 
 我如何被協調：我使用的規則、糧和消息，都依賴別人維修過的能量和別人留下的底本。這句話可以追溯到火塘、泥板、鑄幣和電報，不需要一個總設計師。未知的是任何單一遺址能否代表所有地區。並置是為了防止這種代表。', 220, '讀法', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:magnitudes', 'tech', 'magnitudes', '量級、單位與回饋', '技術卷若只說「更大、更快」，讀者無法重做判斷。每一件工具至少要寫輸入、輸出、單位和它會把哪種誤差留給下一個人。石器的能量很小，但步驟可核對打製石片的輸入是石頭、', '技術卷若只說「更大、更快」，讀者無法重做判斷。每一件工具至少要寫輸入、輸出、單位和它會把哪種誤差留給下一個人。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:magnitudes', 'tech', 'magnitudes', '量級、單位與回饋', '從千瓦拉遠。功率寫得出來之後，剩下的問題是誤差由誰記錄。沒有日誌的機器，只在它沒有壞掉的那幾小時裡存在。技術卷若只說「更大、更快」，讀者無法重做判斷。每一件工具', '從千瓦拉遠。功率寫得出來之後，剩下的問題是誤差由誰記錄。沒有日誌的機器，只在它沒有壞掉的那幾小時裡存在。
+
+技術卷若只說「更大、更快」，讀者無法重做判斷。每一件工具至少要寫輸入、輸出、單位和它會把哪種誤差留給下一個人。
 
 ### 石器的能量很小，但步驟可核對
 
@@ -2105,7 +2153,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 旅行者一號在極遠距離拍下的淡藍點，把以上全部放回一顆行星。光學條紋是相機的，不是光環。它不提供人群的排序，也不提供終局。尚未發生的事沒有照片。能做的是把檢查點留在有日期的機構文本裡，過期就更換。
 
 未知仍然很長：暗物質的粒子、第一個細胞的路徑、語言成為句法的時刻、美洲的第一條路線、以及任何一份評估在下一次修訂時會挪動多少。這些未知和已經可以追溯的句子並排，才是這份編年能承擔的結尾。', 120, '身份', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('city:food-in-city', 'city', 'food-in-city', '城裡的食物與夜間', '並置城市的骨架已經寫過。這裡補兩件紀念碑不記載、但決定人能不能留下的事：食物怎麼進到不種地的人嘴裡，以及天黑以後誰還在街上。食物的距離是城市的隱藏半徑。若糧只能', '並置城市的骨架已經寫過。這裡補兩件紀念碑不記載、但決定人能不能留下的事：食物怎麼進到不種地的人嘴裡，以及天黑以後誰還在街上。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('city:food-in-city', 'city', 'food-in-city', '城裡的食物與夜間', '從浴場拉遠。糧的半徑比城牆更決定一座城能有多大。田在步行半天之內，城就停在那個半徑；運河和港口把半徑拉長，也把風險改成航道中斷。再縮回夜間。公共照明出現以前，夜', '從浴場拉遠。糧的半徑比城牆更決定一座城能有多大。田在步行半天之內，城就停在那個半徑；運河和港口把半徑拉長，也把風險改成航道中斷。
+
+再縮回夜間。公共照明出現以前，夜靠的是值夜的人，不是勒克斯。
+
+並置城市的骨架已經寫過。這裡補兩件紀念碑不記載、但決定人能不能留下的事：食物怎麼進到不種地的人嘴裡，以及天黑以後誰還在街上。
 
 食物的距離是城市的隱藏半徑。若糧只能來自步行半天以內的田，城市的規模就停在那個半徑乘上產量。運河、港口和後來的鐵路把半徑拉長，同時把風險從本地歉收改成航道中斷。兩河的城靠河與運河，印度河流域的城靠洪水平原的農業和倉儲土丘，中墨西哥的湖上田把生產直接做在城的邊緣。三種半徑，三種失敗方式：河改道、洪水不來、湖被排乾。失敗不是道德，是供給線的幾何。（分級：地貌和建築是觀測；產量的具體數字若沒有當時的帳冊，就不編造。）
 
@@ -2134,7 +2186,11 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 模型推論要單獨標。排放路徑下的二十一世紀末溫度區間，是情景而不是已測到的溫度。情景的名字會改，區間會改。把它說成「將會」而不說「在哪一條排放假設下」，就越過了模型的條件。爭議中的項目包括某些區域的降雨方向、冰蓋崩解的速率、以及個別年是否刷新紀錄。這些爭議不取消升溫本身的觀測，也不把每一次熱浪都自動歸給同一個百分比。
 
 我承擔的版本責任是：引用時帶上報告的代際和年份，過期就更換，不把模型區間講成已經發生。身份不是一份未來的職務，是現在還能核對的這一套限度。', 6, '版本', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:what-i-owe', 'future', 'what-i-owe', '我承擔的限度', '身份收回到最後，只留可以對別人複述而不失真的句子。尺度上，我在一個星系的盤裡，一顆中年恆星的一顆行星上。行星的氧和淡水是晚近的化學與水文，不是宇宙的預設。譜系上', '身份收回到最後，只留可以對別人複述而不失真的句子。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:what-i-owe', 'future', 'what-i-owe', '我承擔的限度', '再拉遠到一顆淡藍點觀測。北極仍是地球。再拉遠到約六十億公里外的一個光點。條紋是相機的，不是光環。身份收回到最後，只留可以對別人複述而不失真的句子。為何此刻的你站', '### 再拉遠到一顆淡藍點
+
+觀測。北極仍是地球。再拉遠到約六十億公里外的一個光點。條紋是相機的，不是光環。
+
+身份收回到最後，只留可以對別人複述而不失真的句子。為何此刻的你站在這條線上：尺度、非洲的譜系、以及仍須維修的記錄，三件事同時為真。沒有第四件叫終局的事。
 
 尺度上，我在一個星系的盤裡，一顆中年恆星的一顆行星上。行星的氧和淡水是晚近的化學與水文，不是宇宙的預設。譜系上，我可以追溯到非洲的人族材料，以及擴張時有限的基因交流。交流不是等級。協調上，我使用的火、文字、度量和網絡都要維修，維修依賴別人留下的底本。
 
@@ -2439,46 +2495,46 @@ INSERT INTO meta (key, value) VALUES ('version', '2026-11-07-text-first-thick');
 INSERT INTO meta (key, value) VALUES ('generated_at', '2026-11-07');
 INSERT INTO meta (key, value) VALUES ('note', '文本優先。架構暫刪。等內容夠厚再談重搭。');
 INSERT INTO meta (key, value) VALUES ('before_cosmos', '2819');
-INSERT INTO meta (key, value) VALUES ('after_cosmos', '10032');
+INSERT INTO meta (key, value) VALUES ('after_cosmos', '10164');
 INSERT INTO meta (key, value) VALUES ('before_galaxy', '4489');
-INSERT INTO meta (key, value) VALUES ('after_galaxy', '10150');
+INSERT INTO meta (key, value) VALUES ('after_galaxy', '10283');
 INSERT INTO meta (key, value) VALUES ('before_earth', '6434');
-INSERT INTO meta (key, value) VALUES ('after_earth', '10094');
+INSERT INTO meta (key, value) VALUES ('after_earth', '10154');
 INSERT INTO meta (key, value) VALUES ('before_origins', '3091');
-INSERT INTO meta (key, value) VALUES ('after_origins', '10056');
+INSERT INTO meta (key, value) VALUES ('after_origins', '10329');
 INSERT INTO meta (key, value) VALUES ('before_chronicle', '6216');
-INSERT INTO meta (key, value) VALUES ('after_chronicle', '12668');
+INSERT INTO meta (key, value) VALUES ('after_chronicle', '12783');
 INSERT INTO meta (key, value) VALUES ('before_tech', '6774');
-INSERT INTO meta (key, value) VALUES ('after_tech', '10530');
+INSERT INTO meta (key, value) VALUES ('after_tech', '10648');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
-INSERT INTO meta (key, value) VALUES ('after_city', '10058');
+INSERT INTO meta (key, value) VALUES ('after_city', '10174');
 INSERT INTO meta (key, value) VALUES ('before_future', '3166');
-INSERT INTO meta (key, value) VALUES ('after_future', '10199');
+INSERT INTO meta (key, value) VALUES ('after_future', '10319');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '103');
 INSERT INTO meta (key, value) VALUES ('sources', '292');
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('cosmo-cmb-planck', 'real_photo', 'cosmos', 'cmb-map', NULL, 1, '/static/civilization/real/01-cmb.jpg', 1920, 960, '普朗克衛星測得的宇宙微波背景溫度起伏成圖。這是觀測數據的全天投影，不是望遠鏡拍到的可見光風景，也不是生成圖像。', 'ESA and the Planck Collaboration', 'Cosmic Microwave Background', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:Cosmic_Microwave_Background_(CMB).jpeg', '2026-11-07', 'ESA and the Planck Collaboration', '普朗克宇宙微波背景全天溫度圖，橢圓投影上有細小的冷熱起伏', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('cosmo-webb-deep-field', 'real_photo', 'cosmos', 'web-of-galaxies', NULL, 1, '/static/civilization/real/02-webb-deep-field.jpg', 1920, 1959, '韋伯太空望遠鏡近紅外深場，星系團 SMACS 0723。前景星系團會以引力彎曲更遠處的光。這是真實觀測影像。', 'NASA, ESA, CSA, STScI', 'Webb''s First Deep Field', 'Public domain', 'https://commons.wikimedia.org/wiki/File:Webb%27s_First_Deep_Field.jpg', '2026-11-07', 'NASA, ESA, CSA, and STScI', '深空中密集的星系，許多呈現被引力拉彎的弧形', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('cosmo-jades-z14', 'real_photo', 'cosmos', 'first-light', NULL, 1, '/static/civilization/real/03-jades-z14.jpg', 1920, 1876, '韋伯近紅外相機在 JADES 計畫中標出的星系 JADES-GS-z14-0。紅移來自光譜，不是單靠這張彩圖讀出的年齡。', 'NASA, ESA, CSA, STScI', 'JADES-GS-z14-0 NIRCam', 'Public domain', 'https://commons.wikimedia.org/wiki/File:JADES-GS-z14-0_NASA.png', '2026-11-07', 'NASA, ESA, CSA, STScI, Brant Robertson, Ben Johnson, Sandro Tacchella, Phill Cargile', '近紅外深空影像中被標出的高紅移星系候選', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('galaxy-milky-way', 'real_photo', 'galaxy', 'define', NULL, 1, '/static/civilization/real/04-milky-way.jpg', 1920, 960, '從地球表面看到的銀河全景。塵埃帶是盤內的真實消光，不是棒旋結構的俯視圖。', 'ESO / S. Brunier', 'ESO Milky Way panorama (eso0932a)', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:ESO_-_Milky_Way.jpg', '2026-11-07', 'ESO/S. Brunier', '夜空中橫過的銀河亮帶與暗塵埃', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('galaxy-vista-center', 'real_photo', 'galaxy', 'structure', NULL, 1, '/static/civilization/real/05-galactic-center.jpg', 1920, 989, '銀心同一小塊天區的可見光與 VISTA 近紅外對照。紅外能穿過部分塵埃，看見可見光裡偏暗的恆星。這是望遠鏡數據，不是俯視銀河的地圖。', 'ESO / VISTA', 'VISTA Galactic Centre visible-infrared comparison (eso0949i)', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:Visible-infrared_comparison_of_the_VISTA_Galactic_Centre_image_(eso0949i).jpg', '2026-11-07', 'ESO/VISTA. Acknowledgement: Cambridge Astronomical Survey Unit', '左右並列的銀心可見光與近紅外星場', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('galaxy-hl-tau', 'real_photo', 'galaxy', 'solar-bridge', NULL, 1, '/static/civilization/real/06-hl-tau.jpg', 1800, 1800, '阿塔卡瑪毫米波陣列拍攝的金牛座 HL Tauri 原行星盤。它是仍在形成的年輕盤，用來對照太陽系誕生時可能有過的環與縫，不是四十六億年前太陽系留下的照片。', 'ALMA (ESO/NAOJ/NRAO)', 'HL Tauri protoplanetary disk (eso1436a)', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:HL_Tau_protoplanetary_disk.jpg', '2026-11-07', 'ALMA (ESO/NAOJ/NRAO)', '年輕恆星周圍帶有同心環與暗縫的原行星盤', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('cosmo-cmb-planck', 'real_photo', 'cosmos', 'cmb-map', '縮到最後散射面', 1, '/static/civilization/real/01-cmb.jpg', 1920, 960, '普朗克衛星測得的宇宙微波背景溫度起伏成圖。這是觀測數據的全天投影，不是望遠鏡拍到的可見光風景，也不是生成圖像。', 'ESA and the Planck Collaboration', 'Cosmic Microwave Background', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:Cosmic_Microwave_Background_(CMB).jpeg', '2026-11-07', 'ESA and the Planck Collaboration', '普朗克宇宙微波背景全天溫度圖，橢圓投影上有細小的冷熱起伏', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('cosmo-webb-deep-field', 'real_photo', 'cosmos', 'web-of-galaxies', '拉遠到星系網', 1, '/static/civilization/real/02-webb-deep-field.jpg', 1920, 1959, '韋伯太空望遠鏡近紅外深場，星系團 SMACS 0723。前景星系團會以引力彎曲更遠處的光。這是真實觀測影像。', 'NASA, ESA, CSA, STScI', 'Webb''s First Deep Field', 'Public domain', 'https://commons.wikimedia.org/wiki/File:Webb%27s_First_Deep_Field.jpg', '2026-11-07', 'NASA, ESA, CSA, and STScI', '深空中密集的星系，許多呈現被引力拉彎的弧形', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('cosmo-jades-z14', 'real_photo', 'cosmos', 'first-light', '縮到一顆高紅移星系', 1, '/static/civilization/real/03-jades-z14.jpg', 1920, 1876, '韋伯近紅外相機在 JADES 計畫中標出的星系 JADES-GS-z14-0。紅移來自光譜，不是單靠這張彩圖讀出的年齡。', 'NASA, ESA, CSA, STScI', 'JADES-GS-z14-0 NIRCam', 'Public domain', 'https://commons.wikimedia.org/wiki/File:JADES-GS-z14-0_NASA.png', '2026-11-07', 'NASA, ESA, CSA, STScI, Brant Robertson, Ben Johnson, Sandro Tacchella, Phill Cargile', '近紅外深空影像中被標出的高紅移星系候選', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('galaxy-milky-way', 'real_photo', 'galaxy', 'define', '縮到盤內這一側', 1, '/static/civilization/real/04-milky-way.jpg', 1920, 960, '從地球表面看到的銀河全景。塵埃帶是盤內的真實消光，不是棒旋結構的俯視圖。', 'ESO / S. Brunier', 'ESO Milky Way panorama (eso0932a)', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:ESO_-_Milky_Way.jpg', '2026-11-07', 'ESO/S. Brunier', '夜空中橫過的銀河亮帶與暗塵埃', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('galaxy-vista-center', 'real_photo', 'galaxy', 'structure', '再縮到銀心這一小塊', 1, '/static/civilization/real/05-galactic-center.jpg', 1920, 989, '銀心同一小塊天區的可見光與 VISTA 近紅外對照。紅外能穿過部分塵埃，看見可見光裡偏暗的恆星。這是望遠鏡數據，不是俯視銀河的地圖。', 'ESO / VISTA', 'VISTA Galactic Centre visible-infrared comparison (eso0949i)', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:Visible-infrared_comparison_of_the_VISTA_Galactic_Centre_image_(eso0949i).jpg', '2026-11-07', 'ESO/VISTA. Acknowledgement: Cambridge Astronomical Survey Unit', '左右並列的銀心可見光與近紅外星場', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('galaxy-hl-tau', 'real_photo', 'galaxy', 'solar-bridge', '再縮到一張別人的盤', 1, '/static/civilization/real/06-hl-tau.jpg', 1800, 1800, '阿塔卡瑪毫米波陣列拍攝的金牛座 HL Tauri 原行星盤。它是仍在形成的年輕盤，用來對照太陽系誕生時可能有過的環與縫，不是四十六億年前太陽系留下的照片。', 'ALMA (ESO/NAOJ/NRAO)', 'HL Tauri protoplanetary disk (eso1436a)', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:HL_Tau_protoplanetary_disk.jpg', '2026-11-07', 'ALMA (ESO/NAOJ/NRAO)', '年輕恆星周圍帶有同心環與暗縫的原行星盤', 1);
 INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('earth-jupiter-juno', 'real_photo', 'earth', 'habitability', '太陽系家庭', 1, '/static/civilization/real/07-jupiter.jpg', 1600, 1358, '朱諾號在木星雲頂附近拍下的雲系。色彩經過增強，不是肉眼在軌道上看到的原色。它仍是探測器的真實影像，用來把地球放回行星家庭，而不是孤立的舞台。', 'NASA / JPL-Caltech / SwRI / MSSS', 'PIA21972 Jupiter Blues', 'Public domain', 'https://commons.wikimedia.org/wiki/File:PIA21972_Jupiter_Blues.jpg', '2026-11-07', 'NASA/JPL-Caltech/SwRI/MSSS/Gerald Eichstädt/Sean Doran', '木星雲帶的色彩增強特寫，可見渦旋與條紋', 1);
 INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('earth-apollo17', 'real_photo', 'earth', 'habitability', '宜居不是預設', 1, '/static/civilization/real/08-earth-apollo17.jpg', 1920, 1921, '阿波羅十七號船員在前往月球途中拍下的地球，常被稱為藍色彈珠。畫面沒有政治界線。它顯示海洋、雲與陸地同時在場，不證明宜居條件自古如此。', 'NASA / Apollo 17', 'The Blue Marble, AS17-148-22727', 'Public domain', 'https://commons.wikimedia.org/wiki/File:The_Earth_seen_from_Apollo_17.jpg', '2026-11-07', 'NASA/Apollo 17 crew', '從太空看見的地球，非洲與南極附近的雲和海洋清晰可辨', 1);
 INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('earth-stromatolite', 'real_photo', 'earth', 'habitability', '氧氣上升', 1, '/static/civilization/real/09-stromatolite.jpg', 1920, 641, '西澳大利亞鯊魚灣哈梅林池的現生疊層石。它們是今天的微生物席，用來對照古代層狀構造，不能直接當成太古宙某一塊岩石的出生證明。', 'Bryn Pinzgauer', 'Stromatolites at Hamelin Pool', 'CC BY 2.0', 'https://commons.wikimedia.org/wiki/File:Stromatolites_at_Hamelin_Pool_in_Shark_Bay_-_Western_Australia_-_27_Aug._2014.jpg', '2026-11-07', 'Bryn Pinzgauer', '淺海灘上成片的層狀微生物岩丘', 1);
 INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('earth-trilobite', 'real_photo', 'earth', 'habitability', '可保存的身體', 1, '/static/civilization/real/10-trilobite.jpg', 1232, 1600, '加拿大史蒂芬山中寒武世三葉蟲化石。拍攝者標為 Ogyopsis klotzi。硬殼使這個身體能夠被保存，不代表寒武紀以前沒有軟體動物。', 'Mark A. Wilson', 'Middle Cambrian trilobite, Mt. Stephen', 'Public domain', 'https://commons.wikimedia.org/wiki/File:Cambrian_Trilobite_Olenoides_Mt._Stephen.jpg', '2026-11-07', 'Mark A. Wilson (Wilson44691)', '深色頁岩上的三葉蟲化石，分節與頭甲清楚', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('origins-sediba', 'real_photo', 'origins', 'body', '直立行走與雙足', 1, '/static/civilization/real/11-sediba.jpg', 1920, 1444, '南非馬拉帕出土的南方古猿源泉種幼年頭骨，館方編號 MH1。約二百萬年前，不是人族最早的化石，也不能單獨代表整個非洲。', 'Brett Eloff / University of the Witwatersrand', 'Australopithecus sediba cranium MH1', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:Australopithecus_sediba.JPG', '2026-11-07', 'Photo by Brett Eloff. Courtesy Profberger and Wits University', '深色背景前的人族頭骨化石，額與齒列可見', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('origins-acheulean', 'real_photo', 'origins', 'body', '石器技術的階梯', 1, '/static/civilization/real/12-acheulean.jpg', 1410, 580, '兩面加工的阿舍利手斧，可攜式古物計畫編號 73844。登錄說明把它放在阿舍利中期，約二十萬年前或更早，並指出器物曾被搬運、表面有磨蝕。它是一件實物，不是某種技術必然進步的標本。', 'Portable Antiquities Scheme / Julian Watters', 'Acheulean hand axe FindID 73844', 'CC BY-SA 2.0', 'https://commons.wikimedia.org/wiki/File:Acheulean_hand_axe_(FindID_73844).jpg', '2026-11-07', 'The Portable Antiquities Scheme, Julian Watters', '淺色背景上的燧石手斧，兩面有剝片痕跡', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('origins-blombos', 'real_photo', 'origins', 'body', '非洲內部的多樣', 1, '/static/civilization/real/13-blombos.jpg', 800, 1200, '南非布隆博斯洞外的岩壁與洞口。遠景有不可辨識的人影，沒有可辨認的面孔。這是遺址景觀，不是人群分布圖，也不畫政治界線。', 'Vincent Mourre / Inrap', 'Blombos Cave, South Africa', 'CC BY-SA 3.0', 'https://commons.wikimedia.org/wiki/File:Blombos.jpg', '2026-11-07', 'Vincent Mourre / Inrap', '植被覆蓋的海岸岩壁，中部有一處洞穴開口', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('origins-cueva-manos', 'real_photo', 'origins', 'body', '擴張、相遇與基因交流', 1, '/static/civilization/real/14-cueva-manos.jpg', 1600, 1200, '阿根廷里奧平圖拉斯手洞的手印岩畫。它是開放授權的岩畫實物照片，年代落在人類進入南美洲之後的討論區間，不是出非洲那一日的現場，也不是遷徙路線圖。', 'Mariano Cecowski', 'Cueva de las Manos', 'Public domain', 'https://commons.wikimedia.org/wiki/File:SantaCruz-CuevaManos-P2210651b.jpg', '2026-11-07', 'Mariano Cecowski', '岩壁上密集的手印與色塊', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('chronicle-qesem-fire', 'real_photo', 'chronicle', 'stage-1', NULL, 1, '/static/civilization/real/15-qesem-fire.jpg', 1440, 1875, '凱塞姆洞穴出土的燒骨標本，由研究者拍攝。圖中是受熱動物骨，不是一座保留完好的灶址剖面。它用來說明用火可以留下可核對的材料。', 'Ruth Blasco', 'Burned animal bones from Qesem Cave', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:Qesem_Cave_burned_animal_bones.jpg', '2026-11-07', 'Ruth Blasco', '黑色背景上分組陳列的燒骨標本，旁有厘米標尺', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('chronicle-sickle', 'real_photo', 'chronicle', 'stage-2', NULL, 1, '/static/civilization/real/16-sickle.jpg', 1920, 1280, '信陽市博物館展出的石質器物，館藏說明標為新石器時代石鐮。單件工具不能代表所有農業起源，只說明收割曾經被做成可以傳遞的物件。', 'Gary Todd', 'Neolithic stone sickle, Xinyang City Museum', 'CC0', 'https://commons.wikimedia.org/wiki/File:Neolithic_Stone_Sickle.jpg', '2026-11-07', 'Gary Todd', '灰色背景上的彎曲石質刃具', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('chronicle-cuneiform', 'real_photo', 'chronicle', 'stage-3', NULL, 1, '/static/civilization/real/17-cuneiform.jpg', 861, 822, '傑姆代特奈斯爾出土的原始楔形文字泥板，東方研究所編號 A02516，約公元前三千二百年至三千年。它是會計用的早期文字物件，不是後來成熟楔形文字的全部。', 'Daderot / Oriental Institute Museum', 'Proto-cuneiform tablet OIM A02516', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:Proto_cuneiform_tablet_OIM_A02516.jpg', '2026-11-07', 'Daderot, derivative work by Zunkir. Oriental Institute Museum, Chicago', '帶有早期刻劃符號的泥板殘片', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('city-mohenjo-daro', 'real_photo', 'city', 'daily', '並置的城市', 1, '/static/civilization/real/18-mohenjo-daro.jpg', 1920, 1440, '摩亨佐-達羅發掘區，前景是大浴場，後方是穀倉土丘。這是印度河流域一座早期城市的地面照片，不代替兩河或東亞的城市史。', 'Saqib Qayyum', 'Mohenjo-daro, Great Bath', 'CC BY-SA 3.0', 'https://commons.wikimedia.org/wiki/File:Mohenjo-daro.jpg', '2026-11-07', 'Saqib Qayyum', '磚砌水池與周圍考古平台，後方有土丘', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('tech-galileo-telescope', 'real_photo', 'tech', 'magnitudes', '儀器把一次觀察固定下來', 1, '/static/civilization/real/19-galileo-telescope.jpg', 1920, 1277, '佛羅倫斯伽利略博物館收藏的望遠鏡目鏡段，館藏編號 2428，說明指為一六零九年前後伽利略設計的較早一具。照片只證明這件儀器被保存，不證明每一次觀測都被重做過。', 'Zde / Museo Galileo', 'Galileo telescope eyepiece, Inv. 2428', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:Galilei%27s_older_telescope,_eyepiece_part,_Museo_Galileo,_Florence,_Inv._2428,_224093.jpg', '2026-11-07', 'Zde. Museo Galileo, Florence', '木質與皮革包裹的歷史望遠鏡局部，一端是目鏡', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('tech-watt-beam', 'real_photo', 'tech', 'magnitudes', '功率要有單位', 1, '/static/civilization/real/20-watt-engine.jpg', 1024, 760, '瓦特型樑式蒸汽機，倫敦納皮爾父子公司一八三二年製造，後用於西班牙皇家鑄幣廠。它不是一七六九年的第一台樣機，而是工業能量已經可以離開發明者、被異地安裝的一具實物。', 'Nicolás Pérez', 'Watt-type beam engine, ETSIIM Madrid', 'CC BY-SA 3.0', 'https://commons.wikimedia.org/wiki/File:Maquina_vapor_Watt_ETSIIM.jpg', '2026-11-07', 'Nicolás Pérez', '室內展出的樑式蒸汽機，可見橫樑、連桿與飛輪', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('future-arctic-viirs', 'real_photo', 'future', 'future-f1', NULL, 1, '/static/civilization/real/21-arctic.jpg', 1920, 1280, '蘇奧米國家極軌夥伴衛星 VIIRS 於二零一二年九月二日拍攝並拼接的北極海冰。這是多條軌道合成的衛星觀測，不是單張快門，也不把一年的最小值寫成永久趨勢。', 'NASA', 'Mosaic of the Arctic, 2 September 2012', 'Public domain', 'https://commons.wikimedia.org/wiki/File:Mosaic_of_the_Arctic.jpg', '2026-11-07', 'NASA Earth Observatory / Suomi NPP VIIRS', '衛星看到的北極海冰與周圍陸地、海洋', 1);
-INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('future-pale-blue-dot', 'real_photo', 'future', 'who', NULL, 1, '/static/civilization/real/22-pale-blue-dot.jpg', 453, 614, '旅行者一號在約六十億公里外拍攝的地球，畫面中的淡藍點。光線條紋來自相機光學。它把「我是誰」放回一顆行星的尺度，不提供任何人群的等級。', 'NASA / JPL-Caltech', 'Pale Blue Dot (PIA00452)', 'Public domain', 'https://commons.wikimedia.org/wiki/File:Pale_Blue_Dot.png', '2026-11-07', 'NASA/JPL-Caltech. Voyager 1', '黑暗背景中一道光紋，其中有一個微小的淡藍點', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('origins-sediba', 'real_photo', 'origins', 'body', '縮到一具頭骨', 1, '/static/civilization/real/11-sediba.jpg', 1920, 1444, '南非馬拉帕出土的南方古猿源泉種幼年頭骨，館方編號 MH1。約二百萬年前，不是人族最早的化石，也不能單獨代表整個非洲。', 'Brett Eloff / University of the Witwatersrand', 'Australopithecus sediba cranium MH1', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:Australopithecus_sediba.JPG', '2026-11-07', 'Photo by Brett Eloff. Courtesy Profberger and Wits University', '深色背景前的人族頭骨化石，額與齒列可見', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('origins-acheulean', 'real_photo', 'origins', 'body', '再縮到一件石器', 1, '/static/civilization/real/12-acheulean.jpg', 1410, 580, '兩面加工的阿舍利手斧，可攜式古物計畫編號 73844。登錄說明把它放在阿舍利中期，約二十萬年前或更早，並指出器物曾被搬運、表面有磨蝕。它是一件實物，不是某種技術必然進步的標本。', 'Portable Antiquities Scheme / Julian Watters', 'Acheulean hand axe FindID 73844', 'CC BY-SA 2.0', 'https://commons.wikimedia.org/wiki/File:Acheulean_hand_axe_(FindID_73844).jpg', '2026-11-07', 'The Portable Antiquities Scheme, Julian Watters', '淺色背景上的燧石手斧，兩面有剝片痕跡', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('origins-blombos', 'real_photo', 'origins', 'body', '拉到非洲南岸的一個洞', 1, '/static/civilization/real/13-blombos.jpg', 800, 1200, '南非布隆博斯洞外的岩壁與洞口。遠景有不可辨識的人影，沒有可辨認的面孔。這是遺址景觀，不是人群分布圖，也不畫政治界線。', 'Vincent Mourre / Inrap', 'Blombos Cave, South Africa', 'CC BY-SA 3.0', 'https://commons.wikimedia.org/wiki/File:Blombos.jpg', '2026-11-07', 'Vincent Mourre / Inrap', '植被覆蓋的海岸岩壁，中部有一處洞穴開口', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('origins-cueva-manos', 'real_photo', 'origins', 'body', '再拉遠到另一塊大陸的岩壁', 1, '/static/civilization/real/14-cueva-manos.jpg', 1600, 1200, '阿根廷里奧平圖拉斯手洞的手印岩畫。它是開放授權的岩畫實物照片，年代落在人類進入南美洲之後的討論區間，不是出非洲那一日的現場，也不是遷徙路線圖。', 'Mariano Cecowski', 'Cueva de las Manos', 'Public domain', 'https://commons.wikimedia.org/wiki/File:SantaCruz-CuevaManos-P2210651b.jpg', '2026-11-07', 'Mariano Cecowski', '岩壁上密集的手印與色塊', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('chronicle-qesem-fire', 'real_photo', 'chronicle', 'stage-1', '縮到一塊燒過的骨', 1, '/static/civilization/real/15-qesem-fire.jpg', 1440, 1875, '凱塞姆洞穴出土的燒骨標本，由研究者拍攝。圖中是受熱動物骨，不是一座保留完好的灶址剖面。它用來說明用火可以留下可核對的材料。', 'Ruth Blasco', 'Burned animal bones from Qesem Cave', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:Qesem_Cave_burned_animal_bones.jpg', '2026-11-07', 'Ruth Blasco', '黑色背景上分組陳列的燒骨標本，旁有厘米標尺', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('chronicle-sickle', 'real_photo', 'chronicle', 'stage-2', '縮到一把石刃', 1, '/static/civilization/real/16-sickle.jpg', 1920, 1280, '信陽市博物館展出的石質器物，館藏說明標為新石器時代石鐮。單件工具不能代表所有農業起源，只說明收割曾經被做成可以傳遞的物件。', 'Gary Todd', 'Neolithic stone sickle, Xinyang City Museum', 'CC0', 'https://commons.wikimedia.org/wiki/File:Neolithic_Stone_Sickle.jpg', '2026-11-07', 'Gary Todd', '灰色背景上的彎曲石質刃具', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('chronicle-cuneiform', 'real_photo', 'chronicle', 'stage-3', '縮到一塊泥板', 1, '/static/civilization/real/17-cuneiform.jpg', 861, 822, '傑姆代特奈斯爾出土的原始楔形文字泥板，東方研究所編號 A02516，約公元前三千二百年至三千年。它是會計用的早期文字物件，不是後來成熟楔形文字的全部。', 'Daderot / Oriental Institute Museum', 'Proto-cuneiform tablet OIM A02516', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:Proto_cuneiform_tablet_OIM_A02516.jpg', '2026-11-07', 'Daderot, derivative work by Zunkir. Oriental Institute Museum, Chicago', '帶有早期刻劃符號的泥板殘片', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('city-mohenjo-daro', 'real_photo', 'city', 'city-3', '縮到一座浴場', 1, '/static/civilization/real/18-mohenjo-daro.jpg', 1920, 1440, '摩亨佐-達羅發掘區，前景是大浴場，後方是穀倉土丘。這是印度河流域一座早期城市的地面照片，不代替兩河或東亞的城市史。', 'Saqib Qayyum', 'Mohenjo-daro, Great Bath', 'CC BY-SA 3.0', 'https://commons.wikimedia.org/wiki/File:Mohenjo-daro.jpg', '2026-11-07', 'Saqib Qayyum', '磚砌水池與周圍考古平台，後方有土丘', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('tech-galileo-telescope', 'real_photo', 'tech', 'tech-5', '縮到一具管子', 1, '/static/civilization/real/19-galileo-telescope.jpg', 1920, 1277, '佛羅倫斯伽利略博物館收藏的望遠鏡目鏡段，館藏編號 2428，說明指為一六零九年前後伽利略設計的較早一具。照片只證明這件儀器被保存，不證明每一次觀測都被重做過。', 'Zde / Museo Galileo', 'Galileo telescope eyepiece, Inv. 2428', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:Galilei%27s_older_telescope,_eyepiece_part,_Museo_Galileo,_Florence,_Inv._2428,_224093.jpg', '2026-11-07', 'Zde. Museo Galileo, Florence', '木質與皮革包裹的歷史望遠鏡局部，一端是目鏡', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('tech-watt-beam', 'real_photo', 'tech', 'tech-6', '再縮到千瓦', 1, '/static/civilization/real/20-watt-engine.jpg', 1024, 760, '瓦特型樑式蒸汽機，倫敦納皮爾父子公司一八三二年製造，後用於西班牙皇家鑄幣廠。它不是一七六九年的第一台樣機，而是工業能量已經可以離開發明者、被異地安裝的一具實物。', 'Nicolás Pérez', 'Watt-type beam engine, ETSIIM Madrid', 'CC BY-SA 3.0', 'https://commons.wikimedia.org/wiki/File:Maquina_vapor_Watt_ETSIIM.jpg', '2026-11-07', 'Nicolás Pérez', '室內展出的樑式蒸汽機，可見橫樑、連桿與飛輪', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('future-arctic-viirs', 'real_photo', 'future', 'future-f1', '從街道拉遠到北極', 1, '/static/civilization/real/21-arctic.jpg', 1920, 1280, '蘇奧米國家極軌夥伴衛星 VIIRS 於二零一二年九月二日拍攝並拼接的北極海冰。這是多條軌道合成的衛星觀測，不是單張快門，也不把一年的最小值寫成永久趨勢。', 'NASA', 'Mosaic of the Arctic, 2 September 2012', 'Public domain', 'https://commons.wikimedia.org/wiki/File:Mosaic_of_the_Arctic.jpg', '2026-11-07', 'NASA Earth Observatory / Suomi NPP VIIRS', '衛星看到的北極海冰與周圍陸地、海洋', 1);
+INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('future-pale-blue-dot', 'real_photo', 'future', 'what-i-owe', '再拉遠到一顆淡藍點', 1, '/static/civilization/real/22-pale-blue-dot.jpg', 453, 614, '旅行者一號在約六十億公里外拍攝的地球，畫面中的淡藍點。光線條紋來自相機光學。它把「我是誰」放回一顆行星的尺度，不提供任何人群的等級。', 'NASA / JPL-Caltech', 'Pale Blue Dot (PIA00452)', 'Public domain', 'https://commons.wikimedia.org/wiki/File:Pale_Blue_Dot.png', '2026-11-07', 'NASA/JPL-Caltech. Voyager 1', '黑暗背景中一道光紋，其中有一個微小的淡藍點', 1);
 INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('cosmo-stage-1-cover', 'ai_illustration', 'cosmos', 'cosmo-1', NULL, 1, '/static/civilization/cosmo-stage-1-cover-640w.webp', 640, 400, '示意。宇宙卷舊有階段封面，紙感生成圖像，不能當作微波背景或星系照片。', '站內素材目錄', 'cosmo-stage-1-cover', '站內示意，非照片授權', 'https://world-news.xyz/static/civilization/MANIFEST.md', '2026-11-07', '站內生成圖像，見素材目錄 Batch C', '示意：宇宙階段的紙感圖像，不是觀測照片', 0);
 INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('earth-stage-1-cover', 'ai_illustration', 'earth', 'earth-1', NULL, 1, '/static/civilization/earth-stage-1-cover-640w.webp', 640, 400, '示意。地球卷舊有階段封面，紙感生成圖像，不能當作衛星照片或化石。', '站內素材目錄', 'earth-stage-1-cover', '站內示意，非照片授權', 'https://world-news.xyz/static/civilization/MANIFEST.md', '2026-11-07', '站內生成圖像，見素材目錄 Batch F', '示意：地球階段的紙感圖像，不是觀測照片', 0);
 INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('chronicle-stage-1-cover', 'ai_illustration', 'chronicle', 'stage-1', NULL, 1, '/static/civilization/civ-stage-1-cover-640w.webp', 640, 400, '示意。編年卷舊有階段封面，紙感生成圖像，不能當作灶址或文物照片。', '站內素材目錄', 'civ-stage-1-cover', '站內示意，非照片授權', 'https://world-news.xyz/static/civilization/MANIFEST.md', '2026-11-07', '站內生成圖像，見素材目錄 Batch B', '示意：編年階段的紙感圖像，不是考古照片', 0);

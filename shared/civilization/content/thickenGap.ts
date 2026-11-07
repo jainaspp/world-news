@@ -122,7 +122,9 @@ export const LATE_ENTRIES = [
     sources: [
       { name: 'Smithsonian · stone tools', url: 'https://humanorigins.si.edu/evidence/behavior/stone-tools', note: '石器作為可傳遞製法' },
     ],
-    body: `技術卷若只說「更大、更快」，讀者無法重做判斷。每一件工具至少要寫輸入、輸出、單位和它會把哪種誤差留給下一個人。
+    body: `從千瓦拉遠。功率寫得出來之後，剩下的問題是誤差由誰記錄。沒有日誌的機器，只在它沒有壞掉的那幾小時裡存在。
+
+技術卷若只說「更大、更快」，讀者無法重做判斷。每一件工具至少要寫輸入、輸出、單位和它會把哪種誤差留給下一個人。
 
 ### 石器的能量很小，但步驟可核對
 
