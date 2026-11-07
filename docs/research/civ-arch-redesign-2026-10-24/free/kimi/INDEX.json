@@ -1,0 +1,62 @@
+[
+  {
+    "id": "K01",
+    "title": "時間長河・一軸三卷",
+    "one_liner": "一條從大爆炸滾到未來的連續長河：滾動即穿越三卷，新聞是今日水位，開蒙是支流。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/kimi/P01.md"
+  },
+  {
+    "id": "K02",
+    "title": "文明座標・時光駕駛台",
+    "one_liner": "轉動刻度盤選一個年代，整站立刻渲染成該年代的目的地檔案——新聞是今天的預設停靠點。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/kimi/P02.md"
+  },
+  {
+    "id": "K03",
+    "title": "萬物條目・編年百科",
+    "one_liner": "每個概念一張穩定條目卡，以時間鏈與因果鏈織成百科圖譜；新聞是註腳，開蒙是學程。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/kimi/P03.md"
+  },
+  {
+    "id": "K04",
+    "title": "三門一徑・各成產品",
+    "one_liner": "首頁是三座巨門加一條小徑：溯源、當下、推演各成獨立子產品，新聞住進當下之門。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/kimi/P04.md"
+  },
+  {
+    "id": "K05",
+    "title": "文明 OS・應用套件",
+    "one_liner": "桌面、應用、小工具：編年、切片、學堂、觀測各是一枚應用，首頁是一台文明作業系統。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/kimi/P05.md"
+  },
+  {
+    "id": "K06",
+    "title": "日切週刊・刊期文明史",
+    "one_liner": "日刊切片、週刊深讀、叢書底本：首頁永遠是最新一期封面，文明史以刊期為骨架出版。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/kimi/P06.md"
+  },
+  {
+    "id": "K07",
+    "title": "文明星圖・時空左舷",
+    "one_liner": "一幅可縮放的文明星圖：時間攤成空間，新聞是每日點亮的新星，開蒙是連成星座的航線。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/kimi/P07.md"
+  },
+  {
+    "id": "K08",
+    "title": "問題先行・十萬問梯",
+    "one_liner": "首頁每天只問一個大問題；解答、追問、問梯逐層解鎖，新聞是通往常青問題的今日引子。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/kimi/P08.md"
+  },
+  {
+    "id": "K09",
+    "title": "正在上映・三卷影廳",
+    "one_liner": "三卷是三家影廳，每個故事是有章節的影片；新聞是每日短場，開蒙是隨片附贈的導讀手冊。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/kimi/P09.md"
+  },
+  {
+    "id": "K10",
+    "title": "素卷・無動效檔案館",
+    "one_liner": "零動效、純文字優先的文明檔案館：一頁卷首看清全館，新聞是館誌，開蒙是書單。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/kimi/P10.md"
+  }
+]
