@@ -20,6 +20,8 @@ Red lines: no Taiwan / politics / border maps / faces / flags
 
 **Batch H 2026-10-18** (new art, fills the reserved slots): chronicle milestone product vignettes M1–M10. Public files are `civ-stage-{1..10}-product-{1280,640,400}w.webp` (1280×720 native; 640×400 and 400×250 are 16:10 center crops). Paths were already named in `chronicleMilestones.ts`; the blocks keep the 640 src and include 1280w in the srcset. Figcaption says「示意」. Batch B stage covers are unchanged. Subjects: controlled fire and tools, grain and sickle, clay-tablet texture (not readable modern text), coins and a road, paper and a sail, telescope and a folio, steam and rail, a blank ledger, packet nodes, lab glass and a lattice. Stage 10 was regenerated so the glassware has no scale numbers.
 
+**Real photographs 2026-11-07**：`real/` holds 22 observation or museum photographs from NASA, ESA, ESO, or Wikimedia Commons (Public domain, CC0, CC BY, or CC BY-SA, as stated on each Commons page). They are not Art plates. Generated covers stay labeled 示意 and are not retagged as photographs. Credits are in `real/credits.json`.
+
 **Art W1 2026-10-19** (new art): paper-feel plates for the civilization `#future` hub. Public files are `future-f{1..6}-cover-{1280,640,400}w.webp` and `future-horizon-biodiversity-cover-{1280,640,400}w.webp` (1280×720 native; 640×400 and 400×250 are 16:10 center crops). Domain cards and the biodiversity horizon use the 640 src and include 1280w in the srcset. Images have no readable text; chips stay in the page. Ink `#161c24` on paper `#f7f1e6`. No `/civilization/future/` route. AMR, freshwater, and the rest of the biodiversity copy are unchanged.
 
 | Slot | Files | Notes |

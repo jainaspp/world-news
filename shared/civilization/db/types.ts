@@ -37,11 +37,36 @@ export interface ChronicleMeta {
   value: string;
 }
 
+/** Real observation or museum photograph, or a labeled schematic. */
+export interface ChronicleFigure {
+  id: string;
+  kind: 'real_photo' | 'ai_illustration';
+  volume: string;
+  near_entry: string;
+  /** Insert after the first heading whose text contains this phrase. */
+  after_heading?: string;
+  /** When false, the record stays in the seed but the page already shows the image. */
+  embed: boolean;
+  src: string;
+  width: number;
+  height: number;
+  caption_zh: string;
+  source_org: string;
+  title: string;
+  license: string;
+  source_url: string;
+  retrieved: string;
+  credit: string;
+  alt_zh: string;
+  not_ai: boolean;
+}
+
 export interface ChronicleDb {
   meta: ChronicleMeta[];
   threads: ChronicleThread[];
   entries: ChronicleEntry[];
   sources: ChronicleSource[];
+  figures: ChronicleFigure[];
 }
 
 /** Minimal D1 surface. Pages keep reading the seed until this binding exists. */

@@ -13,6 +13,8 @@ describe('chronicle content database', () => {
     ]);
     expect(db.entries.length).toBeGreaterThan(40);
     expect(db.sources.length).toBeGreaterThan(40);
+    expect(db.figures.filter((fig) => fig.kind === 'real_photo')).toHaveLength(22);
+    expect(db.figures.filter((fig) => fig.kind === 'ai_illustration').every((fig) => fig.caption_zh.includes('示意') && fig.not_ai === false)).toBe(true);
     expect(metaValue('version')).toContain('text-first');
     expect(readFileSync('migrations/0001_chronicle.sql', 'utf8')).toContain('CREATE TABLE IF NOT EXISTS entries');
     expect(readFileSync('shared/civilization/db/seed.sql', 'utf8')).toContain('INSERT INTO threads');
@@ -20,6 +22,7 @@ describe('chronicle content database', () => {
       const before = Number(metaValue(`before_${thread.id}`));
       const after = Number(metaValue(`after_${thread.id}`));
       expect(after, thread.id).toBeGreaterThan(before);
+      expect(after, thread.id).toBeGreaterThanOrEqual(10000);
     }
     expect(JSON.stringify(db)).not.toMatch(BANNED);
   });

@@ -9,7 +9,15 @@ import { EARTH_HANDOFF, EARTH_LEDE, EARTH_SOURCE_NOTE, EARTH_SOURCES, EARTH_STAG
 import { BAND_NOTES, FUTURE_CLADE, FUTURE_COUNTDOWNS, FUTURE_DOMAINS, FUTURE_HORIZONS, FUTURE_INSTANCES, FUTURE_OPENING, FUTURE_TIER_CARD, FUTURE_TIER_ROWS, LEVEL_LEGEND, STAGE10_BRIDGE, STAGE10_BRIDGE_EXTRA } from '../future.js';
 import { COSMOS_HANDOFF, COSMOS_LEDE, COSMOS_SCALES, COSMOS_SOURCE_NOTE, COSMOS_SOURCES, COSMOS_STAGES, COSMOS_TITLE, cosmosProse } from '../cosmos.js';
 import { GALAXY_COSMOS_LINKS, GALAXY_LEDE, GALAXY_NOTES, GALAXY_QUESTIONS, GALAXY_SOURCE_NOTE, GALAXY_SOURCES, GALAXY_STAGES, GALAXY_TITLE, HANDOFF_BRIDGE, HANDOFF_DOWN_AFTER, HANDOFF_DOWN_BEFORE, HANDOFF_DOWN_MID, HANDOFF_THIN, HANDOFF_UP_AFTER, HANDOFF_UP_BEFORE, galaxyProse } from '../galaxy.js';
+import { COSMOS_GAP, EARTH_GAP, GALAXY_GAP, LATE_ENTRIES, ORIGINS_GAP } from '../content/thickenGap.js';
+import { CITY_BULK, COSMOS_BULK, FUTURE_BULK, GALAXY_BULK, ORIGINS_BULK } from '../content/thickenBulk.js';
+import { COSMOS_LAST, GALAXY_LAST, ORIGINS_LAST } from '../content/thickenLast.js';
+import { CITY_FILL, COSMOS_FILL, FUTURE_FILL, GALAXY_FILL, ORIGINS_FILL } from '../content/thickenFill.js';
+import { EARTH_HABITABILITY } from '../content/thickenEarth.js';
+import { COSMOS_THICK, GALAXY_THICK, HANDOFF_CARD } from '../content/thickenEarly.js';
+import { ORIGINS_THICK } from '../content/thickenOrigins.js';
 import { ORIGINS_BODY, ORIGINS_SOURCES } from '../originsSource.js';
+import { CHRONICLE_FIGURES } from './figures.js';
 import { PATTERN_CARDS } from '../patterns.js';
 import { TECH_HANDOFF, TECH_LEDE, TECH_SOURCE_NOTE, TECH_SOURCES, TECH_STAGES, TECH_TITLE, techProse } from '../tech.js';
 import { TECH_READINGS } from '../content/techReadings.js';
@@ -17,7 +25,7 @@ import type { CivDriver, CivProduct } from '../contract.js';
 import type { ChronicleDb, ChronicleEntry, ChronicleSource, ChronicleThread } from './types.js';
 
 const BANNED = /台灣|臺灣|台海|臺海|台湾|xAI|Grok/;
-const VERSION = '2026-11-07-text-first';
+const VERSION = '2026-11-07-text-first-thick';
 const GENERATED_AT = '2026-11-07';
 
 const CONFIDENCE: Record<string, string> = { limited: '有限', partial: '部分', steady: '較穩' };
@@ -65,11 +73,11 @@ const COSMOS_NEXT = [
   '輕核的比例若與今日觀測相合，才談得上後來的恆星。宇宙對光透明之後，第一代恆星才有黑暗時代的終點。',
   '第一代恆星把重元素送進氣體。沒有這一步，後來的星系只是引力骨架，化學還無從開始。',
   '星系網穩下來之後，其中一片氣體雲才可能在約四十六億年前塌成太陽與行星。銀河系這一座棒旋星系的特寫，另見銀河系誕生。',
-  '太陽系把地球放上相對穩定的軌道。液態水是下一件環境條件，不是生命本身。',
-  '海洋與水循環趨向穩定，複雜化學才有舞台。生命起源的路徑仍有多個假說並存，本頁不採單一定論。',
-  '信息開始在生物層級累積之後，大氧化改寫的是全球能量流與化學環境。好氧代謝由此成為可能，厭氧生態位則受壓。',
-  '含氧環境維持了很長的時間，顯生宙才出現可保存的身體構型與捕食關係。細節從地球生命長文寫起，這裡只留粗線。',
-  '顯生宙的生態背景一直延伸到哺乳動物輻射。約七百萬年前，敘事交接入類起源，宇宙長河不再展開人屬細節。',
+  '原行星盤、吸積與遷移見銀河卷的太陽系誕生。地球表面的水與生命不在本卷展開。',
+  '此後的水與地殼，詳敘見地球生命。',
+  '生命化學的路徑假說並存，詳敘見地球生命，本卷不展開。',
+  '氧與大氣的岩層證據見地球生命。',
+  '可保存的身體與後來的生物圈見地球生命。約七百萬年前的人族分途見人類起源。',
 ];
 
 const EARTH_NEXT = [
@@ -244,7 +252,7 @@ function buildBag(): Bag {
     id: 'cosmos',
     slug: 'cosmos',
     title: COSMOS_TITLE,
-    lede: `${COSMOS_LEDE}\n\n閱讀時按時間往下走：從熱密開端到輕核、第一代恆星、星系網，再收到太陽、海洋、生命與含氧大氣。年代寫作約數。銀河系是星系一節裡一座星系的特寫，地球生命從生命化學另寫長文，約七百萬年前再交人類起源。`,
+    lede: `${HANDOFF_CARD.cosmos}\n\n${COSMOS_LEDE}\n\n閱讀時按時間往下走：從熱密開端到輕核、第一代恆星、星系網，再交到銀河如何組裝。地球的水、氧與生命詳敘見地球生命。年代寫作約數。`,
     sort_key: 10,
     path: '/civilization/cosmos/',
     ai_note: '本頁由公開科普與主流綜述入口整合，僅供研究與編輯參考。',
@@ -271,7 +279,7 @@ function buildBag(): Bag {
     id: 'galaxy',
     slug: 'galaxy',
     title: GALAXY_TITLE,
-    lede: `${GALAXY_LEDE}\n\n本頁先定義星系，再寫形成，最後寫從盤內看到的結構。詞義旁註與地球生命的交接放在三節之後。年代、直徑與質量一律為約。`,
+    lede: `${HANDOFF_CARD.galaxy}\n\n${GALAXY_LEDE}\n\n本頁先定義星系，再寫形成與從盤內看到的結構，然後寫太陽系誕生。詞義旁註與地球生命的交接放在其後。年代、直徑與質量一律為約。`,
     sort_key: 20,
     path: '/civilization/galaxy/',
     ai_note: '本頁由公開科普與主流綜述入口整理，作為文明記載的深時間頁。授權跟隨站級 CC BY 4.0。',
@@ -324,7 +332,7 @@ function buildBag(): Bag {
     id: 'earth',
     slug: 'earth',
     title: EARTH_TITLE,
-    lede: `${EARTH_LEDE}\n\n各紀按時間前後相接。文內可以從[侏羅紀](#jurassic)一節讀起。年代一律標約，不把單一塊化石寫成全球定論。`,
+    lede: `${HANDOFF_CARD.earth}\n\n${EARTH_LEDE}\n\n各紀按時間前後相接。文內可以從[侏羅紀](#jurassic)一節讀起。宜居門檻寫在各紀之前。年代一律標約，不把單一塊化石寫成全球定論。`,
     sort_key: 30,
     path: '/civilization/earth/',
     ai_note: '本頁由公開科普與主流綜述入口整合，僅供研究與編輯參考。',
@@ -353,12 +361,12 @@ function buildBag(): Bag {
     id: 'origins',
     slug: 'origins',
     title: '人類起源時間線',
-    lede: '從深時間到解剖學現代人與全球擴張的約略年表。正文保持連續敘述，圖像只作示意。',
+    lede: '從深時間到解剖學現代人與全球擴張的約略年表。正文保持連續敘述。生成圖像標為示意，真實照片另標授權。',
     sort_key: 40,
     path: '/civilization/origins/',
     ai_note: '本頁由公開科普與學術綜述入口整理，只供對照深時間。',
   });
-  addEntry(bag, 'origins', 'body', '人類起源時間線', '約七百萬年前起', 10, `${ORIGINS_BODY}\n\n## 與地球生命、文明編年的連續\n\n地球生命頁寫到約七百萬年前的人族分途為止。本頁從那裡接上，寫化石、石器與基因組所能支持的約略過程，直到全新世農業的門口。文明編年的開篇只保留銜接所需的窗口，深時間的細節留在這裡。兩頁前後相接，不把同一段故事寫成兩套互相否定的年表。新測年仍可能把節點前移或後移；有爭議的地方繼續標明，不為了故事完整而刪去。`);
+  addEntry(bag, 'origins', 'body', '人類起源時間線', '約七百萬年前起', 10, `${HANDOFF_CARD.origins}\n\n${ORIGINS_BODY}\n\n${ORIGINS_THICK}\n\n${ORIGINS_GAP}\n\n${ORIGINS_FILL}\n\n${ORIGINS_BULK}\n\n${ORIGINS_LAST}\n\n## 與地球生命、文明編年的連續\n\n地球生命頁寫到約七百萬年前的人族分途為止。本頁從那裡接上，寫化石、石器與基因組所能支持的約略過程，直到全新世農業的門口。文明編年的開篇只保留銜接所需的窗口，深時間的細節留在這裡。兩頁前後相接，不把同一段故事寫成兩套互相否定的年表。新測年仍可能把節點前移或後移；有爭議的地方繼續標明，不為了故事完整而刪去。`);
   addEntry(bag, 'origins', 'sources', '參考與研究入口', '來源', 20, [
     '這些入口用來核對正文裡的約數，不是另一套年表。公共時間線與博物館頁面適合先建立尺度；學術綜述與關鍵化石研究用來查看仍有爭議的節點。站內的香港科學館與太空館只說明一座城市如何向公眾講解自然史，不取代測年。表中的年份會隨新標本移動。正文已在有分歧處標明，這裡不另造更精確的數字。',
     '文中的三階段框架是化石、石器與基因組的閱讀分層：先看總覽，再看非洲內外的分化與擴張，最後才對照本地的公共科普。它是年表的讀法，隨證據改寫。',
@@ -369,7 +377,7 @@ function buildBag(): Bag {
     id: 'chronicle',
     slug: 'chronicle',
     title: CHRONICLE_TITLE,
-    lede: `${CHRONICLE_LEDE}\n\n${CHRONICLE_HOW}\n\n能量、信息、制度與貨幣是閱讀時可以放在心裡的四條線索，用來分辨一節主要改寫了哪一類基礎設施。古、今兩段順序閱讀；未來一節把條件句交到總覽的展望，編年本身停在本世紀已經可以核對的工具。`,
+    lede: `${HANDOFF_CARD.chronicle}\n\n${CHRONICLE_LEDE}\n\n${CHRONICLE_HOW}\n\n能量、信息、制度與貨幣是閱讀時可以放在心裡的四條線索，用來分辨一節主要改寫了哪一類基礎設施。古、今兩段順序閱讀；未來一節把條件句交到總覽的展望，編年本身停在本世紀已經可以核對的工具。`,
     sort_key: 50,
     path: '/civilization/chronicle/',
     ai_note: '本頁由公開博物館與國際組織頁面整合，僅供研究與編輯對照；年代均為約數。',
@@ -435,7 +443,7 @@ function buildBag(): Bag {
     id: 'tech',
     slug: 'tech',
     title: TECH_TITLE,
-    lede: `${TECH_LEDE}\n\n${TECH_HANDOFF}\n\n本卷沿工具、能源、媒介與知識往下寫。印刷與工業能量兩節按主題並置：活字與報刊的年代早於蒸汽工廠，正文在這兩節寫明，節次不是嚴格年序。`,
+    lede: `${HANDOFF_CARD.tech}\n\n${TECH_LEDE}\n\n${TECH_HANDOFF}\n\n本卷沿工具、能源、媒介與知識往下寫。印刷與工業能量兩節按主題並置：活字與報刊的年代早於蒸汽工廠，正文在這兩節寫明，節次不是嚴格年序。`,
     sort_key: 60,
     path: '/civilization/tech/',
     ai_note: '本頁由公開科普入口整合，年代均為約數。',
@@ -472,7 +480,7 @@ function buildBag(): Bag {
     id: 'city',
     slug: 'city',
     title: CITY_TITLE,
-    lede: `${CITY_LEDE}\n\n${CITY_HANDOFF}\n\n香港的碼頭、隧道與場館只作本地案例，放在全球城市線之後。工具與能源見〈科技與發現〉第二節、第六節與第八節；四線如何重讀城市與文字，見〈文明編年〉。`,
+    lede: `${HANDOFF_CARD.city}\n\n${CITY_LEDE}\n\n${CITY_HANDOFF}\n\n香港的碼頭、隧道與場館只作本地案例，放在全球城市線之後。工具與能源見〈科技與發現〉第二節、第六節與第八節；四線如何重讀城市與文字，見〈文明編年〉。`,
     sort_key: 70,
     path: '/civilization/city/',
     ai_note: '本頁由公共遺產與博物館頁面整理，年代均為約數。',
@@ -502,7 +510,7 @@ function buildBag(): Bag {
     id: 'future',
     slug: 'future',
     title: '展望',
-    lede: `${FUTURE_OPENING}\n\n六節順序讀下來：先是行星能量收支，再是底本與更正，然後是標準與公共機構，生物譜系，能力的條件帶，最後是可以事後核對的風險窗口。日期過了的報告，改讀該機構的下一份公開文本。`,
+    lede: `${HANDOFF_CARD.future}\n\n${FUTURE_OPENING}\n\n六節順序讀下來：先是行星能量收支，再是底本與更正，然後是標準與公共機構，生物譜系，能力的條件帶，最後是可以事後核對的風險窗口。日期過了的報告，改讀該機構的下一份公開文本。`,
     sort_key: 80,
     path: '/civilization/#future',
     ai_note: '展望由公開機構頁面整理，標明約、示意或假說。不另開網址。',
@@ -578,6 +586,24 @@ function buildBag(): Bag {
     '地外技術信號的公開搜尋至今沒有可複核的接觸確證。未確證保持為未確證。譜系一節因此只保留延續與共演化，不把沉默或差異寫成等級。',
   ].join('\n\n'), [], null, 'future');
 
+  for (const item of COSMOS_THICK) addEntry(bag, 'cosmos', item.slug, item.title, item.time, item.sort, item.body, item.sources);
+  addEntry(bag, 'cosmos', COSMOS_GAP.slug, COSMOS_GAP.title, COSMOS_GAP.time, COSMOS_GAP.sort, COSMOS_GAP.body, COSMOS_GAP.sources);
+  addEntry(bag, 'cosmos', COSMOS_FILL.slug, COSMOS_FILL.title, COSMOS_FILL.time, COSMOS_FILL.sort, COSMOS_FILL.body, COSMOS_FILL.sources);
+  for (const item of COSMOS_BULK) addEntry(bag, 'cosmos', item.slug, item.title, item.time, item.sort, item.body, item.sources);
+  addEntry(bag, 'cosmos', COSMOS_LAST.slug, COSMOS_LAST.title, COSMOS_LAST.time, COSMOS_LAST.sort, COSMOS_LAST.body, COSMOS_LAST.sources);
+  addEntry(bag, 'galaxy', GALAXY_THICK.slug, GALAXY_THICK.title, GALAXY_THICK.time, GALAXY_THICK.sort, GALAXY_THICK.body, GALAXY_THICK.sources);
+  addEntry(bag, 'galaxy', GALAXY_GAP.slug, GALAXY_GAP.title, GALAXY_GAP.time, GALAXY_GAP.sort, GALAXY_GAP.body, GALAXY_GAP.sources);
+  addEntry(bag, 'galaxy', GALAXY_FILL.slug, GALAXY_FILL.title, GALAXY_FILL.time, GALAXY_FILL.sort, GALAXY_FILL.body, GALAXY_FILL.sources);
+  for (const item of GALAXY_BULK) addEntry(bag, 'galaxy', item.slug, item.title, item.time, item.sort, item.body, item.sources);
+  addEntry(bag, 'galaxy', GALAXY_LAST.slug, GALAXY_LAST.title, GALAXY_LAST.time, GALAXY_LAST.sort, GALAXY_LAST.body, GALAXY_LAST.sources);
+  addEntry(bag, 'earth', EARTH_HABITABILITY.slug, EARTH_HABITABILITY.title, EARTH_HABITABILITY.time, EARTH_HABITABILITY.sort, EARTH_HABITABILITY.body, EARTH_HABITABILITY.sources);
+  addEntry(bag, 'earth', EARTH_GAP.slug, EARTH_GAP.title, EARTH_GAP.time, EARTH_GAP.sort, EARTH_GAP.body, EARTH_GAP.sources);
+  for (const item of LATE_ENTRIES) addEntry(bag, item.thread, item.slug, item.title, item.time, item.sort, item.body, item.sources);
+  addEntry(bag, 'city', CITY_FILL.slug, CITY_FILL.title, CITY_FILL.time, CITY_FILL.sort, CITY_FILL.body, CITY_FILL.sources);
+  addEntry(bag, 'city', CITY_BULK.slug, CITY_BULK.title, CITY_BULK.time, CITY_BULK.sort, CITY_BULK.body, CITY_BULK.sources);
+  addEntry(bag, 'future', FUTURE_FILL.slug, FUTURE_FILL.title, FUTURE_FILL.time, FUTURE_FILL.sort, FUTURE_FILL.body, FUTURE_FILL.sources);
+  addEntry(bag, 'future', FUTURE_BULK.slug, FUTURE_BULK.title, FUTURE_BULK.time, FUTURE_BULK.sort, FUTURE_BULK.body, FUTURE_BULK.sources);
+
   return bag;
 }
 
@@ -622,11 +648,20 @@ export function buildChronicleDb(): ChronicleDb {
   meta.push({ key: 'threads', value: String(bag.threads.length) });
   meta.push({ key: 'entries', value: String(bag.entries.length) });
   meta.push({ key: 'sources', value: String(bag.sources.length) });
+  for (const fig of CHRONICLE_FIGURES) {
+    if (fig.kind === 'real_photo') {
+      if (!fig.not_ai || !fig.credit || !fig.license || !fig.source_url.startsWith('https://')) throw new Error(`real photo incomplete: ${fig.id}`);
+      if (fig.caption_zh.includes('示意') || fig.alt_zh.includes('示意')) throw new Error(`real photo labeled schematic: ${fig.id}`);
+    } else if (!fig.caption_zh.includes('示意') || fig.not_ai) {
+      throw new Error(`schematic missing label: ${fig.id}`);
+    }
+  }
   const db: ChronicleDb = {
     meta,
     threads: bag.threads,
     entries: bag.entries,
     sources: bag.sources,
+    figures: CHRONICLE_FIGURES,
   };
   const voice = /不再提供階段跳轉|不再提供章節跳轉|不再分成可跳轉|不再另設階段跳轉|篩選按鈕|分域卡片|倒數時鐘|模式卡|已铺就|回技術長文|可以對上的事物包括|章節按鈕|這是機構窗口/;
   const voiced = JSON.stringify(db).match(voice);
@@ -648,7 +683,8 @@ function sqlString(value: string): string {
 
 export function seedSql(db: ChronicleDb = buildChronicleDb()): string {
   const lines = [
-    '-- Generated from shared/civilization/db/seed.json. Apply migrations/0001_chronicle.sql first.',
+    '-- Generated from shared/civilization/db/seed.json. Apply migrations/0001_chronicle.sql and migrations/0002_chronicle_figures.sql first.',
+    'DELETE FROM figures;',
     'DELETE FROM sources;',
     'DELETE FROM entries;',
     'DELETE FROM threads;',
@@ -665,6 +701,9 @@ export function seedSql(db: ChronicleDb = buildChronicleDb()): string {
   }
   for (const row of db.meta) {
     lines.push(`INSERT INTO meta (key, value) VALUES (${sqlString(row.key)}, ${sqlString(row.value)});`);
+  }
+  for (const fig of db.figures) {
+    lines.push(`INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES (${sqlString(fig.id)}, ${sqlString(fig.kind)}, ${sqlString(fig.volume)}, ${sqlString(fig.near_entry)}, ${fig.after_heading ? sqlString(fig.after_heading) : 'NULL'}, ${fig.embed ? 1 : 0}, ${sqlString(fig.src)}, ${fig.width}, ${fig.height}, ${sqlString(fig.caption_zh)}, ${sqlString(fig.source_org)}, ${sqlString(fig.title)}, ${sqlString(fig.license)}, ${sqlString(fig.source_url)}, ${sqlString(fig.retrieved)}, ${sqlString(fig.credit)}, ${sqlString(fig.alt_zh)}, ${fig.not_ai ? 1 : 0});`);
   }
   return `${lines.join('\n')}\n`;
 }

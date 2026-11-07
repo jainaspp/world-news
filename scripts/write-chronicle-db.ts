@@ -1,4 +1,5 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
+import { cjkChars } from '../shared/contentPage.ts';
 import { buildChronicleDb, seedSql } from '../shared/civilization/db/compose.ts';
 
 const db = buildChronicleDb();
@@ -7,6 +8,32 @@ writeFileSync('shared/civilization/db/seed.json', `${JSON.stringify(db, null, 2)
 writeFileSync('shared/civilization/db/seed.ts', `import type { ChronicleDb } from './types.js';\n\nexport const chronicleSeed = ${JSON.stringify(db)} as ChronicleDb;\n`);
 writeFileSync('shared/civilization/db/seed.sql', seedSql(db));
 const meta = Object.fromEntries(db.meta.map((row) => [row.key, row.value]));
+const volumes = db.threads.map((thread) => {
+  const entries = db.entries.filter((entry) => entry.thread_id === thread.id);
+  const plain = [thread.title, thread.lede, ...entries.flatMap((entry) => [entry.title, entry.body])].join('\n');
+  return {
+    slug: thread.id,
+    name: thread.title,
+    actual: cjkChars(plain),
+    meta_after: Number(meta[`after_${thread.id}`] ?? 0),
+    entries: entries.length,
+  };
+});
+mkdirSync('docs/chronicle', { recursive: true });
+writeFileSync('docs/chronicle/char-counts.json', `${JSON.stringify({
+  method: 'cjkChars = /[\\u3400-\\u9fff]/g on threadPlain = title + lede + entry titles + bodies (same as compose.ts meta after_*)',
+  generated_at: '2026-11-07',
+  version: meta.version,
+  volumes,
+  total_actual: volumes.reduce((sum, row) => sum + row.actual, 0),
+  figures: db.figures.filter((fig) => fig.kind === 'real_photo').map((fig) => ({
+    id: fig.id,
+    volume: fig.volume,
+    license: fig.license,
+    source_url: fig.source_url,
+    src: fig.src,
+  })),
+}, null, 2)}\n`);
 console.log(JSON.stringify({
   threads: db.threads.length,
   entries: db.entries.length,
