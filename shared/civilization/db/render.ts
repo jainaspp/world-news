@@ -80,7 +80,7 @@ export function realPhotoIndex(volume: string): string {
     const label = (fig.caption_zh.split('。')[0] ?? fig.title).slice(0, 42);
     return `<a href="#fig-${esc(fig.id)}">${esc(label)}</a>`;
   }).join('、');
-  return `<nav class="real-photo-index" aria-label="本卷真實照片"><p>本卷真實照片　${items}</p></nav>`;
+  return `<nav class="real-photo-index" aria-label="本卷真實照片"><p>本卷真實照片 ${items}</p></nav>`;
 }
 
 /** Place real photos and labeled schematics for one entry. Real photos never use the schematic class. */
