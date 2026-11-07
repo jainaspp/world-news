@@ -81,18 +81,14 @@ describe('civilization case essays', () => {
     const techStart = tech.indexOf('id="tech-7"');
     const techSection = tech.slice(techStart, tech.indexOf('id="tech-8"'));
     expect(techSection).toContain('id="case-print-cost"');
-    const caseTag = techSection.slice(techSection.lastIndexOf('<section', techSection.indexOf('id="case-print-cost"')), techSection.indexOf('id="case-print-cost"'));
-    expect(caseTag).toContain('class="case-study"');
-    expect(caseTag).not.toContain('civ-reveal');
-    expect(caseTag).not.toContain('civ-figure');
+    expect(techSection).not.toContain('civ-reveal');
+    expect(techSection).not.toContain('civ-figure');
     const gearStart = chronicle.indexOf('id="stage-4"');
     const gearSection = chronicle.slice(gearStart, chronicle.indexOf('id="stage-5"'));
     expect(gearSection).toContain('id="case-gear-pause"');
     expect(gearSection).not.toContain('/civilization/origins/');
     for (const item of [print, gear]) {
       const html = item.mount === '/civilization/tech/' ? techSection : gearSection;
-      expect(html).toContain(`data-case="${item.id}"`);
-      expect(html).toContain(`data-outcome="${item.outcome}"`);
       expect(html).toContain('案例專篇');
       for (const heading of READINGS) expect(html).toContain(heading);
       for (const source of item.sources) expect(html).toContain(`href="${source.url}"`);

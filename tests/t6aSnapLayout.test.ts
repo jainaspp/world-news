@@ -368,13 +368,14 @@ describe('T6a snap layout', () => {
       const failures: string[] = [];
       for (const viewport of viewports) {
         await probe.viewport(viewport.width, viewport.height);
+        expect(pages.chronicle).not.toContain('ig-snap');
+        expect(pages.origins).not.toContain('ig-snap');
+        expect(pages.hub).not.toContain('ig-snap');
+        expect(pages.chronicle).toContain('文明編年：從採集到智能工具');
         for (const [name, file] of Object.entries({
           home: 'home.html',
           briefing: 'briefing.html',
-          hub: 'hub.html',
           story: 'story.html',
-          chronicle: 'chronicle.html',
-          origins: 'origins.html',
         })) {
           await probe.navigate(pathToFileURL(path.join(dir, file)).href);
           await probe.viewport(viewport.width, viewport.height);

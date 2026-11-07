@@ -125,7 +125,7 @@ describe('civilization deep-read contract', () => {
     expect(renderer).not.toContain('copy-check');
     expect(renderer).not.toContain('measure-promise');
     const chronicle = readFileSync('shared/civilization/chronicle.ts', 'utf8');
-    expect(chronicle).toContain('renderPatternCardsForStage');
+    expect(chronicle).toContain('renderThreadArticle');
     expect(chronicle).not.toContain('power-store');
     expect(chronicle).not.toContain("'能量' | '信息' | '制度' | '貨幣'");
   });
@@ -148,8 +148,7 @@ describe('civilization deep-read contract', () => {
       const href = `/civilization/chronicle/#pattern-${card.id}`;
       expect(home).toContain(href);
       expect(home).toContain(card.title);
-      expect(hub.html).toContain(`id="pattern-${card.id}"`);
-      expect(hub.html).toContain(`data-pattern="${card.id}"`);
+      expect(hub.html).toContain(href);
       expect(chronicle.html).toContain(`id="pattern-${card.id}"`);
       const stageN = card.anchor.split('#')[1];
       const start = chronicle.html.indexOf(`id="${stageN}"`);
@@ -163,15 +162,12 @@ describe('civilization deep-read contract', () => {
       expect(section).toContain(card.problem);
       for (const heading of REQUIRED_HEADINGS) expect(section).toContain(heading);
       for (const source of card.sources) expect(section).toContain(`href="${source.url}"`);
-      const hubCardAt = hub.html.indexOf(`id="pattern-${card.id}"`);
-      const hubCard = hub.html.slice(hubCardAt, hub.html.indexOf('</details>', hubCardAt));
-      for (const heading of REQUIRED_HEADINGS) expect(hubCard).toContain(heading);
-      expect(hubCard).toContain(card.boundary);
     }
+    expect(hub.html).not.toContain('class="pattern-board"');
     expect(hub.html).not.toMatch(REDLINE);
     expect(chronicle.html).not.toMatch(REDLINE);
     expect(home).not.toMatch(REDLINE);
-    expect(chronicle.html.match(/class="milestone-block"/g)).toHaveLength(10);
+    expect(chronicle.html).not.toContain('class="milestone-block"');
     const css = readFileSync('src/App.css', 'utf8');
     expect(css).toContain('#161c24');
     expect(css).toContain('.pattern-card { color: #161c24; background: #f7f1e6;');

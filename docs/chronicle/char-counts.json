@@ -1,0 +1,220 @@
+{
+  "method": "cjkChars = /[\\u3400-\\u9fff]/g on threadPlain = title + lede + entry titles + bodies (same as compose.ts meta after_*)",
+  "generated_at": "2026-11-07",
+  "version": "2026-11-07-text-first-thick",
+  "volumes": [
+    {
+      "slug": "cosmos",
+      "name": "宇宙長河・深時間",
+      "actual": 10164,
+      "meta_after": 10164,
+      "entries": 22
+    },
+    {
+      "slug": "galaxy",
+      "name": "銀河系誕生",
+      "actual": 10283,
+      "meta_after": 10283,
+      "entries": 13
+    },
+    {
+      "slug": "earth",
+      "name": "地球生命・深時間",
+      "actual": 10154,
+      "meta_after": 10154,
+      "entries": 11
+    },
+    {
+      "slug": "origins",
+      "name": "人類起源時間線",
+      "actual": 10329,
+      "meta_after": 10329,
+      "entries": 2
+    },
+    {
+      "slug": "chronicle",
+      "name": "文明編年：從採集到智能工具",
+      "actual": 12783,
+      "meta_after": 12783,
+      "entries": 15
+    },
+    {
+      "slug": "tech",
+      "name": "科技與發現",
+      "actual": 10648,
+      "meta_after": 10648,
+      "entries": 12
+    },
+    {
+      "slug": "city",
+      "name": "城市・基建・民生",
+      "actual": 10174,
+      "meta_after": 10174,
+      "entries": 14
+    },
+    {
+      "slug": "future",
+      "name": "展望",
+      "actual": 10319,
+      "meta_after": 10319,
+      "entries": 14
+    }
+  ],
+  "total_actual": 84854,
+  "figures": [
+    {
+      "id": "cosmo-cmb-planck",
+      "volume": "cosmos",
+      "license": "CC BY 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Cosmic_Microwave_Background_(CMB).jpeg",
+      "src": "/static/civilization/real/01-cmb.jpg"
+    },
+    {
+      "id": "cosmo-webb-deep-field",
+      "volume": "cosmos",
+      "license": "Public domain",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Webb%27s_First_Deep_Field.jpg",
+      "src": "/static/civilization/real/02-webb-deep-field.jpg"
+    },
+    {
+      "id": "cosmo-jades-z14",
+      "volume": "cosmos",
+      "license": "Public domain",
+      "source_url": "https://commons.wikimedia.org/wiki/File:JADES-GS-z14-0_NASA.png",
+      "src": "/static/civilization/real/03-jades-z14.jpg"
+    },
+    {
+      "id": "galaxy-milky-way",
+      "volume": "galaxy",
+      "license": "CC BY 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:ESO_-_Milky_Way.jpg",
+      "src": "/static/civilization/real/04-milky-way.jpg"
+    },
+    {
+      "id": "galaxy-vista-center",
+      "volume": "galaxy",
+      "license": "CC BY 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Visible-infrared_comparison_of_the_VISTA_Galactic_Centre_image_(eso0949i).jpg",
+      "src": "/static/civilization/real/05-galactic-center.jpg"
+    },
+    {
+      "id": "galaxy-hl-tau",
+      "volume": "galaxy",
+      "license": "CC BY 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:HL_Tau_protoplanetary_disk.jpg",
+      "src": "/static/civilization/real/06-hl-tau.jpg"
+    },
+    {
+      "id": "earth-jupiter-juno",
+      "volume": "earth",
+      "license": "Public domain",
+      "source_url": "https://commons.wikimedia.org/wiki/File:PIA21972_Jupiter_Blues.jpg",
+      "src": "/static/civilization/real/07-jupiter.jpg"
+    },
+    {
+      "id": "earth-apollo17",
+      "volume": "earth",
+      "license": "Public domain",
+      "source_url": "https://commons.wikimedia.org/wiki/File:The_Earth_seen_from_Apollo_17.jpg",
+      "src": "/static/civilization/real/08-earth-apollo17.jpg"
+    },
+    {
+      "id": "earth-stromatolite",
+      "volume": "earth",
+      "license": "CC BY 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Stromatolites_at_Hamelin_Pool_in_Shark_Bay_-_Western_Australia_-_27_Aug._2014.jpg",
+      "src": "/static/civilization/real/09-stromatolite.jpg"
+    },
+    {
+      "id": "earth-trilobite",
+      "volume": "earth",
+      "license": "Public domain",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Cambrian_Trilobite_Olenoides_Mt._Stephen.jpg",
+      "src": "/static/civilization/real/10-trilobite.jpg"
+    },
+    {
+      "id": "origins-sediba",
+      "volume": "origins",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Australopithecus_sediba.JPG",
+      "src": "/static/civilization/real/11-sediba.jpg"
+    },
+    {
+      "id": "origins-acheulean",
+      "volume": "origins",
+      "license": "CC BY-SA 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Acheulean_hand_axe_(FindID_73844).jpg",
+      "src": "/static/civilization/real/12-acheulean.jpg"
+    },
+    {
+      "id": "origins-blombos",
+      "volume": "origins",
+      "license": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Blombos.jpg",
+      "src": "/static/civilization/real/13-blombos.jpg"
+    },
+    {
+      "id": "origins-cueva-manos",
+      "volume": "origins",
+      "license": "Public domain",
+      "source_url": "https://commons.wikimedia.org/wiki/File:SantaCruz-CuevaManos-P2210651b.jpg",
+      "src": "/static/civilization/real/14-cueva-manos.jpg"
+    },
+    {
+      "id": "chronicle-qesem-fire",
+      "volume": "chronicle",
+      "license": "CC BY 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Qesem_Cave_burned_animal_bones.jpg",
+      "src": "/static/civilization/real/15-qesem-fire.jpg"
+    },
+    {
+      "id": "chronicle-sickle",
+      "volume": "chronicle",
+      "license": "CC0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Neolithic_Stone_Sickle.jpg",
+      "src": "/static/civilization/real/16-sickle.jpg"
+    },
+    {
+      "id": "chronicle-cuneiform",
+      "volume": "chronicle",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Proto_cuneiform_tablet_OIM_A02516.jpg",
+      "src": "/static/civilization/real/17-cuneiform.jpg"
+    },
+    {
+      "id": "city-mohenjo-daro",
+      "volume": "city",
+      "license": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Mohenjo-daro.jpg",
+      "src": "/static/civilization/real/18-mohenjo-daro.jpg"
+    },
+    {
+      "id": "tech-galileo-telescope",
+      "volume": "tech",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Galilei%27s_older_telescope,_eyepiece_part,_Museo_Galileo,_Florence,_Inv._2428,_224093.jpg",
+      "src": "/static/civilization/real/19-galileo-telescope.jpg"
+    },
+    {
+      "id": "tech-watt-beam",
+      "volume": "tech",
+      "license": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Maquina_vapor_Watt_ETSIIM.jpg",
+      "src": "/static/civilization/real/20-watt-engine.jpg"
+    },
+    {
+      "id": "future-arctic-viirs",
+      "volume": "future",
+      "license": "Public domain",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Mosaic_of_the_Arctic.jpg",
+      "src": "/static/civilization/real/21-arctic.jpg"
+    },
+    {
+      "id": "future-pale-blue-dot",
+      "volume": "future",
+      "license": "Public domain",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Pale_Blue_Dot.png",
+      "src": "/static/civilization/real/22-pale-blue-dot.jpg"
+    }
+  ]
+}
