@@ -3,7 +3,7 @@ import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head, igCard, igCloseCard
 import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderVolumeCards } from './civilization/chronicle.js';
 import { CASE_STUDIES, caseHref, renderCaseAxisLinks } from './civilization/cases.js';
 import { PATTERN_CARDS, renderPatternAxisLinks } from './civilization/patterns.js';
-import { originsSeedBody, originsSeedSources, placeFigures, realPhotoIndex, renderFutureReading, renderReadingIndex } from './civilization/db/render.js';
+import { originsSeedBody, originsSeedSources, placeFigures, realPhotoIndex, renderFutureReading, renderReadingIndex, threadById } from './civilization/db/render.js';
 import { renderCityArticle, cityIndexable } from './civilization/city.js';
 import { cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
 import { earthIndexable, renderEarthArticle } from './civilization/earth.js';
@@ -504,6 +504,7 @@ export function renderOriginsPage(): { html: string; status: number; indexable: 
   const indexable = originsIndexable();
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 人類起源</nav>
     <article class="civ-article">
+      ${renderMildMarkdown(threadById('origins')?.lede ?? '')}
       ${originsArticle(placeFigures(renderMildMarkdown(originsSeedBody()), 'origins', 'body'))}
       ${renderSliceReturns('origins')}
       <p class="civ-ai"><span class="badge">AI 整合</span> 本頁由公開科普與學術綜述入口整理，只供對照深時間。</p>

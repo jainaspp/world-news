@@ -90,17 +90,17 @@ export const GALAXY_COSMOS_LINKS: readonly GalaxyCosmosLink[] = [
   { label: '02 原初核合成', href: '/civilization/cosmos/#cosmo-2', text: '輕元素原料。氫與氦是後續恆星燃料的起點。' },
   { label: '03 宇宙透明與第一代恆星', href: '/civilization/cosmos/#cosmo-3', text: '金屬起步。重元素注入介質，為行星化學鋪路。' },
   { label: '04 星系與大尺度結構', href: '/civilization/cosmos/#cosmo-4', text: '直接上級。本頁是該階的本星系特寫，宇宙長河仍寫共通骨架。' },
-  { label: '05 太陽系形成', href: '/civilization/cosmos/#cosmo-5', text: '直接下級。銀盤某一分子雲塌縮為原行星盤，其後交給地球生命。' },
+  { label: '05 太陽系形成', href: '/civilization/cosmos/#cosmo-5', text: '宇宙卷只留約四十六億年的交棒。盤與測年在本頁太陽系誕生。' },
 ];
 
-export const HANDOFF_BRIDGE = '宇宙長河在「星系與大尺度結構」寫出共通骨架；本頁寫出骨架上的這一座棒旋星系。約四十六億年前，銀盤內一片氣體雲走向太陽系形成，敘事交給宇宙長河第五階與地球生命頁繼續。';
+export const HANDOFF_BRIDGE = '宇宙長河寫到星系網。本頁是網上的這一座棒旋星系。約四十六億年在宇宙卷只是一句交棒，盤與測年見本頁太陽系誕生。';
 
 export const HANDOFF_UP_BEFORE = '向上：先讀或回看宇宙長河第四階';
 export const HANDOFF_UP_AFTER = '，以把握銀河系所在的宇宙網位置。平行：本頁特寫銀河系誕生。';
 
-export const HANDOFF_DOWN_BEFORE = '向下：約四十六億年前，銀盤分子雲塌縮為太陽系。續讀宇宙長河「太陽系形成」，並進入';
-export const HANDOFF_DOWN_MID = '，看液態水之後的生物信息如何累積；人族段落見';
-export const HANDOFF_DOWN_AFTER = '。本頁結束於太陽系得以在銀盤中成形、地球獲得液態水與長期光照的舞台。其後早期地球、生命起源與生物圈演代不在此重寫。';
+export const HANDOFF_DOWN_BEFORE = '向下：水、氧與化石見';
+export const HANDOFF_DOWN_MID = '。人族見';
+export const HANDOFF_DOWN_AFTER = '。盤、測年與遷移不再在這裡複述。';
 
 export const HANDOFF_THIN = '文明編年史把新聞保留為「今日」薄層；本頁屬於深時間主幹，不在此展開今日切片。';
 

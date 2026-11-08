@@ -8,14 +8,14 @@ import { COUNTDOWN_LEAD, FUTURE_LONGFORM } from '../content/futureLongform.js';
 import { EARTH_HANDOFF, EARTH_LEDE, EARTH_SOURCE_NOTE, EARTH_SOURCES, EARTH_STAGES, EARTH_TITLE, earthProse } from '../earth.js';
 import { BAND_NOTES, FUTURE_CLADE, FUTURE_COUNTDOWNS, FUTURE_DOMAINS, FUTURE_HORIZONS, FUTURE_INSTANCES, FUTURE_OPENING, FUTURE_TIER_CARD, FUTURE_TIER_ROWS, LEVEL_LEGEND, STAGE10_BRIDGE, STAGE10_BRIDGE_EXTRA } from '../future.js';
 import { COSMOS_HANDOFF, COSMOS_LEDE, COSMOS_SCALES, COSMOS_SOURCE_NOTE, COSMOS_SOURCES, COSMOS_STAGES, COSMOS_TITLE, cosmosProse } from '../cosmos.js';
-import { GALAXY_COSMOS_LINKS, GALAXY_LEDE, GALAXY_NOTES, GALAXY_QUESTIONS, GALAXY_SOURCE_NOTE, GALAXY_SOURCES, GALAXY_STAGES, GALAXY_TITLE, HANDOFF_BRIDGE, HANDOFF_DOWN_AFTER, HANDOFF_DOWN_BEFORE, HANDOFF_DOWN_MID, HANDOFF_THIN, HANDOFF_UP_AFTER, HANDOFF_UP_BEFORE, galaxyProse } from '../galaxy.js';
+import { GALAXY_COSMOS_LINKS, GALAXY_LEDE, GALAXY_NOTES, GALAXY_QUESTIONS, GALAXY_SOURCES, GALAXY_STAGES, GALAXY_TITLE, HANDOFF_BRIDGE, HANDOFF_DOWN_AFTER, HANDOFF_DOWN_BEFORE, HANDOFF_DOWN_MID, HANDOFF_UP_AFTER, HANDOFF_UP_BEFORE, galaxyProse } from '../galaxy.js';
 import { COSMOS_GAP, EARTH_GAP, GALAXY_GAP, LATE_ENTRIES, ORIGINS_GAP } from '../content/thickenGap.js';
 import { CITY_BULK, COSMOS_BULK, FUTURE_BULK, GALAXY_BULK, ORIGINS_BULK } from '../content/thickenBulk.js';
 import { COSMOS_LAST, GALAXY_LAST, ORIGINS_LAST } from '../content/thickenLast.js';
 import { CITY_FILL, COSMOS_FILL, FUTURE_FILL, GALAXY_FILL, ORIGINS_FILL } from '../content/thickenFill.js';
 import { EARTH_HABITABILITY } from '../content/thickenEarth.js';
 import { COSMOS_THICK, GALAXY_THICK, HANDOFF_CARD, SCALE_BEAT } from '../content/thickenEarly.js';
-import { ORIGINS_THICK, ORIGINS_ZOOM } from '../content/thickenOrigins.js';
+import { ORIGINS_NODE_MATRIX, ORIGINS_THICK, ORIGINS_ZOOM } from '../content/thickenOrigins.js';
 import { ORIGINS_BODY, ORIGINS_SOURCES } from '../originsSource.js';
 import { CHRONICLE_FIGURES } from './figures.js';
 import { PATTERN_CARDS } from '../patterns.js';
@@ -305,20 +305,12 @@ function buildBag(): Bag {
   addEntry(bag, 'galaxy', 'cosmos-link', '與宇宙長河的銜接', '銜接', 50, [
     HANDOFF_BRIDGE,
     ...GALAXY_COSMOS_LINKS.map((row) => `[${row.label}](${row.href})。${row.text}`),
-    '第六階至第十階寫地球與生命。本頁只保留一句：宜居環境需要恆星的長期穩定與化學供應。細節見[地球生命](/civilization/earth/)，約七百萬年前的人族物語見[人類起源時間線](/civilization/origins/)。',
-    '本頁是宇宙長河第四階的本星系特寫，不是另一套十階。',
+    '本頁是宇宙長河第四階的特寫。地球與人族不在這裡展開，見[地球生命](/civilization/earth/)與[人類起源時間線](/civilization/origins/)。',
   ].join('\n\n'), GALAXY_SOURCES);
   addEntry(bag, 'galaxy', 'earth-handoff', '接地球生命', '交接', 60, [
-    '地球生命頁從早期生命、氧化、顯生宙寫到人族前的生物圈。那些故事默認了幾個星系尺度的前提。本頁點明它們，卻不展開成生物學長文。',
-    '穩定的長期能量輸入：太陽作為中等質量的主序星，能在數十億年尺度上相對平穩地輸出能量。這類恆星的誕生，依賴銀盤氣體的冷卻與金屬豐度。',
-    '固體與揮發份的原料：岩石行星與水相關組分，需要前代恆星的核合成，以及超新星與恆星風把重元素送進分子雲。銀河系的化學演化，就是這座原料廠的流水線。',
-    '相對可討論的軌道環境：行星系統仍可能受鄰近超新星、分子雲遭遇與彗星儲庫擾動影響。把地球放回銀盤軌道，是為了說明宜居是條件的交集。條件清單在變得更清楚，單一敘事不應裝成已經窮盡。',
     `${HANDOFF_UP_BEFORE}[星系與大尺度結構](/civilization/cosmos/#cosmo-4)${HANDOFF_UP_AFTER}`,
     `${HANDOFF_DOWN_BEFORE}[地球生命](/civilization/earth/)${HANDOFF_DOWN_MID}[人類起源時間線](/civilization/origins/)${HANDOFF_DOWN_AFTER}`,
-    HANDOFF_THIN,
-    '形成與結構留下的機制，下面另寫成還能對著觀測繼續追問的句子。',
-    GALAXY_SOURCE_NOTE,
-    links(GALAXY_SOURCES),
+    '重元素、實驗室時鐘和今天的軌道，只在太陽系誕生寫過一次。',
   ].join('\n\n'), GALAXY_SOURCES);
   addEntry(bag, 'galaxy', 'ask', '今日可問', '問題', 70, [
     '三節正文寫完，還有幾件機制沒有在敘事裡展開完。它們不是一組待辦清單，而是拿著現有觀測仍可以追下去的句子。每一問都對著上面某一節的證據邊界。',
@@ -362,7 +354,7 @@ function buildBag(): Bag {
     id: 'origins',
     slug: 'origins',
     title: '人類起源時間線',
-    lede: '從深時間到解剖學現代人與全球擴張的約略年表。正文保持連續敘述。生成圖像標為示意，真實照片另標授權。',
+    lede: `${HANDOFF_CARD.origins}\n\n從深時間到解剖學現代人與全球擴張的約略年表。尺度尺在前，正文在後。生成圖像標為示意，真實照片另標授權。`,
     sort_key: 40,
     path: '/civilization/origins/',
     ai_note: '本頁由公開科普與學術綜述入口整理，只供對照深時間。',
@@ -371,7 +363,11 @@ function buildBag(): Bag {
     '# 人類起源時間線：從深時間到今日切片\n\n',
     `# 人類起源時間線：從深時間到今日切片\n\n${ORIGINS_ZOOM}\n\n`,
   );
-  addEntry(bag, 'origins', 'body', '人類起源時間線', '約七百萬年前起', 10, `${HANDOFF_CARD.origins}\n\n${originsBody}\n\n${ORIGINS_THICK}\n\n${ORIGINS_GAP}\n\n${ORIGINS_FILL}\n\n${ORIGINS_BULK}\n\n${ORIGINS_LAST}\n\n## 與地球生命、文明編年的連續\n\n地球生命頁寫到約七百萬年前的人族分途為止。本頁從那裡接上，寫化石、石器與基因組所能支持的約略過程，直到全新世農業的門口。文明編年的開篇只保留銜接所需的窗口，深時間的細節留在這裡。兩頁前後相接，不把同一段故事寫成兩套互相否定的年表。新測年仍可能把節點前移或後移；有爭議的地方繼續標明，不為了故事完整而刪去。`);
+  const originsWithMatrix = originsBody.replace(
+    '## 三階段框架（綜述常用）',
+    `${ORIGINS_NODE_MATRIX}\n\n## 三階段框架（綜述常用）`,
+  );
+  addEntry(bag, 'origins', 'body', '人類起源時間線', '約七百萬年前起', 10, `${originsWithMatrix}\n\n${ORIGINS_THICK}\n\n${ORIGINS_GAP}\n\n${ORIGINS_FILL}\n\n${ORIGINS_BULK}\n\n${ORIGINS_LAST}\n\n## 與地球生命、文明編年的連續\n\n地球生命頁寫到約七百萬年前的人族分途為止。本頁從那裡接上，寫化石、石器與基因組所能支持的約略過程，直到全新世農業的門口。文明編年的開篇只保留銜接所需的窗口，深時間的細節留在這裡。兩頁前後相接，不把同一段故事寫成兩套互相否定的年表。新測年仍可能把節點前移或後移；有爭議的地方繼續標明，不為了故事完整而刪去。`);
   addEntry(bag, 'origins', 'sources', '參考與研究入口', '來源', 20, [
     '這些入口用來核對正文裡的約數，不是另一套年表。公共時間線與博物館頁面適合先建立尺度；學術綜述與關鍵化石研究用來查看仍有爭議的節點。站內的香港科學館與太空館只說明一座城市如何向公眾講解自然史，不取代測年。表中的年份會隨新標本移動。正文已在有分歧處標明，這裡不另造更精確的數字。',
     '文中的三階段框架是化石、石器與基因組的閱讀分層：先看總覽，再看非洲內外的分化與擴張，最後才對照本地的公共科普。它是年表的讀法，隨證據改寫。',
@@ -409,10 +405,13 @@ function buildBag(): Bag {
       if (block.sourceName && block.sourceUrl) ownSources.push({ name: block.sourceName, url: block.sourceUrl });
     }
     const origin = stage.origins ? '這一窗口的深時間細節，見[人類起源時間線](/civilization/origins/)。' : '';
+    const milestoneLine = stage.milestones.length
+      ? `${stage.milestones.join('、')}寫在這一段裡。`
+      : '';
     const body = [
       SCALE_BEAT[`chronicle:${stage.n}`] ?? '',
       stage.prose,
-      closeMilestones(stage.milestones, stage.meaning, stage.n === 1),
+      milestoneLine,
       deep,
       patternBody(stage.n),
       caseBody('/civilization/chronicle/', `stage-${stage.n}`),
