@@ -127,15 +127,22 @@ function weaveFacts(input: {
   products: readonly CivProduct[];
   drivers: readonly CivDriver[];
   impact: string;
+  /** Tech readings state each condition in its own words. Chronicle keeps the older frame. */
+  bare?: boolean;
 }): string {
   const productText = input.products.map((item) => `${item.name}：${item.detail}`).join('');
-  const driverText = input.drivers.map((item) => `${item.name}方面，${item.detail}`).join('');
-  const useFormula = formulaLeft > 0 && Boolean(productText);
+  const driverText = input.drivers.map((item) => (
+    input.bare ? `${item.name}。${item.detail}` : `${item.name}方面，${item.detail}`
+  )).join('');
+  const useFormula = !input.bare && formulaLeft > 0 && Boolean(productText);
   if (useFormula) formulaLeft -= 1;
   const productPara = productText
     ? (useFormula ? `就當時可以留下來、也可以事後核對的事物而言，${productText}` : productText)
     : '';
-  return [input.detail, productPara, driverText ? `推動這一步的條件，可以分開看。${driverText}` : '', input.impact].filter(Boolean).join('\n\n');
+  const driverPara = driverText
+    ? (input.bare ? driverText : `推動這一步的條件，可以分開看。${driverText}`)
+    : '';
+  return [input.detail, productPara, driverPara, input.impact].filter(Boolean).join('\n\n');
 }
 
 function patternBody(stageN: number): string {
@@ -234,13 +241,14 @@ function closeMilestones(milestones: readonly string[], meaning: string, keepFor
   return `${meaning}落到具體歷史上，是${first ?? ''}${restText}。`;
 }
 
-function readingBlocks(readings: readonly { event: string; eventDetail: string; products: readonly CivProduct[]; drivers: readonly CivDriver[]; impact: string }[] | undefined): string {
+function readingBlocks(readings: readonly { event: string; eventDetail: string; products: readonly CivProduct[]; drivers: readonly CivDriver[]; impact: string }[] | undefined, bare = false): string {
   if (!readings?.length) return '';
   return readings.map((reading) => [`### ${reading.event}`, weaveFacts({
     detail: reading.eventDetail,
     products: reading.products,
     drivers: reading.drivers,
     impact: reading.impact,
+    bare,
   })].join('\n\n')).join('\n\n');
 }
 
@@ -456,7 +464,7 @@ function buildBag(): Bag {
       chrono,
       stage.prose,
       stage.milestones.length ? `${stage.milestones.join('、')}。` : '',
-      readingBlocks(TECH_READINGS[stage.n]),
+      readingBlocks(TECH_READINGS[stage.n], true),
       caseBody('/civilization/tech/', `tech-${stage.n}`),
       chronicle,
       origins,

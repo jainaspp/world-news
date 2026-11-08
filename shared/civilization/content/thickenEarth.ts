@@ -12,7 +12,7 @@ export const EARTH_HABITABILITY = {
     { name: 'NASA Earth', url: NASA_EARTH, note: '地球系統的公共入口' },
     { name: 'British Geological Survey · geological time', url: BGS, note: '化石與地質時間' },
   ],
-  body: `銀河卷把太陽系停在軌道和原料。本卷從那裡接著問：一顆岩石行星要讓表面長期有液態水、後來有游離氧、再後來有可以化石化的身體，中間要跨過哪些門檻。每一道門檻都有地區性的岩石記錄，沒有一道是全球同一天發生的。年代表的名稱以 [國際地層委員會](${STRAT}) 的圖表為準，年份仍是約數。本節主張見文末矩陣。氧的四個數量級不在這張表裡重複，見 [門檻的數量級](#thresholds)。
+  body: `銀河卷把太陽系停在軌道和原料。本卷從那裡接著問：一顆岩石行星要讓表面長期有液態水、後來有游離氧、再後來有可以化石化的身體，中間要跨過哪些門檻。每一道門檻都有地區性的岩石記錄，沒有一道是全球同一天發生的。年代表的名稱以 [國際地層委員會](${STRAT}) 的圖表為準，年份仍是約數。帶年份的門檻一列對一句，見文末矩陣。氧佔大氣的比例、太古宙上限和元古宙量級不在那張表裡，只見 [門檻的數量級](#thresholds)。
 
 我們現在從軌道縮到這一顆行星。藍色只說明今天有海和雲。
 
@@ -78,15 +78,26 @@ export const EARTH_HABITABILITY = {
 
 ### 宜居節的主張怎麼對上來源 {#habitability-matrix}
 
-氧量級四列只在 [門檻的數量級](#thresholds)。下表是這一節其餘會被複述的主張。
+本表只收這一節裡帶年份或門檻的主張，一列對一句。氧佔今日大氣的比例、太古宙上限、元古宙中段的量級，只在 [門檻的數量級](#thresholds)，這裡不重列數字。大氧化的時間窗兩處都有，因為正文用它當年代；濃度仍以那一節的表為準。
 
 | 主張 | 約數 | 直接來源 | 證據類型 |
 | --- | --- | --- | --- |
-| 今日軌道可討論液態水 | 約一天文單位，須有大氣 | [NASA 宜居帶說明](https://science.nasa.gov/universe/search-for-life/habitable-zone/) | 模型。不是形成時的軌道證明 |
-| 太陽主序壽命 | 約百億年量級 | [NASA 太陽事實](https://science.nasa.gov/sun/facts/) | 恒星結構模型。不是已看到的終局 |
+| 今日軌道可討論液態水 | 約一天文單位，須有大氣 | [Kopparapu et al. 2013, ApJ](https://doi.org/10.1088/0004-637X/765/2/131) | 模型。不是形成時的軌道證明 |
+| 太陽主序壽命 | 以十億年計 | [Bahcall, Pinsonneault 與 Basu 2001, ApJ](https://doi.org/10.1086/321493) | 恒星結構模型。不是已看到的終局 |
+| 揮發份從何處送來 | 隕石、彗星與太陽星雲的同位素對不齊 | [Altwegg et al. 2015, Science](https://doi.org/10.1126/science.1261952) | 觀測。67P 的氘氫比高於海水，不能單選彗星。配比爭議中 |
 | 形成月球的大撞擊 | 約四十五億年前後 | [Canup 2012, Science](https://doi.org/10.1126/science.1226073) | 模型。各同位素時鐘不一致，爭議中 |
-| 最老碎屑鋯石 | 約四十四億年 | [Wilde et al. 2001, Nature](https://doi.org/10.1038/35051550) | 實驗測年。曾接觸液態水是爭議中的解讀 |
-| 生命起源路徑 | 熱液、核糖核酸或濕乾循環並存 | 沒有把全程做完的實驗。綜述入口見 [NASA 天體生物](https://science.nasa.gov/universe/search-for-life/) | 未知。入口不是定論 |
-| 大氧化窗口 | 約二十四億至二十億年前 | [Lyons, Reinhard 與 Planavsky 2014, Nature](https://doi.org/10.1038/nature13068) | 觀測加模型。節奏見 thresholds 表 |
+| 最老碎屑鋯石的年齡 | 約四十四億年 | [Wilde et al. 2001, Nature](https://doi.org/10.1038/35051550) | 實驗測年。這一列只支持顆粒年齡 |
+| 地表可以討論液態水 | 約四十三億年前的鋯石氧同位素；正文「約四十億年前後的水循環」用的是這個窗口，不是全球海洋的生日 | [Mojzsis, Harrison 與 Pidgeon 2001, Nature](https://doi.org/10.1038/35051557) | 實驗。解讀依賴顆粒未被後期改寫，爭議中 |
+| 約三十五億年前的疑似生命跡象 | 西澳約三十四億年的層狀礁體；更老的微化石曾被質疑 | [Allwood et al. 2006, Nature](https://doi.org/10.1038/nature04764)；[Brasier et al. 2002, Nature](https://doi.org/10.1038/416076a) | 形態是觀測。是否生物成因爭議中。不是第一個細胞 |
+| 從無機物到可遺傳細胞 | 沒有把全程做完的實驗 | [Martin, Baross, Kelley 與 Russell 2008, Nat Rev Microbiol](https://doi.org/10.1038/nrmicro1991) | 未知。該文只討論熱液一段。核糖核酸與濕乾循環不由這一篇裁決 |
+| 條帶狀鐵建造 | 見於多個古陸，年代不完全重疊 | [Bekker et al. 2010, Economic Geology](https://doi.org/10.2113/gsecongeo.105.3.467) | 層序是觀測。每一層等於同一種微生物是模型 |
+| 大氧化的時間窗 | 約二十四億至二十億年前 | [Lyons, Reinhard 與 Planavsky 2014, Nature](https://doi.org/10.1038/nature13068) | 觀測加模型。濃度見 thresholds，不在本列 |
+| 氧的再次抬升 | 約八億至五億年前 | 同上，Lyons 等 2014 | 模型。數字不在本表 |
+| 低緯冰川 | 新元古代 | [Hoffman et al. 2017, Science Advances](https://doi.org/10.1126/sciadv.1600983) | 低緯冰川沉積是觀測。全球凍結的程度爭議中 |
+| 森林已經可以對上樹樁 | 泥盆紀；風化把溫度拉回是另一句 | [Stein et al. 2007, Nature](https://doi.org/10.1038/nature05705) | 樹樁是化石觀測。全球碳收支是模型 |
+| 二疊紀末的類群更替 | 約二億五千二百萬年前 | [Burgess, Bowring 與 Shen 2014, PNAS](https://doi.org/10.1073/pnas.1317692111) | 測年是實驗。火山、缺氧與碳的配比爭議中 |
+| 硬殼、牙齒與骨骼變常見 | 約五億四千萬年前之後 | [Erwin et al. 2011, Science](https://doi.org/10.1126/science.1206375) | 化石是觀測。有多少是保存偏差，爭議中 |
+| 撞擊清空一批生態位 | 約六千六百萬年前 | [Renne et al. 2013, Science](https://doi.org/10.1126/science.1230492)；[Schulte et al. 2010, Science](https://doi.org/10.1126/science.1177265) | 時標是實驗。撞擊與火山的配比仍有討論 |
+| 人族化石窗口 | 約七百萬年前 | [Brunet et al. 2002, Nature](https://doi.org/10.1038/nature00879) | 化石。屬級與步態爭議中。分子鐘區間更寬。直立與石器見起源卷，本列是跨卷交接 |
 `,
 };

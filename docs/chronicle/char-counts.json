@@ -20,8 +20,8 @@
     {
       "slug": "earth",
       "name": "地球生命・深時間",
-      "actual": 10559,
-      "meta_after": 10559,
+      "actual": 11114,
+      "meta_after": 11114,
       "entries": 11
     },
     {
@@ -41,8 +41,8 @@
     {
       "slug": "tech",
       "name": "科技與發現",
-      "actual": 10336,
-      "meta_after": 10336,
+      "actual": 10166,
+      "meta_after": 10166,
       "entries": 12
     },
     {
@@ -60,7 +60,7 @@
       "entries": 14
     }
   ],
-  "total_actual": 84453,
+  "total_actual": 84838,
   "figures": [
     {
       "id": "cosmo-cmb-planck",
