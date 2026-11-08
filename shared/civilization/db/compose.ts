@@ -8,7 +8,7 @@ import { COUNTDOWN_LEAD, FUTURE_LONGFORM } from '../content/futureLongform.js';
 import { EARTH_HANDOFF, EARTH_LEDE, EARTH_SOURCE_NOTE, EARTH_SOURCES, EARTH_STAGES, EARTH_TITLE, earthProse } from '../earth.js';
 import { BAND_NOTES, FUTURE_CLADE, FUTURE_COUNTDOWNS, FUTURE_DOMAINS, FUTURE_HORIZONS, FUTURE_INSTANCES, FUTURE_OPENING, FUTURE_TIER_CARD, FUTURE_TIER_ROWS, LEVEL_LEGEND, STAGE10_BRIDGE, STAGE10_BRIDGE_EXTRA } from '../future.js';
 import { COSMOS_HANDOFF, COSMOS_LEDE, COSMOS_SCALES, COSMOS_SOURCE_NOTE, COSMOS_SOURCES, COSMOS_STAGES, COSMOS_TITLE, cosmosProse } from '../cosmos.js';
-import { GALAXY_COSMOS_LINKS, GALAXY_LEDE, GALAXY_NOTES, GALAXY_QUESTIONS, GALAXY_SOURCES, GALAXY_STAGES, GALAXY_TITLE, HANDOFF_BRIDGE, HANDOFF_DOWN_AFTER, HANDOFF_DOWN_BEFORE, HANDOFF_DOWN_MID, HANDOFF_UP_AFTER, HANDOFF_UP_BEFORE, galaxyProse } from '../galaxy.js';
+import { GALAXY_COSMOS_LINKS, GALAXY_LEDE, GALAXY_NOTES, GALAXY_QUESTIONS, GALAXY_SOURCES, GALAXY_STAGES, GALAXY_TITLE, HANDOFF_BRIDGE, galaxyProse } from '../galaxy.js';
 import { COSMOS_GAP, EARTH_GAP, GALAXY_GAP, LATE_ENTRIES, ORIGINS_GAP } from '../content/thickenGap.js';
 import { CITY_BULK, COSMOS_BULK, FUTURE_BULK, GALAXY_BULK, ORIGINS_BULK } from '../content/thickenBulk.js';
 import { COSMOS_LAST, GALAXY_LAST, ORIGINS_LAST } from '../content/thickenLast.js';
@@ -302,16 +302,6 @@ function buildBag(): Bag {
     '下列旁註只解釋詞義與尺度。[開蒙](/learn/)葉頁另備，這裡先留一句，不另做導覽樹。',
     ...GALAXY_NOTES.map((note) => `### ${note.term} {#${note.id}}\n\n${note.text}`),
   ].join('\n\n'));
-  addEntry(bag, 'galaxy', 'cosmos-link', '與宇宙長河的銜接', '銜接', 50, [
-    HANDOFF_BRIDGE,
-    ...GALAXY_COSMOS_LINKS.map((row) => `[${row.label}](${row.href})。${row.text}`),
-    '本頁是宇宙長河第四階的特寫。地球與人族不在這裡展開，見[地球生命](/civilization/earth/)與[人類起源時間線](/civilization/origins/)。',
-  ].join('\n\n'), GALAXY_SOURCES);
-  addEntry(bag, 'galaxy', 'earth-handoff', '接地球生命', '交接', 60, [
-    `${HANDOFF_UP_BEFORE}[星系與大尺度結構](/civilization/cosmos/#cosmo-4)${HANDOFF_UP_AFTER}`,
-    `${HANDOFF_DOWN_BEFORE}[地球生命](/civilization/earth/)${HANDOFF_DOWN_MID}[人類起源時間線](/civilization/origins/)${HANDOFF_DOWN_AFTER}`,
-    '重元素、實驗室時鐘和今天的軌道，只在太陽系誕生寫過一次。',
-  ].join('\n\n'), GALAXY_SOURCES);
   addEntry(bag, 'galaxy', 'ask', '今日可問', '問題', 70, [
     '三節正文寫完，還有幾件機制沒有在敘事裡展開完。它們不是一組待辦清單，而是拿著現有觀測仍可以追下去的句子。每一問都對著上面某一節的證據邊界。',
     `轉動曲線為何在盤的外圍仍不下降？${GALAXY_QUESTIONS[0]}可見物質的光已經數過，引力卻像還有一份質量。這份質量幾乎不發光，模型仍在改，問句先停在曲線本身。`,
@@ -363,10 +353,10 @@ function buildBag(): Bag {
     '# 人類起源時間線：從深時間到今日切片\n\n',
     `# 人類起源時間線：從深時間到今日切片\n\n${ORIGINS_ZOOM}\n\n`,
   );
-  const originsWithMatrix = originsBody.replace(
-    '## 三階段框架（綜述常用）',
-    `${ORIGINS_NODE_MATRIX}\n\n## 三階段框架（綜述常用）`,
-  );
+  const originsWithMatrix = originsBody
+    .replace('## 總覽里程碑', '## 總覽里程碑 {#origins-overview}')
+    .replace('## 三階段框架（綜述常用）', `${ORIGINS_NODE_MATRIX}\n\n## 三階段框架（綜述常用） {#origins-stages}`)
+    .replace('## 各里程碑溫和說明', '### 目錄 {#origins-milestones}\n\n## 各里程碑溫和說明');
   addEntry(bag, 'origins', 'body', '人類起源時間線', '約七百萬年前起', 10, `${originsWithMatrix}\n\n${ORIGINS_THICK}\n\n${ORIGINS_GAP}\n\n${ORIGINS_FILL}\n\n${ORIGINS_BULK}\n\n${ORIGINS_LAST}\n\n## 與地球生命、文明編年的連續\n\n地球生命頁寫到約七百萬年前的人族分途為止。本頁從那裡接上，寫化石、石器與基因組所能支持的約略過程，直到全新世農業的門口。文明編年的開篇只保留銜接所需的窗口，深時間的細節留在這裡。兩頁前後相接，不把同一段故事寫成兩套互相否定的年表。新測年仍可能把節點前移或後移；有爭議的地方繼續標明，不為了故事完整而刪去。`);
   addEntry(bag, 'origins', 'sources', '參考與研究入口', '來源', 20, [
     '這些入口用來核對正文裡的約數，不是另一套年表。公共時間線與博物館頁面適合先建立尺度；學術綜述與關鍵化石研究用來查看仍有爭議的節點。站內的香港科學館與太空館只說明一座城市如何向公眾講解自然史，不取代測年。表中的年份會隨新標本移動。正文已在有分歧處標明，這裡不另造更精確的數字。',
@@ -465,7 +455,7 @@ function buildBag(): Bag {
       SCALE_BEAT[`tech:${stage.n}`] ?? '',
       chrono,
       stage.prose,
-      closeMilestones(stage.milestones, stage.meaning, false),
+      stage.milestones.length ? `${stage.milestones.join('、')}。` : '',
       readingBlocks(TECH_READINGS[stage.n]),
       caseBody('/civilization/tech/', `tech-${stage.n}`),
       chronicle,
@@ -603,7 +593,11 @@ function buildBag(): Bag {
   addEntry(bag, 'galaxy', GALAXY_GAP.slug, GALAXY_GAP.title, GALAXY_GAP.time, GALAXY_GAP.sort, GALAXY_GAP.body, GALAXY_GAP.sources);
   addEntry(bag, 'galaxy', GALAXY_FILL.slug, GALAXY_FILL.title, GALAXY_FILL.time, GALAXY_FILL.sort, GALAXY_FILL.body, GALAXY_FILL.sources);
   for (const item of GALAXY_BULK) addEntry(bag, 'galaxy', item.slug, item.title, item.time, item.sort, item.body, item.sources);
-  addEntry(bag, 'galaxy', GALAXY_LAST.slug, GALAXY_LAST.title, GALAXY_LAST.time, GALAXY_LAST.sort, GALAXY_LAST.body, GALAXY_LAST.sources);
+  addEntry(bag, 'galaxy', GALAXY_LAST.slug, GALAXY_LAST.title, GALAXY_LAST.time, GALAXY_LAST.sort, [
+    GALAXY_LAST.body,
+    HANDOFF_BRIDGE,
+    ...GALAXY_COSMOS_LINKS.map((row) => `[${row.label}](${row.href})。${row.text}`),
+  ].join('\n\n'), GALAXY_SOURCES);
   addEntry(bag, 'earth', EARTH_HABITABILITY.slug, EARTH_HABITABILITY.title, EARTH_HABITABILITY.time, EARTH_HABITABILITY.sort, EARTH_HABITABILITY.body, EARTH_HABITABILITY.sources);
   addEntry(bag, 'earth', EARTH_GAP.slug, EARTH_GAP.title, EARTH_GAP.time, EARTH_GAP.sort, EARTH_GAP.body, EARTH_GAP.sources);
   for (const item of LATE_ENTRIES) addEntry(bag, item.thread, item.slug, item.title, item.time, item.sort, item.body, item.sources);

@@ -212,24 +212,6 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 ### 分子雲 {#note-molecular-cloud}
 
 寒冷緻密、以分子氫為主的氣體雲，是恆星與行星系統的產房。', 40, '詞義', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:cosmos-link', 'galaxy', 'cosmos-link', '與宇宙長河的銜接', '宇宙長河寫到星系網。本頁是網上的這一座棒旋星系。約四十六億年在宇宙卷只是一句交棒，盤與測年見本頁太陽系誕生。01大爆炸與暴脹(/civilization/cos', '宇宙長河寫到星系網。本頁是網上的這一座棒旋星系。約四十六億年在宇宙卷只是一句交棒，盤與測年見本頁太陽系誕生。
-
-[01 大爆炸與暴脹](/civilization/cosmos/#cosmo-1)。遠因背景。一句帶過：時空與能量的初始條件，本頁不再展開。
-
-[02 原初核合成](/civilization/cosmos/#cosmo-2)。輕元素原料。氫與氦是後續恆星燃料的起點。
-
-[03 宇宙透明與第一代恆星](/civilization/cosmos/#cosmo-3)。金屬起步。重元素注入介質，為行星化學鋪路。
-
-[04 星系與大尺度結構](/civilization/cosmos/#cosmo-4)。直接上級。本頁是該階的本星系特寫，宇宙長河仍寫共通骨架。
-
-[05 太陽系形成](/civilization/cosmos/#cosmo-5)。宇宙卷只留約四十六億年的交棒。盤與測年在本頁太陽系誕生。
-
-本頁是宇宙長河第四階的特寫。地球與人族不在這裡展開，見[地球生命](/civilization/earth/)與[人類起源時間線](/civilization/origins/)。', 50, '銜接', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:earth-handoff', 'galaxy', 'earth-handoff', '接地球生命', '向上：先讀或回看宇宙長河第四階星系與大尺度結構(/civilization/cosmos/cosmo-4)，以把握銀河系所在的宇宙網位置。平行：本頁特寫銀河系誕', '向上：先讀或回看宇宙長河第四階[星系與大尺度結構](/civilization/cosmos/#cosmo-4)，以把握銀河系所在的宇宙網位置。平行：本頁特寫銀河系誕生。
-
-向下：水、氧與化石見[地球生命](/civilization/earth/)。人族見[人類起源時間線](/civilization/origins/)。盤、測年與遷移不再在這裡複述。
-
-重元素、實驗室時鐘和今天的軌道，只在太陽系誕生寫過一次。', 60, '交接', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:ask', 'galaxy', 'ask', '今日可問', '三節正文寫完，還有幾件機制沒有在敘事裡展開完。它們不是一組待辦清單，而是拿著現有觀測仍可以追下去的句子。每一問都對著上面某一節的證據邊界。轉動曲線為何在盤的外圍', '三節正文寫完，還有幾件機制沒有在敘事裡展開完。它們不是一組待辦清單，而是拿著現有觀測仍可以追下去的句子。每一問都對著上面某一節的證據邊界。
 
 轉動曲線為何在盤的外圍仍不下降？為何轉動曲線暗示還有看不見的質量？可見物質的光已經數過，引力卻像還有一份質量。這份質量幾乎不發光，模型仍在改，問句先停在曲線本身。
@@ -432,6 +414,8 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 觀測。擴張之後很久，另一塊大陸的人把手印留在岩石上。這不是遷徙路線圖。
 
+頁內按任務讀：[總覽](#origins-overview)、[來源矩陣](#origins-matrix)、[三階段](#origins-stages)、[里程碑](#origins-milestones)、[為何是你](#origins-who)。
+
 人類從何處來、如何逐步分布到全球，是理解「今日文明何以如此」的遠景背景。本頁整理主流學術與公共科普機構常用的約略年表，屬於世界新聞站「人類文明」軸上的深時間（L0）觀察頁。年代均為約數：文中 **Ma** 指百萬年前，**ka** 指千年前；括注另附「約 X 萬年前」等白話對照，方便非專業讀者對照尺度。化石、石器與古代基因組證據持續更新，因此本頁刻意避免單一「起點」敘事，並在仍有分歧的節點標明「約數」或「學術爭議」。
 
 本頁不討論族群優劣、政治地理分界或領土歸屬爭議；所述基因交流僅作生物學事實的溫和說明，比例與時間仍以學界討論為準。
@@ -455,7 +439,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 近史節點（例如某次公開展覽開幕）另由編輯手填；本頁本身只提供深時間骨架。新聞主線（導讀與懶人包）維持既有產量，本頁不另開灌量網址。
 
-## 總覽里程碑
+## 總覽里程碑 {#origins-overview}
 
 | 約略年代 | 白話對照 | 里程碑 |
 |---------|----------|--------|
@@ -471,7 +455,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 | ~23–15 ka | 約 2.3–1.5 萬年前 | 美洲人類足跡／化石證據（**時間仍有學術爭議**） |
 | ~11.7 ka | 約 1.17 萬年前 | 全新世開始；農業與定居社會興起（另線，見文明 L1） |
 
-## 總覽節點如何對上來源
+## 總覽節點如何對上來源 {#origins-matrix}
 
 總覽表裡的年份是窗口，不是生日。每一列對上一個可打開的出處，並標證據停在哪一檔。
 
@@ -485,9 +469,12 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 | 約四十三萬至四萬年前 | 尼安德特人在歐亞留下材料 | [倫敦自然史博物館](https://www.nhm.ac.uk/discover/human-evolution.html) | 化石與遺址。行為解釋爭議中 |
 | 約三十萬年前 | 解剖學現代人形態在非洲可辨認 | [Hublin et al. 2017, Nature](https://doi.org/10.1038/nature22336) | 實驗測年。不是單一洞穴的一日事件 |
 | 約六萬至四萬五千年前 | 主要擴張奠定今日非洲以外人群的主幹 | [Bergström et al. 2021, Nature](https://doi.org/10.1038/s41586-021-03244-5) | 遺傳統計加考古。比例爭議中 |
+| 約四萬年前 | 尼安德特人的化石記錄在歐亞變稀 | [Higham et al. 2014, Nature](https://doi.org/10.1038/nature13621) | 實驗測年。消失原因爭議中 |
 | 約二萬三千至一萬五千年前 | 美洲到達時間的常見討論窗 | [史密森學會化石頁](https://humanorigins.si.edu/evidence/human-fossils) | 爭議中。足跡與石器的測年仍在複核 |
+| 約一萬一千七百年前 | 全新世開始 | 跨卷交接。[國際地層委員會年代表](https://stratigraphy.org/chart) | 跨卷交接。農業與城市見文明編年，不在本卷當成人族證據 |
 
-## 三階段框架（綜述常用）
+
+## 三階段框架（綜述常用） {#origins-stages}
 
 學術綜述（例如 Bergström 等於 *Nature* 2021 的現代人祖先綜述）常以三階段概括「現代人如何形成並走向全球」。此框架與上方總覽表並行，不互相取代。
 
@@ -508,6 +495,8 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 約六萬至四萬年前，主要「出非洲」擴張使現代人分布迅速擴及歐亞、澳大拉西亞等地。其後人群繼續進入更多區域。非非洲人群的基因組中，常可見約百分之二至三的尼安德特來源 DNA；部分亞洲與大洋洲人群另可見丹尼索瓦人貢獻。上述比例為群體層級的約略範圍，**個體與地區差異大，精確比例仍有學術爭議**，本頁不作族群比較或優劣引申。
 
 約四萬年前，尼安德特人在歐亞的化石記錄大致消失；消失原因涉及氣候、人口、競爭與基因融入等多種假說，尚無單一定論。約二點三萬至一萬五千年前的美洲人類足跡或化石證據，時間與路徑仍有明顯學術爭議，本頁僅作里程碑提示，不採納任一極端斷言。約一萬一千七百年前全新世開始後，農業與定居社會興起，屬文明軸 L1（農業・定居・基建）另線，本頁只作銜接點。
+
+### 目錄 {#origins-milestones}
 
 ## 各里程碑溫和說明
 
@@ -688,6 +677,8 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 人族的拉丁學名是標籤。標籤合併或拆開，不自動改變測年。撒海爾人、地猿、南方古猿、人屬，每一層都有學者主張改歸。改歸時要看的是骨盆、腳、齒和地層，不是名字好不好聽。（分級：形態是觀察；屬級位置常屬爭議中。）
 
 窗口則比較穩。雙足的討論在約七百萬至三百萬年前已經有材料。石器從約三百三十萬年的爭議標本，到約二百六十萬年較清楚的石片，再到約一百七十六萬年的手斧，是三個不同的窗口，不是一個發明日。現代人形態在非洲的窗口約三十萬年前打開，主要擴張的窗口約六萬至四萬年前。基因交流的比例是群體統計，個體不能用這個比例被排名。
+
+## 為何此刻的你 {#origins-who}
 
 為何此刻的你站在這條線上：因為直立、打石和現代人的形態先在非洲多地發生，後來的糧、文字和城市又在不止一個地方把陌生人編成可以核對的群體。你讀到這一句，用的是那條鏈還在維修的記錄。這不是某一座洞穴的榮譽，也不是基因片段的等級。
 
@@ -1117,7 +1108,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 今日標題見[今日切片](/#slice)。', 210, '總結', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-1', 'tech', 'tech-1', '石器與手工具', '主流綜述把打製石器放在人族技術史的開端。石片、石核與後來的手斧，使切割、刮削與敲擊不再只靠牙齒和指甲。製法可以觀看、模仿、再修正，於是一項工具不必在每一代從零發', '主流綜述把打製石器放在人族技術史的開端。石片、石核與後來的手斧，使切割、刮削與敲擊不再只靠牙齒和指甲。製法可以觀看、模仿、再修正，於是一項工具不必在每一代從零發現。年代跨度很長，各地證據並不整齊，本頁只取公共科普常用的約略窗口，不把某一件石器寫成唯一起點。化石與基因組的深時間，仍以人類起源時間線為準；這裡只記工具本身。
 
-技術第一次可以離開身體，並交給下一代。落到具體歷史上，是打製石器，並一併寫到手斧與可傳遞的製法。
+打製石器、手斧與可傳遞的製法。
 
 ### 打製石器成為可傳遞的製法
 
@@ -1134,7 +1125,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 石器把步驟留在看得見的動作裡。下一步是調度身體以外的熱：用火仍在營地旁邊，尚未進入後來的管網。', 10, '約 330 萬年前至約 30 萬年前', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-2', 'tech', 'tech-2', '用火與熱能', '控制用火是能源線上的早期節點。火擴大可食範圍、延長夜間活動，也讓群體可以圍繞一個熱源分工。它仍是技術，而不是後來的蒸汽或電力：能量就在營地旁邊，尚未進入工廠與城', '控制用火是能源線上的早期節點。火擴大可食範圍、延長夜間活動，也讓群體可以圍繞一個熱源分工。它仍是技術，而不是後來的蒸汽或電力：能量就在營地旁邊，尚未進入工廠與城市管網。用火如何銜接採集生活，文明編年第一階段有較完整的四線寫法；本頁只強調身體以外的熱。測年仍有學術討論，宜標「約」。
 
-人類開始調度身體以外的能量。落到具體歷史上，是控制用火，並一併寫到熟食與夜間活動。
+控制用火、熟食與夜間活動。
 
 ### 控制用火，把熱留在營地
 
@@ -1151,7 +1142,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 熱源讓群體可以圍坐。口傳把圍坐時說出的經驗交給尚未親自動手的人，知識開始不必每次重新發現。', 20, '約 100 萬年前至約 4 萬年前', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-3', 'tech', 'tech-3', '口傳與共享知識', '語言讓不在場的步驟也能被說清楚：哪裡有石材、火種如何保住、哪一種植物需要處理才可食。口傳沒有泥板，卻已經是媒介。技藝因此可以在群體裡累積，而不是只停在個別巧手身', '語言讓不在場的步驟也能被說清楚：哪裡有石材、火種如何保住、哪一種植物需要處理才可食。口傳沒有泥板，卻已經是媒介。技藝因此可以在群體裡累積，而不是只停在個別巧手身上。此階段沒有可直接核對的文字原件，證據來自語言學、考古脈絡與公共科普的綜述，寫法保持克制。它為後來的文字準備了「知識可以被傳遞」這一件事。
 
-知識不必每次重新發現，可以在世人之間流轉。落到具體歷史上，是複雜語言，並一併寫到技藝靠口傳累積。
+複雜語言、技藝靠口傳累積。
 
 ### 口傳把不在場的步驟說清楚
 
@@ -1166,7 +1157,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 口傳會走樣。文字把計數、清單與契約壓成可以翻回去的物件，校驗才有底本。', 30, '約 10 萬年前至約 1 萬年前', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-4', 'tech', 'tech-4', '文字與可核對記錄', '泥板、印章與早期文字，多半先服務計數、倉儲與清單，而不是文學。一旦記錄可以離開說話的人，配方、帳目與觀測就有了事後核對的可能。這是媒介與知識同時改寫的節點。城市', '泥板、印章與早期文字，多半先服務計數、倉儲與清單，而不是文學。一旦記錄可以離開說話的人，配方、帳目與觀測就有了事後核對的可能。這是媒介與知識同時改寫的節點。城市如何靠文字形成公共記錄，見文明編年的「城市與文字」；本頁不重寫城市行政，只寫記錄技術：它讓發現可以被保存、被核對、被重抄。不同地區出現文字的時間並不一致，年代取主流綜述的約數。
 
-知識可以離開說話的人，事後仍可核對。落到具體歷史上，是計數與清單，並一併寫到文字把口傳固定下來。
+計數與清單、文字把口傳固定下來。
 
 ### 文字把口傳固定成可核對的記錄
 
@@ -1187,7 +1178,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 望遠鏡把星空拉近，顯微鏡把細小結構露出來。儀器的重點不是某一位製作人的軼事，而是觀察可以被重複：別人用相近的工具，可以核對同一現象。印刷同時讓圖表與通信傳開。印刷術的年代早於後面的蒸汽工廠，本卷把它留到媒介一節，與報刊並置，不把它寫成儀器的下一站；這裡先寫感官被工具延長。科學方法如何成為公共規範，文明編年的科學與啟蒙階段寫得更完整。本頁只把儀器看成發現史上的工具節點，年代仍標「約」。
 
-工具開始延長感官，知識改以觀察與實驗來核對。落到具體歷史上，是望遠鏡與顯微鏡，並一併寫到可重複的觀測。
+望遠鏡與顯微鏡、可重複的觀測。
 
 ### 儀器把感官延長到可重複的觀察
 
@@ -1210,7 +1201,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 蒸汽機把燃料裡的熱轉成持續的機械功，工廠與礦場的節奏隨之改變。十九世紀後期，電力又把能量送到較遠的車間與街道。這仍是人類調度身體以外的能量，只是尺度已不是一堆營火。鐵路與電報如何同時壓縮貨物與消息，見文明編年的工業革命階段；本頁把鐵路裡的訊息部分留給媒介線，這裡集中寫能量。公共博物館對蒸汽機與早期鐵路的陳列，是可核對的入口，不作單一製作人的英雄敘事。
 
-能量規模從營地的火，變成可以驅動機器與照明的系統。落到具體歷史上，是蒸汽機進入生產，並一併寫到電力開始改寫城市與工廠。
+蒸汽機進入生產、電力開始改寫城市與工廠。
 
 ### 蒸汽與電力把熱變成可送到遠處的功
 
@@ -1229,7 +1220,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 活字與後來的機械印刷，使一頁知識不必逐字手抄。教科書、圖表與報刊因此可以有較穩定的讀者群。報刊尤其接近本站所理解的新聞：它把遠處的事件收成可在城市裡閱讀的文字，雖然仍受交通與截稿限制。印刷史在各地的路徑不同，東亞的雕版與活字傳統亦早於歐洲近代印刷，本頁只記複製成本下降這一共同後果，不排座次。編年裡的造紙與紙幣，屬信息與貨幣線，這裡不展開。
 
-同一份記錄可以到達許多互不相識的讀者。落到具體歷史上，是活字印刷降低複製成本，並一併寫到報刊成為日常消息媒介。
+活字印刷降低複製成本、報刊成為日常消息媒介。
 
 ### 複製成本下降，一份記錄可以到達許多人
 
@@ -1308,7 +1299,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 報刊仍受交通與截稿限制。電氣與電報開始讓消息在人不親至時送達。', 70, '約公元 1450–1900 年', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-8', 'tech', 'tech-8', '電氣與遠距通訊', '電報把編碼後的文字送到遠處，電話加上即時的聲音，廣播則讓同一段聲音進入許多家庭。能量線上的電力，在這裡變成媒介的載體：沒有穩定的電，遠距的聲與光就難以成為日常。', '電報把編碼後的文字送到遠處，電話加上即時的聲音，廣播則讓同一段聲音進入許多家庭。能量線上的電力，在這裡變成媒介的載體：沒有穩定的電，遠距的聲與光就難以成為日常。攝影與電影亦在這一窗口成熟，使事件可以留下可重看的影像，而不只是轉述。本頁不寫各項專利爭端，只標出媒介速度的改變。今日一則電訊能在短時間內跨城，起點是這段人不必親自把紙送到的技術。
 
-消息不必等人或紙張抵達。落到具體歷史上，是電報與電話，並一併寫到廣播把聲音送到許多家庭。
+電報與電話、廣播把聲音送到許多家庭。
 
 ### 消息不必等人或紙張走完全程
 
@@ -1323,7 +1314,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 點對點的電路之後，分組交換讓網絡可以繞過單點故障。這一節收到約二零零九年，不把後來的通用工具提前寫入。', 80, '約公元 1840–1960 年', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-9', 'tech', 'tech-9', '信息網絡', '計算機把處理步驟交給機器，分組交換網絡讓不同地點的機器互相送達數據。約一九九〇年前後公開的萬維網，則使文件可以用連結彼此指向，讀者不必先知道檔案放在哪一台機器。', '計算機把處理步驟交給機器，分組交換網絡讓不同地點的機器互相送達數據。約一九九〇年前後公開的萬維網，則使文件可以用連結彼此指向，讀者不必先知道檔案放在哪一台機器。這是媒介與知識的又一次重疊：發現本身仍要靠觀察與實驗，但傳播、檢索與協作的成本驟降。文明編年的信息革命階段同時寫到支付與通用軟件；本頁只沿媒介與知識往下說，不把網絡寫成貨幣史。歐洲核子研究組織保存的萬維網簡史，是可公眾核對的入口。
 
-知識與服務可以近乎即時地被檢索、對照與轉發。落到具體歷史上，是計算機與分組交換，並一併寫到萬維網使文件可被公開連結。
+計算機與分組交換、萬維網使文件可被公開連結。
 
 ### 文件可以用連結公開對照
 
@@ -1340,7 +1331,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 網絡成為日常之後，新聞標題本身就是這一條發現弧的薄層：只列題與出處，不把模型輸出當成已經核對的事實。', 90, '約公元 1960 年代至今', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('tech:tech-10', 'tech', 'tech-10', '今日新聞切片', '一則關於新儀器、新能源、新媒介或新知識工具的新聞，讀的時候可以先問它落在哪一條線。多數電訊只落在一至兩條：一款通訊工具主要是媒介，一座電廠主要是能源，一件實驗儀', '一則關於新儀器、新能源、新媒介或新知識工具的新聞，讀的時候可以先問它落在哪一條線。多數電訊只落在一至兩條：一款通訊工具主要是媒介，一座電廠主要是能源，一件實驗儀器主要是工具與知識。沒有溫和史對照的標題，不必強加年代。本頁的作用，是讓讀者在進入今日導讀之前，看見技術並非從本週開始。完整的十階段編年仍在文明編年；城市如何把這些技術收成公共生活，見城市頁。
 
-今天的科技報導，是這條發現弧上的一刀，而不是另一套文明。落到具體歷史上，是電訊落在軸的末端，並一併寫到工具新聞仍要回到來源。
+電訊落在軸的末端、工具新聞仍要回到來源。
 
 ### 今日的科技報導仍落在這條發現弧上
 
@@ -1833,7 +1824,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 還有幾件應標未知。宇宙中微子背景理論上比微波背景更早退耦，今天的溫度應更低，約一點九五開爾文。它尚未被以和微波背景同等的方式直接成圖。原初引力波的能量尺度未知。重子不對稱的產生機制未知。暗能量若只是宇宙學常數，它的數值為什麼這麼小，沒有實驗室答案。這些未知不是文體上的謙虛，是測量還沒有做到的項目。
 
-停筆的規則因此可以寫死。宇宙卷負責到：輕核的比例、最後散射面、再電離的時間窗、以及星系網的大圖案。銀河的棒、太陽的出生雲、地球的海洋，都不再在這裡加長。讀者若在舊稿裡看過疊層石、寒武紀或哺乳動物的長段，那些段落已經挪走。留下的時間窗口只為了年表不斷裂。
+停筆只寫在「宇宙卷的停筆線」一節。這裡不另抄一份規則。
 
 我是誰，在參數這一層只多一句責任：我使用的年齡「約一百三十八億年」是一組假設下的派生數。假設改了，派生數會改。不把派生數背成與測量方法無關的自然常數。', 48, '從最後散射面到星系', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('cosmos:how-far', 'cosmos', 'how-far', '紅移、尺子與看不見的部分', '宇宙卷的數字若沒有方法，就會變成一串可以背誦的年份。這一節只寫方法，不把地球生命請回來。紅移是光譜裡譜線往長波移動的比例。類星體和星系的紅移，是把地上實驗室裡的', '宇宙卷的數字若沒有方法，就會變成一串可以背誦的年份。這一節只寫方法，不把地球生命請回來。
@@ -1905,10 +1896,14 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 我是誰，在這份單一樣本裡沒有特權位置。各向同性加上我們測到的運動，只說明我們不是靜止在一個特殊中心。它不說明每一個星系都一樣，更不說明生命是宇宙的目的。目的不在數據裡。數據裡有的是譜、峰、上限，以及還沒拍到的中微子背景。
 
-交接時再核對一次尺度，避免讀者把光年當成可以相加的分數。微波背景的最後散射面在紅移約一千。星系網的絲以億光年計。本銀河的恆星盤約十萬光年。這三個數描述的是不同層，不能加總，也不能排成進化的等級。等級是後面的文明史才要小心避開的錯誤，在這裡先擋住。下一問只許是：這一座星系如何把氣體收成盤，並在盤裡留下太陽。太陽系的原行星盤、隕石時鐘和遷移不在本卷加長，讀者應轉到銀河卷末的太陽系誕生。地球的水、氧與化石只留時間窗口，詳敘已經移走，避免宇宙史在中途改寫成生命史。本卷就此停筆。讀者若要核對，先看分級，再看年份，最後才決定這一句能不能離開本卷。太陽系形成那一節現在只剩約四十六億年，以及一條通往銀河卷的路。盤的環、縫、鈣鋁包裹體和巨行星是否遷移，都不在這一層回答。若在宇宙卷讀到那些細節，就是停筆線沒有被遵守。正確的下一問仍是：這座銀河如何把氣體收成盤，並在盤裡留下太陽。層次不要在交棒處倒退：億光年的網、十萬光年的盤、然後才是一顆恆星。中間不插入海洋和化石。', 17, '方法的邊界', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:solar-bridge', 'galaxy', 'solar-bridge', '太陽系誕生', '再縮到一張別人的盤觀測。這是銀河卷的層次門。再縮到一張年輕星的原行星盤。它不是太陽系的出生照。過了這扇門，地球的水與氧才開始算數。上卷把宇宙寫到星系網。本節從那', '### 再縮到一張別人的盤
+交接時再核對一次尺度，避免讀者把光年當成可以相加的分數。微波背景的最後散射面在紅移約一千。星系網的絲以億光年計。本銀河的恆星盤約十萬光年。這三個數描述的是不同層，不能加總，也不能排成進化的等級。等級是後面的文明史才要小心避開的錯誤，在這裡先擋住。下一問只許是：這一座星系如何把氣體收成盤，並在盤裡留下太陽。停筆的細則只在「宇宙卷的停筆線」。這裡只留尺子：最後散射面、星系網、然後才是盤。
 
-觀測。這是銀河卷的層次門。再縮到一張年輕星的原行星盤。它不是太陽系的出生照。過了這扇門，地球的水與氧才開始算數。
+核對時只打開那一節，不在本節再列一遍。主詞若是光子、輕核或星系網，句子留在本卷。主詞若是細胞、氧或化石，句子改去地球卷。主詞若是原行星盤或隕石時鐘，句子改去銀河卷的太陽系誕生。差別在主詞，不在句子長短。例如「再電離約在紅移七附近」可以留，因為它說的是自由電子。例如「某塊疊層石證明光合作用」必須離開，因為它說的是細胞。兩句都短，去留卻不同。
+
+聲視界的角尺度把當時的等離子體尺寸投影到今天的天球。峰的位置同時受幾何和聲速影響，所以不能單靠一個峰讀出曲率。普朗克的溫度圖和偏振圖不是同一張照片。溫度圖的信噪比高，偏振圖用來分開再電離和原初信號。把兩張圖的峰高直接相減，會把儀器噪聲當成物理。正確的做法是在同一組參數裡同時擬合，並把殘差留在公開的數據鏈上。這是擬合的順序，不是另一份停筆清單。', 17, '方法的邊界', NULL, NULL);
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:solar-bridge', 'galaxy', 'solar-bridge', '太陽系誕生', '再縮到一張別人的盤觀測。這是銀河卷的層次門。再縮到一張年輕星的原行星盤。這張圖對上的主張是：環和縫已被看見；縫是否等於行星仍屬爭議。它不是太陽系的出生照。過了這', '### 再縮到一張別人的盤
+
+觀測。這是銀河卷的層次門。再縮到一張年輕星的原行星盤。這張圖對上的主張是：環和縫已被看見；縫是否等於行星仍屬爭議。它不是太陽系的出生照。過了這扇門，地球的水與氧才開始算數。
 
 上卷把宇宙寫到星系網。本節從那張網的一個節點往下，寫到太陽這顆恆星和它的行星為止。地球表面的海洋、氧氣和化石不在這裡展開。它們要等軌道和原料都已經在場。
 
@@ -1950,15 +1945,20 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 ### 主張怎麼對上來源
 
-下面只列本卷會被拿去複述的數字。類型寫的是證據停在哪一檔，不是另一套故事。
+每一列對上正文裡會被複述的一個數字。直接來源是論文或機構頁，不是「見總入口」四字。
 
 | 主張 | 約數 | 直接來源 | 證據類型 |
 | --- | --- | --- | --- |
-| 最老太陽系固體 | 約四十五億六千七百萬年 | [Connelly et al. 2012, Science](https://doi.org/10.1126/science.1226919) | 實驗測年。量的是鈣鋁包裹體，不是海洋 |
-| 太陽系公共約數 | 約四十六億年 | [NASA 太陽系事實](https://science.nasa.gov/solar-system/solar-system-facts/) | 科普約數，比實驗室時鐘粗 |
-| 太陽到銀心 | 約二萬六千光年 | [ESA Gaia](https://www.esa.int/Science_Exploration/Space_Science/Gaia)；GRAVITY 對銀心距的測定常被引用在約八千秒差距 | 觀測加勢模型。樣本一改，千光年會動 |
-| 太陽附近圓速度 | 約每秒二百三十公里 | 同上，Gaia 與轉動曲線擬合 | 模型推論。不同測定可差每秒十公里以上 |
-| 含暈的總質量 | 約一萬億太陽質量量級 | [Bland-Hawthorn 與 Gerhard 2016 綜述的公共版本方向，見 NASA 星系頁](https://science.nasa.gov/universe/galaxies/) | 模型推論。作者之間可差到約兩倍 |', 35, '約四十六億年前', NULL, NULL);
+| 恆星盤直徑 | 約十萬光年 | [Bland-Hawthorn 與 Gerhard 2016, ARA&A](https://doi.org/10.1146/annurev-astro-081915-023441) | 觀測加模型。薄盤與暈的邊界定義不同，數字會動 |
+| 太陽到銀心 | 約八千二百秒差距，約二萬七千光年；正文「約二萬六千光年」是同量級約數 | [GRAVITY Collaboration 2019, A&A](https://doi.org/10.1051/0004-6361/201935656) | 觀測。統計誤差很小，系統差仍在 |
+| 太陽附近圓速度 | 約每秒二百三十公里 | [Eilers et al. 2019, ApJ](https://doi.org/10.3847/1538-4357/aaf648) | 模型推論。曲線擬合，測定之間可差每秒十公里以上 |
+| 銀心緻密天體質量 | 約四百萬太陽質量 | 同上，GRAVITY 2019 | 觀測加相對論模型。不是射電照片本身的讀數 |
+| 繞銀心一圈 | 約二億多年 | 由上列距離與速度相除 | 模型推論。不是獨立測到的週期 |
+| 含暈總質量 | 約一萬億太陽質量量級 | [Bland-Hawthorn 與 Gerhard 2016, ARA&A](https://doi.org/10.1146/annurev-astro-081915-023441) | 模型推論。作者之間可差到約兩倍 |
+| 最老太陽系固體 | 約四十五億六千七百萬年 | [Connelly et al. 2012, Science](https://doi.org/10.1126/science.1226919) | 實驗測年。鈣鋁包裹體，不是海洋 |
+| 太陽系公共約數 | 約四十六億年 | [NASA 太陽系事實](https://science.nasa.gov/solar-system/solar-system-facts/) | 科普約數 |
+| HL Tau 的環與暗縫 | 毫米波看見環和縫 | [ESO eso1436](https://www.eso.org/public/news/eso1436/) | 觀測。縫等於行星仍爭議中。不是太陽系的盤 |
+| 巨行星遷移 | 曾向內再向外，或晚期不穩定 | [Walsh et al. 2011, Nature](https://doi.org/10.1038/nature10201)；[Tsiganis et al. 2005, Nature](https://doi.org/10.1038/nature03539) | 模型推論，整體爭議中 |', 35, '約四十六億年前', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:disk-chemistry', 'galaxy', 'disk-chemistry', '銀盤、併合與出生雲', '太陽系誕生之前，銀河已經不是一塊均勻的氣體。盤有厚有薄。薄盤年輕、轉得較齊、金屬較高；厚盤較老、速度分散較大、金屬較低。兩層不是兩次無關的創造，更像同一盤在加熱', '太陽系誕生之前，銀河已經不是一塊均勻的氣體。盤有厚有薄。薄盤年輕、轉得較齊、金屬較高；厚盤較老、速度分散較大、金屬較低。兩層不是兩次無關的創造，更像同一盤在加熱、徑向遷移和併合裡留下的運動學分群。（分級：分群是蓋亞與光譜巡天的觀測；「厚盤形成於某一次加熱」仍是模型。見 [ESA Gaia](https://www.esa.int/Science_Exploration/Space_Science/Gaia)。）
 
 銀心有一個約四百萬太陽質量的緻密天體。證據是近心恆星的軌道，尤其是短週期恆星的橢圓運動，多年紅外觀測把質量定在四百萬倍太陽質量附近。（分級：軌道是觀測；把它稱為超大質量黑洞是與廣義相對論一致的推論。事件視界尺度的射電成像來自銀心方向的另一項觀測，分辨率和恒星軌道是兩類證據，不宜混成一張圖。）
@@ -2005,10 +2005,34 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 星子的大小也沒有定論。一種圖畫是公里級星子互相撞，另一種是厘米到米的卵石在氣流裡漂移、被更大的核心吸積。隕石的球粒和同位素可以限制加熱和搬運，不足以獨裁某一種圖畫。（分級：爭議中。）
 
 這一節把鐘交給地球之前，只再確認三件已經成立的事：重元素來自更早的恆星；最老的固體有實驗室年齡；盤的幾何在別的年輕星上被看見過。沒有成立的是海洋、氧和任何細胞。', 34, '誕生前夜', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:handoff-earth', 'galaxy', 'handoff-earth', '交到地球的三件已成立', '要交給地球的三件事，已經寫在太陽系誕生(solar-bridge)末段，包括那張主張對來源的表。這一節只留路標，不再把重元素、測年和軌道重講一遍。讀的時候可以這', '要交給地球的三件事，已經寫在[太陽系誕生](#solar-bridge)末段，包括那張主張對來源的表。這一節只留路標，不再把重元素、測年和軌道重講一遍。
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('galaxy:cosmos-link', 'galaxy', 'cosmos-link', '頁尾索引', '這一節是頁尾唯一的導航，不再另開三個路標。盤、測年與遷移只在太陽系誕生(solar-bridge)，表也在那一節。向上星系與大尺度結構(/civilizatio', '這一節是頁尾唯一的導航，不再另開三個路標。盤、測年與遷移只在[太陽系誕生](#solar-bridge)，表也在那一節。
 
-讀的時候可以這樣分：定義、形成和結構回答「我們在銀河的哪一層」；太陽系誕生回答「這一層如何縮到一顆恆星和一批行星」；往上的銜接只指向星系網，往下的銜接只指向地球生命。測年數字若出現在路標段，就是重複，應當刪。水、氧與化石從下一卷的門檻寫起。主張對來源的表也只放在太陽系誕生，路標段不另造第二份數字。這樣讀，銀河卷的遠近是：網裡的一個節點，盤內的一側，銀心的一小塊，然後一張別人的盤。地球從門的另一邊開始。數字只在橋上核對一次就夠了。讀者不必在三個交接裡各找一遍，到此為止。', 37, '約四十六億年前', NULL, NULL);
-INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('earth:habitability', 'earth', 'habitability', '宜居是一串門檻', '銀河卷把太陽系停在軌道和原料。本卷從那裡接著問：一顆岩石行星要讓表面長期有液態水、後來有游離氧、再後來有可以化石化的身體，中間要跨過哪些門檻。每一道門檻都有地區', '銀河卷把太陽系停在軌道和原料。本卷從那裡接著問：一顆岩石行星要讓表面長期有液態水、後來有游離氧、再後來有可以化石化的身體，中間要跨過哪些門檻。每一道門檻都有地區性的岩石記錄，沒有一道是全球同一天發生的。年代表的名稱以 [國際地層委員會](https://stratigraphy.org/chart) 的圖表為準，年份仍是約數。
+### 向上
+
+[星系與大尺度結構](/civilization/cosmos/#cosmo-4)。本頁是宇宙長河第四階的特寫。
+
+### 向下 {#earth-handoff}
+
+水與氧見[地球生命](/civilization/earth/)。人族見[人類起源時間線](/civilization/origins/)。
+
+### 路標 {#handoff-earth}
+
+數字只在橋上核對一次。
+
+從頁首往下：定義回答星系是什麼，形成回答氣體如何沉成盤，結構回答我們在盤的哪一側，太陽系誕生回答這一側如何縮成一顆恆星。本索引只負責跳轉。讀的順序是億光年的網、約十萬光年的盤、約二萬六千光年的銀心距離，然後約四十六億年的恆星。四個數分屬四層，索引不把它們加成一個故事。向上回到星系網，向下把水和氧交給地球卷，把人族交給起源卷。中間不再插入另一段太陽系史。跳轉不重寫數字，表留在橋上。
+
+宇宙長河寫到星系網。本頁是網上的這一座棒旋星系。約四十六億年在宇宙卷只是一句交棒，盤與測年見本頁太陽系誕生。
+
+[01 大爆炸與暴脹](/civilization/cosmos/#cosmo-1)。遠因背景。一句帶過：時空與能量的初始條件，本頁不再展開。
+
+[02 原初核合成](/civilization/cosmos/#cosmo-2)。輕元素原料。氫與氦是後續恆星燃料的起點。
+
+[03 宇宙透明與第一代恆星](/civilization/cosmos/#cosmo-3)。金屬起步。重元素注入介質，為行星化學鋪路。
+
+[04 星系與大尺度結構](/civilization/cosmos/#cosmo-4)。直接上級。本頁是該階的本星系特寫，宇宙長河仍寫共通骨架。
+
+[05 太陽系形成](/civilization/cosmos/#cosmo-5)。宇宙卷只留約四十六億年的交棒。盤與測年在本頁太陽系誕生。', 80, '導航', NULL, NULL);
+INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('earth:habitability', 'earth', 'habitability', '宜居是一串門檻', '銀河卷把太陽系停在軌道和原料。本卷從那裡接著問：一顆岩石行星要讓表面長期有液態水、後來有游離氧、再後來有可以化石化的身體，中間要跨過哪些門檻。每一道門檻都有地區', '銀河卷把太陽系停在軌道和原料。本卷從那裡接著問：一顆岩石行星要讓表面長期有液態水、後來有游離氧、再後來有可以化石化的身體，中間要跨過哪些門檻。每一道門檻都有地區性的岩石記錄，沒有一道是全球同一天發生的。年代表的名稱以 [國際地層委員會](https://stratigraphy.org/chart) 的圖表為準，年份仍是約數。本節主張見文末矩陣。氧的四個數量級不在這張表裡重複，見 [門檻的數量級](#thresholds)。
 
 我們現在從軌道縮到這一顆行星。藍色只說明今天有海和雲。
 
@@ -2070,7 +2094,20 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 人族與黑猩猩譜系分途的分子鐘和化石，主流放在約七百萬年前的非洲。屬種名稱會隨新標本移動。（分級：模型與化石並用，仍有區間。）直立行走、石器和擴張是下一卷的證據類型。地球卷在這個交接點停住。
 
-我是誰，到本卷結束可以說的是環境句：我呼吸的氧、我喝到的淡水循環、我吃到的陸地生產，都依賴前面那些並非同時成立的門檻。其中氧的上升用了十億年量級的化學帳，不是行星形成那天的附贈。未知的仍然包括第一個可遺傳細胞的具體路徑。', 5, '約四十六億年前至人族之前', NULL, NULL);
+我是誰，到本卷結束可以說的是環境句：我呼吸的氧、我喝到的淡水循環、我吃到的陸地生產，都依賴前面那些並非同時成立的門檻。其中氧的上升用了十億年量級的化學帳，不是行星形成那天的附贈。未知的仍然包括第一個可遺傳細胞的具體路徑。
+
+### 宜居節的主張怎麼對上來源 {#habitability-matrix}
+
+氧量級四列只在 [門檻的數量級](#thresholds)。下表是這一節其餘會被複述的主張。
+
+| 主張 | 約數 | 直接來源 | 證據類型 |
+| --- | --- | --- | --- |
+| 今日軌道可討論液態水 | 約一天文單位，須有大氣 | [NASA 宜居帶說明](https://science.nasa.gov/universe/search-for-life/habitable-zone/) | 模型。不是形成時的軌道證明 |
+| 太陽主序壽命 | 約百億年量級 | [NASA 太陽事實](https://science.nasa.gov/sun/facts/) | 恒星結構模型。不是已看到的終局 |
+| 形成月球的大撞擊 | 約四十五億年前後 | [Canup 2012, Science](https://doi.org/10.1126/science.1226073) | 模型。各同位素時鐘不一致，爭議中 |
+| 最老碎屑鋯石 | 約四十四億年 | [Wilde et al. 2001, Nature](https://doi.org/10.1038/35051550) | 實驗測年。曾接觸液態水是爭議中的解讀 |
+| 生命起源路徑 | 熱液、核糖核酸或濕乾循環並存 | 沒有把全程做完的實驗。綜述入口見 [NASA 天體生物](https://science.nasa.gov/universe/search-for-life/) | 未知。入口不是定論 |
+| 大氧化窗口 | 約二十四億至二十億年前 | [Lyons, Reinhard 與 Planavsky 2014, Nature](https://doi.org/10.1038/nature13068) | 觀測加模型。節奏見 thresholds 表 |', 5, '約四十六億年前至人族之前', NULL, NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('earth:thresholds', 'earth', 'thresholds', '門檻的數量級', '宜居門檻若只有故事，讀者無法判斷哪一步是測量、哪一步是想像。這裡補數量級，仍用約數。今天大氣的氧約占五分之一。太古宙的游離氧低到不能用這個比例來想，常被寫成低於', '宜居門檻若只有故事，讀者無法判斷哪一步是測量、哪一步是想像。這裡補數量級，仍用約數。
 
 今天大氣的氧約占五分之一。太古宙的游離氧低到不能用這個比例來想，常被寫成低於現在水平的萬分之一以下，具體上限隨指標而變。（分級：模型把代理指標換成濃度。代理本身是岩石記錄。）大氧化之後的元古宙，氧可能長期停在現在水平的百分之一量級或更低，直到新元古代晚期才再抬一截。中間不是一根單調上升的直線。回落被討論過，岩芯之間不統一。（分級：爭議中。）
@@ -2293,16 +2330,6 @@ INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', '
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'structure', 'ESA · Gaia', 'https://www.esa.int/Science_Exploration/Space_Science/Gaia', '銀河系恆星測量與結構製圖的任務介紹');
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'structure', '歐洲南方天文台 · 公眾頁', 'https://www.eso.org/public/', '銀河系中心與星際介質的公眾新聞與圖像說明');
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'structure', '哈佛—史密松天體物理中心', 'https://www.cfa.harvard.edu/', '旋渦星系與暗物質的公眾教育入口');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cosmos-link', '中國科學院國家天文台 · 科學傳播資源', 'https://www.nao.cas.cn/ncb/kx/', '銀河系、巡天與銀心的公眾說明入口');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cosmos-link', 'NASA Science · Galaxies', 'https://science.nasa.gov/universe/galaxies/', '星系與銀河系公眾教育頁');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cosmos-link', 'ESA · Gaia', 'https://www.esa.int/Science_Exploration/Space_Science/Gaia', '銀河系恆星測量與結構製圖的任務介紹');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cosmos-link', '歐洲南方天文台 · 公眾頁', 'https://www.eso.org/public/', '銀河系中心與星際介質的公眾新聞與圖像說明');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cosmos-link', '哈佛—史密松天體物理中心', 'https://www.cfa.harvard.edu/', '旋渦星系與暗物質的公眾教育入口');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'earth-handoff', '中國科學院國家天文台 · 科學傳播資源', 'https://www.nao.cas.cn/ncb/kx/', '銀河系、巡天與銀心的公眾說明入口');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'earth-handoff', 'NASA Science · Galaxies', 'https://science.nasa.gov/universe/galaxies/', '星系與銀河系公眾教育頁');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'earth-handoff', 'ESA · Gaia', 'https://www.esa.int/Science_Exploration/Space_Science/Gaia', '銀河系恆星測量與結構製圖的任務介紹');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'earth-handoff', '歐洲南方天文台 · 公眾頁', 'https://www.eso.org/public/', '銀河系中心與星際介質的公眾新聞與圖像說明');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'earth-handoff', '哈佛—史密松天體物理中心', 'https://www.cfa.harvard.edu/', '旋渦星系與暗物質的公眾教育入口');
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('earth', 'earth-1', 'International Commission on Stratigraphy · Chart', 'https://stratigraphy.org/chart', '國際年代地層表，紀與世的約略界線');
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('earth', 'earth-1', 'UCMP · The Jurassic Period', 'https://ucmp.berkeley.edu/mesozoic/jurassic/jurassic.php', '侏羅紀氣候、恐龍、海洋爬行類與植物的公共綜述');
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('earth', 'earth-1', 'UCMP · The Triassic Period', 'https://ucmp.berkeley.edu/mesozoic/triassic/triassic.php', '三疊紀盤古大陸、主龍類與災後復原');
@@ -2489,7 +2516,11 @@ INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', '
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'siblings', 'NASA · Solar system facts', 'https://science.nasa.gov/solar-system/solar-system-facts/', '隕石與太陽系年齡的公共入口');
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'orbits', 'ESA · Gaia', 'https://www.esa.int/Science_Exploration/Space_Science/Gaia', '自行與視差');
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cloud-clock', 'ESO · HL Tauri', 'https://www.eso.org/public/news/eso1436/', '年輕盤的觀測實例');
-INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'handoff-earth', 'NASA · Solar system facts', 'https://science.nasa.gov/solar-system/solar-system-facts/', '太陽系年齡的公共約數');
+INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cosmos-link', '中國科學院國家天文台 · 科學傳播資源', 'https://www.nao.cas.cn/ncb/kx/', '銀河系、巡天與銀心的公眾說明入口');
+INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cosmos-link', 'NASA Science · Galaxies', 'https://science.nasa.gov/universe/galaxies/', '星系與銀河系公眾教育頁');
+INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cosmos-link', 'ESA · Gaia', 'https://www.esa.int/Science_Exploration/Space_Science/Gaia', '銀河系恆星測量與結構製圖的任務介紹');
+INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cosmos-link', '歐洲南方天文台 · 公眾頁', 'https://www.eso.org/public/', '銀河系中心與星際介質的公眾新聞與圖像說明');
+INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('galaxy', 'cosmos-link', '哈佛—史密松天體物理中心', 'https://www.cfa.harvard.edu/', '旋渦星系與暗物質的公眾教育入口');
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('earth', 'habitability', 'International Commission on Stratigraphy', 'https://stratigraphy.org/chart', '地層年代表');
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('earth', 'habitability', 'NASA Earth', 'https://science.nasa.gov/earth/', '地球系統的公共入口');
 INSERT INTO sources (thread_id, entry_slug, name, url, note) VALUES ('earth', 'habitability', 'British Geological Survey · geological time', 'https://www.bgs.ac.uk/discovering-geology/fossils-and-geological-time/geological-time/', '化石與地質時間');
@@ -2508,24 +2539,24 @@ INSERT INTO meta (key, value) VALUES ('version', '2026-11-07-text-first-thick');
 INSERT INTO meta (key, value) VALUES ('generated_at', '2026-11-07');
 INSERT INTO meta (key, value) VALUES ('note', '文本優先。架構暫刪。等內容夠厚再談重搭。');
 INSERT INTO meta (key, value) VALUES ('before_cosmos', '2534');
-INSERT INTO meta (key, value) VALUES ('after_cosmos', '10021');
+INSERT INTO meta (key, value) VALUES ('after_cosmos', '10026');
 INSERT INTO meta (key, value) VALUES ('before_galaxy', '4382');
-INSERT INTO meta (key, value) VALUES ('after_galaxy', '10004');
+INSERT INTO meta (key, value) VALUES ('after_galaxy', '10006');
 INSERT INTO meta (key, value) VALUES ('before_earth', '6434');
-INSERT INTO meta (key, value) VALUES ('after_earth', '10278');
+INSERT INTO meta (key, value) VALUES ('after_earth', '10559');
 INSERT INTO meta (key, value) VALUES ('before_origins', '3091');
-INSERT INTO meta (key, value) VALUES ('after_origins', '10389');
+INSERT INTO meta (key, value) VALUES ('after_origins', '10502');
 INSERT INTO meta (key, value) VALUES ('before_chronicle', '6216');
 INSERT INTO meta (key, value) VALUES ('after_chronicle', '12526');
 INSERT INTO meta (key, value) VALUES ('before_tech', '6774');
-INSERT INTO meta (key, value) VALUES ('after_tech', '10648');
+INSERT INTO meta (key, value) VALUES ('after_tech', '10336');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
 INSERT INTO meta (key, value) VALUES ('before_future', '3166');
 INSERT INTO meta (key, value) VALUES ('after_future', '10324');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
-INSERT INTO meta (key, value) VALUES ('entries', '103');
-INSERT INTO meta (key, value) VALUES ('sources', '292');
+INSERT INTO meta (key, value) VALUES ('entries', '101');
+INSERT INTO meta (key, value) VALUES ('sources', '286');
 INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('cosmo-cmb-planck', 'real_photo', 'cosmos', 'cmb-map', '縮到最後散射面', 1, '/static/civilization/real/01-cmb.jpg', 1920, 960, '普朗克衛星測得的宇宙微波背景溫度起伏成圖。這是觀測數據的全天投影，不是望遠鏡拍到的可見光風景，也不是生成圖像。', 'ESA and the Planck Collaboration', 'Cosmic Microwave Background', 'CC BY 4.0', 'https://commons.wikimedia.org/wiki/File:Cosmic_Microwave_Background_(CMB).jpeg', '2026-11-07', 'ESA and the Planck Collaboration', '普朗克宇宙微波背景全天溫度圖，橢圓投影上有細小的冷熱起伏', 1);
 INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('cosmo-webb-deep-field', 'real_photo', 'cosmos', 'web-of-galaxies', '拉遠到星系網', 1, '/static/civilization/real/02-webb-deep-field.jpg', 1920, 1959, '韋伯太空望遠鏡近紅外深場，星系團 SMACS 0723。前景星系團會以引力彎曲更遠處的光。這是真實觀測影像。', 'NASA, ESA, CSA, STScI', 'Webb''s First Deep Field', 'Public domain', 'https://commons.wikimedia.org/wiki/File:Webb%27s_First_Deep_Field.jpg', '2026-11-07', 'NASA, ESA, CSA, and STScI', '深空中密集的星系，許多呈現被引力拉彎的弧形', 1);
 INSERT INTO figures (id, kind, volume, near_entry, after_heading, embed, src, width, height, caption_zh, source_org, title, license, source_url, retrieved, credit, alt_zh, not_ai) VALUES ('cosmo-jades-z14', 'real_photo', 'cosmos', 'first-light', '縮到一顆高紅移星系', 1, '/static/civilization/real/03-jades-z14.jpg', 1920, 1876, '韋伯近紅外相機在 JADES 計畫中標出的星系 JADES-GS-z14-0。紅移來自光譜，不是單靠這張彩圖讀出的年齡。', 'NASA, ESA, CSA, STScI', 'JADES-GS-z14-0 NIRCam', 'Public domain', 'https://commons.wikimedia.org/wiki/File:JADES-GS-z14-0_NASA.png', '2026-11-07', 'NASA, ESA, CSA, STScI, Brant Robertson, Ben Johnson, Sandro Tacchella, Phill Cargile', '近紅外深空影像中被標出的高紅移星系候選', 1);

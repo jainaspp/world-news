@@ -6,29 +6,29 @@
     {
       "slug": "cosmos",
       "name": "宇宙長河・深時間",
-      "actual": 10021,
-      "meta_after": 10021,
+      "actual": 10026,
+      "meta_after": 10026,
       "entries": 22
     },
     {
       "slug": "galaxy",
       "name": "銀河系誕生",
-      "actual": 10004,
-      "meta_after": 10004,
-      "entries": 13
+      "actual": 10006,
+      "meta_after": 10006,
+      "entries": 11
     },
     {
       "slug": "earth",
       "name": "地球生命・深時間",
-      "actual": 10278,
-      "meta_after": 10278,
+      "actual": 10559,
+      "meta_after": 10559,
       "entries": 11
     },
     {
       "slug": "origins",
       "name": "人類起源時間線",
-      "actual": 10389,
-      "meta_after": 10389,
+      "actual": 10502,
+      "meta_after": 10502,
       "entries": 2
     },
     {
@@ -41,8 +41,8 @@
     {
       "slug": "tech",
       "name": "科技與發現",
-      "actual": 10648,
-      "meta_after": 10648,
+      "actual": 10336,
+      "meta_after": 10336,
       "entries": 12
     },
     {
@@ -60,7 +60,7 @@
       "entries": 14
     }
   ],
-  "total_actual": 84364,
+  "total_actual": 84453,
   "figures": [
     {
       "id": "cosmo-cmb-planck",

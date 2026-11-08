@@ -1,6 +1,6 @@
 const SI = 'https://humanorigins.si.edu/evidence/human-fossils';
 
-export const ORIGINS_NODE_MATRIX = `## 總覽節點如何對上來源
+export const ORIGINS_NODE_MATRIX = `## 總覽節點如何對上來源 {#origins-matrix}
 
 總覽表裡的年份是窗口，不是生日。每一列對上一個可打開的出處，並標證據停在哪一檔。
 
@@ -14,7 +14,11 @@ export const ORIGINS_NODE_MATRIX = `## 總覽節點如何對上來源
 | 約四十三萬至四萬年前 | 尼安德特人在歐亞留下材料 | [倫敦自然史博物館](https://www.nhm.ac.uk/discover/human-evolution.html) | 化石與遺址。行為解釋爭議中 |
 | 約三十萬年前 | 解剖學現代人形態在非洲可辨認 | [Hublin et al. 2017, Nature](https://doi.org/10.1038/nature22336) | 實驗測年。不是單一洞穴的一日事件 |
 | 約六萬至四萬五千年前 | 主要擴張奠定今日非洲以外人群的主幹 | [Bergström et al. 2021, Nature](https://doi.org/10.1038/s41586-021-03244-5) | 遺傳統計加考古。比例爭議中 |
-| 約二萬三千至一萬五千年前 | 美洲到達時間的常見討論窗 | [史密森學會化石頁](${SI}) | 爭議中。足跡與石器的測年仍在複核 |`;
+| 約四萬年前 | 尼安德特人的化石記錄在歐亞變稀 | [Higham et al. 2014, Nature](https://doi.org/10.1038/nature13621) | 實驗測年。消失原因爭議中 |
+| 約二萬三千至一萬五千年前 | 美洲到達時間的常見討論窗 | [史密森學會化石頁](${SI}) | 爭議中。足跡與石器的測年仍在複核 |
+| 約一萬一千七百年前 | 全新世開始 | 跨卷交接。[國際地層委員會年代表](https://stratigraphy.org/chart) | 跨卷交接。農業與城市見文明編年，不在本卷當成人族證據 |
+`;
+
 const SI_TOOLS = 'https://humanorigins.si.edu/evidence/behavior/stone-tools';
 const NHM = 'https://www.nhm.ac.uk/discover/human-evolution.html';
 
@@ -32,7 +36,9 @@ export const ORIGINS_ZOOM = `### 縮到一具頭骨
 
 ### 再拉遠到另一塊大陸的岩壁
 
-觀測。擴張之後很久，另一塊大陸的人把手印留在岩石上。這不是遷徙路線圖。`;
+觀測。擴張之後很久，另一塊大陸的人把手印留在岩石上。這不是遷徙路線圖。
+
+頁內按任務讀：[總覽](#origins-overview)、[來源矩陣](#origins-matrix)、[三階段](#origins-stages)、[里程碑](#origins-milestones)、[為何是你](#origins-who)。`;
 
 export const ORIGINS_THICK = `## 直立行走與雙足
 
