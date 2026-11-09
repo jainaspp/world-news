@@ -523,6 +523,28 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '政府間氣候變化專門委員會｜氣候變化與土地特別報告第五章（糧食安全）', url: 'https://www.ipcc.ch/srccl/chapter/chapter-5/' },
     ],
   },
+  {
+    id: 'horizon-pandemic-ihr-preparedness',
+    anchor: 'future-horizon-pandemic-ihr',
+    title: '大流行防備與國際衛生條例能力',
+    domainId: 'f6',
+    alsoDomainId: 'f4',
+    kind: 'health',
+    band: 'a1',
+    timeBand: '進行中',
+    confidence: 'steady',
+    mechanism: '《國際衛生條例（2005）》要求締約國建立並維持監測與應對所需的最低核心能力，並依第五十四條每年向世界衛生大會報告實施情形。締約國自我評估年度報告是這項義務的年度工具；世界衛生組織公開說明所載為二〇二六年第三版。聯合外部評估則是自願的多部門核對。監測修訂的是能力是否在場，不是把某一次事件寫成終局。',
+    mitigation: '自我評估由國家國際衛生條例主管機關協調，國家歸口單位與相關部門參與填報，再經年度報告窗口提交。聯合外部評估把預防、偵測與迅速應對的缺口寫成可以排列的優先事項，留給其後的能力維修。緩解靠這些可核對的程序，不靠動員口號。',
+    uncertainty: '年度報告由締約國自行填報，不是獨立的實地核對。聯合外部評估出於自願，覆蓋隨參與而定。一地的結果不能外推成全球能力已經修復。',
+    dataAsOf: '2026-11-09',
+    sources: [
+      { name: '世界衛生組織｜《國際衛生條例》專題', url: 'https://www.who.int/health-topics/international-health-regulations' },
+      { name: '世界衛生組織｜《國際衛生條例》監測與評估框架', url: 'https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework' },
+      { name: '世界衛生組織｜締約國自我評估年度報告', url: 'https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/states-parties-self-assessment-annual-reporting' },
+      { name: '世界衛生組織｜聯合外部評估', url: 'https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/joint-external-evaluations' },
+      { name: '世界衛生組織｜聯合外部評估工具（第三版）', url: 'https://www.who.int/publications/i/item/9789240051980' },
+    ],
+  },
 ];
 
 /**
@@ -830,7 +852,7 @@ export function futureIssues(): string[] {
   }
   if (FUTURE_CLADE.domainId !== 'f4') issues.push('clade-domain');
 
-  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務'];
+  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務', '大流行防備與國際衛生條例能力'];
   if (FUTURE_HORIZONS.length !== horizonTitles.length) issues.push('horizon-count');
   const horizonIds = new Set<string>();
   for (const [index, horizon] of FUTURE_HORIZONS.entries()) {
@@ -969,6 +991,22 @@ export function futureIssues(): string[] {
     || !soil.sources.some((source) => source.url.startsWith('https://www.ipcc.ch/'))
     || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-soil-land-degradation')) {
     issues.push('horizon-soil-land-degradation');
+  }
+  const pandemic = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-pandemic-ihr-preparedness');
+  if (!pandemic
+    || pandemic.title !== '大流行防備與國際衛生條例能力'
+    || pandemic.anchor !== 'future-horizon-pandemic-ihr'
+    || pandemic.domainId !== 'f6'
+    || pandemic.alsoDomainId !== 'f4'
+    || pandemic.kind !== 'health'
+    || pandemic.band !== 'a1'
+    || pandemic.timeBand !== '進行中'
+    || pandemic.confidence !== 'steady'
+    || pandemic.dataAsOf !== '2026-11-09'
+    || pandemic.sources.length < 4
+    || pandemic.sources.some((source) => !source.url.startsWith('https://www.who.int/'))
+    || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-pandemic-ihr-preparedness')) {
+    issues.push('horizon-pandemic-ihr');
   }
 
   const instanceIds = new Set<string>();

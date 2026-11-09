@@ -68,7 +68,7 @@ describe('civilization future P0', () => {
       expect(civChars(domain.blurb)).toBeLessThanOrEqual(80);
     }
     expect(FUTURE_HORIZONS.map((horizon) => horizon.title)).toEqual([
-      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務',
+      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務', '大流行防備與國際衛生條例能力',
     ]);
     const biodiversity = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-biodiversity-services');
     expect(biodiversity?.domainId).toBe('f6');
@@ -167,6 +167,20 @@ describe('civilization future P0', () => {
     expect(soil?.sources.some((source) => source.url.startsWith('https://www.ipcc.ch/'))).toBe(true);
     expect(FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-soil-land-degradation')).toBe(false);
     expect(futureHrefAllowed('/civilization/#future-horizon-soil-land')).toBe(true);
+    const pandemic = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-pandemic-ihr-preparedness');
+    expect(pandemic?.title).toBe('大流行防備與國際衛生條例能力');
+    expect(pandemic?.anchor).toBe('future-horizon-pandemic-ihr');
+    expect(pandemic?.domainId).toBe('f6');
+    expect(pandemic?.alsoDomainId).toBe('f4');
+    expect(pandemic?.kind).toBe('health');
+    expect(pandemic?.band).toBe('a1');
+    expect(pandemic?.timeBand).toBe('進行中');
+    expect(pandemic?.confidence).toBe('steady');
+    expect(pandemic?.dataAsOf).toBe('2026-11-09');
+    expect(pandemic?.sources.length).toBeGreaterThanOrEqual(4);
+    expect(pandemic?.sources.every((source) => source.url.startsWith('https://www.who.int/'))).toBe(true);
+    expect(FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-pandemic-ihr-preparedness')).toBe(false);
+    expect(futureHrefAllowed('/civilization/#future-horizon-pandemic-ihr')).toBe(true);
     expect(civChars(STAGE10_BRIDGE)).toBeGreaterThanOrEqual(80);
     expect(civChars(STAGE10_BRIDGE)).toBeLessThanOrEqual(120);
     expect(STAGE10_BRIDGE_EXTRA).toBe('第十階名為本世紀／當代。展望・分域只把目光送到總覽的六個入口，讓條件句留在總覽面板。');
@@ -248,6 +262,8 @@ describe('civilization future P0', () => {
     expect(panel).toContain('海洋熱含量與酸化約束');
     expect(panel).toContain('id="future-horizon-soil-land"');
     expect(panel).toContain('土壤與土地退化對糧食／碳庫服務');
+    expect(panel).toContain('id="future-horizon-pandemic-ihr"');
+    expect(panel).toContain('大流行防備與國際衛生條例能力');
     const f1 = panel.slice(panel.indexOf('id="future-f1"'), panel.indexOf('id="future-f2"'));
     expect(f1).toContain('能量宜居');
     expect(panel).not.toContain('有卡');
@@ -317,10 +333,10 @@ describe('civilization future P0', () => {
     const freshCard = panel.slice(panel.indexOf('id="future-horizon-freshwater"'), panel.indexOf('id="future-horizon-heat-health"'));
     expect(freshCard).not.toContain('future-cover');
     expect(freshCard).toContain('淡水可用量與衛生服務壓力');
-    const heatCard = panel.slice(panel.indexOf('id="future-horizon-heat-health"'), panel.indexOf('id="future-tier"'));
+    const heatCard = panel.slice(panel.indexOf('id="future-horizon-heat-health"'), panel.indexOf('id="future-horizon-pandemic-ihr"'));
     expect(heatCard).not.toContain('future-cover');
     expect(heatCard).toContain('極端熱與健康服務壓力');
-    expect(heatCard).toContain('href="#future-horizon-ocean-heat-acid"');
+    expect(panel).toContain('href="#future-horizon-ocean-heat-acid"');
     const climateAt = panel.indexOf('id="future-horizon-climate"');
     const wmoAt = panel.indexOf('id="future-countdown-wmo"');
     const oceanAt = panel.indexOf('id="future-horizon-ocean-heat-acid"');
@@ -351,6 +367,15 @@ describe('civilization future P0', () => {
     expect(soilCard).toContain('href="https://www.fao.org/global-soil-partnership/Scientific-and-technical-support/itps/status-of-the-worlds-soil-resources/en"');
     expect(soilCard).toContain('href="https://www.ipcc.ch/srccl/chapter/chapter-4/"');
     expect(panel).toContain('href="#future-horizon-soil-land"');
+    const ihrCard = panel.slice(panel.indexOf('id="future-horizon-pandemic-ihr"'), panel.indexOf('id="future-tier"'));
+    expect(ihrCard).not.toContain('future-cover');
+    expect(ihrCard).toContain('大流行防備與國際衛生條例能力');
+    expect(ihrCard).toContain('能動帶 a1');
+    expect(ihrCard).toContain('種類是健康');
+    expect(ihrCard).toContain('時間帶 進行中');
+    expect(ihrCard).toContain('日期戳 2026-11-09');
+    expect(ihrCard).toContain('https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/states-parties-self-assessment-annual-reporting');
+    expect(ihrCard).toContain('https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/joint-external-evaluations');
     const drawn = renderFuturePanel(NOW);
     const oceanArticle = drawn.slice(
       drawn.indexOf('id="future-horizon-ocean-heat-acid"'),
@@ -359,13 +384,22 @@ describe('civilization future P0', () => {
     expect(oceanArticle).toContain('F1 能量宜居');
     expect(oceanArticle).toContain('F6 生存風險');
     expect(oceanArticle).not.toContain('class="future-cover"');
-    const drawnSoil = drawn.slice(drawn.indexOf('id="future-horizon-soil-land"'), drawn.indexOf('id="future-countdown-wmo"'));
+    const drawnSoil = drawn.slice(drawn.indexOf('id="future-horizon-soil-land"'), drawn.indexOf('id="future-horizon-pandemic-ihr"'));
     expect(drawn.indexOf('id="future-horizon-heat-health"')).toBeLessThan(drawn.indexOf('id="future-horizon-ocean-heat-acid"'));
     expect(drawn.indexOf('id="future-horizon-ocean-heat-acid"')).toBeLessThan(drawn.indexOf('id="future-horizon-soil-land"'));
+    expect(drawn.indexOf('id="future-horizon-soil-land"')).toBeLessThan(drawn.indexOf('id="future-horizon-pandemic-ihr"'));
     expect(drawnSoil).toContain('信心 部分');
     expect(drawnSoil).toContain('href="#future-f1"');
     expect(drawnSoil).toContain('href="#future-f4"');
     expect(drawnSoil).not.toContain('future-cover');
+    const ihrArticle = drawn.slice(
+      drawn.indexOf('id="future-horizon-pandemic-ihr"'),
+      drawn.indexOf('id="future-countdown-wmo"'),
+    );
+    expect(ihrArticle).toContain('F6 生存風險');
+    expect(ihrArticle).toContain('F4 生物譜系');
+    expect(ihrArticle).toContain('截至 2026-11-09');
+    expect(ihrArticle).not.toContain('class="future-cover"');
     expect(panel).toContain('id="future-horizon-biodiversity"');
     expect(panel).toContain('id="future-countdown-cbd"');
     expect(panel).toContain('id="future-horizon-amr"');
@@ -459,6 +493,8 @@ describe('civilization future P0', () => {
     expect(schema).toContain('horizon-ocean-heat-acid');
     expect(schema).toContain('土壤與土地退化對糧食／碳庫服務');
     expect(schema).toContain('horizon-soil-land-degradation');
+    expect(schema).toContain('大流行防備與國際衛生條例能力');
+    expect(schema).toContain('horizon-pandemic-ihr-preparedness');
     expect(schema).toContain('2026-11-09');
     expect(schema).toContain('pipe-care');
     expect(schema).toContain('階段名仍是第十階');
