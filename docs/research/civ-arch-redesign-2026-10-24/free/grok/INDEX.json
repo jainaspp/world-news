@@ -1,0 +1,62 @@
+[
+  {
+    "id": "G01",
+    "title": "一卷承載三時",
+    "one_liner": "以一卷長文承載古、今、未來，今日切片為書籤，開蒙為頁緣旁註。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/grok/P01.md"
+  },
+  {
+    "id": "G02",
+    "title": "四廳對等入口",
+    "one_liner": "首頁只負責選廳；古、今、未來與開蒙四廳對等，今日切片是今廳內的一間房。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/grok/P02.md"
+  },
+  {
+    "id": "G03",
+    "title": "學科樹即導航",
+    "one_liner": "以萬有學科樹為全站導航，三卷只是每門上的時間帶，今日觀察是求知練習。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/grok/P03.md"
+  },
+  {
+    "id": "G04",
+    "title": "三幕順演劇場",
+    "one_liner": "以序幕加三幕組織全站，今日是第二幕的一場，開蒙是隨幕加頁的節目冊。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/grok/P04.md"
+  },
+  {
+    "id": "G05",
+    "title": "四線主軸疊時",
+    "one_liner": "以能量、信息、制度、貨幣為主軸，三卷只是每條線上的時間層，開蒙為第五線。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/grok/P05.md"
+  },
+  {
+    "id": "G06",
+    "title": "三問取代年表",
+    "one_liner": "以三個問題組織全站，卷印只出現在答案上，今日是「此刻可以核對什麼」。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/grok/P06.md"
+  },
+  {
+    "id": "G07",
+    "title": "樓層即是路由",
+    "one_liner": "以三層樓為路由，開蒙是目錄廳抽屜，今日切片是地面層的期刊架。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/grok/P07.md"
+  },
+  {
+    "id": "G08",
+    "title": "測盤即是首頁",
+    "one_liner": "首頁即一座不走動的三弧測盤，開蒙是校準筆記，今日是冷藍弧上的刻痕。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/grok/P08.md"
+  },
+  {
+    "id": "G09",
+    "title": "牌庫即是全站",
+    "one_liner": "全站以有型別的牌組成，三卷、開蒙與今日切片都是牌堆，長文只是攤開一疊牌。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/grok/P09.md"
+  },
+  {
+    "id": "G10",
+    "title": "航程即是目錄",
+    "one_liner": "以航程與航點為目錄，下一航點即導航，今日切片是今渠上可停靠的港口。",
+    "path": "docs/research/civ-arch-redesign-2026-10-24/free/grok/P10.md"
+  }
+]
