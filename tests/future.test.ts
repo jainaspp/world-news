@@ -722,6 +722,8 @@ describe('civilization future P0', () => {
     expect(panel).toContain('<h2>展望</h2>');
     expect(panel).toContain('C2PA等內容來源標準');
     expect(panel).toContain('問責局指南僅作文獻對照');
+    expect(panel).toContain('評估問答與年報');
+    expect(panel).toContain('不作國別排名');
     expect(panel).toContain('不印文明等級');
     expect(panel).toContain('class="future-note"');
     const nav = panel.slice(panel.indexOf('<nav class="future-domain-nav"'), panel.indexOf('</nav>'));
@@ -780,5 +782,28 @@ describe('civilization future P0', () => {
     expect(essay).toContain('https://unstats.un.org/sdgs/indicators/indicators-list');
     expect(essay).toContain('https://mandates.un.org/mandate/A/RES/71/313?subject=Statistics');
     expect(essay).not.toMatch(/末日|崩潰|排名|臺灣|台灣|噤聲/);
+  });
+
+  it('thickens the F1 blurb around the energy budget and the habitable-zone window', () => {
+    const f1 = FUTURE_DOMAINS.find((domain) => domain.code === 'F1');
+    expect(civChars(f1?.blurb ?? '')).toBeGreaterThanOrEqual(40);
+    expect(civChars(f1?.blurb ?? '')).toBeLessThanOrEqual(80);
+    expect(f1?.blurb).toContain('能量收支');
+    expect(f1?.blurb).toContain('評估問答與年報');
+    expect(f1?.blurb).toContain('出版日曆');
+    expect(f1?.blurb).toContain('不作國別排名');
+    expect(f1?.blurb).not.toMatch(/末日|崩潰|臺灣|台灣|噤聲/);
+    const essay = FUTURE_LONGFORM.f1;
+    expect(essay).toContain('不排列國家高下');
+    expect(essay).toContain('不把單一年寫成終局');
+    expect(essay).toContain('略高於每平方米半瓦');
+    expect(essay).toContain('首次把地球能量失衡列為關鍵氣候指標');
+    expect(essay).toContain('環繞行星的表面可能存在液態水');
+    expect(essay).toContain('https://www.ipcc.ch/report/ar6/wg1/downloads/faqs/IPCC_AR6_WGI_FAQ_Chapter_07.pdf');
+    expect(essay).toContain('https://wmo.int/publication-series/state-of-global-climate/state-of-global-climate-2025');
+    expect(essay).toContain('https://wmo.int/publication-series/state-of-global-climate');
+    expect(essay).toContain('https://ceres.larc.nasa.gov/');
+    expect(essay).toContain('https://science.nasa.gov/exoplanets/habitable-zone/');
+    expect(essay).not.toMatch(/末日|崩潰|排名|臺灣|台灣|噤聲|只剩/);
   });
 });

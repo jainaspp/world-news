@@ -70,6 +70,29 @@ describe('chronicle content database', () => {
     expect(hub.slice(start, end)).not.toMatch(/末日|排名|臺灣|台灣|噤聲/);
   });
 
+  it('renders the F1 energy-budget paragraph from public sources', () => {
+    const hub = renderCivilizationHub().html;
+    const start = hub.indexOf('id="future-f1"');
+    const end = hub.indexOf('id="future-f2"', start);
+    expect(start).toBeGreaterThan(-1);
+    expect(end).toBeGreaterThan(start);
+    const f1 = hub.slice(start, end);
+    expect(f1).toContain('能量收支與宜居帶各自留在可核對的機構文本裡');
+    expect(f1).toContain('不排列國家高下');
+    expect(f1).toContain('<a href="https://www.ipcc.ch/report/ar6/wg1/downloads/faqs/IPCC_AR6_WGI_FAQ_Chapter_07.pdf">政府間氣候變化專門委員會｜第六次評估常見問題7.1</a>');
+    expect(f1).toContain('<a href="https://wmo.int/publication-series/state-of-global-climate/state-of-global-climate-2025">世界氣象組織｜全球氣候狀況二〇二五</a>');
+    expect(f1).toContain('<a href="https://wmo.int/publication-series/state-of-global-climate">世界氣象組織｜全球氣候狀況系列</a>');
+    expect(f1).toContain('<a href="https://ceres.larc.nasa.gov/">美國國家航空航天局｜雲與地球輻射能量系統</a>');
+    expect(f1).toContain('<a href="https://science.nasa.gov/exoplanets/habitable-zone/">美國國家航空航天局｜宜居帶</a>');
+    expect(f1).toContain('不作國別排名');
+    const paragraph = f1.slice(
+      f1.indexOf('能量收支與宜居帶各自留在可核對的機構文本裡'),
+      f1.indexOf('文明可用功率受行星能量收支與碳循環約束'),
+    );
+    expect(paragraph.length).toBeGreaterThan(80);
+    expect(paragraph).not.toMatch(/末日|排名|臺灣|台灣|噤聲|只剩/);
+  });
+
   it('puts each real photo on its scale heading, not only at the end of the volume', () => {
     const pages: Record<string, string> = {
       cosmos: renderCosmosPage().html,
