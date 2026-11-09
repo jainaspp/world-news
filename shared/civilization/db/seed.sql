@@ -1715,7 +1715,9 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 跨代機構的意義在這裡。度量衡、檔案室與標準組織都假設維修會超過一個人的任期。它們不保證結果公正，也不構成文明等級。它們只說明：協作半徑要拉長，規則就得被寫下來、被修、被事後調取。城市裡的水、路與市場依賴的正是這種不顯眼的維修。本節不把制度能力寫成人群高下，也不把任何一套國家標準外推成全球已經修好。
 
-度量、標準、基礎設施與跨代機構，把陌生人的協作半徑拉長。這裡寫機制與維修條件，不寫口號，也不把制度能力寫成文明高下。
+度量、標準與公開指標是同一類可維修的公共品。文本要留在機構自己的刷新窗口裡，不能靠一次公布就結束。國際計量大會是國際計量局的全體決策機構，由成員國代表組成。公開頁寫明，大會每四至六年召開一次，決定與計量局有關的科學、制度與財務事項；公約所附規則要求至少每六年召開一次。第二十八屆已於二〇二六年十月十三日至十五日在凡爾賽舉行，並通過關於國際計量局二〇二八至二〇三一年經費撥款的決議。單位定義仍以國際單位制小冊子為公開底本。大會開過，實驗室的追溯鏈並不因此自動接上。國際標準化組織的國際標準另有系統複審。指導說明寫明，標準至少每五年複審一次；複審在發布或確認之後五年自動啟動，也可提前，用來決定確認、修訂或增補、改換形式或撤回。文本還能下載，只說明上一輪複審把它留在目錄裡。聯合國統計委員會由經濟及社會理事會於一九九九年七月決定，自二〇〇〇年起每屆開會四日。第五十八屆訂於二〇二七年二月二十三日至二十六日在紐約舉行。可持續發展目標的全球指標框架，依大會第71/313號決議是一套自願、由國家主導的工具，按年作較小修訂，並訂明在第五十一屆（二〇二〇年三月）與第五十六屆（二〇二五年）做綜合複審。公開清單已收進二〇二五年三月的綜合複審，以及二〇二六年三月第五十七屆的年度修訂。區域與國家層級的指標由會員國另訂。指標要被異地讀懂，得指回這一版清單與它的方法說明。這些窗口不排列國家高下，也不把某一輪文本外推成全球測量已經齊備。維修成本在會議、表決、實驗室比對與清單的下一輪修訂，都要有人維持。文本公開，只說明程序寫在哪裡。可核對的入口包括[國際計量局｜第二十八屆國際計量大會](https://www.bipm.org/en/cgpm-2026)、[國際標準化組織｜系統複審指導](https://www.iso.org/files/live/sites/isoorg/files/store/en/PUB100413.pdf)、[聯合國統計委員會](https://unstats.un.org/unsdwebsite/statcom/)、[可持續發展目標全球指標清單](https://unstats.un.org/sdgs/indicators/indicators-list)、[大會第71/313號決議](https://mandates.un.org/mandate/A/RES/71/313?subject=Statistics)。
+
+度量、標準與公開指標按機構窗口維修，把陌生人的協作半徑拉長。這裡寫機制與維修成本，不寫口號，也不把制度能力寫成文明高下。
 
 ### 標準與公共品維修 {#future-pipe-care}
 
@@ -2689,8 +2691,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '6301');
-INSERT INTO meta (key, value) VALUES ('after_future', '14643');
+INSERT INTO meta (key, value) VALUES ('before_future', '6304');
+INSERT INTO meta (key, value) VALUES ('after_future', '15297');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');

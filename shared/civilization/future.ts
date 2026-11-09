@@ -218,7 +218,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f3',
     code: 'F3',
     title: '制度協作',
-    blurb: '度量、標準、基礎設施與跨代機構，把陌生人的協作半徑拉長。這裡寫機制與維修條件，不寫口號，也不把制度能力寫成文明高下。',
+    blurb: '度量、標準與公開指標按機構窗口維修，把陌生人的協作半徑拉長。這裡寫機制與維修成本，不寫口號，也不把制度能力寫成文明高下。',
     status: '有卡',
     lines: ['制度'],
     anchor: 'future-f3',
