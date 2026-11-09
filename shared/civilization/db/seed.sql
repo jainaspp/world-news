@@ -1613,6 +1613,18 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 下一檢查點是世界氣象組織年度全球氣候評估的公開窗口，約在二〇二七年三月。這是核對日期，不是災變時鐘。
 
+### 海洋熱含量與酸化約束 {#future-horizon-ocean-heat-acid}
+
+這一則放在能量帶 e2，種類是生物圈，時間帶 進行中。信心標為較穩。日期戳 2026-11-09。時間帶不是等級。
+
+機制：超額熱量大部分進入海洋；人為二氧化碳持續溶入海水，改寫碳酸鹽化學，表層酸度隨之上升。第六次評估寫明：一九七一年至二〇一八年，海洋增溫約佔氣候系統增熱的百分之九十一；全球海洋熱含量增加的可能區間是 0.329×10^24 至 0.463×10^24 焦耳。零至七百米的上層海洋自一九七〇年代以來增暖幾乎確定，表層開闊大洋酸化的主因是人為排放。亞熱帶表層 pH 自一九八〇年代起的下降速率，評估為每十年 0.016 至 0.020。監測修訂的是區間與覆蓋，不是把某一年寫成終局。
+
+緩解：減排把此後新增的熱含量與酸化幅度留在較低排放路徑的評估區間裡。已經進入深海的熱量不會按年曆收回；較低路徑改變的是往後累積多少。剖面浮標、船舶斷面與全球海洋酸化觀測網把熱含量和酸度留成可核對的序列。世界氣象組織自一九九三年起發布的年度全球氣候狀況，是這些海洋指標的公開窗口。槓桿只寫機構已經公布的路徑，不寫動員句。
+
+不確定：兩千米以下的增暖，評估只標為可能，海盆之間的覆蓋仍不均勻。洋流在年至十年尺度上重新分配熱量，全球平均不能直接讀成某一漁場的熱浪或酸度。副極地與極地表層 pH 的下降速率更寬，約每十年 0.002 至 0.026。鈣化生物的反應因地而異，局部監測不能外推成全球生態已經修復。深層增暖在世紀至千年尺度上難以逆轉。這是評估寫明的時間尺度，不是災變時鐘。美國氣候網的海洋熱含量說明頁已於二〇二五年六月歸檔，其後數字改跟該頁所標的年度氣候狀況報告。
+
+可核對的入口包括[政府間氣候變化專門委員會｜第六次評估第一工作組第二章](https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-2/)、[政府間氣候變化專門委員會｜第六次評估第一工作組第五章](https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-5/)、[政府間氣候變化專門委員會｜第六次評估第一工作組第九章](https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/)、[世界氣象組織｜全球氣候狀況系列](https://wmo.int/publication-series/state-of-global-climate)、[美國氣候網｜海洋熱含量](https://www.climate.gov/news-features/understanding-climate/climate-change-ocean-heat-content)、[政府間海洋學委員會｜海洋酸化](https://www.ioc.unesco.org/en/ocean-acidification)。
+
 並見[淡水可用量與衛生服務壓力](#future-horizon-freshwater)、[極端熱與健康服務壓力](#future-horizon-heat-health)。那些段落寫在各自的主域裡，這裡不重複。', 10, 'F1', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-f2', 'future', 'future-f2', '信息可信', '信息可信寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。', '信息可信問的是底本靠什麼留下。複製的成本一旦降到近乎可以忽略，同一段未經核對的敘述就可以在短時間裡到達許多互不相識的人。速度本身不產生真實，也不產生虛假；它只改變錯誤或更正要花多少時間才能被下一個讀者看見。可信因此要回到可以指認的物件：原件、版本、出處，以及一份更正能否在後來的複本上被認出來。
 
@@ -1768,7 +1780,9 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 不確定：閾值因地而異，夜間高溫與濕度會改變風險曲線。國家預警覆蓋與衛生系統能力仍不均勻，局部成功不能外推成全球已修復。
 
-可核對的入口包括[世界衛生組織／世界氣象組織｜熱浪與健康：預警系統指引](https://www.who.int/publications/m/item/heatwaves-and-health--guidance-on-warning-system-development)、[世界衛生組織｜熱健康行動計畫指引](https://www.who.int/publications/i/item/9789289071918)、[世界衛生組織｜氣候變化與健康實況](https://www.who.int/news-room/fact-sheets/detail/climate-change-and-health)、[世界氣象組織｜熱浪專題](https://wmo.int/topics/heatwave)、[世界氣象組織｜極端熱風險治理框架與工具包](https://wmo.int/media/news/new-framework-and-toolkit-strengthens-extreme-heat-governance)、[全球熱健康信息網絡](https://ghhin.org/)。', 60, 'F6', 'future', NULL);
+可核對的入口包括[世界衛生組織／世界氣象組織｜熱浪與健康：預警系統指引](https://www.who.int/publications/m/item/heatwaves-and-health--guidance-on-warning-system-development)、[世界衛生組織｜熱健康行動計畫指引](https://www.who.int/publications/i/item/9789289071918)、[世界衛生組織｜氣候變化與健康實況](https://www.who.int/news-room/fact-sheets/detail/climate-change-and-health)、[世界氣象組織｜熱浪專題](https://wmo.int/topics/heatwave)、[世界氣象組織｜極端熱風險治理框架與工具包](https://wmo.int/media/news/new-framework-and-toolkit-strengthens-extreme-heat-governance)、[全球熱健康信息網絡](https://ghhin.org/)。
+
+並見[海洋熱含量與酸化約束](#future-horizon-ocean-heat-acid)。那些段落寫在各自的主域裡，這裡不重複。', 60, 'F6', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-tier', 'future', 'future-tier', '技術能力階', '這張卡只標成熟度，不排文明高下。頁上的「約」「示意」「假說」是成熟度記號，不是等級。契約另有文明尺度一檔，不在這一檔畫成等級，也不與前三檔相加。讀的時候先看證據', '這張卡只標成熟度，不排文明高下。頁上的「約」「示意」「假說」是成熟度記號，不是等級。契約另有文明尺度一檔，不在這一檔畫成等級，也不與前三檔相加。
 
 讀的時候先看證據停在哪一檔。觀測只表示記錄還在、出處還能打開。試點只表示有限範圍裡做過，句子不能外推。基建表示維修、備件與記錄同時在場，能力才可能離開單點。三檔之間不相加，也不能換成文明等級。
@@ -2609,8 +2623,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '3166');
-INSERT INTO meta (key, value) VALUES ('after_future', '10324');
+INSERT INTO meta (key, value) VALUES ('before_future', '3687');
+INSERT INTO meta (key, value) VALUES ('after_future', '11037');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');

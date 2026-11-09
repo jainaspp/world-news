@@ -68,7 +68,7 @@ describe('civilization future P0', () => {
       expect(civChars(domain.blurb)).toBeLessThanOrEqual(80);
     }
     expect(FUTURE_HORIZONS.map((horizon) => horizon.title)).toEqual([
-      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力',
+      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束',
     ]);
     const biodiversity = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-biodiversity-services');
     expect(biodiversity?.domainId).toBe('f6');
@@ -131,6 +131,25 @@ describe('civilization future P0', () => {
     expect(heat?.sources.every((source) => source.url.startsWith('https://'))).toBe(true);
     expect(FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-heat-health')).toBe(false);
     expect(futureHrefAllowed('/civilization/#future-horizon-heat-health')).toBe(true);
+    const ocean = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-ocean-heat-acid');
+    expect(ocean?.title).toBe('海洋熱含量與酸化約束');
+    expect(ocean?.anchor).toBe('future-horizon-ocean-heat-acid');
+    expect(ocean?.domainId).toBe('f1');
+    expect(ocean?.alsoDomainId).toBe('f6');
+    expect(ocean?.kind).toBe('biosphere');
+    expect(ocean?.band).toBe('e2');
+    expect(ocean?.timeBand).toBe('進行中');
+    expect(ocean?.confidence).toBe('steady');
+    expect(ocean?.dataAsOf).toBe('2026-11-09');
+    expect(ocean?.sources.length).toBeGreaterThanOrEqual(4);
+    expect(ocean?.sources.every((source) => source.url.startsWith('https://'))).toBe(true);
+    const oceanUrls = ocean?.sources.map((source) => source.url) ?? [];
+    expect(oceanUrls.some((url) => url.startsWith('https://www.ipcc.ch/'))).toBe(true);
+    expect(oceanUrls.some((url) => url.startsWith('https://wmo.int/'))).toBe(true);
+    expect(oceanUrls.some((url) => url.startsWith('https://www.climate.gov/'))).toBe(true);
+    expect(oceanUrls.some((url) => url.startsWith('https://www.ioc.unesco.org/'))).toBe(true);
+    expect(FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-ocean-heat-acid')).toBe(false);
+    expect(futureHrefAllowed('/civilization/#future-horizon-ocean-heat-acid')).toBe(true);
     expect(civChars(STAGE10_BRIDGE)).toBeGreaterThanOrEqual(80);
     expect(civChars(STAGE10_BRIDGE)).toBeLessThanOrEqual(120);
     expect(STAGE10_BRIDGE_EXTRA).toBe('第十階名為本世紀／當代。展望・分域只把目光送到總覽的六個入口，讓條件句留在總覽面板。');
@@ -208,6 +227,8 @@ describe('civilization future P0', () => {
     expect(panel).toContain('id="future-pipe-care"');
     expect(panel).toContain('id="future-horizon-heat-health"');
     expect(panel).toContain('極端熱與健康服務壓力');
+    expect(panel).toContain('id="future-horizon-ocean-heat-acid"');
+    expect(panel).toContain('海洋熱含量與酸化約束');
     const f1 = panel.slice(panel.indexOf('id="future-f1"'), panel.indexOf('id="future-f2"'));
     expect(f1).toContain('能量宜居');
     expect(panel).not.toContain('有卡');
@@ -277,6 +298,26 @@ describe('civilization future P0', () => {
     const freshCard = panel.slice(panel.indexOf('id="future-horizon-freshwater"'), panel.indexOf('id="future-horizon-heat-health"'));
     expect(freshCard).not.toContain('future-cover');
     expect(freshCard).toContain('淡水可用量與衛生服務壓力');
+    const heatCard = panel.slice(panel.indexOf('id="future-horizon-heat-health"'), panel.indexOf('id="future-tier"'));
+    expect(heatCard).not.toContain('future-cover');
+    expect(heatCard).toContain('極端熱與健康服務壓力');
+    expect(heatCard).toContain('href="#future-horizon-ocean-heat-acid"');
+    const oceanCard = panel.slice(panel.indexOf('id="future-horizon-ocean-heat-acid"'), panel.indexOf('id="future-f2"'));
+    expect(oceanCard).not.toContain('future-cover');
+    expect(oceanCard).toContain('海洋熱含量與酸化約束');
+    expect(oceanCard).toContain('能量帶 e2');
+    expect(oceanCard).toContain('生物圈');
+    expect(oceanCard).toContain('日期戳 2026-11-09');
+    expect(oceanCard).toContain('https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/');
+    expect(oceanCard).toContain('https://www.ioc.unesco.org/en/ocean-acidification');
+    const oceanPanel = renderFuturePanel(NOW);
+    const oceanArticle = oceanPanel.slice(
+      oceanPanel.indexOf('id="future-horizon-ocean-heat-acid"'),
+      oceanPanel.indexOf('id="future-countdown-wmo"'),
+    );
+    expect(oceanArticle).toContain('F1 能量宜居');
+    expect(oceanArticle).toContain('F6 生存風險');
+    expect(oceanArticle).not.toContain('class="future-cover"');
     expect(panel).toContain('id="future-horizon-biodiversity"');
     expect(panel).toContain('id="future-countdown-cbd"');
     expect(panel).toContain('id="future-horizon-amr"');
@@ -366,6 +407,8 @@ describe('civilization future P0', () => {
     expect(schema).toContain('生物多樣性與生態系服務約束');
     expect(schema).toContain('淡水可用量與衛生服務壓力');
     expect(schema).toContain('極端熱與健康服務壓力');
+    expect(schema).toContain('海洋熱含量與酸化約束');
+    expect(schema).toContain('horizon-ocean-heat-acid');
     expect(schema).toContain('pipe-care');
     expect(schema).toContain('階段名仍是第十階');
     expect(schema).toContain('2026-10-19');
