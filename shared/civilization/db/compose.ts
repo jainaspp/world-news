@@ -590,15 +590,12 @@ function buildBag(): Bag {
     const horizonText = horizons.map((row) => {
       const kind = row.kind ? HORIZON_KIND[row.kind] ?? row.kind : '';
       const family = row.band.startsWith('e') ? '能量帶' : row.band.startsWith('i') ? '信息帶' : '能動帶';
-      const checkpoint = FUTURE_COUNTDOWNS.find((item) => item.horizonId === row.id);
-      const checkpointText = checkpoint
-        ? [
-          `### ${checkpoint.title} {#${checkpoint.anchor}}`,
-          COUNTDOWN_LEAD[checkpoint.id] ?? '',
-          `檢查點日期是 ${checkpoint.checkpoint}。對照[${row.title}](#${row.anchor})。`,
-          checkpoint.pending,
-        ].filter(Boolean).join('\n\n')
-        : '';
+      const checkpointText = FUTURE_COUNTDOWNS.filter((item) => item.horizonId === row.id).map((checkpoint) => [
+        `### ${checkpoint.title} {#${checkpoint.anchor}}`,
+        COUNTDOWN_LEAD[checkpoint.id] ?? '',
+        `檢查點日期是 ${checkpoint.checkpoint}。對照[${row.title}](#${row.anchor})。`,
+        checkpoint.pending,
+      ].filter(Boolean).join('\n\n')).join('\n\n');
       return [
         `### ${row.title} {#${row.anchor}}`,
         `這一則放在${family} ${row.band}${kind ? `，種類是${kind}` : ''}${row.timeBand ? `，時間帶 ${row.timeBand}` : ''}。信心標為${CONFIDENCE[row.confidence] ?? row.confidence}。日期戳 ${row.dataAsOf}。時間帶不是等級。`,
