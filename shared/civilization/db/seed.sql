@@ -1745,7 +1745,9 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 能力會退回去。儀器退役而接替的校準沒有接上，序列就斷。標準文本還在，實驗室實現指不回去，異地的數字就不再自動可比。這些都是條件句。本節不預測以後世紀的技術形態，只給閱讀時用的尺：先問證據停在觀測、試點還是基建，再決定一則新聞標題能夠承擔多大的句子。
 
-能量通量、信息校驗與維修能動，只作條件帶的示意，標明約或假說。成熟度掛在域卡上，不印合成分數，也不印文明等級。卡爾達肖夫尺度僅作文獻對照。', 50, 'F5', 'future', NULL);
+條件帶另有一則文獻對照，仍不印合成分數，也不印文明等級。美國政府問責局《技術成熟度評估指南》（GAO-20-48G，2020年1月公布，同年2月11日修訂再版）記述：技術成熟度依演示或測試環境的特徵排列。大體上，一端是基本概念的紙面研究，其後進入實驗室演示，末端則是技術已通過測試，整合進產品，並在預定環境中成功運行。該指南並寫明，評估不只是單一時間點上的一個數字，而是可能跨數年的多層次評估彙編。指南評的是一件技術曾在何種環境裡被演示。本頁不採用其中的數字等級，不把一座城市或一群人換算成某一級。觀測、試點與基建仍只並排，互不換算。可核對的文本是[美國政府問責局｜技術成熟度評估指南（GAO-20-48G）](https://www.gao.gov/assets/gao-20-48g.pdf)。
+
+能量通量、信息校驗與維修能動，只作條件帶示意，標明約或假說。成熟度掛在域卡上，不印合成分數，也不印文明等級。卡爾達肖夫與問責局指南僅作文獻對照。', 50, 'F5', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-f6', 'future', 'future-f6', '生存風險', '生存風險寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。', '生存風險在這裡寫成可以更新的窗口。每一則都要有機制、緩解、不確定與日期戳。日期戳過了，就改讀該機構的下一份公開文本。氣候的年度評估、生物多樣性框架的進度盤點、抗微生物藥物耐藥性的國家自評、淡水目標的指標進度，各自有自己的日曆，不能合成一個終點日期，也不能把四份報告說成同一句話。
 
 近地空間天氣是另一種窗口。太陽活動可以擾動電離層、導航與電網。預報把到達時間與強度寫成有誤差的通報，讓備援電源與防護程序對上同一件事。單次事件的誤差仍然存在。通報是檢查點，用來事後核對當時知道什麼、做了什麼。
@@ -2691,8 +2693,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '6304');
-INSERT INTO meta (key, value) VALUES ('after_future', '15297');
+INSERT INTO meta (key, value) VALUES ('before_future', '6307');
+INSERT INTO meta (key, value) VALUES ('after_future', '15546');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');

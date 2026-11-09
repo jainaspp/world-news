@@ -44,6 +44,11 @@ describe('chronicle content database', () => {
     expect(hub.html).toContain('<a href="https://iptc.org/standards/photo-metadata/iptc-standard/">IPTC照片元數據標準</a>');
     expect(hub.html).toContain('<a href="https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata-2025.1.html">IPTC照片元數據標準2025.1</a>');
     expect(hub.html).not.toContain('噤聲');
+    const f5at = hub.html.indexOf('id="future-f5"');
+    const f5html = hub.html.slice(f5at, hub.html.indexOf('id="future-f6"'));
+    expect(f5html).toContain('條件帶另有一則文獻對照，仍不印合成分數，也不印文明等級。');
+    expect(f5html).toContain('<a href="https://www.gao.gov/assets/gao-20-48g.pdf">美國政府問責局｜技術成熟度評估指南（GAO-20-48G）</a>');
+    expect(f5html).not.toMatch(/總分|第[0-9一二三四五六七八九十]+[級级]文明/);
     expect(hub.html).not.toContain('axis-hero');
     expect(renderThreadArticle('earth')).toContain('侏羅紀');
     expect(chronicle.html).not.toMatch(BANNED);
