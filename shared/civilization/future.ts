@@ -259,7 +259,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f6',
     code: 'F6',
     title: '生存風險',
-    blurb: '長期風險寫成可更新的地平線卡：區間、信心、機制、緩解與日期戳。盤點只對準機構窗口，過期改為靜態句。這裡寫維修條件，不寫束手無策。',
+    blurb: '監測與緩解按世界衛生組織、世界氣象組織、政府間氣候變化專門委員會與聯合國的機構窗口更新。過期改為靜態句，不寫束手無策。',
     status: '有卡',
     anchor: 'future-f6',
     plate: {

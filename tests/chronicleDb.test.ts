@@ -109,6 +109,22 @@ describe('chronicle content database', () => {
     expect(f4).toContain('<a href="https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf">生物多樣性和生態系服務政府間科學政策平台｜全球評估決策者摘要</a>');
     expect(f4).toContain('<a href="https://science.nasa.gov/exoplanets/search-for-life/">美國國家航空航天局｜搜尋地外生命</a>');
     expect(f4).not.toMatch(/末日|排名|優生學|臺灣|台灣|噤聲/);
+
+  it('renders the F6 monitoring windows from public sources', () => {
+    const hub = renderCivilizationHub().html;
+    const start = hub.indexOf('id="future-f6"');
+    const html = hub.slice(start, hub.indexOf('id="future-tier"', start));
+    expect(start).toBeGreaterThan(-1);
+    expect(html).toContain('監測與緩解各自對上已經排定的機構窗口');
+    expect(html).toContain('句子成為靜態說明');
+    expect(html).toContain('不寫束手無策');
+    expect(html).toContain('<a href="https://wmo.int/publication-series/state-of-global-climate/state-of-global-climate-2025">世界氣象組織｜二〇二五年全球氣候狀況</a>');
+    expect(html).toContain('<a href="https://www.ipcc.ch/site/assets/uploads/2024/08/Decision_Cities.pdf">政府間氣候變化專門委員會｜決定 IPCC-LXI-5</a>');
+    expect(html).toContain('<a href="https://apps.who.int/gb/ebwha/pdf_files/WHA79/A79_(19)-en.pdf">世界衛生大會｜決定 WHA79(19)</a>');
+    expect(html).toContain('<a href="https://www.who.int/news/item/25-05-2026-the-world-health-assembly-adopts-updated-global-action-plan-on-antimicrobial-resistance-(2026-2036)">世界衛生組織｜全球行動計畫新聞稿</a>');
+    expect(html).toContain('<a href="https://www.who.int/campaigns/world-amr-awareness-week/world-amr-awareness-week-2026/waaw-events">世界衛生組織｜二〇二六年抗微生物藥物耐藥性意識週活動</a>');
+    expect(html).toContain('<a href="https://www.unwater.org/sites/default/files/2026-04/Data_compilation_process_and_timeline_2026-04-21.pdf">聯合國水機制｜二〇二六年數據匯編時間表</a>');
+    expect(html).not.toMatch(/末日|只剩|崩潰|臺灣|台灣/);
   });
 
   it('puts each real photo on its scale heading, not only at the end of the volume', () => {
