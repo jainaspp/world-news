@@ -109,6 +109,7 @@ describe('chronicle content database', () => {
     expect(f4).toContain('<a href="https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf">生物多樣性和生態系服務政府間科學政策平台｜全球評估決策者摘要</a>');
     expect(f4).toContain('<a href="https://science.nasa.gov/exoplanets/search-for-life/">美國國家航空航天局｜搜尋地外生命</a>');
     expect(f4).not.toMatch(/末日|排名|優生學|臺灣|台灣|噤聲/);
+  });
 
   it('renders the F6 monitoring windows from public sources', () => {
     const hub = renderCivilizationHub().html;

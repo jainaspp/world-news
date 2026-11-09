@@ -853,6 +853,7 @@ describe('civilization future P0', () => {
     expect(essay).toContain('https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf');
     expect(essay).toContain('https://science.nasa.gov/exoplanets/search-for-life/');
     expect(essay).not.toMatch(/末日|崩潰|排名|優生學|臺灣|台灣|噤聲/);
+  });
 
   it('thickens the F6 blurb around institution windows', () => {
     const f6 = FUTURE_DOMAINS.find((domain) => domain.code === 'F6');
