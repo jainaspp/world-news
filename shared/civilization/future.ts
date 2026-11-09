@@ -190,7 +190,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f1',
     code: 'F1',
     title: '能量宜居',
-    blurb: '文明可用功率受行星能量收支與碳循環約束。宜居帶是可觀測的熱量、水循環與極端事件邊界，寫在約與綜述的區間，不作國別排名。',
+    blurb: '文明可用功率受行星能量收支與碳循環約束。宜居帶寫在評估問答與年報的可觀測區間，檢查點是出版日曆，不作國別排名。',
     status: '有卡',
     lines: ['能量'],
     anchor: 'future-f1',
