@@ -1694,7 +1694,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 人類的遺傳多樣性是共享遺產。人類與微生物、作物、生態系一同演化。地外智慧生命仍是開放的科學問題，一律標明尚無確證，不寫人群高下。
 
-並見[生物多樣性與生態系服務約束](#future-horizon-biodiversity)、[抗微生物藥物耐藥性（AMR）](#future-horizon-amr)、[土壤與土地退化對糧食／碳庫服務](#future-horizon-soil-land)。那些段落寫在各自的主域裡，這裡不重複。', 40, 'F4', 'future', NULL);
+並見[生物多樣性與生態系服務約束](#future-horizon-biodiversity)、[抗微生物藥物耐藥性（AMR）](#future-horizon-amr)、[土壤與土地退化對糧食／碳庫服務](#future-horizon-soil-land)、[大流行防備與國際衛生條例能力](#future-horizon-pandemic-ihr)。那些段落寫在各自的主域裡，這裡不重複。', 40, 'F4', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-f5', 'future', 'future-f5', '技術能力階', '技術能力階寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。', '技術能力階只標條件寫到哪一層，不排文明高下。能量通量、信息能否被核對、維修的人與備件是否在場，是三件不同的事。把它們加成一個分數，就會把「測得到」誤讀成「已經改寫了運行條件」。本頁因此分開標：觀測、試點、基建。觀測表示現象被持續記錄，並留在可核對的出處。試點表示只在有限範圍裡做過，結果不能外推成全域。基建表示維修、備件與記錄同時在場時，能力才可能離開單點。這三檔是成熟度記號，不是可以攀登的等級。
 
 文獻裡的卡爾達肖夫尺度討論的是使用恆星能量的量級，屬於對照用的思想實驗。它不提供當代的測量程序，也不能把一座城市的電網換算成某一級。能量帶、信息帶與能動帶同樣互不換算。能量帶裡被監測的是行星能量收支與淡水，信息帶裡被監測的是底本與更正能否被後來的複本認出，能動帶裡被監測的是擾動或耐藥能否寫成可核對的維修條件。各帶並排，是為了避免讀者把某一層讀成總評。
@@ -1793,6 +1793,18 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 不確定：閾值因地而異，夜間高溫與濕度會改變風險曲線。國家預警覆蓋與衛生系統能力仍不均勻，局部成功不能外推成全球已修復。
 
 可核對的入口包括[世界衛生組織／世界氣象組織｜熱浪與健康：預警系統指引](https://www.who.int/publications/m/item/heatwaves-and-health--guidance-on-warning-system-development)、[世界衛生組織｜熱健康行動計畫指引](https://www.who.int/publications/i/item/9789289071918)、[世界衛生組織｜氣候變化與健康實況](https://www.who.int/news-room/fact-sheets/detail/climate-change-and-health)、[世界氣象組織｜熱浪專題](https://wmo.int/topics/heatwave)、[世界氣象組織｜極端熱風險治理框架與工具包](https://wmo.int/media/news/new-framework-and-toolkit-strengthens-extreme-heat-governance)、[全球熱健康信息網絡](https://ghhin.org/)。
+
+### 大流行防備與國際衛生條例能力 {#future-horizon-pandemic-ihr}
+
+這一則放在能動帶 a1，種類是健康，時間帶 進行中。信心標為較穩。日期戳 2026-11-09。時間帶不是等級。
+
+機制：《國際衛生條例（2005）》要求締約國建立並維持監測與應對所需的最低核心能力，並依第五十四條每年向世界衛生大會報告實施情形。締約國自我評估年度報告是這項義務的年度工具；世界衛生組織公開說明所載為二〇二六年第三版。聯合外部評估則是自願的多部門核對。監測修訂的是能力是否在場，不是把某一次事件寫成終局。
+
+緩解：自我評估由國家國際衛生條例主管機關協調，國家歸口單位與相關部門參與填報，再經年度報告窗口提交。聯合外部評估把預防、偵測與迅速應對的缺口寫成可以排列的優先事項，留給其後的能力維修。緩解靠這些可核對的程序，不靠動員口號。
+
+不確定：年度報告由締約國自行填報，不是獨立的實地核對。聯合外部評估出於自願，覆蓋隨參與而定。一地的結果不能外推成全球能力已經修復。
+
+可核對的入口包括[世界衛生組織｜《國際衛生條例》專題](https://www.who.int/health-topics/international-health-regulations)、[世界衛生組織｜《國際衛生條例》監測與評估框架](https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework)、[世界衛生組織｜締約國自我評估年度報告](https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/states-parties-self-assessment-annual-reporting)、[世界衛生組織｜聯合外部評估](https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/joint-external-evaluations)、[世界衛生組織｜聯合外部評估工具（第三版）](https://www.who.int/publications/i/item/9789240051980)。
 
 並見[海洋熱含量與酸化約束](#future-horizon-ocean-heat-acid)。那些段落寫在各自的主域裡，這裡不重複。', 60, 'F6', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-tier', 'future', 'future-tier', '技術能力階', '這張卡只標成熟度，不排文明高下。頁上的「約」「示意」「假說」是成熟度記號，不是等級。契約另有文明尺度一檔，不在這一檔畫成等級，也不與前三檔相加。讀的時候先看證據', '這張卡只標成熟度，不排文明高下。頁上的「約」「示意」「假說」是成熟度記號，不是等級。契約另有文明尺度一檔，不在這一檔畫成等級，也不與前三檔相加。
@@ -2635,8 +2647,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '4055');
-INSERT INTO meta (key, value) VALUES ('after_future', '11598');
+INSERT INTO meta (key, value) VALUES ('before_future', '4358');
+INSERT INTO meta (key, value) VALUES ('after_future', '12044');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');
