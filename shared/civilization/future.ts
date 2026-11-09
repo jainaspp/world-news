@@ -706,6 +706,15 @@ export const FUTURE_COUNTDOWNS: readonly CountdownItem[] = [
     pending: '下一檢查點是蒙特婁議定書科學評估板二〇二六年評估送交秘書處的窗口。第三十五次締約方會議第3號決定把送交日寫為二〇二六年十二月三十一日。這是核對日期，不是災變時鐘。',
     expired: '該輪科學評估窗口已過。見最新評估，請改讀臭氧秘書處公開的最新科學評估。本頁不保留倒數。',
   },
+  {
+    id: 'cd-ipcc-ar7-cycle',
+    anchor: 'future-countdown-ar7',
+    horizonId: 'climate',
+    checkpoint: '2027-03-19',
+    title: 'AR7 城市專題窗口',
+    pending: '下一檢查點是第七次評估週期內《氣候變化與城市》特別報告的核准窗口，訂於二〇二七年三月十五日至十九日，依據是第六十一屆全會決定 IPCC-LXI-5。這是核對日期，不是災變時鐘。',
+    expired: '該城市專題核准窗口已過。週期內下一窗是三份工作組報告的核准，月份尚未由全會議定，見最新時間表。綜合報告在工作組報告完成之後發布，年份為二〇二九年，見最新時間表。請改讀政府間氣候變化專門委員會最新的公開時間表，本頁不保留倒數。',
+  },
 ];
 
 export const FUTURE_CLADE: FutureClade = {
@@ -1127,6 +1136,19 @@ export function futureIssues(): string[] {
     || !ozoneClock.expired.includes('見最新評估')
     || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'climate' && item.id === 'cd-montreal-ozone-assessment')) {
     issues.push('horizon-ozone-layer');
+  }
+  const ar7Cities = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-ipcc-ar7-cycle');
+  if (!ar7Cities
+    || ar7Cities.horizonId !== 'climate'
+    || ar7Cities.checkpoint !== '2027-03-19'
+    || ar7Cities.anchor !== 'future-countdown-ar7'
+    || !ar7Cities.pending.includes('三月十五日至十九日')
+    || !ar7Cities.pending.includes('IPCC-LXI-5')
+    || !ar7Cities.expired.includes('見最新時間表')
+    || !ar7Cities.expired.includes('二〇二九年')
+    || ar7Cities.pending.includes('二〇二八年')
+    || ar7Cities.expired.includes('二〇二八年')) {
+    issues.push('countdown-ar7');
   }
 
   const instanceIds = new Set<string>();

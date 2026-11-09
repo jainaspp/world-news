@@ -1613,6 +1613,14 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 下一檢查點是世界氣象組織年度全球氣候評估的公開窗口，約在二〇二七年三月。這是核對日期，不是災變時鐘。
 
+### AR7 城市專題窗口 {#future-countdown-ar7}
+
+第七次評估週期裡，《氣候變化與城市》特別報告有自己的核准會期。這一日曆只核對該特別報告，不與世界氣象組織的年度氣候說明合成同一扇窗口。
+
+檢查點日期是 2027-03-19。對照[氣候宜居約束](#future-horizon-climate)。
+
+下一檢查點是第七次評估週期內《氣候變化與城市》特別報告的核准窗口，訂於二〇二七年三月十五日至十九日，依據是第六十一屆全會決定 IPCC-LXI-5。這是核對日期，不是災變時鐘。
+
 ### 海洋熱含量與酸化約束 {#future-horizon-ocean-heat-acid}
 
 這一則放在能量帶 e2，種類是生物圈，時間帶 進行中。信心標為較穩。日期戳 2026-11-09。時間帶不是等級。
@@ -2679,8 +2687,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '6135');
-INSERT INTO meta (key, value) VALUES ('after_future', '14123');
+INSERT INTO meta (key, value) VALUES ('before_future', '6306');
+INSERT INTO meta (key, value) VALUES ('after_future', '14273');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');
