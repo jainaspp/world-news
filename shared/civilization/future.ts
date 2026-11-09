@@ -545,6 +545,28 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '世界衛生組織｜聯合外部評估工具（第三版）', url: 'https://www.who.int/publications/i/item/9789240051980' },
     ],
   },
+  {
+    id: 'horizon-critical-minerals',
+    anchor: 'future-horizon-critical-minerals',
+    title: '關鍵礦物與能源轉型物料約束',
+    domainId: 'f1',
+    alsoDomainId: 'f6',
+    kind: 'resource',
+    band: 'e2',
+    timeBand: '進行中',
+    confidence: 'partial',
+    mechanism: '鋰、鎳、鈷、石墨、稀土與銅等物料進入電池、電網與低排放發電設備之後，能源系統的礦物強度跟著上升。國際能源署《全球關鍵礦物展望》二〇二五年版按情景修訂供需：二〇二四年鋰需求上升近百分之三十，鎳、鈷、石墨與稀土上升約百分之六至八，並給出其後的中期與長期方向。世界銀行所引的評估，在升溫低於二攝氏度的路徑下估計，石墨、鋰與鈷一類礦物的產量到二〇五〇年增幅可能接近百分之五百，部署風電、太陽能、地熱與儲能所需的礦物與金屬超過三十億噸。開採與精煉可以集中於少數供應來源；集中寫的是供應衝擊如何傳遞，不是國別高下。監測修訂的是情景、產量與覆蓋，不是把某一年寫成終局。',
+    mitigation: '回收與二次供應、材料效率，以及採選、冶煉與回收的技術改進，把新增的一次開採留在較低的情景區間。世界銀行的氣候智慧採礦，把開採與加工的環境和氣候足跡寫成可以事後核對的治理條件。聯合國環境規劃署國際資源小組的《全球資源展望》二〇二四年版，把歷史趨勢情景與一條放慢物料增長的路徑放在同一份評估裡。美國地質調查局的《礦產商品摘要》按年彙編世界產量、儲量與資源量；二〇二六年版於二月六日首發，五月二十七日修訂。盤點改讀下一份展望與摘要，不另發動員句。',
+    uncertainty: '儲量不是當下可經濟開採的全部供應，資源量的口徑又比儲量更寬；礦產商品摘要的附錄把兩者分開。需求隨電池化學與發電技術的替換而改寫，一種金屬的鬆緊不能外推成整個能源系統已經修復。地質調查的空間覆蓋與報告時滯並不均勻。歷史趨勢情景裡，物料開採量到二〇六〇年相對二〇二〇年可能上升近百分之六十；同一份評估同時寫出把增幅放慢的路徑。這是情景區間，不是災變時鐘。',
+    dataAsOf: '2026-11-09',
+    sources: [
+      { name: '國際能源署｜全球關鍵礦物展望（二〇二五）', url: 'https://iea.blob.core.windows.net/assets/ef5e9b70-3374-4caa-ba9d-19c72253bfc4/GlobalCriticalMineralsOutlook2025.pdf' },
+      { name: '世界銀行｜氣候智慧採礦：氣候行動所需的礦物', url: 'https://www.worldbank.org/en/topic/extractiveindustries/brief/climate-smart-mining-minerals-for-climate-action' },
+      { name: '美國地質調查局｜礦產商品摘要（二〇二六）', url: 'https://pubs.usgs.gov/publication/mcs2026' },
+      { name: '美國地質調查局｜礦產商品摘要系列', url: 'https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries' },
+      { name: '聯合國環境規劃署國際資源小組｜全球資源展望（二〇二四）', url: 'https://www.resourcepanel.org/sites/default/files/documents/document/media/gro24_full_report_29feb_final_for_web.pdf' },
+    ],
+  },
 ];
 
 /**
@@ -852,7 +874,7 @@ export function futureIssues(): string[] {
   }
   if (FUTURE_CLADE.domainId !== 'f4') issues.push('clade-domain');
 
-  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務', '大流行防備與國際衛生條例能力'];
+  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務', '大流行防備與國際衛生條例能力', '關鍵礦物與能源轉型物料約束'];
   if (FUTURE_HORIZONS.length !== horizonTitles.length) issues.push('horizon-count');
   const horizonIds = new Set<string>();
   for (const [index, horizon] of FUTURE_HORIZONS.entries()) {
@@ -1007,6 +1029,26 @@ export function futureIssues(): string[] {
     || pandemic.sources.some((source) => !source.url.startsWith('https://www.who.int/'))
     || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-pandemic-ihr-preparedness')) {
     issues.push('horizon-pandemic-ihr');
+  }
+  const minerals = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-critical-minerals');
+  if (!minerals
+    || minerals.title !== '關鍵礦物與能源轉型物料約束'
+    || minerals.anchor !== 'future-horizon-critical-minerals'
+    || minerals.domainId !== 'f1'
+    || minerals.alsoDomainId !== 'f6'
+    || minerals.kind !== 'resource'
+    || minerals.band !== 'e2'
+    || minerals.timeBand !== '進行中'
+    || minerals.confidence !== 'partial'
+    || minerals.dataAsOf !== '2026-11-09'
+    || minerals.sources.length < 4
+    || !minerals.sources.some((source) => source.url.startsWith('https://iea.blob.core.windows.net/'))
+    || !minerals.sources.some((source) => source.url.startsWith('https://www.worldbank.org/'))
+    || !minerals.sources.some((source) => source.url.startsWith('https://pubs.usgs.gov/'))
+    || !minerals.sources.some((source) => source.url.startsWith('https://www.usgs.gov/'))
+    || !minerals.sources.some((source) => source.url.startsWith('https://www.resourcepanel.org/'))
+    || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-critical-minerals')) {
+    issues.push('horizon-critical-minerals');
   }
 
   const instanceIds = new Set<string>();
