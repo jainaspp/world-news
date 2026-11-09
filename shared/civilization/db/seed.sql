@@ -1804,7 +1804,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 不確定：國家數據有時滯，方法也不盡相同。一地的極端乾旱，不能由全球均值直接代表。
 
-可核對的入口包括[聯合國水機制｜可持續發展目標六綜合報告（二〇二六）](https://www.unwater.org/publications/sdg-6-synthesis-report-2026)、[聯合國水機制｜可持續發展目標六進度報告](https://www.unwater.org/publications/sdg-6-progress-reports)、[聯合國水機制｜可持續發展目標六數據](https://www.sdg6data.org/en)、[世界衛生組織與聯合國兒童基金會｜聯合監測計劃家戶進度](https://washdata.org/reports/jmp-2025-wash-households)、[世界衛生組織｜飲用水](https://www.who.int/news-room/fact-sheets/detail/drinking-water)、[聯合國教科文組織｜世界水資源發展報告（二〇二五）](https://www.unesco.org/reports/wwdr/en/2025)。
+可核對的入口包括[聯合國水機制｜可持續發展目標六綜合報告（二〇二六）](https://www.unwater.org/publications/sdg-6-synthesis-report-2026)、[聯合國水機制｜可持續發展目標六進度報告](https://www.unwater.org/publications/sdg-6-progress-reports)、[聯合國水機制｜二〇二六年數據匯編時間表](https://www.unwater.org/sites/default/files/2026-04/Data_compilation_process_and_timeline_2026-04-21.pdf)、[聯合國水機制｜可持續發展目標六數據](https://www.sdg6data.org/en)、[世界衛生組織與聯合國兒童基金會｜聯合監測計劃家戶進度](https://washdata.org/reports/jmp-2025-wash-households)、[世界衛生組織與聯合國兒童基金會｜聯合監測計劃學校進度（二〇二六）](https://washdata.org/reports/jmp-2026-wash-schools)、[聯合國兒童基金會｜醫療機構用水與衛生進度（二〇二六）](https://data.unicef.org/resources/jmp-wash-in-health-care-facilities-2026/)、[世界衛生組織｜飲用水](https://www.who.int/news-room/fact-sheets/detail/drinking-water)、[聯合國教科文組織｜世界水資源發展報告（二〇二五）](https://www.unesco.org/reports/wwdr/en/2025)。
 
 ### SDG 6 淡水進度盤點 {#future-countdown-unwater}
 
@@ -1812,7 +1812,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 檢查點日期是 2027-06-30。對照[淡水可用量與衛生服務壓力](#future-horizon-freshwater)。
 
-二〇二六年可持續發展目標六綜合報告已經發布。下一檢查點是指標保管機構的年度進度公開窗口，約在二〇二七年六月。這是核對日期，不是災變時鐘。
+上次盤點是世界衛生組織與聯合國兒童基金會聯合監測計劃已公開的進度：家戶飲用水、環境衛生與個人衛生為二〇二五年八月，涵蓋二〇〇〇至二〇二四年；醫療機構為二〇二六年八月十八日，涵蓋二〇一五至二〇二五年；學校為二〇二六年九月，涵蓋二〇一五至二〇二五年。聯合國水機制出版頁將可持續發展目標六綜合報告標為二〇二六年六月十二日，報告正文印記為二〇二六年七月。下次盤點：家戶指標在奇數年更新，學校與醫療機構在偶數年更新。依聯合國水機制二〇二六年四月二十一日的數據匯編時間表，下一份家戶報告約在二〇二七年六月至七月寫成並公開。二〇二六年的機構報告，時間表原寫六月至七月，實際公開落在八月與九月，故本頁檢查點二〇二七年六月三十日只標時間表的六月一側，不是保管機構公布的出版日。糧農組織的用水效率與用水壓力每年匯編，聯合國環境規劃署的淡水生態系統指標每年報告，官方發展援助數據在每年十二月發布，並非所有指標同一日刷新。二〇三〇年是可持續發展目標寫明的目標年。本頁不就該年倒數。這是核對日期，不是災變時鐘。
 
 ### 極端熱與健康服務壓力 {#future-horizon-heat-health}
 
@@ -2679,8 +2679,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '5700');
-INSERT INTO meta (key, value) VALUES ('after_future', '13722');
+INSERT INTO meta (key, value) VALUES ('before_future', '6135');
+INSERT INTO meta (key, value) VALUES ('after_future', '14123');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');
