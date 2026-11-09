@@ -500,6 +500,29 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '政府間海洋學委員會｜海洋酸化', url: 'https://www.ioc.unesco.org/en/ocean-acidification' },
     ],
   },
+  {
+    id: 'horizon-soil-land-degradation',
+    anchor: 'future-horizon-soil-land',
+    title: '土壤與土地退化對糧食／碳庫服務',
+    domainId: 'f1',
+    alsoDomainId: 'f4',
+    kind: 'resource',
+    band: 'e2',
+    timeBand: '進行中',
+    confidence: 'partial',
+    mechanism: '土壤侵蝕、有機質下降、鹽漬化與土地覆蓋改變，會收窄同一地塊的糧食生產與碳庫服務。政府間氣候變化專門委員會的土地特別報告，把土地退化寫成生產力、生態完整性或對人使用價值的長期減損，並說明它與氣候過程互相改寫。聯合國防治荒漠化公約以全球土地展望與國家報告核對土地覆蓋、土地生產力與地上及地下碳庫的趨勢。聯合國糧食及農業組織的世界土壤資源狀況，則追蹤可持續土壤管理的採用。監測修訂的是範圍與缺口，不是把某一年寫成終局。',
+    mitigation: '可持續土地管理、土壤有機質的維護，以及土地退化零增長的自願目標，是機構已經寫明的公共路徑。進度依全球土地展望、世界土壤資源狀況，以及公約的國家報告窗口核對。緩解留在可事後查閱的指標與報告，不另發動員句。',
+    uncertainty: '國家土壤調查與報告的空間覆蓋、方法與時滯並不均勻。缺乏本國數據的地方，估計改靠公約提供的全球數據。一地的恢復成效，不能外推成全球糧食供應或碳庫已經修復。',
+    dataAsOf: '2026-11-09',
+    sources: [
+      { name: '聯合國防治荒漠化公約｜全球土地展望', url: 'https://www.unccd.int/resources/global-land-outlook/overview' },
+      { name: '聯合國防治荒漠化公約｜全球土地展望第二版', url: 'https://www.unccd.int/resources/global-land-outlook/global-land-outlook-2nd-edition' },
+      { name: '聯合國防治荒漠化公約｜國家報告程序', url: 'https://www.unccd.int/data-knowledge/unccd-national-reporting-process' },
+      { name: '聯合國糧食及農業組織｜世界土壤資源狀況', url: 'https://www.fao.org/global-soil-partnership/Scientific-and-technical-support/itps/status-of-the-worlds-soil-resources/en' },
+      { name: '政府間氣候變化專門委員會｜氣候變化與土地特別報告第四章（土地退化）', url: 'https://www.ipcc.ch/srccl/chapter/chapter-4/' },
+      { name: '政府間氣候變化專門委員會｜氣候變化與土地特別報告第五章（糧食安全）', url: 'https://www.ipcc.ch/srccl/chapter/chapter-5/' },
+    ],
+  },
 ];
 
 /**
@@ -807,7 +830,7 @@ export function futureIssues(): string[] {
   }
   if (FUTURE_CLADE.domainId !== 'f4') issues.push('clade-domain');
 
-  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束'];
+  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務'];
   if (FUTURE_HORIZONS.length !== horizonTitles.length) issues.push('horizon-count');
   const horizonIds = new Set<string>();
   for (const [index, horizon] of FUTURE_HORIZONS.entries()) {
@@ -928,6 +951,24 @@ export function futureIssues(): string[] {
     || ocean.sources.length < 4
     || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-ocean-heat-acid')) {
     issues.push('horizon-ocean-heat-acid');
+  }
+  const soil = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-soil-land-degradation');
+  if (!soil
+    || soil.title !== '土壤與土地退化對糧食／碳庫服務'
+    || soil.anchor !== 'future-horizon-soil-land'
+    || soil.domainId !== 'f1'
+    || soil.alsoDomainId !== 'f4'
+    || soil.kind !== 'resource'
+    || soil.band !== 'e2'
+    || soil.timeBand !== '進行中'
+    || soil.confidence !== 'partial'
+    || soil.dataAsOf !== '2026-11-09'
+    || soil.sources.length < 4
+    || !soil.sources.some((source) => source.url.startsWith('https://www.unccd.int/'))
+    || !soil.sources.some((source) => source.url.startsWith('https://www.fao.org/'))
+    || !soil.sources.some((source) => source.url.startsWith('https://www.ipcc.ch/'))
+    || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-soil-land-degradation')) {
+    issues.push('horizon-soil-land-degradation');
   }
 
   const instanceIds = new Set<string>();

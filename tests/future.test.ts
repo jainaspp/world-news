@@ -68,7 +68,7 @@ describe('civilization future P0', () => {
       expect(civChars(domain.blurb)).toBeLessThanOrEqual(80);
     }
     expect(FUTURE_HORIZONS.map((horizon) => horizon.title)).toEqual([
-      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束',
+      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務',
     ]);
     const biodiversity = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-biodiversity-services');
     expect(biodiversity?.domainId).toBe('f6');
@@ -150,6 +150,23 @@ describe('civilization future P0', () => {
     expect(oceanUrls.some((url) => url.startsWith('https://www.ioc.unesco.org/'))).toBe(true);
     expect(FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-ocean-heat-acid')).toBe(false);
     expect(futureHrefAllowed('/civilization/#future-horizon-ocean-heat-acid')).toBe(true);
+    const soil = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-soil-land-degradation');
+    expect(soil?.title).toBe('土壤與土地退化對糧食／碳庫服務');
+    expect(soil?.anchor).toBe('future-horizon-soil-land');
+    expect(soil?.domainId).toBe('f1');
+    expect(soil?.alsoDomainId).toBe('f4');
+    expect(soil?.kind).toBe('resource');
+    expect(soil?.band).toBe('e2');
+    expect(soil?.timeBand).toBe('進行中');
+    expect(soil?.confidence).toBe('partial');
+    expect(soil?.dataAsOf).toBe('2026-11-09');
+    expect(soil?.sources.length).toBeGreaterThanOrEqual(4);
+    expect(soil?.sources.every((source) => source.url.startsWith('https://'))).toBe(true);
+    expect(soil?.sources.some((source) => source.url.startsWith('https://www.unccd.int/'))).toBe(true);
+    expect(soil?.sources.some((source) => source.url.startsWith('https://www.fao.org/'))).toBe(true);
+    expect(soil?.sources.some((source) => source.url.startsWith('https://www.ipcc.ch/'))).toBe(true);
+    expect(FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-soil-land-degradation')).toBe(false);
+    expect(futureHrefAllowed('/civilization/#future-horizon-soil-land')).toBe(true);
     expect(civChars(STAGE10_BRIDGE)).toBeGreaterThanOrEqual(80);
     expect(civChars(STAGE10_BRIDGE)).toBeLessThanOrEqual(120);
     expect(STAGE10_BRIDGE_EXTRA).toBe('第十階名為本世紀／當代。展望・分域只把目光送到總覽的六個入口，讓條件句留在總覽面板。');
@@ -229,6 +246,8 @@ describe('civilization future P0', () => {
     expect(panel).toContain('極端熱與健康服務壓力');
     expect(panel).toContain('id="future-horizon-ocean-heat-acid"');
     expect(panel).toContain('海洋熱含量與酸化約束');
+    expect(panel).toContain('id="future-horizon-soil-land"');
+    expect(panel).toContain('土壤與土地退化對糧食／碳庫服務');
     const f1 = panel.slice(panel.indexOf('id="future-f1"'), panel.indexOf('id="future-f2"'));
     expect(f1).toContain('能量宜居');
     expect(panel).not.toContain('有卡');
@@ -302,7 +321,16 @@ describe('civilization future P0', () => {
     expect(heatCard).not.toContain('future-cover');
     expect(heatCard).toContain('極端熱與健康服務壓力');
     expect(heatCard).toContain('href="#future-horizon-ocean-heat-acid"');
-    const oceanCard = panel.slice(panel.indexOf('id="future-horizon-ocean-heat-acid"'), panel.indexOf('id="future-f2"'));
+    const climateAt = panel.indexOf('id="future-horizon-climate"');
+    const wmoAt = panel.indexOf('id="future-countdown-wmo"');
+    const oceanAt = panel.indexOf('id="future-horizon-ocean-heat-acid"');
+    const soilAt = panel.indexOf('id="future-horizon-soil-land"');
+    const f2At = panel.indexOf('id="future-f2"');
+    expect(wmoAt).toBeGreaterThan(climateAt);
+    expect(oceanAt).toBeGreaterThan(wmoAt);
+    expect(soilAt).toBeGreaterThan(oceanAt);
+    expect(f2At).toBeGreaterThan(soilAt);
+    const oceanCard = panel.slice(oceanAt, soilAt);
     expect(oceanCard).not.toContain('future-cover');
     expect(oceanCard).toContain('海洋熱含量與酸化約束');
     expect(oceanCard).toContain('能量帶 e2');
@@ -310,14 +338,34 @@ describe('civilization future P0', () => {
     expect(oceanCard).toContain('日期戳 2026-11-09');
     expect(oceanCard).toContain('https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/');
     expect(oceanCard).toContain('https://www.ioc.unesco.org/en/ocean-acidification');
-    const oceanPanel = renderFuturePanel(NOW);
-    const oceanArticle = oceanPanel.slice(
-      oceanPanel.indexOf('id="future-horizon-ocean-heat-acid"'),
-      oceanPanel.indexOf('id="future-countdown-wmo"'),
+    const soilCard = panel.slice(soilAt, f2At);
+    expect(soilCard).not.toContain('future-cover');
+    expect(soilCard).toContain('土壤與土地退化對糧食／碳庫服務');
+    expect(soilCard).toContain('能量帶 e2');
+    expect(soilCard).toContain('種類是資源');
+    expect(soilCard).toContain('時間帶 進行中');
+    expect(soilCard).toContain('信心標為部分');
+    expect(soilCard).toContain('2026-11-09');
+    expect(soilCard).toContain('空間覆蓋、方法與時滯並不均勻');
+    expect(soilCard).toContain('href="https://www.unccd.int/resources/global-land-outlook/overview"');
+    expect(soilCard).toContain('href="https://www.fao.org/global-soil-partnership/Scientific-and-technical-support/itps/status-of-the-worlds-soil-resources/en"');
+    expect(soilCard).toContain('href="https://www.ipcc.ch/srccl/chapter/chapter-4/"');
+    expect(panel).toContain('href="#future-horizon-soil-land"');
+    const drawn = renderFuturePanel(NOW);
+    const oceanArticle = drawn.slice(
+      drawn.indexOf('id="future-horizon-ocean-heat-acid"'),
+      drawn.indexOf('id="future-horizon-soil-land"'),
     );
     expect(oceanArticle).toContain('F1 能量宜居');
     expect(oceanArticle).toContain('F6 生存風險');
     expect(oceanArticle).not.toContain('class="future-cover"');
+    const drawnSoil = drawn.slice(drawn.indexOf('id="future-horizon-soil-land"'), drawn.indexOf('id="future-countdown-wmo"'));
+    expect(drawn.indexOf('id="future-horizon-heat-health"')).toBeLessThan(drawn.indexOf('id="future-horizon-ocean-heat-acid"'));
+    expect(drawn.indexOf('id="future-horizon-ocean-heat-acid"')).toBeLessThan(drawn.indexOf('id="future-horizon-soil-land"'));
+    expect(drawnSoil).toContain('信心 部分');
+    expect(drawnSoil).toContain('href="#future-f1"');
+    expect(drawnSoil).toContain('href="#future-f4"');
+    expect(drawnSoil).not.toContain('future-cover');
     expect(panel).toContain('id="future-horizon-biodiversity"');
     expect(panel).toContain('id="future-countdown-cbd"');
     expect(panel).toContain('id="future-horizon-amr"');
@@ -409,6 +457,9 @@ describe('civilization future P0', () => {
     expect(schema).toContain('極端熱與健康服務壓力');
     expect(schema).toContain('海洋熱含量與酸化約束');
     expect(schema).toContain('horizon-ocean-heat-acid');
+    expect(schema).toContain('土壤與土地退化對糧食／碳庫服務');
+    expect(schema).toContain('horizon-soil-land-degradation');
+    expect(schema).toContain('2026-11-09');
     expect(schema).toContain('pipe-care');
     expect(schema).toContain('階段名仍是第十階');
     expect(schema).toContain('2026-10-19');

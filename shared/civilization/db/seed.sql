@@ -1625,6 +1625,18 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 可核對的入口包括[政府間氣候變化專門委員會｜第六次評估第一工作組第二章](https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-2/)、[政府間氣候變化專門委員會｜第六次評估第一工作組第五章](https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-5/)、[政府間氣候變化專門委員會｜第六次評估第一工作組第九章](https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/)、[世界氣象組織｜全球氣候狀況系列](https://wmo.int/publication-series/state-of-global-climate)、[美國氣候網｜海洋熱含量](https://www.climate.gov/news-features/understanding-climate/climate-change-ocean-heat-content)、[政府間海洋學委員會｜海洋酸化](https://www.ioc.unesco.org/en/ocean-acidification)。
 
+### 土壤與土地退化對糧食／碳庫服務 {#future-horizon-soil-land}
+
+這一則放在能量帶 e2，種類是資源，時間帶 進行中。信心標為部分。日期戳 2026-11-09。時間帶不是等級。
+
+機制：土壤侵蝕、有機質下降、鹽漬化與土地覆蓋改變，會收窄同一地塊的糧食生產與碳庫服務。政府間氣候變化專門委員會的土地特別報告，把土地退化寫成生產力、生態完整性或對人使用價值的長期減損，並說明它與氣候過程互相改寫。聯合國防治荒漠化公約以全球土地展望與國家報告核對土地覆蓋、土地生產力與地上及地下碳庫的趨勢。聯合國糧食及農業組織的世界土壤資源狀況，則追蹤可持續土壤管理的採用。監測修訂的是範圍與缺口，不是把某一年寫成終局。
+
+緩解：可持續土地管理、土壤有機質的維護，以及土地退化零增長的自願目標，是機構已經寫明的公共路徑。進度依全球土地展望、世界土壤資源狀況，以及公約的國家報告窗口核對。緩解留在可事後查閱的指標與報告，不另發動員句。
+
+不確定：國家土壤調查與報告的空間覆蓋、方法與時滯並不均勻。缺乏本國數據的地方，估計改靠公約提供的全球數據。一地的恢復成效，不能外推成全球糧食供應或碳庫已經修復。
+
+可核對的入口包括[聯合國防治荒漠化公約｜全球土地展望](https://www.unccd.int/resources/global-land-outlook/overview)、[聯合國防治荒漠化公約｜全球土地展望第二版](https://www.unccd.int/resources/global-land-outlook/global-land-outlook-2nd-edition)、[聯合國防治荒漠化公約｜國家報告程序](https://www.unccd.int/data-knowledge/unccd-national-reporting-process)、[聯合國糧食及農業組織｜世界土壤資源狀況](https://www.fao.org/global-soil-partnership/Scientific-and-technical-support/itps/status-of-the-worlds-soil-resources/en)、[政府間氣候變化專門委員會｜氣候變化與土地特別報告第四章（土地退化）](https://www.ipcc.ch/srccl/chapter/chapter-4/)、[政府間氣候變化專門委員會｜氣候變化與土地特別報告第五章（糧食安全）](https://www.ipcc.ch/srccl/chapter/chapter-5/)。
+
 並見[淡水可用量與衛生服務壓力](#future-horizon-freshwater)、[極端熱與健康服務壓力](#future-horizon-heat-health)。那些段落寫在各自的主域裡，這裡不重複。', 10, 'F1', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-f2', 'future', 'future-f2', '信息可信', '信息可信寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。', '信息可信問的是底本靠什麼留下。複製的成本一旦降到近乎可以忽略，同一段未經核對的敘述就可以在短時間裡到達許多互不相識的人。速度本身不產生真實，也不產生虛假；它只改變錯誤或更正要花多少時間才能被下一個讀者看見。可信因此要回到可以指認的物件：原件、版本、出處，以及一份更正能否在後來的複本上被認出來。
 
@@ -1682,7 +1694,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 人類的遺傳多樣性是共享遺產。人類與微生物、作物、生態系一同演化。地外智慧生命仍是開放的科學問題，一律標明尚無確證，不寫人群高下。
 
-並見[生物多樣性與生態系服務約束](#future-horizon-biodiversity)、[抗微生物藥物耐藥性（AMR）](#future-horizon-amr)。那些段落寫在各自的主域裡，這裡不重複。', 40, 'F4', 'future', NULL);
+並見[生物多樣性與生態系服務約束](#future-horizon-biodiversity)、[抗微生物藥物耐藥性（AMR）](#future-horizon-amr)、[土壤與土地退化對糧食／碳庫服務](#future-horizon-soil-land)。那些段落寫在各自的主域裡，這裡不重複。', 40, 'F4', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-f5', 'future', 'future-f5', '技術能力階', '技術能力階寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。', '技術能力階只標條件寫到哪一層，不排文明高下。能量通量、信息能否被核對、維修的人與備件是否在場，是三件不同的事。把它們加成一個分數，就會把「測得到」誤讀成「已經改寫了運行條件」。本頁因此分開標：觀測、試點、基建。觀測表示現象被持續記錄，並留在可核對的出處。試點表示只在有限範圍裡做過，結果不能外推成全域。基建表示維修、備件與記錄同時在場時，能力才可能離開單點。這三檔是成熟度記號，不是可以攀登的等級。
 
 文獻裡的卡爾達肖夫尺度討論的是使用恆星能量的量級，屬於對照用的思想實驗。它不提供當代的測量程序，也不能把一座城市的電網換算成某一級。能量帶、信息帶與能動帶同樣互不換算。能量帶裡被監測的是行星能量收支與淡水，信息帶裡被監測的是底本與更正能否被後來的複本認出，能動帶裡被監測的是擾動或耐藥能否寫成可核對的維修條件。各帶並排，是為了避免讀者把某一層讀成總評。
@@ -2623,8 +2635,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '3687');
-INSERT INTO meta (key, value) VALUES ('after_future', '11037');
+INSERT INTO meta (key, value) VALUES ('before_future', '4055');
+INSERT INTO meta (key, value) VALUES ('after_future', '11598');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');
