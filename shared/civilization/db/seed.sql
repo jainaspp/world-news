@@ -1649,6 +1649,26 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 可核對的入口包括[國際能源署｜全球關鍵礦物展望（二〇二五）](https://iea.blob.core.windows.net/assets/ef5e9b70-3374-4caa-ba9d-19c72253bfc4/GlobalCriticalMineralsOutlook2025.pdf)、[世界銀行｜氣候智慧採礦：氣候行動所需的礦物](https://www.worldbank.org/en/topic/extractiveindustries/brief/climate-smart-mining-minerals-for-climate-action)、[美國地質調查局｜礦產商品摘要（二〇二六）](https://pubs.usgs.gov/publication/mcs2026)、[美國地質調查局｜礦產商品摘要系列](https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries)、[聯合國環境規劃署國際資源小組｜全球資源展望（二〇二四）](https://www.resourcepanel.org/sites/default/files/documents/document/media/gro24_full_report_29feb_final_for_web.pdf)。
 
+### 臭氧層與地表紫外輻射約束 {#future-horizon-ozone}
+
+這一則放在能量帶 e2，時間帶 進行中。信心標為部分。日期戳 2026-11-09。時間帶不是等級。
+
+機制：平流層臭氧吸收紫外輻射，是地表宜居窗口的一層。蒙特婁議定書第六條要求，自一九九〇年起至少每四年，依可得的科學、環境、技術與經濟信息評估管制措施。科學評估板把消耗臭氧層物質的豐度與臭氧柱總量寫成公開評估。二〇二二年評估的要點寫明：臭氧柱總量回到一九八〇年數值，南極約在二〇六六年，北極約在二〇四五年，近全球平均（北緯六十度至南緯六十度）約在二〇四〇年。監測修訂的是這些區間，不是把某一年寫成終局。
+
+緩解：消耗臭氧層物質的逐步淘汰，以及地面與衛星觀測的持續維修，是議定書已經寫明的公共路徑。評估有沒有送達，依締約方決定所訂的送交日核對。緩解留在可事後查閱的文本，不另發動員句。
+
+不確定：南極以外，自一九九六年以來臭氧柱總量恢復的證據有限，二〇二二年評估標為低信心。平流層下部尚未呈現恢復，模式與觀測仍有差距。回到一九八〇年數值的年份隨溫室氣體情景而變。上述數字屬於該次評估，二〇二六年報告尚未取代。製作時程另把執行摘要的送交記在二〇二六年十月，該列沒有日，本頁不以它為檢查點。這不是災變時鐘。
+
+可核對的入口包括[臭氧秘書處｜蒙特婁議定書第六條](https://ozone.unep.org/treaties/montreal-protocol/articles/article-6-assessment-and-review-control-measures)、[臭氧秘書處｜科學評估板](https://ozone.unep.org/science/assessment/sap)、[臭氧秘書處｜第三十五次締約方會議第3號決定](https://ozone.unep.org/treaties/montreal-protocol/meetings/thirty-fifth-meeting-parties/decisions/decision-xxxv3-potential-areas-focus-2026-quadrennial-reports-environmental-effects-assessment-panel)、[世界氣象組織｜二〇二二年臭氧層科學評估執行摘要](https://ozone.unep.org/system/files/documents/Scientific-Assessment-of-Ozone-Depletion-2022-Executive-Summary.pdf)、[美國國家海洋和大氣管理局｜二〇二六年臭氧評估時程](https://csl.noaa.gov/assessments/ozone/2026/overview.html)。
+
+### 臭氧層科學評估窗 {#future-countdown-ozone}
+
+科學評估板依蒙特婁議定書第六條，至少每四年把臭氧層狀況寫成評估。送交秘書處的日期只用來核對這一輪文本，不與世界氣象組織的年度氣候說明合成同一扇窗口。
+
+檢查點日期是 2026-12-31。對照[臭氧層與地表紫外輻射約束](#future-horizon-ozone)。
+
+下一檢查點是蒙特婁議定書科學評估板二〇二六年評估送交秘書處的窗口。第三十五次締約方會議第3號決定把送交日寫為二〇二六年十二月三十一日。這是核對日期，不是災變時鐘。
+
 並見[淡水可用量與衛生服務壓力](#future-horizon-freshwater)、[極端熱與健康服務壓力](#future-horizon-heat-health)。那些段落寫在各自的主域裡，這裡不重複。', 10, 'F1', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-f2', 'future', 'future-f2', '信息可信', '信息可信寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。', '信息可信問的是底本靠什麼留下。複製的成本一旦降到近乎可以忽略，同一段未經核對的敘述就可以在短時間裡到達許多互不相識的人。速度本身不產生真實，也不產生虛假；它只改變錯誤或更正要花多少時間才能被下一個讀者看見。可信因此要回到可以指認的物件：原件、版本、出處，以及一份更正能否在後來的複本上被認出來。
 
@@ -1818,7 +1838,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 可核對的入口包括[世界衛生組織｜《國際衛生條例》專題](https://www.who.int/health-topics/international-health-regulations)、[世界衛生組織｜《國際衛生條例》監測與評估框架](https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework)、[世界衛生組織｜締約國自我評估年度報告](https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/states-parties-self-assessment-annual-reporting)、[世界衛生組織｜聯合外部評估](https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/joint-external-evaluations)、[世界衛生組織｜聯合外部評估工具（第三版）](https://www.who.int/publications/i/item/9789240051980)。
 
-並見[海洋熱含量與酸化約束](#future-horizon-ocean-heat-acid)、[關鍵礦物與能源轉型物料約束](#future-horizon-critical-minerals)。那些段落寫在各自的主域裡，這裡不重複。', 60, 'F6', 'future', NULL);
+並見[海洋熱含量與酸化約束](#future-horizon-ocean-heat-acid)、[關鍵礦物與能源轉型物料約束](#future-horizon-critical-minerals)、[臭氧層與地表紫外輻射約束](#future-horizon-ozone)。那些段落寫在各自的主域裡，這裡不重複。', 60, 'F6', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-tier', 'future', 'future-tier', '技術能力階', '這張卡只標成熟度，不排文明高下。頁上的「約」「示意」「假說」是成熟度記號，不是等級。契約另有文明尺度一檔，不在這一檔畫成等級，也不與前三檔相加。讀的時候先看證據', '這張卡只標成熟度，不排文明高下。頁上的「約」「示意」「假說」是成熟度記號，不是等級。契約另有文明尺度一檔，不在這一檔畫成等級，也不與前三檔相加。
 
 讀的時候先看證據停在哪一檔。觀測只表示記錄還在、出處還能打開。試點只表示有限範圍裡做過，句子不能外推。基建表示維修、備件與記錄同時在場，能力才可能離開單點。三檔之間不相加，也不能換成文明等級。
@@ -2659,8 +2679,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '4975');
-INSERT INTO meta (key, value) VALUES ('after_future', '12813');
+INSERT INTO meta (key, value) VALUES ('before_future', '5488');
+INSERT INTO meta (key, value) VALUES ('after_future', '13528');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');
