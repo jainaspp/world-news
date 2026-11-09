@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { civChars } from '../shared/civilization/contract';
+import { FUTURE_LONGFORM } from '../shared/civilization/content/futureLongform';
 import { CHRONICLE_STAGES } from '../shared/civilization/chronicle';
 import {
   FUTURE_CLADE,
@@ -752,5 +753,25 @@ describe('civilization future P0', () => {
     expect(fold).not.toContain('setInterval');
     expect(fold).not.toContain('IntersectionObserver');
     expect(js).toContain('querySelectorAll(\'.civ-reveal\')');
+  });
+
+  it('thickens the F3 blurb around measurement and open indicators', () => {
+    const f3 = FUTURE_DOMAINS.find((domain) => domain.code === 'F3');
+    expect(civChars(f3?.blurb ?? '')).toBeGreaterThanOrEqual(40);
+    expect(civChars(f3?.blurb ?? '')).toBeLessThanOrEqual(80);
+    expect(f3?.blurb).toContain('公開指標');
+    expect(f3?.blurb).toContain('機構窗口');
+    expect(f3?.blurb).toContain('維修成本');
+    expect(f3?.blurb).toContain('不把制度能力寫成文明高下');
+    expect(f3?.blurb).not.toMatch(/末日|崩潰|排名|臺灣|台灣|噤聲/);
+    const essay = FUTURE_LONGFORM.f3;
+    expect(essay).toContain('維修成本在會議、表決、實驗室比對與清單的下一輪修訂');
+    expect(essay).toContain('不排列國家高下');
+    expect(essay).toContain('https://www.bipm.org/en/cgpm-2026');
+    expect(essay).toContain('https://www.iso.org/files/live/sites/isoorg/files/store/en/PUB100413.pdf');
+    expect(essay).toContain('https://unstats.un.org/unsdwebsite/statcom/');
+    expect(essay).toContain('https://unstats.un.org/sdgs/indicators/indicators-list');
+    expect(essay).toContain('https://mandates.un.org/mandate/A/RES/71/313?subject=Statistics');
+    expect(essay).not.toMatch(/末日|崩潰|排名|臺灣|台灣|噤聲/);
   });
 });

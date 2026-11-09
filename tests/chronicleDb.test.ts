@@ -50,6 +50,21 @@ describe('chronicle content database', () => {
     expect(hub.html).not.toMatch(BANNED);
   });
 
+  it('renders the F3 measurement-commons paragraph from public sources', () => {
+    const hub = renderCivilizationHub().html;
+    expect(hub).toContain('維修成本在會議、表決、實驗室比對與清單的下一輪修訂');
+    expect(hub).toContain('<a href="https://www.bipm.org/en/cgpm-2026">國際計量局｜第二十八屆國際計量大會</a>');
+    expect(hub).toContain('<a href="https://www.iso.org/files/live/sites/isoorg/files/store/en/PUB100413.pdf">國際標準化組織｜系統複審指導</a>');
+    expect(hub).toContain('<a href="https://unstats.un.org/unsdwebsite/statcom/">聯合國統計委員會</a>');
+    expect(hub).toContain('<a href="https://unstats.un.org/sdgs/indicators/indicators-list">可持續發展目標全球指標清單</a>');
+    expect(hub).toContain('<a href="https://mandates.un.org/mandate/A/RES/71/313?subject=Statistics">大會第71/313號決議</a>');
+    const start = hub.indexOf('度量、標準與公開指標是同一類可維修的公共品');
+    const end = hub.indexOf('標準與公共品維修', start);
+    expect(start).toBeGreaterThan(-1);
+    expect(end).toBeGreaterThan(start);
+    expect(hub.slice(start, end)).not.toMatch(/末日|排名|臺灣|台灣|噤聲/);
+  });
+
   it('puts each real photo on its scale heading, not only at the end of the volume', () => {
     const pages: Record<string, string> = {
       cosmos: renderCosmosPage().html,
