@@ -391,7 +391,7 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
     band: 'e1',
     timeBand: '進行中',
     confidence: 'steady',
-    mechanism: '物種與生態系功能減弱之後，授粉、水質、土壤與災害緩衝等服務跟著變窄。監測靠紅色名錄、指標與評估週期；緩解靠棲地維護、永續利用與目標年盤點。這是可觀測的約束。',
+    mechanism: '物種與生態系功能減弱之後，授粉、水質、土壤與災害緩衝等服務跟著變窄。監測靠紅色名錄、指標與評估週期；緩解靠棲地維護、永續利用與目標年盤點。三份公開窗口分開核對，不相加。紅色名錄版本 2026-1 於二〇二六年七月九日發布；版本 2026-2 的預告出版日為二〇二六年十一月二十六日，該頁寫明日程仍可能改期；版本 2027-1 只標暫定，本頁不寫成已定日。框架的首次集體進度全球審議由第十七屆締約方大會於二〇二六年十月十九日至三十日審議。第二次全球審議訂於第十九屆會議。第十七屆會議的多年工作方案文件把第十八屆寫在二〇二八年、第十九屆寫在二〇三〇年，均未寫月日。生物多樣性和生態系服務政府間科學政策平台第十三屆全體會議訂於二〇二七年十一月一日至八日，審議監測評估，以及空間規劃與連通性評估。這是可觀測的約束。',
     mitigation: '依紅色名錄與國家報告追蹤受脅等級；對齊全球生物多樣性框架的目標年進度；把棲地維護、復育與永續利用留成可核對的槓桿。',
     uncertainty: '評估覆蓋仍不均勻，無脊椎動物與真菌的缺口較大。局部復育的成效，不能直接外推成全球結果。',
     dataAsOf: '2026-10-19',
@@ -407,6 +407,10 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '《生物多樣性公約》｜第十五屆締約方大會框架文本', url: 'https://www.cbd.int/article/cop15-final-text-kunming-montreal-gbf-221222' },
       { name: '《生物多樣性公約》｜框架集體進度全球審議', url: 'https://www.cbd.int/gbf/implementation/globalreview' },
       { name: '《生物多樣性公約》｜第十七屆締約方大會', url: 'https://www.cbd.int/conferences/2026' },
+      { name: '《生物多樣性公約》｜第十七屆會議多年工作方案文件', url: 'https://www.cbd.int/doc/c/a077/0878/b321018becdc48d6a7b9ea56/cop-17-l-22-en.pdf', scope: '二〇二六年十月三十日會議文件；第十八屆寫在二〇二八年，第十九屆寫在二〇三〇年，第二次全球審議列在第十九屆；未見決定編號，月日未寫' },
+      { name: '國際自然保護聯盟｜紅色名錄近期更新', url: 'https://www.iucnredlist.org/support/whatsnew', scope: '版本 2026-1 於二〇二六年七月九日發布' },
+      { name: '國際自然保護聯盟｜紅色名錄預告更新', url: 'https://www.iucnredlist.org/assessment/updates', scope: '版本 2026-2 預告二〇二六年十一月二十六日，頁面寫明日程仍可能改期；版本 2027-1 標為暫定，本頁不寫其出版日' },
+      { name: '生物多樣性和生態系服務政府間科學政策平台｜第十三屆全體會議日期', url: 'https://www.ipbes.net/notifications/save-the-date-ipbes13', scope: '二〇二七年十一月一日至八日；會前利害相關方日為二〇二七年十月三十一日' },
     ],
   },
   {
@@ -676,8 +680,8 @@ export const FUTURE_COUNTDOWNS: readonly CountdownItem[] = [
     horizonId: 'horizon-biodiversity-services',
     checkpoint: '2026-10-30',
     title: '生物多樣性框架進度窗',
-    pending: '下一檢查點是《生物多樣性公約》秘書處已排定的框架進度盤點，約在二〇二六年十月十九日至三十日。這是生物多樣性盤點窗口，不是災變時鐘。',
-    expired: '這一輪生物多樣性盤點窗口已過。等待下一輪締約方大會或進度報告。本頁不保留倒數。',
+    pending: '下次盤點是《生物多樣性公約》第十七屆締約方大會對昆明—蒙特婁全球生物多樣性框架的首次集體進度全球審議，會期為二〇二六年十月十九日至三十日。本頁檢查點取會期最後一日。第十八屆會議在多年工作方案文件裡寫作二〇二八年，第十九屆寫作二〇三〇年；第二次全球審議訂於第十九屆，兩屆均未公布月日。本頁不就這兩年倒數。紅色名錄與政府間平台另有日曆：名錄版本 2026-1 已於二〇二六年七月九日發布，版本 2026-2 的預告出版日為二〇二六年十一月二十六日，頁面寫明日程仍可能改期；版本 2027-1 只標暫定，不寫成已定日。平台第十三屆全體會議訂於二〇二七年十一月一日至八日，審議監測評估與空間規劃及連通性評估。三份日曆不相加。這是生物多樣性盤點窗口，不是災變時鐘。',
+    expired: '第十七屆締約方大會的首次集體進度全球審議會期已過。上次盤點見二〇二六年十月十九日至三十日。第十八屆會議的年份在多年工作方案文件裡寫作二〇二八年，第十九屆寫作二〇三〇年；第二次全球審議訂於第十九屆，均未公布月日。未見新文本時，請改讀《生物多樣性公約》秘書處最新的公開文本。等待下一輪締約方大會或進度報告。本頁不保留倒數。本頁不就二〇二八年或二〇三〇年倒數。紅色名錄版本 2026-2 的預告出版日為二〇二六年十一月二十六日，頁面寫明日程仍可能改期；版本 2027-1 只標暫定。平台第十三屆全體會議訂於二〇二七年十一月一日至八日。這兩份是另一日曆，不改寫本頁檢查點。',
   },
   {
     id: 'cd-who-amr-tracss',
@@ -989,7 +993,30 @@ export function futureIssues(): string[] {
     issues.push('horizon-biodiversity');
   }
   const gbf = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-cbd-gbf-checkpoint');
-  if (!gbf || gbf.horizonId !== 'horizon-biodiversity-services' || gbf.checkpoint !== '2026-10-30') issues.push('countdown-gbf');
+  const gbfCopy = `${gbf?.pending ?? ''}\n${gbf?.expired ?? ''}`;
+  if (!gbf
+    || gbf.horizonId !== 'horizon-biodiversity-services'
+    || gbf.checkpoint !== '2026-10-30'
+    || !gbf.pending.includes('下次盤點')
+    || !gbf.pending.includes('十月十九日至三十日')
+    || !gbf.pending.includes('本頁不就這兩年倒數')
+    || !gbf.pending.includes('十一月二十六日')
+    || !gbf.pending.includes('二〇二七年十一月一日至八日')
+    || !gbf.expired.includes('上次盤點')
+    || !gbf.expired.includes('等待下一輪締約方大會或進度報告')
+    || !gbf.expired.includes('本頁不保留倒數')
+    || !gbf.expired.includes('不改寫本頁檢查點')
+    || /二〇二八年[一二三四五六七八九十〇]+月/.test(gbfCopy)
+    || /二〇三〇年[一二三四五六七八九十〇]+月/.test(gbfCopy)
+    || /只剩/.test(gbfCopy)) {
+    issues.push('countdown-gbf');
+  }
+  if (!biodiversity?.sources.some((source) => source.url === 'https://www.iucnredlist.org/assessment/updates')
+    || !biodiversity?.sources.some((source) => source.url === 'https://www.iucnredlist.org/support/whatsnew')
+    || !biodiversity?.sources.some((source) => source.url === 'https://www.ipbes.net/notifications/save-the-date-ipbes13')
+    || !biodiversity?.sources.some((source) => source.url === 'https://www.cbd.int/doc/c/a077/0878/b321018becdc48d6a7b9ea56/cop-17-l-22-en.pdf')) {
+    issues.push('horizon-biodiversity-windows');
+  }
   if (!biodiversity?.plate
     || biodiversity.plate.cover !== '/static/civilization/future-horizon-biodiversity-cover'
     || !PLATE_COVER.test(biodiversity.plate.cover)
