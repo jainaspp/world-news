@@ -72,6 +72,11 @@ describe('civilization future P0', () => {
     expect(f2?.blurb).toContain('C2PA等內容來源標準');
     expect(f2?.blurb).toContain('校驗由誰付成本');
     expect(f2?.blurb).not.toMatch(/噤聲|審查|動員/);
+    const f5 = FUTURE_DOMAINS.find((domain) => domain.code === 'F5');
+    expect(f5?.blurb).toContain('不印合成分數');
+    expect(f5?.blurb).toContain('不印文明等級');
+    expect(f5?.blurb).toContain('問責局指南僅作文獻對照');
+    expect(f5?.blurb).not.toMatch(/文明總分|[0-9０-９]+\s*分/);
     expect(FUTURE_HORIZONS.map((horizon) => horizon.title)).toEqual([
       '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務', '大流行防備與國際衛生條例能力', '關鍵礦物與能源轉型物料約束', '臭氧層與地表紫外輻射約束',
     ]);
@@ -716,6 +721,8 @@ describe('civilization future P0', () => {
     expect(cards.some((name) => name.includes('future-checkpoint'))).toBe(true);
     expect(panel).toContain('<h2>展望</h2>');
     expect(panel).toContain('C2PA等內容來源標準');
+    expect(panel).toContain('問責局指南僅作文獻對照');
+    expect(panel).toContain('不印文明等級');
     expect(panel).toContain('class="future-note"');
     const nav = panel.slice(panel.indexOf('<nav class="future-domain-nav"'), panel.indexOf('</nav>'));
     expect(nav).not.toContain('civ-reveal');
