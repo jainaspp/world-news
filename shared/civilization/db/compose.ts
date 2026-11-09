@@ -44,16 +44,29 @@ const CHRONICLE_NEXT = [
   '網絡使複製近乎即時，卻還沒有把約二零一零年以後的通用工具算進來。本世紀要寫的，是已經進入公共機構頁面的測量、支付、測序與氣候說明，而不是對以後世紀的預測。',
 ];
 
+const TECH_NOTE = [
+  '奧杜威石片與後來的兩面器並不共用一個打擊角。角一變，刃口的用法就變，不能收成一種手工具的本質。東非與南非的石料也不一樣，一件標本代表不了整條技術史。',
+  '有的灰燼層後來被改讀成自然火。層位還在，用火的解釋就要重寫，不能靠「看起來像火塘」收束。燒骨單獨出現時，連燃料是木材、骨脂還是野火都讀不出來。',
+  '同一條採集路線隔夜再講，地點的詞會換。換過的詞沒有頁邊可以批，也沒有第二份可對。聽的人若已經離開，下一句就無從被糾正。',
+  '一枚封泥對得上罐子，對不上星的高度。倉儲的核對與天空的核對不是同一種動作。星的高度要靠儀器，不靠倉庫的封條。',
+  '早期天文管子的口徑只有幾厘米。下一位若磨不出相近的鏡片，上一次觀看就不能重做。口徑可以寫在說明上，鏡片不在就沒有那一次觀看。',
+  '分離凝汽器改的是熱留在汽缸外還是留在裡面。機器停轉時，圖紙還在，功不在。備件沒有到，功率數字就只是銘牌上的字。',
+  '約公元八六八年的一卷金剛經能對上刻版。它對不上後來一座城市裡報紙的截稿時刻。截稿過了，錯字已經在街上，刻版並不跟著改。',
+  '點和劃要兩端都認得。一端不認得，線上剩下的只是電流，收報的人無句可讀。電話多了一層聲音，線路斷時聲音同樣消失。',
+  '公開簡史寫的是萬維網公開的那幾年。某一頁被撤下之後，簡史還在，那一頁上的句子不在。檢索得到地址，不等於檢索得到當時的原文。',
+  '只寫「突破」二字的標題，若指不出器物、燃料、媒介或可翻回去的記錄，就不替它補一個座標。出處若只寫本站，也不算核對過更早的記錄。',
+];
+
 const TECH_NEXT = [
-  '石器把步驟留在看得見的動作裡。下一步是調度身體以外的熱：用火仍在營地旁邊，尚未進入後來的管網。',
-  '熱源讓群體可以圍坐。口傳把圍坐時說出的經驗交給尚未親自動手的人，知識開始不必每次重新發現。',
-  '口傳會走樣。文字把計數、清單與契約壓成可以翻回去的物件，校驗才有底本。',
-  '有了可翻回去的記錄，儀器才值得把一次觀察固定成別人也能重做的刻度。',
-  '儀器延長了眼與手。下一節轉入工業能量，問的是功率能否被儲存、送出，並在斷掉之後修得回來。印刷術的年代更早，本卷把它留到再下一節，與報刊一併按媒介書寫，不把它算成蒸汽機的後果。',
-  '能量一節按主題先寫完。印刷與報刊的窗口其實更早，這裡才補上媒介：同一份文字如何送到互不相識的讀者。印得便宜，仍不等於每一句都對過底本。',
-  '報刊仍受交通與截稿限制。電氣與電報開始讓消息在人不親至時送達。',
-  '點對點的電路之後，分組交換讓網絡可以繞過單點故障。這一節收到約二零零九年，不把後來的通用工具提前寫入。',
-  '網絡成為日常之後，新聞標題本身就是這一條發現弧的薄層：只列題與出處，不把模型輸出當成已經核對的事實。',
+  '石片的角度各地不同。火的痕跡要另找層位，不能從刃口推出來。',
+  '燒骨可以沒有火塘。圍坐是後人的畫面，不是灰燼自己的結論。',
+  '話會改。改過的話沒有頁碼，所以不能拿它當泥板的草稿。',
+  '清單對得上倉儲，仍對不上星的位置。儀器要的是可重做的刻度，不是又一份帳。',
+  '管子對得上一次觀看。它不儲存可以送出城的功。印刷的年代更早，不從這具管子裡長出來。',
+  '千瓦是機器在轉時的數字。印張便宜是另一筆帳，年代也更早，不從鍋爐裡長出來。',
+  '印得便宜的那一頁，交通仍限制它哪一天到城裡。電波不是印張的延長。',
+  '電報要雙方都懂的碼。不懂的碼只是電流，不是消息。',
+  '連結可以指向一頁已經撤下的文件。撤下之後，地址還在，句子不在。',
 ];
 
 const CITY_NEXT = [
@@ -252,6 +265,29 @@ function readingBlocks(readings: readonly { event: string; eventDetail: string; 
   })].join('\n\n')).join('\n\n');
 }
 
+/** Tech stages do not share one paragraph order. City readings stay on readingBlocks. */
+function techReading(n: number, readings: readonly { event: string; eventDetail: string; products: readonly CivProduct[]; drivers: readonly CivDriver[]; impact: string }[] | undefined): string {
+  if (!readings?.length) return '';
+  return readings.map((reading) => {
+    const head = `### ${reading.event}`;
+    const products = reading.products.map((item) => `${item.name}：${item.detail}`).join('\n\n');
+    const drivers = reading.drivers.map((item) => `${item.name}。${item.detail}`).join('\n\n');
+    const order: Record<number, string[]> = {
+      1: [products, reading.eventDetail, head, drivers, reading.impact],
+      2: [reading.impact, drivers, head, reading.eventDetail, products],
+      3: [reading.eventDetail, products, reading.impact, head, drivers],
+      4: [products, head, drivers, reading.eventDetail, reading.impact],
+      5: [reading.impact, head, products, drivers, reading.eventDetail],
+      6: [products, drivers, reading.eventDetail, head, reading.impact],
+      7: [reading.eventDetail, reading.impact, head, products, drivers],
+      8: [drivers, reading.eventDetail, products, head, reading.impact],
+      9: [head, products, reading.eventDetail, reading.impact, drivers],
+      10: [reading.impact, reading.eventDetail, drivers, products, head],
+    };
+    return (order[n] ?? order[10]).join('\n\n');
+  }).join('\n\n');
+}
+
 function buildBag(): Bag {
   formulaLeft = 2;
   const bag: Bag = { threads: [], entries: [], sources: [] };
@@ -446,7 +482,7 @@ function buildBag(): Bag {
     id: 'tech',
     slug: 'tech',
     title: TECH_TITLE,
-    lede: `${HANDOFF_CARD.tech}\n\n${TECH_LEDE}\n\n${TECH_HANDOFF}\n\n本卷沿工具、能源、媒介與知識往下寫。印刷與工業能量兩節按主題並置：活字與報刊的年代早於蒸汽工廠，正文在這兩節寫明，節次不是嚴格年序。`,
+    lede: `${HANDOFF_CARD.tech}\n\n${TECH_LEDE}\n\n${TECH_HANDOFF}\n\n本卷沿工具、能源、媒介與知識往下寫。印刷與工業能量兩節按主題並置：活字與報刊的年代早於蒸汽工廠，正文在這兩節寫明，節次不是嚴格年序。十節的停法各不相同：石器停在打擊角，用火停在分不清的灰，口傳停在改過的詞，文字停在對不上的一行，儀器停在重畫的圖，能量停在停轉的機器，印刷停在已經出門的錯字，電報停在斷掉的線，網絡停在撤下的頁，新聞停在沒有出處的標題。`,
     sort_key: 60,
     path: '/civilization/tech/',
     ai_note: '本頁由公開科普入口整合，年代均為約數。',
@@ -459,17 +495,25 @@ function buildBag(): Bag {
       : stage.n === 7
         ? '印刷與報刊的年代早於上一節的工業能量。東亞雕版更早於歐洲金屬活字。把它們排在工業能量之後，是媒介主題跟在能源主題後面，屬於並置，不是年表上的先後。'
         : '';
-    const body = [
-      SCALE_BEAT[`tech:${stage.n}`] ?? '',
-      chrono,
-      stage.prose,
-      stage.milestones.length ? `${stage.milestones.join('、')}。` : '',
-      readingBlocks(TECH_READINGS[stage.n], true),
-      caseBody('/civilization/tech/', `tech-${stage.n}`),
-      chronicle,
-      origins,
-      TECH_NEXT[index] ?? '',
-    ].filter(Boolean).join('\n\n');
+    const beat = SCALE_BEAT[`tech:${stage.n}`] ?? '';
+    const miles = stage.milestones.length ? `${stage.milestones.join('、')}。` : '';
+    const read = techReading(stage.n, TECH_READINGS[stage.n]);
+    const next = TECH_NEXT[index] ?? '';
+    const note = TECH_NOTE[index] ?? '';
+    const filed = caseBody('/civilization/tech/', `tech-${stage.n}`);
+    const order: Record<number, string[]> = {
+      1: [note, read, miles, stage.prose, origins, next],
+      2: [next, read, note, stage.prose, chronicle],
+      3: [stage.prose, note, read, miles, next],
+      4: [read, note, chronicle, stage.prose, miles, next],
+      5: [beat, note, read, next, stage.prose, chronicle],
+      6: [beat, chrono, note, read, next, stage.prose, chronicle],
+      7: [chrono, note, filed, read, stage.prose, next],
+      8: [note, read, next, stage.prose, miles],
+      9: [stage.prose, read, note, chronicle, next],
+      10: [note, next, stage.prose, read, miles],
+    };
+    const body = (order[stage.n] ?? []).filter(Boolean).join('\n\n');
     addEntry(bag, 'tech', `tech-${stage.n}`, stage.name, stage.era, (index + 1) * 10, body, TECH_SOURCES);
   });
   addEntry(bag, 'tech', 'sources', '來源', '來源', 200, [
