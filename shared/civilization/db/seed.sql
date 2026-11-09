@@ -1784,15 +1784,15 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 不確定：監測覆蓋與實驗室能力各地差異很大。新藥研發時程與可及性仍不確定，局部進展不能外推成全球已經修復。
 
-可核對的入口包括[世界衛生組織｜抗微生物藥物耐藥性實況報導](https://www.who.int/news-room/fact-sheets/detail/antimicrobial-resistance)、[世界衛生組織歐洲區｜認識抗微生物藥物耐藥性](https://www.who.int/europe/news-room/questions-and-answers/item/understanding-antimicrobial-resistance-(amr))、[世界衛生組織｜抗微生物藥物耐藥性概況](https://www.who.int/docs/default-source/antimicrobial-resistance/amr-factsheet.pdf)、[世界衛生組織｜國家行動計畫實施與監測](https://www.who.int/activities/supporting-countries-with-national-action-plan-implementation-and-monitoring)、[世界衛生組織｜更新版全球行動計畫（二〇二六至二〇三六年）](https://www.who.int/news/item/25-05-2026-the-world-health-assembly-adopts-updated-global-action-plan-on-antimicrobial-resistance-(2026-2036))。
+可核對的入口包括[世界衛生組織｜抗微生物藥物耐藥性實況報導](https://www.who.int/news-room/fact-sheets/detail/antimicrobial-resistance)、[世界衛生組織歐洲區｜認識抗微生物藥物耐藥性](https://www.who.int/europe/news-room/questions-and-answers/item/understanding-antimicrobial-resistance-(amr))、[世界衛生組織｜抗微生物藥物耐藥性概況](https://www.who.int/docs/default-source/antimicrobial-resistance/amr-factsheet.pdf)、[世界衛生組織｜國家行動計畫實施與監測](https://www.who.int/activities/supporting-countries-with-national-action-plan-implementation-and-monitoring)、[世界衛生組織｜更新版全球行動計畫（二〇二六至二〇三六年）](https://www.who.int/news/item/25-05-2026-the-world-health-assembly-adopts-updated-global-action-plan-on-antimicrobial-resistance-(2026-2036))、[世界衛生組織｜二〇二五年國家自評開填](https://www.who.int/news/item/15-05-2025-2025-edition-of-global-survey-to-track-antimicrobial-resistance-launches)、[世界衛生組織｜二〇二五年世界抗微生物藥物耐藥性意識週](https://www.who.int/campaigns/world-amr-awareness-week/2025/waaw-events)、[世界衛生組織｜二〇二六年世界抗微生物藥物耐藥性意識週](https://www.who.int/campaigns/world-amr-awareness-week/world-amr-awareness-week-2026/waaw-events)。
 
 ### WHO AMR 進度自評 {#future-countdown-amr}
 
 世界衛生組織請各國就抗微生物藥物耐藥性做年度自評。自評公開的是監測與制度是否在場，日曆跟淡水指標的進度分開。
 
-檢查點日期是 2026-12-31。對照[抗微生物藥物耐藥性（AMR）](#future-horizon-amr)。
+檢查點日期是 2026-11-23。對照[抗微生物藥物耐藥性（AMR）](#future-horizon-amr)。
 
-下一檢查點是世界衛生組織抗微生物藥物耐藥性國家自評的年度公開窗口，約每年一輪。本頁把這一輪記到二〇二六年十二月。這是核對日期，不是災變時鐘。
+上次盤點是二〇二五年國家自評第九輪：四月十五日開填，六月前填畢，結果於十一月六日公開。下次盤點是二〇二六年第十輪：十一月十三日由世界衛生組織說明結果，十一月二十三日由聯合活動標明數據發布，會同聯合國糧食及農業組織、聯合國環境規劃署與世界動物衛生組織。更新版全球行動計畫涵蓋二〇二六至二〇三六年，已於二〇二六年五月二十三日由第七十九屆世界衛生大會通過；下一份進度對準二〇二七年的大會雙年報告，依據是決定 WHA79(19)。這是核對日期，不是災變時鐘。
 
 ### 淡水可用量與衛生服務壓力 {#future-horizon-freshwater}
 
@@ -2679,8 +2679,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '5488');
-INSERT INTO meta (key, value) VALUES ('after_future', '13528');
+INSERT INTO meta (key, value) VALUES ('before_future', '5700');
+INSERT INTO meta (key, value) VALUES ('after_future', '13722');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');

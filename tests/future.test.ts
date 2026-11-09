@@ -95,10 +95,23 @@ describe('civilization future P0', () => {
     expect(amr?.sources.every((source) => source.url.startsWith('https://www.who.int/'))).toBe(true);
     const tracss = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-who-amr-tracss');
     expect(tracss?.horizonId).toBe('horizon-antimicrobial-resistance');
-    expect(tracss?.checkpoint).toBe('2026-12-31');
+    expect(tracss?.checkpoint).toBe('2026-11-23');
+    expect(tracss?.pending).toContain('上次盤點');
+    expect(tracss?.pending).toContain('下次盤點');
+    expect(tracss?.pending).toContain('十一月六日');
+    expect(tracss?.pending).toContain('十一月十三日');
+    expect(tracss?.pending).toContain('十一月二十三日');
+    expect(tracss?.pending).toContain('二〇二七年');
+    expect(tracss?.pending).not.toMatch(/二〇二七年[一二三四五六七八九十]+月[一二三四五六七八九十]+日/);
+    expect(tracss?.expired).toContain('上次盤點');
     expect(tracss?.expired).toContain('等待下一輪自評');
+    expect(tracss?.expired).toContain('二〇二七年');
+    expect(amr?.sources.some((source) => source.url === 'https://www.who.int/news/item/15-05-2025-2025-edition-of-global-survey-to-track-antimicrobial-resistance-launches')).toBe(true);
+    expect(amr?.sources.some((source) => source.url === 'https://www.who.int/campaigns/world-amr-awareness-week/world-amr-awareness-week-2026/waaw-events')).toBe(true);
     expect(`${tracss?.pending}\n${tracss?.expired}`).not.toMatch(/只剩/);
     expect(countdownSentence(tracss!, NOW)).toBe(tracss?.pending);
+    expect(countdownSentence(tracss!, new Date('2026-11-22T00:00:00.000Z'))).toBe(tracss?.pending);
+    expect(countdownSentence(tracss!, new Date('2026-11-23T00:00:00.000Z'))).toBe(tracss?.expired);
     expect(countdownSentence(tracss!, new Date('2027-01-01T00:00:00.000Z'))).toBe(tracss?.expired);
     expect(FUTURE_COUNTDOWNS.length).toBeGreaterThanOrEqual(4);
     expect(futureHrefAllowed('/civilization/#future-horizon-amr')).toBe(true);
@@ -278,6 +291,10 @@ describe('civilization future P0', () => {
       expect(panel).toContain(horizon.title);
       for (const source of horizon.sources) expect(panel).toContain(`href="${source.url}"`);
     }
+    expect(panel).toContain('id="future-countdown-amr"');
+    expect(panel).toContain('檢查點日期是 2026-11-23');
+    expect(panel).toContain('上次盤點');
+    expect(panel).toContain('下次盤點');
     expect(panel).not.toContain('future-instance');
     for (const card of FUTURE_INSTANCES) {
       expect(panel).toContain(`id="${card.anchor}"`);

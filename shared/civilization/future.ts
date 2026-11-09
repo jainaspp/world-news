@@ -428,7 +428,10 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '世界衛生組織歐洲區｜認識抗微生物藥物耐藥性', url: 'https://www.who.int/europe/news-room/questions-and-answers/item/understanding-antimicrobial-resistance-(amr)' },
       { name: '世界衛生組織｜抗微生物藥物耐藥性概況', url: 'https://www.who.int/docs/default-source/antimicrobial-resistance/amr-factsheet.pdf' },
       { name: '世界衛生組織｜國家行動計畫實施與監測', url: 'https://www.who.int/activities/supporting-countries-with-national-action-plan-implementation-and-monitoring' },
-      { name: '世界衛生組織｜更新版全球行動計畫（二〇二六至二〇三六年）', url: 'https://www.who.int/news/item/25-05-2026-the-world-health-assembly-adopts-updated-global-action-plan-on-antimicrobial-resistance-(2026-2036)' },
+      { name: '世界衛生組織｜更新版全球行動計畫（二〇二六至二〇三六年）', url: 'https://www.who.int/news/item/25-05-2026-the-world-health-assembly-adopts-updated-global-action-plan-on-antimicrobial-resistance-(2026-2036)', scope: '第七十九屆世界衛生大會於二〇二六年五月二十三日通過' },
+      { name: '世界衛生組織｜二〇二五年國家自評開填', url: 'https://www.who.int/news/item/15-05-2025-2025-edition-of-global-survey-to-track-antimicrobial-resistance-launches', scope: '第九輪於四月十五日開填，六月前填畢' },
+      { name: '世界衛生組織｜二〇二五年世界抗微生物藥物耐藥性意識週', url: 'https://www.who.int/campaigns/world-amr-awareness-week/2025/waaw-events', scope: '第九輪結果於十一月六日公開' },
+      { name: '世界衛生組織｜二〇二六年世界抗微生物藥物耐藥性意識週', url: 'https://www.who.int/campaigns/world-amr-awareness-week/world-amr-awareness-week-2026/waaw-events', scope: '第十輪於十一月十三日說明，十一月二十三日標明數據發布' },
     ],
   },
   {
@@ -677,10 +680,10 @@ export const FUTURE_COUNTDOWNS: readonly CountdownItem[] = [
     id: 'cd-who-amr-tracss',
     anchor: 'future-countdown-amr',
     horizonId: 'horizon-antimicrobial-resistance',
-    checkpoint: '2026-12-31',
+    checkpoint: '2026-11-23',
     title: 'WHO AMR 進度自評',
-    pending: '下一檢查點是世界衛生組織抗微生物藥物耐藥性國家自評的年度公開窗口，約每年一輪。本頁把這一輪記到二〇二六年十二月。這是核對日期，不是災變時鐘。',
-    expired: '該輪自評窗口已過。等待下一輪自評。請改讀世界衛生組織最新的公開自評，本頁不保留倒數。',
+    pending: '上次盤點是二〇二五年國家自評第九輪：四月十五日開填，六月前填畢，結果於十一月六日公開。下次盤點是二〇二六年第十輪：十一月十三日由世界衛生組織說明結果，十一月二十三日由聯合活動標明數據發布，會同聯合國糧食及農業組織、聯合國環境規劃署與世界動物衛生組織。更新版全球行動計畫涵蓋二〇二六至二〇三六年，已於二〇二六年五月二十三日由第七十九屆世界衛生大會通過；下一份進度對準二〇二七年的大會雙年報告，依據是決定 WHA79(19)。這是核對日期，不是災變時鐘。',
+    expired: '第十輪數據發布日已過。上次盤點見二〇二六年十一月二十三日標明發布的自評結果，以及二〇二六年五月二十三日通過的全球行動計畫。等待下一輪自評。全球行動計畫的下一份進度對準二〇二七年世界衛生大會的雙年報告，依據是決定 WHA79(19)。請改讀世界衛生組織最新的公開自評，本頁不保留倒數。',
   },
   {
     id: 'unwater-sdg6',
@@ -947,13 +950,19 @@ export function futureIssues(): string[] {
     || amr.confidence !== 'steady'
     || amr.dataAsOf !== '2026-10-19'
     || amr.sources.length < 4
-    || amr.sources.some((source) => !source.url.startsWith('https://www.who.int/'))) {
+    || amr.sources.some((source) => !source.url.startsWith('https://www.who.int/'))
+    || !amr.sources.some((source) => source.url === 'https://www.who.int/news/item/15-05-2025-2025-edition-of-global-survey-to-track-antimicrobial-resistance-launches')
+    || !amr.sources.some((source) => source.url === 'https://www.who.int/campaigns/world-amr-awareness-week/2025/waaw-events')
+    || !amr.sources.some((source) => source.url === 'https://www.who.int/campaigns/world-amr-awareness-week/world-amr-awareness-week-2026/waaw-events')) {
     issues.push('horizon-amr');
   }
   const tracss = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-who-amr-tracss');
   if (!tracss
     || tracss.horizonId !== 'horizon-antimicrobial-resistance'
-    || tracss.checkpoint !== '2026-12-31'
+    || tracss.checkpoint !== '2026-11-23'
+    || !tracss.pending.includes('上次盤點')
+    || !tracss.pending.includes('下次盤點')
+    || !tracss.expired.includes('上次盤點')
     || !tracss.expired.includes('等待下一輪自評')) {
     issues.push('countdown-tracss');
   }
