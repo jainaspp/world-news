@@ -1758,7 +1758,9 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 熱與健康的鏈更貼近城市。極端高溫抬高中暑與心血管負擔，並擠壓急診與戶外勞動。預警要有閾值、分級、責任分工與事後核對。閾值因地而異，夜間高溫與濕度會改寫風險。局部的行動計畫不能外推成全球已經修好。生物多樣性與淡水同時約束功率與延續：水循環是能量收支的一部分，生態系功能是譜系一節所說的共演化遺產。全文寫在本節，其他節只作對照，避免同一段話複製四遍。
 
-長期風險寫成可更新的地平線卡：區間、信心、機制、緩解與日期戳。盤點只對準機構窗口，過期改為靜態句。這裡寫維修條件，不寫束手無策。
+監測與緩解各自對上已經排定的機構窗口。世界氣象組織、政府間氣候變化專門委員會、世界衛生組織與聯合國水機制各有自己的日曆，不能合成一個終點，也不是災變時鐘。世界氣象組織的《全球氣候狀況》按年把上一個日曆年的觀測收成公開文本。二〇二五年版於二〇二六年三月二十三日發布。下一份說明尚未由該組織公布出版日。頁上的檢查點約在二〇二七年三月，只用來核對有沒有新文本。政府間氣候變化專門委員會第六十一屆全會以決定 IPCC-LXI-5，把《氣候變化與城市》特別報告決策者摘要的核准，以及該報告的接受，訂在二〇二七年三月十五日至十九日。這一日曆只核對該特別報告。窗口過了，改讀最新時間表，頁面不保留倒數。世界衛生組織以國家自評追蹤抗微生物藥物耐藥性的監測是否在場。第七十九屆世界衛生大會於二〇二六年五月二十三日以決定 WHA79(19) 通過二〇二六至二〇三六年全球行動計畫，並請總幹事把進度寫進雙年綜合報告，送交二〇二七年、二〇二九年與二〇三一年的世界衛生大會。世界衛生組織五月二十五日的新聞稿記述，與會者強調感染預防、疫苗、用水與衛生、生物安全與環境措施，以及抗微生物藥物的合理使用。第十輪自評由世界衛生組織於二〇二六年十一月十三日的記者會說明結果，十一月二十三日由糧食及農業組織、聯合國環境規劃署、世界衛生組織與世界動物衛生組織的聯合活動標明數據發布。日期一過，句子改為等待下一輪自評。聯合國水機制二〇二六年四月二十一日的數據匯編時間表，把家戶飲用水與衛生指標的下一份報告寫在二〇二七年六月至七月。頁上檢查點取二〇二七年六月三十日，只標時間表的六月一側，不是保管機構公布的出版日。二〇三〇年是可持續發展目標寫明的目標年。本頁不就該年倒數。窗口未到，寫下一次盤點；日期一過，改讀該機構最新的公開文本，句子成為靜態說明。這裡寫維修條件，不寫束手無策。可核對的入口包括[世界氣象組織｜二〇二五年全球氣候狀況](https://wmo.int/publication-series/state-of-global-climate/state-of-global-climate-2025)、[政府間氣候變化專門委員會｜決定 IPCC-LXI-5](https://www.ipcc.ch/site/assets/uploads/2024/08/Decision_Cities.pdf)、[世界衛生大會｜決定 WHA79(19)](https://apps.who.int/gb/ebwha/pdf_files/WHA79/A79_(19)-en.pdf)、[世界衛生組織｜全球行動計畫新聞稿](https://www.who.int/news/item/25-05-2026-the-world-health-assembly-adopts-updated-global-action-plan-on-antimicrobial-resistance-(2026-2036))、[世界衛生組織｜二〇二六年抗微生物藥物耐藥性意識週活動](https://www.who.int/campaigns/world-amr-awareness-week/world-amr-awareness-week-2026/waaw-events)、[聯合國水機制｜二〇二六年數據匯編時間表](https://www.unwater.org/sites/default/files/2026-04/Data_compilation_process_and_timeline_2026-04-21.pdf)。
+
+監測與緩解按世界衛生組織、世界氣象組織、政府間氣候變化專門委員會與聯合國的機構窗口更新。過期改為靜態句，不寫束手無策。
 
 ### 近地／空間天氣監測 {#future-horizon-space}
 
@@ -2697,8 +2699,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '6955');
-INSERT INTO meta (key, value) VALUES ('after_future', '17473');
+INSERT INTO meta (key, value) VALUES ('before_future', '6954');
+INSERT INTO meta (key, value) VALUES ('after_future', '18250');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');

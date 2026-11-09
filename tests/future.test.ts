@@ -750,6 +750,7 @@ describe('civilization future P0', () => {
     expect(panel).toContain('評估問答與年報');
     expect(panel).toContain('不作國別排名');
     expect(panel).toContain('不印文明等級');
+    expect(panel).toContain('過期改為靜態句，不寫束手無策');
     expect(panel).toContain('class="future-note"');
     const nav = panel.slice(panel.indexOf('<nav class="future-domain-nav"'), panel.indexOf('</nav>'));
     expect(nav).not.toContain('civ-reveal');
@@ -852,5 +853,39 @@ describe('civilization future P0', () => {
     expect(essay).toContain('https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf');
     expect(essay).toContain('https://science.nasa.gov/exoplanets/search-for-life/');
     expect(essay).not.toMatch(/末日|崩潰|排名|優生學|臺灣|台灣|噤聲/);
+  });
+
+  it('thickens the F6 blurb around institution windows', () => {
+    const f6 = FUTURE_DOMAINS.find((domain) => domain.code === 'F6');
+    expect(civChars(f6?.blurb ?? '')).toBeGreaterThanOrEqual(40);
+    expect(civChars(f6?.blurb ?? '')).toBeLessThanOrEqual(80);
+    expect(f6?.blurb).toContain('監測與緩解');
+    expect(f6?.blurb).toContain('世界衛生組織');
+    expect(f6?.blurb).toContain('世界氣象組織');
+    expect(f6?.blurb).toContain('政府間氣候變化專門委員會');
+    expect(f6?.blurb).toContain('聯合國');
+    expect(f6?.blurb).toContain('機構窗口');
+    expect(f6?.blurb).toContain('過期改為靜態句');
+    expect(f6?.blurb).toContain('不寫束手無策');
+    expect(f6?.blurb).not.toMatch(/末日|只剩|崩潰/);
+    const essay = FUTURE_LONGFORM.f6;
+    expect(essay).toContain('監測與緩解各自對上已經排定的機構窗口');
+    expect(essay).toContain('不是災變時鐘');
+    expect(essay).toContain('頁面不保留倒數');
+    expect(essay).toContain('句子成為靜態說明');
+    expect(essay).toContain('不寫束手無策');
+    expect(essay).toContain('二〇二六年三月二十三日');
+    expect(essay).toContain('三月十五日至十九日');
+    expect(essay).toContain('WHA79(19)');
+    expect(essay).toContain('十一月二十三日');
+    expect(essay).toContain('六月三十日');
+    expect(essay).toContain('不就該年倒數');
+    expect(essay).toContain('https://wmo.int/publication-series/state-of-global-climate/state-of-global-climate-2025');
+    expect(essay).toContain('https://www.ipcc.ch/site/assets/uploads/2024/08/Decision_Cities.pdf');
+    expect(essay).toContain('https://apps.who.int/gb/ebwha/pdf_files/WHA79/A79_(19)-en.pdf');
+    expect(essay).toContain('https://www.who.int/news/item/25-05-2026-the-world-health-assembly-adopts-updated-global-action-plan-on-antimicrobial-resistance-(2026-2036)');
+    expect(essay).toContain('https://www.who.int/campaigns/world-amr-awareness-week/world-amr-awareness-week-2026/waaw-events');
+    expect(essay).toContain('https://www.unwater.org/sites/default/files/2026-04/Data_compilation_process_and_timeline_2026-04-21.pdf');
+    expect(essay).not.toMatch(/末日|只剩|崩潰|臺灣|台灣/);
   });
 });
