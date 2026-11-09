@@ -1684,7 +1684,9 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 大規模誤導之所以難處理，是因為底本常常一開始就不在場。轉發者看到的已經是複本。若沒有人保留可打開的原件，事後就無法判斷是哪一次編輯改了句子。校驗放在複製之前，協作半徑才不會把同一個錯誤一起放大。校驗放在複製之後，仍可能補救，但補救依賴更正標記還能被後來的讀者遇見。平台機制與閱讀習慣一直在變，單一語種的研究不能外推到所有公共討論。本節不替具體爭議選邊，只把底本、編號與可辨認的更正寫成信息線上的維修條件。
 
-記錄、複製與出處核對的成本，決定協作半徑。近乎零成本的複製若遇上薄弱校驗，誤導可以規模化。本域追問如何驗證，不寫誰該噤聲。
+媒材另有一層出處，不繼承文獻的穩定編號。國際新聞電信理事會（IPTC）的照片元數據標準，把建立者、署名與來源類型寫成可公開查閱的欄位。來源類型取自受控詞彙，用來標明這一幅影像從何而來。欄位記錄的是描述。描述在場，還要另問有沒有人做過核對。照片元數據標準2025.1於2025-11發布，校驗要對上的是某一版欄位，而不是一份不再改動的表格。內容出處與真實性聯盟（C2PA）的技術規範，則把建立、編輯與內容綁定寫成斷言，再由簽署者簽成一份出處標記（Content Credentials）。核對的步驟寫在規範裡：找到有效的那一份標記，檢查簽署與憑證狀態，確認簽署者落在所採用的信任名單上，並確認標記仍對得上這一份媒材。C2PA另維護信任名單，列出可簽發簽署憑證的信任錨。本段對照2026-11仍公開的C2PA技術規範2.5版。信任名單、簽署憑證與這一次核對，都要有人維護。規範公開，只說明程序寫在哪裡，並不表示每一份流傳中的複本都已經核對過。這一層要問的是：校驗成本由誰承擔。可核對的入口包括[內容出處與真實性聯盟](https://c2pa.org/)、[C2PA技術規範2.5](https://spec.c2pa.org/specifications/specifications/2.5/specs/C2PA_Specification.html)、[IPTC照片元數據標準](https://iptc.org/standards/photo-metadata/iptc-standard/)、[IPTC照片元數據標準2025.1](https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata-2025.1.html)。
+
+記錄、複製與出處核對的成本，決定協作半徑。C2PA等內容來源標準把媒材標記留成可核對的物件。本域追問校驗由誰付成本。
 
 ### 大規模複製下的核對 {#future-verify-flood}
 
@@ -2687,8 +2689,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '6306');
-INSERT INTO meta (key, value) VALUES ('after_future', '14273');
+INSERT INTO meta (key, value) VALUES ('before_future', '6301');
+INSERT INTO meta (key, value) VALUES ('after_future', '14643');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');

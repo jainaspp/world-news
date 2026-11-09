@@ -204,7 +204,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f2',
     code: 'F2',
     title: '信息可信',
-    blurb: '記錄、複製與出處核對的成本，決定協作半徑。近乎零成本的複製若遇上薄弱校驗，誤導可以規模化。本域追問如何驗證，不寫誰該噤聲。',
+    blurb: '記錄、複製與出處核對的成本，決定協作半徑。C2PA等內容來源標準把媒材標記留成可核對的物件。本域追問校驗由誰付成本。',
     status: '有卡',
     lines: ['信息'],
     anchor: 'future-f2',

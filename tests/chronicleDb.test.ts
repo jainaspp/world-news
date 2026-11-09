@@ -38,6 +38,12 @@ describe('chronicle content database', () => {
     expect(chronicle.html).not.toContain('跳到階段');
     expect(chronicle.html).not.toContain('aria-label="跳到卷"');
     expect(hub.html).toContain('id="future"');
+    expect(hub.html).toContain('校驗成本由誰承擔');
+    expect(hub.html).toContain('<a href="https://c2pa.org/">內容出處與真實性聯盟</a>');
+    expect(hub.html).toContain('<a href="https://spec.c2pa.org/specifications/specifications/2.5/specs/C2PA_Specification.html">C2PA技術規範2.5</a>');
+    expect(hub.html).toContain('<a href="https://iptc.org/standards/photo-metadata/iptc-standard/">IPTC照片元數據標準</a>');
+    expect(hub.html).toContain('<a href="https://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata-2025.1.html">IPTC照片元數據標準2025.1</a>');
+    expect(hub.html).not.toContain('噤聲');
     expect(hub.html).not.toContain('axis-hero');
     expect(renderThreadArticle('earth')).toContain('侏羅紀');
     expect(chronicle.html).not.toMatch(BANNED);
