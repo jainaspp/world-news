@@ -567,6 +567,27 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '聯合國環境規劃署國際資源小組｜全球資源展望（二〇二四）', url: 'https://www.resourcepanel.org/sites/default/files/documents/document/media/gro24_full_report_29feb_final_for_web.pdf' },
     ],
   },
+  {
+    id: 'horizon-ozone-layer',
+    anchor: 'future-horizon-ozone',
+    title: '臭氧層與地表紫外輻射約束',
+    domainId: 'f1',
+    alsoDomainId: 'f6',
+    band: 'e2',
+    timeBand: '進行中',
+    confidence: 'partial',
+    mechanism: '平流層臭氧吸收紫外輻射，是地表宜居窗口的一層。蒙特婁議定書第六條要求，自一九九〇年起至少每四年，依可得的科學、環境、技術與經濟信息評估管制措施。科學評估板把消耗臭氧層物質的豐度與臭氧柱總量寫成公開評估。二〇二二年評估的要點寫明：臭氧柱總量回到一九八〇年數值，南極約在二〇六六年，北極約在二〇四五年，近全球平均（北緯六十度至南緯六十度）約在二〇四〇年。監測修訂的是這些區間，不是把某一年寫成終局。',
+    mitigation: '消耗臭氧層物質的逐步淘汰，以及地面與衛星觀測的持續維修，是議定書已經寫明的公共路徑。評估有沒有送達，依締約方決定所訂的送交日核對。緩解留在可事後查閱的文本，不另發動員句。',
+    uncertainty: '南極以外，自一九九六年以來臭氧柱總量恢復的證據有限，二〇二二年評估標為低信心。平流層下部尚未呈現恢復，模式與觀測仍有差距。回到一九八〇年數值的年份隨溫室氣體情景而變。上述數字屬於該次評估，二〇二六年報告尚未取代。製作時程另把執行摘要的送交記在二〇二六年十月，該列沒有日，本頁不以它為檢查點。這不是災變時鐘。',
+    dataAsOf: '2026-11-09',
+    sources: [
+      { name: '臭氧秘書處｜蒙特婁議定書第六條', url: 'https://ozone.unep.org/treaties/montreal-protocol/articles/article-6-assessment-and-review-control-measures' },
+      { name: '臭氧秘書處｜科學評估板', url: 'https://ozone.unep.org/science/assessment/sap' },
+      { name: '臭氧秘書處｜第三十五次締約方會議第3號決定', url: 'https://ozone.unep.org/treaties/montreal-protocol/meetings/thirty-fifth-meeting-parties/decisions/decision-xxxv3-potential-areas-focus-2026-quadrennial-reports-environmental-effects-assessment-panel' },
+      { name: '世界氣象組織｜二〇二二年臭氧層科學評估執行摘要', url: 'https://ozone.unep.org/system/files/documents/Scientific-Assessment-of-Ozone-Depletion-2022-Executive-Summary.pdf' },
+      { name: '美國國家海洋和大氣管理局｜二〇二六年臭氧評估時程', url: 'https://csl.noaa.gov/assessments/ozone/2026/overview.html', scope: '製作時程；送交日與第3號決定相同' },
+    ],
+  },
 ];
 
 /**
@@ -669,6 +690,15 @@ export const FUTURE_COUNTDOWNS: readonly CountdownItem[] = [
     title: 'SDG 6 淡水進度盤點',
     pending: '二〇二六年可持續發展目標六綜合報告已經發布。下一檢查點是指標保管機構的年度進度公開窗口，約在二〇二七年六月。這是核對日期，不是災變時鐘。',
     expired: '該年度進度窗口已過。請改讀聯合國水機制與聯合監測計劃最新的公開進度，本頁不保留倒數。',
+  },
+  {
+    id: 'cd-montreal-ozone-assessment',
+    anchor: 'future-countdown-ozone',
+    horizonId: 'horizon-ozone-layer',
+    checkpoint: '2026-12-31',
+    title: '臭氧層科學評估窗',
+    pending: '下一檢查點是蒙特婁議定書科學評估板二〇二六年評估送交秘書處的窗口。第三十五次締約方會議第3號決定把送交日寫為二〇二六年十二月三十一日。這是核對日期，不是災變時鐘。',
+    expired: '該輪科學評估窗口已過。見最新評估，請改讀臭氧秘書處公開的最新科學評估。本頁不保留倒數。',
   },
 ];
 
@@ -874,7 +904,7 @@ export function futureIssues(): string[] {
   }
   if (FUTURE_CLADE.domainId !== 'f4') issues.push('clade-domain');
 
-  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務', '大流行防備與國際衛生條例能力', '關鍵礦物與能源轉型物料約束'];
+  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務', '大流行防備與國際衛生條例能力', '關鍵礦物與能源轉型物料約束', '臭氧層與地表紫外輻射約束'];
   if (FUTURE_HORIZONS.length !== horizonTitles.length) issues.push('horizon-count');
   const horizonIds = new Set<string>();
   for (const [index, horizon] of FUTURE_HORIZONS.entries()) {
@@ -1049,6 +1079,28 @@ export function futureIssues(): string[] {
     || !minerals.sources.some((source) => source.url.startsWith('https://www.resourcepanel.org/'))
     || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-critical-minerals')) {
     issues.push('horizon-critical-minerals');
+  }
+  const ozone = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-ozone-layer');
+  const ozoneClock = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-montreal-ozone-assessment');
+  if (!ozone
+    || ozone.title !== '臭氧層與地表紫外輻射約束'
+    || ozone.anchor !== 'future-horizon-ozone'
+    || ozone.domainId !== 'f1'
+    || ozone.alsoDomainId !== 'f6'
+    || ozone.kind
+    || ozone.band !== 'e2'
+    || ozone.timeBand !== '進行中'
+    || ozone.confidence !== 'partial'
+    || ozone.dataAsOf !== '2026-11-09'
+    || ozone.sources.length < 4
+    || !ozone.sources.some((source) => source.url.startsWith('https://ozone.unep.org/'))
+    || !ozoneClock
+    || ozoneClock.horizonId !== 'horizon-ozone-layer'
+    || ozoneClock.checkpoint !== '2026-12-31'
+    || ozoneClock.anchor !== 'future-countdown-ozone'
+    || !ozoneClock.expired.includes('見最新評估')
+    || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'climate' && item.id === 'cd-montreal-ozone-assessment')) {
+    issues.push('horizon-ozone-layer');
   }
 
   const instanceIds = new Set<string>();

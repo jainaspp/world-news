@@ -68,7 +68,7 @@ describe('civilization future P0', () => {
       expect(civChars(domain.blurb)).toBeLessThanOrEqual(80);
     }
     expect(FUTURE_HORIZONS.map((horizon) => horizon.title)).toEqual([
-      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務', '大流行防備與國際衛生條例能力', '關鍵礦物與能源轉型物料約束',
+      '氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束', '土壤與土地退化對糧食／碳庫服務', '大流行防備與國際衛生條例能力', '關鍵礦物與能源轉型物料約束', '臭氧層與地表紫外輻射約束',
     ]);
     const biodiversity = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-biodiversity-services');
     expect(biodiversity?.domainId).toBe('f6');
@@ -199,6 +199,31 @@ describe('civilization future P0', () => {
     expect(minerals?.sources.some((source) => source.url.startsWith('https://www.resourcepanel.org/'))).toBe(true);
     expect(FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-critical-minerals')).toBe(false);
     expect(futureHrefAllowed('/civilization/#future-horizon-critical-minerals')).toBe(true);
+    const ozone = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-ozone-layer');
+    expect(ozone?.title).toBe('臭氧層與地表紫外輻射約束');
+    expect(ozone?.anchor).toBe('future-horizon-ozone');
+    expect(ozone?.domainId).toBe('f1');
+    expect(ozone?.alsoDomainId).toBe('f6');
+    expect(ozone?.kind).toBeUndefined();
+    expect(ozone?.band).toBe('e2');
+    expect(ozone?.timeBand).toBe('進行中');
+    expect(ozone?.confidence).toBe('partial');
+    expect(ozone?.dataAsOf).toBe('2026-11-09');
+    expect(ozone?.sources.length).toBeGreaterThanOrEqual(4);
+    expect(ozone?.sources.every((source) => source.url.startsWith('https://'))).toBe(true);
+    expect(ozone?.sources.some((source) => source.url.startsWith('https://ozone.unep.org/'))).toBe(true);
+    expect(FUTURE_COUNTDOWNS.filter((item) => item.horizonId === 'climate').map((item) => item.id)).toEqual(['wmo-annual']);
+    const sap = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-montreal-ozone-assessment');
+    expect(sap?.horizonId).toBe('horizon-ozone-layer');
+    expect(sap?.anchor).toBe('future-countdown-ozone');
+    expect(sap?.checkpoint).toBe('2026-12-31');
+    expect(sap?.title.length).toBeLessThanOrEqual(16);
+    expect(sap?.expired).toContain('見最新評估');
+    expect(`${sap?.pending}\n${sap?.expired}`).not.toMatch(/只剩|二〇三〇|2030/);
+    expect(countdownSentence(sap!, NOW)).toBe(sap?.pending);
+    expect(countdownSentence(sap!, new Date('2027-01-01T00:00:00.000Z'))).toBe(sap?.expired);
+    expect(futureHrefAllowed('/civilization/#future-horizon-ozone')).toBe(true);
+    expect(futureHrefAllowed('/civilization/#future-countdown-ozone')).toBe(true);
     expect(civChars(STAGE10_BRIDGE)).toBeGreaterThanOrEqual(80);
     expect(civChars(STAGE10_BRIDGE)).toBeLessThanOrEqual(120);
     expect(STAGE10_BRIDGE_EXTRA).toBe('第十階名為本世紀／當代。展望・分域只把目光送到總覽的六個入口，讓條件句留在總覽面板。');
@@ -362,12 +387,14 @@ describe('civilization future P0', () => {
     const oceanAt = panel.indexOf('id="future-horizon-ocean-heat-acid"');
     const soilAt = panel.indexOf('id="future-horizon-soil-land"');
     const mineralsAt = panel.indexOf('id="future-horizon-critical-minerals"');
+    const ozoneAt = panel.indexOf('id="future-horizon-ozone"');
     const f2At = panel.indexOf('id="future-f2"');
     expect(wmoAt).toBeGreaterThan(climateAt);
     expect(oceanAt).toBeGreaterThan(wmoAt);
     expect(soilAt).toBeGreaterThan(oceanAt);
     expect(mineralsAt).toBeGreaterThan(soilAt);
-    expect(f2At).toBeGreaterThan(mineralsAt);
+    expect(ozoneAt).toBeGreaterThan(mineralsAt);
+    expect(f2At).toBeGreaterThan(ozoneAt);
     const oceanCard = panel.slice(oceanAt, soilAt);
     expect(oceanCard).not.toContain('future-cover');
     expect(oceanCard).toContain('海洋熱含量與酸化約束');
@@ -389,7 +416,16 @@ describe('civilization future P0', () => {
     expect(soilCard).toContain('href="https://www.fao.org/global-soil-partnership/Scientific-and-technical-support/itps/status-of-the-worlds-soil-resources/en"');
     expect(soilCard).toContain('href="https://www.ipcc.ch/srccl/chapter/chapter-4/"');
     expect(panel).toContain('href="#future-horizon-soil-land"');
-    const mineralCard = panel.slice(mineralsAt, f2At);
+    const mineralCard = panel.slice(mineralsAt, ozoneAt);
+    const ozoneCard = panel.slice(ozoneAt, f2At);
+    expect(ozoneCard).not.toContain('future-cover');
+    expect(ozoneCard).toContain('臭氧層與地表紫外輻射約束');
+    expect(ozoneCard).toContain('能量帶 e2');
+    expect(ozoneCard).toContain('時間帶 進行中');
+    expect(ozoneCard).toContain('信心標為部分');
+    expect(ozoneCard).toContain('日期戳 2026-11-09');
+    expect(ozoneCard).toContain('href="https://ozone.unep.org/science/assessment/sap"');
+    expect(panel).toContain('href="#future-horizon-ozone"');
     expect(mineralCard).not.toContain('future-cover');
     expect(mineralCard).toContain('關鍵礦物與能源轉型物料約束');
     expect(mineralCard).toContain('能量帶 e2');
@@ -438,15 +474,37 @@ describe('civilization future P0', () => {
     expect(ihrArticle).toContain('F4 生物譜系');
     expect(ihrArticle).toContain('截至 2026-11-09');
     expect(ihrArticle).not.toContain('class="future-cover"');
+    expect(drawn.indexOf('id="future-horizon-critical-minerals"')).toBeLessThan(drawn.indexOf('id="future-horizon-ozone"'));
+    expect(drawn.indexOf('id="future-horizon-ozone"')).toBeLessThan(drawn.indexOf('id="future-countdown-wmo"'));
     const mineralArticle = drawn.slice(
       drawn.indexOf('id="future-horizon-critical-minerals"'),
-      drawn.indexOf('id="future-countdown-wmo"'),
+      drawn.indexOf('id="future-horizon-ozone"'),
     );
     expect(mineralArticle).toContain('F1 能量宜居');
     expect(mineralArticle).toContain('F6 生存風險');
     expect(mineralArticle).toContain('信心 部分');
     expect(mineralArticle).toContain('截至 2026-11-09');
     expect(mineralArticle).not.toContain('class="future-cover"');
+    const ozoneArticle = drawn.slice(
+      drawn.indexOf('id="future-horizon-ozone"'),
+      drawn.indexOf('id="future-countdown-wmo"'),
+    );
+    expect(ozoneArticle).toContain('F1 能量宜居');
+    expect(ozoneArticle).toContain('F6 生存風險');
+    expect(ozoneArticle).toContain('能量帶 e2');
+    expect(ozoneArticle).toContain('信心 部分');
+    expect(ozoneArticle).toContain('截至 2026-11-09');
+    expect(ozoneArticle).toContain('https://ozone.unep.org/science/assessment/sap');
+    expect(ozoneArticle).not.toContain('class="future-cover"');
+    expect(ozoneArticle).not.toContain('生物圈');
+    const sapPanel = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-montreal-ozone-assessment');
+    expect(panel).toContain('id="future-countdown-ozone"');
+    expect(panel).toContain('臭氧層科學評估窗');
+    expect(panel).toContain(sapPanel?.pending ?? '');
+    expect(panel).not.toContain(sapPanel?.expired ?? 'missing-ozone-expired');
+    expect(panel).toContain('href="#future-horizon-ozone"');
+    expect(drawn).toContain('id="future-countdown-ozone"');
+    expect(drawn).toContain(sapPanel?.pending ?? '');
     expect(panel).toContain('id="future-horizon-biodiversity"');
     expect(panel).toContain('id="future-countdown-cbd"');
     expect(panel).toContain('id="future-horizon-amr"');
@@ -514,6 +572,10 @@ describe('civilization future P0', () => {
     expect(countdownSentence(gbfClosed!, NOW)).toBe(gbfClosed?.pending);
     expect(expired).toContain(gbfClosed?.expired ?? '');
     expect(expired).not.toContain(gbfClosed?.pending ?? 'missing');
+    const sapClosed = FUTURE_COUNTDOWNS.find((item) => item.id === 'cd-montreal-ozone-assessment');
+    expect(expired).toContain(sapClosed?.expired ?? '');
+    expect(expired).toContain('見最新評估');
+    expect(expired).not.toContain(sapClosed?.pending ?? 'missing-ozone');
     const route = readFileSync('functions/civilization/[[path]].ts', 'utf8');
     expect(route).not.toMatch(/future/);
     const futureSrc = readFileSync('shared/civilization/future.ts', 'utf8');
@@ -544,6 +606,10 @@ describe('civilization future P0', () => {
     expect(schema).toContain('horizon-pandemic-ihr-preparedness');
     expect(schema).toContain('關鍵礦物與能源轉型物料約束');
     expect(schema).toContain('horizon-critical-minerals');
+    expect(schema).toContain('臭氧層與地表紫外輻射約束');
+    expect(schema).toContain('horizon-ozone-layer');
+    expect(schema).toContain('cd-montreal-ozone-assessment');
+    expect(schema).toContain('2026-12-31');
     expect(schema).toContain('2026-11-09');
     expect(schema).toContain('pipe-care');
     expect(schema).toContain('階段名仍是第十階');
