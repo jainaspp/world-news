@@ -9,7 +9,7 @@ export const ORIGINS_NODE_MATRIX = `## 總覽節點如何對上來源 {#origins-
 | 約七百萬至四百三十萬年前 | 早期人族出現在非洲 | [Brunet et al. 2002, Nature](https://doi.org/10.1038/nature00879)；[White et al. 2009, Science](https://doi.org/10.1126/science.1175802) | 化石。支持乍得約七百萬年的候選標本，以及埃塞俄比亞約四百四十萬年的地猿形態。不支持單一物種，也不支持每具都已確證習慣性雙足。輔助導覽見 [史密森學會化石頁](${SI}) |
 | 約四百三十萬至二百萬年前 | 南方古猿類在非洲留下較多材料 | [Leakey, Feibel, McDougall 與 Walker 1995, Nature](https://doi.org/10.1038/376565a0)；[Kimbel 與 Delezene 2009, AJPA](https://doi.org/10.1002/ajpa.21183) | 化石加綜述。支持約四百萬年的湖畔種，以及阿法種標本多到可以討論步態。步態重建仍是模型。不支持一種步態適用全部南方古猿 |
 | 約二百八十萬年前 | 人屬最早證據的約略下限 | [Villmoare et al. 2015, Science](https://doi.org/10.1126/science.aaa1343) | 實驗測年加形態。屬的邊界爭議中 |
-| 約一百八十萬年前 | 早期人屬第一次大規模離開非洲 | [Ferring et al. 2011, PNAS](https://doi.org/10.1073/pnas.1106638108)；[Lordkipanidze et al. 2013, Science](https://doi.org/10.1126/science.1238484) | 測年加形態。支持格魯吉亞德馬尼西約一百八十五萬至一百七十八萬年前已有早期人屬。不支持這是現代人，也不支持一次已被點清人數的大規模遷徙。輔助導覽見 [史密森學會化石頁](${SI}) |
+| 約一百八十萬年前 | 非洲外目前已知最早的人屬材料之一 | [Ferring et al. 2011, PNAS](https://doi.org/10.1073/pnas.1106638108)；[Lordkipanidze et al. 2013, Science](https://doi.org/10.1126/science.1238484) | 測年加形態。支持德馬尼西約一百八十五萬至一百七十八萬年前已有早期人屬化石與頭骨。不支持現代人，也不支持遷移規模、持續性或全歐亞同時分布。輔助導覽見 [史密森學會化石頁](${SI}) |
 | 約八十萬至五十萬年前 | 現代人祖先與尼安德特、丹尼索瓦支系逐漸分開 | [Bergström et al. 2021, Nature](https://doi.org/10.1038/s41586-021-03244-5) | 基因組模型加化石校準。區間寬 |
 | 約四十三萬至四萬年前 | 尼安德特人在歐亞留下材料 | [Arsuaga et al. 2014, Science](https://doi.org/10.1126/science.1253958) | 顱骨形態加測年。支持阿塔普爾卡約四十三萬年前已有尼安德特人的根。不支持每一處遺址都是同一種行為。較晚的消失見下一列。輔助導覽見 [倫敦自然史博物館](https://www.nhm.ac.uk/discover/human-evolution.html) |
 | 約三十萬年前 | 解剖學現代人形態在非洲可辨認 | [Hublin et al. 2017, Nature](https://doi.org/10.1038/nature22336) | 實驗測年。不是單一洞穴的一日事件 |

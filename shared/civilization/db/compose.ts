@@ -45,28 +45,28 @@ const CHRONICLE_NEXT = [
 ];
 
 const TECH_NOTE = [
-  '奧杜威石片與後來的兩面器並不共用一個打擊角。角一變，刃口的用法就變，不能收成一種手工具的本質。東非與南非的石料也不一樣，一件標本代表不了整條技術史。',
-  '有的灰燼層後來被改讀成自然火。層位還在，用火的解釋就要重寫，不能靠「看起來像火塘」收束。燒骨單獨出現時，連燃料是木材、骨脂還是野火都讀不出來。',
-  '同一條採集路線隔夜再講，地點的詞會換。換過的詞沒有頁邊可以批，也沒有第二份可對。聽的人若已經離開，下一句就無從被糾正。',
-  '一枚封泥對得上罐子，對不上星的高度。倉儲的核對與天空的核對不是同一種動作。星的高度要靠儀器，不靠倉庫的封條。',
-  '早期天文管子的口徑只有幾厘米。下一位若磨不出相近的鏡片，上一次觀看就不能重做。口徑可以寫在說明上，鏡片不在就沒有那一次觀看。',
-  '分離凝汽器改的是熱留在汽缸外還是留在裡面。機器停轉時，圖紙還在，功不在。備件沒有到，功率數字就只是銘牌上的字。',
-  '約公元八六八年的一卷金剛經能對上刻版。它對不上後來一座城市裡報紙的截稿時刻。截稿過了，錯字已經在街上，刻版並不跟著改。',
-  '點和劃要兩端都認得。一端不認得，線上剩下的只是電流，收報的人無句可讀。電話多了一層聲音，線路斷時聲音同樣消失。',
-  '公開簡史寫的是萬維網公開的那幾年。某一頁被撤下之後，簡史還在，那一頁上的句子不在。檢索得到地址，不等於檢索得到當時的原文。',
-  '只寫「突破」二字的標題，若指不出器物、燃料、媒介或可翻回去的記錄，就不替它補一個座標。出處若只寫本站，也不算核對過更早的記錄。',
+  '奧杜威石片與後來的兩面器常常不在同一層。層一錯，就不能排成連續升級。東非與南非的石料也不一樣，一件標本代表不了所有層位。混層以後，廢片不能再給石核排順序。',
+  '有的灰燼層後來被改讀成自然火。層位還在，解釋要重寫。燒骨單獨出現時，燃料種類讀不出來。這是保存證據。加厚的灰只證明位置，不證明有人輪值。',
+  '採集路線裡的地點詞隔夜可能換成另一個地名。換過以後沒有頁邊可批。這是傳播限度。聽的人離開以後，沒有第二份可以把詞改回來。',
+  '一枚封泥對得上罐子，對不上星的高度。倉儲的核對與天空的核對不是同一種動作。星的高度要靠儀器，不靠倉庫的封條。封泥在，星星的位置並不因此被記下。',
+  '早期天文管子的口徑只有幾厘米。下一位若磨不出相近的鏡片，上一次觀看就不能重做。口徑可以寫在說明上，鏡片不在就沒有那一次觀看。說明書留着，不等於今夜還能對上同一顆星。',
+  '分離凝汽器改的是熱留在汽缸外還是留在裡面。機器停轉時，圖紙還在，功不在。備件沒有到，功率數字就只是銘牌上的字。銘牌不記載今天燒了多少煤。',
+  '約公元八六八年的一卷金剛經能對上刻版。它對不上後來一座城市裡報紙的截稿時刻。截稿過了，錯字已經在街上，刻版並不跟著改。街上的那一份，不會自己回到刻版上改正。',
+  '點和劃要兩端都認得。一端不認得，線上剩下的只是電流，收報的人無句可讀。電話多了一層聲音，線路斷時聲音同樣消失。斷開以後，速度沒有留在機器裡。',
+  '公開簡史寫的是萬維網公開的那幾年。某一頁被撤下之後，簡史還在，那一頁上的句子不在。檢索得到地址，不等於檢索得到當時的原文。地址簿不能代替那一頁。',
+  '只寫「突破」二字的標題，若指不出器物、燃料、媒介或可翻回去的記錄，就不替它補一個座標。出處若只寫本站，也不算核對過更早的記錄。沒有出處的句子就停在新聞裡。',
 ];
 
 const TECH_NEXT = [
-  '石片的角度各地不同。火的痕跡要另找層位，不能從刃口推出來。',
-  '燒骨可以沒有火塘。圍坐是後人的畫面，不是灰燼自己的結論。',
-  '話會改。改過的話沒有頁碼，所以不能拿它當泥板的草稿。',
-  '清單對得上倉儲，仍對不上星的位置。儀器要的是可重做的刻度，不是又一份帳。',
-  '管子對得上一次觀看。它不儲存可以送出城的功。印刷的年代更早，不從這具管子裡長出來。',
-  '千瓦是機器在轉時的數字。印張便宜是另一筆帳，年代也更早，不從鍋爐裡長出來。',
-  '印得便宜的那一頁，交通仍限制它哪一天到城裡。電波不是印張的延長。',
-  '電報要雙方都懂的碼。不懂的碼只是電流，不是消息。',
-  '連結可以指向一頁已經撤下的文件。撤下之後，地址還在，句子不在。',
+  '自然火和有地址的燃燒要分開。人在不在場，不是刃口能回答的事。灰和石片若不同層，就不能寫成同一天的兩件事。',
+  '地名隔夜會換。灰層裡沒有那個地名，也沒有第二份口述。燒土不能把換過的地名改回來。',
+  '倉庫的封條對得上罐子以後，錯才留在物件上，不再只靠記得的人。人離開了，罐子上的那一行還在。',
+  '星的位置要靠可重做的刻度。倉庫的封條對不上天空，那是下一層才要分開的兩種核對。刻度沒有重做，星圖就只是一張圖。',
+  '功能不能送出城，不由鏡片決定。印刷的年代更早，也不從管子裡長出來。鏡片不在的那一夜，並沒有測到可以送走的功。',
+  '印張便宜是另一筆帳，年代也更早。它不從鍋爐的功率裡長出來。鍋爐停着，別處的印張仍可以便宜。',
+  '印得便宜的那一頁，交通仍限制它哪一天到城裡。電波不是印張的延長。截稿前沒有對過的字，到了城裡也不會自己變對。',
+  '電報要雙方都懂的碼。不懂的碼只是電流，不是消息。線路恢復以前，沒有一句話留在電流裡。',
+  '連結可以指向一頁已經撤下的文件。撤下之後，地址還在，句子不在。簡史不能把撤下的那一頁補回去。',
 ];
 
 const CITY_NEXT = [
@@ -273,16 +273,16 @@ function techReading(n: number, readings: readonly { event: string; eventDetail:
     const products = reading.products.map((item) => `${item.name}：${item.detail}`).join('\n\n');
     const drivers = reading.drivers.map((item) => `${item.name}。${item.detail}`).join('\n\n');
     const order: Record<number, string[]> = {
-      1: [products, reading.eventDetail, head, drivers, reading.impact],
-      2: [reading.impact, drivers, head, reading.eventDetail, products],
-      3: [reading.eventDetail, products, reading.impact, head, drivers],
-      4: [products, head, drivers, reading.eventDetail, reading.impact],
-      5: [reading.impact, head, products, drivers, reading.eventDetail],
-      6: [products, drivers, reading.eventDetail, head, reading.impact],
-      7: [reading.eventDetail, reading.impact, head, products, drivers],
-      8: [drivers, reading.eventDetail, products, head, reading.impact],
-      9: [head, products, reading.eventDetail, reading.impact, drivers],
-      10: [reading.impact, reading.eventDetail, drivers, products, head],
+      1: [head, products, reading.eventDetail, drivers, reading.impact],
+      2: [head, products, drivers, reading.eventDetail, reading.impact],
+      3: [head, reading.eventDetail, drivers, products, reading.impact],
+      4: [head, products, drivers, reading.eventDetail, reading.impact],
+      5: [head, products, drivers, reading.eventDetail, reading.impact],
+      6: [head, products, drivers, reading.eventDetail, reading.impact],
+      7: [head, products, reading.eventDetail, drivers, reading.impact],
+      8: [head, drivers, products, reading.eventDetail, reading.impact],
+      9: [head, products, reading.eventDetail, drivers, reading.impact],
+      10: [head, reading.eventDetail, products, drivers, reading.impact],
     };
     return (order[n] ?? order[10]).join('\n\n');
   }).join('\n\n');
@@ -482,7 +482,7 @@ function buildBag(): Bag {
     id: 'tech',
     slug: 'tech',
     title: TECH_TITLE,
-    lede: `${HANDOFF_CARD.tech}\n\n${TECH_LEDE}\n\n${TECH_HANDOFF}\n\n本卷沿工具、能源、媒介與知識往下寫。印刷與工業能量兩節按主題並置：活字與報刊的年代早於蒸汽工廠，正文在這兩節寫明，節次不是嚴格年序。十節的停法各不相同：石器停在打擊角，用火停在分不清的灰，口傳停在改過的詞，文字停在對不上的一行，儀器停在重畫的圖，能量停在停轉的機器，印刷停在已經出門的錯字，電報停在斷掉的線，網絡停在撤下的頁，新聞停在沒有出處的標題。`,
+    lede: `${HANDOFF_CARD.tech}\n\n${TECH_LEDE}\n\n${TECH_HANDOFF}\n\n本卷沿工具、能源、媒介與知識往下寫。印刷與工業能量兩節按主題並置：活字與報刊的年代早於蒸汽工廠，正文在這兩節寫明，節次不是嚴格年序。十節的停法各不相同：石器停在打擊角，用火停在分不清的灰，口傳停在改過的詞，文字停在對不上的一行，儀器停在重畫的圖，能量停在停轉的機器，印刷停在已經出門的錯字，電報停在斷掉的線，網絡停在撤下的頁，新聞停在沒有出處的標題。前三節的推進也不相同：石器看層位裡的物件，用火看熱留下的痕跡，口傳看沒有第二份可對的句子。`,
     sort_key: 60,
     path: '/civilization/tech/',
     ai_note: '本頁由公開科普入口整合，年代均為約數。',
@@ -502,9 +502,9 @@ function buildBag(): Bag {
     const note = TECH_NOTE[index] ?? '';
     const filed = caseBody('/civilization/tech/', `tech-${stage.n}`);
     const order: Record<number, string[]> = {
-      1: [note, read, miles, stage.prose, origins, next],
-      2: [next, read, note, stage.prose, chronicle],
-      3: [stage.prose, note, read, miles, next],
+      1: [read, note, stage.prose, origins, next],
+      2: [read, note, stage.prose, chronicle, next],
+      3: [read, stage.prose, note, next],
       4: [read, note, chronicle, stage.prose, miles, next],
       5: [beat, note, read, next, stage.prose, chronicle],
       6: [beat, chrono, note, read, next, stage.prose, chronicle],

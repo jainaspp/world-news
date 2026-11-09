@@ -27,8 +27,8 @@
     {
       "slug": "origins",
       "name": "人類起源時間線",
-      "actual": 10737,
-      "meta_after": 10737,
+      "actual": 10836,
+      "meta_after": 10836,
       "entries": 2
     },
     {
@@ -41,8 +41,8 @@
     {
       "slug": "tech",
       "name": "科技與發現",
-      "actual": 10076,
-      "meta_after": 10076,
+      "actual": 10075,
+      "meta_after": 10075,
       "entries": 12
     },
     {
@@ -60,7 +60,7 @@
       "entries": 14
     }
   ],
-  "total_actual": 84983,
+  "total_actual": 85081,
   "figures": [
     {
       "id": "cosmo-cmb-planck",
