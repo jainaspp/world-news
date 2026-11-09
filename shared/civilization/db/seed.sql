@@ -1637,6 +1637,18 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 可核對的入口包括[聯合國防治荒漠化公約｜全球土地展望](https://www.unccd.int/resources/global-land-outlook/overview)、[聯合國防治荒漠化公約｜全球土地展望第二版](https://www.unccd.int/resources/global-land-outlook/global-land-outlook-2nd-edition)、[聯合國防治荒漠化公約｜國家報告程序](https://www.unccd.int/data-knowledge/unccd-national-reporting-process)、[聯合國糧食及農業組織｜世界土壤資源狀況](https://www.fao.org/global-soil-partnership/Scientific-and-technical-support/itps/status-of-the-worlds-soil-resources/en)、[政府間氣候變化專門委員會｜氣候變化與土地特別報告第四章（土地退化）](https://www.ipcc.ch/srccl/chapter/chapter-4/)、[政府間氣候變化專門委員會｜氣候變化與土地特別報告第五章（糧食安全）](https://www.ipcc.ch/srccl/chapter/chapter-5/)。
 
+### 關鍵礦物與能源轉型物料約束 {#future-horizon-critical-minerals}
+
+這一則放在能量帶 e2，種類是資源，時間帶 進行中。信心標為部分。日期戳 2026-11-09。時間帶不是等級。
+
+機制：鋰、鎳、鈷、石墨、稀土與銅等物料進入電池、電網與低排放發電設備之後，能源系統的礦物強度跟著上升。國際能源署《全球關鍵礦物展望》二〇二五年版按情景修訂供需：二〇二四年鋰需求上升近百分之三十，鎳、鈷、石墨與稀土上升約百分之六至八，並給出其後的中期與長期方向。世界銀行所引的評估，在升溫低於二攝氏度的路徑下估計，石墨、鋰與鈷一類礦物的產量到二〇五〇年增幅可能接近百分之五百，部署風電、太陽能、地熱與儲能所需的礦物與金屬超過三十億噸。開採與精煉可以集中於少數供應來源；集中寫的是供應衝擊如何傳遞，不是國別高下。監測修訂的是情景、產量與覆蓋，不是把某一年寫成終局。
+
+緩解：回收與二次供應、材料效率，以及採選、冶煉與回收的技術改進，把新增的一次開採留在較低的情景區間。世界銀行的氣候智慧採礦，把開採與加工的環境和氣候足跡寫成可以事後核對的治理條件。聯合國環境規劃署國際資源小組的《全球資源展望》二〇二四年版，把歷史趨勢情景與一條放慢物料增長的路徑放在同一份評估裡。美國地質調查局的《礦產商品摘要》按年彙編世界產量、儲量與資源量；二〇二六年版於二月六日首發，五月二十七日修訂。盤點改讀下一份展望與摘要，不另發動員句。
+
+不確定：儲量不是當下可經濟開採的全部供應，資源量的口徑又比儲量更寬；礦產商品摘要的附錄把兩者分開。需求隨電池化學與發電技術的替換而改寫，一種金屬的鬆緊不能外推成整個能源系統已經修復。地質調查的空間覆蓋與報告時滯並不均勻。歷史趨勢情景裡，物料開採量到二〇六〇年相對二〇二〇年可能上升近百分之六十；同一份評估同時寫出把增幅放慢的路徑。這是情景區間，不是災變時鐘。
+
+可核對的入口包括[國際能源署｜全球關鍵礦物展望（二〇二五）](https://iea.blob.core.windows.net/assets/ef5e9b70-3374-4caa-ba9d-19c72253bfc4/GlobalCriticalMineralsOutlook2025.pdf)、[世界銀行｜氣候智慧採礦：氣候行動所需的礦物](https://www.worldbank.org/en/topic/extractiveindustries/brief/climate-smart-mining-minerals-for-climate-action)、[美國地質調查局｜礦產商品摘要（二〇二六）](https://pubs.usgs.gov/publication/mcs2026)、[美國地質調查局｜礦產商品摘要系列](https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries)、[聯合國環境規劃署國際資源小組｜全球資源展望（二〇二四）](https://www.resourcepanel.org/sites/default/files/documents/document/media/gro24_full_report_29feb_final_for_web.pdf)。
+
 並見[淡水可用量與衛生服務壓力](#future-horizon-freshwater)、[極端熱與健康服務壓力](#future-horizon-heat-health)。那些段落寫在各自的主域裡，這裡不重複。', 10, 'F1', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-f2', 'future', 'future-f2', '信息可信', '信息可信寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。', '信息可信問的是底本靠什麼留下。複製的成本一旦降到近乎可以忽略，同一段未經核對的敘述就可以在短時間裡到達許多互不相識的人。速度本身不產生真實，也不產生虛假；它只改變錯誤或更正要花多少時間才能被下一個讀者看見。可信因此要回到可以指認的物件：原件、版本、出處，以及一份更正能否在後來的複本上被認出來。
 
@@ -1806,7 +1818,7 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 可核對的入口包括[世界衛生組織｜《國際衛生條例》專題](https://www.who.int/health-topics/international-health-regulations)、[世界衛生組織｜《國際衛生條例》監測與評估框架](https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework)、[世界衛生組織｜締約國自我評估年度報告](https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/states-parties-self-assessment-annual-reporting)、[世界衛生組織｜聯合外部評估](https://www.who.int/emergencies/operations/international-health-regulations-monitoring-evaluation-framework/joint-external-evaluations)、[世界衛生組織｜聯合外部評估工具（第三版）](https://www.who.int/publications/i/item/9789240051980)。
 
-並見[海洋熱含量與酸化約束](#future-horizon-ocean-heat-acid)。那些段落寫在各自的主域裡，這裡不重複。', 60, 'F6', 'future', NULL);
+並見[海洋熱含量與酸化約束](#future-horizon-ocean-heat-acid)、[關鍵礦物與能源轉型物料約束](#future-horizon-critical-minerals)。那些段落寫在各自的主域裡，這裡不重複。', 60, 'F6', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-tier', 'future', 'future-tier', '技術能力階', '這張卡只標成熟度，不排文明高下。頁上的「約」「示意」「假說」是成熟度記號，不是等級。契約另有文明尺度一檔，不在這一檔畫成等級，也不與前三檔相加。讀的時候先看證據', '這張卡只標成熟度，不排文明高下。頁上的「約」「示意」「假說」是成熟度記號，不是等級。契約另有文明尺度一檔，不在這一檔畫成等級，也不與前三檔相加。
 
 讀的時候先看證據停在哪一檔。觀測只表示記錄還在、出處還能打開。試點只表示有限範圍裡做過，句子不能外推。基建表示維修、備件與記錄同時在場，能力才可能離開單點。三檔之間不相加，也不能換成文明等級。
@@ -2647,8 +2659,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '4358');
-INSERT INTO meta (key, value) VALUES ('after_future', '12044');
+INSERT INTO meta (key, value) VALUES ('before_future', '4975');
+INSERT INTO meta (key, value) VALUES ('after_future', '12813');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');
