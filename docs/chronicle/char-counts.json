@@ -55,12 +55,12 @@
     {
       "slug": "future",
       "name": "展望",
-      "actual": 10324,
-      "meta_after": 10324,
+      "actual": 11037,
+      "meta_after": 11037,
       "entries": 14
     }
   ],
-  "total_actual": 85081,
+  "total_actual": 85794,
   "figures": [
     {
       "id": "cosmo-cmb-planck",

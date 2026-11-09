@@ -477,6 +477,29 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
       { name: '全球熱健康信息網絡', url: 'https://ghhin.org/' },
     ],
   },
+  {
+    id: 'horizon-ocean-heat-acid',
+    anchor: 'future-horizon-ocean-heat-acid',
+    title: '海洋熱含量與酸化約束',
+    domainId: 'f1',
+    alsoDomainId: 'f6',
+    kind: 'biosphere',
+    band: 'e2',
+    timeBand: '進行中',
+    confidence: 'steady',
+    mechanism: '超額熱量大部分進入海洋；人為二氧化碳持續溶入海水，改寫碳酸鹽化學，表層酸度隨之上升。第六次評估寫明：一九七一年至二〇一八年，海洋增溫約佔氣候系統增熱的百分之九十一；全球海洋熱含量增加的可能區間是 0.329×10^24 至 0.463×10^24 焦耳。零至七百米的上層海洋自一九七〇年代以來增暖幾乎確定，表層開闊大洋酸化的主因是人為排放。亞熱帶表層 pH 自一九八〇年代起的下降速率，評估為每十年 0.016 至 0.020。監測修訂的是區間與覆蓋，不是把某一年寫成終局。',
+    mitigation: '減排把此後新增的熱含量與酸化幅度留在較低排放路徑的評估區間裡。已經進入深海的熱量不會按年曆收回；較低路徑改變的是往後累積多少。剖面浮標、船舶斷面與全球海洋酸化觀測網把熱含量和酸度留成可核對的序列。世界氣象組織自一九九三年起發布的年度全球氣候狀況，是這些海洋指標的公開窗口。槓桿只寫機構已經公布的路徑，不寫動員句。',
+    uncertainty: '兩千米以下的增暖，評估只標為可能，海盆之間的覆蓋仍不均勻。洋流在年至十年尺度上重新分配熱量，全球平均不能直接讀成某一漁場的熱浪或酸度。副極地與極地表層 pH 的下降速率更寬，約每十年 0.002 至 0.026。鈣化生物的反應因地而異，局部監測不能外推成全球生態已經修復。深層增暖在世紀至千年尺度上難以逆轉。這是評估寫明的時間尺度，不是災變時鐘。美國氣候網的海洋熱含量說明頁已於二〇二五年六月歸檔，其後數字改跟該頁所標的年度氣候狀況報告。',
+    dataAsOf: '2026-11-09',
+    sources: [
+      { name: '政府間氣候變化專門委員會｜第六次評估第一工作組第二章', url: 'https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-2/' },
+      { name: '政府間氣候變化專門委員會｜第六次評估第一工作組第五章', url: 'https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-5/' },
+      { name: '政府間氣候變化專門委員會｜第六次評估第一工作組第九章', url: 'https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/' },
+      { name: '世界氣象組織｜全球氣候狀況系列', url: 'https://wmo.int/publication-series/state-of-global-climate' },
+      { name: '美國氣候網｜海洋熱含量', url: 'https://www.climate.gov/news-features/understanding-climate/climate-change-ocean-heat-content', scope: '說明頁已歸檔' },
+      { name: '政府間海洋學委員會｜海洋酸化', url: 'https://www.ioc.unesco.org/en/ocean-acidification' },
+    ],
+  },
 ];
 
 /**
@@ -784,7 +807,7 @@ export function futureIssues(): string[] {
   }
   if (FUTURE_CLADE.domainId !== 'f4') issues.push('clade-domain');
 
-  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力'];
+  const horizonTitles = ['氣候宜居約束', '信息可信與大規模誤導', '近地／空間天氣監測', '生物多樣性與生態系服務約束', '抗微生物藥物耐藥性（AMR）', '淡水可用量與衛生服務壓力', '極端熱與健康服務壓力', '海洋熱含量與酸化約束'];
   if (FUTURE_HORIZONS.length !== horizonTitles.length) issues.push('horizon-count');
   const horizonIds = new Set<string>();
   for (const [index, horizon] of FUTURE_HORIZONS.entries()) {
@@ -890,6 +913,21 @@ export function futureIssues(): string[] {
     || heat.sources.length < 4
     || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-heat-health')) {
     issues.push('horizon-heat-health');
+  }
+  const ocean = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-ocean-heat-acid');
+  if (!ocean
+    || ocean.title !== '海洋熱含量與酸化約束'
+    || ocean.anchor !== 'future-horizon-ocean-heat-acid'
+    || ocean.domainId !== 'f1'
+    || ocean.alsoDomainId !== 'f6'
+    || ocean.kind !== 'biosphere'
+    || ocean.band !== 'e2'
+    || ocean.timeBand !== '進行中'
+    || ocean.confidence !== 'steady'
+    || ocean.dataAsOf !== '2026-11-09'
+    || ocean.sources.length < 4
+    || FUTURE_COUNTDOWNS.some((item) => item.horizonId === 'horizon-ocean-heat-acid')) {
+    issues.push('horizon-ocean-heat-acid');
   }
 
   const instanceIds = new Set<string>();
