@@ -1738,7 +1738,9 @@ INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_l
 
 地外技術信號仍是開放問題。公開的搜尋計畫到目前沒有可複核的接觸確證。沒有確證，就不寫成已經相遇，也不把沉默解釋成等級。本節的邊界與後面的譜系讀法相同：工具延伸、生態位延續可以討論；不寫優生，不寫人群高下，也不寫封閉棲居。
 
-人類的遺傳多樣性是共享遺產。人類與微生物、作物、生態系一同演化。地外智慧生命仍是開放的科學問題，一律標明尚無確證，不寫人群高下。
+共演化留下的是可以核對的遺產，不是座次。聯合國教科文組織《世界人類基因組與人權宣言》於一九九七年十一月十一日在巴黎通過。第一條寫明，人類基因組是人類家庭全體成員根本統一的基礎，也是承認其固有尊嚴與多樣性的基礎；就象徵意義而言，它是人類的遺產。第二條寫明，人人有權就其尊嚴與權利獲得尊重，不因遺傳特徵而有例外；這份尊嚴要求不把個人化約為其遺傳特徵，並尊重其獨特性與多樣性。第六條寫明，基於遺傳特徵的歧視，若旨在侵犯人權、基本自由與人的尊嚴，或在效果上造成這種侵犯，均不得實施。本節因此不寫種族階層，也不寫人群高下。國際自然保護聯盟的瀕危物種紅色名錄頁寫明，該名錄是動物、真菌與植物物種全球滅絕風險狀況最全面的信息來源，並向公眾開放。名錄評的是物種，不是人群名次。生物多樣性和生態系服務政府間科學政策平台二〇一九年《全球評估決策者摘要》寫明，自然對人的貢獻是人類從自然獲得的全部貢獻；生態系貨物與服務，無論單獨或成組，都包括在內。這些文本記錄的是延續與功能，不能換成文明分數。地外生命保持未確證。美國國家航空航天局的搜尋頁寫明，迄今沒有地球以外生命的證據。地外技術信號的公開搜尋，仍標尚無確證，不把沉默寫成等級。可核對的入口包括[聯合國教科文組織｜世界人類基因組與人權宣言](https://www.unesco.org/en/legal-affairs/universal-declaration-human-genome-and-human-rights)、[國際自然保護聯盟｜受威脅物種紅色名錄](https://www.iucn.org/resources/conservation-tool/iucn-red-list-threatened-species)、[生物多樣性和生態系服務政府間科學政策平台｜全球評估決策者摘要](https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf)、[美國國家航空航天局｜搜尋地外生命](https://science.nasa.gov/exoplanets/search-for-life/)。
+
+人類的遺傳多樣性是共享遺產。人類與微生物、作物、生態系共演化。地外智慧生命仍是開放的科學問題，一律標明尚無確證，不寫種族階層或人群高下。
 
 並見[生物多樣性與生態系服務約束](#future-horizon-biodiversity)、[抗微生物藥物耐藥性（AMR）](#future-horizon-amr)、[土壤與土地退化對糧食／碳庫服務](#future-horizon-soil-land)、[大流行防備與國際衛生條例能力](#future-horizon-pandemic-ihr)。那些段落寫在各自的主域裡，這裡不重複。', 40, 'F4', 'future', NULL);
 INSERT INTO entries (id, thread_id, slug, title, summary, body, sort_key, time_label, parent_slug, also_id) VALUES ('future:future-f5', 'future', 'future-f5', '技術能力階', '技術能力階寫的是條件與可核對的邊界，日期戳過了就改讀下一份公開文本。', '技術能力階只標條件寫到哪一層，不排文明高下。能量通量、信息能否被核對、維修的人與備件是否在場，是三件不同的事。把它們加成一個分數，就會把「測得到」誤讀成「已經改寫了運行條件」。本頁因此分開標：觀測、試點、基建。觀測表示現象被持續記錄，並留在可核對的出處。試點表示只在有限範圍裡做過，結果不能外推成全域。基建表示維修、備件與記錄同時在場時，能力才可能離開單點。這三檔是成熟度記號，不是可以攀登的等級。
@@ -2695,8 +2697,8 @@ INSERT INTO meta (key, value) VALUES ('before_tech', '6025');
 INSERT INTO meta (key, value) VALUES ('after_tech', '10075');
 INSERT INTO meta (key, value) VALUES ('before_city', '7293');
 INSERT INTO meta (key, value) VALUES ('after_city', '10174');
-INSERT INTO meta (key, value) VALUES ('before_future', '6951');
-INSERT INTO meta (key, value) VALUES ('after_future', '16921');
+INSERT INTO meta (key, value) VALUES ('before_future', '6955');
+INSERT INTO meta (key, value) VALUES ('after_future', '17473');
 INSERT INTO meta (key, value) VALUES ('threads', '8');
 INSERT INTO meta (key, value) VALUES ('entries', '101');
 INSERT INTO meta (key, value) VALUES ('sources', '286');

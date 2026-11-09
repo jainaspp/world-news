@@ -232,7 +232,7 @@ export const FUTURE_DOMAINS: readonly FutureDomain[] = [
     id: 'f4',
     code: 'F4',
     title: '生物譜系',
-    blurb: '人類的遺傳多樣性是共享遺產。人類與微生物、作物、生態系一同演化。地外智慧生命仍是開放的科學問題，一律標明尚無確證，不寫人群高下。',
+    blurb: '人類的遺傳多樣性是共享遺產。人類與微生物、作物、生態系共演化。地外智慧生命仍是開放的科學問題，一律標明尚無確證，不寫種族階層或人群高下。',
     status: '有卡',
     anchor: 'future-f4',
     plate: {
