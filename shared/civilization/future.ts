@@ -449,10 +449,13 @@ export const FUTURE_HORIZONS: readonly FutureHorizon[] = [
     uncertainty: '國家數據有時滯，方法也不盡相同。一地的極端乾旱，不能由全球均值直接代表。',
     dataAsOf: '2026-10-19',
     sources: [
-      { name: '聯合國水機制｜可持續發展目標六綜合報告（二〇二六）', url: 'https://www.unwater.org/publications/sdg-6-synthesis-report-2026' },
+      { name: '聯合國水機制｜可持續發展目標六綜合報告（二〇二六）', url: 'https://www.unwater.org/publications/sdg-6-synthesis-report-2026', scope: '出版頁標二〇二六年六月十二日；正文印記二〇二六年七月' },
       { name: '聯合國水機制｜可持續發展目標六進度報告', url: 'https://www.unwater.org/publications/sdg-6-progress-reports' },
+      { name: '聯合國水機制｜二〇二六年數據匯編時間表', url: 'https://www.unwater.org/sites/default/files/2026-04/Data_compilation_process_and_timeline_2026-04-21.pdf', scope: '版本日期二〇二六年四月二十一日' },
       { name: '聯合國水機制｜可持續發展目標六數據', url: 'https://www.sdg6data.org/en' },
-      { name: '世界衛生組織與聯合國兒童基金會｜聯合監測計劃家戶進度', url: 'https://washdata.org/reports/jmp-2025-wash-households' },
+      { name: '世界衛生組織與聯合國兒童基金會｜聯合監測計劃家戶進度', url: 'https://washdata.org/reports/jmp-2025-wash-households', scope: '頁面標二〇二五年八月' },
+      { name: '世界衛生組織與聯合國兒童基金會｜聯合監測計劃學校進度（二〇二六）', url: 'https://washdata.org/reports/jmp-2026-wash-schools', scope: '頁面標二〇二六年九月' },
+      { name: '聯合國兒童基金會｜醫療機構用水與衛生進度（二〇二六）', url: 'https://data.unicef.org/resources/jmp-wash-in-health-care-facilities-2026/', scope: '頁面標二〇二六年八月十八日' },
       { name: '世界衛生組織｜飲用水', url: 'https://www.who.int/news-room/fact-sheets/detail/drinking-water' },
       { name: '聯合國教科文組織｜世界水資源發展報告（二〇二五）', url: 'https://www.unesco.org/reports/wwdr/en/2025' },
     ],
@@ -691,8 +694,8 @@ export const FUTURE_COUNTDOWNS: readonly CountdownItem[] = [
     horizonId: 'horizon-freshwater-stress',
     checkpoint: '2027-06-30',
     title: 'SDG 6 淡水進度盤點',
-    pending: '二〇二六年可持續發展目標六綜合報告已經發布。下一檢查點是指標保管機構的年度進度公開窗口，約在二〇二七年六月。這是核對日期，不是災變時鐘。',
-    expired: '該年度進度窗口已過。請改讀聯合國水機制與聯合監測計劃最新的公開進度，本頁不保留倒數。',
+    pending: '上次盤點是世界衛生組織與聯合國兒童基金會聯合監測計劃已公開的進度：家戶飲用水、環境衛生與個人衛生為二〇二五年八月，涵蓋二〇〇〇至二〇二四年；醫療機構為二〇二六年八月十八日，涵蓋二〇一五至二〇二五年；學校為二〇二六年九月，涵蓋二〇一五至二〇二五年。聯合國水機制出版頁將可持續發展目標六綜合報告標為二〇二六年六月十二日，報告正文印記為二〇二六年七月。下次盤點：家戶指標在奇數年更新，學校與醫療機構在偶數年更新。依聯合國水機制二〇二六年四月二十一日的數據匯編時間表，下一份家戶報告約在二〇二七年六月至七月寫成並公開。二〇二六年的機構報告，時間表原寫六月至七月，實際公開落在八月與九月，故本頁檢查點二〇二七年六月三十日只標時間表的六月一側，不是保管機構公布的出版日。糧農組織的用水效率與用水壓力每年匯編，聯合國環境規劃署的淡水生態系統指標每年報告，官方發展援助數據在每年十二月發布，並非所有指標同一日刷新。二〇三〇年是可持續發展目標寫明的目標年。本頁不就該年倒數。這是核對日期，不是災變時鐘。',
+    expired: '家戶進度的六月檢查點已過。上次盤點見二〇二六年九月的學校進度、二〇二六年八月十八日的醫療機構進度，以及二〇二五年八月的家戶進度。時間表把下一份家戶報告寫在二〇二七年六月至七月；未見新文本時，請改讀聯合監測計劃與聯合國水機制最新的公開進度。本頁不保留倒數。二〇三〇年是可持續發展目標寫明的目標年。本頁不就該年倒數。',
   },
   {
     id: 'cd-montreal-ozone-assessment',
@@ -998,11 +1001,25 @@ export function futureIssues(): string[] {
     || freshwater.band !== 'e2'
     || freshwater.confidence !== 'steady'
     || freshwater.dataAsOf !== '2026-10-19'
-    || freshwater.sources.length < 4) {
+    || freshwater.sources.length < 4
+    || !freshwater.sources.some((source) => source.url === 'https://washdata.org/reports/jmp-2026-wash-schools')
+    || !freshwater.sources.some((source) => source.url === 'https://data.unicef.org/resources/jmp-wash-in-health-care-facilities-2026/')
+    || !freshwater.sources.some((source) => source.url === 'https://www.unwater.org/sites/default/files/2026-04/Data_compilation_process_and_timeline_2026-04-21.pdf')) {
     issues.push('horizon-freshwater');
   }
   const sdg6 = FUTURE_COUNTDOWNS.find((item) => item.id === 'unwater-sdg6');
-  if (!sdg6 || sdg6.horizonId !== 'horizon-freshwater-stress' || sdg6.checkpoint !== '2027-06-30') {
+  const sdg6Goal = '二〇三〇年是可持續發展目標寫明的目標年。本頁不就該年倒數。';
+  if (!sdg6
+    || sdg6.horizonId !== 'horizon-freshwater-stress'
+    || sdg6.checkpoint !== '2027-06-30'
+    || !sdg6.pending.includes('上次盤點')
+    || !sdg6.pending.includes('下次盤點')
+    || !sdg6.pending.includes('二〇二七年六月至七月')
+    || !sdg6.pending.includes(sdg6Goal)
+    || !sdg6.expired.includes('上次盤點')
+    || !sdg6.expired.includes(sdg6Goal)
+    || !sdg6.expired.includes('本頁不保留倒數')
+    || /二〇二七年七月[一二三四五六七八九十〇]+日/.test(`${sdg6.pending}\n${sdg6.expired}`)) {
     issues.push('countdown-sdg6');
   }
   const heat = FUTURE_HORIZONS.find((horizon) => horizon.id === 'horizon-heat-health');
