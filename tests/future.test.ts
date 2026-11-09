@@ -831,4 +831,26 @@ describe('civilization future P0', () => {
     expect(essay).toContain('https://science.nasa.gov/exoplanets/habitable-zone/');
     expect(essay).not.toMatch(/末日|崩潰|排名|臺灣|台灣|噤聲|只剩/);
   });
+
+  it('thickens the F4 blurb around shared heritage, coevolution, and unconfirmed exolife', () => {
+    const f4 = FUTURE_DOMAINS.find((domain) => domain.code === 'F4');
+    expect(civChars(f4?.blurb ?? '')).toBeGreaterThanOrEqual(40);
+    expect(civChars(f4?.blurb ?? '')).toBeLessThanOrEqual(80);
+    expect(f4?.blurb).toContain('共享遺產');
+    expect(f4?.blurb).toContain('共演化');
+    expect(f4?.blurb).toContain('尚無確證');
+    expect(f4?.blurb).toContain('不寫種族階層或人群高下');
+    expect(f4?.blurb).not.toMatch(/末日|崩潰|排名|優生|臺灣|台灣/);
+    const essay = FUTURE_LONGFORM.f4;
+    expect(essay).toContain('就象徵意義而言，它是人類的遺產');
+    expect(essay).toContain('本節因此不寫種族階層，也不寫人群高下');
+    expect(essay).toContain('名錄評的是物種，不是人群名次');
+    expect(essay).toContain('迄今沒有地球以外生命的證據');
+    expect(essay).toContain('仍標尚無確證');
+    expect(essay).toContain('https://www.unesco.org/en/legal-affairs/universal-declaration-human-genome-and-human-rights');
+    expect(essay).toContain('https://www.iucn.org/resources/conservation-tool/iucn-red-list-threatened-species');
+    expect(essay).toContain('https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf');
+    expect(essay).toContain('https://science.nasa.gov/exoplanets/search-for-life/');
+    expect(essay).not.toMatch(/末日|崩潰|排名|優生學|臺灣|台灣|噤聲/);
+  });
 });

@@ -93,6 +93,24 @@ describe('chronicle content database', () => {
     expect(paragraph).not.toMatch(/末日|排名|臺灣|台灣|噤聲|只剩/);
   });
 
+  it('renders the F4 coevolution paragraph from public sources', () => {
+    const hub = renderCivilizationHub().html;
+    const start = hub.indexOf('id="future-f4"');
+    const end = hub.indexOf('id="future-f5"');
+    expect(start).toBeGreaterThan(-1);
+    expect(end).toBeGreaterThan(start);
+    const f4 = hub.slice(start, end);
+    expect(f4).toContain('共演化留下的是可以核對的遺產，不是座次。');
+    expect(f4).toContain('不寫種族階層，也不寫人群高下');
+    expect(f4).toContain('迄今沒有地球以外生命的證據');
+    expect(f4).toContain('仍標尚無確證');
+    expect(f4).toContain('<a href="https://www.unesco.org/en/legal-affairs/universal-declaration-human-genome-and-human-rights">聯合國教科文組織｜世界人類基因組與人權宣言</a>');
+    expect(f4).toContain('<a href="https://www.iucn.org/resources/conservation-tool/iucn-red-list-threatened-species">國際自然保護聯盟｜受威脅物種紅色名錄</a>');
+    expect(f4).toContain('<a href="https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf">生物多樣性和生態系服務政府間科學政策平台｜全球評估決策者摘要</a>');
+    expect(f4).toContain('<a href="https://science.nasa.gov/exoplanets/search-for-life/">美國國家航空航天局｜搜尋地外生命</a>');
+    expect(f4).not.toMatch(/末日|排名|優生學|臺灣|台灣|噤聲/);
+  });
+
   it('puts each real photo on its scale heading, not only at the end of the volume', () => {
     const pages: Record<string, string> = {
       cosmos: renderCosmosPage().html,
