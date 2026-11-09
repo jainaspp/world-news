@@ -1,16 +1,14 @@
 import { siteBrand } from './brand.js';
 import { AD_BODY_CHARS, chrome, cjkChars, esc, footer, head, igCard, igCloseCard, igDotsNav, igDotsScript } from './contentPage.js';
-import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderVolumeBoard, renderVolumeCards } from './civilization/chronicle.js';
-import { renderBulletinClock } from './civilization/clock.js';
-import { renderCaseAxisLinks } from './civilization/cases.js';
-import { renderPatternAxisLinks, renderPatternBoard } from './civilization/patterns.js';
+import { chronicleCardProse, chronicleIndexable, renderChronicleArticle, renderVolumeCards } from './civilization/chronicle.js';
+import { CASE_STUDIES, caseHref, renderCaseAxisLinks } from './civilization/cases.js';
+import { PATTERN_CARDS, renderPatternAxisLinks } from './civilization/patterns.js';
+import { originsSeedBody, originsSeedSources, placeFigures, realPhotoIndex, renderFutureReading, renderReadingIndex, threadById } from './civilization/db/render.js';
 import { renderCityArticle, cityIndexable } from './civilization/city.js';
 import { cosmosIndexable, renderCosmosArticle } from './civilization/cosmos.js';
 import { earthIndexable, renderEarthArticle } from './civilization/earth.js';
 import { galaxyIndexable, renderGalaxyArticle } from './civilization/galaxy.js';
-import { renderFuturePanel } from './civilization/future.js';
-import { renderDeepTimeBoardFromSpine, renderSpineAxis } from './civilization/spine.js';
-import { ORIGINS_BODY, ORIGINS_SOURCES } from './civilization/originsSource.js';
+import { renderSpineAxis } from './civilization/spine.js';
 import { renderTechArticle, techIndexable } from './civilization/tech.js';
 import { renderMildMarkdown } from './civilization/markdown.js';
 import { renderQuestionIndex } from './civilization/questions.js';
@@ -37,7 +35,7 @@ const ORIGIN = 'https://world-news.xyz';
  */
 const CIV_MOTION_BOOT = '<script>try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("civ-motion");setTimeout(function(){var root=document.documentElement;if(!root.classList.contains("civ-motion")||root.hasAttribute("data-civ-motion"))return;if(document.querySelector(".civ-reveal:not(.is-inview):not(.civ-reveal--above-fold)"))root.classList.remove("civ-motion")},1500)}}catch(e){}</script>';
 
-const HUB_LEDE = `${siteBrand}把每日新聞放在人類文明的時間軸上。讀者先看見深時間、技術發現與城市公共生活的尺度，再進入今天的切片。遠史只收溫和題材，用來說明今日切片何以落在這一日。新聞是軸上的今天，不是整站的皮膚。本頁寫明閱讀方法，以及三則可以核對的里程碑。技術與城市已各有長頁。仍未寫厚的層次不另開網址，也不進入網站地圖。`;
+const HUB_LEDE = `${siteBrand}把每日新聞放在人類文明的長文旁邊。讀者先讀深時間、技術發現與城市公共生活，再進入今天的標題。遠史只收溫和題材，用來說明今日何以落在這一日。新聞是長文裡的今天，不是整站的皮膚。本頁列出各卷，以及三則可以核對的里程碑。技術與城市已各有長頁。仍未寫厚的層次不另開網址，也不進入網站地圖。`;
 
 export const HUB_MILESTONES: { era: string; title: string; text: string }[] = [
   {
@@ -57,12 +55,12 @@ export const HUB_MILESTONES: { era: string; title: string; text: string }[] = [
   },
 ];
 
-const HUB_READ = '閱讀時先看軸上的位置：最左是宇宙，其後為地球生命、起源、技術、城市、今天、未來。今天的新聞是軸上的切片，入口在今日切片。沒有溫和史對照的電訊不強加年代座標。宇宙、地球生命、起源、技術與城市都已寫成獨立長頁。未來停在本頁的展望面板，不另開網址。地球生命頁寫大氧化到侏羅紀、白堊紀與哺乳動物輻射。技術頁記工具、能源、媒介與知識；城市頁記聚落、公共工程與日常公共生活，香港地標只作其中的本地案例。編年以古、今、未來三卷閱讀，卷內刻度仍從編年頁進入。宇宙長河與地球生命各階都不掛在這條編年帶上。';
+const HUB_READ = '閱讀時按長文的順序：宇宙、銀河、地球生命、人類起源、技術、城市，然後是文明編年的古與今，展望寫在本頁後段。今天的新聞是長文旁邊的標題，入口在今日切片。沒有溫和史對照的電訊不強加年代。宇宙、地球生命、起源、技術與城市都已寫成獨立長頁。展望停在本頁，不另開網址。地球生命頁寫大氧化到侏羅紀、白堊紀與哺乳動物輻射。技術頁記工具、能源、媒介與知識；城市頁記聚落、公共工程與日常公共生活，香港地標只作其中的本地案例。編年以古、今、未來三節連續閱讀。宇宙長河與地球生命都不插進編年正文。';
 
 const HUB_LOCAL = '香港科學館於一九九一年開幕，以常設展覽介紹日常科學與自然現象，可作為城市向公眾講解深時間的節點。香港太空館於一九八〇年開幕，天象廳介紹星空與太陽系，方便把宇宙尺度和人族年表放在一起對照。兩館都是既有地標頁，在科技與發現、城市・基建・民生的長頁裡作為本地錨，而不代替這兩頁。';
 
 export function originsProse(): string {
-  return `${ORIGINS_BODY}\n${ORIGINS_SOURCES}`;
+  return `${originsSeedBody()}\n${originsSeedSources()}`;
 }
 
 export function hubProse(): string {
@@ -190,6 +188,7 @@ function originsArticle(body: string): string {
   let html = body;
   html = insertAfterHeading(html, 1, '人類起源時間線', originsHero());
   html = insertAfterHeading(html, 1, '人類起源時間線', '<p class="deep-time-return"><a href="/civilization/earth/">上一層：地球生命</a><a href="/civilization/cosmos/">更早的深時間：宇宙長河</a></p>');
+  html = insertAfterHeading(html, 1, '人類起源時間線', realPhotoIndex('origins'));
   html = insertAfterHeading(html, 3, '一、深層分離', stageFigure(1, '一、深層分離：譜系分叉示意（約 100–30 萬年前）', '深層分離 · 示意 · 約數'));
   html = insertAfterHeading(html, 3, '二、非洲現代人多樣性', stageFigure(2, '二、非洲現代人多樣性：多點柔光示意（約 30–6 萬年前）', '非洲內部多樣 · 示意 · 約數'));
   html = insertAfterHeading(html, 3, '三、全球擴張', stageFigure(3, '三、全球擴張：粒子輻射示意（非遷徙路線、非政治疆界）', '全球擴張 · 示意·非遷徙路線 · 約數'));
@@ -202,7 +201,20 @@ export function renderCivNav(topic = false): string {
   return primaryNavHtml('home');
 }
 
-/** Pattern and case chips sit below the clock and the chronicle, not inside the hero. */
+/** Plain links into the long-form reading. Replaces the axis, volume cards, and jump lists. */
+export function renderReadingLink(level: 'h1' | 'h2' = 'h2'): string {
+  const patterns = PATTERN_CARDS.map((card) => `<a href="/civilization/chronicle/#pattern-${card.id}">${esc(card.title)}</a>`).join('、');
+  const cases = CASE_STUDIES.map((item) => `<a href="${caseHref(item)}">${esc(item.title)}</a>`).join('、');
+  return `<section class="civ-reading-link" aria-label="文明長文">
+    <${level}>文明長文</${level}>
+    <p>文明記載改以連續文本閱讀。階段軸、卷次跳轉與刻度導覽暫不使用。可從<a href="/civilization/">文明總覽</a>進入各卷，或直接讀<a href="/civilization/chronicle/">文明編年</a>。</p>
+    <p>機制文字：${patterns}。</p>
+    <p>案例長文：${cases}。</p>
+    <p><a href="/learn/">想由基礎立起來？</a></p>
+  </section>`;
+}
+
+/** Pattern and case chips remain available for older fixtures. The live home no longer mounts them. */
 export function renderAxisRails(): string {
   return `<div class="axis-rails" aria-label="模式與案例">${renderPatternAxisLinks()}${renderCaseAxisLinks()}</div>`;
 }
@@ -305,7 +317,7 @@ export function renderLayerAside(): string {
 }
 
 export function sliceHeadHtml(): string {
-  return `<div class="slice-head"><h2>今日切片</h2><span class="tag">軸上今日</span></div><p class="slice-note">軸上今日只列公開標題與出處，方便對照文明編年；不另起一面牆。</p>`;
+  return `<div class="slice-head"><h2>今日切片</h2><span class="tag">今日</span></div><p class="slice-note">這裡只列公開標題與出處，方便和文明編年對照；不另起一面牆。</p>`;
 }
 
 export function moreTodayHtml(): string {
@@ -322,7 +334,7 @@ export function wrapCivilizationHome(inner: string, now = new Date(), topic = fa
   ${igDotsNav()}
   <div class="ig-deck civ-home" id="ig-deck">
     ${opening}
-    ${igCard(renderAxisBand({ asHeading: !pageH1, strip: false, rails: false }), 'ig-card-axis')}
+    ${igCard(renderReadingLink(pageH1 ? 'h2' : 'h1'))}
     <section class="today-slice ig-card ig-card-slice" id="slice" aria-label="今日切片">
       <div class="ig-sheet">
       ${heading}
@@ -332,9 +344,6 @@ export function wrapCivilizationHome(inner: string, now = new Date(), topic = fa
       </div>
     </section>
     ${stories}
-    ${igCard(renderBulletinClock())}
-    ${igCard(renderHomeChronicle())}
-    ${igCard(renderAxisRails())}
     ${igCard(renderTodayPin(now))}
     ${igCard(moreTodayHtml())}
     ${igCard(renderLayerAside())}
@@ -389,27 +398,21 @@ function milestoneList(): string {
   return `<ol class="civ-milestone-list">${HUB_MILESTONES.map((row) => `<li><p class="era">${esc(row.era)}</p><h3>${esc(row.title)}</h3><p>${esc(row.text)}</p></li>`).join('')}</ol>`;
 }
 
-/** Deep-time cards follow the spine list. A new node with `board` appears here. */
-function renderDeepTimeBoard(): string {
-  return renderDeepTimeBoardFromSpine();
-}
-
 export function renderCivilizationHub(now = new Date()): { html: string; status: number; indexable: boolean } {
   const indexable = hubIndexable();
   const sections = [
     igCard(`<nav class="crumb"><a href="/">首頁</a> · 文明</nav>
-    ${renderAxisBand({ asHeading: false, primaryHref: '/civilization/origins/', primaryLabel: '閱讀人類起源', todayHref: '/today/', strip: false, rails: false })}`, 'ig-card-lead'),
+    ${renderReadingLink()}`, 'ig-card-lead'),
     igCard(`${hubHero()}<h1 class="column-title civ-page-title">人類文明</h1>`),
-    igCard(renderDeepTimeBoard()),
-    igCard(renderVolumeBoard()),
+    igCard(renderReadingIndex()),
     igCard(renderTodayPin(now)),
     igCard(renderNearBridge()),
     igCard(renderQuestionIndex()),
-    igCard(renderFuturePanel(now)),
+    igCard(renderFutureReading()),
     igCard(`<article class="civ-article"><h2>導語</h2><p>${esc(HUB_LEDE)}</p></article>`, 'ig-card-body'),
     igCard(`<h2>里程碑</h2>${milestoneList()}`, 'ig-card-body'),
-    igCard(`<h2>怎樣讀這條軸</h2><p>${esc(HUB_READ)}</p>`, 'ig-card-body'),
-    igCard(`<h2>本地科普節點</h2><p>${esc(HUB_LOCAL)}</p><p><a href="/civilization/tech/">科技與發現</a> · <a href="/civilization/city/">城市・基建・民生</a></p><p><a href="/hk/landmarks/science-museum/">香港科學館</a> · <a href="/hk/landmarks/space-museum/">香港太空館</a></p>${renderPatternBoard()}${renderAxisRails()}`, 'ig-card-body'),
+    igCard(`<h2>怎樣讀這些長文</h2><p>${esc(HUB_READ)}</p>`, 'ig-card-body'),
+    igCard(`<h2>本地科普節點</h2><p>${esc(HUB_LOCAL)}</p><p><a href="/civilization/tech/">科技與發現</a> · <a href="/civilization/city/">城市・基建・民生</a></p><p><a href="/hk/landmarks/science-museum/">香港科學館</a> · <a href="/hk/landmarks/space-museum/">香港太空館</a></p>`, 'ig-card-body'),
     igCard(renderLayerAside()),
     igCard(`<div class="ig-close-only"><p class="ig-kicker">收束</p><h2 class="column-h2">完</h2><p class="dek">人類文明</p><a class="chip" href="/">返回首頁</a></div>${footer(false)}`, 'ig-card-close'),
   ];
@@ -420,7 +423,7 @@ export function renderCivilizationHub(now = new Date()): { html: string; status:
     path: '/civilization/',
     body,
     indexable,
-    snap: true,
+    snap: false,
   });
 }
 
@@ -434,49 +437,52 @@ export function renderCosmosPage(): { html: string; status: number; indexable: b
     path: '/civilization/cosmos/',
     body: snapDetail(body, '宇宙長河'),
     indexable,
-    snap: true,
+    snap: false,
   });
 }
 
 export function renderEarthPage(): { html: string; status: number; indexable: boolean } {
   const indexable = earthIndexable();
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 地球生命</nav>
-    ${renderEarthArticle()}`;
+    ${renderEarthArticle()}
+    ${renderSliceReturns('earth')}`;
   return shell({
     title: '地球生命・深時間',
     description: '從大氧化、寒武紀到三疊紀、侏羅紀、白堊紀與哺乳動物輻射，約七百萬年前交接入類起源。',
     path: '/civilization/earth/',
     body: snapDetail(body, '地球生命'),
     indexable,
-    snap: true,
+    snap: false,
   });
 }
 
 export function renderChroniclePage(): { html: string; status: number; indexable: boolean } {
   const indexable = chronicleIndexable();
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 編年</nav>
-    ${renderChronicleArticle()}`;
+    ${renderChronicleArticle()}
+    ${renderSliceReturns('chronicle')}`;
   return shell({
     title: '文明編年',
     description: '編年分作古、今、未來三卷，以能量、信息、制度、貨幣四線標出界定里程碑。',
     path: '/civilization/chronicle/',
     body: snapDetail(body, '文明編年'),
     indexable,
-    snap: true,
+    snap: false,
   });
 }
 
 export function renderTechPage(): { html: string; status: number; indexable: boolean } {
   const indexable = techIndexable();
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 科技與發現</nav>
-    ${renderTechArticle()}`;
+    ${renderTechArticle()}
+    ${renderSliceReturns('tech')}`;
   return shell({
     title: '科技與發現',
     description: '從石器、用火、文字與科學儀器到工業能量、大眾媒介與今日新聞切片。',
     path: '/civilization/tech/',
     body: snapDetail(body, '科技與發現'),
     indexable,
-    snap: true,
+    snap: false,
   });
 }
 
@@ -490,7 +496,7 @@ export function renderCityPage(): { html: string; status: number; indexable: boo
     path: '/civilization/city/',
     body: snapDetail(body, '城市・基建・民生'),
     indexable,
-    snap: true,
+    snap: false,
   });
 }
 
@@ -498,10 +504,11 @@ export function renderOriginsPage(): { html: string; status: number; indexable: 
   const indexable = originsIndexable();
   const body = `<nav class="crumb"><a href="/">首頁</a> · <a href="/civilization/">文明</a> · 人類起源</nav>
     <article class="civ-article">
-      ${originsArticle(renderMildMarkdown(ORIGINS_BODY))}
+      ${renderMildMarkdown(threadById('origins')?.lede ?? '')}
+      ${originsArticle(placeFigures(renderMildMarkdown(originsSeedBody()), 'origins', 'body'))}
       ${renderSliceReturns('origins')}
       <p class="civ-ai"><span class="badge">AI 整合</span> 本頁由公開科普與學術綜述入口整理，只供對照深時間。</p>
-      ${renderMildMarkdown(ORIGINS_SOURCES)}
+      ${renderMildMarkdown(originsSeedSources())}
       <p class="civ-figure-credit">插圖為深時間示意，年代為約數，並非遷徙路線或政治疆界。圖像說明見<a href="${CIV}/MANIFEST.md">素材目錄</a>。</p>
     </article>`;
   return shell({
@@ -510,7 +517,7 @@ export function renderOriginsPage(): { html: string; status: number; indexable: 
     path: '/civilization/origins/',
     body: snapDetail(body, '人類起源時間線'),
     indexable,
-    snap: true,
+    snap: false,
   });
 }
 
@@ -525,7 +532,7 @@ export function renderGalaxyPage(): { html: string; status: number; indexable: b
     path: '/civilization/galaxy/',
     body: snapDetail(body, '銀河系誕生'),
     indexable,
-    snap: true,
+    snap: false,
   });
 }
 

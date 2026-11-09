@@ -1,11 +1,9 @@
-import { cjkChars, esc, safeHttp } from '../contentPage.js';
+import { cjkChars, esc } from '../contentPage.js';
+import { renderThreadArticle } from './db/render.js';
 import { CIV_LINES, type CivLine } from './contract.js';
-import { milestoneBlockProse, milestoneBlockSources, renderMilestoneBlocks } from './milestoneBlock.js';
-import { caseSourceRows, renderCaseNav, renderCasesBeside } from './cases.js';
+import { milestoneBlockProse } from './milestoneBlock.js';
 import { renderLineFilter } from './lineFilter.js';
-import { PATTERN_CARDS, patternSourceRows, renderPatternCardsForStage, renderPatternNav } from './patterns.js';
-import { FUTURE_DOMAINS, renderFutureBridge } from './future.js';
-import { renderSliceReturns } from './renderSlice.js';
+import { PATTERN_CARDS } from './patterns.js';
 
 export type { CivLine };
 export { CIV_LINES };
@@ -43,11 +41,11 @@ export interface ChronicleSource {
 export const CHRONICLE_TITLE = '文明編年：從採集到智能工具';
 
 export const CHRONICLE_LEDE = [
-  '人類文明不是一夜之間出現的城市燈光，而是一條可被分段閱讀的長河。本頁分作三卷：卷一古，寫採集到商路的積累；卷二今，寫科學方法到本世紀的工具；卷三未來，只留章門，展望全文仍在總覽。卷內刻度標出一至兩個界定性里程碑——沒有它們，其後的社會形態很難想像——並用「能量 · 信息 · 制度 · 貨幣」四線標籤，提示讀者該節點主要改寫了哪一類基礎設施。',
-  '年代一律寫作「約」或「主流綜述」：考古測年、文獻與基因組證據持續更新，精確到年往往並無意義。階段一與階段二的深時間細節，另見本站人類起源時間線長頁；本頁只保留銜接所需的約略窗口。本頁只提供溫和的科技、經濟與文化史觀察，方便讀者把首頁的今日切片掛回從前到今的連續故事。',
+  '人類文明不是一夜之間出現的城市燈光，而是一條可被分段閱讀的長河。本頁分作三段：古，寫採集到商路的積累；今，寫科學方法到本世紀的工具；未來只開門，條件句的全文在總覽的展望。每一節抓住一至兩個界定性的變化——沒有它們，其後的社會形態很難想像——並用能量、信息、制度與貨幣四條線索，提示該節主要改寫了哪一類基礎設施。',
+  '年代一律寫作「約」或「主流綜述」：考古測年、文獻與基因組證據持續更新，精確到年往往並無意義。用火與定居兩節的深時間細節，另見人類起源時間線；本頁只保留銜接所需的約略窗口。本頁只提供溫和的科技、經濟與文化史觀察，方便讀者把首頁的今日切片掛回從前到今的連續故事。',
 ].join('\n');
 
-export const CHRONICLE_HOW = '第一，先看三卷扉頁，確認自己在古、今或未來。第二，留意每節的四線標籤：例如工業革命同時拉高「能量」與「信息」速度，而紙幣與跨國清算主要落在「貨幣」線。第三，需要核對時，翻至頁底來源表；博物館與國際組織的公共頁面是本站優先引用的入口。本地讀者亦可把香港科學館、太空館等地標，理解為城市向公眾講解自然史與技術史的溫和節點，而非替代學術年表。';
+export const CHRONICLE_HOW = '讀的時候可以帶著四個問題：這一節改寫的是能量、信息、制度，還是貨幣。例如工業革命同時拉高能量與信息的速度，紙幣與跨國清算主要落在貨幣。需要核對時，用頁底來源表；博物館與國際組織的公共頁面是優先入口。香港科學館、太空館是城市向公眾講解自然史與技術史的地方，不代替學術年表。';
 
 export interface ChronicleChapter {
   id: 'ch-ancient' | 'ch-now' | 'ch-future';
@@ -87,7 +85,7 @@ export const CHRONICLE_CHAPTERS: readonly ChronicleChapter[] = [
   },
 ];
 
-export const CHRONICLE_SUMMARY = '若把文明史壓縮成四條平行軌道：能量線從用火、畜力走到蒸汽與電力；信息線從語言、文字、印刷走到電報、互聯網與人工智能；制度線從聚落規範、城市行政走到跨區域國家組織與多邊金融安排；貨幣線從物物交換、金屬鑄幣、交子紙幣走到電子支付與數字形態。任一今日切片——通車、場館開幕、支付產品或科學發現——通常只觸及其中一至兩條線。編年頁的作用，是讓讀者在片刻間感到自己站在長河上，再決定要不要點進單一階段或起源長頁。';
+export const CHRONICLE_SUMMARY = '若把文明史壓縮成四條平行軌道：能量線從用火、畜力走到蒸汽與電力；信息線從語言、文字、印刷走到電報、互聯網與人工智能；制度線從聚落規範、城市行政走到跨區域國家組織與多邊金融安排；貨幣線從物物交換、金屬鑄幣、交子紙幣走到電子支付與數字形態。任一今日切片——通車、場館開幕、支付產品或科學發現——通常只觸及其中一至兩條線。編年頁的作用，是讓讀者在片刻間感到自己站在長河上，再決定要不要續讀某一節或人類起源長文。';
 
 export const CHRONICLE_BRIDGE = '本頁適合作為科技媒介、基建開幕、博物館展覽、支付與科普類懶人包的遠史與中史文明接續。遠鏈宜少而準；沒有匹配時不顯示空框。近史節點由編輯手填。新聞主線的導讀與懶人包產量不變，本頁不另開灌量網址。';
 
@@ -292,29 +290,6 @@ export function chronicleIndexable(): boolean {
   return CHRONICLE_STAGES.length === 10 && cjkChars(chronicleProse()) >= CHRONICLE_MIN_CHARS;
 }
 
-function ordinal(n: number): string {
-  return String(n).padStart(2, '0');
-}
-
-function lineChips(lines: readonly string[]): string {
-  return `<p class="line-chips">${lines.map((line) => `<span class="line-chip">${esc(line)}</span>`).join('')}</p>`;
-}
-
-const CIV = '/static/civilization';
-
-/** Paper ordinal. Stays visible when the cover file is missing. */
-function paperSeal(n: number): string {
-  return `<span class="stage-seal">${ordinal(n)}</span>`;
-}
-
-/** 640×400 stage cover, with a 1280w candidate for high-DPR. onerror hides a missing file so the paper seal remains. */
-function stageCoverImg(stage: ChronicleStage, eager: boolean): string {
-  const base = `${CIV}/civ-stage-${stage.n}-cover`;
-  const loading = eager ? 'eager' : 'lazy';
-  const priority = eager ? ' fetchpriority="high"' : '';
-  const alt = `${stage.name}：溫和示意，年代為約數`;
-  return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w, ${base}-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
-}
 
 export function chronicleChapterHref(id: ChronicleChapter['id']): string {
   return `/civilization/chronicle/#${id}`;
@@ -340,119 +315,7 @@ export function renderVolumeBoard(): string {
   </section>`;
 }
 
-function sourceHref(url: string): string {
-  const safe = safeHttp(url);
-  return safe ? esc(safe) : '';
-}
-
-function stageSection(stage: ChronicleStage): string {
-  const points = stage.milestones.map((item) => `<li>${esc(item)}</li>`).join('');
-  const href = sourceHref(stage.sourceUrl);
-  const source = href ? `<p class="stage-source">來源：<a href="${href}">${esc(stage.sourceName)}</a></p>` : '';
-  const more = (stage.moreSources ?? []).map((item) => {
-    const itemHref = sourceHref(item.url);
-    return itemHref ? `<li><a href="${itemHref}">${esc(item.name)}</a></li>` : '';
-  }).join('');
-  const moreSources = more ? `<ul class="stage-sources">${more}</ul>` : '';
-  const ask = stage.mechanismAsk ? `<p class="stage-ask">機制問題：${esc(stage.mechanismAsk)}</p>` : '';
-  const origins = stage.origins ? '<p class="stage-links"><a href="/civilization/origins/">詳見人類起源時間線</a></p>' : '';
-  const reveal = stage.n === 1 ? ' civ-reveal civ-reveal--above-fold is-inview' : ' civ-reveal';
-  return `<section class="chronicle-stage${reveal}" id="stage-${stage.n}" data-stage="${stage.n}">
-    <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
-    <h2>${esc(stage.name)}</h2>
-    <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame">${stageCoverImg(stage, stage.n === 1)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
-    <ul class="stage-milestones">${points}</ul>
-    <p>${esc(stage.prose)}</p>
-    <p class="stage-meaning">${esc(stage.meaning)}</p>
-    ${lineChips(stage.lines)}
-    ${ask}
-    ${renderFutureBridge(stage.n)}
-    ${renderMilestoneBlocks(stage)}
-    ${renderPatternCardsForStage(stage.n)}
-    ${renderCasesBeside('/civilization/chronicle/', `stage-${stage.n}`)}
-    ${source}
-    ${moreSources}
-    ${origins}
-  </section>`;
-}
-
-function renderChapterBand(chapter: ChronicleChapter): string {
-  const stages = chronicleStagesOrdered().filter((stage) => chapter.stages.includes(stage.n));
-  const chips = stages.map((stage) => `<a class="chip" href="#stage-${stage.n}">${ordinal(stage.n)} ${esc(stage.short)}</a>`).join('');
-  const nav = chips ? `<nav class="chronicle-nav" aria-label="${esc(`${chapter.name}卷刻度`)}">${chips}</nav>` : '';
-  return `<header class="chapter-band" id="${chapter.id}">
-    <p class="chapter-kicker">${esc(chapter.volume)}</p>
-    <h2>${esc(chapter.name)}</h2>
-    <p class="era">${esc(chapter.era)}</p>
-    <p>${esc(chapter.lede)}</p>
-    ${nav}
-  </header>`;
-}
-
-function renderFutureChapter(): string {
-  const chapter = CHRONICLE_CHAPTERS.find((item) => item.id === 'ch-future');
-  const links = FUTURE_DOMAINS.map((domain) => `<a href="/civilization/#${esc(domain.anchor)}">${esc(domain.code)} ${esc(domain.title)}</a>`).join('');
-  return `<header class="chapter-band chapter-band-future" id="ch-future">
-    <p class="chapter-kicker">${esc(chapter?.volume ?? '卷三')}</p>
-    <h2>${esc(chapter?.name ?? '未來')}</h2>
-    <p class="era">${esc(chapter?.era ?? '章門')}</p>
-    <p>${esc(chapter?.lede ?? '')}</p>
-    <p class="stage-links"><a href="/civilization/#future">總覽展望</a>${links}</p>
-  </header>`;
-}
-
-function sourceTable(): string {
-  const seen = new Set<string>();
-  const rows: ChronicleSource[] = [
-    ...chronicleStagesOrdered().flatMap((stage) => [
-      { stage: String(stage.n), name: stage.sourceName, url: stage.sourceUrl },
-      ...(stage.moreSources ?? []).map((item) => ({ stage: String(stage.n), name: item.name, url: item.url })),
-    ]),
-    ...milestoneBlockSources(),
-    ...patternSourceRows(),
-    ...caseSourceRows('/civilization/chronicle/'),
-    ...CHRONICLE_EXTRA_SOURCES,
-  ].filter((row) => {
-    if (seen.has(row.url)) return false;
-    seen.add(row.url);
-    return true;
-  });
-  const body = rows.map((row) => {
-    const href = sourceHref(row.url);
-    const link = href ? `<a href="${href}">${esc(row.url)}</a>` : esc(row.url);
-    return `<tr><td>${esc(row.stage)}</td><td>${esc(row.name)}</td><td>${link}</td></tr>`;
-  }).join('');
-  return `<table class="civ-table"><thead><tr><th>階段</th><th>來源機構</th><th>網址</th></tr></thead><tbody>${body}</tbody></table>`;
-}
 
 export function renderChronicleArticle(): string {
-  const stages = chronicleStagesOrdered();
-  const chapters = CHRONICLE_CHAPTERS.map((chapter) => `<a class="chip" href="#${chapter.id}">${esc(chapter.volume)} ${esc(chapter.name)}</a>`).join('');
-  const lede = CHRONICLE_LEDE.split('\n').map((paragraph) => `<p>${esc(paragraph)}</p>`).join('');
-  const body = stages.flatMap((stage) => {
-    const chapter = CHRONICLE_CHAPTERS.find((item) => item.stages[0] === stage.n);
-    return [chapter ? renderChapterBand(chapter) : '', stageSection(stage)];
-  }).join('');
-  return `<article class="civ-article chronicle-page">
-    <h1 class="column-title civ-page-title">${esc(CHRONICLE_TITLE)}</h1>
-    ${lede}
-    ${lineChips(CIV_LINES)}
-    <h2>如何閱讀本編年</h2>
-    <p>${esc(CHRONICLE_HOW)}</p>
-    <nav class="chronicle-nav" aria-label="跳到卷">${chapters}</nav>
-    ${renderPatternNav()}
-    ${renderCaseNav('/civilization/chronicle/')}
-    <div class="civ-progress" aria-hidden="true"></div>
-    ${body}
-    ${renderFutureChapter()}
-    <h2>四線總結</h2>
-    <p>${esc(CHRONICLE_SUMMARY)}</p>
-    <h2>與今日新聞的銜接</h2>
-    <p>${esc(CHRONICLE_BRIDGE)}</p>
-    <p class="stage-links"><a href="/civilization/">返回文明總覽</a><a href="/civilization/origins/">人類起源時間線</a><a href="/#slice">今日切片</a></p>
-    ${renderSliceReturns('chronicle')}
-    <h2>來源</h2>
-    ${sourceTable()}
-    <p class="civ-ai"><span class="badge">AI 整合</span> 本頁由公開博物館與國際組織頁面整合，僅供研究與編輯對照；年代均為約數。</p>
-  </article>`;
+  return renderThreadArticle('chronicle');
 }

@@ -291,7 +291,8 @@ describe('three volume skeleton still renders', () => {
     const hub = renderCivilizationHub(new Date('2026-10-17T04:00:00.000Z')).html;
     const chronicle = renderChroniclePage().html;
     for (const html of [home, hub]) {
-      expect(html.match(/class="volume-card"/g)).toHaveLength(3);
+      expect(html).not.toContain('class="volume-card"');
+      expect(html).toContain('href="/civilization/chronicle/"');
       expect(html).not.toContain('class="chronicle-strip"');
     }
     for (const id of ['ch-ancient', 'ch-now', 'ch-future']) {

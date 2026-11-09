@@ -402,13 +402,10 @@ describe('P1-MIN-FONT computed sample at M', () => {
         for (const [selector, size] of Object.entries(sample.named)) {
           expect(size, `${page.id} ${selector}`).toBeGreaterThanOrEqual(12);
         }
-        if (page.id === 'H') {
-          expect(sample.named['.axis-node'], 'phone axis label').toBeGreaterThanOrEqual(12);
-          expect(sample.named['.kicker'], 'axis kicker').toBeGreaterThanOrEqual(12);
+        if (page.id === 'H' && sample.named['.hero-kicker'] != null) {
           expect(sample.named['.hero-kicker'], 'opening kicker').toBeGreaterThanOrEqual(12);
         }
         if (page.id === 'S') expect(sample.named['.slice-head .tag'], 'slice tag').toBeGreaterThanOrEqual(12);
-        if (page.id === 'C') expect(sample.named['.line-filter-count'], 'line filter count').toBeGreaterThanOrEqual(12);
       }
     } finally {
       await probe.close();

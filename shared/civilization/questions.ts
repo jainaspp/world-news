@@ -205,7 +205,7 @@ export function renderQuestionIndex(rows: readonly CivQuestion[] = CIV_QUESTIONS
   if (!items) return '';
   return `<section class="question-index" id="question-index" aria-label="問題索引">
     <h2>問題索引</h2>
-    <p class="question-note">從常設問題進入先例。每一問對應既有的模式卡、階段，或首頁近層。</p>
+    <p class="question-note">從常設問題進入長文中的對應段落，或首頁近層。</p>
     <ol class="question-list">${items}</ol>
   </section>`;
 }

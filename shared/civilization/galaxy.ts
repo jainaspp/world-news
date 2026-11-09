@@ -1,4 +1,5 @@
-import { cjkChars, esc, safeHttp } from '../contentPage.js';
+import { cjkChars } from '../contentPage.js';
+import { renderThreadArticle } from './db/render.js';
 
 /**
  * Thick page for /civilization/galaxy/.
@@ -57,7 +58,7 @@ export const GALAXY_TITLE = '銀河系誕生';
 export const GALAXY_LEDE_PARTS: readonly string[] = [
   '在文明編年史的時間軸上，宇宙長河先交代能量、時空與大尺度結構如何展開；地球生命頁則厚寫宜居星球上的生物信息如何累積。夾在兩者之間的，是我們所在的銀河系。',
   '本頁把敘事尺度收束到本星系：它如何在暗物質暈與氣體冷卻中成形，銀盤、核球、暈與旋臂如何分工，重元素如何一代代在恆星與超新星中富集，以及為何約四十六億年前的太陽系與後來的地球生命，都必須放回這座星系的化學與動力學背景裡理解。',
-  '宇宙長河裡的「星系與大尺度結構」，描述的是宇宙網中無數星系的共通物理；本頁不重複那一層的絲狀網總論，而回答更貼近讀者的問題：我們這座棒旋星系本身，經歷了怎樣的約略年表？它的結構今日如何被觀測描繪？它向上如何掛回宇宙十階，向下如何交接地球生命與開蒙旁註？年代與數字皆為約數，細節隨觀測與模擬修訂；本頁只取可公眾核對的科普粗線。',
+  '宇宙長河裡的「星系與大尺度結構」，描述的是宇宙網中無數星系的共通物理；本頁不重複那一層的絲狀網總論，而回答更貼近讀者的問題：我們這座棒旋星系本身，經歷了怎樣的約略年表？它的結構今日如何被觀測描繪？它向上如何接回宇宙長河的星系一節，向下如何交接地球生命與開蒙旁註？年代與數字皆為約數，細節隨觀測與模擬修訂；本頁只取可公眾核對的科普粗線。',
 ];
 
 export const GALAXY_LEDE = GALAXY_LEDE_PARTS.join('');
@@ -89,19 +90,19 @@ export const GALAXY_COSMOS_LINKS: readonly GalaxyCosmosLink[] = [
   { label: '02 原初核合成', href: '/civilization/cosmos/#cosmo-2', text: '輕元素原料。氫與氦是後續恆星燃料的起點。' },
   { label: '03 宇宙透明與第一代恆星', href: '/civilization/cosmos/#cosmo-3', text: '金屬起步。重元素注入介質，為行星化學鋪路。' },
   { label: '04 星系與大尺度結構', href: '/civilization/cosmos/#cosmo-4', text: '直接上級。本頁是該階的本星系特寫，宇宙長河仍寫共通骨架。' },
-  { label: '05 太陽系形成', href: '/civilization/cosmos/#cosmo-5', text: '直接下級。銀盤某一分子雲塌縮為原行星盤，其後交給地球生命。' },
+  { label: '05 太陽系形成', href: '/civilization/cosmos/#cosmo-5', text: '宇宙卷只留約四十六億年的交棒。盤與測年在本頁太陽系誕生。' },
 ];
 
-const HANDOFF_BRIDGE = '宇宙長河在「星系與大尺度結構」寫出共通骨架；本頁寫出骨架上的這一座棒旋星系。約四十六億年前，銀盤內一片氣體雲走向太陽系形成，敘事交給宇宙長河第五階與地球生命頁繼續。';
+export const HANDOFF_BRIDGE = '宇宙長河寫到星系網。本頁是網上的這一座棒旋星系。約四十六億年在宇宙卷只是一句交棒，盤與測年見本頁太陽系誕生。';
 
-const HANDOFF_UP_BEFORE = '向上：先讀或回看宇宙長河第四階';
-const HANDOFF_UP_AFTER = '，以把握銀河系所在的宇宙網位置。平行：本頁特寫銀河系誕生。';
+export const HANDOFF_UP_BEFORE = '向上：先讀或回看宇宙長河第四階';
+export const HANDOFF_UP_AFTER = '，以把握銀河系所在的宇宙網位置。平行：本頁特寫銀河系誕生。';
 
-const HANDOFF_DOWN_BEFORE = '向下：約四十六億年前，銀盤分子雲塌縮為太陽系。續讀宇宙長河「太陽系形成」，並進入';
-const HANDOFF_DOWN_MID = '，看液態水之後的生物信息如何累積；人族段落見';
-const HANDOFF_DOWN_AFTER = '。本頁結束於太陽系得以在銀盤中成形、地球獲得液態水與長期光照的舞台。其後早期地球、生命起源與生物圈演代不在此重寫。';
+export const HANDOFF_DOWN_BEFORE = '向下：水、氧與化石見';
+export const HANDOFF_DOWN_MID = '。人族見';
+export const HANDOFF_DOWN_AFTER = '。盤、測年與遷移不再在這裡複述。';
 
-const HANDOFF_THIN = '文明編年史把新聞保留為「今日」薄層；本頁屬於深時間主幹，不在此展開今日切片。';
+export const HANDOFF_THIN = '文明編年史把新聞保留為「今日」薄層；本頁屬於深時間主幹，不在此展開今日切片。';
 
 export const GALAXY_STAGES: GalaxyStage[] = [
   {
@@ -282,139 +283,7 @@ export function galaxyIndexable(prose = galaxyProse()): boolean {
   return galaxyRobots(cjkChars(prose)) === 'index,follow';
 }
 
-function ordinal(n: number): string {
-  return String(n).padStart(2, '0');
-}
-
-function lineChips(lines: readonly string[]): string {
-  return `<p class="line-chips">${lines.map((line) => `<span class="line-chip">${esc(line)}</span>`).join('')}</p>`;
-}
-
-function paragraphs(blocks: readonly string[]): string {
-  return blocks.map((text) => `<p>${esc(text)}</p>`).join('');
-}
-
-const CIV = '/static/civilization';
-
-function paperSeal(n: number): string {
-  return `<span class="stage-seal">${ordinal(n)}</span>`;
-}
-
-/**
- * Cover slot. Art files are a later batch. The paper ordinal stays in the
- * figure and shows when the image is missing. onerror hides the broken file.
- */
-function coverImg(stage: GalaxyStage, eager: boolean): string {
-  const base = `${CIV}/galaxy-stage-${stage.n}-cover`;
-  const loading = eager ? 'eager' : 'lazy';
-  const priority = eager ? ' fetchpriority="high"' : '';
-  const alt = `${stage.name}：溫和示意，年代為約數`;
-  return `<img src="${base}-640w.webp" srcset="${base}-400w.webp 400w, ${base}-640w.webp 640w, ${base}-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 400px" width="640" height="400" alt="${esc(alt)}" loading="${loading}"${priority} decoding="async" onerror="this.hidden=true" />`;
-}
-
-function sourceHref(url: string): string {
-  const safe = safeHttp(url);
-  return safe ? esc(safe) : '';
-}
-
-function stageSection(stage: GalaxyStage): string {
-  const points = stage.milestones.map((item) => `<li>${esc(item)}</li>`).join('');
-  const parts = stage.parts.map((part) => `<div class="galaxy-part"><h3>${esc(part.heading)}</h3>${paragraphs(part.paragraphs)}</div>`).join('');
-  const reveal = stage.n === 1 ? ' civ-reveal civ-reveal--above-fold is-inview' : ' civ-reveal';
-  return `<section class="chronicle-stage galaxy-stage${reveal}" id="${stage.id}" data-stage="${stage.n}">
-    <p class="era">${esc(ordinal(stage.n))} · ${esc(stage.era)}</p>
-    <h2 tabindex="-1">${esc(stage.name)}</h2>
-    <figure class="civ-figure" data-stage="${stage.n}"><div class="stage-frame stage-cover" data-stage="${stage.n}">${coverImg(stage, stage.n === 1)}${paperSeal(stage.n)}</div><figcaption>${esc(stage.name)} · 示意 · 約數</figcaption></figure>
-    <ul class="stage-milestones">${points}</ul>
-    ${parts}
-    <p class="stage-meaning">${esc(stage.meaning)}</p>
-    ${lineChips(stage.lines)}
-  </section>`;
-}
-
-function noteAside(note: GalaxyNote): string {
-  return `<aside class="learn-note" id="${esc(note.id)}"><p><strong>${esc(note.term)}</strong> · ${esc(note.text)}</p></aside>`;
-}
-
-function cosmosLinkSection(): string {
-  const items = GALAXY_COSMOS_LINKS.map((row) => `<li><a href="${esc(row.href)}">${esc(row.label)}</a> · ${esc(row.text)}</li>`).join('');
-  return `<section class="chronicle-stage galaxy-stage civ-reveal" id="cosmos-link" data-stage="4">
-    <p class="era">銜接 · 宇宙十階</p>
-    <h2 tabindex="-1">與宇宙十階的銜接</h2>
-    <p>${esc(HANDOFF_BRIDGE)}</p>
-    <ul class="stage-milestones">${items}</ul>
-    <p>第六階至第十階寫地球與生命。本頁只保留一句：宜居環境需要恆星的長期穩定與化學供應。細節見地球生命，約七百萬年前的人族物語見人類起源時間線。</p>
-    <p class="stage-meaning">本頁是宇宙長河第四階的本星系特寫，不是另一套十階。</p>
-  </section>`;
-}
-
-function earthHandoffSection(): string {
-  return `<section class="chronicle-stage galaxy-stage civ-reveal" id="earth-handoff" data-stage="5">
-    <p class="era">交接 · 地球生命</p>
-    <h2 tabindex="-1">接地球生命編年</h2>
-    <p>地球生命頁從早期生命、氧化、顯生宙寫到人族前的生物圈。那些故事默認了幾個星系尺度的前提。本頁點明它們，卻不展開成生物學長文。</p>
-    <ul class="stage-milestones">
-      <li>穩定的長期能量輸入：太陽作為中等質量的主序星，能在數十億年尺度上相對平穩地輸出能量。這類恆星的誕生，依賴銀盤氣體的冷卻與金屬豐度。</li>
-      <li>固體與揮發份的原料：岩石行星與水相關組分，需要前代恆星的核合成，以及超新星與恆星風把重元素送進分子雲。銀河系的化學演化，就是這座原料廠的流水線。</li>
-      <li>相對可討論的軌道環境：行星系統仍可能受鄰近超新星、分子雲遭遇與彗星儲庫擾動影響。把地球放回銀盤軌道，是為了說明宜居是條件的交集。條件清單在變得更清楚，單一敘事不應裝成已經窮盡。</li>
-    </ul>
-    <p>${esc(HANDOFF_UP_BEFORE)}<a href="/civilization/cosmos/#cosmo-4">星系與大尺度結構</a>${esc(HANDOFF_UP_AFTER)}</p>
-    <p>${esc(HANDOFF_DOWN_BEFORE)}<a href="/civilization/earth/">地球生命</a>${esc(HANDOFF_DOWN_MID)}<a href="/civilization/origins/">人類起源時間線</a>${esc(HANDOFF_DOWN_AFTER)}</p>
-    <p>${esc(HANDOFF_THIN)}</p>
-    <p class="stage-links"><a href="/civilization/cosmos/">宇宙長河</a><a href="/civilization/cosmos/#cosmo-4">星系與大尺度結構</a><a href="/civilization/cosmos/#cosmo-5">太陽系形成</a><a href="/civilization/earth/">地球生命</a><a href="/civilization/origins/">人類起源時間線</a></p>
-    <p class="stage-meaning">演示鏈在此走通：宇宙長河、銀河系誕生、地球生命。</p>
-  </section>`;
-}
-
-function askSection(): string {
-  const items = GALAXY_QUESTIONS.map((question) => `<li>${esc(question)}</li>`).join('');
-  return `<section id="ask">
-    <h2>今日可問</h2>
-    <ul class="stage-ask">${items}</ul>
-  </section>`;
-}
-
-function sourceTable(): string {
-  const body = GALAXY_SOURCES.map((row, index) => {
-    const href = sourceHref(row.url);
-    const link = href ? `<a href="${href}">${esc(row.url)}</a>` : esc(row.url);
-    return `<tr><td>${index + 1}</td><td>${esc(row.name)}</td><td>${esc(row.note)}</td><td>${link}</td></tr>`;
-  }).join('');
-  return `<table class="civ-table"><thead><tr><th>#</th><th>機構／入口</th><th>說明</th><th>網址</th></tr></thead><tbody>${body}</tbody></table>`;
-}
 
 export function renderGalaxyArticle(): string {
-  const nav = [
-    ...GALAXY_STAGES.map((stage) => `<a class="chip" href="#${stage.id}">${ordinal(stage.n)} ${esc(stage.short)}</a>`),
-    '<a class="chip" href="#cosmos-link">銜接</a>',
-    '<a class="chip" href="#earth-handoff">交接</a>',
-    '<a class="chip" href="#ask">可問</a>',
-    '<a class="chip" href="#sources">來源</a>',
-  ].join('');
-  return `<article class="civ-article galaxy-page">
-    <header class="galaxy-hero">
-      <p class="kicker">Deep time · 銀河系</p>
-      <h1 class="column-title civ-page-title">${esc(GALAXY_TITLE)}</h1>
-    </header>
-    <p class="deep-time-return"><a href="/civilization/cosmos/#cosmo-4">回看宇宙長河：星系與大尺度結構</a><a href="/civilization/cosmos/">宇宙長河</a></p>
-    ${GALAXY_LEDE_PARTS.map((part) => `<p>${esc(part)}</p>`).join('')}
-    ${lineChips(LINES)}
-    <nav class="chronicle-nav galaxy-nav" aria-label="跳到銀河系章節">${nav}</nav>
-    <div class="civ-progress" aria-hidden="true"></div>
-    ${GALAXY_STAGES.map(stageSection).join('')}
-    <section class="galaxy-notes" aria-label="開蒙旁註">
-      <h2>開蒙旁註</h2>
-      <p>下列旁註只解釋詞義與尺度。<a href="/learn/">開蒙</a>葉頁另備，本頁先留錨與一句。</p>
-      ${GALAXY_NOTES.map(noteAside).join('')}
-    </section>
-    ${cosmosLinkSection()}
-    ${earthHandoffSection()}
-    ${askSection()}
-    <section id="sources">
-      <h2>來源</h2>
-      ${sourceTable()}
-      <p class="stage-source">${esc(GALAXY_SOURCE_NOTE)}</p>
-    </section>
-    <p class="civ-ai"><span class="badge">AI 整合</span> 本頁由公開科普與主流綜述入口整理，作為文明編年史的深時間頁。授權跟隨站級 CC BY 4.0。</p>
-  </article>`;
+  return renderThreadArticle('galaxy');
 }

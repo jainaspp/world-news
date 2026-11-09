@@ -58,81 +58,26 @@ describe('civilization hub four-line filter', () => {
     expect(blank.match(/<button /g)).toHaveLength(5);
   });
 
-  it('renders chips on the hub from stage and pattern lines, and leaves other pages alone', () => {
+  it('keeps the line filter off the reading pages', () => {
     const hub = renderCivilizationHub(new Date('2026-10-17T04:00:00.000Z'));
-    const filterAt = hub.html.indexOf('class="line-filter"');
-    const statusAt = hub.html.indexOf('id="line-filter-status"');
-    const gridAt = hub.html.indexOf('class="volume-grid"');
-    expect(filterAt).toBeGreaterThan(hub.html.indexOf('class="chronicle-board"'));
-    expect(statusAt).toBeGreaterThan(filterAt);
-    expect(gridAt).toBeGreaterThan(statusAt);
-    const filter = hub.html.slice(filterAt, statusAt);
-    expect(filter.match(/<button /g)).toHaveLength(5);
-    expect(filter).toContain('aria-labelledby="line-filter-legend"');
-    expect(filter).toContain('按四線篩選模式卡');
-    expect(filter).toContain('aria-controls="pattern-board"');
+    expect(hub.html).not.toContain('class="line-filter"');
+    expect(hub.html).not.toContain('class="volume-grid"');
     expect(hub.html).not.toContain('id="stage-grid"');
     expect(hub.html).not.toContain('class="stage-card"');
-    expect(filter).not.toMatch(/energy|institution|money|能源|資訊/i);
     const stageGroups = CHRONICLE_STAGES.map((stage) => stage.lines);
     const patternGroups = PATTERN_CARDS.map((card) => card.lines);
-    const allStatus = lineFilterStatus('', {
-      stages: lineFilterTally(stageGroups, ''),
-      patterns: lineFilterTally(patternGroups, ''),
-    });
-    expect(hub.html).toContain(`<p class="line-filter-status" id="line-filter-status" role="status">${allStatus}</p>`);
-    expect(hub.html).not.toContain('line-filter-status is-empty');
-    expect(filter).toContain(`data-line="" data-stages="${lineFilterTally(stageGroups, '')}"`);
-    let cursor = 0;
-    for (const label of ['全部', ...CIV_LINES]) {
-      const at = filter.indexOf(`>${label}<`, cursor);
-      expect(at).toBeGreaterThan(cursor);
-      cursor = at;
-    }
     for (const line of CIV_LINES) {
-      const tally = {
-        stages: lineFilterTally(stageGroups, line),
-        patterns: lineFilterTally(patternGroups, line),
-      };
-      const status = lineFilterStatus(line, tally);
-      expect(filter).toContain(`data-line="${line}"`);
-      expect(filter).toContain(`data-stages="${tally.stages}"`);
-      expect(filter).toContain(`data-status="${status}"`);
-      expect(filter).toContain(`data-pattern-status="${lineFilterPatternStatus(line, tally.patterns)}"`);
-      expect(filter).toContain(`aria-label="${status}"`);
-      expect(tally.stages).toBeGreaterThan(0);
+      expect(lineFilterTally(stageGroups, line)).toBeGreaterThan(0);
+      expect(lineFilterEmpty([...stageGroups, ...patternGroups], line)).toBe(false);
     }
-    expect(hub.html).toContain('class="line-filter-echo" hidden');
-    expect(hub.html).not.toMatch(/<article class="stage-card"[^>]*\shidden/);
-    expect(hub.html).not.toMatch(/<details class="civ-block pattern-card"[^>]*\shidden/);
-
-    const groups = [
-      ...CHRONICLE_STAGES.map((stage) => stage.lines),
-      ...PATTERN_CARDS.map((card) => card.lines),
-    ];
-    for (const line of CIV_LINES) expect(lineFilterEmpty(groups, line)).toBe(false);
-    expect(hub.html.match(/data-lines="/g)).toHaveLength(PATTERN_CARDS.length);
-
-    for (const card of PATTERN_CARDS) {
-      const at = hub.html.indexOf(`id="pattern-${card.id}"`);
-      const body = hub.html.slice(at, hub.html.indexOf('</details>', at));
-      expect(body).toContain(lineFilterAttrs(card.lines).trim());
-      expect(at).toBeGreaterThan(gridAt);
-    }
-
-    for (const page of [renderChroniclePage(), renderEarthPage(), renderCosmosPage(), renderGalaxyPage(), renderCityPage(), renderTechPage(), renderOriginsPage()]) {
+    for (const page of [hub, renderChroniclePage(), renderEarthPage(), renderCosmosPage(), renderGalaxyPage(), renderCityPage(), renderTechPage(), renderOriginsPage()]) {
       expect(page.html).not.toContain('class="line-filter"');
       expect(page.html).not.toContain('line-filter-echo');
       expect(page.html).not.toContain('line-filter-status');
     }
-    for (const page of [renderEarthPage(), renderCosmosPage(), renderGalaxyPage(), renderCityPage(), renderOriginsPage()]) {
-      expect(page.html).not.toContain('data-lines=');
-    }
     for (const item of CASE_STUDIES) {
       const page = item.mount === '/civilization/tech/' ? renderTechPage() : renderChroniclePage();
       expect(page.html).toContain(`id="case-${item.id}"`);
-      expect(page.html).toContain(lineFilterAttrs(item.lines).trim());
-      expect(hub.html).not.toContain(`id="case-${item.id}"`);
     }
   });
 

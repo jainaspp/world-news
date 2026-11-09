@@ -48,10 +48,10 @@ describe('chronicle three volumes P0', () => {
       expect(html).not.toContain('class="stage-card"');
       expect(html).not.toContain('id="stage-grid"');
       expect(html).not.toContain('十個階段');
-      expect(html.match(/class="volume-card"/g)).toHaveLength(3);
-      expect(html).toContain('href="/civilization/chronicle/#ch-ancient"');
-      expect(html).toContain('href="/civilization/chronicle/#ch-now"');
-      expect(html).toContain('href="/civilization/chronicle/#ch-future"');
+      expect(html).not.toContain('class="volume-card"');
+      expect(html).toContain('href="/civilization/chronicle/"');
+      expect(html).not.toContain('aria-label="跳到卷"');
+      expect(html).not.toContain('跳到階段');
     }
     expect(hub).toContain('id="future"');
     expect(hub).toContain('id="future-f1"');
@@ -100,23 +100,17 @@ describe('chronicle three volumes P0', () => {
 
   it('keeps volume jumps at the top and stage chips inside each chapter', () => {
     const page = renderChroniclePage().html;
-    const top = page.slice(page.indexOf('如何閱讀本編年'), page.indexOf('id="ch-ancient"'));
-    expect(top).toContain('aria-label="跳到卷"');
-    expect(top).toContain('href="#ch-ancient"');
-    expect(top).toContain('href="#ch-now"');
-    expect(top).toContain('href="#ch-future"');
+    const top = page.slice(page.indexOf('文明編年：從採集到智能工具'), page.indexOf('id="ch-ancient"'));
+    expect(top).not.toContain('aria-label="跳到卷"');
     expect(top).not.toContain('aria-label="跳到階段"');
     expect(top).not.toContain('href="#stage-1"');
     expect(top).not.toContain('href="#stage-10"');
     const ancient = page.slice(page.indexOf('id="ch-ancient"'), page.indexOf('id="stage-1"'));
-    expect(ancient).toContain('aria-label="古卷刻度"');
-    expect(ancient).toContain('href="#stage-1"');
-    expect(ancient).toContain('href="#stage-5"');
-    expect(ancient).not.toContain('href="#stage-6"');
+    expect(ancient).toContain('>古<');
+    expect(ancient).not.toContain('aria-label="古卷刻度"');
     const now = page.slice(page.indexOf('id="ch-now"'), page.indexOf('id="stage-6"'));
-    expect(now).toContain('aria-label="今卷刻度"');
-    expect(now).toContain('href="#stage-6"');
-    expect(now).toContain('href="#stage-10"');
+    expect(now).toContain('>今<');
+    expect(now).not.toContain('aria-label="今卷刻度"');
     const css = readFileSync('src/App.css', 'utf8');
     const article = css.slice(css.indexOf('.civ-article {'), css.indexOf('}', css.indexOf('.civ-article {')));
     expect(article).toContain('overflow-x: clip');
@@ -128,11 +122,10 @@ describe('chronicle three volumes P0', () => {
 
   it('keeps one origins entry on the hub and cosmos with earth on the deep-time board', () => {
     const hub = renderCivilizationHub(new Date('2026-10-17T04:00:00.000Z')).html;
-    const deep = hub.slice(hub.indexOf('class="deep-time"'), hub.indexOf('class="chronicle-board"'));
+    const deep = hub.slice(hub.indexOf('class="civ-reading-index"'), hub.indexOf('class="today-pin"'));
     expect(deep).toContain('href="/civilization/cosmos/"');
     expect(deep).toContain('href="/civilization/earth/"');
-    expect(deep).not.toContain('href="/civilization/origins/"');
-    expect(deep).not.toContain('人類起源');
+    expect(hub).toContain('href="/civilization/origins/"');
     expect(hub).not.toContain('起源摘要');
     expect(hub).toContain('href="/civilization/origins/"');
     expect(hub.match(/<h3>人類起源<\/h3>/g)).toHaveLength(1);

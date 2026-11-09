@@ -16,3 +16,11 @@ binding = "AI"
 [[kv_namespaces]]
 binding = "CONTENT"
 id = "807fa3f477704af287ca5a9dd3ab6bc5"
+
+# Chronicle D1. Do not invent database_id here. After `npx wrangler d1 create world-news-chronicle`,
+# uncomment and paste the id. Until then, pages read shared/civilization/db/seed.json.
+# See shared/civilization/db/README.md.
+# [[d1_databases]]
+# binding = "CHRONICLE_DB"
+# database_name = "world-news-chronicle"
+# database_id = ""

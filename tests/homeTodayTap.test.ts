@@ -331,7 +331,7 @@ describe('phone today landing tap target', () => {
         expect(box.innerW, label).toBe(390);
         expect(box.pins.map((control) => control.text), label).toEqual(pins);
         expect(box.more.map((control) => control.text), label).toEqual(['更多今日']);
-        expect(box.bulletin.map((control) => control.text), label).toEqual(['展望見文明總覽']);
+        expect(box.bulletin.map((control) => control.text), label).toEqual([]);
         expect(box.index.map((control) => control.text), label).toEqual(['常設問題索引']);
         expect(box.slots.length, label).toBeGreaterThan(0);
         for (const control of [...box.pins, ...box.more, ...box.bulletin, ...box.index]) {
@@ -365,7 +365,7 @@ describe('phone today landing tap target', () => {
       expect(desktop.innerW).toBe(1100);
       expect(desktop.pins.map((control) => control.text)).toEqual(factPins);
       expect(desktop.more.map((control) => control.text)).toEqual(['更多今日']);
-      expect(desktop.bulletin.map((control) => control.text)).toEqual(['展望見文明總覽']);
+      expect(desktop.bulletin.map((control) => control.text)).toEqual([]);
       expect(desktop.index.map((control) => control.text)).toEqual(['常設問題索引']);
       for (const control of [...desktop.pins, ...desktop.more, ...desktop.bulletin, ...desktop.index]) {
         const name = `desktop ${control.parent} ${control.text}`;
